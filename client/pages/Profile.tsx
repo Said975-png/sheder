@@ -157,7 +157,7 @@ export default function Profile() {
 
     } catch (error) {
       console.error('Profile update error:', error);
-      setError('Произошла ошибка при обновлении про��иля');
+      setError('Произошла ошибка при обновлении профиля');
     } finally {
       setLoading(false);
     }
@@ -184,7 +184,7 @@ export default function Profile() {
         return;
       }
 
-      // Проверяем совпадение новых паролей
+      // Пров��ряем совпадение новых паролей
       if (formData.newPassword !== formData.confirmPassword) {
         setError('Новые пароли не совпадают');
         return;
@@ -245,8 +245,9 @@ export default function Profile() {
         <div className="min-h-screen theme-gradient theme-text p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <Link to="/" className="inline-flex items-center space-x-2 text-white/80 hover:text-white mb-6">
+                <div className="mb-8">
+          <div className="flex justify-between items-center mb-6">
+            <Link to="/" className="inline-flex items-center space-x-2 text-white/80 hover:text-white">
             <ArrowLeft className="w-4 h-4" />
             <span>Назад на главную</span>
           </Link>
@@ -256,7 +257,7 @@ export default function Profile() {
               <Settings className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold">Профиль пользователя</h1>
+              <h1 className="text-3xl font-bold">Проф��ль пользователя</h1>
               <p className="text-white/70">Управляйте настройками вашего аккаунта</p>
             </div>
           </div>
@@ -410,7 +411,7 @@ export default function Profile() {
                       <h4 className="text-lg font-semibold text-white mb-4">Смена пароля</h4>
                       
                       <div className="space-y-2">
-                        <Label htmlFor="currentPassword" className="text-white/80">Текущи�� пароль</Label>
+                        <Label htmlFor="currentPassword" className="text-white/80">Текущий пароль</Label>
                         <div className="relative">
                           <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                           <Input
