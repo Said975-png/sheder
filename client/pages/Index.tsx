@@ -65,7 +65,7 @@ export default function Index() {
                                         <span className="hidden sm:block text-sm">{currentUser.name}</span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56 bg-gray-800 border-gray-700">
+                                <DropdownMenuContent align="end" className="w-56 theme-dropdown border mt-2">
                   <div className="px-2 py-1.5 text-sm text-gray-300">
                     <div className="font-medium">{currentUser.name}</div>
                     <div className="text-xs text-gray-400">{currentUser.email}</div>
