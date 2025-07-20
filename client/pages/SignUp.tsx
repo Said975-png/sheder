@@ -16,8 +16,9 @@ export default function SignUp() {
   });
     const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+    const navigate = useNavigate();
   const submittingRef = useRef(false);
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
