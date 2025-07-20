@@ -256,7 +256,7 @@ export default function Profile() {
             </div>
             <div>
               <h1 className="text-3xl font-bold">Профиль пользователя</h1>
-              <p className="text-white/70">Управляйте настройками вашего аккаунт��</p>
+              <p className="text-white/70">Управляйте настройками вашего аккаунта</p>
             </div>
           </div>
         </div>
@@ -278,7 +278,7 @@ export default function Profile() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Profile Info Card */}
           <div className="lg:col-span-1">
-            <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
+                        <Card className="theme-card">
               <CardHeader>
                 <CardTitle className="text-white text-center">Информация о профиле</CardTitle>
               </CardHeader>
@@ -330,7 +330,7 @@ export default function Profile() {
 
           {/* Settings */}
           <div className="lg:col-span-2">
-            <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
+                        <Card className="theme-card">
               <CardHeader>
                 <div className="flex space-x-1">
                   <button
@@ -359,7 +359,7 @@ export default function Profile() {
                 {activeTab === 'profile' && (
                   <form onSubmit={handleProfileUpdate} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="name" className="text-white/80">Полное имя</Label>
+                      <Label htmlFor="name" className="text-white/80">Полн��е имя</Label>
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                         <Input
