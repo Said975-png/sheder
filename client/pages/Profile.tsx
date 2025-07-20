@@ -48,8 +48,8 @@ export default function Profile() {
   const [success, setSuccess] = useState('');
   const [activeTab, setActiveTab] = useState<'profile' | 'security'>('profile');
 
-  // Получаем аватар пользователя при загрузке
-  useState(() => {
+    // Получаем аватар пользователя при загрузке
+  useEffect(() => {
     if (currentUser) {
       const users = JSON.parse(localStorage.getItem('users') || '[]') as User[];
       const user = users.find(u => u.id === currentUser.id);
@@ -57,7 +57,7 @@ export default function Profile() {
         setAvatar(user.avatar);
       }
     }
-  });
+  }, [currentUser]);
 
   // Если пользователь не авторизован
   if (!currentUser) {
@@ -156,7 +156,7 @@ export default function Profile() {
 
     } catch (error) {
       console.error('Profile update error:', error);
-      setError('П��оизошла ошибка при обновлении профиля');
+      setError('Произошла ошибка при обновлении профиля');
     } finally {
       setLoading(false);
     }
@@ -473,7 +473,7 @@ export default function Profile() {
                     <Separator className="bg-white/20" />
 
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-4">Опасная зона</h4>
+                      <h4 className="text-lg font-semibold text-white mb-4">Опасна�� зона</h4>
                       <div className="p-4 border border-red-500/20 bg-red-500/10 rounded-lg">
                         <h5 className="text-red-300 font-medium mb-2">Удалить аккаунт</h5>
                         <p className="text-red-300/70 text-sm mb-4">
