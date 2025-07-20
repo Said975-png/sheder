@@ -47,11 +47,12 @@ export default function SignUp() {
         }),
       });
 
-            if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+                  const result: AuthResponse = await response.json();
 
-      const result: AuthResponse = await response.json();
+      if (!response.ok) {
+        setError(result.message || `HTTP error! status: ${response.status}`);
+        return;
+      }
 
       if (result.success && result.token) {
         // Save token to localStorage
