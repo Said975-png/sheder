@@ -119,7 +119,7 @@ export default function Index() {
                 Against Non-Humans
               </h1>
               
-              <p className="text-lg text-white/70 max-w-md">
+                            <p className="text-lg theme-text-muted max-w-md">
                 Enter the future of bot-free mobile apps. Simplify bot detection, enhance user experiences, and fortify your app's ecosystem.
               </p>
             </div>
