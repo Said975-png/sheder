@@ -35,28 +35,3 @@ export interface GeneratedCode {
     imageId: string;
   };
 }
-
-/**
- * Authentication API types
- */
-export interface AuthResponse {
-  success: boolean;
-  message: string;
-  user?: {
-    id: number;
-    email: string;
-    name: string;
-  };
-  token?: string;
-}
-
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
-
-export interface RegisterRequest {
-  name: string;
-  email: string;
-  password: string;
-}
