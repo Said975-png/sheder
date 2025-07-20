@@ -142,7 +142,7 @@ export default function SignUp() {
         {/* SignUp Form */}
                 <Card className="theme-card">
           <CardHeader>
-            <CardTitle className="text-white text-center">Регистрация</CardTitle>
+                        <CardTitle className="theme-text text-center">Регистрация</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
