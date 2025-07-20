@@ -48,11 +48,11 @@ export default function FuturisticSearch() {
                 : "border-white/20 hover:border-purple-400/30"
             )}
           >
-                        {/* Иконка поиска */}
-            <div className="pl-5 pr-3">
+                                    {/* Иконка поиска */}
+            <div className="pl-4 pr-2">
               <Search
                 className={cn(
-                  "w-4 h-4 transition-all duration-300",
+                  "w-3.5 h-3.5 transition-all duration-300",
                   isFocused
                     ? "text-purple-300 scale-105"
                     : "text-white/60 group-hover:text-purple-400"
