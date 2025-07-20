@@ -82,7 +82,7 @@ export default function Login() {
           <CardContent className="p-8 text-center">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-white mb-2">Вход выполнен успешно!</h2>
-            <p className="text-white/70 mb-4">Добро пожалов��ть обратно!</p>
+            <p className="text-white/70 mb-4">Добро пожаловать обратно!</p>
             <p className="text-white/50 text-sm">Перенаправляем на главную страницу...</p>
           </CardContent>
         </Card>
@@ -112,7 +112,7 @@ export default function Login() {
         </div>
 
         {/* Login Form */}
-        <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
+                <Card className="theme-card">
           <CardHeader>
             <CardTitle className="text-white text-center">Вход</CardTitle>
           </CardHeader>
@@ -171,7 +171,7 @@ export default function Login() {
               <p className="text-white/70">
                 Нет аккаунта?{' '}
                 <Link to="/signup" className="text-purple-400 hover:text-purple-300 font-medium">
-                  Зарегист��ироваться
+                  Зарегистрироваться
                 </Link>
               </p>
             </div>
