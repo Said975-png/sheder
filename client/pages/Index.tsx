@@ -53,7 +53,7 @@ export default function Index() {
             <a href="#" className="theme-nav-text transition-colors text-sm font-medium">Pricing</a>
           </div>
           
-                    <div className="flex items-center space-x-4">
+                              <div className="flex items-center space-x-3">
             <ThemeToggle />
             {isAuthenticated && currentUser ? (
               <DropdownMenu>
