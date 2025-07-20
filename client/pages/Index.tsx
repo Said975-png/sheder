@@ -45,11 +45,11 @@ export default function Index() {
             <span className="text-xl font-semibold">AI Detect</span>
           </div>
           
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-white/80 hover:text-white transition-colors">Home</a>
-            <a href="#features" className="text-white/80 hover:text-white transition-colors">About Us</a>
-            <a href="#how-it-works" className="text-white/80 hover:text-white transition-colors">Some guide</a>
-            <a href="#" className="text-white/80 hover:text-white transition-colors">Pricing</a>
+                    <nav className="hidden md:flex items-center space-x-8">
+            <a href="#" className="theme-nav-text transition-colors">Home</a>
+            <a href="#features" className="theme-nav-text transition-colors">About Us</a>
+            <a href="#how-it-works" className="theme-nav-text transition-colors">Some guide</a>
+            <a href="#" className="theme-nav-text transition-colors">Pricing</a>
           </nav>
           
                     <div className="flex items-center space-x-4">
