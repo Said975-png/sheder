@@ -6,7 +6,7 @@ export default function FuturisticSearch() {
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
-    return (
+  return (
     <div className="relative w-full max-w-lg mx-auto">
       {/* Анимация появления и контейнер */}
       <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000">
@@ -25,7 +25,7 @@ export default function FuturisticSearch() {
         <div
           className={cn(
             "relative group transition-all duration-500 ease-out",
-            isFocused ? "scale-105" : "scale-100"
+            isFocused ? "scale-105" : "scale-100",
           )}
         >
           {/* Неоновое свечение */}
@@ -34,7 +34,7 @@ export default function FuturisticSearch() {
               "absolute -inset-1 rounded-full transition-all duration-500",
               isFocused
                 ? "bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 opacity-75 blur-sm"
-                : "bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-cyan-500/30 opacity-30 blur-sm"
+                : "bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-cyan-500/30 opacity-30 blur-sm",
             )}
           ></div>
 
@@ -45,17 +45,17 @@ export default function FuturisticSearch() {
               "bg-black/20 dark:bg-white/5",
               isFocused
                 ? "border-purple-400/50 shadow-lg shadow-purple-500/25"
-                : "border-white/20 hover:border-purple-400/30"
+                : "border-white/20 hover:border-purple-400/30",
             )}
           >
-                                    {/* Иконка поиска */}
+            {/* Иконка поиска */}
             <div className="pl-4 pr-2">
               <Search
                 className={cn(
                   "w-3.5 h-3.5 transition-all duration-300",
                   isFocused
                     ? "text-purple-300 scale-105"
-                    : "text-white/60 group-hover:text-purple-400"
+                    : "text-white/60 group-hover:text-purple-400",
                 )}
               />
             </div>
@@ -74,12 +74,12 @@ export default function FuturisticSearch() {
                 "focus:placeholder:text-purple-300/70",
                 "font-semibold text-lg transition-all duration-300",
                 "selection:bg-purple-500/30",
-                "appearance-none border-none"
+                "appearance-none border-none",
               )}
               style={{
-                fontFamily: 'Montserrat, sans-serif',
-                boxShadow: 'none',
-                outline: 'none'
+                fontFamily: "Montserrat, sans-serif",
+                boxShadow: "none",
+                outline: "none",
               }}
             />
 
@@ -102,10 +102,15 @@ export default function FuturisticSearch() {
         <div
           className={cn(
             "mt-4 text-center transition-all duration-500",
-            isFocused ? "opacity-100 translate-y-0" : "opacity-60 translate-y-1"
+            isFocused
+              ? "opacity-100 translate-y-0"
+              : "opacity-60 translate-y-1",
           )}
         >
-          <p className="text-sm text-white/60 font-medium" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+          <p
+            className="text-sm text-white/60 font-medium"
+            style={{ fontFamily: "Montserrat, sans-serif" }}
+          >
             {isFocused
               ? "Введите запрос для поиска по бесконечным возможностям ИИ"
               : "Нажмите чтобы начать поиск"}

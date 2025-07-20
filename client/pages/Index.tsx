@@ -161,7 +161,7 @@ export default function Index() {
           {/* Left Side - Content */}
           <div className="space-y-8">
             <div className="space-y-6">
-                            <h1 className="text-5xl lg:text-6xl font-bold leading-tight theme-text">
+              <h1 className="text-5xl lg:text-6xl font-bold leading-tight theme-text">
                 Jarvis - искусственный интеллект для вашего бизнеса
               </h1>
 
@@ -171,8 +171,6 @@ export default function Index() {
                 ecosystem.
               </p>
             </div>
-
-                                                            
 
             <div className="flex items-center space-x-2 text-sm text-white/60">
               <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
