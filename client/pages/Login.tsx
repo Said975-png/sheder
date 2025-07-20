@@ -94,9 +94,10 @@ export default function Login() {
     return (
     <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
       <div className="w-full max-w-md">
-        {/* Header */}
+                {/* Header */}
         <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center space-x-2 text-white/80 hover:text-white mb-6">
+          <div className="flex justify-between items-start mb-6">
+            <Link to="/" className="inline-flex items-center space-x-2 text-white/80 hover:text-white">
             <ArrowLeft className="w-4 h-4" />
             <span>Назад на главную</span>
           </Link>
@@ -170,7 +171,7 @@ export default function Login() {
             
             <div className="mt-6 text-center">
               <p className="text-white/70">
-                Нет акка��нта?{' '}
+                Нет аккаунта?{' '}
                 <Link to="/signup" className="text-purple-400 hover:text-purple-300 font-medium">
                   Зарегистрироваться
                 </Link>
