@@ -58,7 +58,7 @@ export default function Index() {
             {isAuthenticated && currentUser ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" className="flex items-center space-x-2 theme-button-text">
+                                                      <Button variant="ghost" className="flex items-center space-x-2 theme-button-text p-2 rounded-full hover:bg-white/10">
                     <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
                       <User className="w-4 h-4" />
                     </div>
