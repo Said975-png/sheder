@@ -45,7 +45,7 @@ export default function Login() {
         return;
       }
 
-      // Сохраняем текущего пользователя
+      // Сохраняем т��кущего пользователя
       localStorage.setItem('currentUser', JSON.stringify({
         id: user.id,
         name: user.name,
@@ -77,12 +77,12 @@ export default function Login() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-black text-white flex items-center justify-center p-6">
+            <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
         <Card className="bg-white/5 border-white/10 backdrop-blur-sm w-full max-w-md">
           <CardContent className="p-8 text-center">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-white mb-2">Вход выполнен успешно!</h2>
-            <p className="text-white/70 mb-4">Добро пожаловать обратно!</p>
+            <p className="text-white/70 mb-4">Добро пожаловат�� обратно!</p>
             <p className="text-white/50 text-sm">Перенаправляем на главную страницу...</p>
           </CardContent>
         </Card>
@@ -171,7 +171,7 @@ export default function Login() {
               <p className="text-white/70">
                 Нет аккаунта?{' '}
                 <Link to="/signup" className="text-purple-400 hover:text-purple-300 font-medium">
-                  Зарегистрироваться
+                  Зарегистри��оваться
                 </Link>
               </p>
             </div>
