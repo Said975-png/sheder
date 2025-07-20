@@ -49,7 +49,16 @@ export default function Index() {
       {/* Header */}
                   {/* Oval Navbar */}
       <nav className={`fixed top-6 left-1/2 z-50 ${navbarAnimated ? 'portal-entrance' : 'opacity-0 transform -translate-x-1/2 scale-50'}`}>
-                        <div className="flex items-center space-x-8 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-white/20 dark:border-white/10 rounded-full px-6 py-2 shadow-lg">
+                                <div className="relative flex items-center space-x-8 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-purple-500/30 rounded-full px-6 py-2 neon-glow">
+          {/* Частицы */}
+          <div className="portal-particles">
+            <div className="particle"></div>
+            <div className="particle"></div>
+            <div className="particle"></div>
+            <div className="particle"></div>
+            <div className="particle"></div>
+            <div className="particle"></div>
+          </div>
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
               <Shield className="w-5 h-5 text-white" />
