@@ -90,8 +90,8 @@ export default function Login() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-black text-white flex items-center justify-center p-6">
+    return (
+    <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
