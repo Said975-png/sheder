@@ -62,7 +62,7 @@ export default function Index() {
                     <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
                       <User className="w-4 h-4" />
                     </div>
-                    <span className="hidden sm:block">{currentUser.name}</span>
+                                        <span className="hidden sm:block text-sm">{currentUser.name}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-gray-800 border-gray-700">
