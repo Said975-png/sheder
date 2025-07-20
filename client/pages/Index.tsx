@@ -114,7 +114,7 @@ export default function Index() {
           {/* Left Side - Content */}
           <div className="space-y-8">
             <div className="space-y-6">
-              <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
+                            <h1 className="text-5xl lg:text-6xl font-bold leading-tight theme-text">
                 Protect Your App<br />
                 Against Non-Humans
               </h1>
