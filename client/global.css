@@ -342,7 +342,7 @@
     animation: textFlicker 6s linear infinite;
   }
 
-  @keyframes textFlicker {
+    @keyframes textFlicker {
     0%, 98%, 100% {
       text-shadow:
         0 0 5px rgba(139, 69, 255, 0.5),
@@ -351,6 +351,64 @@
     }
     1%, 3%, 97%, 99% {
       text-shadow: none;
+    }
+  }
+
+  /* Энергетическое поле вокруг навбара */
+  .energy-field {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg,
+      rgba(139, 69, 255, 0.3),
+      rgba(59, 130, 246, 0.3),
+      rgba(139, 69, 255, 0.3));
+    border-radius: inherit;
+    animation: energyPulse 3s ease-in-out infinite;
+    z-index: -1;
+  }
+
+  @keyframes energyPulse {
+    0%, 100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.02);
+    }
+  }
+
+  /* Голографическое мерцание */
+  .holographic {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .holographic::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(139, 69, 255, 0.1),
+      transparent
+    );
+    animation: hologramScan 4s linear infinite;
+  }
+
+  @keyframes hologramScan {
+    0% {
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+      transform: translateX(100%) translateY(100%) rotate(45deg);
     }
   }
 
