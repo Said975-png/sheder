@@ -66,11 +66,11 @@ export default function Index() {
                   </Button>
                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" className="w-56 theme-dropdown border mt-2">
-                  <div className="px-2 py-1.5 text-sm text-gray-300">
-                    <div className="font-medium">{currentUser.name}</div>
-                    <div className="text-xs text-gray-400">{currentUser.email}</div>
+                                    <div className="px-2 py-1.5 text-sm theme-text-muted">
+                    <div className="font-medium theme-text">{currentUser.name}</div>
+                    <div className="text-xs">{currentUser.email}</div>
                   </div>
-                  <DropdownMenuSeparator className="bg-gray-700" />
+                  <DropdownMenuSeparator className="bg-border" />
                                     <DropdownMenuItem
                     onClick={() => window.location.href = '/profile'}
                     className="text-gray-300 hover:bg-gray-700 cursor-pointer"
