@@ -52,10 +52,8 @@ export default function Index() {
                                         <div className="relative flex items-center space-x-8 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-purple-500/30 rounded-full px-6 py-2 neon-glow holographic">
           {/* Энергетическое поле */}
           <div className="energy-field rounded-full"></div>
-          {/* Частицы */}
+                    {/* Частицы */}
           <div className="portal-particles">
-            <div className="particle"></div>
-            <div className="particle"></div>
             <div className="particle"></div>
             <div className="particle"></div>
             <div className="particle"></div>
