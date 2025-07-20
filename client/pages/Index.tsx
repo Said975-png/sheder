@@ -173,15 +173,13 @@ export default function Index() {
               </p>
             </div>
 
-                                    <div className="flex gap-4 max-w-lg">
-              <div className="flex-1">
-                <Input
-                  type="text"
-                  placeholder="Найти решение для вашего бизнеса..."
-                  className="bg-white/10 border-white/30 text-white placeholder:text-white/60 focus:border-purple-500 theme-input h-12"
-                />
-              </div>
-              <Button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 h-12">
+                                                <div className="flex max-w-lg border border-white/30 rounded-md overflow-hidden bg-white/10">
+              <Input
+                type="text"
+                placeholder="Найти решение для вашего бизнеса..."
+                className="flex-1 bg-transparent border-0 text-white placeholder:text-white/60 focus:ring-0 h-12 rounded-none"
+              />
+              <Button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 h-12 rounded-none border-0">
                 Найти
               </Button>
             </div>
