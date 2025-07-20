@@ -106,9 +106,9 @@ export default function SignUp() {
         <Card className="theme-card w-full max-w-md">
           <CardContent className="p-8 text-center">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">Регистрация успешна!</h2>
-            <p className="text-white/70 mb-4">Добро пожаловать, {formData.name}!</p>
-            <p className="text-white/50 text-sm">Перенаправляем на главную страницу...</p>
+                        <h2 className="text-xl font-semibold theme-text mb-2">Регистрация успешна!</h2>
+            <p className="theme-text-muted mb-4">Добро пожаловать, {formData.name}!</p>
+            <p className="theme-text-muted text-sm">Перенаправляем на главную страницу...</p>
           </CardContent>
         </Card>
       </div>
