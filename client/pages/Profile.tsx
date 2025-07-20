@@ -67,7 +67,7 @@ export default function Profile() {
                 <Card className="theme-card w-full max-w-md">
           <CardContent className="p-8 text-center">
             <Shield className="w-16 h-16 text-purple-400 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">Доступ запрещён</h2>
+            <h2 className="text-xl font-semibold text-white mb-2">Досту�� запрещён</h2>
             <p className="text-white/70 mb-4">Для просмотра профиля необходимо войти в аккаунт</p>
             <Button 
               onClick={() => navigate('/login')}
@@ -246,11 +246,13 @@ export default function Profile() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
                 <div className="mb-8">
-          <div className="flex justify-between items-center mb-6">
+                    <div className="flex justify-between items-center mb-6">
             <Link to="/" className="inline-flex items-center space-x-2 text-white/80 hover:text-white">
-            <ArrowLeft className="w-4 h-4" />
-            <span>Назад на главную</span>
-          </Link>
+              <ArrowLeft className="w-4 h-4" />
+              <span>Назад на главную</span>
+            </Link>
+            <ThemeToggle />
+          </div>
           
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
