@@ -52,20 +52,20 @@ export default function Index() {
           </nav>
           
           <div className="flex items-center space-x-4">
-            {isAuthenticated && user ? (
+            {isAuthenticated && currentUser ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="flex items-center space-x-2 text-white/80 hover:text-white">
                     <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
                       <User className="w-4 h-4" />
                     </div>
-                    <span className="hidden sm:block">{user.name}</span>
+                    <span className="hidden sm:block">{currentUser.name}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56 bg-gray-800 border-gray-700">
                   <div className="px-2 py-1.5 text-sm text-gray-300">
-                    <div className="font-medium">{user.name}</div>
-                    <div className="text-xs text-gray-400">{user.email}</div>
+                    <div className="font-medium">{currentUser.name}</div>
+                    <div className="text-xs text-gray-400">{currentUser.email}</div>
                   </div>
                   <DropdownMenuSeparator className="bg-gray-700" />
                   <DropdownMenuItem className="text-gray-300 hover:bg-gray-700 cursor-pointer">
