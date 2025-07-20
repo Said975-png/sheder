@@ -14,7 +14,17 @@ import {
 import RobotModel from '@/components/RobotModel';
 
 export default function Index() {
-    const { currentUser, logout, isAuthenticated, loading } = useAuth();
+        const { currentUser, logout, isAuthenticated, loading } = useAuth();
+  const [navbarAnimated, setNavbarAnimated] = useState(false);
+
+  // Запуск анимации при загрузке компонента
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setNavbarAnimated(true);
+    }, 100); // Небольшая задержка для плавности
+
+    return () => clearTimeout(timer);
+  }, []);
 
     const handleLogout = () => {
     logout();
