@@ -47,7 +47,7 @@ export default function SignUp() {
     }
 
     try {
-      // Получаем существующих пользователей из localStorage
+      // Получаем сущ��ствующих пользователей из localStorage
       const existingUsers = JSON.parse(localStorage.getItem('users') || '[]') as User[];
       
       // Проверяем, существует ли пользователь с таким email
@@ -121,7 +121,7 @@ export default function SignUp() {
         {/* Header */}
                 <div className="text-center mb-8">
                     <div className="flex justify-between items-start mb-6">
-            <Link to="/" className="inline-flex items-center space-x-2 text-white/80 hover:text-white">
+                        <Link to="/" className="inline-flex items-center space-x-2 theme-nav-text">
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
             </Link>
@@ -142,7 +142,7 @@ export default function SignUp() {
         {/* SignUp Form */}
                 <Card className="theme-card">
           <CardHeader>
-                        <CardTitle className="theme-text text-center">Регистрация</CardTitle>
+                        <CardTitle className="theme-text text-center">Регистрац��я</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
