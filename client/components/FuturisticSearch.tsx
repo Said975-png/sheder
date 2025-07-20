@@ -48,13 +48,13 @@ export default function FuturisticSearch() {
                 : "border-white/20 hover:border-purple-400/30"
             )}
           >
-            {/* Иконка поиска */}
-            <div className="pl-6 pr-4">
+                        {/* Иконка поиска */}
+            <div className="pl-5 pr-3">
               <Search
                 className={cn(
-                  "w-6 h-6 transition-all duration-300",
+                  "w-4 h-4 transition-all duration-300",
                   isFocused
-                    ? "text-purple-300 scale-110"
+                    ? "text-purple-300 scale-105"
                     : "text-white/60 group-hover:text-purple-400"
                 )}
               />
@@ -69,12 +69,18 @@ export default function FuturisticSearch() {
               onBlur={() => setIsFocused(false)}
               placeholder="Поиск по Вселенной..."
               className={cn(
-                "flex-1 bg-transparent py-4 pr-6 text-white placeholder:text-white/50",
-                "focus:outline-none focus:placeholder:text-purple-300/70",
+                "flex-1 bg-transparent py-3 pr-5 text-white placeholder:text-white/50",
+                "focus:outline-none focus:ring-0 focus:border-none focus:shadow-none",
+                "focus:placeholder:text-purple-300/70",
                 "font-semibold text-lg transition-all duration-300",
-                "selection:bg-purple-500/30"
+                "selection:bg-purple-500/30",
+                "appearance-none border-none"
               )}
-              style={{ fontFamily: 'Montserrat, sans-serif' }}
+              style={{
+                fontFamily: 'Montserrat, sans-serif',
+                boxShadow: 'none',
+                outline: 'none'
+              }}
             />
 
             {/* Дополнительное внутреннее свечение при фокусе */}
