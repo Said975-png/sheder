@@ -162,9 +162,7 @@ export default function Index() {
           <div className="space-y-8">
             <div className="space-y-6">
               <h1 className="text-5xl lg:text-6xl font-bold leading-tight theme-text">
-                Protect Your App
-                <br />
-                Against Non-Humans
+                Jarvis - искусственный интеллект для вашего бизнеса
               </h1>
 
               <p className="text-lg theme-text-muted max-w-md">
@@ -172,18 +170,6 @@ export default function Index() {
                 detection, enhance user experiences, and fortify your app's
                 ecosystem.
               </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                variant="outline"
-                className="bg-transparent border-white/30 text-white hover:bg-white/10 px-8 py-3"
-              >
-                Verify you're human
-              </Button>
-              <Button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3">
-                Try Demo
-              </Button>
             </div>
 
             <div className="flex items-center space-x-2 text-sm text-white/60">
