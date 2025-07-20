@@ -20,6 +20,7 @@ import {
   CheckCircle
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 interface User {
   id: string;
@@ -156,7 +157,7 @@ export default function Profile() {
 
     } catch (error) {
       console.error('Profile update error:', error);
-      setError('Произошла ошибка при обновлении профиля');
+      setError('Произошла ошибка при обновлении про��иля');
     } finally {
       setLoading(false);
     }
@@ -359,7 +360,7 @@ export default function Profile() {
                 {activeTab === 'profile' && (
                   <form onSubmit={handleProfileUpdate} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="name" className="text-white/80">Полн��е имя</Label>
+                      <Label htmlFor="name" className="text-white/80">Полное имя</Label>
                       <div className="relative">
                         <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                         <Input
@@ -409,7 +410,7 @@ export default function Profile() {
                       <h4 className="text-lg font-semibold text-white mb-4">Смена пароля</h4>
                       
                       <div className="space-y-2">
-                        <Label htmlFor="currentPassword" className="text-white/80">Текущий пароль</Label>
+                        <Label htmlFor="currentPassword" className="text-white/80">Текущи�� пароль</Label>
                         <div className="relative">
                           <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                           <Input
