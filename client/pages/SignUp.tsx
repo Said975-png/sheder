@@ -100,9 +100,9 @@ export default function SignUp() {
   };
 
   if (success) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-black text-white flex items-center justify-center p-6">
-        <Card className="bg-white/5 border-white/10 backdrop-blur-sm w-full max-w-md">
+        return (
+      <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
+        <Card className="theme-card w-full max-w-md">
           <CardContent className="p-8 text-center">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-white mb-2">Регистрация успешна!</h2>
@@ -114,8 +114,8 @@ export default function SignUp() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-black text-white flex items-center justify-center p-6">
+    return (
+    <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
@@ -136,7 +136,7 @@ export default function SignUp() {
         </div>
 
         {/* SignUp Form */}
-        <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
+                <Card className="theme-card">
           <CardHeader>
             <CardTitle className="text-white text-center">Регистрация</CardTitle>
           </CardHeader>
