@@ -46,11 +46,8 @@ export default function Index() {
                         <span className="text-xl font-semibold theme-text">AI Detect</span>
           </div>
           
-                              <div className="hidden md:flex items-center space-x-6">
+                                        <div className="hidden md:flex items-center space-x-6">
             <a href="#" className="theme-nav-text transition-colors text-sm font-medium">Home</a>
-            <a href="#features" className="theme-nav-text transition-colors text-sm font-medium">About Us</a>
-            <a href="#how-it-works" className="theme-nav-text transition-colors text-sm font-medium">Guide</a>
-            <a href="#" className="theme-nav-text transition-colors text-sm font-medium">Pricing</a>
           </div>
           
                               <div className="flex items-center space-x-3">
@@ -200,7 +197,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">User Experience</h3>
             <p className="text-white/60">
-              Максимальное удобство для пользователей без компромиссов в безопасности
+              Максимальное удобство для пользователей без компром��ссов в безопасности
             </p>
           </div>
         </div>
