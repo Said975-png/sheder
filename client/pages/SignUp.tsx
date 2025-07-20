@@ -47,7 +47,7 @@ export default function SignUp() {
     }
 
     try {
-      // Получаем сущ��ствующих пользователей из localStorage
+      // Получаем существующих пользователей из localStorage
       const existingUsers = JSON.parse(localStorage.getItem('users') || '[]') as User[];
       
       // Проверяем, существует ли пользователь с таким email
@@ -108,7 +108,7 @@ export default function SignUp() {
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
                         <h2 className="text-xl font-semibold theme-text mb-2">Регистрация успешна!</h2>
             <p className="theme-text-muted mb-4">Добро пожаловать, {formData.name}!</p>
-            <p className="theme-text-muted text-sm">Перенаправляем на главную страницу...</p>
+            <p className="theme-text-muted text-sm">Перенаправ��яем на главную страницу...</p>
           </CardContent>
         </Card>
       </div>
@@ -142,7 +142,7 @@ export default function SignUp() {
         {/* SignUp Form */}
                 <Card className="theme-card">
           <CardHeader>
-                        <CardTitle className="theme-text text-center">Регистрац��я</CardTitle>
+                        <CardTitle className="theme-text text-center">Регистрация</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -231,7 +231,7 @@ export default function SignUp() {
             </form>
             
             <div className="mt-6 text-center">
-              <p className="text-white/70">
+                            <p className="theme-text-muted">
                 Уже есть аккаунт?{' '}
                 <Link to="/login" className="text-purple-400 hover:text-purple-300 font-medium">
                   Войти
