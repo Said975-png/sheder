@@ -6,11 +6,11 @@ export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <Button
+        <Button
       variant="ghost"
       size="icon"
       onClick={toggleTheme}
-      className="h-9 w-9 hover:bg-white/10 text-white/80 hover:text-white transition-colors"
+      className="h-9 w-9 theme-button-text hover:bg-accent/10 transition-colors"
       aria-label="Переключить тему"
     >
       {theme === 'light' ? (
