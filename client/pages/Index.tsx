@@ -38,7 +38,7 @@ export default function Index() {
       {/* Header */}
             {/* Oval Navbar */}
       <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50">
-        <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-8 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-white/20 dark:border-white/10 rounded-full px-8 py-4 shadow-lg">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
               <Shield className="w-5 h-5 text-white" />
@@ -167,7 +167,7 @@ export default function Index() {
       {/* Features Section */}
       <section id="features" className="container mx-auto px-6 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Мощные возможности</h2>
+          <h2 className="text-3xl font-bold mb-4">Мощные воз��ожности</h2>
           <p className="text-white/60 max-w-2xl mx-auto">
             Все инструменты, необходимые для превращения дизайна в полноценное веб-приложение
           </p>
