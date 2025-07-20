@@ -36,7 +36,8 @@ export default function Index() {
   return (
         <div className="min-h-screen theme-gradient theme-text overflow-hidden">
       {/* Header */}
-      <header className="container mx-auto px-6 py-6">
+            {/* Oval Navbar */}
+      <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
