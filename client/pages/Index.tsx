@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Shield, User, LogOut, Settings } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Shield, User, LogOut, Settings, Search } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import {
