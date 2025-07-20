@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -156,7 +156,7 @@ export default function Profile() {
 
     } catch (error) {
       console.error('Profile update error:', error);
-      setError('Произошла ошибка при обновлении профиля');
+      setError('П��оизошла ошибка при обновлении профиля');
     } finally {
       setLoading(false);
     }
@@ -215,7 +215,7 @@ export default function Profile() {
   };
 
   const handleDeleteAccount = () => {
-    if (window.confirm('Вы уверены, что хотите удалить аккаунт? Это действ��е нельзя отменить.')) {
+    if (window.confirm('Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.')) {
       const users = JSON.parse(localStorage.getItem('users') || '[]') as User[];
       const filteredUsers = users.filter(u => u.id !== currentUser.id);
       localStorage.setItem('users', JSON.stringify(filteredUsers));
@@ -466,7 +466,7 @@ export default function Profile() {
                         className="bg-purple-600 hover:bg-purple-700 text-white"
                       >
                         <Save className="w-4 h-4 mr-2" />
-                        {loading ? 'Изм��няем...' : 'Изменить пароль'}
+                        {loading ? 'Изменяем...' : 'Изменить пароль'}
                       </Button>
                     </form>
 
