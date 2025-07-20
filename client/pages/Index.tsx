@@ -18,10 +18,10 @@ export default function Index() {
   const [navbarAnimated, setNavbarAnimated] = useState(false);
 
   // Запуск анимации при загрузке компонента
-  useEffect(() => {
+    useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
-    }, 100); // Небольшая задержка для плавности
+    }, 300); // Задержка для более драматичного появления
 
     return () => clearTimeout(timer);
   }, []);
