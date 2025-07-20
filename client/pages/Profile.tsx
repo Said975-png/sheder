@@ -67,7 +67,7 @@ export default function Profile() {
                 <Card className="theme-card w-full max-w-md">
           <CardContent className="p-8 text-center">
             <Shield className="w-16 h-16 text-purple-400 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">Досту�� запрещён</h2>
+            <h2 className="text-xl font-semibold text-white mb-2">Доступ запрещён</h2>
             <p className="text-white/70 mb-4">Для просмотра профиля необходимо войти в аккаунт</p>
             <Button 
               onClick={() => navigate('/login')}
@@ -247,7 +247,7 @@ export default function Profile() {
         {/* Header */}
                 <div className="mb-8">
                     <div className="flex justify-between items-center mb-6">
-            <Link to="/" className="inline-flex items-center space-x-2 text-white/80 hover:text-white">
+                        <Link to="/" className="inline-flex items-center space-x-2 theme-nav-text">
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
             </Link>
@@ -481,7 +481,7 @@ export default function Profile() {
                       <div className="p-4 border border-red-500/20 bg-red-500/10 rounded-lg">
                         <h5 className="text-red-300 font-medium mb-2">Удалить аккаунт</h5>
                         <p className="text-red-300/70 text-sm mb-4">
-                          Удаление аккаунта приведёт к полному удалению всех ваших данных. Это действие нельзя отменить.
+                          Удаление аккаунта приведёт к полному удалению всех ваших данных. Это дейст��ие нельзя отменить.
                         </p>
                         <Button
                           onClick={handleDeleteAccount}
