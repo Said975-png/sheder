@@ -50,8 +50,24 @@ export const handleRegister: RequestHandler = async (req, res) => {
     const saltRounds = 12;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Create user
-    const userId = await dbQueries.createUser(email, hashedPassword, name);
+        // Create user
+    let userId: number;
+    try {
+      userId = await dbQueries.createUser(email, hashedPassword, name);
+    } catch (dbError: any) {
+      console.error('Database error during user creation:', dbError);
+
+      // Handle SQLite unique constraint violation
+      if (dbError.code === 'SQLITE_CONSTRAINT_UNIQUE' || dbError.message?.includes('UNIQUE constraint failed')) {
+        const response: AuthResponse = {
+          success: false,
+          message: "Пользователь с таким email уже существует"
+        };
+        return res.status(400).json(response);
+      }
+
+      throw dbError; // Re-throw other database errors
+    }
 
     // Generate JWT token
     const token = jwt.sign(
@@ -135,7 +151,7 @@ export const handleLogin: RequestHandler = async (req, res) => {
 
     const response: AuthResponse = {
       success: true,
-      message: "Вход выполнен успешно",
+      message: "Вход вып��лнен успешно",
       user: {
         id: user.id,
         email: user.email,
