@@ -22,17 +22,7 @@ export function createServer() {
   app.post("/api/upload", handleImageUpload);
   app.get("/api/generated/:imageId", handleGenerateWebsite);
 
-    // Authentication routes
-  app.post("/api/auth/register", handleRegister);
-  app.post("/api/auth/login", handleLogin);
-  app.post("/api/auth/logout", handleLogout);
-  app.get("/api/auth/me", handleGetCurrentUser);
-
-  // Development utilities (only in non-production)
-  if (process.env.NODE_ENV !== 'production') {
-    app.delete("/api/dev/clear-db", handleClearDatabase);
-    app.get("/api/dev/db-stats", handleDatabaseStats);
-  }
+    
 
   return app;
 }
