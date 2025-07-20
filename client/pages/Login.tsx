@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,7 +15,6 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const abortControllerRef = useRef<AbortController | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,25 +25,26 @@ export default function Login() {
     setLoading(true);
     setError('');
 
-    // Cancel any previous request
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-    
-    // Create new abort controller
-    abortControllerRef.current = new AbortController();
-
     try {
+      const requestBody = JSON.stringify(formData);
+
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
-        signal: abortControllerRef.current.signal
+        body: requestBody
       });
 
-            const result: AuthResponse = await response.json();
+      // Read response only once using text() then parse
+      const responseText = await response.text();
+      
+      let result: AuthResponse;
+      try {
+        result = JSON.parse(responseText);
+      } catch (parseError) {
+        throw new Error('Invalid response from server');
+      }
 
       if (result.success && result.token) {
         localStorage.setItem('auth_token', result.token);
@@ -56,13 +56,9 @@ export default function Login() {
       }
     } catch (error: any) {
       console.error('Login error:', error);
-      if (error.name === 'AbortError') {
-        return; // Request was aborted, don't show error
-      }
       setError('Произошла ошибка при входе');
     } finally {
       setLoading(false);
-      abortControllerRef.current = null;
     }
   };
 
