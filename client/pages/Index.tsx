@@ -22,7 +22,7 @@ export default function Index() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-black text-white flex items-center justify-center">
+          <div className="min-h-screen theme-gradient theme-text flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4 animate-pulse">
             <Shield className="w-8 h-8 text-white" />
@@ -189,7 +189,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">Easy Integration</h3>
             <p className="text-white/60">
-              Простая интеграция с любыми приложениями и платформами
+              Простая интеграция с любыми прилож��ниями и платформами
             </p>
           </div>
           
