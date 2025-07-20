@@ -35,7 +35,7 @@ export default function SignUp() {
     }
 
     try {
-      const response = await fetch('/api/auth/register', {
+            const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,7 +47,16 @@ export default function SignUp() {
         }),
       });
 
-      const result: AuthResponse = await response.json();
+      // Clone response to avoid body stream issues
+      const responseClone = response.clone();
+      let result: AuthResponse;
+
+      try {
+        result = await response.json();
+      } catch (streamError) {
+        // If response stream already read, try the clone
+        result = await responseClone.json();
+      }
 
       if (result.success && result.token) {
         // Save token to localStorage
@@ -83,7 +92,7 @@ export default function SignUp() {
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center space-x-2 text-white/80 hover:text-white mb-6">
             <ArrowLeft className="w-4 h-4" />
-            <span>Назад на главную</span>
+            <span>Назад ��а главную</span>
           </Link>
           
           <div className="flex items-center justify-center space-x-2 mb-4">
