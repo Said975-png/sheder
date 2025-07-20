@@ -120,11 +120,13 @@ export default function SignUp() {
       <div className="w-full max-w-md">
         {/* Header */}
                 <div className="text-center mb-8">
-          <div className="flex justify-between items-start mb-6">
+                    <div className="flex justify-between items-start mb-6">
             <Link to="/" className="inline-flex items-center space-x-2 text-white/80 hover:text-white">
-            <ArrowLeft className="w-4 h-4" />
-            <span>Назад на главную</span>
-          </Link>
+              <ArrowLeft className="w-4 h-4" />
+              <span>Назад на главную</span>
+            </Link>
+            <ThemeToggle />
+          </div>
           
           <div className="flex items-center justify-center space-x-2 mb-4">
             <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
