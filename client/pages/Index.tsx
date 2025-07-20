@@ -107,7 +107,7 @@ export default function Index() {
             )}
           </div>
         </div>
-      </header>
+            </nav>
 
       {/* Main Content */}
       <main className="container mx-auto px-6 py-12">
