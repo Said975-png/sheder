@@ -34,10 +34,10 @@ export default function Login() {
         body: JSON.stringify(formData),
       });
 
-                  const result: AuthResponse = await response.json();
+                        const result: AuthResponse = await response.json();
 
-      if (!response.ok) {
-        setError(result.message || `HTTP error! status: ${response.status}`);
+      if (!result.success) {
+        setError(result.message || 'Произошла ошибка при входе');
         return;
       }
 
