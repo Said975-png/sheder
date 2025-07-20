@@ -108,7 +108,7 @@ export default function SignUp() {
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
                         <h2 className="text-xl font-semibold theme-text mb-2">Регистрация успешна!</h2>
             <p className="theme-text-muted mb-4">Добро пожаловать, {formData.name}!</p>
-            <p className="theme-text-muted text-sm">Перенаправ��яем на главную страницу...</p>
+            <p className="theme-text-muted text-sm">Перенаправляем на главную страницу...</p>
           </CardContent>
         </Card>
       </div>
@@ -153,7 +153,7 @@ export default function SignUp() {
               )}
               
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-white/80">Полное имя</Label>
+                <Label htmlFor="name" className="theme-label">Полное имя</Label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                   <Input
@@ -170,7 +170,7 @@ export default function SignUp() {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-white/80">Email</Label>
+                <Label htmlFor="email" className="theme-label">Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                   <Input
@@ -187,7 +187,7 @@ export default function SignUp() {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-white/80">Пароль</Label>
+                <Label htmlFor="password" className="theme-label">Пароль</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                   <Input
@@ -205,7 +205,7 @@ export default function SignUp() {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-white/80">Подтвердите пароль</Label>
+                <Label htmlFor="confirmPassword" className="theme-label">Подтвердите пароль</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                   <Input
