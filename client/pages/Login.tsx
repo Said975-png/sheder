@@ -44,11 +44,7 @@ export default function Login() {
         signal: abortControllerRef.current.signal
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
-      const result: AuthResponse = await response.json();
+            const result: AuthResponse = await response.json();
 
       if (result.success && result.token) {
         localStorage.setItem('auth_token', result.token);
