@@ -12,7 +12,7 @@ import {
 import RobotModel from '@/components/RobotModel';
 
 export default function Index() {
-  const { user, logout, isAuthenticated, loading } = useAuth();
+    const { currentUser, logout, isAuthenticated, loading } = useAuth();
 
   const handleLogout = async () => {
     await logout();
