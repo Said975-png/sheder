@@ -19,7 +19,11 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+        e.preventDefault();
+
+    // Prevent multiple submissions
+    if (loading) return;
+
     setLoading(true);
     setError('');
 
@@ -43,6 +47,10 @@ export default function SignUp() {
         }),
       });
 
+            if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const result: AuthResponse = await response.json();
 
       if (result.success && result.token) {
@@ -54,11 +62,15 @@ export default function SignUp() {
         navigate('/');
         window.location.reload(); // Refresh to update auth state
       } else {
-        setError(result.message);
+                setError(result.message || 'Произошла ошибка при регистрации');
       }
     } catch (error) {
       console.error('Registration error:', error);
-      setError('Произошла ошибка при регистрации');
+            if (error instanceof TypeError && error.message.includes('stream')) {
+        setError('Ошибка соединения. Попробуйте еще раз.');
+      } else {
+        setError('Произошла ошибка при регистрации');
+      }
     } finally {
       setLoading(false);
     }
