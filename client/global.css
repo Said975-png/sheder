@@ -174,4 +174,70 @@
   .glow-cyan {
     box-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
   }
+
+  /* Адаптивные градиенты для тем */
+  .theme-gradient {
+    background: linear-gradient(
+      to bottom right,
+      hsl(var(--gradient-from)),
+      hsl(var(--gradient-via)),
+      hsl(var(--gradient-to))
+    );
+  }
+
+  .theme-text {
+    color: hsl(var(--foreground));
+  }
+
+  .theme-text-muted {
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* Адаптивные карточки */
+  .theme-card {
+    background: hsl(var(--card) / 0.05);
+    border: 1px solid hsl(var(--border) / 0.1);
+    backdrop-filter: blur(12px);
+  }
+
+  .theme-card-solid {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+  }
+
+  /* Адаптивные кнопки */
+  .theme-button-ghost {
+    color: hsl(var(--foreground) / 0.8);
+  }
+
+  .theme-button-ghost:hover {
+    background: hsl(var(--accent) / 0.1);
+    color: hsl(var(--foreground));
+  }
+
+  /* Адаптивные инпуты */
+  .theme-input {
+    background: hsl(var(--background) / 0.05);
+    border: 1px solid hsl(var(--border) / 0.2);
+    color: hsl(var(--foreground));
+  }
+
+  .theme-input::placeholder {
+    color: hsl(var(--muted-foreground) / 0.5);
+  }
+
+  /* Дропдаун меню */
+  .theme-dropdown {
+    background: hsl(var(--popover));
+    border: 1px solid hsl(var(--border));
+  }
+
+  .theme-dropdown-item {
+    color: hsl(var(--popover-foreground));
+  }
+
+  .theme-dropdown-item:hover {
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
 }
