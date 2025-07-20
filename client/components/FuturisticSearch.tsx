@@ -6,8 +6,8 @@ export default function FuturisticSearch() {
   const [isFocused, setIsFocused] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
-  return (
-    <div className="relative w-full max-w-2xl mx-auto">
+    return (
+    <div className="relative w-full max-w-lg mx-auto">
       {/* Анимация появления и контейнер */}
       <div className="animate-in fade-in slide-in-from-bottom-4 duration-1000">
         {/* Эффект частиц при фокусе */}
