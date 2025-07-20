@@ -11,18 +11,16 @@ export function createServer() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-    // Example API routes
+  // Example API routes
   app.get("/api/ping", (_req, res) => {
     res.json({ message: "Hello from Express server v2!" });
   });
 
   app.get("/api/demo", handleDemo);
 
-    // Upload and generation routes
+  // Upload and generation routes
   app.post("/api/upload", handleImageUpload);
   app.get("/api/generated/:imageId", handleGenerateWebsite);
-
-    
 
   return app;
 }

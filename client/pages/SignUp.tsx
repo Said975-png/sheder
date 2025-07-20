@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Shield, Mail, Lock, User, ArrowLeft, CheckCircle } from 'lucide-react';
-import { ThemeToggle } from '@/components/ThemeToggle';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Shield, Mail, Lock, User, ArrowLeft, CheckCircle } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface User {
   id: string;
@@ -17,42 +17,44 @@ interface User {
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
     setSuccess(false);
 
     // Простая валидация
     if (formData.password !== formData.confirmPassword) {
-      setError('Пароли не совпадают');
+      setError("Пароли не совпадают");
       setLoading(false);
       return;
     }
 
     if (formData.password.length < 6) {
-      setError('Пароль должен содержать минимум 6 символов');
+      setError("Пароль должен содержать минимум 6 символов");
       setLoading(false);
       return;
     }
 
     try {
       // Получаем существующих пользователей из localStorage
-      const existingUsers = JSON.parse(localStorage.getItem('users') || '[]') as User[];
-      
+      const existingUsers = JSON.parse(
+        localStorage.getItem("users") || "[]",
+      ) as User[];
+
       // Проверяем, существует ли пользователь с таким email
-      if (existingUsers.find(user => user.email === formData.email)) {
-        setError('Пользователь с таким email уже существует');
+      if (existingUsers.find((user) => user.email === formData.email)) {
+        setError("Пользователь с таким email уже существует");
         setLoading(false);
         return;
       }
@@ -63,30 +65,32 @@ export default function SignUp() {
         name: formData.name,
         email: formData.email,
         password: formData.password, // В реальном приложении пароль нужно хешировать
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
       };
 
       // Добавляем пользователя в список
       existingUsers.push(newUser);
-      localStorage.setItem('users', JSON.stringify(existingUsers));
+      localStorage.setItem("users", JSON.stringify(existingUsers));
 
       // Сохраняем текущего пользователя
-      localStorage.setItem('currentUser', JSON.stringify({
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email
-      }));
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({
+          id: newUser.id,
+          name: newUser.name,
+          email: newUser.email,
+        }),
+      );
 
       setSuccess(true);
-      
+
       // Перенаправляем на главную страницу через 1.5 секунды
       setTimeout(() => {
-        navigate('/');
+        navigate("/");
       }, 1500);
-
     } catch (error) {
-      console.error('Registration error:', error);
-      setError('Произошла ошибка при регистрации');
+      console.error("Registration error:", error);
+      setError("Произошла ошибка при регистрации");
     } finally {
       setLoading(false);
     }
@@ -94,55 +98,68 @@ export default function SignUp() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   if (success) {
-        return (
+    return (
       <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
         <Card className="theme-card w-full max-w-md">
           <CardContent className="p-8 text-center">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                        <h2 className="text-xl font-semibold theme-text mb-2">Регистрация успешна!</h2>
-            <p className="theme-text-muted mb-4">Добро пожаловать, {formData.name}!</p>
-            <p className="theme-text-muted text-sm">Перенаправляем на главную страницу...</p>
+            <h2 className="text-xl font-semibold theme-text mb-2">
+              Регистрация успешна!
+            </h2>
+            <p className="theme-text-muted mb-4">
+              Добро пожаловать, {formData.name}!
+            </p>
+            <p className="theme-text-muted text-sm">
+              Перенаправляем на главную страницу...
+            </p>
           </CardContent>
         </Card>
       </div>
     );
   }
 
-    return (
+  return (
     <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         {/* Header */}
-                <div className="text-center mb-8">
-                    <div className="flex justify-between items-start mb-6">
-                        <Link to="/" className="inline-flex items-center space-x-2 theme-nav-text">
+        <div className="text-center mb-8">
+          <div className="flex justify-between items-start mb-6">
+            <Link
+              to="/"
+              className="inline-flex items-center space-x-2 theme-nav-text"
+            >
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
             </Link>
             <ThemeToggle />
           </div>
-          
+
           <div className="flex items-center justify-center space-x-2 mb-4">
             <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
               <Shield className="w-6 h-6 text-white" />
             </div>
             <h1 className="text-2xl font-bold">AI Detect</h1>
           </div>
-          
+
           <h2 className="text-xl font-semibold mb-2">Создать аккаунт</h2>
-          <p className="text-white/70">Присоединяйтесь к будущему защиты от ботов</p>
+          <p className="text-white/70">
+            Присоединяйтесь к будущему защиты от ботов
+          </p>
         </div>
 
         {/* SignUp Form */}
-                <Card className="theme-card">
+        <Card className="theme-card">
           <CardHeader>
-                        <CardTitle className="theme-text text-center">Регистрация</CardTitle>
+            <CardTitle className="theme-text text-center">
+              Регистрация
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -151,9 +168,11 @@ export default function SignUp() {
                   {error}
                 </div>
               )}
-              
+
               <div className="space-y-2">
-                <Label htmlFor="name" className="theme-label">Полное имя</Label>
+                <Label htmlFor="name" className="theme-label">
+                  Полное имя
+                </Label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                   <Input
@@ -168,9 +187,11 @@ export default function SignUp() {
                   />
                 </div>
               </div>
-              
+
               <div className="space-y-2">
-                <Label htmlFor="email" className="theme-label">Email</Label>
+                <Label htmlFor="email" className="theme-label">
+                  Email
+                </Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                   <Input
@@ -185,9 +206,11 @@ export default function SignUp() {
                   />
                 </div>
               </div>
-              
+
               <div className="space-y-2">
-                <Label htmlFor="password" className="theme-label">Пароль</Label>
+                <Label htmlFor="password" className="theme-label">
+                  Пароль
+                </Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                   <Input
@@ -203,9 +226,11 @@ export default function SignUp() {
                   />
                 </div>
               </div>
-              
+
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="theme-label">Подтвердите пароль</Label>
+                <Label htmlFor="confirmPassword" className="theme-label">
+                  Подтвердите пароль
+                </Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                   <Input
@@ -220,20 +245,23 @@ export default function SignUp() {
                   />
                 </div>
               </div>
-              
+
               <Button
                 type="submit"
                 disabled={loading}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white"
               >
-                {loading ? 'Создаем аккаунт...' : 'Создать аккаунт'}
+                {loading ? "Создаем аккаунт..." : "Создать аккаунт"}
               </Button>
             </form>
-            
+
             <div className="mt-6 text-center">
-                            <p className="theme-text-muted">
-                Уже есть аккаунт?{' '}
-                <Link to="/login" className="text-purple-400 hover:text-purple-300 font-medium">
+              <p className="theme-text-muted">
+                Уже есть аккаунт?{" "}
+                <Link
+                  to="/login"
+                  className="text-purple-400 hover:text-purple-300 font-medium"
+                >
                   Войти
                 </Link>
               </p>

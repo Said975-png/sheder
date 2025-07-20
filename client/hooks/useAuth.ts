@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 interface CurrentUser {
   id: string;
@@ -14,13 +14,13 @@ export function useAuth() {
     // Проверяем localStorage при загрузке
     const checkAuth = () => {
       try {
-        const userData = localStorage.getItem('currentUser');
+        const userData = localStorage.getItem("currentUser");
         if (userData) {
           setCurrentUser(JSON.parse(userData));
         }
       } catch (error) {
-        console.error('Error parsing user data:', error);
-        localStorage.removeItem('currentUser');
+        console.error("Error parsing user data:", error);
+        localStorage.removeItem("currentUser");
       } finally {
         setLoading(false);
       }
@@ -30,12 +30,12 @@ export function useAuth() {
 
     // Слушаем изменения в localStorage (для синхронизации между вкладками)
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'currentUser') {
+      if (e.key === "currentUser") {
         if (e.newValue) {
           try {
             setCurrentUser(JSON.parse(e.newValue));
           } catch (error) {
-            console.error('Error parsing user data:', error);
+            console.error("Error parsing user data:", error);
             setCurrentUser(null);
           }
         } else {
@@ -44,12 +44,12 @@ export function useAuth() {
       }
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   const logout = () => {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem("currentUser");
     setCurrentUser(null);
   };
 
@@ -57,6 +57,6 @@ export function useAuth() {
     currentUser,
     loading,
     logout,
-    isAuthenticated: !!currentUser
+    isAuthenticated: !!currentUser,
   };
 }
