@@ -47,10 +47,10 @@ export default function SignUp() {
         }),
       });
 
-                  const result: AuthResponse = await response.json();
+                        const result: AuthResponse = await response.json();
 
-      if (!response.ok) {
-        setError(result.message || `HTTP error! status: ${response.status}`);
+      if (!result.success) {
+        setError(result.message || 'Произошла ошибка при регистрации');
         return;
       }
 
@@ -103,7 +103,7 @@ export default function SignUp() {
           </div>
           
           <h2 className="text-xl font-semibold mb-2">Создать аккаунт</h2>
-          <p className="text-white/70">Присоединяйтесь к будущему защиты от ботов</p>
+          <p className="text-white/70">Присоед��няйтесь к будущему защиты от ботов</p>
         </div>
 
         {/* SignUp Form */}
