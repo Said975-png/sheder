@@ -119,8 +119,9 @@ export default function SignUp() {
     <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         {/* Header */}
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center space-x-2 text-white/80 hover:text-white mb-6">
+                <div className="text-center mb-8">
+          <div className="flex justify-between items-start mb-6">
+            <Link to="/" className="inline-flex items-center space-x-2 text-white/80 hover:text-white">
             <ArrowLeft className="w-4 h-4" />
             <span>Назад на главную</span>
           </Link>
