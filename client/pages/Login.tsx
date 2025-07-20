@@ -82,7 +82,7 @@ export default function Login() {
                 <Card className="theme-card w-full max-w-md">
           <CardContent className="p-8 text-center">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                        <h2 className="text-xl font-semibold theme-text mb-2">Вход выполнен успешно!</h2>
+                        <h2 className="text-xl font-semibold theme-text mb-2">Вход выполнен успеш��о!</h2>
             <p className="theme-text-muted mb-4">Добро пожаловать обратно!</p>
             <p className="theme-text-muted text-sm">Перенаправляем на главную страницу...</p>
           </CardContent>
@@ -118,7 +118,7 @@ export default function Login() {
         {/* Login Form */}
                 <Card className="theme-card">
           <CardHeader>
-            <CardTitle className="text-white text-center">Вход</CardTitle>
+                        <CardTitle className="theme-text text-center">Вход</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
