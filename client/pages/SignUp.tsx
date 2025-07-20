@@ -47,7 +47,7 @@ export default function SignUp() {
         }),
       });
 
-                        const result: AuthResponse = await response.json();
+                              const result: AuthResponse = await response.json();
 
       if (!result.success) {
         setError(result.message || 'Произошла ошибка при регистрации');
