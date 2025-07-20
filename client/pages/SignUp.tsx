@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,7 +17,6 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const abortControllerRef = useRef<AbortController | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,29 +34,30 @@ export default function SignUp() {
       return;
     }
 
-    // Cancel any previous request
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-    
-    // Create new abort controller
-    abortControllerRef.current = new AbortController();
-
     try {
+      const requestBody = JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password
+      });
+
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password
-        }),
-        signal: abortControllerRef.current.signal
+        body: requestBody
       });
 
-            const result: AuthResponse = await response.json();
+      // Read response only once using text() then parse
+      const responseText = await response.text();
+      
+      let result: AuthResponse;
+      try {
+        result = JSON.parse(responseText);
+      } catch (parseError) {
+        throw new Error('Invalid response from server');
+      }
 
       if (result.success && result.token) {
         localStorage.setItem('auth_token', result.token);
@@ -65,17 +65,13 @@ export default function SignUp() {
         navigate('/');
         window.location.reload();
       } else {
-        setError(result.message || 'Произошла ошибка при регистрации');
+        setError(result.message || 'П��оизошла ошибка при регистрации');
       }
     } catch (error: any) {
       console.error('Registration error:', error);
-      if (error.name === 'AbortError') {
-        return; // Request was aborted, don't show error
-      }
       setError('Произошла ошибка при регистрации');
     } finally {
       setLoading(false);
-      abortControllerRef.current = null;
     }
   };
 
