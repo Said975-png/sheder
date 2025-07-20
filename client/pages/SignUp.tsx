@@ -49,12 +49,7 @@ export default function SignUp() {
 
                               const result: AuthResponse = await response.json();
 
-      if (!result.success) {
-        setError(result.message || 'Произошла ошибка при регистрации');
-        return;
-      }
-
-      if (result.success && result.token) {
+            if (result.success && result.token) {
         // Save token to localStorage
         localStorage.setItem('auth_token', result.token);
         localStorage.setItem('user', JSON.stringify(result.user));
