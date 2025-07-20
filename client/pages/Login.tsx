@@ -46,7 +46,7 @@ export default function Login() {
         return;
       }
 
-      // Сохраняем текущего пользователя
+      // Сохраняем теку��его пользователя
       localStorage.setItem('currentUser', JSON.stringify({
         id: user.id,
         name: user.name,
@@ -146,7 +146,7 @@ export default function Login() {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-white/80">Пароль</Label>
+                                <Label htmlFor="password" className="theme-label">Пароль</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                   <Input
