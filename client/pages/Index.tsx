@@ -43,7 +43,7 @@ export default function Index() {
             <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
               <Shield className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-semibold">AI Detect</span>
+                        <span className="text-xl font-semibold theme-text">AI Detect</span>
           </div>
           
                     <nav className="hidden md:flex items-center space-x-8">
@@ -190,7 +190,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">Easy Integration</h3>
             <p className="text-white/60">
-              Простая интеграция с любыми прилож��ниями и платформами
+              Простая интеграция с любыми прилож���ниями и платформами
             </p>
           </div>
           
