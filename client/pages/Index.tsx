@@ -71,24 +71,24 @@ export default function Index() {
                     <div className="text-xs">{currentUser.email}</div>
                   </div>
                   <DropdownMenuSeparator className="bg-border" />
-                                    <DropdownMenuItem
+                                                      <DropdownMenuItem
                     onClick={() => window.location.href = '/profile'}
-                    className="text-gray-300 hover:bg-gray-700 cursor-pointer"
+                    className="theme-dropdown-item cursor-pointer"
                   >
                     <User className="mr-2 h-4 w-4" />
                     <span>Профиль</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem
+                                    <DropdownMenuItem
                     onClick={() => window.location.href = '/profile'}
-                    className="text-gray-300 hover:bg-gray-700 cursor-pointer"
+                    className="theme-dropdown-item cursor-pointer"
                   >
                     <Settings className="mr-2 h-4 w-4" />
                     <span>Настройки</span>
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-gray-700" />
+                                    <DropdownMenuSeparator className="bg-border" />
                   <DropdownMenuItem 
                     onClick={handleLogout}
-                    className="text-red-400 hover:bg-gray-700 cursor-pointer"
+                                        className="theme-dropdown-item cursor-pointer text-red-500 hover:text-red-400"
                   >
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Выйти</span>
