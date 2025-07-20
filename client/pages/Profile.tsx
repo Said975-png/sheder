@@ -62,8 +62,8 @@ export default function Profile() {
   // Если пользователь не авторизован
   if (!currentUser) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-black text-white flex items-center justify-center p-6">
-        <Card className="bg-white/5 border-white/10 backdrop-blur-sm w-full max-w-md">
+            <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
+                <Card className="theme-card w-full max-w-md">
           <CardContent className="p-8 text-center">
             <Shield className="w-16 h-16 text-purple-400 mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-white mb-2">Доступ запрещён</h2>
@@ -241,7 +241,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-black text-white p-6">
+        <div className="min-h-screen theme-gradient theme-text p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -256,7 +256,7 @@ export default function Profile() {
             </div>
             <div>
               <h1 className="text-3xl font-bold">Профиль пользователя</h1>
-              <p className="text-white/70">Управляйте настройками вашего аккаунта</p>
+              <p className="text-white/70">Управляйте настройками вашего аккаунт��</p>
             </div>
           </div>
         </div>
@@ -473,7 +473,7 @@ export default function Profile() {
                     <Separator className="bg-white/20" />
 
                     <div>
-                      <h4 className="text-lg font-semibold text-white mb-4">Опасна�� зона</h4>
+                      <h4 className="text-lg font-semibold text-white mb-4">Опасная зона</h4>
                       <div className="p-4 border border-red-500/20 bg-red-500/10 rounded-lg">
                         <h5 className="text-red-300 font-medium mb-2">Удалить аккаунт</h5>
                         <p className="text-red-300/70 text-sm mb-4">
