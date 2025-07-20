@@ -52,7 +52,8 @@ export default function Index() {
             <a href="#" className="text-white/80 hover:text-white transition-colors">Pricing</a>
           </nav>
           
-          <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-4">
+            <ThemeToggle />
             {isAuthenticated && currentUser ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
