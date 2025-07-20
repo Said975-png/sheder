@@ -172,7 +172,7 @@ export default function Login() {
             </form>
             
             <div className="mt-6 text-center">
-              <p className="text-white/70">
+                            <p className="theme-text-muted">
                 Нет аккаунта?{' '}
                 <Link to="/signup" className="text-purple-400 hover:text-purple-300 font-medium">
                   Зарегистрироваться
