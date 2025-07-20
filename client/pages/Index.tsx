@@ -38,7 +38,7 @@ export default function Index() {
       {/* Header */}
             {/* Oval Navbar */}
       <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50">
-                <div className="flex items-center space-x-8 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-white/20 dark:border-white/10 rounded-full px-8 py-4 shadow-lg">
+                        <div className="flex items-center space-x-8 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-white/20 dark:border-white/10 rounded-full px-6 py-2 shadow-lg">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center">
               <Shield className="w-5 h-5 text-white" />
@@ -197,7 +197,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">User Experience</h3>
             <p className="text-white/60">
-              Максимальное удобство для пользователей без компром��ссов в безопасности
+              Максимальное удобство для пользователей без компромиссов в безопасности
             </p>
           </div>
         </div>
