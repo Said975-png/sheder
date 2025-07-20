@@ -68,11 +68,17 @@ export default function Index() {
                     <div className="text-xs text-gray-400">{currentUser.email}</div>
                   </div>
                   <DropdownMenuSeparator className="bg-gray-700" />
-                  <DropdownMenuItem className="text-gray-300 hover:bg-gray-700 cursor-pointer">
-                    <Settings className="mr-2 h-4 w-4" />
-                    <span>Личный кабинет</span>
+                                    <DropdownMenuItem
+                    onClick={() => window.location.href = '/profile'}
+                    className="text-gray-300 hover:bg-gray-700 cursor-pointer"
+                  >
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Профиль</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="text-gray-300 hover:bg-gray-700 cursor-pointer">
+                  <DropdownMenuItem
+                    onClick={() => window.location.href = '/profile'}
+                    className="text-gray-300 hover:bg-gray-700 cursor-pointer"
+                  >
                     <Settings className="mr-2 h-4 w-4" />
                     <span>Настройки</span>
                   </DropdownMenuItem>
@@ -191,7 +197,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">User Experience</h3>
             <p className="text-white/60">
-              Максимальное удобство для пользователей без компромиссов в безопасности
+              Ма��симальное удобство для пользователей без компромиссов в безопасности
             </p>
           </div>
         </div>
