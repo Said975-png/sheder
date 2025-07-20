@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Shield, User, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -197,7 +198,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">User Experience</h3>
             <p className="text-white/60">
-              Ма��симальное удобство для пользователей без компромиссов в безопасности
+              Максимальное удобство для пользователей без компромиссов в безопасности
             </p>
           </div>
         </div>
