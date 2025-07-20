@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,15 +15,24 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
+    e.preventDefault();
+    
     // Prevent multiple submissions
     if (loading) return;
-
+    
     setLoading(true);
     setError('');
+
+    // Cancel any previous request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    
+    // Create new abort controller
+    abortControllerRef.current = new AbortController();
 
     try {
       const response = await fetch('/api/auth/login', {
@@ -32,35 +41,32 @@ export default function Login() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        signal: abortControllerRef.current.signal
       });
 
-                        const result: AuthResponse = await response.json();
-
-      if (!result.success) {
-        setError(result.message || 'Произошла ошибка при входе');
-        return;
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
       }
+
+      const result: AuthResponse = await response.json();
 
       if (result.success && result.token) {
-        // Save token to localStorage
         localStorage.setItem('auth_token', result.token);
         localStorage.setItem('user', JSON.stringify(result.user));
-        
-        // Redirect to homepage
         navigate('/');
-        window.location.reload(); // Refresh to update auth state
+        window.location.reload();
       } else {
-                setError(result.message || 'Произошла ошибка при входе');
+        setError(result.message || 'Произошла ошибка при входе');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login error:', error);
-            if (error instanceof TypeError && error.message.includes('stream')) {
-        setError('Ошибка соединения. Попробуйте еще раз.');
-      } else {
-        setError('Произошла ошибка при входе');
+      if (error.name === 'AbortError') {
+        return; // Request was aborted, don't show error
       }
+      setError('Произошла ошибка при входе');
     } finally {
       setLoading(false);
+      abortControllerRef.current = null;
     }
   };
 
@@ -89,14 +95,14 @@ export default function Login() {
             <h1 className="text-2xl font-bold">AI Detect</h1>
           </div>
           
-          <h2 className="text-xl font-semibold mb-2">Добро пожаловать</h2>
-          <p className="text-white/70">Войдите в свой аккаунт</p>
+          <h2 className="text-xl font-semibold mb-2">Вход в аккаунт</h2>
+          <p className="text-white/70">Добро пожаловать обратно!</p>
         </div>
 
         {/* Login Form */}
         <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="text-white text-center">Вход в систему</CardTitle>
+            <CardTitle className="text-white text-center">Вход</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -145,7 +151,7 @@ export default function Login() {
                 disabled={loading}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white"
               >
-                {loading ? 'Входим...' : 'Войти'}
+                {loading ? 'Входим в аккаунт...' : 'Войти'}
               </Button>
             </form>
             
