@@ -49,7 +49,7 @@ export default function Index() {
       {/* Header */}
                   {/* Oval Navbar */}
       <nav className={`fixed top-6 left-1/2 z-50 ${navbarAnimated ? 'portal-entrance' : 'opacity-0 transform -translate-x-1/2 scale-50'}`}>
-                                        <div className="relative flex items-center space-x-8 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-purple-500/30 rounded-full px-6 py-2 neon-glow holographic">
+                                                <div className="relative flex items-center space-x-8 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-purple-500/30 px-6 py-2 neon-glow holographic" style={{borderRadius: '9999px'}}>
           {/* Энергетическое поле */}
           <div className="energy-field rounded-full"></div>
                     {/* Частицы */}
@@ -207,7 +207,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">Easy Integration</h3>
             <p className="text-white/60">
-              Простая интеграция с любыми прилож��ниями и платформами
+              Простая интеграция �� любыми прилож��ниями и платформами
             </p>
           </div>
           
