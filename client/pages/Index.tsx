@@ -96,10 +96,10 @@ export default function Index() {
               </DropdownMenu>
             ) : (
               <>
-                <Button variant="ghost" className="text-white/80 hover:text-white" asChild>
+                                <Button variant="ghost" className="theme-button-text" asChild>
                   <Link to="/signup">Sign up</Link>
                 </Button>
-                <Button variant="ghost" className="text-white/80 hover:text-white" asChild>
+                <Button variant="ghost" className="theme-button-text" asChild>
                   <Link to="/login">Login</Link>
                 </Button>
               </>
