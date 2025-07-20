@@ -9,6 +9,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import ApiTest from "./pages/ApiTest";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
