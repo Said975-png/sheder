@@ -172,7 +172,7 @@ export default function Index() {
               </p>
             </div>
 
-                                                            <FuturisticSearch />
+                                                            
 
             <div className="flex items-center space-x-2 text-sm text-white/60">
               <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
