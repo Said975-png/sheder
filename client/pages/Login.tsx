@@ -129,7 +129,7 @@ export default function Login() {
               )}
               
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-white/80">Email</Label>
+                                <Label htmlFor="email" className="theme-label">Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
                   <Input
