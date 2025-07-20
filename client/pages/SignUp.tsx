@@ -23,7 +23,9 @@ export default function SignUp() {
     e.preventDefault();
     
     // Prevent multiple submissions
-    if (loading) return;
+        if (loading || submittingRef.current) return;
+
+    submittingRef.current = true;
     
     setLoading(true);
     setError('');
@@ -64,8 +66,9 @@ export default function SignUp() {
     } catch (error) {
       console.error('Registration error:', error);
       setError('Произошла ошибка при регистрации');
-    } finally {
+        } finally {
       setLoading(false);
+      submittingRef.current = false;
     }
   };
 
