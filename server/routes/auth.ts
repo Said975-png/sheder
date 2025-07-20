@@ -34,6 +34,7 @@ export interface AuthResponse {
 // Registration endpoint
 export const handleRegister: RequestHandler = async (req, res) => {
   try {
+    console.log('Registration attempt for:', req.body?.email);
     const { email, password, name } = registerSchema.parse(req.body);
 
     // Check if user already exists
@@ -151,7 +152,7 @@ export const handleLogin: RequestHandler = async (req, res) => {
 
     const response: AuthResponse = {
       success: true,
-      message: "Вход вып��лнен успешно",
+      message: "Вход выполнен успешно",
       user: {
         id: user.id,
         email: user.email,
@@ -270,7 +271,7 @@ export const handleGetCurrentUser: RequestHandler = async (req, res) => {
     
     const response: AuthResponse = {
       success: false,
-      message: "Ошибка при получении данных пользователя"
+      message: "Ошибка при получении данных ��ользователя"
     };
     res.status(500).json(response);
   }
