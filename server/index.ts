@@ -2,9 +2,6 @@ import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleImageUpload, handleGenerateWebsite } from "./routes/upload";
-import { handleRegister, handleLogin, handleLogout, handleGetCurrentUser } from "./routes/auth";
-import { handleClearDatabase, handleDatabaseStats } from "./routes/dev-utils";
-import "./database"; // Initialize database
 
 export function createServer() {
   const app = express();
