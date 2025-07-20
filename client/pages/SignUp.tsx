@@ -19,11 +19,11 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-
+    e.preventDefault();
+    
     // Prevent multiple submissions
     if (loading) return;
-
+    
     setLoading(true);
     setError('');
 
@@ -47,9 +47,9 @@ export default function SignUp() {
         }),
       });
 
-                              const result: AuthResponse = await response.json();
+      const result: AuthResponse = await response.json();
 
-            if (result.success && result.token) {
+      if (result.success && result.token) {
         // Save token to localStorage
         localStorage.setItem('auth_token', result.token);
         localStorage.setItem('user', JSON.stringify(result.user));
@@ -58,15 +58,11 @@ export default function SignUp() {
         navigate('/');
         window.location.reload(); // Refresh to update auth state
       } else {
-                setError(result.message || 'Произошла ошибка при регистрации');
+        setError(result.message || 'Произошла ошибка при регистрации');
       }
     } catch (error) {
       console.error('Registration error:', error);
-            if (error instanceof TypeError && error.message.includes('stream')) {
-        setError('Ошибка соединения. Попробуйте еще раз.');
-      } else {
-        setError('Произошла ошибка при регистрации');
-      }
+      setError('Произошла ошибка при регистрации');
     } finally {
       setLoading(false);
     }
@@ -98,7 +94,7 @@ export default function SignUp() {
           </div>
           
           <h2 className="text-xl font-semibold mb-2">Создать аккаунт</h2>
-          <p className="text-white/70">Присоед��няйтесь к будущему защиты от ботов</p>
+          <p className="text-white/70">Присоединяйтесь к будущему защиты от ботов</p>
         </div>
 
         {/* SignUp Form */}
