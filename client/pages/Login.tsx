@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Shield, Mail, Lock, ArrowLeft, CheckCircle } from 'lucide-react';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 interface User {
   id: string;
@@ -169,7 +170,7 @@ export default function Login() {
             
             <div className="mt-6 text-center">
               <p className="text-white/70">
-                Нет аккаунта?{' '}
+                Нет акка��нта?{' '}
                 <Link to="/signup" className="text-purple-400 hover:text-purple-300 font-medium">
                   Зарегистрироваться
                 </Link>
