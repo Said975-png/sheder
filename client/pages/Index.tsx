@@ -14,8 +14,8 @@ import RobotModel from '@/components/RobotModel';
 export default function Index() {
     const { currentUser, logout, isAuthenticated, loading } = useAuth();
 
-  const handleLogout = async () => {
-    await logout();
+    const handleLogout = () => {
+    logout();
     window.location.reload();
   };
 
