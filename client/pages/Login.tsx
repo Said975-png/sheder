@@ -17,7 +17,11 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+        e.preventDefault();
+
+    // Prevent multiple submissions
+    if (loading) return;
+
     setLoading(true);
     setError('');
 
@@ -30,6 +34,10 @@ export default function Login() {
         body: JSON.stringify(formData),
       });
 
+            if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const result: AuthResponse = await response.json();
 
       if (result.success && result.token) {
@@ -41,11 +49,15 @@ export default function Login() {
         navigate('/');
         window.location.reload(); // Refresh to update auth state
       } else {
-        setError(result.message);
+                setError(result.message || 'Произошла ошибка при входе');
       }
     } catch (error) {
       console.error('Login error:', error);
-      setError('Произошла ошибка при входе');
+            if (error instanceof TypeError && error.message.includes('stream')) {
+        setError('Ошибка соединения. П��пробуйте еще раз.');
+      } else {
+        setError('Произошла ошибка при входе');
+      }
     } finally {
       setLoading(false);
     }
