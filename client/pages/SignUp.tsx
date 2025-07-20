@@ -14,19 +14,16 @@ export default function SignUp() {
     password: '',
     confirmPassword: ''
   });
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-    const navigate = useNavigate();
-  const submittingRef = useRef(false);
+  const navigate = useNavigate();
   const abortControllerRef = useRef<AbortController | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Prevent multiple submissions
-        if (loading || submittingRef.current) return;
-
-    submittingRef.current = true;
+    if (loading) return;
     
     setLoading(true);
     setError('');
@@ -38,8 +35,16 @@ export default function SignUp() {
       return;
     }
 
+    // Cancel any previous request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    
+    // Create new abort controller
+    abortControllerRef.current = new AbortController();
+
     try {
-            const response = await fetch('/api/auth/register', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,27 +54,32 @@ export default function SignUp() {
           email: formData.email,
           password: formData.password
         }),
+        signal: abortControllerRef.current.signal
       });
 
-            const result: AuthResponse = await response.json();
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const result: AuthResponse = await response.json();
 
       if (result.success && result.token) {
-        // Save token to localStorage
         localStorage.setItem('auth_token', result.token);
         localStorage.setItem('user', JSON.stringify(result.user));
-        
-        // Redirect to homepage
         navigate('/');
-        window.location.reload(); // Refresh to update auth state
+        window.location.reload();
       } else {
         setError(result.message || 'Произошла ошибка при регистрации');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Registration error:', error);
+      if (error.name === 'AbortError') {
+        return; // Request was aborted, don't show error
+      }
       setError('Произошла ошибка при регистрации');
-        } finally {
+    } finally {
       setLoading(false);
-      submittingRef.current = false;
+      abortControllerRef.current = null;
     }
   };
 
