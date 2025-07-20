@@ -82,7 +82,7 @@ export default function Login() {
                 <Card className="theme-card w-full max-w-md">
           <CardContent className="p-8 text-center">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                        <h2 className="text-xl font-semibold theme-text mb-2">Вход выполнен успеш��о!</h2>
+                        <h2 className="text-xl font-semibold theme-text mb-2">Вход выполнен успешно!</h2>
             <p className="theme-text-muted mb-4">Добро пожаловать обратно!</p>
             <p className="theme-text-muted text-sm">Перенаправляем на главную страницу...</p>
           </CardContent>
@@ -97,7 +97,7 @@ export default function Login() {
                 {/* Header */}
         <div className="text-center mb-8">
                     <div className="flex justify-between items-start mb-6">
-            <Link to="/" className="inline-flex items-center space-x-2 text-white/80 hover:text-white">
+                        <Link to="/" className="inline-flex items-center space-x-2 theme-nav-text">
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
             </Link>
