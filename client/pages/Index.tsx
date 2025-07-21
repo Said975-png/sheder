@@ -50,7 +50,7 @@ export default function Index() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
-    }, 300); // Задержка для более драмати��ного появления
+    }, 300); // Задержка для более драматичного появления
 
     return () => clearTimeout(timer);
   }, []);
@@ -465,7 +465,9 @@ export default function Index() {
                 {/* 3D Model */}
                 <div className="relative w-full h-full flex items-center justify-center">
                   <div className="w-full h-full relative">
-                    {/* Glowing effect */}
+                    <RobotModel />
+
+                    {/* Glowing effect around 3D model */}
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse pointer-events-none"></div>
                     <div className="absolute inset-4 bg-gradient-to-r from-purple-400/20 to-cyan-400/20 rounded-full blur-2xl animate-ping pointer-events-none"></div>
                   </div>
@@ -511,7 +513,7 @@ export default function Index() {
               </div>
               <h3 className="text-lg font-semibold mb-2">AI Detection</h3>
               <p className="text-white/60">
-                Перед��в��е алгоритмы ��ля обнаруж��ния ботов и автоматических
+                Перед��вые алгоритмы ��ля обнаруж��ния ботов и автоматических
                 систем
               </p>
             </div>
@@ -634,7 +636,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-blue-400" />
                       </div>
-                      Без искус��твенного интеллекта
+                      Без искус��твенного интеллект��
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
