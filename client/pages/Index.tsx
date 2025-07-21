@@ -57,7 +57,7 @@ export default function Index() {
           className="relative flex items-center space-x-8 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-purple-500/30 px-6 py-2 neon-glow holographic"
           style={{ borderRadius: "9999px" }}
         >
-          {/* Энергетическое поле */}
+          {/* Энергетичес��ое поле */}
           <div className="energy-field rounded-full"></div>
           {/* Частицы */}
           <div className="portal-particles">
@@ -84,7 +84,21 @@ export default function Index() {
             </a>
           </div>
 
-          <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-3">
+            {/* Cart Icon */}
+            <div className="relative">
+              <Button
+                variant="ghost"
+                className="theme-button-text p-2 rounded-full hover:bg-white/10"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {getTotalItems() > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center">
+                    {getTotalItems()}
+                  </span>
+                )}
+              </Button>
+            </div>
             <ThemeToggle />
             {isAuthenticated && currentUser ? (
               <DropdownMenu>
@@ -418,7 +432,7 @@ export default function Index() {
                 </ul>
 
                 <Button className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30 glow-button">
-                  Заказат��
+                  Заказать
                 </Button>
               </div>
             </div>
