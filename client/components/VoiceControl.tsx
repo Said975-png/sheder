@@ -65,7 +65,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяем, что команда отличается от предыдущей и не пустая
+            // Проверяем, что команда отличае��ся от предыдущей и не пустая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -247,7 +247,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвести аудио приветствия:", error);
+      console.error("Не удалось воспроизвест�� аудио приветствия:", error);
     });
   };
 
@@ -285,7 +285,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось восп��оизвести аудио благодарности:", error);
+      console.error("Не удалось восп��оизвести ау��ио благодарности:", error);
     });
   };
 
@@ -318,7 +318,7 @@ export default function VoiceControl({
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
-      }, 2000); // Увеличен таймаут до 2 секунд
+      }, 2000); // Увеличен таймаут до 2 ��екунд
     };
 
     audio.onended = resetState;
@@ -411,12 +411,15 @@ export default function VoiceControl({
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис доброе утро") ||
       command.includes("утро джарвис") ||
-      command.includes("доброе утро") ||
+      (command.includes("доброе утро") && command.length < 20) ||
       command.includes("good morning jarvis") ||
-      command.includes("good morning") ||
+      (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      speakGoodMorning();
+      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
+        speakGoodMorning();
+      }
       return;
     }
 
@@ -643,7 +646,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск возможн��стей
+      // Поиск возможностей
       if (
         command.includes("возможности") ||
         command.includes("возможность") ||
@@ -823,7 +826,7 @@ export default function VoiceControl({
       return;
     }
 
-    if (command.includes("заказ") || command.includes("оформить за��аз")) {
+    if (command.includes("заказ") || command.includes("оформить заказ")) {
       navigate("/order");
       speak("Переходим к оформлению заказа");
       return;
@@ -866,7 +869,7 @@ export default function VoiceControl({
 
     if (
       command.includes("добавить про") ||
-      command.includes("про план") ||
+      command.includes("про п��ан") ||
       command.includes("про в корзину") ||
       command.includes("отправить про")
     ) {
@@ -937,7 +940,7 @@ export default function VoiceControl({
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
-      command.includes("��ерейти к возможностям") ||
+      command.includes("перейти к возможностям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
