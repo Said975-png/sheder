@@ -29,20 +29,47 @@ export default function OrderForm() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.fullName && formData.phone && formData.description) {
-      // Здесь можно добавить отправку данных на сервер
-      console.log("Order submitted:", {
+    if (!formData.fullName || !formData.phone || !formData.description) {
+      setError("Пожалуйста, заполните все поля");
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const orderData: OrderRequest = {
         items,
         formData,
         total: getTotalPrice()
+      };
+
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
       });
-      setIsSubmitted(true);
-      setTimeout(() => {
-        clearCart();
-        navigate("/");
-      }, 3000);
+
+      const result: OrderResponse = await response.json();
+
+      if (result.success) {
+        setIsSubmitted(true);
+        setTimeout(() => {
+          clearCart();
+          navigate("/");
+        }, 3000);
+      } else {
+        setError(result.message || "Произошла ошибка при отправке заказа");
+      }
+    } catch (err) {
+      console.error("Ошибка отправки заказа:", err);
+      setError("Ошибка соединения с сервером. Попробуйте еще раз.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -72,7 +99,7 @@ export default function OrderForm() {
             </div>
             <h2 className="text-2xl font-bold theme-text mb-2">Заказ принят!</h2>
             <p className="theme-text-muted mb-4">
-              Спасибо за ваш заказ. Мы свяжемся с вами в ближайшее время.
+              Спасибо за ваш заказ. Мы св��жемся с вами в ближайшее время.
             </p>
             <p className="text-sm theme-text-muted">
               Перенаправление на главную страницу...
@@ -168,7 +195,7 @@ export default function OrderForm() {
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="theme-label flex items-center">
                     <Phone className="w-4 h-4 mr-2" />
-                    Номер телефона
+                    Номер теле��она
                   </Label>
                   <Input
                     id="phone"
@@ -190,7 +217,7 @@ export default function OrderForm() {
                   <Textarea
                     id="description"
                     name="description"
-                    placeholder="Опишите детально, что вы хотите видеть на своем будущем сайте: дизайн, функционал, особ��е требования, цветовую гамму, структуру страниц и т.д."
+                    placeholder="Опишите детально, что вы хотите видеть на своем будущем сайте: дизайн, функционал, особые требования, цветовую гамму, структуру страниц и т.д."
                     value={formData.description}
                     onChange={handleInputChange}
                     required
