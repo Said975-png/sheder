@@ -68,19 +68,19 @@ export default function VoiceControl({
 
   const speak = (text: string) => {
     setIsSpeaking(true);
-    
-    // Создаем и воспроизводим ваш аудио-файл
-    const audio = new Audio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2F866a5966692d4b478ca44624c6e615af?alt=media&token=78fdbae1-412f-4acd-845f-987732b53098&apiKey=236158b44f8b45f680ab2467abfc361c");
-    
+
+    // Создаем и воспроизводим ваш новый аудио-файл
+    const audio = new Audio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2F082a96935ef2407b89d85335af83e973?alt=media&token=35e77ac0-b617-4ac6-8e96-3083b18e620b&apiKey=236158b44f8b45f680ab2467abfc361c");
+
     audio.onended = () => {
       setIsSpeaking(false);
     };
-    
+
     audio.onerror = () => {
       setIsSpeaking(false);
       console.error("Ошибка воспроизведения аудио");
     };
-    
+
     audio.play().catch((error) => {
       setIsSpeaking(false);
       console.error("Не удалось воспроизвести аудио:", error);
@@ -97,7 +97,7 @@ export default function VoiceControl({
     }
 
     // Проверяем, содержит ли команда значимые слова
-    const meaningfulWords = ["перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "джарвис", "базовый", "про", "макс", "прокрутить", "скролл", "наверх", "планам", "преимущества", "возможности", "открыть", "личный", "кабинет", "отправить", "с��кция", "спуститься", "перейти"];
+    const meaningfulWords = ["перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "джарвис", "базовый", "про", "макс", "прокрутить", "скролл", "наверх", "планам", "преимущества", "возможности", "открыть", "личный", "кабинет", "отправить", "секция", "спуститься", "перейти"];
     const hasValidWords = meaningfulWords.some(word => trimmedCommand.includes(word));
 
     if (!hasValidWords) {
