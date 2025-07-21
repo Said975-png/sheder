@@ -21,6 +21,8 @@ export default function VoiceControl({
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const lastCommandRef = useRef<string>("");
   const commandCooldownRef = useRef<boolean>(false);
+  const audioPlayingRef = useRef<boolean>(false);
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
 
@@ -369,7 +371,7 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("Обработка ко��анды:", command);
 
-    // Фильтруем пустые или слишком короткие команды
+    // Фильтруем пустые или слишко�� короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -707,7 +709,7 @@ export default function VoiceControl({
         command.includes("технолог") ||
         command.includes("webgl") ||
         command.includes("ии") ||
-        command.includes("искусственный")
+        command.includes("искусственн��й")
       ) {
         found = searchAndNavigate([
           "технолог",
@@ -883,7 +885,7 @@ export default function VoiceControl({
     // Расширенная навигация по секциям страницы
     if (
       command.includes("к планам") ||
-      command.includes("показать планы") ||
+      command.includes("п��казать планы") ||
       command.includes("перейти к планам") ||
       command.includes("спуститься к планам") ||
       command.includes("тарифы") ||
