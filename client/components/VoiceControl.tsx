@@ -182,7 +182,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
 
     if (command.includes('войти') || command.includes('логин') || command.includes('авторизация')) {
       navigate('/login');
-      speak('Открываю страницу входа в с��стему.');
+      speak('Открываю страницу входа в систему.');
       return;
     }
 
@@ -332,7 +332,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
 
         {/* Status indicator */}
         <div className="text-xs text-white/60 text-center">
-          {isSpeaking ? 'Speaking...' : isListening ? 'Listening...' : 'JARVIS'}
+          {isSpeaking ? 'Говорю...' : isListening ? 'Слушаю...' : 'ДЖАРВИС'}
         </div>
       </div>
 
