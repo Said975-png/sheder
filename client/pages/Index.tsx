@@ -828,7 +828,7 @@ export default function Index() {
             </h2>
             <p className="text-lg theme-text-muted max-w-3xl mx-auto">
               Мы создаем не просто сайты — мы разрабатываем и��теллектуальные
-              решения, которые работают как ваш персональный ИИ-помощник
+              реше��ия, которые работают как ваш персональный ИИ-помощник
             </p>
           </div>
 
@@ -862,8 +862,8 @@ export default function Index() {
                   Уникальный ИИ Джарвис
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Разрабатываем п��рсонального ИИ-помощника специально для вашего
-                  бизнеса. Джарвис умеет общаться с клиентами, обрабатывать
+                  Разрабатываем персонального ИИ-помощника специально для вашего
+                  бизнеса. Джарвис ум��ет общаться с клиентами, обрабатывать
                   заказы и управлять контентом.
                 </p>
               </div>
@@ -948,11 +948,11 @@ export default function Index() {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
               <div className="relative bg-gradient-to-r from-purple-600/20 to-cyan-600/20 backdrop-blur-lg border border-purple-500/30 rounded-2xl p-8">
                 <h3 className="text-2xl font-bold theme-text mb-4">
-                  Готовы создать что-то н��вероятное?
+                  Готовы создать что-то невероятное?
                 </h3>
                 <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
                   Позвольте нашему ИИ Джарвису стать цифровым помощником вашего
-                  бизнеса. Начнем ��азработку уже сегодня!
+                  бизнеса. Начнем разработку уже сегодня!
                 </p>
                 <Button
                   onClick={() =>
