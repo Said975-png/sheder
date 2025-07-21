@@ -162,7 +162,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим аудио для команды "отключись"
+    // ��оздаем и воспроизводим аудио для команды "отключись"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -526,6 +526,11 @@ export default function VoiceControl({
       "утра",
       "morning",
       "good",
+      "тут",
+      "присутствуешь",
+      "присутствие",
+      "месте",
+      "there",
     ];
     const hasValidWords = meaningfulWords.some((word) =>
       trimmedCommand.includes(word),
@@ -552,7 +557,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск по data-section атрибутам
+      // Поиск по data-section атри��утам
       const sections = Array.from(document.querySelectorAll("[data-section]"));
       for (const section of sections) {
         const sectionName =
