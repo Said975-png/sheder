@@ -85,7 +85,7 @@ export default function VoiceControl({
           voices.map((v) => `${v.name} (${v.lang})`),
         );
 
-        // Приоритетный поиск голоса Джарви��а
+        // Приоритетный поиск г��лоса Джарви��а
         let selectedVoice = null;
 
         // 1. Ищем британские мужские голоса (как у Джарвиса)
@@ -258,10 +258,9 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды корзины
+    // Команды корз��ны
     if (command.includes("корзина") && command.includes("очистить")) {
       clearCart();
-      speak("Корзина очищена.");
       return;
     }
 
@@ -270,11 +269,7 @@ export default function VoiceControl({
       command.includes("показать корзину")
     ) {
       const itemsCount = getTotalItems();
-      if (itemsCount === 0) {
-        speak("Ваша корзина пуста.");
-      } else {
-        speak(`В корзине ${itemsCount} товаров.`);
-      }
+      // Просто получаем информацию о корзине
       return;
     }
 
@@ -285,7 +280,6 @@ export default function VoiceControl({
       command.includes("basic план")
     ) {
       onAddBasicPlan();
-      speak("Базовый план добавлен в корзину.");
       return;
     }
 
@@ -295,7 +289,6 @@ export default function VoiceControl({
       command.includes("pro план")
     ) {
       onAddProPlan();
-      speak("Про план с искусственным интеллектом добавлен в корзину.");
       return;
     }
 
@@ -306,7 +299,6 @@ export default function VoiceControl({
       command.includes("джарвис")
     ) {
       onAddMaxPlan();
-      speak("Максимальный план с Джарвисом добавлен в корзину.");
       return;
     }
 
@@ -346,7 +338,7 @@ export default function VoiceControl({
       command.includes("скролл вниз")
     ) {
       window.scrollBy(0, 500);
-      speak("Прокручиваю страницу вниз.");
+      speak("Прокручиваю с��раницу вниз.");
       return;
     }
 
@@ -422,7 +414,7 @@ export default function VoiceControl({
 
         {/* Status indicator */}
         <div className="text-xs text-white/60 text-center">
-          {isSpeaking ? "Говорю..." : isListening ? "Слушаю..." : "ДЖАРВИС"}
+          {isSpeaking ? "Говорю..." : isListening ? "��лушаю..." : "ДЖАРВИС"}
         </div>
       </div>
 
