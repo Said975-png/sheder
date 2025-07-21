@@ -390,36 +390,25 @@ export default function Index() {
               </div>
             </div>
 
-            {/* Right Side - AI Visualization */}
+            {/* Right Side - 3D Model */}
             <div className="relative h-[500px] md:h-[600px] flex items-center justify-center">
-              {/* Central AI Core */}
               <div className="relative">
-                <div className="w-64 h-64 relative">
-                  {/* Main AI Core */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full animate-pulse opacity-60"></div>
-                  <div className="absolute inset-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full animate-ping opacity-40"></div>
-                  <div className="absolute inset-8 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full opacity-80"></div>
+                {/* 3D Model */}
+                <div className="relative w-full max-w-md mx-auto">
+                  <img
+                    src="https://cdn.builder.io/o/assets%2Faedfe5653545446c9fef6ae94da29aea%2F9d51137f52594174a9621536d8129db2?alt=media&token=8ad2fd8f-ccae-4b6e-a86c-6fce01137646&apiKey=aedfe5653545446c9fef6ae94da29aea"
+                    alt="3D AI Model"
+                    className="w-full h-auto object-contain animate-pulse filter drop-shadow-2xl"
+                    style={{
+                      filter: 'drop-shadow(0 0 30px rgba(139, 69, 255, 0.6)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.4))'
+                    }}
+                  />
 
-                  {/* Brain Icon in Center */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Brain className="w-16 h-16 text-white animate-pulse" />
-                  </div>
-
-                  {/* Orbiting Elements */}
-                  <div className="absolute inset-0 animate-spin" style={{animationDuration: '20s'}}>
-                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-purple-400 rounded-full opacity-80"></div>
-                    <div className="absolute top-1/2 -right-2 transform -translate-y-1/2 w-3 h-3 bg-blue-400 rounded-full opacity-60"></div>
-                    <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-5 h-5 bg-cyan-400 rounded-full opacity-70"></div>
-                    <div className="absolute top-1/2 -left-2 transform -translate-y-1/2 w-3 h-3 bg-purple-300 rounded-full opacity-50"></div>
-                  </div>
+                  {/* Glowing effect around model */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
                 </div>
 
-                {/* Circuit Patterns */}
-                <div className="circuit-pattern top-10 -left-20 opacity-30" style={{animationDelay: '0s'}}></div>
-                <div className="circuit-pattern -top-10 right-16 opacity-25" style={{animationDelay: '1s'}}></div>
-                <div className="circuit-pattern -bottom-16 -left-10 opacity-20" style={{animationDelay: '2s'}}></div>
-
-                                {/* Floating Code Elements with Gravity */}
+                {/* Floating Code Elements with Gravity */}
                 <div className="absolute -top-16 -right-8 p-3 bg-black/40 backdrop-blur-sm border border-green-500/30 rounded text-green-400 font-mono text-xs gravity-float">
                   {'{ AI: "active" }'}
                 </div>
@@ -559,7 +548,7 @@ export default function Index() {
                     <div className="absolute top-0 left-0 w-2 h-2 bg-cyan-500 rounded-full animate-bounce"></div>
                   </div>
                   <h3 className="text-xl font-semibold theme-text mb-2">
-                    Basic сайт
+                    Basic сай��
                   </h3>
                   <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
                     2 000 000
