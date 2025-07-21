@@ -467,17 +467,17 @@ export default function Index() {
                 </div>
 
                 {/* Floating Code Elements with Gravity */}
-                <div className="absolute -top-16 -right-8 p-3 bg-black/40 backdrop-blur-sm border border-green-500/30 rounded text-green-400 font-mono text-xs gravity-float">
+                <div className="absolute -top-8 -right-12 p-3 bg-black/40 backdrop-blur-sm border border-green-500/30 rounded text-green-400 font-mono text-xs gravity-float z-40">
                   {'{ AI: "active" }'}
                 </div>
                 <div
-                  className="absolute -bottom-12 -left-16 p-2 bg-black/40 backdrop-blur-sm border border-blue-500/30 rounded text-blue-400 font-mono text-xs gravity-bounce"
+                  className="absolute -bottom-6 -left-12 p-2 bg-black/40 backdrop-blur-sm border border-blue-500/30 rounded text-blue-400 font-mono text-xs gravity-bounce z-40"
                   style={{ animationDelay: "1s" }}
                 >
                   neural.connect()
                 </div>
                 <div
-                  className="absolute top-20 -right-20 p-2 bg-black/40 backdrop-blur-sm border border-purple-500/30 rounded text-purple-400 font-mono text-xs gravity-drift"
+                  className="absolute top-24 -right-16 p-2 bg-black/40 backdrop-blur-sm border border-purple-500/30 rounded text-purple-400 font-mono text-xs gravity-drift z-40"
                   style={{ animationDelay: "2s" }}
                 >
                   ML.process()
