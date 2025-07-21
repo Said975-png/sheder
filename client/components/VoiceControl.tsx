@@ -78,7 +78,7 @@ export default function VoiceControl({
         utterance.pitch = 0.6; // Низкий тон, как у Джарвиса
         utterance.volume = 0.95; // Четкая громкость
 
-        // Получаем список голосов
+        // Получаем список г��лосов
         const voices = speechSynthesis.getVoices();
         console.log(
           "Доступные голоса:",
@@ -173,7 +173,7 @@ export default function VoiceControl({
             utterance.pitch = 0.4;
             utterance.lang = "en-US";
             console.log(
-              "Голос Джарвиса не найден, используется дефолтный с низки�� тоном",
+              "Го��ос Джарвиса не найден, используется дефолтный с низки�� тоном",
             );
           }
         }
@@ -308,9 +308,7 @@ export default function VoiceControl({
       command.includes("помощь") ||
       command.includes("команды")
     ) {
-      speak(
-        "Я умею навигировать по сайту, управлять корзиной, добавлять планы и контролировать функции сайта. Просто дайте мне ком��нду.",
-      );
+      // Показываем доступные команды
       return;
     }
 
@@ -319,16 +317,12 @@ export default function VoiceControl({
       command.includes("какие планы") ||
       command.includes("тарифы")
     ) {
-      speak(
-        "У нас есть три плана: Базовый за 2 миллиона сум, Про с ИИ за 3.5 миллиона, и Максимальный с Джарвисом за 5 миллионов сум.",
-      );
+      // Показываем информацию о планах
       return;
     }
 
     if (command.includes("привет") || command.includes("здравствуй")) {
-      speak(
-        "Добро пожаловать! Я Джарвис, ваш персональный ИИ-помощник. Чем могу помочь?",
-      );
+      // Приветствие
       return;
     }
 
@@ -338,7 +332,6 @@ export default function VoiceControl({
       command.includes("скролл вниз")
     ) {
       window.scrollBy(0, 500);
-      speak("Прокручиваю с��раницу вниз.");
       return;
     }
 
@@ -347,11 +340,10 @@ export default function VoiceControl({
       command.includes("скролл вверх")
     ) {
       window.scrollBy(0, -500);
-      speak("Прокручиваю страницу вверх.");
       return;
     }
 
-    if (command.includes("наверх страницы") || command.includes("в начало")) {
+    if (command.includes("наверх страницы") || command.includes("в ��ачало")) {
       window.scrollTo(0, 0);
       speak("Возвращаемся в начало страницы.");
       return;
