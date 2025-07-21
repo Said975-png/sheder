@@ -49,7 +49,7 @@ export default function Index() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
-    }, 300); // Задержка для боле�� драматичного появления
+    }, 300); // Задержка для более драматичного появления
 
     return () => clearTimeout(timer);
   }, []);
@@ -418,7 +418,7 @@ export default function Index() {
                   className="text-5xl lg:text-7xl font-bold leading-tight hologram-text"
                   data-text="Jarvis - искусственный интеллект для вашего бизнеса"
                 >
-                  Jarvis - искусственный интеллект для вашего бизнеса
+                  Jarvis - искусственный интеллект для вашего ��изнеса
                 </h1>
 
                 <div className="relative p-6 bg-black/20 backdrop-blur-md border border-purple-500/30 rounded-2xl">
@@ -454,7 +454,7 @@ export default function Index() {
 
             {/* Right Side - 3D Model positioned at header level */}
             <div className="flex-shrink-0 w-full md:w-96 h-96 md:-mt-4 lg:-mt-8 xl:-mt-12">
-              <div className="relative w-full h-full">
+              <div className="relative w-full h-full overflow-visible z-30" style={{ padding: '20px' }}>
                 {/* 3D Model */}
                 <div className="relative w-full h-full flex items-center justify-center">
                   <div className="w-full h-full relative">
@@ -629,7 +629,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-blue-400" />
                       </div>
-                      Без искусственного интеллекта
+                      Без искус��твенного интеллекта
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
@@ -711,7 +711,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-orange-400" />
                       </div>
-                      Полный адаптив
+                      Полн��й адаптив
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
@@ -944,7 +944,7 @@ export default function Index() {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
               <div className="relative bg-gradient-to-r from-purple-600/20 to-cyan-600/20 backdrop-blur-lg border border-purple-500/30 rounded-2xl p-8">
                 <h3 className="text-2xl font-bold theme-text mb-4">
-                  Готовы создать что-то невероятное?
+                  Готовы создать что-то н��вероятное?
                 </h3>
                 <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
                   Позвольте нашему ИИ Джарвису стать цифровым помощником вашего
