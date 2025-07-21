@@ -1,84 +1,53 @@
-import { Suspense, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Suspense, useRef, useMemo } from "react";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 
 function Robot() {
   const robotRef = useRef<THREE.Group>(null);
-  const bodyRef = useRef<THREE.Mesh>(null);
-  const headRef = useRef<THREE.Mesh>(null);
 
-  // Auto-rotate and animate the robot
+  // Загружаем новую 3D модель
+  const gltf = useLoader(
+    GLTFLoader,
+    "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2Fc7c8cac50bef4cc4a9a0b4eb2d43d5b5?alt=media&token=e722e790-73f6-4d64-9abd-1a737fad930f&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b"
+  );
+
+  // Оптимизируем модель
+  const model = useMemo(() => {
+    const clonedScene = gltf.scene.clone();
+
+    // Применяем материалы с эффектом свечения
+    clonedScene.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        if (child.material) {
+          // Создаем новый материал с эффектом свечения
+          const material = child.material as THREE.MeshStandardMaterial;
+          material.emissive = new THREE.Color("#4c1d95");
+          material.emissiveIntensity = 0.2;
+          material.metalness = 0.3;
+          material.roughness = 0.4;
+        }
+      }
+    });
+
+    return clonedScene;
+  }, [gltf]);
+
+  // Анимация модели
   useFrame((state) => {
     if (robotRef.current) {
       robotRef.current.rotation.y =
         Math.sin(state.clock.elapsedTime * 0.5) * 0.3;
-    }
-    if (bodyRef.current) {
-      bodyRef.current.scale.y =
-        1 + Math.sin(state.clock.elapsedTime * 2) * 0.05;
-    }
-    if (headRef.current) {
-      headRef.current.rotation.x =
-        Math.sin(state.clock.elapsedTime * 1.5) * 0.1;
+      robotRef.current.scale.setScalar(
+        1 + Math.sin(state.clock.elapsedTime * 2) * 0.02
+      );
     }
   });
 
   return (
-    <group ref={robotRef} position={[0, 0, 0]}>
-      {/* Robot Body */}
-      <mesh ref={bodyRef} position={[0, 0, 0]}>
-        <boxGeometry args={[1.2, 2, 0.8]} />
-        <meshPhongMaterial
-          color="#8b5cf6"
-          transparent
-          opacity={0.9}
-          emissive="#4c1d95"
-          emissiveIntensity={0.2}
-        />
-      </mesh>
-
-      {/* Robot Head */}
-      <mesh ref={headRef} position={[0, 1.5, 0]}>
-        <sphereGeometry args={[0.6, 16, 16]} />
-        <meshPhongMaterial
-          color="#3b82f6"
-          transparent
-          opacity={0.9}
-          emissive="#1e40af"
-          emissiveIntensity={0.3}
-        />
-      </mesh>
-
-      {/* Eyes */}
-      <mesh position={[-0.2, 1.6, 0.5]}>
-        <sphereGeometry args={[0.1, 8, 8]} />
-        <meshBasicMaterial color="#00ff00" />
-      </mesh>
-      <mesh position={[0.2, 1.6, 0.5]}>
-        <sphereGeometry args={[0.1, 8, 8]} />
-        <meshBasicMaterial color="#00ff00" />
-      </mesh>
-
-      {/* Arms */}
-      <mesh position={[-0.8, 0.5, 0]} rotation={[0, 0, Math.PI / 6]}>
-        <cylinderGeometry args={[0.2, 0.2, 1.5]} />
-        <meshPhongMaterial color="#6366f1" />
-      </mesh>
-      <mesh position={[0.8, 0.5, 0]} rotation={[0, 0, -Math.PI / 6]}>
-        <cylinderGeometry args={[0.2, 0.2, 1.5]} />
-        <meshPhongMaterial color="#6366f1" />
-      </mesh>
-
-      {/* Legs */}
-      <mesh position={[-0.3, -1.5, 0]}>
-        <cylinderGeometry args={[0.25, 0.25, 1.5]} />
-        <meshPhongMaterial color="#4338ca" />
-      </mesh>
-      <mesh position={[0.3, -1.5, 0]}>
-        <cylinderGeometry args={[0.25, 0.25, 1.5]} />
-        <meshPhongMaterial color="#4338ca" />
-      </mesh>
+    <group ref={robotRef} position={[0, -1, 0]} scale={[2, 2, 2]}>
+      <primitive object={model} />
     </group>
   );
 }
