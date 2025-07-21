@@ -359,7 +359,7 @@ export default function Index() {
             {/* Left Side - Content */}
             <div className="space-y-10">
               <div className="space-y-8">
-                <h1 className="text-5xl lg:text-7xl font-bold leading-tight hologram-text" data-text="Jarvis - искусственный интеллект ��ля вашего бизнеса">
+                <h1 className="text-5xl lg:text-7xl font-bold leading-tight hologram-text" data-text="Jarvis - искусственный интеллект для вашего бизнеса">
                   Jarvis - искусственный интеллект для вашего бизнеса
                 </h1>
 
@@ -435,8 +435,9 @@ export default function Index() {
         </div>
       </main>
 
-      {/* Features Section */}
-      <section id="features" className="container mx-auto px-6 py-16">
+            {/* Features Section */}
+      <section id="features" className="ai-hero-container py-16 relative">
+        <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Мощные возможности</h2>
           <p className="text-white/60 max-w-2xl mx-auto">
@@ -827,7 +828,7 @@ export default function Index() {
                 <Star className="w-8 h-8 text-yellow-400" />
               </div>
               <h3 className="text-xl font-bold theme-text mb-4">
-                Премиум качество
+                Прем��ум качество
               </h3>
               <p className="theme-text-muted leading-relaxed">
                 Используем только современные технологии и лучшие практики.
@@ -866,7 +867,7 @@ export default function Index() {
               </h3>
               <p className="theme-text-muted leading-relaxed">
                 Внедряем передовые технологии: WebGL, машинное обучение,
-                голосовое управление и AR/VR элементы для максимального
+                голосовое управление и AR/VR эл��менты для максимального
                 wow-эффекта.
               </p>
             </div>
