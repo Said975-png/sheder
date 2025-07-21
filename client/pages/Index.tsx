@@ -49,7 +49,7 @@ export default function Index() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
-    }, 300); // Задержка для более драматичного появления
+    }, 300); // Задержка для боле�� драматичного появления
 
     return () => clearTimeout(timer);
   }, []);
@@ -110,7 +110,7 @@ export default function Index() {
   }
 
   return (
-    <div className="min-h-screen ai-hero-container theme-text overflow-hidden">
+    <div className="min-h-screen ai-hero-container theme-text overflow-x-hidden">
       {/* Header */}
       {/* Oval Navbar */}
       <nav
