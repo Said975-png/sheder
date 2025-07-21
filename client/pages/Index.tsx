@@ -216,7 +216,7 @@ export default function Index() {
                           size="sm"
                           className="flex-1"
                         >
-                          Очистить
+                          Очис��ить
                         </Button>
                         <Button
                           onClick={handleProceedToOrder}
@@ -523,7 +523,8 @@ export default function Index() {
               </div>
               <span className="text-white font-medium">Meta</span>
             </div>
-          </div>
+                    </div>
+        </div>
         </div>
       </section>
 
