@@ -332,9 +332,8 @@ export default function Index() {
               <div className="absolute -top-8 -left-8 w-4 h-4 bg-white rounded-full opacity-60 animate-pulse pointer-events-none"></div>
               <div className="absolute -top-4 right-12 w-3 h-3 bg-purple-400 rounded-full opacity-80 animate-bounce pointer-events-none"></div>
               <div className="absolute bottom-8 -right-12 w-5 h-5 bg-blue-400 rounded-full opacity-70 pointer-events-none"></div>
-                        </div>
+            </div>
           </div>
-        </div>
         </div>
       </main>
 
@@ -343,7 +342,7 @@ export default function Index() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Мощные возможности</h2>
           <p className="text-white/60 max-w-2xl mx-auto">
-            Все инструменты, необходимые для превращения ди��айна в полноценное
+            Все инструменты, необходимые для превращения дизайна в полноценное
             веб-приложение
           </p>
         </div>
@@ -365,7 +364,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">Easy Integration</h3>
             <p className="text-white/60">
-              Простая и��теграция с любыми приложениями и платформами
+              Простая интеграция с любыми приложениями и платформами
             </p>
           </div>
 
@@ -615,7 +614,7 @@ export default function Index() {
                     <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                       <Brain className="w-3 h-3 text-cyan-400" />
                     </div>
-                    ИИ-помо��ник типа Джарвис (голосовой ввод)
+                    ИИ-помощник типа Джарвис (голосовой ввод)
                   </li>
                   <li className="flex items-center theme-text-muted group">
                     <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">

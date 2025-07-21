@@ -345,7 +345,7 @@
     }
   }
 
-  /* Упрощённое энергет��ческое поле */
+  /* Упрощённое энергетическое поле */
   .energy-field {
     position: absolute;
     top: -1px;
@@ -505,7 +505,7 @@
     left: 100%;
   }
 
-    /* Пульсирующие точки */
+  /* Пульсирующие точки */
   .pulse-dot {
     animation: pulseDot 2s ease-in-out infinite;
   }
