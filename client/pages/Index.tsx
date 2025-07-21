@@ -115,20 +115,89 @@ export default function Index() {
           </div>
 
                     <div className="flex items-center space-x-3">
-            {/* Cart Icon */}
-            <div className="relative">
-              <Button
-                variant="ghost"
-                className="theme-button-text p-2 rounded-full hover:bg-white/10"
+                        {/* Cart Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="relative theme-button-text p-2 rounded-full hover:bg-white/10"
+                >
+                  <ShoppingCart className="w-5 h-5" />
+                  {getTotalItems() > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center">
+                      {getTotalItems()}
+                    </span>
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-80 theme-dropdown border mt-2"
               >
-                <ShoppingCart className="w-5 h-5" />
-                {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center">
-                    {getTotalItems()}
-                  </span>
-                )}
-              </Button>
-            </div>
+                <div className="px-3 py-2">
+                  <h3 className="font-semibold theme-text mb-2">Корзина</h3>
+                  {items.length === 0 ? (
+                    <p className="text-sm theme-text-muted text-center py-4">
+                      Корзина пуста
+                    </p>
+                  ) : (
+                    <>
+                      <div className="space-y-2 max-h-60 overflow-y-auto">
+                        {items.map((item) => (
+                          <div
+                            key={item.id}
+                            className="flex items-start justify-between p-2 theme-card-solid rounded-lg"
+                          >
+                            <div className="flex-1">
+                              <h4 className="font-medium text-sm theme-text">
+                                {item.name}
+                              </h4>
+                              <p className="text-xs theme-text-muted mt-1">
+                                {item.description.substring(0, 60)}...
+                              </p>
+                              <p className="text-sm font-semibold theme-text mt-1">
+                                {item.price.toLocaleString()} сум
+                              </p>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => removeItem(item.id)}
+                              className="ml-2 h-6 w-6 p-0 hover:bg-red-500/20"
+                            >
+                              ×
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                      <DropdownMenuSeparator className="bg-border my-3" />
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="font-semibold theme-text">Итого:</span>
+                        <span className="font-bold theme-text">
+                          {getTotalPrice().toLocaleString()} сум
+                        </span>
+                      </div>
+                      <div className="flex space-x-2">
+                        <Button
+                          onClick={clearCart}
+                          variant="outline"
+                          size="sm"
+                          className="flex-1"
+                        >
+                          Очистить
+                        </Button>
+                        <Button
+                          size="sm"
+                          className="flex-1 bg-purple-600 hover:bg-purple-700"
+                        >
+                          Оформить заказ
+                        </Button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <ThemeToggle />
             {isAuthenticated && currentUser ? (
               <DropdownMenu>
