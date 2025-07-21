@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 export default function RobotModel() {
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -12,7 +10,7 @@ export default function RobotModel() {
           className="w-full h-full object-contain"
           style={{
             filter: "drop-shadow(0 0 20px rgba(139, 69, 255, 0.5))",
-            animation: "float 3s ease-in-out infinite"
+            animation: "float 3s ease-in-out infinite",
           }}
         />
       </div>

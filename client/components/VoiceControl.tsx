@@ -38,14 +38,15 @@ export default function VoiceControl({
         // Улучшенные настройки для лучшего распознавания тихих команд
         recognitionRef.current.maxAlternatives = 3;
         // @ts-ignore - эти свойства могут не быть в типах, но работают в браузерах
-        if ('webkitSpeechRecognition' in window) {
-          recognitionRef.current.serviceURI = 'wss://www.google.com/speech-api/full-duplex/v1/up';
+        if ("webkitSpeechRecognition" in window) {
+          recognitionRef.current.serviceURI =
+            "wss://www.google.com/speech-api/full-duplex/v1/up";
         }
 
         recognitionRef.current.onresult = (event) => {
           let finalTranscript = "";
           let interimTranscript = "";
-          
+
           for (let i = event.resultIndex; i < event.results.length; i++) {
             const transcript = event.results[i][0].transcript;
             if (event.results[i].isFinal) {
@@ -63,7 +64,11 @@ export default function VoiceControl({
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
             // Проверяем, что команда отличается от предыдущей и не пустая
-            if (command && command !== lastCommandRef.current && command.length > 2) {
+            if (
+              command &&
+              command !== lastCommandRef.current &&
+              command.length > 2
+            ) {
               setTranscript(finalTranscript);
               lastCommandRef.current = command;
               processVoiceCommand(command);
@@ -91,7 +96,7 @@ export default function VoiceControl({
         recognitionRef.current.onerror = (event) => {
           console.error("Speech recognition error:", event.error);
           // Не отключаем полностью при ошибках, кроме критических
-          if (event.error === 'network' || event.error === 'not-allowed') {
+          if (event.error === "network" || event.error === "not-allowed") {
             setIsListening(false);
           } else {
             // Перезапускаем через короткое время для других ошибок
@@ -119,7 +124,7 @@ export default function VoiceControl({
   const speak = (text: string) => {
     // Предотвращаем повторное воспроизведение
     if (isSpeaking || commandCooldownRef.current) return;
-    
+
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
@@ -158,7 +163,7 @@ export default function VoiceControl({
 
   const speakShutdown = () => {
     if (isSpeaking || commandCooldownRef.current) return;
-    
+
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
@@ -208,7 +213,7 @@ export default function VoiceControl({
 
   const speakWelcomeBack = () => {
     if (isSpeaking || commandCooldownRef.current) return;
-    
+
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
@@ -246,7 +251,7 @@ export default function VoiceControl({
 
   const speakThankYou = () => {
     if (isSpeaking || commandCooldownRef.current) return;
-    
+
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
@@ -284,7 +289,7 @@ export default function VoiceControl({
 
   const speakGoodMorning = () => {
     if (isSpeaking || commandCooldownRef.current) return;
-    
+
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
@@ -316,7 +321,10 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвести аудио утреннего приветствия:", error);
+      console.error(
+        "Не удалось воспроизвести аудио утреннего приветствия:",
+        error,
+      );
     });
   };
 
