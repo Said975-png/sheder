@@ -24,11 +24,12 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <BrowserRouter>
-            <Routes>
+                        <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/order" element={<OrderForm />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
