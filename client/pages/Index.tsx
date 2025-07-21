@@ -424,17 +424,25 @@ export default function Index() {
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/40 to-teal-600/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
 
               <div className="relative z-10">
-                <div className="text-center mb-6">
-                  <div className="text-4xl mb-3">🧠</div>
+                                <div className="text-center mb-6">
+                  <div className="relative mb-4">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-cyan-500/20 to-teal-600/20 rounded-2xl flex items-center justify-center border border-cyan-500/30 relative">
+                      <Brain className="w-8 h-8 text-cyan-400" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-teal-600/10 rounded-2xl animate-pulse"></div>
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-cyan-500 rounded-full animate-pulse"></div>
+                    <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-teal-500 rounded-full animate-ping"></div>
+                    <div className="absolute top-0 left-0 w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
+                  </div>
                   <h3 className="text-xl font-semibold theme-text mb-2">Max сайт с Джарвисом</h3>
-                  <div className="text-3xl font-bold text-cyan-400 mb-1">5 000 000</div>
+                  <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent mb-1">5 000 000</div>
                   <div className="text-sm theme-text-muted">сум</div>
                 </div>
 
                 <ul className="space-y-3 mb-8 text-sm">
                   <li className="flex items-center theme-text-muted">
                     <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3 pulse-dot"></div>
-                    ИИ-помощник типа Джарвис (голосовой ввод)
+                    ИИ-помощник типа Джарвис (голосо��ой ввод)
                   </li>
                   <li className="flex items-center theme-text-muted">
                     <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3 pulse-dot"></div>
