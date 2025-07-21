@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Button } from '@/components/ui/button';
-import { Mic, MicOff, Volume2 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { useCart } from '@/contexts/CartContext';
+import React, { useState, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Mic, MicOff, Volume2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "@/contexts/CartContext";
 
 interface VoiceControlProps {
   onAddBasicPlan: () => void;
@@ -10,33 +10,38 @@ interface VoiceControlProps {
   onAddMaxPlan: () => void;
 }
 
-export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPlan }: VoiceControlProps) {
+export default function VoiceControl({
+  onAddBasicPlan,
+  onAddProPlan,
+  onAddMaxPlan,
+}: VoiceControlProps) {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [transcript, setTranscript] = useState('');
+  const [transcript, setTranscript] = useState("");
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
 
   useEffect(() => {
     // Проверяем поддержку Speech Recognition
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+      const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
       recognitionRef.current = new SpeechRecognition();
-      
+
       if (recognitionRef.current) {
         recognitionRef.current.continuous = true;
         recognitionRef.current.interimResults = true;
-        recognitionRef.current.lang = 'ru-RU';
+        recognitionRef.current.lang = "ru-RU";
 
         recognitionRef.current.onresult = (event) => {
-          let finalTranscript = '';
+          let finalTranscript = "";
           for (let i = event.resultIndex; i < event.results.length; i++) {
             if (event.results[i].isFinal) {
               finalTranscript += event.results[i][0].transcript;
             }
           }
-          
+
           if (finalTranscript) {
             setTranscript(finalTranscript);
             processVoiceCommand(finalTranscript.toLowerCase());
@@ -48,7 +53,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
         };
 
         recognitionRef.current.onerror = (event) => {
-          console.error('Speech recognition error:', event.error);
+          console.error("Speech recognition error:", event.error);
           setIsListening(false);
         };
       }
@@ -62,7 +67,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
   }, []);
 
   const speak = (text: string) => {
-    if ('speechSynthesis' in window) {
+    if ("speechSynthesis" in window) {
       setIsSpeaking(true);
 
       const speakWithVoice = () => {
@@ -75,74 +80,101 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
 
         // Получаем список голосов
         const voices = speechSynthesis.getVoices();
-        console.log('Доступные голоса:', voices.map(v => `${v.name} (${v.lang})`));
+        console.log(
+          "Доступные голоса:",
+          voices.map((v) => `${v.name} (${v.lang})`),
+        );
 
         // Приоритетный поиск голоса Джарвиса
         let selectedVoice = null;
 
         // 1. Ищем британские мужские голоса (как у Джарвиса)
-        const britishMaleVoices = voices.filter(voice => {
+        const britishMaleVoices = voices.filter((voice) => {
           const name = voice.name.toLowerCase();
           const lang = voice.lang.toLowerCase();
-          return (lang.includes('en-gb') || lang.includes('en-uk')) &&
-                 (name.includes('male') || name.includes('daniel') || name.includes('oliver') || name.includes('arthur'));
+          return (
+            (lang.includes("en-gb") || lang.includes("en-uk")) &&
+            (name.includes("male") ||
+              name.includes("daniel") ||
+              name.includes("oliver") ||
+              name.includes("arthur"))
+          );
         });
 
         // 2. Ищем любые английские мужские голоса
-        const englishMaleVoices = voices.filter(voice => {
+        const englishMaleVoices = voices.filter((voice) => {
           const name = voice.name.toLowerCase();
           const lang = voice.lang.toLowerCase();
-          return lang.includes('en') &&
-                 (name.includes('male') ||
-                  name.includes('alex') ||
-                  name.includes('daniel') ||
-                  name.includes('david') ||
-                  name.includes('microsoft david') ||
-                  name.includes('google uk english male'));
+          return (
+            lang.includes("en") &&
+            (name.includes("male") ||
+              name.includes("alex") ||
+              name.includes("daniel") ||
+              name.includes("david") ||
+              name.includes("microsoft david") ||
+              name.includes("google uk english male"))
+          );
         });
 
         // 3. Ищем русские мужские голоса для русского текста
-        const russianMaleVoices = voices.filter(voice => {
+        const russianMaleVoices = voices.filter((voice) => {
           const name = voice.name.toLowerCase();
           const lang = voice.lang.toLowerCase();
-          return lang.includes('ru') &&
-                 !name.includes('female') &&
-                 !name.includes('женский') &&
-                 (name.includes('male') ||
-                  name.includes('мужской') ||
-                  name.includes('pavel') ||
-                  name.includes('александр') ||
-                  name.includes('dmitry'));
+          return (
+            lang.includes("ru") &&
+            !name.includes("female") &&
+            !name.includes("женский") &&
+            (name.includes("male") ||
+              name.includes("мужской") ||
+              name.includes("pavel") ||
+              name.includes("александр") ||
+              name.includes("dmitry"))
+          );
         });
 
         // Выбираем голос в порядке приоритета (русский приоритетнее)
         if (russianMaleVoices.length > 0) {
           selectedVoice = russianMaleVoices[0];
-          utterance.lang = 'ru-RU';
-          console.log('Используется русский мужской голос:', selectedVoice.name);
+          utterance.lang = "ru-RU";
+          console.log(
+            "Используется русский мужской голос:",
+            selectedVoice.name,
+          );
         } else if (britishMaleVoices.length > 0) {
           selectedVoice = britishMaleVoices[0];
-          utterance.lang = 'en-GB';
-          console.log('Используется британский голос Джарвиса:', selectedVoice.name);
+          utterance.lang = "en-GB";
+          console.log(
+            "Используется британский голос Джарвиса:",
+            selectedVoice.name,
+          );
         } else if (englishMaleVoices.length > 0) {
           selectedVoice = englishMaleVoices[0];
-          utterance.lang = 'en-US';
-          console.log('Используется английский мужской голос:', selectedVoice.name);
+          utterance.lang = "en-US";
+          console.log(
+            "Используется английский мужской голос:",
+            selectedVoice.name,
+          );
         } else {
           // Последний шанс - любой мужской голос
-          const anyMaleVoice = voices.find(voice =>
-            voice.name.toLowerCase().includes('male') &&
-            !voice.name.toLowerCase().includes('female')
+          const anyMaleVoice = voices.find(
+            (voice) =>
+              voice.name.toLowerCase().includes("male") &&
+              !voice.name.toLowerCase().includes("female"),
           );
           if (anyMaleVoice) {
             selectedVoice = anyMaleVoice;
             utterance.lang = anyMaleVoice.lang;
-            console.log('Используется запасной мужской голос:', selectedVoice.name);
+            console.log(
+              "Используется запасной мужской голос:",
+              selectedVoice.name,
+            );
           } else {
             // Если ничего не найдено, делаем очень низкий тон
             utterance.pitch = 0.4;
-            utterance.lang = 'en-US';
-            console.log('Голос Джарвиса не найден, используется дефолтный с низким тоном');
+            utterance.lang = "en-US";
+            console.log(
+              "Голос Джарвиса не найден, используется дефолтный с низким тоном",
+            );
           }
         }
 
@@ -163,7 +195,9 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
 
       // Ждем загрузки голосов
       if (speechSynthesis.getVoices().length === 0) {
-        speechSynthesis.addEventListener('voiceschanged', speakWithVoice, { once: true });
+        speechSynthesis.addEventListener("voiceschanged", speakWithVoice, {
+          once: true,
+        });
       } else {
         speakWithVoice();
       }
@@ -171,50 +205,64 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
   };
 
   const processVoiceCommand = (command: string) => {
-    console.log('Обработка команды:', command);
+    console.log("Обработка команды:", command);
 
     // Команды навигации
-    if (command.includes('перейти на главную') || command.includes('на главную страницу') || command.includes('домой')) {
-      navigate('/');
-      speak('Переходим на главную страницу.');
+    if (
+      command.includes("перейти на главную") ||
+      command.includes("на главную страницу") ||
+      command.includes("домой")
+    ) {
+      navigate("/");
+      speak("Переходим на главную страницу.");
       return;
     }
 
-    if (command.includes('войти') || command.includes('логин') || command.includes('авторизация')) {
-      navigate('/login');
-      speak('Открываю страницу входа в систему.');
+    if (
+      command.includes("войти") ||
+      command.includes("логин") ||
+      command.includes("авторизация")
+    ) {
+      navigate("/login");
+      speak("Открываю страницу входа в систему.");
       return;
     }
 
-    if (command.includes('регистрация') || command.includes('зарегистрироваться')) {
-      navigate('/signup');
-      speak('Переходим к регистрации нового пользователя.');
+    if (
+      command.includes("регистрация") ||
+      command.includes("зарегистрироваться")
+    ) {
+      navigate("/signup");
+      speak("Переходим к регистрации нового пользователя.");
       return;
     }
 
-    if (command.includes('профиль') || command.includes('мой профиль')) {
-      navigate('/profile');
-      speak('Открываю настройки вашего профиля.');
+    if (command.includes("профиль") || command.includes("мой профиль")) {
+      navigate("/profile");
+      speak("Открываю настройки вашего профиля.");
       return;
     }
 
-    if (command.includes('заказ') || command.includes('оформить заказ')) {
-      navigate('/order');
-      speak('Переходим к оформлению заказа.');
+    if (command.includes("заказ") || command.includes("оформить заказ")) {
+      navigate("/order");
+      speak("Переходим к оформлению заказа.");
       return;
     }
 
     // Команды корзины
-    if (command.includes('корзина') && command.includes('очистить')) {
+    if (command.includes("корзина") && command.includes("очистить")) {
       clearCart();
-      speak('Корзина очищена.');
+      speak("Корзина очищена.");
       return;
     }
 
-    if (command.includes('что в корзине') || command.includes('показать корзину')) {
+    if (
+      command.includes("что в корзине") ||
+      command.includes("показать корзину")
+    ) {
       const itemsCount = getTotalItems();
       if (itemsCount === 0) {
-        speak('Ваша корзина пуста.');
+        speak("Ваша корзина пуста.");
       } else {
         speak(`В корзине ${itemsCount} товаров.`);
       }
@@ -222,70 +270,103 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
     }
 
     // Команды добавления планов
-    if (command.includes('добавить базовый') || command.includes('базовый план') || command.includes('basic план')) {
+    if (
+      command.includes("добавить базовый") ||
+      command.includes("базовый план") ||
+      command.includes("basic план")
+    ) {
       onAddBasicPlan();
-      speak('Базовый план добавлен в корзину.');
+      speak("Базовый план добавлен в корзину.");
       return;
     }
 
-    if (command.includes('добавить про') || command.includes('про план') || command.includes('pro план')) {
+    if (
+      command.includes("добавить про") ||
+      command.includes("про план") ||
+      command.includes("pro план")
+    ) {
       onAddProPlan();
-      speak('Про план с искусственным интеллектом добавлен в корзину.');
+      speak("Про план с искусственным интеллектом добавлен в корзину.");
       return;
     }
 
-    if (command.includes('добавить макс') || command.includes('макс план') || command.includes('max план') || command.includes('джарвис')) {
+    if (
+      command.includes("добавить макс") ||
+      command.includes("макс план") ||
+      command.includes("max план") ||
+      command.includes("джарвис")
+    ) {
       onAddMaxPlan();
-      speak('Максимальный план с Джарвисом добавлен в корзину.');
+      speak("Максимальный план с Джарвисом добавлен в корзину.");
       return;
     }
 
     // Информационные команды
-    if (command.includes('что ты умеешь') || command.includes('помощь') || command.includes('команды')) {
-      speak('Я умею навигировать по сайту, управлять корзиной, добавлять планы и контролировать функции сайта. Просто дайте мне команду.');
+    if (
+      command.includes("что ты умеешь") ||
+      command.includes("помощь") ||
+      command.includes("команды")
+    ) {
+      speak(
+        "Я умею навигировать по сайту, управлять корзиной, добавлять планы и контролировать функции сайта. Просто дайте мне команду.",
+      );
       return;
     }
 
-    if (command.includes('расскажи о планах') || command.includes('какие планы') || command.includes('тарифы')) {
-      speak('У нас есть три плана: Базовый за 2 миллиона сум, Про с ИИ за 3.5 миллиона, и Максимальный с Джарвисом за 5 миллионов сум.');
+    if (
+      command.includes("расскажи о планах") ||
+      command.includes("какие планы") ||
+      command.includes("тарифы")
+    ) {
+      speak(
+        "У нас есть три плана: Базовый за 2 миллиона сум, Про с ИИ за 3.5 миллиона, и Максимальный с Джарвисом за 5 миллионов сум.",
+      );
       return;
     }
 
-    if (command.includes('привет') || command.includes('здравствуй')) {
-      speak('Добро пожаловать! Я Джарвис, ваш персональный ИИ-помощник. Чем могу помочь?');
+    if (command.includes("привет") || command.includes("здравствуй")) {
+      speak(
+        "Добро пожаловать! Я Джарвис, ваш персональный ИИ-помощник. Чем могу помочь?",
+      );
       return;
     }
 
     // Прокрутка страницы
-    if (command.includes('прокрутить вниз') || command.includes('скролл вниз')) {
+    if (
+      command.includes("прокрутить вниз") ||
+      command.includes("скролл вниз")
+    ) {
       window.scrollBy(0, 500);
-      speak('Прокручиваю страницу вниз.');
+      speak("Прокручиваю страницу вниз.");
       return;
     }
 
-    if (command.includes('прокрутить вверх') || command.includes('скролл вверх')) {
+    if (
+      command.includes("прокрутить вверх") ||
+      command.includes("скролл вверх")
+    ) {
       window.scrollBy(0, -500);
-      speak('Прокручиваю страницу вверх.');
+      speak("Прокручиваю страницу вверх.");
       return;
     }
 
-    if (command.includes('наверх страницы') || command.includes('в начало')) {
+    if (command.includes("наверх страницы") || command.includes("в начало")) {
       window.scrollTo(0, 0);
-      speak('Возвращаемся в начало страницы.');
+      speak("Возвращаемся в начало страницы.");
       return;
     }
 
-    if (command.includes('к планам') || command.includes('показать планы')) {
+    if (command.includes("к планам") || command.includes("показать планы")) {
       const pricingSection = document.querySelector('[data-section="pricing"]');
       if (pricingSection) {
-        pricingSection.scrollIntoView({ behavior: 'smooth' });
-        speak('Показываю тарифные планы.');
+        pricingSection.scrollIntoView({ behavior: "smooth" });
+        speak("Показываю тарифные планы.");
       }
       return;
     }
 
     // Если команда не распознана
-    speak('Извините, я не понял команду. Попробуйте переформулировать.');
+    speak("Извините, я не понял команду. Попробуйте переформулировать.");
   };
 
   const toggleListening = () => {
@@ -294,7 +375,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
       setIsListening(false);
     } else {
       if (recognitionRef.current) {
-        setTranscript('');
+        setTranscript("");
         recognitionRef.current.start();
         setIsListening(true);
       }
@@ -310,15 +391,15 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
             {transcript}
           </div>
         )}
-        
+
         {/* Voice control button */}
         <Button
           onClick={toggleListening}
           className={`w-14 h-14 rounded-full p-0 transition-all duration-300 ${
             isListening
-              ? 'bg-red-500 hover:bg-red-600 animate-pulse'
-              : 'bg-purple-600 hover:bg-purple-700'
-          } ${isSpeaking ? 'ring-4 ring-blue-400/50' : ''}`}
+              ? "bg-red-500 hover:bg-red-600 animate-pulse"
+              : "bg-purple-600 hover:bg-purple-700"
+          } ${isSpeaking ? "ring-4 ring-blue-400/50" : ""}`}
           disabled={isSpeaking}
         >
           {isSpeaking ? (
@@ -332,7 +413,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
 
         {/* Status indicator */}
         <div className="text-xs text-white/60 text-center">
-          {isSpeaking ? 'Говорю...' : isListening ? 'Слушаю...' : 'ДЖАРВИС'}
+          {isSpeaking ? "Говорю..." : isListening ? "Слушаю..." : "ДЖАРВИС"}
         </div>
       </div>
 
