@@ -23,7 +23,7 @@ export default function VoiceControl({
   const { getTotalItems, clearCart } = useCart();
 
   useEffect(() => {
-    // Пр��веряем поддержку Speech Recognition
+    // Проверяем поддержку Speech Recognition
     if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
       const SpeechRecognition =
         window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -95,7 +95,7 @@ export default function VoiceControl({
 
     audio.onended = () => {
       setIsSpeaking(false);
-      // После окончания аудио отклю��аем микрофон
+      // После окончания аудио отключаем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
@@ -123,6 +123,27 @@ export default function VoiceControl({
       setIsListening(false);
       setTranscript("");
       console.error("Не удалось воспроизвести аудио отключения:", error);
+    });
+  };
+
+  const speakWelcomeBack = () => {
+    setIsSpeaking(true);
+
+    // Создаем и воспроизводим аудио для команды "Джарвис я вернулся"
+    const audio = new Audio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c");
+
+    audio.onended = () => {
+      setIsSpeaking(false);
+    };
+
+    audio.onerror = () => {
+      setIsSpeaking(false);
+      console.error("Ошибка воспроизведения аудио приветствия");
+    };
+
+    audio.play().catch((error) => {
+      setIsSpeaking(false);
+      console.error("Не удалось воспроизвести аудио приветствия:", error);
     });
   };
 
@@ -204,7 +225,7 @@ export default function VoiceControl({
         }
       }
 
-      // Если ничего не найдено, выполняем запасное действие
+      // Если ничего не найдено, выполняем з��пасное действие
       if (fallbackAction) {
         fallbackAction();
         return true;
@@ -215,7 +236,7 @@ export default function VoiceControl({
 
     // Универсальные команды поиска
     if (
-      command.includes("покаж��") ||
+      command.includes("покажи") ||
       command.includes("найди") ||
       command.includes("где") ||
       command.includes("перейди к") ||
@@ -243,7 +264,7 @@ export default function VoiceControl({
 
       // Поиск планов и тарифов
       if (command.includes("план") || command.includes("тариф") || command.includes("цен") || command.includes("стоимость")) {
-        found = searchAndNavigate(["план", "тариф", "цен", "pricing"], () => {
+        found = searchAndNavigate(["пл��н", "тариф", "цен", "pricing"], () => {
           const pricingSection = document.querySelector('[data-section="pricing"]');
           if (pricingSection) {
             pricingSection.scrollIntoView({ behavior: "smooth" });
@@ -300,7 +321,7 @@ export default function VoiceControl({
         }
       }
 
-      // Если ничего специфичного не найдено, попробуем общий поиск
+      // Если ничего с��ецифичного не найдено, попробуем общий поиск
       if (!found) {
         const searchTerms = command.split(' ').filter(word => word.length > 2);
         found = searchAndNavigate(searchTerms);
