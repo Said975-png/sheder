@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import RobotModel from "@/components/RobotModel";
+
 import VoiceControl from "@/components/VoiceControl";
 import {
   Shield,
@@ -74,7 +74,7 @@ export default function Index() {
   const handleAddProPlan = () => {
     addItem({
       id: "pro-plan",
-      name: "Pro сайт с ИИ",
+      name: "Pro сайт с ��И",
       price: 3500000,
       description:
         "ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация",
@@ -831,7 +831,7 @@ export default function Index() {
             </h2>
             <p className="text-lg theme-text-muted max-w-3xl mx-auto">
               Мы создаем не просто сайты — мы разрабатываем и��теллектуальные
-              реше��ия, которые работают как ваш персональный ИИ-помощник
+              реше��ия, которые работают как ваш пер��ональный ИИ-помощник
             </p>
           </div>
 
@@ -843,7 +843,7 @@ export default function Index() {
                   <Rocket className="w-8 h-8 text-purple-400" />
                 </div>
                 <h3 className="text-xl font-bold theme-text mb-4">
-                  Молниеносная разработка
+                  Молниеносная р��зработка
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
                   Создаем полноценные сайты в 3-5 раз быстрее благодаря нашим
@@ -954,7 +954,7 @@ export default function Index() {
                   Готовы создать что-то невероятное?
                 </h3>
                 <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
-                  Позвольте нашему ИИ Джарвису стать цифровым помощником вашего
+                  Позвольте наш��му ИИ Джарвису стать цифровым помощником вашего
                   бизнеса. Начнем разработку уже сегодня!
                 </p>
                 <Button
