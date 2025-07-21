@@ -67,60 +67,94 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
 
       const speakWithVoice = () => {
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'ru-RU';
-        utterance.rate = 0.75; // Медленнее для более роботичного звучания
-        utterance.pitch = 0.7; // Более низкий тон
-        utterance.volume = 0.9;
+
+        // Настройки голоса Джарвиса
+        utterance.rate = 0.85; // Спокойная, уверенная речь
+        utterance.pitch = 0.6; // Низкий тон, как у Джарвиса
+        utterance.volume = 0.95; // Четкая громкость
 
         // Получаем список голосов
         const voices = speechSynthesis.getVoices();
+        console.log('Доступные голоса:', voices.map(v => `${v.name} (${v.lang})`));
 
-        // Строго ищем только мужские голоса, исключаем все женские
-        const maleVoices = voices.filter(voice => {
+        // Приоритетный поиск голоса Джарвиса
+        let selectedVoice = null;
+
+        // 1. Ищем британские мужские голоса (как у Джарвиса)
+        const britishMaleVoices = voices.filter(voice => {
           const name = voice.name.toLowerCase();
-          const isRussian = voice.lang.includes('ru') || voice.lang.includes('RU');
-
-          // Исключаем все женские голоса
-          const isFemale = name.includes('female') ||
-                          name.includes('женский') ||
-                          name.includes('елена') ||
-                          name.includes('анна') ||
-                          name.includes('ирина') ||
-                          name.includes('maria') ||
-                          name.includes('татьяна') ||
-                          name.includes('светлана') ||
-                          name.includes('kate') ||
-                          name.includes('alice') ||
-                          name.includes('siri') ||
-                          name.includes('milena') ||
-                          name.includes('alena');
-
-          // Ищем мужские голоса
-          const isMale = name.includes('male') ||
-                        name.includes('мужской') ||
-                        name.includes('pavel') ||
-                        name.includes('александр') ||
-                        name.includes('dmitry') ||
-                        name.includes('андрей') ||
-                        name.includes('михаил') ||
-                        name.includes('viktor') ||
-                        name.includes('sergey') ||
-                        name.includes('alexey');
-
-          return isRussian && !isFemale && (isMale || (!name.includes('female') && !name.includes('женский')));
+          const lang = voice.lang.toLowerCase();
+          return (lang.includes('en-gb') || lang.includes('en-uk')) &&
+                 (name.includes('male') || name.includes('daniel') || name.includes('oliver') || name.includes('arthur'));
         });
 
-        // Используем первый найденный мужской голос или дефолтный с низким тоном
-        if (maleVoices.length > 0) {
-          utterance.voice = maleVoices[0];
-          console.log('Используется голос:', maleVoices[0].name);
+        // 2. Ищем любые английские мужские голоса
+        const englishMaleVoices = voices.filter(voice => {
+          const name = voice.name.toLowerCase();
+          const lang = voice.lang.toLowerCase();
+          return lang.includes('en') &&
+                 (name.includes('male') ||
+                  name.includes('alex') ||
+                  name.includes('daniel') ||
+                  name.includes('david') ||
+                  name.includes('microsoft david') ||
+                  name.includes('google uk english male'));
+        });
+
+        // 3. Ищем русские мужские голоса для русского текста
+        const russianMaleVoices = voices.filter(voice => {
+          const name = voice.name.toLowerCase();
+          const lang = voice.lang.toLowerCase();
+          return lang.includes('ru') &&
+                 !name.includes('female') &&
+                 !name.includes('женский') &&
+                 (name.includes('male') ||
+                  name.includes('мужской') ||
+                  name.includes('pavel') ||
+                  name.includes('александр') ||
+                  name.includes('dmitry'));
+        });
+
+        // Выбираем голос в порядке приоритета
+        if (britishMaleVoices.length > 0) {
+          selectedVoice = britishMaleVoices[0];
+          utterance.lang = 'en-GB';
+          console.log('Используется британский голос Джарвиса:', selectedVoice.name);
+        } else if (englishMaleVoices.length > 0) {
+          selectedVoice = englishMaleVoices[0];
+          utterance.lang = 'en-US';
+          console.log('Используется английский мужской голос:', selectedVoice.name);
+        } else if (russianMaleVoices.length > 0) {
+          selectedVoice = russianMaleVoices[0];
+          utterance.lang = 'ru-RU';
+          console.log('Используется русский мужской голос:', selectedVoice.name);
         } else {
-          // Если мужских голосов не найдено, используем дефолтный с очень низким тоном
-          utterance.pitch = 0.5;
-          console.log('Мужские голоса не найдены, используется дефолтный с низким тоном');
+          // Последний шанс - любой мужской голос
+          const anyMaleVoice = voices.find(voice =>
+            voice.name.toLowerCase().includes('male') &&
+            !voice.name.toLowerCase().includes('female')
+          );
+          if (anyMaleVoice) {
+            selectedVoice = anyMaleVoice;
+            utterance.lang = anyMaleVoice.lang;
+            console.log('Используется запасной мужской голос:', selectedVoice.name);
+          } else {
+            // Если ничего не найдено, делаем очень низкий тон
+            utterance.pitch = 0.4;
+            utterance.lang = 'en-US';
+            console.log('Голос Джарвиса не найден, используется дефолтный с низким тоном');
+          }
+        }
+
+        if (selectedVoice) {
+          utterance.voice = selectedVoice;
         }
 
         utterance.onend = () => {
+          setIsSpeaking(false);
+        };
+
+        utterance.onerror = () => {
           setIsSpeaking(false);
         };
 
@@ -193,7 +227,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
       return;
     }
 
-    if (command.includes('прокрутить вверх') || command.includes('скролл вверх')) {
+    if (command.includes('п��окрутить вверх') || command.includes('скролл вверх')) {
       window.scrollBy(0, -500);
       return;
     }
