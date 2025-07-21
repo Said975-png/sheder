@@ -394,18 +394,30 @@ export default function Index() {
             <div className="relative h-[500px] md:h-[600px] flex items-center justify-center">
               <div className="relative">
                 {/* 3D Model */}
-                <div className="relative w-full max-w-md mx-auto">
+                <div className="relative w-96 h-96 mx-auto flex items-center justify-center">
                   <img
                     src="https://cdn.builder.io/o/assets%2Faedfe5653545446c9fef6ae94da29aea%2F9d51137f52594174a9621536d8129db2?alt=media&token=8ad2fd8f-ccae-4b6e-a86c-6fce01137646&apiKey=aedfe5653545446c9fef6ae94da29aea"
                     alt="3D AI Model"
-                    className="w-full h-auto object-contain animate-pulse filter drop-shadow-2xl"
+                    className="max-w-full max-h-full object-contain z-10 relative"
                     style={{
-                      filter: 'drop-shadow(0 0 30px rgba(139, 69, 255, 0.6)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.4))'
+                      filter: 'drop-shadow(0 0 30px rgba(139, 69, 255, 0.8)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.6))',
+                      minHeight: '300px',
+                      minWidth: '300px'
+                    }}
+                    onError={(e) => {
+                      console.log('Image failed to load:', e);
+                      e.currentTarget.style.display = 'block';
+                    }}
+                    onLoad={(e) => {
+                      console.log('Image loaded successfully:', e);
                     }}
                   />
 
                   {/* Glowing effect around model */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
+
+                  {/* Additional glow layers */}
+                  <div className="absolute inset-4 bg-gradient-to-r from-purple-400/20 to-cyan-400/20 rounded-full blur-2xl animate-ping"></div>
                 </div>
 
                 {/* Floating Code Elements with Gravity */}
@@ -861,7 +873,7 @@ export default function Index() {
                 Инновационные решения
               </h3>
               <p className="theme-text-muted leading-relaxed">
-                Внедряем передовые технологии: WebGL, машинное ��бучение,
+                В��едряем передовые технологии: WebGL, машинное ��бучение,
                 голосовое управление и AR/VR эл��менты для максимального
                 wow-эффекта.
               </p>
@@ -880,7 +892,7 @@ export default function Index() {
               </h3>
               <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
                 Позвольте нашему ИИ Джарвису стать цифровым помощником вашего
-                бизнеса. Начнем разработку уже сегодня!
+                би��неса. Начнем разработку уже сегодня!
               </p>
               <Button
                 onClick={() =>
