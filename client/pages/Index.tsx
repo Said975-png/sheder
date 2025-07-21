@@ -16,7 +16,8 @@ import {
 
 export default function Index() {
   const { currentUser, logout, isAuthenticated, loading } = useAuth();
-      const { getTotalItems, addItem, items, removeItem, getTotalPrice, clearCart } = useCart();
+            const { getTotalItems, addItem, items, removeItem, getTotalPrice, clearCart } = useCart();
+  const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
 
   // Запуск анимации при загрузке компонента
