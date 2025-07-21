@@ -4,7 +4,7 @@ import { OrbitControls } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 
-// Fallback робот из геометрических фигур
+// Fallback робот из г��ометрических фигур
 function SimpleRobot() {
   const robotRef = useRef<THREE.Group>(null);
   const bodyRef = useRef<THREE.Mesh>(null);
@@ -176,16 +176,31 @@ function Robot() {
   );
 }
 
+// THREE.js совместимый fallback
 function LoadingFallback() {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 2) * 0.1;
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.5;
+      meshRef.current.scale.setScalar(1 + Math.sin(state.clock.elapsedTime * 3) * 0.1);
+    }
+  });
+
   return (
-    <div className="flex items-center justify-center h-full">
-      <div className="text-center text-white/60">
-        <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center animate-pulse">
-          <span className="text-2xl">🤖</span>
-        </div>
-        <p className="text-sm">Loading 3D Model...</p>
-      </div>
-    </div>
+    <group>
+      <mesh ref={meshRef}>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshPhongMaterial
+          color="#8b5cf6"
+          emissive="#4c1d95"
+          emissiveIntensity={0.3}
+          transparent
+          opacity={0.8}
+        />
+      </mesh>
+    </group>
   );
 }
 
