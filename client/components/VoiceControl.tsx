@@ -66,13 +66,35 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
       setIsSpeaking(true);
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'ru-RU';
-      utterance.rate = 0.9;
-      utterance.pitch = 1;
-      
+      utterance.rate = 0.75; // Медленнее для более роботичного звучания
+      utterance.pitch = 0.7; // Более низкий тон
+      utterance.volume = 0.9;
+
+      // Попробуем найти мужской голос
+      const voices = speechSynthesis.getVoices();
+      const russianVoices = voices.filter(voice =>
+        voice.lang.includes('ru') &&
+        (voice.name.toLowerCase().includes('male') ||
+         voice.name.toLowerCase().includes('мужской') ||
+         voice.name.toLowerCase().includes('russian male') ||
+         voice.name.toLowerCase().includes('pavel') ||
+         voice.name.toLowerCase().includes('александр'))
+      );
+
+      if (russianVoices.length > 0) {
+        utterance.voice = russianVoices[0];
+      } else {
+        // Если нет специального мужского голоса, выберем первый русский
+        const anyRussianVoice = voices.find(voice => voice.lang.includes('ru'));
+        if (anyRussianVoice) {
+          utterance.voice = anyRussianVoice;
+        }
+      }
+
       utterance.onend = () => {
         setIsSpeaking(false);
       };
-      
+
       speechSynthesis.speak(utterance);
     }
   };
@@ -105,7 +127,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
       return;
     }
 
-    if (command.includes('заказ') || command.includes('оформить заказ')) {
+    if (command.includes('зак��з') || command.includes('оформить заказ')) {
       navigate('/order');
       speak('Переходим к оформлению заказа');
       return;
