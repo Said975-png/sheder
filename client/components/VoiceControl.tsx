@@ -117,7 +117,11 @@ export default function VoiceControl({
   }, []);
 
   const speak = (text: string) => {
+    // Предотвращаем повторное воспроизведение
+    if (isSpeaking || commandCooldownRef.current) return;
+
     setIsSpeaking(true);
+    commandCooldownRef.current = true;
 
     // Создаем и воспроизводим ваш новый аудио-файл
     const audio = new Audio(
@@ -229,7 +233,7 @@ export default function VoiceControl({
   const speakGoodMorning = () => {
     setIsSpeaking(true);
 
-    // Создаем и воспроизводим аудио для утреннего приветствия
+    // Создаем и воспроизводим аудио для утреннег�� приветствия
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -482,7 +486,7 @@ export default function VoiceControl({
     ) {
       let found = false;
 
-      // Поиск преимуществ
+      // Поиск пре��муществ
       if (
         command.includes("преимущества") ||
         command.includes("преимущество")
@@ -654,7 +658,7 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Открываю страницу входа");
+      speak("Открываю страницу вхо��а");
       return;
     }
 
