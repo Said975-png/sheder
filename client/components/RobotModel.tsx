@@ -23,7 +23,7 @@ function Robot() {
 
   return (
     <group ref={robotRef}>
-      <primitive object={gltf.scene} scale={[2, 2, 2]} position={[0, -1, 0]} />
+      <primitive object={gltf.scene} scale={[3, 3, 3]} position={[0, 0.5, 0]} />
     </group>
   );
 }
