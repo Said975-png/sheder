@@ -298,10 +298,15 @@ export default function Index() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/40 to-purple-600/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
 
               <div className="relative z-10">
-                <div className="text-center mb-6">
-                  <div className="text-4xl mb-3">💼</div>
-                  <h3 className="text-xl font-semibold theme-text mb-2">Basik сайт</h3>
-                  <div className="text-3xl font-bold text-blue-400 mb-1">2 000 000</div>
+                                <div className="text-center mb-6">
+                  <div className="relative mb-4">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center border border-blue-500/30">
+                      <Code className="w-8 h-8 text-blue-400" />
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full animate-pulse"></div>
+                  </div>
+                  <h3 className="text-xl font-semibold theme-text mb-2">Basic сайт</h3>
+                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">2 000 000</div>
                   <div className="text-sm theme-text-muted">сум</div>
                 </div>
 
