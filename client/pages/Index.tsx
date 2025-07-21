@@ -161,8 +161,8 @@ export default function Index() {
           {/* Left Side - Content */}
           <div className="space-y-8">
             <div className="space-y-6">
-              <h1 className="text-5xl lg:text-6xl font-bold leading-tight theme-text">
-                Jarvis - искусств��нный интеллект для вашего бизнеса
+                            <h1 className="text-5xl lg:text-6xl font-bold leading-tight theme-text">
+                Jarvis - искусственный интеллект для вашего бизнеса
               </h1>
 
               <p className="text-lg theme-text-muted max-w-md">
@@ -207,7 +207,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">AI Detection</h3>
             <p className="text-white/60">
-              Передовые алгоритмы для обнаружения ботов и автоматических систем
+              Передовые алгоритмы для обнаружения бото�� и автоматических систем
             </p>
           </div>
 
