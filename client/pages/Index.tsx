@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Shield, User, LogOut, Settings, Code, Cpu, Brain, Zap, CheckCircle } from "lucide-react";
+import { Shield, User, LogOut, Settings, Code, Cpu, Brain, Zap, CheckCircle, ShoppingCart } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import {
