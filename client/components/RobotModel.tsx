@@ -117,68 +117,25 @@ function LoadingFallback() {
 }
 
 export default function RobotModel() {
-  const [hasError, setHasError] = useState(false);
-
-  if (hasError) {
-    return (
-      <div className="w-full h-full flex items-center justify-center">
-        <div className="text-center text-white/60">
-          <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center animate-pulse">
-            <span className="text-2xl">🤖</span>
-          </div>
-          <p className="text-sm">3D Model Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="w-full h-full">
-      <Canvas
-        camera={{ position: [0, 0, 6], fov: 45 }}
-        style={{ background: "transparent" }}
-        onError={(error) => {
-          console.warn("Canvas error:", error);
-          setHasError(true);
-        }}
-        gl={{ antialias: true, alpha: true }}
-        onCreated={({ gl }) => {
-          gl.setClearColor(0x000000, 0);
-        }}
-      >
-        <Suspense fallback={<LoadingFallback />}>
-          {/* Оптимизированное освещение */}
-          <ambientLight intensity={0.6} />
-          <directionalLight
-            position={[10, 10, 5]}
-            intensity={1.2}
-            color="#ffffff"
-            castShadow
-          />
-          <directionalLight
-            position={[-10, -10, -5]}
-            intensity={0.4}
-            color="#8b5cf6"
-          />
-          <pointLight position={[0, 0, 3]} intensity={0.8} color="#3b82f6" />
-          <pointLight position={[2, 2, 2]} intensity={0.3} color="#10b981" />
-
-          {/* 3D модель с fallback */}
-          <Robot />
-
-          {/* Контролы */}
-          <OrbitControls
-            enablePan={false}
-            enableZoom={true}
-            minDistance={3}
-            maxDistance={8}
-            autoRotate={true}
-            autoRotateSpeed={0.8}
-            enableDamping={true}
-            dampingFactor={0.05}
-          />
-        </Suspense>
-      </Canvas>
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="relative w-full h-full max-w-md max-h-md">
+        <img
+          src="https://cdn.builder.io/api/v1/image/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F0bb627ffa5ae4abe9db93059f069a7e4?format=webp&width=800"
+          alt="Jarvis Robot"
+          className="w-full h-full object-contain animate-pulse"
+          style={{
+            filter: "drop-shadow(0 0 20px rgba(139, 69, 255, 0.5))",
+            animation: "float 3s ease-in-out infinite"
+          }}
+        />
+        <style jsx>{`
+          @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+          }
+        `}</style>
+      </div>
     </div>
   );
 }
