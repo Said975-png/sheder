@@ -193,7 +193,7 @@ export default function Index() {
       {/* Features Section */}
       <section id="features" className="container mx-auto px-6 py-16">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Мощные воз��ожности</h2>
+                    <h2 className="text-3xl font-bold mb-4">Мощные возможности</h2>
           <p className="text-white/60 max-w-2xl mx-auto">
             Все инструменты, необходимые для превращения дизайна в полноценное
             веб-приложение
