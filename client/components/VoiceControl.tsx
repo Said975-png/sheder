@@ -284,7 +284,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось восп��оизвести аудио благодарности:", error);
+      console.error("Не удалось восп��оизвести ��удио благодарности:", error);
     });
   };
 
@@ -323,13 +323,13 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка воспроизведения аудио утреннего при��е��ствия");
+      console.error("Ошибка воспроизведения аудио утреннего при��етствия");
     };
 
     audio.play().catch((error) => {
       resetState();
       console.error(
-        "Не удалось воспроизвести аудио утреннего приветс��вия:",
+        "Не удалось воспроизвести аудио утреннего приветствия:",
         error,
       );
     });
@@ -437,33 +437,61 @@ export default function VoiceControl({
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance("у меня все в порядке сэр");
 
-      // Настройки для мужского голоса в стиле Джарвиса
-      utterance.lang = 'ru-RU';
-      utterance.rate = 0.85; // Медленнее и увереннее, как Джарвис
-      utterance.pitch = 0.6; // Значительно ниже для мужского голоса
-      utterance.volume = 0.9;
+      // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
+      // Stability: 20 (низкая стабильность для более естественной речи)
+      // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
+      // Style: Assistant/Narration (помощник/повествование)
 
-      // Попытаемся найти мужской голос
+      utterance.lang = 'en-US'; // Английский для лучшего качества, потом переключим на русский
+      utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
+      utterance.pitch = 0.7; // Средне-низкий тон для авторитетности
+      utterance.volume = 0.95; // Четкая, но не резкая громкость
+
+      // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
-      const maleVoice = voices.find(voice =>
-        (voice.lang.includes('ru') || voice.lang.includes('en')) &&
+
+      // Приоритет: голоса, похожие на британский/американский мужской
+      const jarvisLikeVoice = voices.find(voice =>
+        voice.lang.includes('en') &&
+        (voice.name.toLowerCase().includes('alex') ||
+         voice.name.toLowerCase().includes('daniel') ||
+         voice.name.toLowerCase().includes('male') ||
+         voice.name.toLowerCase().includes('british') ||
+         voice.name.toLowerCase().includes('uk') ||
+         voice.name.toLowerCase().includes('david') ||
+         voice.name.toLowerCase().includes('thomas'))
+      );
+
+      // Если не нашли подходящий английский, ищем русский мужской
+      const russianMaleVoice = voices.find(voice =>
+        voice.lang.includes('ru') &&
         (voice.name.toLowerCase().includes('male') ||
          voice.name.toLowerCase().includes('мужской') ||
-         voice.name.toLowerCase().includes('alex') ||
-         voice.name.toLowerCase().includes('daniel') ||
          voice.name.toLowerCase().includes('антон') ||
          voice.name.toLowerCase().includes('николай'))
       );
 
-      if (maleVoice) {
-        utterance.voice = maleVoice;
+      if (jarvisLikeVoice) {
+        utterance.voice = jarvisLikeVoice;
+        utterance.lang = 'en-US';
+        // Для английского голоса переводим фразу
+        utterance.text = "Everything is in order, Sir";
+      } else if (russianMaleVoice) {
+        utterance.voice = russianMaleVoice;
+        utterance.lang = 'ru-RU';
+        utterance.pitch = 0.6; // Чуть ниже для русского голоса
       } else {
-        // Если мужской голос не найден, используем первый доступный голос с низким тоном
-        const anyVoice = voices.find(voice => voice.lang.includes('ru') || voice.lang.includes('en'));
+        // Fallback: любой доступный голос с оптимизированными настройками
+        const anyVoice = voices.find(voice => voice.lang.includes('en') || voice.lang.includes('ru'));
         if (anyVoice) {
           utterance.voice = anyVoice;
+          if (anyVoice.lang.includes('en')) {
+            utterance.text = "Everything is in order, Sir";
+            utterance.lang = 'en-US';
+          }
         }
-        utterance.pitch = 0.5; // Еще ниже, если не нашли мужской голо��
+        utterance.pitch = 0.55; // Еще ниже для компенсации
+        utterance.rate = 0.7; // Еще медленнее для большей солидности
       }
 
       const resetState = () => {
@@ -663,7 +691,7 @@ export default function VoiceControl({
       "профиль",
       "заказ",
       "корзина",
-      "добав��ть",
+      "добавить",
       "план",
       "д��арвис",
       "базовый",
@@ -848,7 +876,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate(["возможности", "мощные", "features"]);
         if (found) {
-          speak("Показываю возмо��ности");
+          speak("Показываю возможности");
           return;
         }
       }
@@ -889,7 +917,7 @@ export default function VoiceControl({
 
       // Поиск контактов
       if (
-        command.includes("конта��т") ||
+        command.includes("контакт") ||
         command.includes("связь") ||
         command.includes("телефон") ||
         command.includes("email")
@@ -907,7 +935,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск технологий
+      // П��иск технологий
       if (
         command.includes("технолог") ||
         command.includes("webgl") ||
@@ -981,7 +1009,7 @@ export default function VoiceControl({
 
     // Команды навигации по страницам
     if (
-      command.includes("��ерейти на главную") ||
+      command.includes("перейти на главную") ||
       command.includes("на главную страницу") ||
       command.includes("домо��")
     ) {
@@ -1076,7 +1104,7 @@ export default function VoiceControl({
       command.includes("добавить макс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
-      command.includes("джарвис план") ||
+      command.includes("джа��вис план") ||
       command.includes("макс в ��орзину") ||
       command.includes("отправить макс")
     ) {
@@ -1135,7 +1163,7 @@ export default function VoiceControl({
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
       command.includes("перейти к возможностям") ||
-      command.includes("��озможности")
+      command.includes("возможности")
     ) {
       const found = searchAndNavigate(
         ["возможности", "мощные", "features"],
