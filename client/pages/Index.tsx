@@ -84,7 +84,7 @@ export default function Index() {
   const handleAddMaxPlan = () => {
     addItem({
       id: "max-plan",
-      name: "Max сайт с Джарвисом",
+      name: "Max с��йт с Джарвисом",
       price: 5000000,
       description:
         "ИИ-помощник типа Джарвис, интеграция с API, технологии нового покол��ния, WebGL и AI интерфейс",
@@ -410,9 +410,9 @@ export default function Index() {
         ></div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             {/* Left Side - Content */}
-            <div className="space-y-10">
+            <div className="flex-1 space-y-10">
               <div className="space-y-8">
                 <h1
                   className="text-5xl lg:text-7xl font-bold leading-tight hologram-text"
@@ -452,11 +452,11 @@ export default function Index() {
               </div>
             </div>
 
-            {/* Right Side - 3D Model */}
-            <div className="relative h-[500px] md:h-[600px] flex items-center justify-center">
-              <div className="relative">
+            {/* Right Side - 3D Model positioned at header level */}
+            <div className="flex-shrink-0 w-full md:w-96 h-96 md:mt-8 lg:mt-4 xl:mt-0">
+              <div className="relative w-full h-full">
                 {/* 3D Model */}
-                <div className="relative w-96 h-96 mx-auto flex items-center justify-center">
+                <div className="relative w-full h-full flex items-center justify-center">
                   <div className="w-full h-full relative">
                     <RobotModel />
 
@@ -506,7 +506,7 @@ export default function Index() {
               </div>
               <h3 className="text-lg font-semibold mb-2">AI Detection</h3>
               <p className="text-white/60">
-                Передовые алгоритмы для обнаружения ботов и автоматических
+                Передовые алгоритмы для обнаруж��ния ботов и автоматических
                 систем
               </p>
             </div>
@@ -786,7 +786,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                         <Cpu className="w-3 h-3 text-cyan-400" />
                       </div>
-                      Технологии нового поколения
+                      Технол��гии нового поколения
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
