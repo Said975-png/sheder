@@ -323,7 +323,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка воспроизведения аудио утреннего приветствия");
+      console.error("Ошибка воспроизведения аудио утреннего при��етствия");
     };
 
     audio.play().catch((error) => {
@@ -369,7 +369,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвести аудио ответа:", error);
+      console.error("Не удалось воспроизвести аудио ��твета:", error);
     });
   };
 
@@ -450,6 +450,28 @@ export default function VoiceControl({
       return;
     }
 
+    // Команды для оригинального голоса Джарвиса (из фильма)
+    if (
+      command.includes("оригинальный джарвис") ||
+      command.includes("настоящий джарвис") ||
+      command.includes("джарвис как в фильме") ||
+      command.includes("железный человек") ||
+      command.includes("tony stark") ||
+      command.includes("тони старк") ||
+      command.includes("authentic jarvis") ||
+      command.includes("real jarvis") ||
+      command.includes("movie jarvis") ||
+      command.includes("джарвис из железного человека") ||
+      command.includes("голос джарвиса") ||
+      command.includes("оригинал") ||
+      command.includes("как в марвел")
+    ) {
+      if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
+        speakAuthenticJarvis();
+      }
+      return;
+    }
+
     // Команда утреннего приветствия "Доброе утро Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
@@ -515,7 +537,7 @@ export default function VoiceControl({
       "корзина",
       "добавить",
       "план",
-      "джарвис",
+      "д��арвис",
       "базовый",
       "про",
       "макс",
@@ -1029,7 +1051,7 @@ export default function VoiceControl({
       command.includes("в самый верх")
     ) {
       window.scrollTo(0, 0);
-      speak("Перехожу в начало");
+      speak("Перехожу в нача��о");
       return;
     }
 
