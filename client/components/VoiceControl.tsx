@@ -290,39 +290,45 @@ export default function VoiceControl({
   };
 
   const speakGoodMorning = () => {
-    if (isSpeaking || commandCooldownRef.current) return;
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
 
     setIsSpeaking(true);
     commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
 
     // Создаем и воспроизводим аудио для утреннего приветствия
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
+    currentAudioRef.current = audio;
 
-    audio.onended = () => {
+    const resetState = () => {
       setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
-      }, 1000);
+      }, 2000); // Увеличен таймаут до 2 секунд
     };
 
+    audio.onended = resetState;
     audio.onerror = () => {
-      setIsSpeaking(false);
-      setTimeout(() => {
-        commandCooldownRef.current = false;
-        lastCommandRef.current = "";
-      }, 1000);
+      resetState();
       console.error("Ошибка воспроизведения аудио утреннего приветствия");
     };
 
     audio.play().catch((error) => {
-      setIsSpeaking(false);
-      setTimeout(() => {
-        commandCooldownRef.current = false;
-        lastCommandRef.current = "";
-      }, 1000);
+      resetState();
       console.error(
         "Не удалось воспроизвести аудио утреннего приветствия:",
         error,
@@ -371,7 +377,7 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("Обработка ко��анды:", command);
 
-    // Фильтруем пустые или слишко�� короткие команды
+    // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -637,7 +643,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск возможностей
+      // Поиск возможн��стей
       if (
         command.includes("возможности") ||
         command.includes("возможность") ||
@@ -709,7 +715,7 @@ export default function VoiceControl({
         command.includes("технолог") ||
         command.includes("webgl") ||
         command.includes("ии") ||
-        command.includes("искусственн��й")
+        command.includes("искусственный")
       ) {
         found = searchAndNavigate([
           "технолог",
@@ -817,7 +823,7 @@ export default function VoiceControl({
       return;
     }
 
-    if (command.includes("заказ") || command.includes("оформить заказ")) {
+    if (command.includes("заказ") || command.includes("оформить за��аз")) {
       navigate("/order");
       speak("Переходим к оформлению заказа");
       return;
@@ -885,7 +891,7 @@ export default function VoiceControl({
     // Расширенная навигация по секциям страницы
     if (
       command.includes("к планам") ||
-      command.includes("п��казать планы") ||
+      command.includes("показать планы") ||
       command.includes("перейти к планам") ||
       command.includes("спуститься к планам") ||
       command.includes("тарифы") ||
@@ -931,7 +937,7 @@ export default function VoiceControl({
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
-      command.includes("перейти к возможностям") ||
+      command.includes("��ерейти к возможностям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
