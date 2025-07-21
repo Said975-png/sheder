@@ -123,7 +123,7 @@ function Robot() {
       clonedScene.traverse((child) => {
         if (child instanceof THREE.Mesh) {
           if (child.material) {
-            // Создаем новый материал с эффектом свечения
+            // Соз��аем новый материал с эффектом свечения
             const material = child.material as THREE.MeshStandardMaterial;
 
             // Если текстуры недоступны, создаем простой материал
@@ -212,7 +212,7 @@ export default function RobotModel() {
       <div className="w-full h-full flex items-center justify-center">
         <div className="text-center text-white/60">
           <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center animate-pulse">
-            <span className="text-2xl">���</span>
+            <span className="text-2xl">🤖</span>
           </div>
           <p className="text-sm">3D Model Loading...</p>
         </div>
