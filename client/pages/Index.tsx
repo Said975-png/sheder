@@ -86,7 +86,7 @@ export default function Index() {
       name: "Max сайт с Джарвисом",
       price: 5000000,
       description:
-        "ИИ-помощник типа Джарвис, интеграция с API, технологии нового поколения, WebGL и AI интерфейс",
+        "ИИ-помощник типа Джарвис, интеграция с API, технологии нового покол��ния, WebGL и AI интерфейс",
       category: "website-jarvis",
     });
   };
@@ -396,7 +396,7 @@ export default function Index() {
                 {/* 3D Model */}
                 <div className="relative w-96 h-96 mx-auto flex items-center justify-center">
                   <img
-                    src="https://cdn.builder.io/o/assets%2Faedfe5653545446c9fef6ae94da29aea%2F9d51137f52594174a9621536d8129db2?alt=media&token=8ad2fd8f-ccae-4b6e-a86c-6fce01137646&apiKey=aedfe5653545446c9fef6ae94da29aea"
+                    src="https://cdn.builder.io/o/assets%2Faedfe5653545446c9fef6ae94da29aea%2F168b67f1e4f741a389d3f62f8ee709d2?alt=media&token=bb15ecaa-baac-4362-9525-c8a0a7048796&apiKey=aedfe5653545446c9fef6ae94da29aea"
                     alt="3D AI Model"
                     className="max-w-full max-h-full object-contain z-10 relative"
                     style={{
@@ -873,7 +873,7 @@ export default function Index() {
                 Инновационные решения
               </h3>
               <p className="theme-text-muted leading-relaxed">
-                В��едряем передовые технологии: WebGL, машинное ��бучение,
+                Внедряем передовые технологии: WebGL, машинное ��бучение,
                 голосовое управление и AR/VR эл��менты для максимального
                 wow-эффекта.
               </p>
@@ -892,7 +892,7 @@ export default function Index() {
               </h3>
               <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
                 Позвольте нашему ИИ Джарвису стать цифровым помощником вашего
-                би��неса. Начнем разработку уже сегодня!
+                бизнеса. Начнем разработку уже сегодня!
               </p>
               <Button
                 onClick={() =>
