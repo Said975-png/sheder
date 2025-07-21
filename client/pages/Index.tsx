@@ -270,7 +270,7 @@ export default function Index() {
                     className="theme-dropdown-item cursor-pointer"
                   >
                     <Settings className="mr-2 h-4 w-4" />
-                    <span>Настройки</span>
+                    <span>На��тройки</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-border" />
                   <DropdownMenuItem
@@ -475,8 +475,9 @@ export default function Index() {
             <p className="text-white/60">
               Максимальное удобство для пользователей без компромиссов в
               безопасности
-            </p>
+                        </p>
           </div>
+        </div>
         </div>
       </section>
 
