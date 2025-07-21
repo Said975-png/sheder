@@ -74,11 +74,9 @@ export default function RobotModel() {
           <Robot />
           
           {/* Controls */}
-          <OrbitControls 
+          <OrbitControls
             enablePan={false}
-            enableZoom={true}
-            minDistance={3}
-            maxDistance={8}
+            enableZoom={false}
             autoRotate={true}
             autoRotateSpeed={0.5}
           />
