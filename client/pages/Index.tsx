@@ -704,7 +704,7 @@ export default function Index() {
                     <div className="absolute top-0 left-0 w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
                   </div>
                   <h3 className="text-xl font-semibold theme-text mb-2">
-                    Max сайт с Джарвисом
+                    Max сай�� с Джарвисом
                   </h3>
                   <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent mb-1">
                     5 000 000
@@ -906,6 +906,7 @@ export default function Index() {
               </Button>
             </div>
           </div>
+                </div>
         </div>
       </section>
     </div>
