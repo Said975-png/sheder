@@ -12,6 +12,12 @@ import {
   Zap,
   CheckCircle,
   ShoppingCart,
+  Rocket,
+  Clock,
+  Star,
+  Target,
+  Sparkles,
+  Bot,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
@@ -37,7 +43,7 @@ export default function Index() {
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
 
-  // Запуск анимации при загрузке компонента
+  // Запуск анимации пр�� загрузке компонента
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
@@ -79,7 +85,7 @@ export default function Index() {
       name: "Max сайт с Джарвисом",
       price: 5000000,
       description:
-        "ИИ-помощник типа Джарвис, интеграция с API, технологии нового поколения, WebGL и AI интерфейс",
+        "ИИ-помощник типа Джарвис, инте��рация с API, технологии нового поколения, WebGL и AI интерфейс",
       category: "website-jarvis",
     });
   };
@@ -368,7 +374,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">User Experience</h3>
             <p className="text-white/60">
-              Максимальное удобство для пользователей без компромиссов в
+              Максимальное удобство для пользователей без комп��омиссов в
               безопасности
             </p>
           </div>
@@ -427,7 +433,7 @@ export default function Index() {
             Выберите подходящий план
           </h2>
           <p className="text-lg theme-text-muted max-w-2xl mx-auto">
-            Пр��фессиональные решения для создания современных веб-сайтов
+            Пр��фессиональные решения для создания современн��х веб-сайтов
           </p>
         </div>
 
