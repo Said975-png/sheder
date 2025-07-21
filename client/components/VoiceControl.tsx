@@ -68,7 +68,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
       const speakWithVoice = () => {
         const utterance = new SpeechSynthesisUtterance(text);
 
-        // Настройки голоса Джарвиса
+        // Настройки голоса Дж��рвиса
         utterance.rate = 0.85; // Спокойная, уверенная речь
         utterance.pitch = 0.6; // Низкий тон, как у Джарвиса
         utterance.volume = 0.95; // Четкая громкость
@@ -176,47 +176,47 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
     // Команды навигации
     if (command.includes('перейти на главную') || command.includes('на главную страницу') || command.includes('домой')) {
       navigate('/');
-      speak('Navigating to homepage, sir.');
+      speak('Переходим на главную страницу.');
       return;
     }
 
     if (command.includes('войти') || command.includes('логин') || command.includes('авторизация')) {
       navigate('/login');
-      speak('Opening login interface.');
+      speak('Открываю страницу входа в систему.');
       return;
     }
 
     if (command.includes('регистрация') || command.includes('зарегистрироваться')) {
       navigate('/signup');
-      speak('Accessing registration portal.');
+      speak('Переходим к регистрации нового пользователя.');
       return;
     }
 
     if (command.includes('профиль') || command.includes('мой профиль')) {
       navigate('/profile');
-      speak('Opening your profile settings.');
+      speak('Открываю настройки вашего профиля.');
       return;
     }
 
     if (command.includes('заказ') || command.includes('оформить заказ')) {
       navigate('/order');
-      speak('Proceeding to order confirmation.');
+      speak('Переходим к оформлению заказа.');
       return;
     }
 
     // Команды корзины
     if (command.includes('корзина') && command.includes('очистить')) {
       clearCart();
-      speak('Shopping cart has been cleared.');
+      speak('Корзина очищена.');
       return;
     }
 
     if (command.includes('что в корзине') || command.includes('показать корзину')) {
       const itemsCount = getTotalItems();
       if (itemsCount === 0) {
-        speak('Your cart is currently empty, sir.');
+        speak('Ваша корзина пуста.');
       } else {
-        speak(`You have ${itemsCount} items in your cart.`);
+        speak(`В корзине ${itemsCount} товаров.`);
       }
       return;
     }
@@ -224,54 +224,54 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
     // Команды добавления планов
     if (command.includes('добавить базовый') || command.includes('базовый план') || command.includes('basic план')) {
       onAddBasicPlan();
-      speak('Basic plan added to cart.');
+      speak('Базовый план добавлен в корзину.');
       return;
     }
 
     if (command.includes('добавить про') || command.includes('про план') || command.includes('pro план')) {
       onAddProPlan();
-      speak('Pro plan with AI features added to cart.');
+      speak('Про план с искусственным интеллектом добавлен в корзину.');
       return;
     }
 
     if (command.includes('добавить макс') || command.includes('макс план') || command.includes('max план') || command.includes('джарвис')) {
       onAddMaxPlan();
-      speak('Maximum plan with Jarvis AI added to cart.');
+      speak('Максимальный план с Джарвисом добавлен в корзину.');
       return;
     }
 
     // Информационные команды
     if (command.includes('что ты умеешь') || command.includes('помощь') || command.includes('команды')) {
-      speak('I can navigate pages, manage your cart, add plans, and control website functions. Just give me a command, sir.');
+      speak('Я умею навигировать по сайту, управлять корзиной, добавлять планы и контролировать функции сайта. Просто дайте мне команду.');
       return;
     }
 
     if (command.includes('расскажи о планах') || command.includes('какие планы') || command.includes('тарифы')) {
-      speak('We offer three plans: Basic for 2 million sum, Pro with AI for 3.5 million, and Maximum with Jarvis for 5 million sum.');
+      speak('У нас есть три плана: Базовый за 2 миллиона сум, Про с ИИ ��а 3.5 миллиона, и Максимальный с Джарвисом за 5 миллионов сум.');
       return;
     }
 
     if (command.includes('привет') || command.includes('здравствуй')) {
-      speak('Good day, sir. Jarvis at your service. How may I assist you today?');
+      speak('Добро пожаловать! Я Джарвис, ваш персональный ИИ-помощник. Чем могу помочь?');
       return;
     }
 
     // Прокрутка страницы
     if (command.includes('прокрутить вниз') || command.includes('скролл вниз')) {
       window.scrollBy(0, 500);
-      speak('Scrolling down.');
+      speak('Прокручиваю страницу вниз.');
       return;
     }
 
     if (command.includes('прокрутить вверх') || command.includes('скролл вверх')) {
       window.scrollBy(0, -500);
-      speak('Scrolling up.');
+      speak('Прокручиваю страницу вверх.');
       return;
     }
 
     if (command.includes('наверх страницы') || command.includes('в начало')) {
       window.scrollTo(0, 0);
-      speak('Returning to top of page.');
+      speak('Возвращаемся в начало страницы.');
       return;
     }
 
@@ -279,13 +279,13 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
       const pricingSection = document.querySelector('[data-section="pricing"]');
       if (pricingSection) {
         pricingSection.scrollIntoView({ behavior: 'smooth' });
-        speak('Displaying pricing plans.');
+        speak('Показываю тарифные планы.');
       }
       return;
     }
 
     // Если команда не распознана
-    speak('I did not quite catch that, sir. Please try rephrasing your command.');
+    speak('Извините, я не понял команду. Попробуйте переформулировать.');
   };
 
   const toggleListening = () => {
