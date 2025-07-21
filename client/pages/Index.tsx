@@ -426,7 +426,7 @@ export default function Index() {
         </div>
       </section>
 
-            {/* Pricing Section */}
+      {/* Pricing Section */}
       <section data-section="pricing" className="container mx-auto px-6 py-24">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 theme-text">
@@ -651,7 +651,7 @@ export default function Index() {
               </div>
             </div>
           </div>
-                </div>
+        </div>
       </section>
 
       {/* Our Advantages Section */}
@@ -661,8 +661,8 @@ export default function Index() {
             Наши преимущества
           </h2>
           <p className="text-lg theme-text-muted max-w-3xl mx-auto">
-            Мы создаем не просто сайты — мы разрабатываем интеллектуальные решения,
-            которые работают как ваш персональный ИИ-помощник
+            Мы создаем не просто сайты — мы разрабатываем интеллектуальные
+            решения, которые работают как ваш персональный ИИ-помощник
           </p>
         </div>
 
@@ -678,8 +678,8 @@ export default function Index() {
               </h3>
               <p className="theme-text-muted leading-relaxed">
                 Создаем полноценные сайты в 3-5 раз быстрее благодаря нашим
-                ИИ-инструментам и готовым модулям. То, что другие делают месяцами,
-                мы реализуем за недели.
+                ИИ-инструментам и готовым модулям. То, что другие делают
+                месяцами, мы реализуем за недели.
               </p>
             </div>
             <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -696,8 +696,9 @@ export default function Index() {
                 Уникальный ИИ Джарвис
               </h3>
               <p className="theme-text-muted leading-relaxed">
-                Разрабатываем персонального ИИ-помощника специально для вашего бизнеса.
-                Джарвис умеет общаться с клиентами, обрабатывать заказы и управлять контентом.
+                Разрабатываем персонального ИИ-помощника специально для вашего
+                бизнеса. Джарвис умеет общаться с клиентами, обрабатывать заказы
+                и управлять контентом.
               </p>
             </div>
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-teal-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -714,7 +715,8 @@ export default function Index() {
               </h3>
               <p className="theme-text-muted leading-relaxed">
                 Круглосуточная техническая поддержка и мониторинг вашего сайта.
-                Мы оперативно решаем любые вопросы и следим за стабильной работой.
+                Мы оперативно решаем любые вопросы и следим за стабильной
+                работой.
               </p>
             </div>
             <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -731,7 +733,8 @@ export default function Index() {
               </h3>
               <p className="theme-text-muted leading-relaxed">
                 Используем только современные технологии и лучшие практики.
-                Каждый сайт проходит тщательное тестирование и оптимизацию производительности.
+                Каждый сайт проходит тщательное тестирование и оптимизацию
+                производительности.
               </p>
             </div>
             <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-amber-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -765,7 +768,8 @@ export default function Index() {
               </h3>
               <p className="theme-text-muted leading-relaxed">
                 Внедряем передовые технологии: WebGL, машинное обучение,
-                голосовое управление и AR/VR элементы для максимального wow-эффекта.
+                голосовое управление и AR/VR элементы для максимального
+                wow-эффекта.
               </p>
             </div>
             <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -781,11 +785,15 @@ export default function Index() {
                 Готовы создать что-то невероятное?
               </h3>
               <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
-                Позвольте нашему ИИ Джарвису стать цифровым помощником вашего бизнеса.
-                Начнем разработку уже сегодня!
+                Позвольте нашему ИИ Джарвису стать цифровым помощником вашего
+                бизнеса. Начнем разработку уже сегодня!
               </p>
               <Button
-                onClick={() => document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() =>
+                  document
+                    .querySelector('[data-section="pricing"]')
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
                 className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white px-8 py-3 text-lg font-semibold"
               >
                 <Bot className="w-5 h-5 mr-2" />
