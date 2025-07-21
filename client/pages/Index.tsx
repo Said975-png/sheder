@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Shield, User, LogOut, Settings, Code, Cpu, Brain, Zap, CheckCircle, ShoppingCart } from "lucide-react";
@@ -277,7 +277,7 @@ export default function Index() {
           <div className="space-y-8">
             <div className="space-y-6">
                             <h1 className="text-5xl lg:text-6xl font-bold leading-tight theme-text">
-                Jarvis - искусственный и��теллект для вашего бизнеса
+                Jarvis - искусственный и��теллект для вашего бизн��са
               </h1>
 
               <p className="text-lg theme-text-muted max-w-md">
