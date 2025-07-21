@@ -481,7 +481,7 @@ export default function Index() {
                   ) : (
                     <>
                       <img
-                        src="https://cdn.builder.io/o/assets%2Fc7cc0af5c2b743a4bb2b78008c30e87d%2F17382149980648e2ace2d40eef26b01e?alt=media&token=dffe76bc-021b-40c9-b452-137ebcefafae&apiKey=c7cc0af5c2b743a4bb2b78008c30e87d"
+                        src="https://cdn.builder.io/api/v1/image/assets%2Fc7cc0af5c2b743a4bb2b78008c30e87d%2Fe9da087bc319432d89f503c91d056d76?format=webp&width=800"
                         alt="AI Robot Model"
                         className="max-w-full max-h-full object-contain z-10 relative"
                         style={{
@@ -863,7 +863,7 @@ export default function Index() {
               Наши преимущества
             </h2>
             <p className="text-lg theme-text-muted max-w-3xl mx-auto">
-              Мы создаем не просто сайты — мы разрабатываем и��теллектуальные
+              Мы создаем не просто са��ты — мы разрабатываем и��теллектуальные
               решения, которые работают как ваш персональный ИИ-помощник
             </p>
           </div>
@@ -880,7 +880,7 @@ export default function Index() {
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
                   Создаем полноценные сайты в 3-5 раз быстрее благодаря нашим
-                  ИИ-инструментам и готовым модулям. То, что другие делают
+                  ИИ-инструментам и готовым модулям. То, что други�� делают
                   меся��ами, мы реализуем за недели.
                 </p>
               </div>
@@ -916,7 +916,7 @@ export default function Index() {
                   Поддержка 24/7
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Круглосуточная техническая поддержка и мониторинг ваше��о
+                  Круглосуточная техническая по��держка и мониторинг ваше��о
                   сайта. Мы оперативно решаем любые вопросы и следим за
                   стабильной работой.
                 </p>
