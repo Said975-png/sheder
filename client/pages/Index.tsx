@@ -44,7 +44,6 @@ export default function Index() {
   } = useCart();
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
-  const [show3D, setShow3D] = useState(false);
 
   // Запуск анимации при загрузке компонента
   useEffect(() => {
@@ -66,7 +65,7 @@ export default function Index() {
       name: "Basic сайт",
       price: 2000000,
       description:
-        "Базовая вёрстка, ада��тив под все устройства, бесплатный SSL, техподдержка 24/7",
+        "Базовая вёрстка, адаптив под все устройства, бесплатный SSL, техподдержка 24/7",
       category: "website",
     });
   };
@@ -493,7 +492,7 @@ export default function Index() {
       <section id="features" className="ai-hero-container py-16 relative">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Мощные возможности</h2>
+            <h2 className="text-3xl font-bold mb-4">Мощ��ые возможности</h2>
             <p className="text-white/60 max-w-2xl mx-auto">
               Все инструменты, необходимые для превращения дизайна в полноценное
               веб-приложение
@@ -642,7 +641,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-blue-400" />
                       </div>
-                      Адап��ив под все устройства
+                      Адаптив под все устройства
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
@@ -793,7 +792,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-cyan-400" />
                       </div>
-                      Поддержка WebGL и AI интерфейса
+                      Подде��жка WebGL и AI интерфейса
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
@@ -930,7 +929,7 @@ export default function Index() {
                   Инновационные решения
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Внедряем передовые технологии: WebGL, машинное ��бучение,
+                  Внедряем передовые технологии: WebGL, м��шинное ��бучение,
                   голосово�� управление и AR/VR эл��менты для максимального
                   wow-эффекта.
                 </p>
@@ -949,7 +948,7 @@ export default function Index() {
                 </h3>
                 <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
                   Позвольте нашему ИИ Джарвису стать цифровым помощником вашего
-                  бизнеса. Начнем разработку уже сегодня!
+                  бизнеса. Начнем ��азработку уже сегодня!
                 </p>
                 <Button
                   onClick={() =>
