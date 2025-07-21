@@ -22,11 +22,11 @@ interface OrderData {
 // Создаем транспортер для отправки email
 const createTransporter = () => {
   // Используем Gmail SMTP для отправки
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL_USER || 'your-email@gmail.com',
-      pass: process.env.EMAIL_PASS || 'your-app-password'
+      user: process.env.EMAIL_USER || 'temp-email@gmail.com',
+      pass: process.env.EMAIL_PASS || 'temp-app-password'
     }
   });
 };
