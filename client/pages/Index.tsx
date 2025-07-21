@@ -74,7 +74,7 @@ export default function Index() {
   const handleAddProPlan = () => {
     addItem({
       id: "pro-plan",
-      name: "Pro сайт с ��И",
+      name: "Pro сайт с ИИ",
       price: 3500000,
       description:
         "ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация",
@@ -121,7 +121,7 @@ export default function Index() {
           className="relative flex items-center space-x-8 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-purple-500/30 px-6 py-2 neon-glow holographic"
           style={{ borderRadius: "9999px" }}
         >
-          {/* Энергетичес��ое поле */}
+          {/* Энергетическое поле */}
           <div className="energy-field rounded-full"></div>
           {/* Частицы */}
           <div className="portal-particles">
@@ -173,7 +173,7 @@ export default function Index() {
                   <h3 className="font-semibold theme-text mb-2">Корзина</h3>
                   {items.length === 0 ? (
                     <p className="text-sm theme-text-muted text-center py-4">
-                      Корзина пуст��
+                      Корзина пуста
                     </p>
                   ) : (
                     <>
@@ -208,7 +208,7 @@ export default function Index() {
                       <DropdownMenuSeparator className="bg-border my-3" />
                       <div className="flex justify-between items-center mb-3">
                         <span className="font-semibold theme-text">
-                          Итог��:
+                          Итого:
                         </span>
                         <span className="font-bold theme-text">
                           {getTotalPrice().toLocaleString()} сум
@@ -499,10 +499,10 @@ export default function Index() {
       <section id="features" className="ai-hero-container py-16 relative">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Мощ��ые возможности</h2>
+            <h2 className="text-3xl font-bold mb-4">Мощные возможности</h2>
             <p className="text-white/60 max-w-2xl mx-auto">
               Все инструменты, необходимые для превращения дизайна в полноценное
-              ��еб-приложение
+              веб-приложение
             </p>
           </div>
 
@@ -513,7 +513,7 @@ export default function Index() {
               </div>
               <h3 className="text-lg font-semibold mb-2">AI Detection</h3>
               <p className="text-white/60">
-                Перед��вые алгоритмы ��ля обнаруж��ния ботов и автоматических
+                Передовые алгоритмы для обнаружения ботов и автоматических
                 систем
               </p>
             </div>
@@ -535,7 +535,7 @@ export default function Index() {
               <h3 className="text-lg font-semibold mb-2">User Experience</h3>
               <p className="text-white/60">
                 Максимальное удобство для пользователей без компромиссов в
-                б��зопасности
+                безопасности
               </p>
             </div>
           </div>
@@ -600,7 +600,7 @@ export default function Index() {
               Выберите подходящий план
             </h2>
             <p className="text-lg theme-text-muted max-w-2xl mx-auto">
-              Пр��фессиональные решения для создания современных веб-сайтов
+              Профессиональные решения для создания современных веб-сайтов
             </p>
           </div>
 
@@ -623,7 +623,7 @@ export default function Index() {
                       <div className="absolute top-0 left-0 w-2 h-2 bg-cyan-500 rounded-full animate-bounce"></div>
                     </div>
                     <h3 className="text-xl font-semibold theme-text mb-2">
-                      Basic сай��
+                      Basic сайт
                     </h3>
                     <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
                       2 000 000
@@ -636,7 +636,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-blue-400" />
                       </div>
-                      Без искус��твенного интеллект��
+                      Без искусственного интеллекта
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
@@ -660,7 +660,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-blue-400" />
                       </div>
-                      Т��хподдержка 24/7
+                      Техподдержка 24/7
                     </li>
                   </ul>
 
@@ -718,7 +718,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-orange-400" />
                       </div>
-                      Полн��й адаптив
+                      Полный адаптив
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
@@ -793,13 +793,13 @@ export default function Index() {
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                         <Cpu className="w-3 h-3 text-cyan-400" />
                       </div>
-                      Технол��гии нового поколения
+                      Технологии нового поколения
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-cyan-400" />
                       </div>
-                      Подде��жка WebGL и AI интерфейса
+                      Поддержка WebGL и AI интерфейса
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
@@ -827,11 +827,11 @@ export default function Index() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 theme-text">
-              Наши преим��щества
+              Наши преимущества
             </h2>
             <p className="text-lg theme-text-muted max-w-3xl mx-auto">
-              Мы создаем не просто сайты — мы разрабатываем и��теллектуальные
-              реше��ия, которые работают как ваш пер��ональный ИИ-помощник
+              Мы создаем не просто сайты — мы разрабатываем интеллектуальные
+              решения, которые работают как ваш персональный ИИ-помощник
             </p>
           </div>
 
@@ -843,12 +843,12 @@ export default function Index() {
                   <Rocket className="w-8 h-8 text-purple-400" />
                 </div>
                 <h3 className="text-xl font-bold theme-text mb-4">
-                  Молниеносная р��зработка
+                  Молниеносная разработка
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
                   Создаем полноценные сайты в 3-5 раз быстрее благодаря нашим
                   ИИ-инструментам и готовым модулям. То, что другие делают
-                  меся��ами, мы реализуем за недели.
+                  месяцами, мы реализуем за недели.
                 </p>
               </div>
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -866,7 +866,7 @@ export default function Index() {
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
                   Разрабатываем персонального ИИ-помощника специально для вашего
-                  бизнеса. Джарвис ум��ет общаться с клиентами, обрабатывать
+                  бизнеса. Джарвис умеет общаться с клиентами, обрабатывать
                   заказы и управлять контентом.
                 </p>
               </div>
@@ -880,10 +880,10 @@ export default function Index() {
                   <Clock className="w-8 h-8 text-orange-400" />
                 </div>
                 <h3 className="text-xl font-bold theme-text mb-4">
-                  Поддержка 24/7
+                  ��оддержка 24/7
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Круглосуточная техническая поддержка и мониторинг ваше��о
+                  Круглосуточная техническая поддержка и мониторинг вашего
                   сайта. Мы оперативно решаем любые вопросы и следим за
                   стабильной работой.
                 </p>
@@ -898,12 +898,12 @@ export default function Index() {
                   <Star className="w-8 h-8 text-yellow-400" />
                 </div>
                 <h3 className="text-xl font-bold theme-text mb-4">
-                  Прем��ум качество
+                  Премиум ка��ество
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Используе�� только современные технологии и л��чшие практики.
+                  Используем только современные технологии и лучшие практики.
                   Каждый сайт проходит тщательное тестирование и оптимизацию
-                  производител��ности.
+                  производительности.
                 </p>
               </div>
               <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-amber-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -919,7 +919,7 @@ export default function Index() {
                   Умная аналитика
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Встроенная ИИ-аналитика отслеживает поведение пользова��елей и
+                  Встроенная ИИ-аналитика отслеживает поведение пользователей и
                   автоматически оптимизирует конверсию вашего онлайн-магазина.
                 </p>
               </div>
@@ -936,8 +936,8 @@ export default function Index() {
                   Инновационные решения
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Внедряем передовые технологии: WebGL, м��шинное ��буч��ние,
-                  голосово�� управление и AR/VR эл��менты для максимального
+                  Внедряем передовые технологии: WebGL, машинное обучение,
+                  голосовое управление и AR/VR элементы для максимального
                   wow-эффекта.
                 </p>
               </div>
@@ -954,8 +954,8 @@ export default function Index() {
                   Готовы создать что-то невероятное?
                 </h3>
                 <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
-                  Позвольте наш��му ИИ Джарвису стать цифровым помощником вашего
-                  бизнеса. Начнем разработку у��е сегодня!
+                  Позвольте нашему ИИ Джарвису стать цифровым помощником вашего
+                  бизнеса. Начнем разработку уже сегодня!
                 </p>
                 <Button
                   onClick={() =>
