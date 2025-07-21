@@ -237,7 +237,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Ошибка воспроизведения аудио приветствия");
+      console.error("О��ибка воспроизведения аудио приветствия");
     };
 
     audio.play().catch((error) => {
@@ -275,7 +275,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Ошибка воспроизведения аудио благодарности");
+      console.error("Ошибка во��произведения аудио благодарности");
     };
 
     audio.play().catch((error) => {
@@ -370,6 +370,50 @@ export default function VoiceControl({
         lastCommandRef.current = "";
       }, 1000);
       console.error("Не удалось воспроизвести аудио ответа:", error);
+    });
+  };
+
+  const speakAuthenticJarvis = () => {
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
+
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
+
+    // Используем ваш оригинальный аудиофайл Джарвиса
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2Fddde4fe5b47946c2a3bbb80e3bca0073%2F54eb93b1452742b6a1cd87cc6104bb59?alt=media&token=fc948eba-bbcd-485c-b129-d5a0c25cfc74&apiKey=ddde4fe5b47946c2a3bbb80e3bca0073",
+    );
+    currentAudioRef.current = audio;
+
+    const resetState = () => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 2000);
+    };
+
+    audio.onended = resetState;
+    audio.onerror = () => {
+      resetState();
+      console.error("Ошибка воспроизведения оригинального аудио Джарвиса");
+    };
+
+    audio.play().catch((error) => {
+      resetState();
+      console.error("Не удалось воспроизвести оригинальное аудио Джарвиса:", error);
     });
   };
 
@@ -489,7 +533,7 @@ export default function VoiceControl({
       "спуститься",
       "перейти",
       "покажи",
-      "найди",
+      "на��ди",
       "где",
       "что",
       "как",
@@ -664,7 +708,7 @@ export default function VoiceControl({
         command.includes("план") ||
         command.includes("тариф") ||
         command.includes("цен") ||
-        command.includes("стоимость")
+        command.includes("стоим��сть")
       ) {
         found = searchAndNavigate(["план", "тариф", "цен", "pricing"], () => {
           const pricingSection = document.querySelector(
@@ -802,7 +846,7 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Открываю страницу входа");
+      speak("Открываю страницу вх��да");
       return;
     }
 
