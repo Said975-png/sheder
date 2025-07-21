@@ -70,7 +70,9 @@ export default function VoiceControl({
     setIsSpeaking(true);
 
     // Создаем и воспроизводим ваш новый аудио-файл
-    const audio = new Audio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fdb47541068444a9093b406f29a6af3ce?alt=media&token=43fbc024-64ae-479b-8a6c-5b9d12b43294&apiKey=236158b44f8b45f680ab2467abfc361c");
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fdb47541068444a9093b406f29a6af3ce?alt=media&token=43fbc024-64ae-479b-8a6c-5b9d12b43294&apiKey=236158b44f8b45f680ab2467abfc361c",
+    );
 
     audio.onended = () => {
       setIsSpeaking(false);
@@ -91,7 +93,9 @@ export default function VoiceControl({
     setIsSpeaking(true);
 
     // Создаем и воспроизводим аудио для команды "отключись"
-    const audio = new Audio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c");
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c",
+    );
 
     audio.onended = () => {
       setIsSpeaking(false);
@@ -130,7 +134,9 @@ export default function VoiceControl({
     setIsSpeaking(true);
 
     // Создаем и воспроизводим аудио для команды "Джарвис я вернулся"
-    const audio = new Audio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c");
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c",
+    );
 
     audio.onended = () => {
       setIsSpeaking(false);
@@ -181,37 +187,100 @@ export default function VoiceControl({
 
     // Проверяем, содержит ли команда значимые слова
     const meaningfulWords = [
-      "перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "джарвис",
-      "базовый", "про", "макс", "прокрутить", "скролл", "наверх", "планам", "преимущества", "возможности",
-      "открыть", "личный", "кабинет", "отправить", "секция", "спуститься", "перейти", "покажи", "найди",
-      "где", "что", "как", "цена", "стоимость", "тариф", "услуги", "компания", "контакты", "поддержка",
-      "технологии", "разработка", "сайт", "интеллект", "ии", "jarvis", "мощный", "уникальный", "качество",
-      "аналитика", "премиум", "невероятное", "готовы", "создать", "бизнес", "помощник", "персональный",
-      "отключись", "выключись", "отключи", "выключи", "стоп", "вернулся", "здесь", "снова"
+      "перейти",
+      "войти",
+      "регистрация",
+      "профиль",
+      "заказ",
+      "корзина",
+      "добавить",
+      "план",
+      "джарвис",
+      "базовый",
+      "про",
+      "макс",
+      "прокрутить",
+      "скролл",
+      "наверх",
+      "планам",
+      "преимущества",
+      "возможности",
+      "открыть",
+      "личный",
+      "кабинет",
+      "отправить",
+      "секция",
+      "спуститься",
+      "перейти",
+      "покажи",
+      "найди",
+      "где",
+      "что",
+      "как",
+      "цена",
+      "стоимость",
+      "тариф",
+      "услуги",
+      "компания",
+      "контакты",
+      "поддержка",
+      "технологии",
+      "разработка",
+      "сайт",
+      "интеллект",
+      "ии",
+      "jarvis",
+      "мощный",
+      "уникальный",
+      "качество",
+      "аналитика",
+      "премиум",
+      "невероятное",
+      "готовы",
+      "создать",
+      "бизнес",
+      "помощник",
+      "персональный",
+      "отключись",
+      "выключись",
+      "отключи",
+      "выключи",
+      "стоп",
+      "вернулся",
+      "здесь",
+      "снова",
     ];
-    const hasValidWords = meaningfulWords.some(word => trimmedCommand.includes(word));
+    const hasValidWords = meaningfulWords.some((word) =>
+      trimmedCommand.includes(word),
+    );
 
     if (!hasValidWords) {
       return;
     }
 
     // Умный поиск контента по всему сайту
-    const searchAndNavigate = (searchTerms: string[], fallbackAction?: () => void) => {
+    const searchAndNavigate = (
+      searchTerms: string[],
+      fallbackAction?: () => void,
+    ) => {
       // Поиск по заголовкам
-      const headings = Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+      const headings = Array.from(
+        document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
+      );
       for (const heading of headings) {
-        const headingText = heading.textContent?.toLowerCase() || '';
-        if (searchTerms.some(term => headingText.includes(term))) {
+        const headingText = heading.textContent?.toLowerCase() || "";
+        if (searchTerms.some((term) => headingText.includes(term))) {
           heading.scrollIntoView({ behavior: "smooth" });
           return true;
         }
       }
 
       // Поиск по data-section атрибутам
-      const sections = Array.from(document.querySelectorAll('[data-section]'));
+      const sections = Array.from(document.querySelectorAll("[data-section]"));
       for (const section of sections) {
-        const sectionName = section.getAttribute('data-section')?.toLowerCase() || '';
-        if (searchTerms.some(term => sectionName.includes(term))) {
+        const sectionName =
+          section.getAttribute("data-section")?.toLowerCase() || "";
+        if (searchTerms.some((term) => sectionName.includes(term))) {
           section.scrollIntoView({ behavior: "smooth" });
           return true;
         }
@@ -227,10 +296,15 @@ export default function VoiceControl({
       }
 
       // Поиск по тексту элементов
-      const allElements = Array.from(document.querySelectorAll('p, div, span, li'));
+      const allElements = Array.from(
+        document.querySelectorAll("p, div, span, li"),
+      );
       for (const element of allElements) {
-        const elementText = element.textContent?.toLowerCase() || '';
-        if (searchTerms.some(term => elementText.includes(term)) && element.offsetParent !== null) {
+        const elementText = element.textContent?.toLowerCase() || "";
+        if (
+          searchTerms.some((term) => elementText.includes(term)) &&
+          element.offsetParent !== null
+        ) {
           element.scrollIntoView({ behavior: "smooth" });
           return true;
         }
@@ -256,8 +330,15 @@ export default function VoiceControl({
       let found = false;
 
       // Поиск преимуществ
-      if (command.includes("преимущества") || command.includes("преимущество")) {
-        found = searchAndNavigate(["преимущества", "преимущество", "advantages"]);
+      if (
+        command.includes("преимущества") ||
+        command.includes("преимущество")
+      ) {
+        found = searchAndNavigate([
+          "преимущества",
+          "преимущество",
+          "advantages",
+        ]);
         if (found) {
           speak("Показываю преимущества");
           return;
@@ -265,7 +346,11 @@ export default function VoiceControl({
       }
 
       // Поиск возможностей
-      if (command.includes("возможности") || command.includes("возможность") || command.includes("мощные")) {
+      if (
+        command.includes("возможности") ||
+        command.includes("возможность") ||
+        command.includes("мощные")
+      ) {
         found = searchAndNavigate(["возможности", "мощные", "features"]);
         if (found) {
           speak("Показываю возможности");
@@ -274,9 +359,16 @@ export default function VoiceControl({
       }
 
       // Поиск планов и тарифов
-      if (command.includes("план") || command.includes("тариф") || command.includes("цен") || command.includes("стоимость")) {
+      if (
+        command.includes("план") ||
+        command.includes("тариф") ||
+        command.includes("цен") ||
+        command.includes("стоимость")
+      ) {
         found = searchAndNavigate(["план", "тариф", "цен", "pricing"], () => {
-          const pricingSection = document.querySelector('[data-section="pricing"]');
+          const pricingSection = document.querySelector(
+            '[data-section="pricing"]',
+          );
           if (pricingSection) {
             pricingSection.scrollIntoView({ behavior: "smooth" });
           }
@@ -288,7 +380,11 @@ export default function VoiceControl({
       }
 
       // Поиск информации о компании
-      if (command.includes("компан") || command.includes("о нас") || command.includes("кто мы")) {
+      if (
+        command.includes("компан") ||
+        command.includes("о нас") ||
+        command.includes("кто мы")
+      ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
         if (found) {
           speak("Показываю информацию о компании");
@@ -297,8 +393,19 @@ export default function VoiceControl({
       }
 
       // Поиск контактов
-      if (command.includes("контакт") || command.includes("связь") || command.includes("телефон") || command.includes("email")) {
-        found = searchAndNavigate(["контакт", "связь", "телефон", "email", "contact"]);
+      if (
+        command.includes("контакт") ||
+        command.includes("связь") ||
+        command.includes("телефон") ||
+        command.includes("email")
+      ) {
+        found = searchAndNavigate([
+          "контакт",
+          "связь",
+          "телефон",
+          "email",
+          "contact",
+        ]);
         if (found) {
           speak("Показываю контакты");
           return;
@@ -306,8 +413,21 @@ export default function VoiceControl({
       }
 
       // Поиск технологий
-      if (command.includes("технолог") || command.includes("webgl") || command.includes("ии") || command.includes("искусственный")) {
-        found = searchAndNavigate(["технолог", "webgl", "ии", "искусственный", "ai", "джарвис", "jarvis"]);
+      if (
+        command.includes("технолог") ||
+        command.includes("webgl") ||
+        command.includes("ии") ||
+        command.includes("искусственный")
+      ) {
+        found = searchAndNavigate([
+          "технолог",
+          "webgl",
+          "ии",
+          "искусственный",
+          "ai",
+          "джарвис",
+          "jarvis",
+        ]);
         if (found) {
           speak("Показываю технологии");
           return;
@@ -315,8 +435,18 @@ export default function VoiceControl({
       }
 
       // Поиск качества и премиум услуг
-      if (command.includes("качество") || command.includes("премиум") || command.includes("поддержка")) {
-        found = searchAndNavigate(["качество", "премиум", "поддержка", "quality", "support"]);
+      if (
+        command.includes("качество") ||
+        command.includes("премиум") ||
+        command.includes("поддержка")
+      ) {
+        found = searchAndNavigate([
+          "качество",
+          "премиум",
+          "поддержка",
+          "quality",
+          "support",
+        ]);
         if (found) {
           speak("Показываю информацию о качестве");
           return;
@@ -324,8 +454,17 @@ export default function VoiceControl({
       }
 
       // Поиск аналитики
-      if (command.includes("аналитик") || command.includes("статистик") || command.includes("данные")) {
-        found = searchAndNavigate(["аналитик", "статистик", "данные", "analytics"]);
+      if (
+        command.includes("аналитик") ||
+        command.includes("статистик") ||
+        command.includes("данные")
+      ) {
+        found = searchAndNavigate([
+          "аналитик",
+          "статистик",
+          "данные",
+          "analytics",
+        ]);
         if (found) {
           speak("Показываю аналитику");
           return;
@@ -334,7 +473,9 @@ export default function VoiceControl({
 
       // Если ничего специфичного не найдено, попробуем общий поиск
       if (!found) {
-        const searchTerms = command.split(' ').filter(word => word.length > 2);
+        const searchTerms = command
+          .split(" ")
+          .filter((word) => word.length > 2);
         found = searchAndNavigate(searchTerms);
         if (found) {
           speak("Найдено");
@@ -403,7 +544,9 @@ export default function VoiceControl({
       command.includes("что в корзине")
     ) {
       // Находим и нажимаем кнопку корзины
-      const cartButton = document.querySelector('[data-testid="cart-button"]') as HTMLElement;
+      const cartButton = document.querySelector(
+        '[data-testid="cart-button"]',
+      ) as HTMLElement;
       if (cartButton) {
         cartButton.click();
       }
@@ -457,12 +600,17 @@ export default function VoiceControl({
       command.includes("цены") ||
       command.includes("стоимость")
     ) {
-      const found = searchAndNavigate(["план", "тариф", "цен", "pricing", "стоимость"], () => {
-        const pricingSection = document.querySelector('[data-section="pricing"]');
-        if (pricingSection) {
-          pricingSection.scrollIntoView({ behavior: "smooth" });
-        }
-      });
+      const found = searchAndNavigate(
+        ["план", "тариф", "цен", "pricing", "стоимость"],
+        () => {
+          const pricingSection = document.querySelector(
+            '[data-section="pricing"]',
+          );
+          if (pricingSection) {
+            pricingSection.scrollIntoView({ behavior: "smooth" });
+          }
+        },
+      );
       if (found) {
         speak("Показываю планы");
       }
@@ -476,7 +624,11 @@ export default function VoiceControl({
       command.includes("перейти к преимуществам") ||
       command.includes("преимущества")
     ) {
-      const found = searchAndNavigate(["преимущества", "преимущество", "advantages"]);
+      const found = searchAndNavigate([
+        "преимущества",
+        "преимущество",
+        "advantages",
+      ]);
       if (found) {
         speak("Показываю преимущества");
       }
@@ -490,12 +642,15 @@ export default function VoiceControl({
       command.includes("перейти к возможностям") ||
       command.includes("возможности")
     ) {
-      const found = searchAndNavigate(["возможности", "мощные", "features"], () => {
-        const featuresSection = document.getElementById('features');
-        if (featuresSection) {
-          featuresSection.scrollIntoView({ behavior: "smooth" });
-        }
-      });
+      const found = searchAndNavigate(
+        ["возможности", "мощные", "features"],
+        () => {
+          const featuresSection = document.getElementById("features");
+          if (featuresSection) {
+            featuresSection.scrollIntoView({ behavior: "smooth" });
+          }
+        },
+      );
       if (found) {
         speak("Показываю возможности");
       }

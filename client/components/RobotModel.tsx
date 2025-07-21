@@ -11,13 +11,16 @@ function Robot() {
   // Auto-rotate and animate the robot
   useFrame((state) => {
     if (robotRef.current) {
-      robotRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.3;
+      robotRef.current.rotation.y =
+        Math.sin(state.clock.elapsedTime * 0.5) * 0.3;
     }
     if (bodyRef.current) {
-      bodyRef.current.scale.y = 1 + Math.sin(state.clock.elapsedTime * 2) * 0.05;
+      bodyRef.current.scale.y =
+        1 + Math.sin(state.clock.elapsedTime * 2) * 0.05;
     }
     if (headRef.current) {
-      headRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 1.5) * 0.1;
+      headRef.current.rotation.x =
+        Math.sin(state.clock.elapsedTime * 1.5) * 0.1;
     }
   });
 
