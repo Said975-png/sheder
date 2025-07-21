@@ -155,7 +155,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Ошибка воспроизведения аудио");
+      console.error("Ошибка воспроизведения ау��ио");
     };
 
     audio.play().catch((error) => {
@@ -191,7 +191,7 @@ export default function VoiceControl({
       audioPlayingRef.current = false;
       lastCommandRef.current = "";
       currentAudioRef.current = null;
-      // После окончания аудио отключаем микрофон
+      // После окончани�� аудио отключаем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
@@ -417,6 +417,50 @@ export default function VoiceControl({
     });
   };
 
+  const speakHowAreYou = () => {
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
+
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
+
+    // Используем тот же аудиофайл для ответа на "как дела" (можно заменить на специальный ответ)
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2Fddde4fe5b47946c2a3bbb80e3bca0073%2F54eb93b1452742b6a1cd87cc6104bb59?alt=media&token=fc948eba-bbcd-485c-b129-d5a0c25cfc74&apiKey=ddde4fe5b47946c2a3bbb80e3bca0073",
+    );
+    currentAudioRef.current = audio;
+
+    const resetState = () => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 2000);
+    };
+
+    audio.onended = resetState;
+    audio.onerror = () => {
+      resetState();
+      console.error("Ошибка воспроизведения ответа на 'как дела'");
+    };
+
+    audio.play().catch((error) => {
+      resetState();
+      console.error("Не удалось воспроизвести ответ на 'как дела':", error);
+    });
+  };
+
   const processVoiceCommand = (command: string) => {
     console.log("Обрабо��ка ко��анды:", command);
 
@@ -501,7 +545,7 @@ export default function VoiceControl({
       command.includes("hey jarvis") ||
       (command.includes("привет") && command.includes("джарвис"))
     ) {
-      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      // Дополнительная проверка, чтобы избежать повторных ср��батываний
       if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
         speakAuthenticJarvis();
       }
@@ -1046,7 +1090,7 @@ export default function VoiceControl({
     // Прокрутка страницы
     if (
       command.includes("прокрутить вниз") ||
-      command.includes("скролл вниз") ||
+      command.includes("скролл вни��") ||
       command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
