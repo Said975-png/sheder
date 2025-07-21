@@ -21,7 +21,7 @@ export default function Index() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
-    }, 300); // Задержка для более драматичного появ��ения
+    }, 300); // Задержка для более драматичного появления
 
     return () => clearTimeout(timer);
   }, []);
@@ -283,7 +283,7 @@ export default function Index() {
       <section className="container mx-auto px-6 py-24">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 theme-text">
-            Выберите подходящий п��ан
+            Выберите подходящий план
           </h2>
           <p className="text-lg theme-text-muted max-w-2xl mx-auto">
             Профессиональные решения для создания современных веб-сайтов
@@ -386,8 +386,8 @@ export default function Index() {
             </div>
           </div>
 
-          {/* Max Plan Card */}
-          <div className="group relative">
+                    {/* Max Plan Card */}
+          <div className="group relative pricing-card-enter">
             <div className="relative p-8 bg-gradient-to-br from-cyan-500/20 to-teal-600/20 backdrop-blur-lg border border-cyan-500/30 rounded-3xl hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/25">
               {/* Glowing border effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/40 to-teal-600/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
@@ -395,7 +395,7 @@ export default function Index() {
               <div className="relative z-10">
                 <div className="text-center mb-6">
                   <div className="text-4xl mb-3">🧠</div>
-                  <h3 className="text-xl font-semibold theme-text mb-2">Max сайт с Джарвисом</h3>
+                  <h3 className="text-xl font-semibold theme-text mb-2">Max сайт с Джарвисо��</h3>
                   <div className="text-3xl font-bold text-cyan-400 mb-1">5 000 000</div>
                   <div className="text-sm theme-text-muted">сум</div>
                 </div>
