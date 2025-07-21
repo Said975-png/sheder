@@ -109,7 +109,7 @@ export default function VoiceControl({
 
     audio.onerror = () => {
       setIsSpeaking(false);
-      // ��сли ошибка с аудио, все равно отключаем микрофон
+      // Если ошибка с аудио, все равно отключаем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
@@ -179,7 +179,7 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("Обработка команды:", command);
 
-    // Фильтруем пустые или с��ишком короткие команды
+    // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -295,6 +295,21 @@ export default function VoiceControl({
       "вернулся",
       "здесь",
       "снова",
+      "спасибо",
+      "благодарю",
+      "благодарность",
+      "спс",
+      "thank",
+      "thanks",
+      "мерси",
+      "рахмат",
+      "рахмет",
+      "хорошо",
+      "отлично",
+      "замечательно",
+      "круто",
+      "прекрасно",
+      "чудесно",
     ];
     const hasValidWords = meaningfulWords.some((word) =>
       trimmedCommand.includes(word),
@@ -391,7 +406,7 @@ export default function VoiceControl({
         }
       }
 
-      // Пои��к возможностей
+      // Поиск возможностей
       if (
         command.includes("возможности") ||
         command.includes("возможность") ||
@@ -433,7 +448,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
         if (found) {
-          speak("Показываю инфо��мацию о компании");
+          speak("Показываю информацию о компании");
           return;
         }
       }
@@ -665,7 +680,7 @@ export default function VoiceControl({
 
     if (
       command.includes("к преимуществам") ||
-      command.includes("наши преимущества") ||
+      command.includes("наши преиму��ества") ||
       command.includes("спуститься к преимуществам") ||
       command.includes("перейти к преимуществам") ||
       command.includes("преимущества")
@@ -684,7 +699,7 @@ export default function VoiceControl({
     if (
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
-      command.includes("спуститься к возм��жностям") ||
+      command.includes("спуститься к возможностям") ||
       command.includes("перейти к возможностям") ||
       command.includes("возможности")
     ) {
@@ -703,7 +718,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Прокрутка страницы
+    // Прокр��тка страницы
     if (
       command.includes("прокрутить вниз") ||
       command.includes("скролл вниз") ||
