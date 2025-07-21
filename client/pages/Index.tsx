@@ -276,6 +276,159 @@ export default function Index() {
               <span className="text-white font-medium">Meta</span>
             </div>
           </div>
+                </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="container mx-auto px-6 py-24">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 theme-text">
+            Выберите подходящий план
+          </h2>
+          <p className="text-lg theme-text-muted max-w-2xl mx-auto">
+            Профессиональные решения для создания современных веб-сайтов
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {/* Basic Plan Card */}
+          <div className="group relative">
+            <div className="relative p-8 bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-lg border border-blue-500/30 rounded-3xl hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/25">
+              {/* Glowing border effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/40 to-purple-600/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+
+              <div className="relative z-10">
+                <div className="text-center mb-6">
+                  <div className="text-4xl mb-3">💼</div>
+                  <h3 className="text-xl font-semibold theme-text mb-2">Basik сайт</h3>
+                  <div className="text-3xl font-bold text-blue-400 mb-1">2 000 000</div>
+                  <div className="text-sm theme-text-muted">сум</div>
+                </div>
+
+                <ul className="space-y-3 mb-8 text-sm">
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
+                    Без искусственного интеллекта
+                  </li>
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
+                    Базовая вёрстка
+                  </li>
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
+                    Адаптив под все устройства
+                  </li>
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
+                    Бесплатный SSL
+                  </li>
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
+                    Техподдержка 24/7
+                  </li>
+                </ul>
+
+                <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30">
+                  Заказать
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Pro Plan Card */}
+          <div className="group relative transform md:scale-105">
+            <div className="relative p-8 bg-gradient-to-br from-orange-500/20 to-red-600/20 backdrop-blur-lg border border-orange-500/30 rounded-3xl hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/25">
+              {/* Glowing border effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/40 to-red-600/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+
+              {/* Popular badge */}
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <div className="bg-gradient-to-r from-orange-500 to-red-600 text-white text-xs font-semibold px-4 py-2 rounded-full">
+                  Популярный
+                </div>
+              </div>
+
+              <div className="relative z-10">
+                <div className="text-center mb-6">
+                  <div className="text-4xl mb-3">🤖</div>
+                  <h3 className="text-xl font-semibold theme-text mb-2">Pro сайт с ИИ</h3>
+                  <div className="text-3xl font-bold text-orange-400 mb-1">3 500 000</div>
+                  <div className="text-sm theme-text-muted">сум</div>
+                </div>
+
+                <ul className="space-y-3 mb-8 text-sm">
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3"></div>
+                    ИИ: чат-бот, автозаполнение, умные блоки
+                  </li>
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3"></div>
+                    Полный адаптив
+                  </li>
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3"></div>
+                    Быстрая загрузка
+                  </li>
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3"></div>
+                    SEO оптимизация
+                  </li>
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3"></div>
+                    Техподдержка 24/7
+                  </li>
+                </ul>
+
+                <Button className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30">
+                  Заказать
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Max Plan Card */}
+          <div className="group relative">
+            <div className="relative p-8 bg-gradient-to-br from-cyan-500/20 to-teal-600/20 backdrop-blur-lg border border-cyan-500/30 rounded-3xl hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/25">
+              {/* Glowing border effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/40 to-teal-600/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+
+              <div className="relative z-10">
+                <div className="text-center mb-6">
+                  <div className="text-4xl mb-3">🧠</div>
+                  <h3 className="text-xl font-semibold theme-text mb-2">Max сайт с Джарвисом</h3>
+                  <div className="text-3xl font-bold text-cyan-400 mb-1">5 000 000</div>
+                  <div className="text-sm theme-text-muted">сум</div>
+                </div>
+
+                <ul className="space-y-3 mb-8 text-sm">
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3"></div>
+                    ИИ-помощник типа Джарвис (голосовой ввод)
+                  </li>
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3"></div>
+                    Интеграция с API
+                  </li>
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3"></div>
+                    Технологии нового поколения
+                  </li>
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3"></div>
+                    Поддержка WebGL и AI интерфейса
+                  </li>
+                  <li className="flex items-center theme-text-muted">
+                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3"></div>
+                    Максимальный уровень кастомизации
+                  </li>
+                </ul>
+
+                <Button className="w-full bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30">
+                  Заказать
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
