@@ -191,7 +191,8 @@ export default function Index() {
                         >
                           Очистить
                         </Button>
-                        <Button
+                                                <Button
+                          onClick={handleProceedToOrder}
                           size="sm"
                           className="flex-1 bg-purple-600 hover:bg-purple-700"
                         >
@@ -406,7 +407,7 @@ export default function Index() {
             Выберите подходящий план
           </h2>
           <p className="text-lg theme-text-muted max-w-2xl mx-auto">
-            Профессиональные решения для создания современных веб-сайтов
+            Пр��фессиональные решения для создания современных веб-сайтов
           </p>
         </div>
 
