@@ -323,13 +323,13 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка воспроизведения аудио утреннего при��етствия");
+      console.error("Ошибка воспроизведения аудио утреннего при��е��ствия");
     };
 
     audio.play().catch((error) => {
       resetState();
       console.error(
-        "Не удалось воспроизвести аудио утреннего приветствия:",
+        "Не удалось воспроизвести аудио утреннего приветс��вия:",
         error,
       );
     });
@@ -433,13 +433,38 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Используем Web Speech API для синтеза ф��азы "у меня все в порядке сэр"
+    // Используем Web Speech API для синтеза фразы "у меня все в порядке сэр"
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance("у меня все в порядке сэр");
+
+      // Настройки для мужского голоса в стиле Джарвиса
       utterance.lang = 'ru-RU';
-      utterance.rate = 0.9; // Немного медленнее для более формального звучания
-      utterance.pitch = 0.8; // Чуть ниже для солидности
-      utterance.volume = 1;
+      utterance.rate = 0.85; // Медленнее и увереннее, как Джарвис
+      utterance.pitch = 0.6; // Значительно ниже для мужского голоса
+      utterance.volume = 0.9;
+
+      // Попытаемся найти мужской голос
+      const voices = speechSynthesis.getVoices();
+      const maleVoice = voices.find(voice =>
+        (voice.lang.includes('ru') || voice.lang.includes('en')) &&
+        (voice.name.toLowerCase().includes('male') ||
+         voice.name.toLowerCase().includes('мужской') ||
+         voice.name.toLowerCase().includes('alex') ||
+         voice.name.toLowerCase().includes('daniel') ||
+         voice.name.toLowerCase().includes('антон') ||
+         voice.name.toLowerCase().includes('николай'))
+      );
+
+      if (maleVoice) {
+        utterance.voice = maleVoice;
+      } else {
+        // Если мужской голос не найден, используем первый доступный голос с низким тоном
+        const anyVoice = voices.find(voice => voice.lang.includes('ru') || voice.lang.includes('en'));
+        if (anyVoice) {
+          utterance.voice = anyVoice;
+        }
+        utterance.pitch = 0.5; // Еще ниже, если не нашли мужской голо��
+      }
 
       const resetState = () => {
         setIsSpeaking(false);
@@ -535,7 +560,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда утреннего приветствия "Добр��е утр�� Джарвис"
+    // Команда утреннего приветствия "Доброе утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис доброе утро") ||
@@ -592,7 +617,7 @@ export default function VoiceControl({
       return;
     }
 
-    // ��оманды благодарности
+    // Команды благодарности
     if (
       command.includes("спасибо") ||
       command.includes("благодарю") ||
@@ -638,7 +663,7 @@ export default function VoiceControl({
       "профиль",
       "заказ",
       "корзина",
-      "добавить",
+      "добав��ть",
       "план",
       "д��арвис",
       "базовый",
@@ -733,7 +758,7 @@ export default function VoiceControl({
       searchTerms: string[],
       fallbackAction?: () => void,
     ) => {
-      // Поиск по ��аголовкам
+      // Поиск по заголовкам
       const headings = Array.from(
         document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
       );
@@ -823,7 +848,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate(["возможности", "мощные", "features"]);
         if (found) {
-          speak("Показываю возможности");
+          speak("Показываю возмо��ности");
           return;
         }
       }
@@ -851,7 +876,7 @@ export default function VoiceControl({
 
       // Поиск информации о компании
       if (
-        command.includes("к��мпан") ||
+        command.includes("компан") ||
         command.includes("о нас") ||
         command.includes("кто мы")
       ) {
@@ -864,7 +889,7 @@ export default function VoiceControl({
 
       // Поиск контактов
       if (
-        command.includes("контакт") ||
+        command.includes("конта��т") ||
         command.includes("связь") ||
         command.includes("телефон") ||
         command.includes("email")
@@ -956,7 +981,7 @@ export default function VoiceControl({
 
     // Команды навигации по страницам
     if (
-      command.includes("перейти на главную") ||
+      command.includes("��ерейти на главную") ||
       command.includes("на главную страницу") ||
       command.includes("домо��")
     ) {
@@ -1110,7 +1135,7 @@ export default function VoiceControl({
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
       command.includes("перейти к возможностям") ||
-      command.includes("возможности")
+      command.includes("��озможности")
     ) {
       const found = searchAndNavigate(
         ["возможности", "мощные", "features"],
@@ -1139,7 +1164,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("прокрутит�� вверх") ||
+      command.includes("прокрутить вверх") ||
       command.includes("скролл вверх") ||
       command.includes("подняться вверх")
     ) {
