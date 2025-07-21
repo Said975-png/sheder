@@ -35,6 +35,12 @@ export default function VoiceControl({
         recognitionRef.current.continuous = true;
         recognitionRef.current.interimResults = true;
         recognitionRef.current.lang = "ru-RU";
+        // Улучшенные настройки для лучшего распознавания тихих команд
+        recognitionRef.current.maxAlternatives = 3;
+        // @ts-ignore - эти свойства могут не быть в типах, но работают в браузерах
+        if ('webkitSpeechRecognition' in window) {
+          recognitionRef.current.serviceURI = 'wss://www.google.com/speech-api/full-duplex/v1/up';
+        }
 
         recognitionRef.current.onresult = (event) => {
           let finalTranscript = "";
@@ -151,7 +157,7 @@ export default function VoiceControl({
 
     audio.play().catch((error) => {
       setIsSpeaking(false);
-      console.error("Не удалось воспроизвести аудио приветствия:", error);
+      console.error("Не удалось воспроизвести аудио приветст��ия:", error);
     });
   };
 
@@ -237,7 +243,7 @@ export default function VoiceControl({
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис доброе утро") ||
-      command.includes("утр�� джарвис") ||
+      command.includes("утро джарвис") ||
       command.includes("доброе утро") ||
       command.includes("good morning jarvis") ||
       command.includes("good morning") ||
@@ -306,7 +312,7 @@ export default function VoiceControl({
       "стоимость",
       "тариф",
       "услуги",
-      "компания",
+      "ком��ания",
       "контакты",
       "поддержка",
       "технологии",
@@ -458,7 +464,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate(["возможности", "мощные", "features"]);
         if (found) {
-          speak("Показыва�� возможности");
+          speak("Показываю возможности");
           return;
         }
       }
@@ -659,7 +665,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды добавления планов в корзину
+    // Команды добавл��ния планов в корзину
     if (
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
@@ -673,7 +679,7 @@ export default function VoiceControl({
 
     if (
       command.includes("добавить про") ||
-      command.includes("про п��ан") ||
+      command.includes("про план") ||
       command.includes("про в корзину") ||
       command.includes("отправить про")
     ) {
