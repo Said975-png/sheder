@@ -44,15 +44,30 @@ export default function VoiceControl({
 
         recognitionRef.current.onresult = (event) => {
           let finalTranscript = "";
+          let interimTranscript = "";
+
           for (let i = event.resultIndex; i < event.results.length; i++) {
+            const transcript = event.results[i][0].transcript;
             if (event.results[i].isFinal) {
-              finalTranscript += event.results[i][0].transcript;
+              finalTranscript += transcript;
+            } else {
+              interimTranscript += transcript;
             }
           }
 
-          if (finalTranscript) {
-            setTranscript(finalTranscript);
-            processVoiceCommand(finalTranscript.toLowerCase());
+          // Показываем промежуточный результат
+          if (interimTranscript) {
+            setTranscript(interimTranscript);
+          }
+
+          if (finalTranscript && !commandCooldownRef.current) {
+            const command = finalTranscript.toLowerCase().trim();
+            // Проверяем, что команда отличается от предыдущей и не пустая
+            if (command && command !== lastCommandRef.current && command.length > 2) {
+              setTranscript(finalTranscript);
+              lastCommandRef.current = command;
+              processVoiceCommand(command);
+            }
           }
         };
 
@@ -117,7 +132,7 @@ export default function VoiceControl({
 
     audio.onerror = () => {
       setIsSpeaking(false);
-      // Если ошибка с ау��ио, все равно отключаем микрофон
+      // Если ошибка с ау��ио, все равно отклю��аем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
@@ -157,7 +172,7 @@ export default function VoiceControl({
 
     audio.play().catch((error) => {
       setIsSpeaking(false);
-      console.error("Не удалось воспроизвести аудио приветст��ия:", error);
+      console.error("Не удалось воспроизвести аудио приветствия:", error);
     });
   };
 
@@ -312,7 +327,7 @@ export default function VoiceControl({
       "стоимость",
       "тариф",
       "услуги",
-      "ком��ания",
+      "компания",
       "контакты",
       "поддержка",
       "технологии",
@@ -665,7 +680,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды добавл��ния планов в корзину
+    // Команды добавления планов в корзину
     if (
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
@@ -732,7 +747,7 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спуститься к преимуществам") ||
-      command.includes("перейти к преимуществам") ||
+      command.includes("пер��йти к преимуществам") ||
       command.includes("преимущества")
     ) {
       const found = searchAndNavigate([
@@ -771,7 +786,7 @@ export default function VoiceControl({
     // Прокрутка страницы
     if (
       command.includes("прокрутить вниз") ||
-      command.includes("скролл вниз") ||
+      command.includes("скрол�� вниз") ||
       command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
