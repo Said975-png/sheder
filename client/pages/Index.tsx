@@ -302,9 +302,13 @@ export default function Index() {
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-6 py-12 pt-24">
-        <div className="grid md:grid-cols-2 gap-12 items-center min-h-[600px]">
+            {/* Main Content */}
+      <main className="relative spotlight-container spotlight-dark-bg">
+        {/* Дымчатый эффект */}
+        <div className="smoke-effect"></div>
+
+        <div className="container mx-auto px-6 py-12 pt-24 relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 items-center min-h-[600px]">
           {/* Left Side - Content */}
           <div className="space-y-8">
             <div className="space-y-6">
