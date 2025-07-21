@@ -170,7 +170,7 @@ export default function Index() {
                   <h3 className="font-semibold theme-text mb-2">Корзина</h3>
                   {items.length === 0 ? (
                     <p className="text-sm theme-text-muted text-center py-4">
-                      Корзина пуста
+                      Корзина пуст��
                     </p>
                   ) : (
                     <>
@@ -758,8 +758,9 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Our Advantages Section */}
-      <section className="container mx-auto px-6 py-24">
+            {/* Our Advantages Section */}
+      <section className="ai-hero-container py-24 relative">
+        <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 theme-text">
             Наши преимущества
