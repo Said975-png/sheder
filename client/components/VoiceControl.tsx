@@ -427,6 +427,21 @@ export default function VoiceControl({
       return;
     }
 
+    // Команда проверки присутствия "Джарвис ты тут?"
+    if (
+      command.includes("джарвис ты тут") ||
+      command.includes("ты тут джарвис") ||
+      command.includes("джарвис ты здесь") ||
+      command.includes("ты здесь джарвис") ||
+      command.includes("джарвис на месте") ||
+      command.includes("джарвис присутствуешь") ||
+      command.includes("jarvis are you there") ||
+      command.includes("are you there jarvis")
+    ) {
+      speakIAmHere();
+      return;
+    }
+
     // Проверяем, содержит ли команда значимые слова
     const meaningfulWords = [
       "перейти",
@@ -733,7 +748,7 @@ export default function VoiceControl({
         }
       }
 
-      // Если ничего специфичного не найдено, попробуем общий поиск
+      // Если ничего специфичного не найдено, попробуем общий ��оиск
       if (!found) {
         const searchTerms = command
           .split(" ")
@@ -824,7 +839,7 @@ export default function VoiceControl({
       command.includes("отправить базовый")
     ) {
       onAddBasicPlan();
-      speak("Базовый план добавлен");
+      speak("Базовый план д��бавлен");
       return;
     }
 
