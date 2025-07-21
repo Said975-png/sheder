@@ -345,7 +345,6 @@ export default function VoiceControl({
 
     if (command.includes("наверх страницы") || command.includes("в ��ачало")) {
       window.scrollTo(0, 0);
-      speak("Возвращаемся в начало страницы.");
       return;
     }
 
@@ -353,13 +352,11 @@ export default function VoiceControl({
       const pricingSection = document.querySelector('[data-section="pricing"]');
       if (pricingSection) {
         pricingSection.scrollIntoView({ behavior: "smooth" });
-        speak("Показываю тарифные планы.");
       }
       return;
     }
 
-    // Если команда не распознана
-    speak("Извините, я не понял команду. Попробуйте переформулировать.");
+    // Команда не распознана - ничего не делаем
   };
 
   const toggleListening = () => {
