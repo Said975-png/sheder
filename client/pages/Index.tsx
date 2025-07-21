@@ -227,7 +227,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">User Experience</h3>
             <p className="text-white/60">
-              Максимальное удобство для пользователей без компромиссов в
+              Максимально�� удобство для пользователей без компромиссов в
               безопасности
             </p>
           </div>
@@ -307,23 +307,23 @@ export default function Index() {
 
                 <ul className="space-y-3 mb-8 text-sm">
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
-                    Без искусственного интеллекта
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 pulse-dot"></div>
+                    Без искусственного интеллект��
                   </li>
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 pulse-dot"></div>
                     Базовая вёрстка
                   </li>
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 pulse-dot"></div>
                     Адаптив под все устройства
                   </li>
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 pulse-dot"></div>
                     Бесплатный SSL
                   </li>
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 pulse-dot"></div>
                     Техподдержка 24/7
                   </li>
                 </ul>
@@ -358,23 +358,23 @@ export default function Index() {
 
                 <ul className="space-y-3 mb-8 text-sm">
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3 pulse-dot"></div>
                     ИИ: чат-бот, автозаполнение, умные блоки
                   </li>
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3 pulse-dot"></div>
                     Полный адаптив
                   </li>
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3 pulse-dot"></div>
                     Быстрая загрузка
                   </li>
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3 pulse-dot"></div>
                     SEO оптимизация
                   </li>
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-orange-400 rounded-full mr-3 pulse-dot"></div>
                     Техподдержка 24/7
                   </li>
                 </ul>
@@ -395,30 +395,30 @@ export default function Index() {
               <div className="relative z-10">
                 <div className="text-center mb-6">
                   <div className="text-4xl mb-3">🧠</div>
-                  <h3 className="text-xl font-semibold theme-text mb-2">Max сайт с Джарвисо��</h3>
+                  <h3 className="text-xl font-semibold theme-text mb-2">Max сайт с Джарвисом</h3>
                   <div className="text-3xl font-bold text-cyan-400 mb-1">5 000 000</div>
                   <div className="text-sm theme-text-muted">сум</div>
                 </div>
 
                 <ul className="space-y-3 mb-8 text-sm">
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3 pulse-dot"></div>
                     ИИ-помощник типа Джарвис (голосовой ввод)
                   </li>
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3 pulse-dot"></div>
                     Интеграция с API
                   </li>
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3 pulse-dot"></div>
                     Технологии нового поколения
                   </li>
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3 pulse-dot"></div>
                     Поддержка WebGL и AI интерфейса
                   </li>
                   <li className="flex items-center theme-text-muted">
-                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3"></div>
+                    <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-3 pulse-dot"></div>
                     Максимальный уровень кастомизации
                   </li>
                 </ul>
