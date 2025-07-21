@@ -28,9 +28,39 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleLogout = () => {
+    const handleLogout = () => {
     logout();
     window.location.reload();
+  };
+
+  const handleAddBasicPlan = () => {
+    addItem({
+      id: 'basic-plan',
+      name: 'Basic сайт',
+      price: 2000000,
+      description: 'Базовая вёрстка, адаптив под все устройства, бесплатный SSL, техподдержка 24/7',
+      category: 'website'
+    });
+  };
+
+  const handleAddProPlan = () => {
+    addItem({
+      id: 'pro-plan',
+      name: 'Pro сайт с ИИ',
+      price: 3500000,
+      description: 'ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация',
+      category: 'website-ai'
+    });
+  };
+
+  const handleAddMaxPlan = () => {
+    addItem({
+      id: 'max-plan',
+      name: 'Max сайт с Джарвисом',
+      price: 5000000,
+      description: 'ИИ-помощник типа Джарвис, интеграция с API, технологии нового поколения, WebGL и AI интерфейс',
+      category: 'website-jarvis'
+    });
   };
 
   if (loading) {
@@ -352,7 +382,7 @@ export default function Index() {
                     <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
                       <CheckCircle className="w-3 h-3 text-blue-400" />
                     </div>
-                    Бе��платный SSL
+                    Бесплатный SSL
                   </li>
                   <li className="flex items-center theme-text-muted group">
                     <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
