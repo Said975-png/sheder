@@ -207,6 +207,20 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("Обработка команды:", command);
 
+    // Фильтруем пустые или слишком короткие команды
+    const trimmedCommand = command.trim();
+    if (trimmedCommand.length < 3) {
+      return; // Не обрабатываем слишком короткие команды
+    }
+
+    // Проверяем, содержит ли команда значимые слова
+    const meaningfulWords = ["перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "д��арвис", "помощь", "команды", "расскажи", "тарифы", "привет", "здравствуй", "прокрутить", "скролл", "наверх", "планам", "что", "как", "где"];
+    const hasValidWords = meaningfulWords.some(word => trimmedCommand.includes(word));
+
+    if (!hasValidWords) {
+      return; // Не обрабатываем команды без значимых слов
+    }
+
     // Команды навигации
     if (
       command.includes("перейти на главную") ||
@@ -233,7 +247,7 @@ export default function VoiceControl({
       command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
-      speak("Переходим к регистрации нового пользователя.");
+      speak("Переходим к ре��истрации нового пользователя.");
       return;
     }
 
@@ -308,7 +322,7 @@ export default function VoiceControl({
       command.includes("команды")
     ) {
       speak(
-        "Я умею навигировать по сайту, управлять корзиной, добавлять планы и контролировать функции сайта. Просто дайте мне команду.",
+        "Я умею навигировать по сайту, управлять корзиной, добавлять планы и контролировать функции сайта. Просто дайте мне ком��нду.",
       );
       return;
     }
