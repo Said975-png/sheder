@@ -39,7 +39,7 @@ export default function VoiceControl({
         recognitionRef.current.lang = "ru-RU";
         // Улучшенные настройки для лучшего распознавания тихих команд
         recognitionRef.current.maxAlternatives = 3;
-        // @ts-ignore - эти свойства могут не быть в типах, но работают в браузерах
+        // @ts-ignore - эти свойства могут не быть в типах, но р��ботают в браузерах
         if ("webkitSpeechRecognition" in window) {
           recognitionRef.current.serviceURI =
             "wss://www.google.com/speech-api/full-duplex/v1/up";
@@ -256,7 +256,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим аудио для благодарности
+    // Создаем и воспроизводим аудио дл�� благодарности
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2Fafb1b8a7fc8645a7ab1e8513e8c1faa7?alt=media&token=be057092-6988-45dd-94dc-90427146589d&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -472,7 +472,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда утреннего приветствия "Доброе утро Джарвис"
+    // Команда утреннего приветствия "Доброе утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис доброе утро") ||
@@ -485,6 +485,25 @@ export default function VoiceControl({
       // Дополнит��льная проверка, чтобы избеж��ть повторных срабатываний
       if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
         speakGoodMorning();
+      }
+      return;
+    }
+
+    // Команда приветствия "Привет Джарвис"
+    if (
+      command.includes("привет джарвис") ||
+      command.includes("джарвис привет") ||
+      command.includes("здравствуй джарвис") ||
+      command.includes("джарвис здравствуй") ||
+      command.includes("хай джарвис") ||
+      command.includes("hello jarvis") ||
+      command.includes("hi jarvis") ||
+      command.includes("hey jarvis") ||
+      (command.includes("привет") && command.includes("джарвис"))
+    ) {
+      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
+        speakAuthenticJarvis();
       }
       return;
     }
@@ -606,7 +625,7 @@ export default function VoiceControl({
       "круто",
       "прекрасно",
       "чудесно",
-      "доброе",
+      "добр��е",
       "утро",
       "утра",
       "morning",
@@ -987,7 +1006,7 @@ export default function VoiceControl({
     if (
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
-      command.includes("спуститься к преимуществам") ||
+      command.includes("спустит��ся к преимуществам") ||
       command.includes("перейти к преимуществам") ||
       command.includes("преим��щества")
     ) {
