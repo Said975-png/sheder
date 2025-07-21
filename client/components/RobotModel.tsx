@@ -59,7 +59,7 @@ function LoadingFallback() {
         <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center animate-pulse">
           <span className="text-2xl">🤖</span>
         </div>
-        <p className="text-sm">Loading 3D Robot Model...</p>
+        <p className="text-sm">Loading 3D Model...</p>
       </div>
     </div>
   );
