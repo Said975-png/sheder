@@ -454,7 +454,10 @@ export default function Index() {
 
             {/* Right Side - 3D Model positioned at header level */}
             <div className="flex-shrink-0 w-full md:w-96 h-96 md:-mt-4 lg:-mt-8 xl:-mt-12">
-              <div className="relative w-full h-full overflow-visible z-30" style={{ padding: '20px' }}>
+              <div
+                className="relative w-full h-full overflow-visible z-30"
+                style={{ padding: "20px" }}
+              >
                 {/* 3D Model */}
                 <div className="relative w-full h-full flex items-center justify-center">
                   <div className="w-full h-full relative">
