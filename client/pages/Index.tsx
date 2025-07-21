@@ -302,7 +302,7 @@ export default function Index() {
         </div>
       </nav>
 
-            {/* Main Content */}
+      {/* Main Content */}
       <main className="container mx-auto px-6 py-12 pt-24">
         <div className="grid md:grid-cols-2 gap-12 items-center min-h-[600px]">
           {/* Left Side - Content */}
@@ -343,7 +343,7 @@ export default function Index() {
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Мощные возможности</h2>
           <p className="text-white/60 max-w-2xl mx-auto">
-            Все инструменты, необходимые для превращения дизайна в полноценное
+            Все инструменты, необходимые для превращения ди��айна в полноценное
             веб-приложение
           </p>
         </div>
