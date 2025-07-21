@@ -17,7 +17,9 @@ export default function OrderForm() {
     phone: "",
     description: ""
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -188,7 +190,7 @@ export default function OrderForm() {
                   <Textarea
                     id="description"
                     name="description"
-                    placeholder="Опишите детально, что вы хотите видеть на своем будущем сайте: дизайн, функционал, особые требования, цветовую гамму, структуру страниц и т.д."
+                    placeholder="Опишите детально, что вы хотите видеть на своем будущем сайте: дизайн, функционал, особ��е требования, цветовую гамму, структуру страниц и т.д."
                     value={formData.description}
                     onChange={handleInputChange}
                     required
