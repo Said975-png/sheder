@@ -64,55 +64,75 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
   const speak = (text: string) => {
     if ('speechSynthesis' in window) {
       setIsSpeaking(true);
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'ru-RU';
-      utterance.rate = 0.75; // Медленнее для более роботичного звучания
-      utterance.pitch = 0.7; // Более низкий тон
-      utterance.volume = 0.9;
 
-      // Найдем т��лько мужские голоса, исключив женские
-      const voices = speechSynthesis.getVoices();
+      const speakWithVoice = () => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ru-RU';
+        utterance.rate = 0.75; // Медленнее для более роботичного звучания
+        utterance.pitch = 0.7; // Более низкий тон
+        utterance.volume = 0.9;
 
-      // Сначала ищем явно мужские голоса
-      const maleVoices = voices.filter(voice =>
-        voice.lang.includes('ru') &&
-        (voice.name.toLowerCase().includes('male') ||
-         voice.name.toLowerCase().includes('мужской') ||
-         voice.name.toLowerCase().includes('russian male') ||
-         voice.name.toLowerCase().includes('pavel') ||
-         voice.name.toLowerCase().includes('александр') ||
-         voice.name.toLowerCase().includes('dmitry') ||
-         voice.name.toLowerCase().includes('андрей') ||
-         voice.name.toLowerCase().includes('михаил'))
-      );
+        // Получаем список голосов
+        const voices = speechSynthesis.getVoices();
 
-      // Если нашли явно мужские голоса, используем их
-      if (maleVoices.length > 0) {
-        utterance.voice = maleVoices[0];
-      } else {
-        // Иначе ищем русские голоса, но исключаем женские
-        const russianVoices = voices.filter(voice =>
-          voice.lang.includes('ru') &&
-          !voice.name.toLowerCase().includes('female') &&
-          !voice.name.toLowerCase().includes('женский') &&
-          !voice.name.toLowerCase().includes('елена') &&
-          !voice.name.toLowerCase().includes('анна') &&
-          !voice.name.toLowerCase().includes('ирина') &&
-          !voice.name.toLowerCase().includes('maria') &&
-          !voice.name.toLowerCase().includes('татьяна') &&
-          !voice.name.toLowerCase().includes('светлана')
-        );
+        // Строго ищем только мужские голоса, исключаем все женские
+        const maleVoices = voices.filter(voice => {
+          const name = voice.name.toLowerCase();
+          const isRussian = voice.lang.includes('ru') || voice.lang.includes('RU');
 
-        if (russianVoices.length > 0) {
-          utterance.voice = russianVoices[0];
+          // Исключаем все женские голоса
+          const isFemale = name.includes('female') ||
+                          name.includes('женский') ||
+                          name.includes('елена') ||
+                          name.includes('анна') ||
+                          name.includes('ирина') ||
+                          name.includes('maria') ||
+                          name.includes('татьяна') ||
+                          name.includes('светлана') ||
+                          name.includes('kate') ||
+                          name.includes('alice') ||
+                          name.includes('siri') ||
+                          name.includes('milena') ||
+                          name.includes('alena');
+
+          // Ищем мужские голоса
+          const isMale = name.includes('male') ||
+                        name.includes('мужской') ||
+                        name.includes('pavel') ||
+                        name.includes('александр') ||
+                        name.includes('dmitry') ||
+                        name.includes('андрей') ||
+                        name.includes('михаил') ||
+                        name.includes('viktor') ||
+                        name.includes('sergey') ||
+                        name.includes('alexey');
+
+          return isRussian && !isFemale && (isMale || (!name.includes('female') && !name.includes('женский')));
+        });
+
+        // Используем первый найденный мужской голос или дефолтный с низким тоном
+        if (maleVoices.length > 0) {
+          utterance.voice = maleVoices[0];
+          console.log('Используется голос:', maleVoices[0].name);
+        } else {
+          // Если мужских голосов не найдено, используем дефолтный с очень низким тоном
+          utterance.pitch = 0.5;
+          console.log('Мужские голоса не найдены, используется дефолтный с низким тоном');
         }
-      }
 
-      utterance.onend = () => {
-        setIsSpeaking(false);
+        utterance.onend = () => {
+          setIsSpeaking(false);
+        };
+
+        speechSynthesis.speak(utterance);
       };
 
-      speechSynthesis.speak(utterance);
+      // Ждем загрузки голосов
+      if (speechSynthesis.getVoices().length === 0) {
+        speechSynthesis.addEventListener('voiceschanged', speakWithVoice, { once: true });
+      } else {
+        speakWithVoice();
+      }
     }
   };
 
@@ -120,7 +140,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
     console.log('Обработка команды:', command);
     
     // Команды навигации
-    if (command.includes('перейти на главную') || command.includes('на главную страницу') || command.includes('домой')) {
+    if (command.includes('перейти на главную') || command.includes('н�� главную страницу') || command.includes('домой')) {
       navigate('/');
       speak('Переходим на главную страницу');
       return;
@@ -157,7 +177,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
       return;
     }
 
-    if (command.includes('что в корзине') || command.includes('показать корзину')) {
+    if (command.includes('ч��о в корзине') || command.includes('показать корзину')) {
       const itemsCount = getTotalItems();
       if (itemsCount === 0) {
         speak('Корзина пуста');
@@ -211,7 +231,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
 
     if (command.includes('прокрутить вверх') || command.includes('скролл вверх')) {
       window.scrollBy(0, -500);
-      speak('Прокручиваю страницу вверх');
+      speak('Прокручиваю страницу в��ерх');
       return;
     }
 
