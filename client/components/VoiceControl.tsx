@@ -153,6 +153,29 @@ export default function VoiceControl({
     });
   };
 
+  const speakThankYou = () => {
+    setIsSpeaking(true);
+
+    // Создаем и воспроизводим аудио для благодарности
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2Fafb1b8a7fc8645a7ab1e8513e8c1faa7?alt=media&token=be057092-6988-45dd-94dc-90427146589d&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
+    );
+
+    audio.onended = () => {
+      setIsSpeaking(false);
+    };
+
+    audio.onerror = () => {
+      setIsSpeaking(false);
+      console.error("Ошибка воспроизведения аудио благодарности");
+    };
+
+    audio.play().catch((error) => {
+      setIsSpeaking(false);
+      console.error("Не удалось воспроизвести аудио благодарности:", error);
+    });
+  };
+
   const processVoiceCommand = (command: string) => {
     console.log("Обработка команды:", command);
 
@@ -515,7 +538,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("профиль") ||
+      command.includes("про��иль") ||
       command.includes("мой профиль") ||
       command.includes("личный кабинет") ||
       command.includes("открыть профиль")
@@ -592,7 +615,7 @@ export default function VoiceControl({
 
     // Расширенная навигация по секциям страницы
     if (
-      command.includes("к планам") ||
+      command.includes("к план��м") ||
       command.includes("показать планы") ||
       command.includes("перейти к планам") ||
       command.includes("спуститься к планам") ||
@@ -669,7 +692,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("прокрутить вверх") ||
+      command.includes("прокрут��ть вверх") ||
       command.includes("скролл вверх") ||
       command.includes("подняться вверх")
     ) {
