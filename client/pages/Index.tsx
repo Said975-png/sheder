@@ -290,9 +290,9 @@ export default function Index() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Basic Plan Card */}
-          <div className="group relative">
+          <div className="group relative pricing-card-enter">
             <div className="relative p-8 bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-lg border border-blue-500/30 rounded-3xl hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/25">
               {/* Glowing border effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/40 to-purple-600/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
@@ -302,7 +302,7 @@ export default function Index() {
                   <div className="text-4xl mb-3">💼</div>
                   <h3 className="text-xl font-semibold theme-text mb-2">Basik сайт</h3>
                   <div className="text-3xl font-bold text-blue-400 mb-1">2 000 000</div>
-                  <div className="text-sm theme-text-muted">сум</div>
+                  <div className="text-sm theme-text-muted">су��</div>
                 </div>
 
                 <ul className="space-y-3 mb-8 text-sm">
