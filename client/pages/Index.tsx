@@ -270,7 +270,7 @@ export default function Index() {
                     className="theme-dropdown-item cursor-pointer"
                   >
                     <Settings className="mr-2 h-4 w-4" />
-                    <span>На��тройки</span>
+                    <span>Настройки</span>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-border" />
                   <DropdownMenuItem
@@ -481,8 +481,9 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Bottom Section - Company Logos */}
-      <section className="container mx-auto px-6 py-16">
+            {/* Bottom Section - Company Logos */}
+      <section className="ai-hero-container py-16 relative">
+        <div className="container mx-auto px-6">
         <div className="text-center space-y-8">
           <h2 className="text-xl font-medium text-white/80 max-w-2xl mx-auto">
             Guarding The Industry's Top Apps And Games.
@@ -867,7 +868,7 @@ export default function Index() {
                 Инновационные решения
               </h3>
               <p className="theme-text-muted leading-relaxed">
-                Внедряем передовые технологии: WebGL, машинное обучение,
+                Внедряем передовые технологии: WebGL, машинное ��бучение,
                 голосовое управление и AR/VR эл��менты для максимального
                 wow-эффекта.
               </p>
