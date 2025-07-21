@@ -66,7 +66,7 @@ export default function Index() {
       name: "Basic сайт",
       price: 2000000,
       description:
-        "Базовая вёрстка, адаптив под все устройства, бесплатный SSL, техподдержка 24/7",
+        "Базовая вёрстка, ада��тив под все устройства, бесплатный SSL, техподдержка 24/7",
       category: "website",
     });
   };
@@ -456,54 +456,15 @@ export default function Index() {
             {/* Right Side - 3D Model */}
             <div className="relative h-[500px] md:h-[600px] flex items-center justify-center">
               <div className="relative">
-                {/* Toggle Button */}
-                <div className="absolute top-4 right-4 z-20">
-                  <Button
-                    onClick={() => setShow3D(!show3D)}
-                    variant="outline"
-                    size="sm"
-                    className="bg-black/40 backdrop-blur-sm border border-purple-500/30 text-purple-300 hover:bg-purple-600/20 hover:text-purple-200"
-                  >
-                    {show3D ? '2D' : '3D'}
-                  </Button>
-                </div>
-
-                {/* 3D Model or Image */}
+                {/* 3D Model */}
                 <div className="relative w-96 h-96 mx-auto flex items-center justify-center">
-                  {show3D ? (
-                    <div className="w-full h-full relative">
-                      <RobotModel />
+                  <div className="w-full h-full relative">
+                    <RobotModel />
 
-                      {/* Glowing effect around 3D model */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse pointer-events-none"></div>
-                      <div className="absolute inset-4 bg-gradient-to-r from-purple-400/20 to-cyan-400/20 rounded-full blur-2xl animate-ping pointer-events-none"></div>
-                    </div>
-                  ) : (
-                    <>
-                      <img
-                        src="https://cdn.builder.io/api/v1/image/assets%2Fc7cc0af5c2b743a4bb2b78008c30e87d%2Fe9da087bc319432d89f503c91d056d76?format=webp&width=800"
-                        alt="AI Robot Model"
-                        className="max-w-full max-h-full object-contain z-10 relative"
-                        style={{
-                          filter:
-                            "drop-shadow(0 0 30px rgba(139, 69, 255, 0.8)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.6))",
-                          minHeight: "300px",
-                          minWidth: "300px",
-                        }}
-                        onError={(e) => {
-                          console.log("Image failed to load:", e);
-                          e.currentTarget.style.display = "block";
-                        }}
-                        onLoad={(e) => {
-                          console.log("Image loaded successfully:", e);
-                        }}
-                      />
-
-                      {/* Glowing effect around image */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
-                      <div className="absolute inset-4 bg-gradient-to-r from-purple-400/20 to-cyan-400/20 rounded-full blur-2xl animate-ping"></div>
-                    </>
-                  )}
+                    {/* Glowing effect around 3D model */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse pointer-events-none"></div>
+                    <div className="absolute inset-4 bg-gradient-to-r from-purple-400/20 to-cyan-400/20 rounded-full blur-2xl animate-ping pointer-events-none"></div>
+                  </div>
                 </div>
 
                 {/* Floating Code Elements with Gravity */}
@@ -681,7 +642,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-blue-400" />
                       </div>
-                      Адаптив под все устройства
+                      Адап��ив под все устройства
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
@@ -863,7 +824,7 @@ export default function Index() {
               Наши преимущества
             </h2>
             <p className="text-lg theme-text-muted max-w-3xl mx-auto">
-              Мы создаем не просто са��ты — мы разрабатываем и��теллектуальные
+              Мы создаем не просто сайты — мы разрабатываем и��теллектуальные
               решения, которые работают как ваш персональный ИИ-помощник
             </p>
           </div>
@@ -880,7 +841,7 @@ export default function Index() {
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
                   Создаем полноценные сайты в 3-5 раз быстрее благодаря нашим
-                  ИИ-инструментам и готовым модулям. То, что други�� делают
+                  ИИ-инструментам и готовым модулям. То, что другие делают
                   меся��ами, мы реализуем за недели.
                 </p>
               </div>
@@ -916,7 +877,7 @@ export default function Index() {
                   Поддержка 24/7
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Круглосуточная техническая по��держка и мониторинг ваше��о
+                  Круглосуточная техническая поддержка и мониторинг ваше��о
                   сайта. Мы оперативно решаем любые вопросы и следим за
                   стабильной работой.
                 </p>
