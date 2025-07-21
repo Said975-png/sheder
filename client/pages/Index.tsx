@@ -286,7 +286,7 @@ export default function Index() {
             Выберите подходящий план
           </h2>
           <p className="text-lg theme-text-muted max-w-2xl mx-auto">
-            Профессиональные решения для создания современных веб-сайтов
+            Профессиональные решения для создания со��ременных веб-сайтов
           </p>
         </div>
 
@@ -299,11 +299,14 @@ export default function Index() {
 
               <div className="relative z-10">
                                 <div className="text-center mb-6">
-                  <div className="relative mb-4">
-                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center border border-blue-500/30">
+                                    <div className="relative mb-4">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center border border-blue-500/30 relative">
                       <Code className="w-8 h-8 text-blue-400" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-600/10 rounded-2xl animate-pulse"></div>
                     </div>
                     <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full animate-pulse"></div>
+                    <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-purple-500 rounded-full animate-ping"></div>
+                    <div className="absolute top-0 left-0 w-2 h-2 bg-cyan-500 rounded-full animate-bounce"></div>
                   </div>
                   <h3 className="text-xl font-semibold theme-text mb-2">Basic сайт</h3>
                   <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">2 000 000</div>
@@ -359,7 +362,7 @@ export default function Index() {
               {/* Popular badge */}
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                 <div className="bg-gradient-to-r from-orange-500 to-red-600 text-white text-xs font-semibold px-4 py-2 rounded-full">
-                  Популярный
+                  По��улярный
                 </div>
               </div>
 
