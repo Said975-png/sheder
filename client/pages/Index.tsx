@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-
+import RobotModel from "@/components/RobotModel";
 import VoiceControl from "@/components/VoiceControl";
 import {
   Shield,
@@ -50,7 +50,7 @@ export default function Index() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
-    }, 300); // Задержка для более драматичного появления
+    }, 300); // Задержка для более драмати��ного появления
 
     return () => clearTimeout(timer);
   }, []);
@@ -511,7 +511,7 @@ export default function Index() {
               </div>
               <h3 className="text-lg font-semibold mb-2">AI Detection</h3>
               <p className="text-white/60">
-                Перед��вые алгоритмы ��ля обнаруж��ния ботов и автоматических
+                Перед��в��е алгоритмы ��ля обнаруж��ния ботов и автоматических
                 систем
               </p>
             </div>
