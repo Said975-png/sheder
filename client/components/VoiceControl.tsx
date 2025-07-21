@@ -374,7 +374,7 @@ export default function VoiceControl({
   };
 
   const processVoiceCommand = (command: string) => {
-    console.log("Обработка ко��анды:", command);
+    console.log("Обрабо��ка ко��анды:", command);
 
     // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
@@ -382,14 +382,15 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда отключения (приоритетн��я)
+    // Команда отключения (приоритетная)
     if (
-      command.includes("отключ��сь") ||
+      command.includes("отключись") ||
       command.includes("выключись") ||
       command.includes("отключи микрофон") ||
       command.includes("стоп джарвис") ||
       command.includes("выключи")
     ) {
+      // Принудительно выполняем команду отключения независимо от состояния
       speakShutdown();
       return;
     }
@@ -788,7 +789,7 @@ export default function VoiceControl({
     if (
       command.includes("перейти на главную") ||
       command.includes("на главную страницу") ||
-      command.includes("домой")
+      command.includes("домо��")
     ) {
       navigate("/");
       speak("Переходим на главную страницу");
