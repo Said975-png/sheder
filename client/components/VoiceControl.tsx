@@ -19,6 +19,8 @@ export default function VoiceControl({
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [transcript, setTranscript] = useState("");
   const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const lastCommandRef = useRef<string>("");
+  const commandCooldownRef = useRef<boolean>(false);
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
 
@@ -235,7 +237,7 @@ export default function VoiceControl({
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис доброе утро") ||
-      command.includes("утро джарвис") ||
+      command.includes("утр�� джарвис") ||
       command.includes("доброе утро") ||
       command.includes("good morning jarvis") ||
       command.includes("good morning") ||
@@ -456,7 +458,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate(["возможности", "мощные", "features"]);
         if (found) {
-          speak("Показываю возможности");
+          speak("Показыва�� возможности");
           return;
         }
       }
@@ -671,7 +673,7 @@ export default function VoiceControl({
 
     if (
       command.includes("добавить про") ||
-      command.includes("про план") ||
+      command.includes("про п��ан") ||
       command.includes("про в корзину") ||
       command.includes("отправить про")
     ) {
