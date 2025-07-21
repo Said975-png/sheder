@@ -67,154 +67,431 @@ export default function VoiceControl({
   }, []);
 
   const speak = (text: string) => {
-    if ("speechSynthesis" in window) {
-      setIsSpeaking(true);
+    setIsSpeaking(true);
 
-      const speakWithVoice = () => {
-        const utterance = new SpeechSynthesisUtterance(text);
+    // Создаем и воспроизводим ваш новый аудио-файл
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fdb47541068444a9093b406f29a6af3ce?alt=media&token=43fbc024-64ae-479b-8a6c-5b9d12b43294&apiKey=236158b44f8b45f680ab2467abfc361c",
+    );
 
-        // Настройки голоса Джарвиса
-        utterance.rate = 0.85; // Спокойная, уверенная речь
-        utterance.pitch = 0.6; // Низкий тон, как у Джарвиса
-        utterance.volume = 0.95; // Четкая громкость
+    audio.onended = () => {
+      setIsSpeaking(false);
+    };
 
-        // Получаем список голосов
-        const voices = speechSynthesis.getVoices();
-        console.log(
-          "Доступные голоса:",
-          voices.map((v) => `${v.name} (${v.lang})`),
-        );
+    audio.onerror = () => {
+      setIsSpeaking(false);
+      console.error("Оши��ка воспроизведения аудио");
+    };
 
-        // Приоритетный поиск голоса Джарвиса
-        let selectedVoice = null;
+    audio.play().catch((error) => {
+      setIsSpeaking(false);
+      console.error("Не удалось воспроизвести аудио:", error);
+    });
+  };
 
-        // 1. Ищем британские мужские голоса (как у Джарвиса)
-        const britishMaleVoices = voices.filter((voice) => {
-          const name = voice.name.toLowerCase();
-          const lang = voice.lang.toLowerCase();
-          return (
-            (lang.includes("en-gb") || lang.includes("en-uk")) &&
-            (name.includes("male") ||
-              name.includes("daniel") ||
-              name.includes("oliver") ||
-              name.includes("arthur"))
-          );
-        });
+  const speakShutdown = () => {
+    setIsSpeaking(true);
 
-        // 2. Ищем любые английские мужские голоса
-        const englishMaleVoices = voices.filter((voice) => {
-          const name = voice.name.toLowerCase();
-          const lang = voice.lang.toLowerCase();
-          return (
-            lang.includes("en") &&
-            (name.includes("male") ||
-              name.includes("alex") ||
-              name.includes("daniel") ||
-              name.includes("david") ||
-              name.includes("microsoft david") ||
-              name.includes("google uk english male"))
-          );
-        });
+    // Создаем и воспроизводим аудио для команды "отключись"
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c",
+    );
 
-        // 3. Ищем русские мужские голоса для русского текста
-        const russianMaleVoices = voices.filter((voice) => {
-          const name = voice.name.toLowerCase();
-          const lang = voice.lang.toLowerCase();
-          return (
-            lang.includes("ru") &&
-            !name.includes("female") &&
-            !name.includes("женский") &&
-            (name.includes("male") ||
-              name.includes("мужской") ||
-              name.includes("pavel") ||
-              name.includes("александр") ||
-              name.includes("dmitry"))
-          );
-        });
-
-        // Выбираем голос в порядке приоритета (русский приоритетнее)
-        if (russianMaleVoices.length > 0) {
-          selectedVoice = russianMaleVoices[0];
-          utterance.lang = "ru-RU";
-          console.log(
-            "Используется русский мужской голос:",
-            selectedVoice.name,
-          );
-        } else if (britishMaleVoices.length > 0) {
-          selectedVoice = britishMaleVoices[0];
-          utterance.lang = "en-GB";
-          console.log(
-            "Используется британский голос Джарвиса:",
-            selectedVoice.name,
-          );
-        } else if (englishMaleVoices.length > 0) {
-          selectedVoice = englishMaleVoices[0];
-          utterance.lang = "en-US";
-          console.log(
-            "Используется английский мужской голос:",
-            selectedVoice.name,
-          );
-        } else {
-          // Последний шанс - любой мужской голос
-          const anyMaleVoice = voices.find(
-            (voice) =>
-              voice.name.toLowerCase().includes("male") &&
-              !voice.name.toLowerCase().includes("female"),
-          );
-          if (anyMaleVoice) {
-            selectedVoice = anyMaleVoice;
-            utterance.lang = anyMaleVoice.lang;
-            console.log(
-              "Используется запасной мужской голос:",
-              selectedVoice.name,
-            );
-          } else {
-            // Если ничего не найдено, делаем очень низкий тон
-            utterance.pitch = 0.4;
-            utterance.lang = "en-US";
-            console.log(
-              "Голос Джарвиса не найден, используется дефолтный с низким тоном",
-            );
-          }
-        }
-
-        if (selectedVoice) {
-          utterance.voice = selectedVoice;
-        }
-
-        utterance.onend = () => {
-          setIsSpeaking(false);
-        };
-
-        utterance.onerror = () => {
-          setIsSpeaking(false);
-        };
-
-        speechSynthesis.speak(utterance);
-      };
-
-      // Ждем загрузки голосов
-      if (speechSynthesis.getVoices().length === 0) {
-        speechSynthesis.addEventListener("voiceschanged", speakWithVoice, {
-          once: true,
-        });
-      } else {
-        speakWithVoice();
+    audio.onended = () => {
+      setIsSpeaking(false);
+      // После окончания аудио отключаем микрофон
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
       }
-    }
+      setIsListening(false);
+      setTranscript("");
+    };
+
+    audio.onerror = () => {
+      setIsSpeaking(false);
+      // Если ошибка с аудио, все равно отключаем микрофон
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+      setTranscript("");
+      console.error("Ошибка воспроизведения аудио отключения");
+    };
+
+    audio.play().catch((error) => {
+      setIsSpeaking(false);
+      // Если ошибка с аудио, все равно отключаем микрофон
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+      setTranscript("");
+      console.error("Не удалось воспроизвести аудио отключения:", error);
+    });
+  };
+
+  const speakWelcomeBack = () => {
+    setIsSpeaking(true);
+
+    // Создаем и воспроизводим аудио для команды "Джарвис я вернулся"
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c",
+    );
+
+    audio.onended = () => {
+      setIsSpeaking(false);
+    };
+
+    audio.onerror = () => {
+      setIsSpeaking(false);
+      console.error("Ошибка воспроизведения аудио приветствия");
+    };
+
+    audio.play().catch((error) => {
+      setIsSpeaking(false);
+      console.error("Не удалось воспроизвести аудио приветствия:", error);
+    });
   };
 
   const processVoiceCommand = (command: string) => {
     console.log("Обработка команды:", command);
 
-    // Команды навигации
+    // Фильтруем пустые или слишком короткие команды
+    const trimmedCommand = command.trim();
+    if (trimmedCommand.length < 3) {
+      return;
+    }
+
+    // Команда отключения (приоритетная)
+    if (
+      command.includes("отключись") ||
+      command.includes("выключись") ||
+      command.includes("отключи микрофон") ||
+      command.includes("стоп джарвис") ||
+      command.includes("выключи")
+    ) {
+      speakShutdown();
+      return;
+    }
+
+    // Команда приветствия "Джарвис я вернулся"
+    if (
+      command.includes("джарвис я вернулся") ||
+      command.includes("я вернулся джарвис") ||
+      command.includes("джарвис я здесь") ||
+      command.includes("я снова здесь")
+    ) {
+      speakWelcomeBack();
+      return;
+    }
+
+    // Проверяем, содержит ли команда значимые слова
+    const meaningfulWords = [
+      "перейти",
+      "войти",
+      "регистрация",
+      "профиль",
+      "заказ",
+      "корзина",
+      "добавить",
+      "план",
+      "джарвис",
+      "базовый",
+      "про",
+      "макс",
+      "прокрутить",
+      "скролл",
+      "наверх",
+      "планам",
+      "преимущества",
+      "возможности",
+      "открыть",
+      "личный",
+      "кабинет",
+      "отправить",
+      "секция",
+      "спуститься",
+      "перейти",
+      "покажи",
+      "найди",
+      "где",
+      "что",
+      "как",
+      "цена",
+      "стоимость",
+      "тариф",
+      "услуги",
+      "компания",
+      "контакты",
+      "поддержка",
+      "технологии",
+      "разработка",
+      "сайт",
+      "интеллект",
+      "ии",
+      "jarvis",
+      "мощный",
+      "уникальный",
+      "качество",
+      "аналитика",
+      "премиум",
+      "невероятное",
+      "готовы",
+      "создать",
+      "бизнес",
+      "помощник",
+      "персональный",
+      "отключись",
+      "выключись",
+      "отключи",
+      "выключи",
+      "стоп",
+      "вернулся",
+      "здесь",
+      "снова",
+    ];
+    const hasValidWords = meaningfulWords.some((word) =>
+      trimmedCommand.includes(word),
+    );
+
+    if (!hasValidWords) {
+      return;
+    }
+
+    // Умный поиск контента по всему сайту
+    const searchAndNavigate = (
+      searchTerms: string[],
+      fallbackAction?: () => void,
+    ) => {
+      // Поиск по заголовкам
+      const headings = Array.from(
+        document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
+      );
+      for (const heading of headings) {
+        const headingText = heading.textContent?.toLowerCase() || "";
+        if (searchTerms.some((term) => headingText.includes(term))) {
+          heading.scrollIntoView({ behavior: "smooth" });
+          return true;
+        }
+      }
+
+      // Поиск по data-section атрибутам
+      const sections = Array.from(document.querySelectorAll("[data-section]"));
+      for (const section of sections) {
+        const sectionName =
+          section.getAttribute("data-section")?.toLowerCase() || "";
+        if (searchTerms.some((term) => sectionName.includes(term))) {
+          section.scrollIntoView({ behavior: "smooth" });
+          return true;
+        }
+      }
+
+      // Поиск по id элементов
+      for (const term of searchTerms) {
+        const elementById = document.getElementById(term);
+        if (elementById) {
+          elementById.scrollIntoView({ behavior: "smooth" });
+          return true;
+        }
+      }
+
+      // Поиск по тексту элементов
+      const allElements = Array.from(
+        document.querySelectorAll("p, div, span, li"),
+      );
+      for (const element of allElements) {
+        const elementText = element.textContent?.toLowerCase() || "";
+        if (
+          searchTerms.some((term) => elementText.includes(term)) &&
+          element.offsetParent !== null
+        ) {
+          element.scrollIntoView({ behavior: "smooth" });
+          return true;
+        }
+      }
+
+      // Если ничего не найдено, выполняем запасное действие
+      if (fallbackAction) {
+        fallbackAction();
+        return true;
+      }
+
+      return false;
+    };
+
+    // Универсальные команды поиска
+    if (
+      command.includes("покажи") ||
+      command.includes("найди") ||
+      command.includes("где") ||
+      command.includes("перейди к") ||
+      command.includes("спустись к")
+    ) {
+      let found = false;
+
+      // Поиск преимуществ
+      if (
+        command.includes("преимущества") ||
+        command.includes("преимущество")
+      ) {
+        found = searchAndNavigate([
+          "преимущества",
+          "преимущество",
+          "advantages",
+        ]);
+        if (found) {
+          speak("Показываю преимущества");
+          return;
+        }
+      }
+
+      // Поиск возможностей
+      if (
+        command.includes("возможности") ||
+        command.includes("возможность") ||
+        command.includes("мощные")
+      ) {
+        found = searchAndNavigate(["возможности", "мощные", "features"]);
+        if (found) {
+          speak("Показываю возможности");
+          return;
+        }
+      }
+
+      // Поиск планов и тарифов
+      if (
+        command.includes("план") ||
+        command.includes("тариф") ||
+        command.includes("цен") ||
+        command.includes("стоимость")
+      ) {
+        found = searchAndNavigate(["план", "тариф", "цен", "pricing"], () => {
+          const pricingSection = document.querySelector(
+            '[data-section="pricing"]',
+          );
+          if (pricingSection) {
+            pricingSection.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+        if (found) {
+          speak("Показываю планы и цены");
+          return;
+        }
+      }
+
+      // Поиск информации о компании
+      if (
+        command.includes("компан") ||
+        command.includes("о нас") ||
+        command.includes("кто мы")
+      ) {
+        found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
+        if (found) {
+          speak("Показываю информацию о компании");
+          return;
+        }
+      }
+
+      // Поиск контактов
+      if (
+        command.includes("контакт") ||
+        command.includes("связь") ||
+        command.includes("телефон") ||
+        command.includes("email")
+      ) {
+        found = searchAndNavigate([
+          "контакт",
+          "связь",
+          "телефон",
+          "email",
+          "contact",
+        ]);
+        if (found) {
+          speak("Показываю контакты");
+          return;
+        }
+      }
+
+      // Поиск технологий
+      if (
+        command.includes("технолог") ||
+        command.includes("webgl") ||
+        command.includes("ии") ||
+        command.includes("искусственный")
+      ) {
+        found = searchAndNavigate([
+          "технолог",
+          "webgl",
+          "ии",
+          "искусственный",
+          "ai",
+          "джарвис",
+          "jarvis",
+        ]);
+        if (found) {
+          speak("Показываю технологии");
+          return;
+        }
+      }
+
+      // Поиск качества и премиум услуг
+      if (
+        command.includes("качество") ||
+        command.includes("премиум") ||
+        command.includes("поддержка")
+      ) {
+        found = searchAndNavigate([
+          "качество",
+          "премиум",
+          "поддержка",
+          "quality",
+          "support",
+        ]);
+        if (found) {
+          speak("Показываю информацию о качестве");
+          return;
+        }
+      }
+
+      // Поиск аналитики
+      if (
+        command.includes("аналитик") ||
+        command.includes("статистик") ||
+        command.includes("данные")
+      ) {
+        found = searchAndNavigate([
+          "аналитик",
+          "статистик",
+          "данные",
+          "analytics",
+        ]);
+        if (found) {
+          speak("Показываю аналитику");
+          return;
+        }
+      }
+
+      // Если ничего специфичного не найдено, попробуем общий поиск
+      if (!found) {
+        const searchTerms = command
+          .split(" ")
+          .filter((word) => word.length > 2);
+        found = searchAndNavigate(searchTerms);
+        if (found) {
+          speak("Найдено");
+          return;
+        }
+      }
+    }
+
+    // Команды навигации по страницам
     if (
       command.includes("перейти на главную") ||
       command.includes("на главную страницу") ||
       command.includes("домой")
     ) {
       navigate("/");
-      speak("Переходим на главную страницу.");
+      speak("Переходим на главную страницу");
       return;
     }
 
@@ -224,7 +501,7 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Открываю страницу входа в систему.");
+      speak("Открываю страницу входа");
       return;
     }
 
@@ -233,140 +510,193 @@ export default function VoiceControl({
       command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
-      speak("Переходим к регистрации нового пользователя.");
+      speak("Переходим к регистрации");
       return;
     }
 
-    if (command.includes("профиль") || command.includes("мой профиль")) {
+    if (
+      command.includes("профиль") ||
+      command.includes("мой профиль") ||
+      command.includes("личный кабинет") ||
+      command.includes("открыть профиль")
+    ) {
       navigate("/profile");
-      speak("Открываю настройки вашего профиля.");
+      speak("Открываю личный кабинет");
       return;
     }
 
     if (command.includes("заказ") || command.includes("оформить заказ")) {
       navigate("/order");
-      speak("Переходим к оформлению заказа.");
+      speak("Переходим к оформлению заказа");
       return;
     }
 
     // Команды корзины
     if (command.includes("корзина") && command.includes("очистить")) {
       clearCart();
-      speak("Корзина очищена.");
+      speak("Корзина очищена");
       return;
     }
 
     if (
-      command.includes("что в корзине") ||
-      command.includes("показать корзину")
+      command.includes("открыть корзину") ||
+      command.includes("показать корзину") ||
+      command.includes("что в корзине")
     ) {
-      const itemsCount = getTotalItems();
-      if (itemsCount === 0) {
-        speak("Ваша корзина пуста.");
-      } else {
-        speak(`В корзине ${itemsCount} товаров.`);
+      // Находим и нажимаем кнопку корзины
+      const cartButton = document.querySelector(
+        '[data-testid="cart-button"]',
+      ) as HTMLElement;
+      if (cartButton) {
+        cartButton.click();
       }
+      speak("Открываю корзину");
       return;
     }
 
-    // Команды добавления планов
+    // Команды добавления планов в корзину
     if (
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
-      command.includes("basic план")
+      command.includes("базовый в корзину") ||
+      command.includes("отправить базовый")
     ) {
       onAddBasicPlan();
-      speak("Базовый план добавлен в корзину.");
+      speak("Базовый план добавлен");
       return;
     }
 
     if (
       command.includes("добавить про") ||
       command.includes("про план") ||
-      command.includes("pro план")
+      command.includes("про в корзину") ||
+      command.includes("отправить про")
     ) {
       onAddProPlan();
-      speak("Про план с искусственным интеллектом добавлен в корзину.");
+      speak("Про план добавлен");
       return;
     }
 
     if (
       command.includes("добавить макс") ||
       command.includes("макс план") ||
-      command.includes("max план") ||
-      command.includes("джарвис")
+      command.includes("максимальный план") ||
+      command.includes("джарвис план") ||
+      command.includes("макс в корзину") ||
+      command.includes("отправить макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальный план с Джарвисом добавлен в корзину.");
+      speak("Максимальный план добавлен");
       return;
     }
 
-    // Информационные команды
+    // Расширенная навигация по секциям страницы
     if (
-      command.includes("что ты умеешь") ||
-      command.includes("помощь") ||
-      command.includes("команды")
+      command.includes("к планам") ||
+      command.includes("показать планы") ||
+      command.includes("перейти к планам") ||
+      command.includes("спуститься к планам") ||
+      command.includes("тарифы") ||
+      command.includes("цены") ||
+      command.includes("стоимость")
     ) {
-      speak(
-        "Я умею навигировать по сайту, управлять корзиной, добавлять планы и контролировать функции сайта. Просто дайте мне команду.",
+      const found = searchAndNavigate(
+        ["план", "тариф", "цен", "pricing", "стоимость"],
+        () => {
+          const pricingSection = document.querySelector(
+            '[data-section="pricing"]',
+          );
+          if (pricingSection) {
+            pricingSection.scrollIntoView({ behavior: "smooth" });
+          }
+        },
       );
+      if (found) {
+        speak("Показываю планы");
+      }
       return;
     }
 
     if (
-      command.includes("расскажи о планах") ||
-      command.includes("какие планы") ||
-      command.includes("тарифы")
+      command.includes("к преимуществам") ||
+      command.includes("наши преимущества") ||
+      command.includes("спуститься к преимуществам") ||
+      command.includes("перейти к преимуществам") ||
+      command.includes("преимущества")
     ) {
-      speak(
-        "У нас есть три плана: Базовый за 2 миллиона сум, Про с ИИ за 3.5 миллиона, и Максимальный с Джарвисом за 5 миллионов сум.",
-      );
+      const found = searchAndNavigate([
+        "преимущества",
+        "преимущество",
+        "advantages",
+      ]);
+      if (found) {
+        speak("Показываю преимущества");
+      }
       return;
     }
 
-    if (command.includes("привет") || command.includes("здравствуй")) {
-      speak(
-        "Добро пожаловать! Я Джарвис, ваш персональный ИИ-помощник. Чем могу помочь?",
+    if (
+      command.includes("к возможностям") ||
+      command.includes("мощные возможности") ||
+      command.includes("спуститься к возможностям") ||
+      command.includes("перейти к возможностям") ||
+      command.includes("возможности")
+    ) {
+      const found = searchAndNavigate(
+        ["возможности", "мощные", "features"],
+        () => {
+          const featuresSection = document.getElementById("features");
+          if (featuresSection) {
+            featuresSection.scrollIntoView({ behavior: "smooth" });
+          }
+        },
       );
+      if (found) {
+        speak("Показываю возможности");
+      }
       return;
     }
 
     // Прокрутка страницы
     if (
       command.includes("прокрутить вниз") ||
-      command.includes("скролл вниз")
+      command.includes("скролл вниз") ||
+      command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
-      speak("Прокручиваю страницу вниз.");
+      speak("Прокручиваю вниз");
       return;
     }
 
     if (
       command.includes("прокрутить вверх") ||
-      command.includes("скролл вверх")
+      command.includes("скролл вверх") ||
+      command.includes("подняться вверх")
     ) {
       window.scrollBy(0, -500);
-      speak("Прокручиваю страницу вверх.");
+      speak("Прокручиваю вверх");
       return;
     }
 
-    if (command.includes("наверх страницы") || command.includes("в начало")) {
+    if (
+      command.includes("наверх страницы") ||
+      command.includes("в начало") ||
+      command.includes("в самый верх")
+    ) {
       window.scrollTo(0, 0);
-      speak("Возвращаемся в начало страницы.");
+      speak("Перехожу в начало");
       return;
     }
 
-    if (command.includes("к планам") || command.includes("показать планы")) {
-      const pricingSection = document.querySelector('[data-section="pricing"]');
-      if (pricingSection) {
-        pricingSection.scrollIntoView({ behavior: "smooth" });
-        speak("Показываю тарифные планы.");
-      }
+    if (
+      command.includes("в конец страницы") ||
+      command.includes("в самый низ") ||
+      command.includes("вниз страницы")
+    ) {
+      window.scrollTo(0, document.body.scrollHeight);
+      speak("Перехожу в конец");
       return;
     }
-
-    // Если команда не распознана
-    speak("Извините, я не понял команду. Попробуйте переформулировать.");
   };
 
   const toggleListening = () => {

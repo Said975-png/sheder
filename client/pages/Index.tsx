@@ -85,10 +85,10 @@ export default function Index() {
   const handleAddMaxPlan = () => {
     addItem({
       id: "max-plan",
-      name: "Max с��йт с Джарвисом",
+      name: "Max сайт с Джарвисом",
       price: 5000000,
       description:
-        "ИИ-помощник типа Джарвис, интеграция с API, технологии нового покол��ния, WebGL и AI интерфейс",
+        "ИИ-помощник типа Джарвис, интеграция с API, технологии нового поколения, WebGL и AI интерфейс",
       category: "website-jarvis",
     });
   };
@@ -155,6 +155,7 @@ export default function Index() {
                 <Button
                   variant="ghost"
                   className="relative theme-button-text p-2 rounded-full hover:bg-white/10"
+                  data-testid="cart-button"
                 >
                   <ShoppingCart className="w-5 h-5" />
                   {getTotalItems() > 0 && (
@@ -206,7 +207,9 @@ export default function Index() {
                       </div>
                       <DropdownMenuSeparator className="bg-border my-3" />
                       <div className="flex justify-between items-center mb-3">
-                        <span className="font-semibold theme-text">Итого:</span>
+                        <span className="font-semibold theme-text">
+                          Итог��:
+                        </span>
                         <span className="font-bold theme-text">
                           {getTotalPrice().toLocaleString()} сум
                         </span>
@@ -417,9 +420,9 @@ export default function Index() {
               <div className="space-y-8">
                 <h1
                   className="text-5xl lg:text-7xl font-bold leading-tight hologram-text"
-                  data-text="Jarvis - искусственный интеллект для в��шего бизнеса"
+                  data-text="Jarvis - искусственный интеллект для вашего бизнеса"
                 >
-                  Jarvis - искусственный интеллект для вашего ��изнеса
+                  Jarvis - искусственный интеллект для вашего бизнеса
                 </h1>
 
                 <div className="relative p-6 bg-black/20 backdrop-blur-md border border-purple-500/30 rounded-2xl">
@@ -499,7 +502,7 @@ export default function Index() {
             <h2 className="text-3xl font-bold mb-4">Мощ��ые возможности</h2>
             <p className="text-white/60 max-w-2xl mx-auto">
               Все инструменты, необходимые для превращения дизайна в полноценное
-              веб-приложение
+              ��еб-приложение
             </p>
           </div>
 
@@ -510,7 +513,7 @@ export default function Index() {
               </div>
               <h3 className="text-lg font-semibold mb-2">AI Detection</h3>
               <p className="text-white/60">
-                Перед��вые алгоритмы для обнаруж��ния ботов и автоматических
+                Перед��вые алгоритмы ��ля обнаруж��ния ботов и автоматических
                 систем
               </p>
             </div>
@@ -532,7 +535,7 @@ export default function Index() {
               <h3 className="text-lg font-semibold mb-2">User Experience</h3>
               <p className="text-white/60">
                 Максимальное удобство для пользователей без компромиссов в
-                безопасности
+                б��зопасности
               </p>
             </div>
           </div>
@@ -765,7 +768,7 @@ export default function Index() {
                       <div className="absolute top-0 left-0 w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
                     </div>
                     <h3 className="text-xl font-semibold theme-text mb-2">
-                      Max сай�� с Джарвисом
+                      Max сайт с Джарвисом
                     </h3>
                     <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent mb-1">
                       5 000 000
@@ -778,7 +781,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                         <Brain className="w-3 h-3 text-cyan-400" />
                       </div>
-                      ИИ-помощник типа Джарвис (голо��овой ввод)
+                      ИИ-помощник типа Джарвис (голосовой ввод)
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
@@ -828,7 +831,7 @@ export default function Index() {
             </h2>
             <p className="text-lg theme-text-muted max-w-3xl mx-auto">
               Мы создаем не просто сайты — мы разрабатываем и��теллектуальные
-              решения, которые работают как ваш персональный ИИ-помощник
+              реше��ия, которые работают как ваш персональный ИИ-помощник
             </p>
           </div>
 
@@ -863,7 +866,7 @@ export default function Index() {
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
                   Разрабатываем персонального ИИ-помощника специально для вашего
-                  бизнеса. Джарвис умеет общаться с клиентами, обрабатывать
+                  бизнеса. Джарвис ум��ет общаться с клиентами, обрабатывать
                   заказы и управлять контентом.
                 </p>
               </div>
@@ -898,9 +901,9 @@ export default function Index() {
                   Прем��ум качество
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Используем только современные технологии и лучшие практики.
+                  Используе�� только современные технологии и лучшие практики.
                   Каждый сайт проходит тщательное тестирование и оптимизацию
-                  производительности.
+                  производител��ности.
                 </p>
               </div>
               <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-amber-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -948,11 +951,11 @@ export default function Index() {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
               <div className="relative bg-gradient-to-r from-purple-600/20 to-cyan-600/20 backdrop-blur-lg border border-purple-500/30 rounded-2xl p-8">
                 <h3 className="text-2xl font-bold theme-text mb-4">
-                  Готовы создать что-то н��вероятное?
+                  Готовы создать что-то невероятное?
                 </h3>
                 <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
                   Позвольте нашему ИИ Джарвису стать цифровым помощником вашего
-                  бизнеса. Начнем ��азработку уже сегодня!
+                  бизнеса. Начнем разработку уже сегодня!
                 </p>
                 <Button
                   onClick={() =>
