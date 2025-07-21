@@ -38,7 +38,7 @@ export default function Index() {
           <div className="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4 animate-pulse">
             <Shield className="w-8 h-8 text-white" />
           </div>
-          <p className="text-white/70">Загр��зка...</p>
+                    <p className="text-white/70">Загрузка...</p>
         </div>
       </div>
     );
@@ -207,7 +207,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">AI Detection</h3>
             <p className="text-white/60">
-              Передовые алгоритмы для обнаружения бото�� и автоматических систем
+              Передовые алгоритмы для обнаружения ботов и автоматических систем
             </p>
           </div>
 
