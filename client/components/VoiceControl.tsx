@@ -70,24 +70,41 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
       utterance.pitch = 0.7; // Более низкий тон
       utterance.volume = 0.9;
 
-      // Попробуем найти мужской голос
+      // Найдем т��лько мужские голоса, исключив женские
       const voices = speechSynthesis.getVoices();
-      const russianVoices = voices.filter(voice =>
+
+      // Сначала ищем явно мужские голоса
+      const maleVoices = voices.filter(voice =>
         voice.lang.includes('ru') &&
         (voice.name.toLowerCase().includes('male') ||
          voice.name.toLowerCase().includes('мужской') ||
          voice.name.toLowerCase().includes('russian male') ||
          voice.name.toLowerCase().includes('pavel') ||
-         voice.name.toLowerCase().includes('александр'))
+         voice.name.toLowerCase().includes('александр') ||
+         voice.name.toLowerCase().includes('dmitry') ||
+         voice.name.toLowerCase().includes('андрей') ||
+         voice.name.toLowerCase().includes('михаил'))
       );
 
-      if (russianVoices.length > 0) {
-        utterance.voice = russianVoices[0];
+      // Если нашли явно мужские голоса, используем их
+      if (maleVoices.length > 0) {
+        utterance.voice = maleVoices[0];
       } else {
-        // Если нет специального мужского голоса, выберем первый русский
-        const anyRussianVoice = voices.find(voice => voice.lang.includes('ru'));
-        if (anyRussianVoice) {
-          utterance.voice = anyRussianVoice;
+        // Иначе ищем русские голоса, но исключаем женские
+        const russianVoices = voices.filter(voice =>
+          voice.lang.includes('ru') &&
+          !voice.name.toLowerCase().includes('female') &&
+          !voice.name.toLowerCase().includes('женский') &&
+          !voice.name.toLowerCase().includes('елена') &&
+          !voice.name.toLowerCase().includes('анна') &&
+          !voice.name.toLowerCase().includes('ирина') &&
+          !voice.name.toLowerCase().includes('maria') &&
+          !voice.name.toLowerCase().includes('татьяна') &&
+          !voice.name.toLowerCase().includes('светлана')
+        );
+
+        if (russianVoices.length > 0) {
+          utterance.voice = russianVoices[0];
         }
       }
 
@@ -127,7 +144,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
       return;
     }
 
-    if (command.includes('зак��з') || command.includes('оформить заказ')) {
+    if (command.includes('заказ') || command.includes('оформить заказ')) {
       navigate('/order');
       speak('Переходим к оформлению заказа');
       return;
