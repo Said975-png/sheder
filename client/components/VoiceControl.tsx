@@ -23,7 +23,7 @@ export default function VoiceControl({
   const { getTotalItems, clearCart } = useCart();
 
   useEffect(() => {
-    // Проверяем поддержку Speech Recognition
+    // Пр��веряем поддержку Speech Recognition
     if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
       const SpeechRecognition =
         window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -95,7 +95,7 @@ export default function VoiceControl({
 
     audio.onended = () => {
       setIsSpeaking(false);
-      // После окончания аудио отключаем микрофон
+      // После окончания аудио отклю��аем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
@@ -135,14 +135,27 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверяем, содержит л�� команда значимые слова
+    // Команда отключения (приоритетная)
+    if (
+      command.includes("отключись") ||
+      command.includes("выключись") ||
+      command.includes("отключи микрофон") ||
+      command.includes("стоп джарвис") ||
+      command.includes("выключи")
+    ) {
+      speakShutdown();
+      return;
+    }
+
+    // Проверяем, содержит ли команда значимые слова
     const meaningfulWords = [
       "перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "джарвис",
       "базовый", "про", "макс", "прокрутить", "скролл", "наверх", "планам", "преимущества", "возможности",
       "открыть", "личный", "кабинет", "отправить", "секция", "спуститься", "перейти", "покажи", "найди",
       "где", "что", "как", "цена", "стоимость", "тариф", "услуги", "компания", "контакты", "поддержка",
       "технологии", "разработка", "сайт", "интеллект", "ии", "jarvis", "мощный", "уникальный", "качество",
-      "аналитика", "премиум", "невероятное", "готовы", "создать", "бизнес", "помощник", "персональный"
+      "аналитика", "премиум", "невероятное", "готовы", "создать", "бизнес", "помощник", "персональный",
+      "отключись", "выключись", "отключи", "выключи", "стоп"
     ];
     const hasValidWords = meaningfulWords.some(word => trimmedCommand.includes(word));
 
@@ -181,7 +194,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск по тек��ту элементов
+      // Поиск по тексту элементов
       const allElements = Array.from(document.querySelectorAll('p, div, span, li'));
       for (const element of allElements) {
         const elementText = element.textContent?.toLowerCase() || '';
@@ -202,7 +215,7 @@ export default function VoiceControl({
 
     // Универсальные команды поиска
     if (
-      command.includes("покажи") ||
+      command.includes("покаж��") ||
       command.includes("найди") ||
       command.includes("где") ||
       command.includes("перейди к") ||
@@ -273,7 +286,7 @@ export default function VoiceControl({
       if (command.includes("качество") || command.includes("премиум") || command.includes("поддержка")) {
         found = searchAndNavigate(["качество", "премиум", "поддержка", "quality", "support"]);
         if (found) {
-          speak("Показываю информацию о каче��тве");
+          speak("Показываю информацию о качестве");
           return;
         }
       }
@@ -392,7 +405,7 @@ export default function VoiceControl({
     if (
       command.includes("добавить макс") ||
       command.includes("макс план") ||
-      command.includes("максимальный ��лан") ||
+      command.includes("максимальный план") ||
       command.includes("джарвис план") ||
       command.includes("макс в корзину") ||
       command.includes("отправить макс")
@@ -459,7 +472,7 @@ export default function VoiceControl({
 
     // Прокрутка страницы
     if (
-      command.includes("прокр��тить вниз") ||
+      command.includes("прокрутить вниз") ||
       command.includes("скролл вниз") ||
       command.includes("спуститься вниз")
     ) {
