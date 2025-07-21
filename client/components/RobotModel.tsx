@@ -8,7 +8,7 @@ function Robot() {
   const robotRef = useRef<THREE.Group>(null);
   
   // Load the GLB model
-  const gltf = useLoader(GLTFLoader, "https://cdn.builder.io/o/assets%2F807a39b9c71a4f90a6028eb8f74d47f3%2F80781a2807054389b78568468124a1d1?alt=media&token=2dd385a3-2b6a-4b20-b45f-8c88887b2825&apiKey=807a39b9c71a4f90a6028eb8f74d47f3");
+  const gltf = useLoader(GLTFLoader, "https://cdn.builder.io/o/assets%2Fc7cc0af5c2b743a4bb2b78008c30e87d%2F1d1285b0ae324806af1acc17b766bb3e?alt=media&token=db852b94-8003-4bf7-9b47-ce3622256833&apiKey=c7cc0af5c2b743a4bb2b78008c30e87d");
   
   // Auto-rotate the model
   useFrame((state) => {
