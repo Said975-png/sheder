@@ -227,7 +227,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">User Experience</h3>
             <p className="text-white/60">
-              Максимально�� удобство для пользователей без компромиссов в
+              Максимальное удобство для пользователей без компромиссов в
               безопасности
             </p>
           </div>
@@ -308,7 +308,7 @@ export default function Index() {
                 <ul className="space-y-3 mb-8 text-sm">
                   <li className="flex items-center theme-text-muted">
                     <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 pulse-dot"></div>
-                    Без искусственного интеллект��
+                    Без искусственного интеллекта
                   </li>
                   <li className="flex items-center theme-text-muted">
                     <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3 pulse-dot"></div>
@@ -328,7 +328,7 @@ export default function Index() {
                   </li>
                 </ul>
 
-                <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30">
+                <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 glow-button">
                   Заказать
                 </Button>
               </div>
@@ -379,7 +379,7 @@ export default function Index() {
                   </li>
                 </ul>
 
-                <Button className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30">
+                <Button className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30 glow-button">
                   Заказать
                 </Button>
               </div>
@@ -423,7 +423,7 @@ export default function Index() {
                   </li>
                 </ul>
 
-                <Button className="w-full bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30">
+                <Button className="w-full bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 glow-button">
                   Заказать
                 </Button>
               </div>
