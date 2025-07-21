@@ -1,8 +1,4 @@
-import { Suspense, useRef, useMemo, useState } from "react";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import * as THREE from "three";
+import React from "react";
 
 // Fallback робот из геометрических фигур
 function SimpleRobot() {
