@@ -154,6 +154,7 @@ export default function VoiceControl({
     // Команды корзины
     if (command.includes("корзина") && command.includes("очистить")) {
       clearCart();
+      speak("Корзина очищена");
       return;
     }
 
@@ -167,6 +168,7 @@ export default function VoiceControl({
       if (cartButton) {
         cartButton.click();
       }
+      speak("Открываю корзину");
       return;
     }
 
@@ -178,6 +180,7 @@ export default function VoiceControl({
       command.includes("отправить базовый")
     ) {
       onAddBasicPlan();
+      speak("Базовый план добавлен");
       return;
     }
 
@@ -188,18 +191,20 @@ export default function VoiceControl({
       command.includes("отправить про")
     ) {
       onAddProPlan();
+      speak("Про план добавлен");
       return;
     }
 
     if (
       command.includes("добавить макс") ||
       command.includes("макс план") ||
-      command.includes("максимальный план") ||
+      command.includes("максимальны�� план") ||
       command.includes("джарвис план") ||
       command.includes("макс в корзину") ||
       command.includes("отправить макс")
     ) {
       onAddMaxPlan();
+      speak("Максимальный план добавлен");
       return;
     }
 
