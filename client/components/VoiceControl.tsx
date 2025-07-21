@@ -115,7 +115,7 @@ export default function VoiceControl({
       }
       setIsListening(false);
       setTranscript("");
-      console.error("Ошибка воспроизведения аудио отключения");
+      console.error("Ошибка воспроизведения ау��ио отключения");
     };
 
     audio.play().catch((error) => {
@@ -223,11 +223,25 @@ export default function VoiceControl({
     // Команда приветствия "Джарвис я вернулся"
     if (
       command.includes("джарвис я вернулся") ||
-      command.includes("я вернулся джарвис") ||
+      command.includes("я ве��нулся джарвис") ||
       command.includes("джарвис я здесь") ||
       command.includes("я снова здесь")
     ) {
       speakWelcomeBack();
+      return;
+    }
+
+    // Команда утреннего приветствия "Доброе утро Джарвис"
+    if (
+      command.includes("доброе утро джарвис") ||
+      command.includes("джарвис доброе утро") ||
+      command.includes("утро джарвис") ||
+      command.includes("доброе утро") ||
+      command.includes("good morning jarvis") ||
+      command.includes("good morning") ||
+      command.includes("доброго утра")
+    ) {
+      speakGoodMorning();
       return;
     }
 
@@ -259,7 +273,7 @@ export default function VoiceControl({
       "перейти",
       "войти",
       "регистрация",
-      "��рофиль",
+      "профиль",
       "заказ",
       "корзина",
       "добавить",
@@ -309,7 +323,7 @@ export default function VoiceControl({
       "создать",
       "бизнес",
       "помощник",
-      "персонал��ный",
+      "персональный",
       "отключись",
       "выключись",
       "отключи",
@@ -601,7 +615,7 @@ export default function VoiceControl({
     if (
       command.includes("профиль") ||
       command.includes("мой профиль") ||
-      command.includes("личный кабинет") ||
+      command.includes("личный каб��нет") ||
       command.includes("открыть профиль")
     ) {
       navigate("/profile");
@@ -616,7 +630,7 @@ export default function VoiceControl({
     }
 
     // Команды корзины
-    if (command.includes("корзина") && command.includes("очис��ить")) {
+    if (command.includes("корзина") && command.includes("очистить")) {
       clearCart();
       speak("Корзина очищена");
       return;
@@ -755,7 +769,7 @@ export default function VoiceControl({
     if (
       command.includes("прокрутить вверх") ||
       command.includes("скролл вверх") ||
-      command.includes("подняться вверх")
+      command.includes("подн��ться вверх")
     ) {
       window.scrollBy(0, -500);
       speak("Прокручиваю вверх");
