@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import RobotModel from "@/components/RobotModel";
 import {
   Shield,
   User,
@@ -75,7 +76,7 @@ export default function Index() {
       name: "Pro сайт с ИИ",
       price: 3500000,
       description:
-        "ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация",
+        "ИИ: ��ат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация",
       category: "website-ai",
     });
   };
