@@ -70,7 +70,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
 
     // Создаем и воспроизводим ваш новый аудио-файл
-    const audio = new Audio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2F082a96935ef2407b89d85335af83e973?alt=media&token=35e77ac0-b617-4ac6-8e96-3083b18e620b&apiKey=236158b44f8b45f680ab2467abfc361c");
+    const audio = new Audio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fdb47541068444a9093b406f29a6af3ce?alt=media&token=43fbc024-64ae-479b-8a6c-5b9d12b43294&apiKey=236158b44f8b45f680ab2467abfc361c");
 
     audio.onended = () => {
       setIsSpeaking(false);
@@ -88,7 +88,7 @@ export default function VoiceControl({
   };
 
   const processVoiceCommand = (command: string) => {
-    console.log("Обработка ко��анды:", command);
+    console.log("Обработка команды:", command);
 
     // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
@@ -175,7 +175,7 @@ export default function VoiceControl({
     // Команды добавления планов в корзину
     if (
       command.includes("добавить базовый") ||
-      command.includes("базовый план") ||
+      command.includes("баз��вый план") ||
       command.includes("базовый в корзину") ||
       command.includes("отправить базовый")
     ) {
