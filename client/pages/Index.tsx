@@ -206,7 +206,7 @@ export default function Index() {
                       </div>
                       <DropdownMenuSeparator className="bg-border my-3" />
                       <div className="flex justify-between items-center mb-3">
-                        <span className="font-semibold theme-text">Итого:</span>
+                        <span className="font-semibold theme-text">Итог��:</span>
                         <span className="font-bold theme-text">
                           {getTotalPrice().toLocaleString()} сум
                         </span>
@@ -417,9 +417,9 @@ export default function Index() {
               <div className="space-y-8">
                 <h1
                   className="text-5xl lg:text-7xl font-bold leading-tight hologram-text"
-                  data-text="Jarvis - искусственный интеллект для в��шего бизнеса"
+                  data-text="Jarvis - искусственный интеллект для вашего бизнеса"
                 >
-                  Jarvis - искусственный интеллект для вашего ��изнеса
+                  Jarvis - искусственный интеллект для вашего бизнеса
                 </h1>
 
                 <div className="relative p-6 bg-black/20 backdrop-blur-md border border-purple-500/30 rounded-2xl">
@@ -510,7 +510,7 @@ export default function Index() {
               </div>
               <h3 className="text-lg font-semibold mb-2">AI Detection</h3>
               <p className="text-white/60">
-                Перед��вые алгоритмы для обнаруж��ния ботов и автоматических
+                Перед��вые алгоритмы ��ля обнаруж��ния ботов и автоматических
                 систем
               </p>
             </div>
@@ -532,7 +532,7 @@ export default function Index() {
               <h3 className="text-lg font-semibold mb-2">User Experience</h3>
               <p className="text-white/60">
                 Максимальное удобство для пользователей без компромиссов в
-                безопасности
+                б��зопасности
               </p>
             </div>
           </div>
