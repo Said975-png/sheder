@@ -43,7 +43,7 @@ export default function Index() {
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
 
-  // Запуск анимации пр�� загрузке компонента
+  // Запуск анимации при загрузке компонента
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
@@ -85,7 +85,7 @@ export default function Index() {
       name: "Max сайт с Джарвисом",
       price: 5000000,
       description:
-        "ИИ-помощник типа Джарвис, инте��рация с API, технологии нового поколения, WebGL и AI интерфейс",
+        "ИИ-помощник типа Джарвис, интеграция с API, технологии нового поколения, WebGL и AI интерфейс",
       category: "website-jarvis",
     });
   };
@@ -374,7 +374,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">User Experience</h3>
             <p className="text-white/60">
-              Максимальное удобство для пользователей без комп��омиссов в
+              Максимальное удобство для пользователей без компромиссов в
               безопасности
             </p>
           </div>
@@ -433,7 +433,7 @@ export default function Index() {
             Выберите подходящий план
           </h2>
           <p className="text-lg theme-text-muted max-w-2xl mx-auto">
-            Пр��фессиональные решения для создания современн��х веб-сайтов
+            Пр��фессиональные решения для создания современных веб-сайтов
           </p>
         </div>
 
@@ -649,6 +649,148 @@ export default function Index() {
                   Заказать
                 </Button>
               </div>
+            </div>
+          </div>
+                </div>
+      </section>
+
+      {/* Our Advantages Section */}
+      <section className="container mx-auto px-6 py-24">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6 theme-text">
+            Наши преимущества
+          </h2>
+          <p className="text-lg theme-text-muted max-w-3xl mx-auto">
+            Мы создаем не просто сайты — мы разрабатываем интеллектуальные решения,
+            которые работают как ваш персональный ИИ-помощник
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Speed Advantage */}
+          <div className="group relative p-8 theme-card border border-purple-500/20 rounded-2xl hover:border-purple-500/40 transition-all duration-300 hover:transform hover:scale-105">
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Rocket className="w-8 h-8 text-purple-400" />
+              </div>
+              <h3 className="text-xl font-bold theme-text mb-4">
+                Молниеносная разработка
+              </h3>
+              <p className="theme-text-muted leading-relaxed">
+                Создаем полноценные сайты в 3-5 раз быстрее благодаря нашим
+                ИИ-инструментам и готовым модулям. То, что другие делают месяцами,
+                мы реализуем за недели.
+              </p>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+
+          {/* AI Jarvis */}
+          <div className="group relative p-8 theme-card border border-cyan-500/20 rounded-2xl hover:border-cyan-500/40 transition-all duration-300 hover:transform hover:scale-105">
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-teal-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 relative">
+                <Brain className="w-8 h-8 text-cyan-400" />
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-cyan-500 rounded-full animate-pulse"></div>
+              </div>
+              <h3 className="text-xl font-bold theme-text mb-4">
+                Уникальный ИИ Дж��рвис
+              </h3>
+              <p className="theme-text-muted leading-relaxed">
+                Разрабатываем персонального ИИ-помощника специально для вашего бизнеса.
+                Джарвис умеет общаться с клиентами, обрабатывать заказы и управлять контентом.
+              </p>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-teal-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+
+          {/* 24/7 Support */}
+          <div className="group relative p-8 theme-card border border-orange-500/20 rounded-2xl hover:border-orange-500/40 transition-all duration-300 hover:transform hover:scale-105">
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Clock className="w-8 h-8 text-orange-400" />
+              </div>
+              <h3 className="text-xl font-bold theme-text mb-4">
+                Поддержка 24/7
+              </h3>
+              <p className="theme-text-muted leading-relaxed">
+                Круглосуточная техническая поддержка и мониторинг вашего сайта.
+                Мы оперативно решаем любые вопросы и следим за стабильной работой.
+              </p>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+
+          {/* Premium Quality */}
+          <div className="group relative p-8 theme-card border border-yellow-500/20 rounded-2xl hover:border-yellow-500/40 transition-all duration-300 hover:transform hover:scale-105">
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-gradient-to-br from-yellow-500/20 to-amber-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Star className="w-8 h-8 text-yellow-400" />
+              </div>
+              <h3 className="text-xl font-bold theme-text mb-4">
+                Премиум качество
+              </h3>
+              <p className="theme-text-muted leading-relaxed">
+                Используем только современные технологии и лучшие практики.
+                Каждый сайт проходит тщательное тестирование и оптимизацию производительности.
+              </p>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-amber-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+
+          {/* Smart Analytics */}
+          <div className="group relative p-8 theme-card border border-green-500/20 rounded-2xl hover:border-green-500/40 transition-all duration-300 hover:transform hover:scale-105">
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Target className="w-8 h-8 text-green-400" />
+              </div>
+              <h3 className="text-xl font-bold theme-text mb-4">
+                Умная аналитика
+              </h3>
+              <p className="theme-text-muted leading-relaxed">
+                Встроенная ИИ-аналитика отслеживает поведение пользователей и
+                автоматически оптимизирует конверсию вашего онлайн-��агазина.
+              </p>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+
+          {/* Innovation */}
+          <div className="group relative p-8 theme-card border border-pink-500/20 rounded-2xl hover:border-pink-500/40 transition-all duration-300 hover:transform hover:scale-105">
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Sparkles className="w-8 h-8 text-pink-400" />
+              </div>
+              <h3 className="text-xl font-bold theme-text mb-4">
+                Инновационные решения
+              </h3>
+              <p className="theme-text-muted leading-relaxed">
+                Внедряем передовые технологии: WebGL, машинное обучение,
+                голосовое управление и AR/VR элементы для максимального wow-эффекта.
+              </p>
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="text-center mt-16">
+          <div className="relative inline-block">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
+            <div className="relative bg-gradient-to-r from-purple-600/20 to-cyan-600/20 backdrop-blur-lg border border-purple-500/30 rounded-2xl p-8">
+              <h3 className="text-2xl font-bold theme-text mb-4">
+                Готовы создать что-то невероятное?
+              </h3>
+              <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
+                Позвольте нашему ИИ Джарвису стать цифровым помощником вашего бизнеса.
+                Начнем разработку уже сегодня!
+              </p>
+              <Button
+                onClick={() => document.querySelector('[data-section="pricing"]')?.scrollIntoView({ behavior: 'smooth' })}
+                className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white px-8 py-3 text-lg font-semibold"
+              >
+                <Bot className="w-5 h-5 mr-2" />
+                Заказать разработку
+              </Button>
             </div>
           </div>
         </div>
