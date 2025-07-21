@@ -176,64 +176,102 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
     // Команды навигации
     if (command.includes('перейти на главную') || command.includes('на главную страницу') || command.includes('домой')) {
       navigate('/');
+      speak('Navigating to homepage, sir.');
       return;
     }
 
     if (command.includes('войти') || command.includes('логин') || command.includes('авторизация')) {
       navigate('/login');
+      speak('Opening login interface.');
       return;
     }
 
     if (command.includes('регистрация') || command.includes('зарегистрироваться')) {
       navigate('/signup');
+      speak('Accessing registration portal.');
       return;
     }
 
     if (command.includes('профиль') || command.includes('мой профиль')) {
       navigate('/profile');
+      speak('Opening your profile settings.');
       return;
     }
 
     if (command.includes('заказ') || command.includes('оформить заказ')) {
       navigate('/order');
+      speak('Proceeding to order confirmation.');
       return;
     }
 
     // Команды корзины
     if (command.includes('корзина') && command.includes('очистить')) {
       clearCart();
+      speak('Shopping cart has been cleared.');
+      return;
+    }
+
+    if (command.includes('что в корзине') || command.includes('показать корзину')) {
+      const itemsCount = getTotalItems();
+      if (itemsCount === 0) {
+        speak('Your cart is currently empty, sir.');
+      } else {
+        speak(`You have ${itemsCount} items in your cart.`);
+      }
       return;
     }
 
     // Команды добавления планов
     if (command.includes('добавить базовый') || command.includes('базовый план') || command.includes('basic план')) {
       onAddBasicPlan();
+      speak('Basic plan added to cart.');
       return;
     }
 
     if (command.includes('добавить про') || command.includes('про план') || command.includes('pro план')) {
       onAddProPlan();
+      speak('Pro plan with AI features added to cart.');
       return;
     }
 
     if (command.includes('добавить макс') || command.includes('макс план') || command.includes('max план') || command.includes('джарвис')) {
       onAddMaxPlan();
+      speak('Maximum plan with Jarvis AI added to cart.');
+      return;
+    }
+
+    // Информационные команды
+    if (command.includes('что ты умеешь') || command.includes('помощь') || command.includes('команды')) {
+      speak('I can navigate pages, manage your cart, add plans, and control website functions. Just give me a command, sir.');
+      return;
+    }
+
+    if (command.includes('расскажи о планах') || command.includes('какие планы') || command.includes('тарифы')) {
+      speak('We offer three plans: Basic for 2 million sum, Pro with AI for 3.5 million, and Maximum with Jarvis for 5 million sum.');
+      return;
+    }
+
+    if (command.includes('привет') || command.includes('здравствуй')) {
+      speak('Good day, sir. Jarvis at your service. How may I assist you today?');
       return;
     }
 
     // Прокрутка страницы
     if (command.includes('прокрутить вниз') || command.includes('скролл вниз')) {
       window.scrollBy(0, 500);
+      speak('Scrolling down.');
       return;
     }
 
-    if (command.includes('п��окрутить вверх') || command.includes('скролл вверх')) {
+    if (command.includes('прокрутить вверх') || command.includes('скролл вверх')) {
       window.scrollBy(0, -500);
+      speak('Scrolling up.');
       return;
     }
 
     if (command.includes('наверх страницы') || command.includes('в начало')) {
       window.scrollTo(0, 0);
+      speak('Returning to top of page.');
       return;
     }
 
@@ -241,9 +279,13 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
       const pricingSection = document.querySelector('[data-section="pricing"]');
       if (pricingSection) {
         pricingSection.scrollIntoView({ behavior: 'smooth' });
+        speak('Displaying pricing plans.');
       }
       return;
     }
+
+    // Если команда не распознана
+    speak('I did not quite catch that, sir. Please try rephrasing your command.');
   };
 
   const toggleListening = () => {
