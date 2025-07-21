@@ -169,20 +169,28 @@ export default function VoiceControl({
   };
 
   const speakShutdown = () => {
-    if (isSpeaking || commandCooldownRef.current) return;
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
 
     setIsSpeaking(true);
     commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
 
-    // ��оздаем и воспроизводим аудио для команды "отключись"
+    // Создаем и воспроизводим аудио для команды "отключись"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
+    currentAudioRef.current = audio;
 
-    audio.onended = () => {
+    const shutdownComplete = () => {
       setIsSpeaking(false);
       commandCooldownRef.current = false;
+      audioPlayingRef.current = false;
       lastCommandRef.current = "";
+      currentAudioRef.current = null;
       // После окончания аудио отключаем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
@@ -191,30 +199,16 @@ export default function VoiceControl({
       setTranscript("");
     };
 
+    audio.onended = shutdownComplete;
+
     audio.onerror = () => {
-      setIsSpeaking(false);
-      commandCooldownRef.current = false;
-      lastCommandRef.current = "";
-      // Если ошибка с аудио, все равно отключаем микрофон
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-      setIsListening(false);
-      setTranscript("");
       console.error("Ошибка воспроизведения аудио отключения");
+      shutdownComplete();
     };
 
     audio.play().catch((error) => {
-      setIsSpeaking(false);
-      commandCooldownRef.current = false;
-      lastCommandRef.current = "";
-      // Если ошибка с аудио, все равно отключаем микрофон
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-      setIsListening(false);
-      setTranscript("");
-      console.error("Не удалось воспроизв��сти аудио отключения:", error);
+      console.error("Не удалось воспроизвести аудио отключения:", error);
+      shutdownComplete();
     });
   };
 
@@ -388,7 +382,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда отключения (приоритетная)
+    // Команда отключения (приоритетн��я)
     if (
       command.includes("отключ��сь") ||
       command.includes("выключись") ||
@@ -421,7 +415,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнительная проверка, чтобы избеж��ть повторных срабатываний
+      // Дополнит��льная проверка, чтобы избеж��ть повторных срабатываний
       if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
         speakGoodMorning();
       }
@@ -713,7 +707,7 @@ export default function VoiceControl({
           "contact",
         ]);
         if (found) {
-          speak("Показываю контакты");
+          speak("Пок��зываю контакты");
           return;
         }
       }
@@ -812,7 +806,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("регистрация") ||
+      command.includes("рег��страция") ||
       command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
