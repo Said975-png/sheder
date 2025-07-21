@@ -65,7 +65,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяем, что команда отличае��ся от предыдущей и не пустая
+            // Проверяем, что команда отличается от предыдущей и не пустая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -119,6 +119,11 @@ export default function VoiceControl({
     return () => {
       if (recognitionRef.current) {
         recognitionRef.current.stop();
+      }
+      // Останавливаем любое воспроизводящееся аудио при размонтировании
+      if (currentAudioRef.current) {
+        currentAudioRef.current.pause();
+        currentAudioRef.current.currentTime = 0;
       }
     };
   }, []);
@@ -247,7 +252,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвест�� аудио приветствия:", error);
+      console.error("Не удалось воспроизвести аудио приветствия:", error);
     });
   };
 
@@ -285,7 +290,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось восп��оизвести ау��ио благодарности:", error);
+      console.error("Не удалось восп��оизвести аудио благодарности:", error);
     });
   };
 
@@ -305,7 +310,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим аудио для утреннего приветствия
+    // Создаем и воспроизводим ауд��о для утреннего приветствия
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -318,7 +323,7 @@ export default function VoiceControl({
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
-      }, 2000); // Увеличен таймаут до 2 ��екунд
+      }, 2000); // Увеличен таймаут до 2 секунд
     };
 
     audio.onended = resetState;
@@ -385,7 +390,7 @@ export default function VoiceControl({
 
     // Команда отключения (приоритетная)
     if (
-      command.includes("отключись") ||
+      command.includes("отключ��сь") ||
       command.includes("выключись") ||
       command.includes("отключи микрофон") ||
       command.includes("стоп джарвис") ||
@@ -416,7 +421,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      // Дополнительная проверка, чтобы избеж��ть повторных срабатываний
       if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
         speakGoodMorning();
       }
@@ -869,7 +874,7 @@ export default function VoiceControl({
 
     if (
       command.includes("добавить про") ||
-      command.includes("про п��ан") ||
+      command.includes("про план") ||
       command.includes("про в корзину") ||
       command.includes("отправить про")
     ) {
@@ -923,7 +928,7 @@ export default function VoiceControl({
       command.includes("наши преимущества") ||
       command.includes("спуститься к преимуществам") ||
       command.includes("перейти к преимуществам") ||
-      command.includes("преимущества")
+      command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
         "преимущества",
