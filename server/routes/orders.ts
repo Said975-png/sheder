@@ -23,18 +23,18 @@ interface OrderData {
 const createTransporter = () => {
   // Используем Gmail SMTP для отправки
   return nodemailer.createTransport({
-    service: 'gmail',
+    service: "gmail",
     auth: {
-      user: process.env.EMAIL_USER || 'temp-email@gmail.com',
-      pass: process.env.EMAIL_PASS || 'temp-app-password'
-    }
+      user: process.env.EMAIL_USER || "temp-email@gmail.com",
+      pass: process.env.EMAIL_PASS || "temp-app-password",
+    },
   });
 };
 
 // Создаем HTML шаблон для email
 const createOrderEmailTemplate = (orderData: OrderData): string => {
   const { items, formData, total } = orderData;
-  
+
   return `
     <!DOCTYPE html>
     <html>
@@ -72,13 +72,17 @@ const createOrderEmailTemplate = (orderData: OrderData): string => {
           </div>
           
           <h2>🛒 Заказанные услуги</h2>
-          ${items.map(item => `
+          ${items
+            .map(
+              (item) => `
             <div class="order-item">
               <h3>${item.name}</h3>
               <p>${item.description}</p>
               <p><strong>Цена: ${item.price.toLocaleString()} сум</strong></p>
             </div>
-          `).join('')}
+          `,
+            )
+            .join("")}
           
           <div class="total">
             Общая стоимость: ${total.toLocaleString()} сум
@@ -86,7 +90,7 @@ const createOrderEmailTemplate = (orderData: OrderData): string => {
           
           <hr style="margin: 20px 0;">
           <p style="color: #666; font-size: 14px;">
-            Дата заказа: ${new Date().toLocaleString('ru-RU')}
+            Дата заказа: ${new Date().toLocaleString("ru-RU")}
           </p>
         </div>
       </div>
@@ -98,36 +102,40 @@ const createOrderEmailTemplate = (orderData: OrderData): string => {
 export const handleSendOrder: RequestHandler = async (req, res) => {
   try {
     const orderData: OrderData = req.body;
-    
+
     // Валидация данных
     if (!orderData.items || !orderData.formData || !orderData.total) {
-      return res.status(400).json({ 
-        success: false, 
-        message: 'Неполные данные заказа' 
+      return res.status(400).json({
+        success: false,
+        message: "Неполные данные заказа",
       });
     }
 
     const { fullName, phone, description } = orderData.formData;
     if (!fullName || !phone || !description) {
-      return res.status(400).json({ 
-        success: false, 
-        message: 'Необходимо заполнить все поля' 
+      return res.status(400).json({
+        success: false,
+        message: "Необходимо заполнить все поля",
       });
     }
 
     // Логируем заказ в консоль для отладки
-    console.log('=== НОВЫЙ ЗАКАЗ ===');
-    console.log('Клиент:', { fullName, phone });
-    console.log('Общая стоимость:', orderData.total.toLocaleString(), 'сум');
-    console.log('Услуги:', orderData.items.map(item => item.name));
-    console.log('Описание:', description.substring(0, 100) + '...');
-    console.log('==================');
+    console.log("=== НОВЫЙ ЗАКАЗ ===");
+    console.log("Клиент:", { fullName, phone });
+    console.log("Общая стоимость:", orderData.total.toLocaleString(), "сум");
+    console.log(
+      "Услуги:",
+      orderData.items.map((item) => item.name),
+    );
+    console.log("Описание:", description.substring(0, 100) + "...");
+    console.log("==================");
 
     // Проверяем, настроен ли email
-    const emailConfigured = process.env.EMAIL_USER && 
-                           process.env.EMAIL_PASS && 
-                           process.env.EMAIL_USER !== 'temp-email@gmail.com' &&
-                           process.env.EMAIL_PASS !== 'temp-app-password';
+    const emailConfigured =
+      process.env.EMAIL_USER &&
+      process.env.EMAIL_PASS &&
+      process.env.EMAIL_USER !== "temp-email@gmail.com" &&
+      process.env.EMAIL_PASS !== "temp-app-password";
 
     if (emailConfigured) {
       try {
@@ -137,7 +145,7 @@ export const handleSendOrder: RequestHandler = async (req, res) => {
         // Настройки email
         const mailOptions = {
           from: process.env.EMAIL_USER,
-          to: 'saidaurum@gmail.com',
+          to: "saidaurum@gmail.com",
           subject: `🚀 Новый заказ от ${fullName} - ${orderData.total.toLocaleString()} сум`,
           html: createOrderEmailTemplate(orderData),
           text: `
@@ -147,33 +155,32 @@ export const handleSendOrder: RequestHandler = async (req, res) => {
 Общая стоимость: ${orderData.total.toLocaleString()} сум
 
 Заказанные услуги:
-${orderData.items.map(item => `- ${item.name}: ${item.price.toLocaleString()} сум`).join('\n')}
-          `
+${orderData.items.map((item) => `- ${item.name}: ${item.price.toLocaleString()} сум`).join("\n")}
+          `,
         };
 
         // Отправляем email
         await transporter.sendMail(mailOptions);
-        console.log('✅ Email успешно отправлен на saidaurum@gmail.com');
+        console.log("✅ Email успешно отправлен на saidaurum@gmail.com");
       } catch (emailError) {
-        console.error('❌ Ошибка отправки email:', emailError);
+        console.error("❌ Ошибка отправки email:", emailError);
         // Продолжаем выполнение даже если email не отправился
       }
     } else {
-      console.log('📧 Email не настроен, заказ сохранен только в логах');
+      console.log("📧 Email не настроен, заказ сохранен только в логах");
     }
 
     // Всегда возвращаем успех, даже если email не отправился
-    res.json({ 
-      success: true, 
-      message: 'Заказ успешно получен и обрабатывается' 
+    res.json({
+      success: true,
+      message: "Заказ успешно получен и обрабатывается",
     });
-
   } catch (error) {
-    console.error('❌ Общая ошибка при обработке заказа:', error);
-    
-    res.status(500).json({ 
-      success: false, 
-      message: 'Ошибка сервера при обработке заказа' 
+    console.error("❌ Общая ошибка при обработке заказа:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Ошибка сервера при обработке заказа",
     });
   }
 };

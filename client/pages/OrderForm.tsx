@@ -6,7 +6,14 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
-import { ArrowLeft, Phone, User, FileText, CheckCircle, AlertCircle } from "lucide-react";
+import {
+  ArrowLeft,
+  Phone,
+  User,
+  FileText,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
 import { OrderRequest, OrderResponse } from "@shared/api";
 
 export default function OrderForm() {
@@ -15,21 +22,23 @@ export default function OrderForm() {
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
-    description: ""
+    description: "",
   });
-    const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.fullName || !formData.phone || !formData.description) {
       setError("Пожалуйста, заполните все поля");
@@ -43,7 +52,7 @@ export default function OrderForm() {
       const orderData: OrderRequest = {
         items,
         formData,
-        total: getTotalPrice()
+        total: getTotalPrice(),
       };
 
       const response = await fetch("/api/orders", {
@@ -97,7 +106,9 @@ export default function OrderForm() {
             <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="w-8 h-8 text-green-400" />
             </div>
-            <h2 className="text-2xl font-bold theme-text mb-2">Заказ принят!</h2>
+            <h2 className="text-2xl font-bold theme-text mb-2">
+              Заказ принят!
+            </h2>
             <p className="theme-text-muted mb-4">
               Спасибо за ваш заказ. Мы св��жемся с вами в ближайшее время.
             </p>
@@ -155,10 +166,12 @@ export default function OrderForm() {
                     </div>
                   </div>
                 ))}
-                
+
                 <div className="border-t border-border pt-4">
                   <div className="flex justify-between items-center">
-                    <span className="text-lg font-semibold theme-text">Итого:</span>
+                    <span className="text-lg font-semibold theme-text">
+                      Итого:
+                    </span>
                     <span className="text-xl font-bold text-purple-400">
                       {getTotalPrice().toLocaleString()} сум
                     </span>
@@ -171,12 +184,17 @@ export default function OrderForm() {
           {/* Order Form */}
           <Card className="theme-card border border-purple-500/30">
             <CardHeader>
-              <CardTitle className="theme-text">Контактная информация</CardTitle>
+              <CardTitle className="theme-text">
+                Контактная информация
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="fullName" className="theme-label flex items-center">
+                  <Label
+                    htmlFor="fullName"
+                    className="theme-label flex items-center"
+                  >
                     <User className="w-4 h-4 mr-2" />
                     ФИО
                   </Label>
@@ -193,7 +211,10 @@ export default function OrderForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="phone" className="theme-label flex items-center">
+                  <Label
+                    htmlFor="phone"
+                    className="theme-label flex items-center"
+                  >
                     <Phone className="w-4 h-4 mr-2" />
                     Номер теле��она
                   </Label>
@@ -210,7 +231,10 @@ export default function OrderForm() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="description" className="theme-label flex items-center">
+                  <Label
+                    htmlFor="description"
+                    className="theme-label flex items-center"
+                  >
                     <FileText className="w-4 h-4 mr-2" />
                     Описание желаемого сайта
                   </Label>
@@ -224,7 +248,7 @@ export default function OrderForm() {
                     rows={6}
                     className="theme-input resize-none"
                   />
-                                </div>
+                </div>
 
                 {error && (
                   <div className="flex items-center space-x-2 p-3 bg-red-500/20 border border-red-500/30 rounded-lg">
@@ -236,7 +260,12 @@ export default function OrderForm() {
                 <Button
                   type="submit"
                   className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={!formData.fullName || !formData.phone || !formData.description || isLoading}
+                  disabled={
+                    !formData.fullName ||
+                    !formData.phone ||
+                    !formData.description ||
+                    isLoading
+                  }
                 >
                   {isLoading ? "Отправка..." : "Отправить заказ"}
                 </Button>

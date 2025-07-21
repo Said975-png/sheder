@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from "react";
 
 export interface CartItem {
   id: string;
@@ -23,9 +23,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
 
   const addItem = (item: CartItem) => {
-    setItems(currentItems => {
+    setItems((currentItems) => {
       // Проверяем, есть ли уже такой товар в корзине
-      const existingItem = currentItems.find(cartItem => cartItem.id === item.id);
+      const existingItem = currentItems.find(
+        (cartItem) => cartItem.id === item.id,
+      );
       if (existingItem) {
         // Если товар уже есть, ничего не делаем (можно было бы увеличить количество)
         return currentItems;
@@ -36,7 +38,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   };
 
   const removeItem = (id: string) => {
-    setItems(currentItems => currentItems.filter(item => item.id !== id));
+    setItems((currentItems) => currentItems.filter((item) => item.id !== id));
   };
 
   const clearCart = () => {
@@ -57,20 +59,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
     removeItem,
     clearCart,
     getTotalItems,
-    getTotalPrice
+    getTotalPrice,
   };
 
-  return (
-    <CartContext.Provider value={value}>
-      {children}
-    </CartContext.Provider>
-  );
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
 export function useCart() {
   const context = useContext(CartContext);
   if (context === undefined) {
-    throw new Error('useCart must be used within a CartProvider');
+    throw new Error("useCart must be used within a CartProvider");
   }
   return context;
 }

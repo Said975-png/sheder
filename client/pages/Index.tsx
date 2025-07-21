@@ -1,7 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Shield, User, LogOut, Settings, Code, Cpu, Brain, Zap, CheckCircle, ShoppingCart } from "lucide-react";
+import {
+  Shield,
+  User,
+  LogOut,
+  Settings,
+  Code,
+  Cpu,
+  Brain,
+  Zap,
+  CheckCircle,
+  ShoppingCart,
+} from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -13,10 +24,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-
 export default function Index() {
   const { currentUser, logout, isAuthenticated, loading } = useAuth();
-            const { getTotalItems, addItem, items, removeItem, getTotalPrice, clearCart } = useCart();
+  const {
+    getTotalItems,
+    addItem,
+    items,
+    removeItem,
+    getTotalPrice,
+    clearCart,
+  } = useCart();
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
 
@@ -29,43 +46,46 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
-    const handleLogout = () => {
+  const handleLogout = () => {
     logout();
     window.location.reload();
   };
 
   const handleAddBasicPlan = () => {
     addItem({
-      id: 'basic-plan',
-      name: 'Basic сайт',
+      id: "basic-plan",
+      name: "Basic сайт",
       price: 2000000,
-      description: 'Базовая вёрстка, адаптив под все устройства, бесплатный SSL, техподдержка 24/7',
-      category: 'website'
+      description:
+        "Базовая вёрстка, адаптив под все устройства, бесплатный SSL, техподдержка 24/7",
+      category: "website",
     });
   };
 
   const handleAddProPlan = () => {
     addItem({
-      id: 'pro-plan',
-      name: 'Pro сайт с ИИ',
+      id: "pro-plan",
+      name: "Pro сайт с ИИ",
       price: 3500000,
-      description: 'ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация',
-      category: 'website-ai'
+      description:
+        "ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация",
+      category: "website-ai",
     });
   };
 
-    const handleAddMaxPlan = () => {
+  const handleAddMaxPlan = () => {
     addItem({
-      id: 'max-plan',
-      name: 'Max сайт с Джарвисом',
+      id: "max-plan",
+      name: "Max сайт с Джарвисом",
       price: 5000000,
-      description: 'ИИ-помощник типа Джарвис, интеграция с API, технологии нового поколения, WebGL и AI интерфейс',
-      category: 'website-jarvis'
+      description:
+        "ИИ-помощник типа Джарвис, интеграция с API, технологии нового поколения, WebGL и AI интерфейс",
+      category: "website-jarvis",
     });
   };
 
   const handleProceedToOrder = () => {
-    navigate('/order');
+    navigate("/order");
   };
 
   if (loading) {
@@ -75,7 +95,7 @@ export default function Index() {
           <div className="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4 animate-pulse">
             <Shield className="w-8 h-8 text-white" />
           </div>
-                    <p className="text-white/70">Загрузка...</p>
+          <p className="text-white/70">Загрузка...</p>
         </div>
       </div>
     );
@@ -119,8 +139,8 @@ export default function Index() {
             </a>
           </div>
 
-                    <div className="flex items-center space-x-3">
-                        {/* Cart Dropdown */}
+          <div className="flex items-center space-x-3">
+            {/* Cart Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -191,7 +211,7 @@ export default function Index() {
                         >
                           Очистить
                         </Button>
-                                                <Button
+                        <Button
                           onClick={handleProceedToOrder}
                           size="sm"
                           className="flex-1 bg-purple-600 hover:bg-purple-700"
@@ -282,7 +302,7 @@ export default function Index() {
           {/* Left Side - Content */}
           <div className="space-y-8">
             <div className="space-y-6">
-                            <h1 className="text-5xl lg:text-6xl font-bold leading-tight theme-text">
+              <h1 className="text-5xl lg:text-6xl font-bold leading-tight theme-text">
                 Jarvis - искусственный и��теллект для вашего бизн��са
               </h1>
 
@@ -299,7 +319,7 @@ export default function Index() {
             </div>
           </div>
 
-                    {/* Right Side - Empty space where 3D model was */}
+          {/* Right Side - Empty space where 3D model was */}
           <div className="relative h-[400px] md:h-[500px] flex items-center justify-center">
             <div className="w-full h-full relative">
               {/* Floating elements for ambiance */}
@@ -314,7 +334,7 @@ export default function Index() {
       {/* Features Section */}
       <section id="features" className="container mx-auto px-6 py-16">
         <div className="text-center mb-12">
-                    <h2 className="text-3xl font-bold mb-4">Мощные возможности</h2>
+          <h2 className="text-3xl font-bold mb-4">Мощные возможности</h2>
           <p className="text-white/60 max-w-2xl mx-auto">
             Все инструменты, необходимые для превращения дизайна в полноценное
             веб-приложение
@@ -338,7 +358,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">Easy Integration</h3>
             <p className="text-white/60">
-                            Простая интеграция с любыми приложениями и платформами
+              Простая интеграция с любыми приложениями и платформами
             </p>
           </div>
 
@@ -397,7 +417,7 @@ export default function Index() {
               <span className="text-white font-medium">Meta</span>
             </div>
           </div>
-                </div>
+        </div>
       </section>
 
       {/* Pricing Section */}
@@ -411,7 +431,7 @@ export default function Index() {
           </p>
         </div>
 
-                <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Basic Plan Card */}
           <div className="group relative pricing-card-enter">
             <div className="relative p-8 bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-lg border border-blue-500/30 rounded-3xl hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/25">
@@ -419,8 +439,8 @@ export default function Index() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/40 to-purple-600/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
 
               <div className="relative z-10">
-                                <div className="text-center mb-6">
-                                    <div className="relative mb-4">
+                <div className="text-center mb-6">
+                  <div className="relative mb-4">
                     <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center border border-blue-500/30 relative">
                       <Code className="w-8 h-8 text-blue-400" />
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-600/10 rounded-2xl animate-pulse"></div>
@@ -429,12 +449,16 @@ export default function Index() {
                     <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-purple-500 rounded-full animate-ping"></div>
                     <div className="absolute top-0 left-0 w-2 h-2 bg-cyan-500 rounded-full animate-bounce"></div>
                   </div>
-                  <h3 className="text-xl font-semibold theme-text mb-2">Basic сайт</h3>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">2 000 000</div>
+                  <h3 className="text-xl font-semibold theme-text mb-2">
+                    Basic сайт
+                  </h3>
+                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
+                    2 000 000
+                  </div>
                   <div className="text-sm theme-text-muted">сум</div>
                 </div>
 
-                                <ul className="space-y-4 mb-8 text-sm">
+                <ul className="space-y-4 mb-8 text-sm">
                   <li className="flex items-center theme-text-muted group">
                     <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
                       <CheckCircle className="w-3 h-3 text-blue-400" />
@@ -467,7 +491,7 @@ export default function Index() {
                   </li>
                 </ul>
 
-                                <Button
+                <Button
                   onClick={handleAddBasicPlan}
                   className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 glow-button"
                 >
@@ -477,7 +501,7 @@ export default function Index() {
             </div>
           </div>
 
-                    {/* Pro Plan Card */}
+          {/* Pro Plan Card */}
           <div className="group relative transform md:scale-105 pricing-card-enter">
             <div className="relative p-8 bg-gradient-to-br from-orange-500/20 to-red-600/20 backdrop-blur-lg border border-orange-500/30 rounded-3xl hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/25">
               {/* Glowing border effect */}
@@ -491,8 +515,8 @@ export default function Index() {
               </div>
 
               <div className="relative z-10">
-                                <div className="text-center mb-6">
-                                    <div className="relative mb-4">
+                <div className="text-center mb-6">
+                  <div className="relative mb-4">
                     <div className="w-16 h-16 mx-auto bg-gradient-to-br from-orange-500/20 to-red-600/20 rounded-2xl flex items-center justify-center border border-orange-500/30 relative">
                       <Cpu className="w-8 h-8 text-orange-400" />
                       <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-600/10 rounded-2xl animate-pulse"></div>
@@ -501,12 +525,16 @@ export default function Index() {
                     <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
                     <div className="absolute top-0 left-0 w-2 h-2 bg-yellow-500 rounded-full animate-bounce"></div>
                   </div>
-                  <h3 className="text-xl font-semibold theme-text mb-2">Pro сайт с ИИ</h3>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-1">3 500 000</div>
+                  <h3 className="text-xl font-semibold theme-text mb-2">
+                    Pro сайт с ИИ
+                  </h3>
+                  <div className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-1">
+                    3 500 000
+                  </div>
                   <div className="text-sm theme-text-muted">сум</div>
                 </div>
 
-                                <ul className="space-y-4 mb-8 text-sm">
+                <ul className="space-y-4 mb-8 text-sm">
                   <li className="flex items-center theme-text-muted group">
                     <div className="w-5 h-5 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
                       <Zap className="w-3 h-3 text-orange-400" />
@@ -539,7 +567,7 @@ export default function Index() {
                   </li>
                 </ul>
 
-                                <Button
+                <Button
                   onClick={handleAddProPlan}
                   className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30 glow-button"
                 >
@@ -549,14 +577,14 @@ export default function Index() {
             </div>
           </div>
 
-                    {/* Max Plan Card */}
+          {/* Max Plan Card */}
           <div className="group relative pricing-card-enter">
             <div className="relative p-8 bg-gradient-to-br from-cyan-500/20 to-teal-600/20 backdrop-blur-lg border border-cyan-500/30 rounded-3xl hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/25">
               {/* Glowing border effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/40 to-teal-600/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
 
               <div className="relative z-10">
-                                <div className="text-center mb-6">
+                <div className="text-center mb-6">
                   <div className="relative mb-4">
                     <div className="w-16 h-16 mx-auto bg-gradient-to-br from-cyan-500/20 to-teal-600/20 rounded-2xl flex items-center justify-center border border-cyan-500/30 relative">
                       <Brain className="w-8 h-8 text-cyan-400" />
@@ -566,37 +594,41 @@ export default function Index() {
                     <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-teal-500 rounded-full animate-ping"></div>
                     <div className="absolute top-0 left-0 w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
                   </div>
-                  <h3 className="text-xl font-semibold theme-text mb-2">Max сайт с Джарвисом</h3>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent mb-1">5 000 000</div>
+                  <h3 className="text-xl font-semibold theme-text mb-2">
+                    Max сайт с Джарвисом
+                  </h3>
+                  <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent mb-1">
+                    5 000 000
+                  </div>
                   <div className="text-sm theme-text-muted">сум</div>
                 </div>
 
-                                <ul className="space-y-4 mb-8 text-sm">
-                                    <li className="flex items-center theme-text-muted group">
+                <ul className="space-y-4 mb-8 text-sm">
+                  <li className="flex items-center theme-text-muted group">
                     <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                       <Brain className="w-3 h-3 text-cyan-400" />
                     </div>
-                                        ИИ-помощник типа Джарвис (голосовой ввод)
+                    ИИ-помощник типа Джарвис (голосовой ввод)
                   </li>
-                                    <li className="flex items-center theme-text-muted group">
+                  <li className="flex items-center theme-text-muted group">
                     <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                       <Zap className="w-3 h-3 text-cyan-400" />
                     </div>
                     Интеграция с API
                   </li>
-                                    <li className="flex items-center theme-text-muted group">
+                  <li className="flex items-center theme-text-muted group">
                     <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                       <Cpu className="w-3 h-3 text-cyan-400" />
                     </div>
                     Технологии нового поколения
                   </li>
-                                    <li className="flex items-center theme-text-muted group">
+                  <li className="flex items-center theme-text-muted group">
                     <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                       <CheckCircle className="w-3 h-3 text-cyan-400" />
                     </div>
                     Поддержка WebGL и AI интерфейса
                   </li>
-                                    <li className="flex items-center theme-text-muted group">
+                  <li className="flex items-center theme-text-muted group">
                     <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                       <CheckCircle className="w-3 h-3 text-cyan-400" />
                     </div>
@@ -604,7 +636,7 @@ export default function Index() {
                   </li>
                 </ul>
 
-                                <Button
+                <Button
                   onClick={handleAddMaxPlan}
                   className="w-full bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 glow-button"
                 >
