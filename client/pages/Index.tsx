@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import RobotModel from "@/components/RobotModel";
 import {
   Shield,
   User,
@@ -83,7 +84,7 @@ export default function Index() {
   const handleAddMaxPlan = () => {
     addItem({
       id: "max-plan",
-      name: "Max сайт с Джарвисом",
+      name: "Max с��йт с Джарвисом",
       price: 5000000,
       description:
         "ИИ-помощник типа Джарвис, интеграция с API, технологии нового покол��ния, WebGL и AI интерфейс",
@@ -109,7 +110,7 @@ export default function Index() {
   }
 
   return (
-    <div className="min-h-screen ai-hero-container theme-text overflow-hidden">
+    <div className="min-h-screen ai-hero-container theme-text overflow-x-hidden">
       {/* Header */}
       {/* Oval Navbar */}
       <nav
@@ -409,15 +410,15 @@ export default function Index() {
         ></div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="flex flex-col md:flex-row md:items-start gap-8 md:gap-16">
             {/* Left Side - Content */}
-            <div className="space-y-10">
+            <div className="flex-1 space-y-10">
               <div className="space-y-8">
                 <h1
                   className="text-5xl lg:text-7xl font-bold leading-tight hologram-text"
                   data-text="Jarvis - искусственный интеллект для вашего бизнеса"
                 >
-                  Jarvis - искусственный интеллект для вашего бизнеса
+                  Jarvis - искусственный интеллект для вашего ��изнеса
                 </h1>
 
                 <div className="relative p-6 bg-black/20 backdrop-blur-md border border-purple-500/30 rounded-2xl">
@@ -451,49 +452,35 @@ export default function Index() {
               </div>
             </div>
 
-            {/* Right Side - 3D Model */}
-            <div className="relative h-[500px] md:h-[600px] flex items-center justify-center">
-              <div className="relative">
+            {/* Right Side - 3D Model positioned at header level */}
+            <div className="flex-shrink-0 w-full md:w-96 h-96 md:-mt-4 lg:-mt-8 xl:-mt-12">
+              <div
+                className="relative w-full h-full overflow-visible z-30"
+                style={{ padding: "20px" }}
+              >
                 {/* 3D Model */}
-                <div className="relative w-96 h-96 mx-auto flex items-center justify-center">
-                  <img
-                    src="https://cdn.builder.io/o/assets%2Faedfe5653545446c9fef6ae94da29aea%2F168b67f1e4f741a389d3f62f8ee709d2?alt=media&token=bb15ecaa-baac-4362-9525-c8a0a7048796&apiKey=aedfe5653545446c9fef6ae94da29aea"
-                    alt="3D AI Model"
-                    className="max-w-full max-h-full object-contain z-10 relative"
-                    style={{
-                      filter:
-                        "drop-shadow(0 0 30px rgba(139, 69, 255, 0.8)) drop-shadow(0 0 60px rgba(59, 130, 246, 0.6))",
-                      minHeight: "300px",
-                      minWidth: "300px",
-                    }}
-                    onError={(e) => {
-                      console.log("Image failed to load:", e);
-                      e.currentTarget.style.display = "block";
-                    }}
-                    onLoad={(e) => {
-                      console.log("Image loaded successfully:", e);
-                    }}
-                  />
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <div className="w-full h-full relative">
+                    <RobotModel />
 
-                  {/* Glowing effect around model */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
-
-                  {/* Additional glow layers */}
-                  <div className="absolute inset-4 bg-gradient-to-r from-purple-400/20 to-cyan-400/20 rounded-full blur-2xl animate-ping"></div>
+                    {/* Glowing effect around 3D model */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse pointer-events-none"></div>
+                    <div className="absolute inset-4 bg-gradient-to-r from-purple-400/20 to-cyan-400/20 rounded-full blur-2xl animate-ping pointer-events-none"></div>
+                  </div>
                 </div>
 
                 {/* Floating Code Elements with Gravity */}
-                <div className="absolute -top-16 -right-8 p-3 bg-black/40 backdrop-blur-sm border border-green-500/30 rounded text-green-400 font-mono text-xs gravity-float">
+                <div className="absolute -top-8 -right-12 p-3 bg-black/40 backdrop-blur-sm border border-green-500/30 rounded text-green-400 font-mono text-xs gravity-float z-40">
                   {'{ AI: "active" }'}
                 </div>
                 <div
-                  className="absolute -bottom-12 -left-16 p-2 bg-black/40 backdrop-blur-sm border border-blue-500/30 rounded text-blue-400 font-mono text-xs gravity-bounce"
+                  className="absolute -bottom-6 -left-12 p-2 bg-black/40 backdrop-blur-sm border border-blue-500/30 rounded text-blue-400 font-mono text-xs gravity-bounce z-40"
                   style={{ animationDelay: "1s" }}
                 >
                   neural.connect()
                 </div>
                 <div
-                  className="absolute top-20 -right-20 p-2 bg-black/40 backdrop-blur-sm border border-purple-500/30 rounded text-purple-400 font-mono text-xs gravity-drift"
+                  className="absolute top-24 -right-16 p-2 bg-black/40 backdrop-blur-sm border border-purple-500/30 rounded text-purple-400 font-mono text-xs gravity-drift z-40"
                   style={{ animationDelay: "2s" }}
                 >
                   ML.process()
@@ -508,7 +495,7 @@ export default function Index() {
       <section id="features" className="ai-hero-container py-16 relative">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Мощные возможности</h2>
+            <h2 className="text-3xl font-bold mb-4">Мощ��ые возможности</h2>
             <p className="text-white/60 max-w-2xl mx-auto">
               Все инструменты, необходимые для превращения дизайна в полноценное
               веб-приложение
@@ -522,7 +509,7 @@ export default function Index() {
               </div>
               <h3 className="text-lg font-semibold mb-2">AI Detection</h3>
               <p className="text-white/60">
-                Передовые алгоритмы для обнаружения ботов и автоматических
+                Передовые алгоритмы для обнаруж��ния ботов и автоматических
                 систем
               </p>
             </div>
@@ -645,7 +632,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-blue-400" />
                       </div>
-                      Без искусственного интеллекта
+                      Без искус��твенного интеллекта
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
@@ -727,7 +714,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-orange-400" />
                       </div>
-                      Полный адаптив
+                      Полн��й адаптив
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
@@ -790,7 +777,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                         <Brain className="w-3 h-3 text-cyan-400" />
                       </div>
-                      ИИ-помощник типа Джарвис (голосовой ввод)
+                      ИИ-помощник типа Джарвис (голо��овой ввод)
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
@@ -802,13 +789,13 @@ export default function Index() {
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                         <Cpu className="w-3 h-3 text-cyan-400" />
                       </div>
-                      Технологии нового поколения
+                      Технол��гии нового поколения
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-cyan-400" />
                       </div>
-                      Поддержка WebGL и AI интерфейса
+                      Подде��жка WebGL и AI интерфейса
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
@@ -839,7 +826,7 @@ export default function Index() {
               Наши преимущества
             </h2>
             <p className="text-lg theme-text-muted max-w-3xl mx-auto">
-              Мы создаем не просто сайты — мы разрабатываем интеллектуальные
+              Мы создаем не просто сайты — мы разрабатываем и��теллектуальные
               решения, которые работают как ваш персональный ИИ-помощник
             </p>
           </div>
@@ -857,7 +844,7 @@ export default function Index() {
                 <p className="theme-text-muted leading-relaxed">
                   Создаем полноценные сайты в 3-5 раз быстрее благодаря нашим
                   ИИ-инструментам и готовым модулям. То, что другие делают
-                  месяцами, мы реализуем за недели.
+                  меся��ами, мы реализуем за недели.
                 </p>
               </div>
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -892,7 +879,7 @@ export default function Index() {
                   Поддержка 24/7
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Круглосуточная техническая поддержка и мониторинг вашего
+                  Круглосуточная техническая поддержка и мониторинг ваше��о
                   сайта. Мы оперативно решаем любые вопросы и следим за
                   стабильной работой.
                 </p>
@@ -928,7 +915,7 @@ export default function Index() {
                   Умная аналитика
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Встроенная ИИ-аналитика отслеживает поведение пользователей и
+                  Встроенная ИИ-аналитика отслеживает поведение пользова��елей и
                   автоматически оптимизирует конверсию вашего онлайн-магазина.
                 </p>
               </div>
@@ -945,8 +932,8 @@ export default function Index() {
                   Инновационные решения
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Внедряем передовые технологии: WebGL, машинное ��бучение,
-                  голосовое управление и AR/VR эл��менты для максимального
+                  Внедряем передовые технологии: WebGL, м��шинное ��бучение,
+                  голосово�� управление и AR/VR эл��менты для максимального
                   wow-эффекта.
                 </p>
               </div>
@@ -960,11 +947,11 @@ export default function Index() {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
               <div className="relative bg-gradient-to-r from-purple-600/20 to-cyan-600/20 backdrop-blur-lg border border-purple-500/30 rounded-2xl p-8">
                 <h3 className="text-2xl font-bold theme-text mb-4">
-                  Готовы создать что-то невероятное?
+                  Готовы создать что-то н��вероятное?
                 </h3>
                 <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
                   Позвольте нашему ИИ Джарвису стать цифровым помощником вашего
-                  бизнеса. Начнем разработку уже сегодня!
+                  бизнеса. Начнем ��азработку уже сегодня!
                 </p>
                 <Button
                   onClick={() =>

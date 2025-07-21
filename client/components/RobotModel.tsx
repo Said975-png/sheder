@@ -1,29 +1,29 @@
-import { Suspense, useRef } from 'react';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
-import { OrbitControls, Environment } from '@react-three/drei';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import * as THREE from 'three';
+import { Suspense, useRef } from "react";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { OrbitControls, Environment } from "@react-three/drei";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import * as THREE from "three";
 
 function Robot() {
   const robotRef = useRef<THREE.Group>(null);
-  
+
   // Load the GLB model
-  const gltf = useLoader(GLTFLoader, "https://cdn.builder.io/o/assets%2F807a39b9c71a4f90a6028eb8f74d47f3%2F80781a2807054389b78568468124a1d1?alt=media&token=2dd385a3-2b6a-4b20-b45f-8c88887b2825&apiKey=807a39b9c71a4f90a6028eb8f74d47f3");
-  
+  const gltf = useLoader(
+    GLTFLoader,
+    "https://cdn.builder.io/o/assets%2Fc7cc0af5c2b743a4bb2b78008c30e87d%2F1d1285b0ae324806af1acc17b766bb3e?alt=media&token=db852b94-8003-4bf7-9b47-ce3622256833&apiKey=c7cc0af5c2b743a4bb2b78008c30e87d",
+  );
+
   // Auto-rotate the model
   useFrame((state) => {
     if (robotRef.current) {
-      robotRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.3;
+      robotRef.current.rotation.y =
+        Math.sin(state.clock.elapsedTime * 0.5) * 0.3;
     }
   });
 
   return (
     <group ref={robotRef}>
-      <primitive 
-        object={gltf.scene} 
-        scale={[2, 2, 2]} 
-        position={[0, -1, 0]}
-      />
+      <primitive object={gltf.scene} scale={[2, 2, 2]} position={[0, -1, 0]} />
     </group>
   );
 }
@@ -46,39 +46,33 @@ export default function RobotModel() {
     <div className="w-full h-full">
       <Canvas
         camera={{ position: [0, 0, 5], fov: 50 }}
-        style={{ background: 'transparent' }}
+        style={{ background: "transparent" }}
       >
         <Suspense fallback={null}>
           {/* Lighting */}
           <ambientLight intensity={0.4} />
-          <directionalLight 
-            position={[10, 10, 5]} 
-            intensity={1} 
+          <directionalLight
+            position={[10, 10, 5]}
+            intensity={1}
             color="#ffffff"
           />
-          <directionalLight 
-            position={[-10, -10, -5]} 
-            intensity={0.3} 
+          <directionalLight
+            position={[-10, -10, -5]}
+            intensity={0.3}
             color="#8b5cf6"
           />
-          <pointLight 
-            position={[0, 0, 3]} 
-            intensity={0.5} 
-            color="#3b82f6"
-          />
-          
+          <pointLight position={[0, 0, 3]} intensity={0.5} color="#3b82f6" />
+
           {/* Environment for reflections */}
           <Environment preset="city" />
-          
+
           {/* 3D Robot Model */}
           <Robot />
-          
+
           {/* Controls */}
-          <OrbitControls 
+          <OrbitControls
             enablePan={false}
-            enableZoom={true}
-            minDistance={3}
-            maxDistance={8}
+            enableZoom={false}
             autoRotate={true}
             autoRotateSpeed={0.5}
           />
