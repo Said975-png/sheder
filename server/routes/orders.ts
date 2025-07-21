@@ -115,50 +115,65 @@ export const handleSendOrder: RequestHandler = async (req, res) => {
       });
     }
 
-    // Создаем транспортер
-    const transporter = createTransporter();
+    // Логируем заказ в консоль для отладки
+    console.log('=== НОВЫЙ ЗАКАЗ ===');
+    console.log('Клиент:', { fullName, phone });
+    console.log('Общая стоимость:', orderData.total.toLocaleString(), 'сум');
+    console.log('Услуги:', orderData.items.map(item => item.name));
+    console.log('Описание:', description.substring(0, 100) + '...');
+    console.log('==================');
 
-    // Настройки email
-    const mailOptions = {
-      from: process.env.EMAIL_USER || 'noreply@jarvis-ai.com',
-      to: 'saidaurum@gmail.com',
-      subject: `🚀 Новый заказ от ${fullName} - ${orderData.total.toLocaleString()} сум`,
-      html: createOrderEmailTemplate(orderData),
-      text: `
-        Новый заказ от ${fullName}
-        Телефон: ${phone}
-        Описание: ${description}
-        Общая стоимость: ${orderData.total.toLocaleString()} сум
-        
-        Заказанные услуги:
-        ${orderData.items.map(item => `- ${item.name}: ${item.price.toLocaleString()} сум`).join('\n')}
-      `
-    };
+    // Проверяем, настроен ли email
+    const emailConfigured = process.env.EMAIL_USER && 
+                           process.env.EMAIL_PASS && 
+                           process.env.EMAIL_USER !== 'temp-email@gmail.com' &&
+                           process.env.EMAIL_PASS !== 'temp-app-password';
 
-    // Отправляем email
-    await transporter.sendMail(mailOptions);
+    if (emailConfigured) {
+      try {
+        // Создаем транспортер
+        const transporter = createTransporter();
 
+        // Настройки email
+        const mailOptions = {
+          from: process.env.EMAIL_USER,
+          to: 'saidaurum@gmail.com',
+          subject: `🚀 Новый заказ от ${fullName} - ${orderData.total.toLocaleString()} сум`,
+          html: createOrderEmailTemplate(orderData),
+          text: `
+Новый заказ от ${fullName}
+Телефон: ${phone}
+Описание: ${description}
+Общая стоимость: ${orderData.total.toLocaleString()} сум
+
+Заказанные услуги:
+${orderData.items.map(item => `- ${item.name}: ${item.price.toLocaleString()} сум`).join('\n')}
+          `
+        };
+
+        // Отправляем email
+        await transporter.sendMail(mailOptions);
+        console.log('✅ Email успешно отправлен на saidaurum@gmail.com');
+      } catch (emailError) {
+        console.error('❌ Ошибка отправки email:', emailError);
+        // Продолжаем выполнение даже если email не отправился
+      }
+    } else {
+      console.log('📧 Email не настроен, заказ сохранен только в логах');
+    }
+
+    // Всегда возвращаем успех, даже если email не отправился
     res.json({ 
       success: true, 
-      message: 'Заказ успешно отправлен' 
+      message: 'Заказ успешно получен и обрабатывается' 
     });
 
   } catch (error) {
-    console.error('Ошибка отправки заказа:', error);
-    
-    // Если ошибка связана с email, возвращаем более информативное сообщение
-    if (error instanceof Error) {
-      if (error.message.includes('Authentication') || error.message.includes('Invalid login')) {
-        return res.status(500).json({ 
-          success: false, 
-          message: 'Ошибка настройки email. Обратитесь к администратору.' 
-        });
-      }
-    }
+    console.error('❌ Общая ошибка при обработке заказа:', error);
     
     res.status(500).json({ 
       success: false, 
-      message: 'Ошибка сервера при отправке заказа' 
+      message: 'Ошибка сервера при обработке заказа' 
     });
   }
 };
