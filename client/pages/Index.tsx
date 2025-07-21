@@ -216,7 +216,7 @@ export default function Index() {
                           size="sm"
                           className="flex-1"
                         >
-                          Очис��ить
+                          Очистить
                         </Button>
                         <Button
                           onClick={handleProceedToOrder}
@@ -528,8 +528,9 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section data-section="pricing" className="container mx-auto px-6 py-24">
+            {/* Pricing Section */}
+      <section data-section="pricing" className="ai-hero-container py-24 relative">
+        <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 theme-text">
             Выберите подходящий план
