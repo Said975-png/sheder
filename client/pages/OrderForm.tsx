@@ -224,14 +224,21 @@ export default function OrderForm() {
                     rows={6}
                     className="theme-input resize-none"
                   />
-                </div>
+                                </div>
+
+                {error && (
+                  <div className="flex items-center space-x-2 p-3 bg-red-500/20 border border-red-500/30 rounded-lg">
+                    <AlertCircle className="w-4 h-4 text-red-400" />
+                    <span className="text-red-400 text-sm">{error}</span>
+                  </div>
+                )}
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 text-lg font-semibold"
-                  disabled={!formData.fullName || !formData.phone || !formData.description}
+                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white py-3 text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={!formData.fullName || !formData.phone || !formData.description || isLoading}
                 >
-                  Отправить заказ
+                  {isLoading ? "Отправка..." : "Отправить заказ"}
                 </Button>
               </form>
             </CardContent>
