@@ -529,7 +529,10 @@ export default function Index() {
                   </li>
                 </ul>
 
-                <Button className="w-full bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 glow-button">
+                                <Button
+                  onClick={handleAddMaxPlan}
+                  className="w-full bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 glow-button"
+                >
                   Заказать
                 </Button>
               </div>
