@@ -19,9 +19,12 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
-  // Upload and generation routes
+    // Upload and generation routes
   app.post("/api/upload", handleImageUpload);
   app.get("/api/generated/:imageId", handleGenerateWebsite);
+
+  // Orders route
+  app.post("/api/orders", handleSendOrder);
 
   return app;
 }
