@@ -176,6 +176,29 @@ export default function VoiceControl({
     });
   };
 
+  const speakGoodMorning = () => {
+    setIsSpeaking(true);
+
+    // Создаем и воспроизводим аудио для утреннего приветствия
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
+    );
+
+    audio.onended = () => {
+      setIsSpeaking(false);
+    };
+
+    audio.onerror = () => {
+      setIsSpeaking(false);
+      console.error("Ошибка воспроизведения аудио утреннего приветствия");
+    };
+
+    audio.play().catch((error) => {
+      setIsSpeaking(false);
+      console.error("Не удалось воспроизвести аудио утреннего приветствия:", error);
+    });
+  };
+
   const processVoiceCommand = (command: string) => {
     console.log("Обработка команды:", command);
 
@@ -236,7 +259,7 @@ export default function VoiceControl({
       "перейти",
       "войти",
       "регистрация",
-      "профиль",
+      "��рофиль",
       "заказ",
       "корзина",
       "добавить",
@@ -286,7 +309,7 @@ export default function VoiceControl({
       "создать",
       "бизнес",
       "помощник",
-      "персональный",
+      "персонал��ный",
       "отключись",
       "выключись",
       "отключи",
@@ -593,7 +616,7 @@ export default function VoiceControl({
     }
 
     // Команды корзины
-    if (command.includes("корзина") && command.includes("очистить")) {
+    if (command.includes("корзина") && command.includes("очис��ить")) {
       clearCart();
       speak("Корзина очищена");
       return;
@@ -680,7 +703,7 @@ export default function VoiceControl({
 
     if (
       command.includes("к преимуществам") ||
-      command.includes("наши преиму��ества") ||
+      command.includes("наши преимущества") ||
       command.includes("спуститься к преимуществам") ||
       command.includes("перейти к преимуществам") ||
       command.includes("преимущества")
@@ -718,7 +741,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Прокр��тка страницы
+    // Прокрутка страницы
     if (
       command.includes("прокрутить вниз") ||
       command.includes("скролл вниз") ||
