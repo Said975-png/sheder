@@ -303,12 +303,8 @@ export default function Index() {
       </nav>
 
             {/* Main Content */}
-      <main className="relative spotlight-container spotlight-dark-bg">
-        {/* Дымчатый эффект */}
-        <div className="smoke-effect"></div>
-
-        <div className="container mx-auto px-6 py-12 pt-24 relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center min-h-[600px]">
+      <main className="container mx-auto px-6 py-12 pt-24">
+        <div className="grid md:grid-cols-2 gap-12 items-center min-h-[600px]">
           {/* Left Side - Content */}
           <div className="space-y-8">
             <div className="space-y-6">
@@ -369,7 +365,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">Easy Integration</h3>
             <p className="text-white/60">
-              Простая интеграция с любыми приложениями и платформами
+              Простая и��теграция с любыми приложениями и платформами
             </p>
           </div>
 
