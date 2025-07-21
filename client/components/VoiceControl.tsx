@@ -109,7 +109,7 @@ export default function VoiceControl({
 
     audio.onerror = () => {
       setIsSpeaking(false);
-      // Если ошибка с аудио, все равно отключаем микрофон
+      // ��сли ошибка с аудио, все равно отключаем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
@@ -179,7 +179,7 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("Обработка команды:", command);
 
-    // Фильтруем пустые или слишком короткие команды
+    // Фильтруем пустые или с��ишком короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -205,6 +205,29 @@ export default function VoiceControl({
       command.includes("я снова здесь")
     ) {
       speakWelcomeBack();
+      return;
+    }
+
+    // Команды благодарности
+    if (
+      command.includes("спасибо") ||
+      command.includes("благодарю") ||
+      command.includes("благодарность") ||
+      command.includes("спс") ||
+      command.includes("сенк ю") ||
+      command.includes("thank you") ||
+      command.includes("thanks") ||
+      command.includes("мерси") ||
+      command.includes("рахмат") ||
+      command.includes("рахмет") ||
+      command.includes("хорошо") ||
+      command.includes("отлично") ||
+      command.includes("замечательно") ||
+      command.includes("круто") ||
+      command.includes("прекрасно") ||
+      command.includes("чудесно")
+    ) {
+      speakThankYou();
       return;
     }
 
@@ -368,7 +391,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск возможностей
+      // Пои��к возможностей
       if (
         command.includes("возможности") ||
         command.includes("возможность") ||
@@ -410,7 +433,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
         if (found) {
-          speak("Показываю информацию о компании");
+          speak("Показываю инфо��мацию о компании");
           return;
         }
       }
@@ -538,7 +561,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("про��иль") ||
+      command.includes("профиль") ||
       command.includes("мой профиль") ||
       command.includes("личный кабинет") ||
       command.includes("открыть профиль")
@@ -615,7 +638,7 @@ export default function VoiceControl({
 
     // Расширенная навигация по секциям страницы
     if (
-      command.includes("к план��м") ||
+      command.includes("к планам") ||
       command.includes("показать планы") ||
       command.includes("перейти к планам") ||
       command.includes("спуститься к планам") ||
@@ -661,7 +684,7 @@ export default function VoiceControl({
     if (
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
-      command.includes("спуститься к возможностям") ||
+      command.includes("спуститься к возм��жностям") ||
       command.includes("перейти к возможностям") ||
       command.includes("возможности")
     ) {
@@ -692,7 +715,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("прокрут��ть вверх") ||
+      command.includes("прокрутить вверх") ||
       command.includes("скролл вверх") ||
       command.includes("подняться вверх")
     ) {
