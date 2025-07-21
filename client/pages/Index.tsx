@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import RobotModel from "@/components/RobotModel";
+
 
 export default function Index() {
   const { currentUser, logout, isAuthenticated, loading } = useAuth();
