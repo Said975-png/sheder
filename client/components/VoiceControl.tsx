@@ -109,13 +109,13 @@ export default function VoiceControl({
 
     audio.onerror = () => {
       setIsSpeaking(false);
-      // Если ошибка с аудио, все равно отключаем микрофон
+      // Если ошибка с ау��ио, все равно отключаем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
       setIsListening(false);
       setTranscript("");
-      console.error("Ошибка воспроизведения ау��ио отключения");
+      console.error("Ошибка воспроизведения аудио отключения");
     };
 
     audio.play().catch((error) => {
@@ -144,7 +144,7 @@ export default function VoiceControl({
 
     audio.onerror = () => {
       setIsSpeaking(false);
-      console.error("Ошибка воспроизведения аудио приветствия");
+      console.error("��шибка воспроизведения аудио приветствия");
     };
 
     audio.play().catch((error) => {
@@ -223,7 +223,7 @@ export default function VoiceControl({
     // Команда приветствия "Джарвис я вернулся"
     if (
       command.includes("джарвис я вернулся") ||
-      command.includes("я ве��нулся джарвис") ||
+      command.includes("я вернулся джарвис") ||
       command.includes("джарвис я здесь") ||
       command.includes("я снова здесь")
     ) {
@@ -251,7 +251,7 @@ export default function VoiceControl({
       command.includes("благодарю") ||
       command.includes("благодарность") ||
       command.includes("спс") ||
-      command.includes("сенк ю") ||
+      command.includes("се��к ю") ||
       command.includes("thank you") ||
       command.includes("thanks") ||
       command.includes("мерси") ||
@@ -344,9 +344,14 @@ export default function VoiceControl({
       "хорошо",
       "отлично",
       "замечательно",
-      "круто",
+      "крут��",
       "прекрасно",
       "чудесно",
+      "доброе",
+      "утро",
+      "утра",
+      "morning",
+      "good",
     ];
     const hasValidWords = meaningfulWords.some((word) =>
       trimmedCommand.includes(word),
@@ -615,7 +620,7 @@ export default function VoiceControl({
     if (
       command.includes("профиль") ||
       command.includes("мой профиль") ||
-      command.includes("личный каб��нет") ||
+      command.includes("личный кабинет") ||
       command.includes("открыть профиль")
     ) {
       navigate("/profile");
@@ -769,7 +774,7 @@ export default function VoiceControl({
     if (
       command.includes("прокрутить вверх") ||
       command.includes("скролл вверх") ||
-      command.includes("подн��ться вверх")
+      command.includes("подняться вверх")
     ) {
       window.scrollBy(0, -500);
       speak("Прокручиваю вверх");
