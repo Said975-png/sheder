@@ -85,7 +85,7 @@ export default function VoiceControl({
           voices.map((v) => `${v.name} (${v.lang})`),
         );
 
-        // Приоритетный поиск голоса Джарвиса
+        // Приоритетный поиск голоса Джарви��а
         let selectedVoice = null;
 
         // 1. Ищем британские мужские голоса (как у Джарвиса)
@@ -214,7 +214,7 @@ export default function VoiceControl({
     }
 
     // Проверяем, содержит ли команда значимые слова
-    const meaningfulWords = ["перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "д��арвис", "помощь", "команды", "расскажи", "тарифы", "привет", "здравствуй", "прокрутить", "скролл", "наверх", "планам", "что", "как", "где"];
+    const meaningfulWords = ["перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "д��арвис", "помощь", "команды", "расскажи", "тарифы", "привет", "здравствуй", "прокрутить", "скролл", "��аверх", "планам", "что", "как", "где"];
     const hasValidWords = meaningfulWords.some(word => trimmedCommand.includes(word));
 
     if (!hasValidWords) {
@@ -228,7 +228,6 @@ export default function VoiceControl({
       command.includes("домой")
     ) {
       navigate("/");
-      speak("Переходим на главную страницу.");
       return;
     }
 
@@ -238,7 +237,6 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Отк��ываю страницу входа в систему.");
       return;
     }
 
@@ -247,19 +245,16 @@ export default function VoiceControl({
       command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
-      speak("Переходим к ре��истрации нового пользователя.");
       return;
     }
 
     if (command.includes("профиль") || command.includes("мой профиль")) {
       navigate("/profile");
-      speak("Открываю настройки вашего профиля.");
       return;
     }
 
     if (command.includes("заказ") || command.includes("оформить заказ")) {
       navigate("/order");
-      speak("Переходим к оформлению заказа.");
       return;
     }
 
