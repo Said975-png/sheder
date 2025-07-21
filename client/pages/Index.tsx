@@ -465,9 +465,7 @@ export default function Index() {
                 {/* 3D Model */}
                 <div className="relative w-full h-full flex items-center justify-center">
                   <div className="w-full h-full relative">
-                    <RobotModel />
-
-                    {/* Glowing effect around 3D model */}
+                    {/* Glowing effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse pointer-events-none"></div>
                     <div className="absolute inset-4 bg-gradient-to-r from-purple-400/20 to-cyan-400/20 rounded-full blur-2xl animate-ping pointer-events-none"></div>
                   </div>
@@ -827,7 +825,7 @@ export default function Index() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 theme-text">
-              Наши преимущества
+              Наши преим��щества
             </h2>
             <p className="text-lg theme-text-muted max-w-3xl mx-auto">
               Мы создаем не просто сайты — мы разрабатываем и��теллектуальные
@@ -901,7 +899,7 @@ export default function Index() {
                   Прем��ум качество
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Используе�� только современные технологии и лучшие практики.
+                  Используе�� только современные технологии и л��чшие практики.
                   Каждый сайт проходит тщательное тестирование и оптимизацию
                   производител��ности.
                 </p>
@@ -936,7 +934,7 @@ export default function Index() {
                   Инновационные решения
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Внедряем передовые технологии: WebGL, м��шинное ��бучение,
+                  Внедряем передовые технологии: WebGL, м��шинное ��буч��ние,
                   голосово�� управление и AR/VR эл��менты для максимального
                   wow-эффекта.
                 </p>
@@ -955,7 +953,7 @@ export default function Index() {
                 </h3>
                 <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
                   Позвольте наш��му ИИ Джарвису стать цифровым помощником вашего
-                  бизнеса. Начнем разработку уже сегодня!
+                  бизнеса. Начнем разработку у��е сегодня!
                 </p>
                 <Button
                   onClick={() =>
