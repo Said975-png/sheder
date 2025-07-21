@@ -162,7 +162,7 @@ export default function Index() {
           <div className="space-y-8">
             <div className="space-y-6">
               <h1 className="text-5xl lg:text-6xl font-bold leading-tight theme-text">
-                Jarvis - искусственный интеллект для вашего бизнеса
+                Jarvis - искусств��нный интеллект для вашего бизнеса
               </h1>
 
               <p className="text-lg theme-text-muted max-w-md">
@@ -286,7 +286,7 @@ export default function Index() {
             Выберите подходящий план
           </h2>
           <p className="text-lg theme-text-muted max-w-2xl mx-auto">
-            Профессиональные решения для создания со��ременных веб-сайтов
+            Профессиональные решения для создания современных веб-сайтов
           </p>
         </div>
 
@@ -362,18 +362,20 @@ export default function Index() {
               {/* Popular badge */}
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                 <div className="bg-gradient-to-r from-orange-500 to-red-600 text-white text-xs font-semibold px-4 py-2 rounded-full">
-                  По��улярный
+                  Популярный
                 </div>
               </div>
 
               <div className="relative z-10">
                                 <div className="text-center mb-6">
-                  <div className="relative mb-4">
-                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-orange-500/20 to-red-600/20 rounded-2xl flex items-center justify-center border border-orange-500/30">
+                                    <div className="relative mb-4">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-orange-500/20 to-red-600/20 rounded-2xl flex items-center justify-center border border-orange-500/30 relative">
                       <Cpu className="w-8 h-8 text-orange-400" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-600/10 rounded-2xl animate-pulse"></div>
                     </div>
                     <div className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 rounded-full animate-pulse"></div>
                     <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
+                    <div className="absolute top-0 left-0 w-2 h-2 bg-yellow-500 rounded-full animate-bounce"></div>
                   </div>
                   <h3 className="text-xl font-semibold theme-text mb-2">Pro сайт с ИИ</h3>
                   <div className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-1">3 500 000</div>
