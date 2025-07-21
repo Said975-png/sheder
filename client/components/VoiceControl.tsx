@@ -173,7 +173,7 @@ export default function VoiceControl({
             utterance.pitch = 0.4;
             utterance.lang = "en-US";
             console.log(
-              "Голос Джарвиса не найден, используется дефолтный с низким тоном",
+              "Голос Джарвиса не найден, используется дефолтный с низки�� тоном",
             );
           }
         }
@@ -224,7 +224,7 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Открываю страницу входа в систему.");
+      speak("Отк��ываю страницу входа в систему.");
       return;
     }
 
