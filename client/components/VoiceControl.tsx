@@ -88,7 +88,7 @@ export default function VoiceControl({
   };
 
   const processVoiceCommand = (command: string) => {
-    console.log("Обработка команды:", command);
+    console.log("Обработка ко��анды:", command);
 
     // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
@@ -198,7 +198,7 @@ export default function VoiceControl({
     if (
       command.includes("добавить макс") ||
       command.includes("макс план") ||
-      command.includes("максимальны�� план") ||
+      command.includes("максимальный план") ||
       command.includes("джарвис план") ||
       command.includes("макс в корзину") ||
       command.includes("отправить макс")
@@ -219,6 +219,7 @@ export default function VoiceControl({
       if (pricingSection) {
         pricingSection.scrollIntoView({ behavior: "smooth" });
       }
+      speak("Показываю планы");
       return;
     }
 
@@ -235,6 +236,7 @@ export default function VoiceControl({
       if (advantagesSection) {
         advantagesSection.scrollIntoView({ behavior: "smooth" });
       }
+      speak("Показываю преимущества");
       return;
     }
 
@@ -252,6 +254,7 @@ export default function VoiceControl({
       if (featuresSection) {
         featuresSection.scrollIntoView({ behavior: "smooth" });
       }
+      speak("Показываю возможности");
       return;
     }
 
@@ -262,6 +265,7 @@ export default function VoiceControl({
       command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
+      speak("Прокручиваю вниз");
       return;
     }
 
@@ -271,6 +275,7 @@ export default function VoiceControl({
       command.includes("подняться вверх")
     ) {
       window.scrollBy(0, -500);
+      speak("Прокручиваю вверх");
       return;
     }
 
@@ -280,6 +285,7 @@ export default function VoiceControl({
       command.includes("в самый верх")
     ) {
       window.scrollTo(0, 0);
+      speak("Перехожу в начало");
       return;
     }
 
@@ -289,6 +295,7 @@ export default function VoiceControl({
       command.includes("вниз страницы")
     ) {
       window.scrollTo(0, document.body.scrollHeight);
+      speak("Перехожу в конец");
       return;
     }
   };
