@@ -364,10 +364,16 @@ export default function Index() {
               </div>
 
               <div className="relative z-10">
-                <div className="text-center mb-6">
-                  <div className="text-4xl mb-3">🤖</div>
+                                <div className="text-center mb-6">
+                  <div className="relative mb-4">
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-orange-500/20 to-red-600/20 rounded-2xl flex items-center justify-center border border-orange-500/30">
+                      <Cpu className="w-8 h-8 text-orange-400" />
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 rounded-full animate-pulse"></div>
+                    <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
+                  </div>
                   <h3 className="text-xl font-semibold theme-text mb-2">Pro сайт с ИИ</h3>
-                  <div className="text-3xl font-bold text-orange-400 mb-1">3 500 000</div>
+                  <div className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-1">3 500 000</div>
                   <div className="text-sm theme-text-muted">сум</div>
                 </div>
 
