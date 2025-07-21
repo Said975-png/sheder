@@ -68,7 +68,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
       const speakWithVoice = () => {
         const utterance = new SpeechSynthesisUtterance(text);
 
-        // Настройки голоса Дж��рвиса
+        // Настройки голоса Джарвиса
         utterance.rate = 0.85; // Спокойная, уверенная речь
         utterance.pitch = 0.6; // Низкий тон, как у Джарвиса
         utterance.volume = 0.95; // Четкая громкость
@@ -115,8 +115,12 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
                   name.includes('dmitry'));
         });
 
-        // Выбираем голос в порядке приоритета
-        if (britishMaleVoices.length > 0) {
+        // Выбираем голос в порядке приоритета (русский приоритетнее)
+        if (russianMaleVoices.length > 0) {
+          selectedVoice = russianMaleVoices[0];
+          utterance.lang = 'ru-RU';
+          console.log('Используется русский мужской голос:', selectedVoice.name);
+        } else if (britishMaleVoices.length > 0) {
           selectedVoice = britishMaleVoices[0];
           utterance.lang = 'en-GB';
           console.log('Используется британский голос Джарвиса:', selectedVoice.name);
@@ -124,10 +128,6 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
           selectedVoice = englishMaleVoices[0];
           utterance.lang = 'en-US';
           console.log('Используется английский мужской голос:', selectedVoice.name);
-        } else if (russianMaleVoices.length > 0) {
-          selectedVoice = russianMaleVoices[0];
-          utterance.lang = 'ru-RU';
-          console.log('Используется русский мужской голос:', selectedVoice.name);
         } else {
           // Последний шанс - любой мужской голос
           const anyMaleVoice = voices.find(voice =>
@@ -182,7 +182,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
 
     if (command.includes('войти') || command.includes('логин') || command.includes('авторизация')) {
       navigate('/login');
-      speak('Открываю страницу входа в систему.');
+      speak('Открываю страницу входа в с��стему.');
       return;
     }
 
@@ -247,7 +247,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
     }
 
     if (command.includes('расскажи о планах') || command.includes('какие планы') || command.includes('тарифы')) {
-      speak('У нас есть три плана: Базовый за 2 миллиона сум, Про с ИИ ��а 3.5 миллиона, и Максимальный с Джарвисом за 5 миллионов сум.');
+      speak('У нас есть три плана: Базовый за 2 миллиона сум, Про с ИИ за 3.5 миллиона, и Максимальный с Джарвисом за 5 миллионов сум.');
       return;
     }
 
