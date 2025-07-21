@@ -67,141 +67,24 @@ export default function VoiceControl({
   }, []);
 
   const speak = (text: string) => {
-    if ("speechSynthesis" in window) {
-      setIsSpeaking(true);
-
-      const speakWithVoice = () => {
-        const utterance = new SpeechSynthesisUtterance(text);
-
-        // Настройки голоса Джарвиса
-        utterance.rate = 0.85; // Спокойная, уверенная речь
-        utterance.pitch = 0.6; // Низкий тон, как у Джарвиса
-        utterance.volume = 0.95; // Четкая громкость
-
-        // Получаем список г��лосов
-        const voices = speechSynthesis.getVoices();
-        console.log(
-          "Доступные голоса:",
-          voices.map((v) => `${v.name} (${v.lang})`),
-        );
-
-        // Приоритетный поиск г��лоса Джарви��а
-        let selectedVoice = null;
-
-        // 1. Ищем британские мужские голоса (как у Джарвиса)
-        const britishMaleVoices = voices.filter((voice) => {
-          const name = voice.name.toLowerCase();
-          const lang = voice.lang.toLowerCase();
-          return (
-            (lang.includes("en-gb") || lang.includes("en-uk")) &&
-            (name.includes("male") ||
-              name.includes("daniel") ||
-              name.includes("oliver") ||
-              name.includes("arthur"))
-          );
-        });
-
-        // 2. Ищем любые английские мужские голоса
-        const englishMaleVoices = voices.filter((voice) => {
-          const name = voice.name.toLowerCase();
-          const lang = voice.lang.toLowerCase();
-          return (
-            lang.includes("en") &&
-            (name.includes("male") ||
-              name.includes("alex") ||
-              name.includes("daniel") ||
-              name.includes("david") ||
-              name.includes("microsoft david") ||
-              name.includes("google uk english male"))
-          );
-        });
-
-        // 3. Ищем русские мужские голоса для русского текста
-        const russianMaleVoices = voices.filter((voice) => {
-          const name = voice.name.toLowerCase();
-          const lang = voice.lang.toLowerCase();
-          return (
-            lang.includes("ru") &&
-            !name.includes("female") &&
-            !name.includes("женский") &&
-            (name.includes("male") ||
-              name.includes("мужской") ||
-              name.includes("pavel") ||
-              name.includes("александр") ||
-              name.includes("dmitry"))
-          );
-        });
-
-        // Выбираем голос в порядке приоритета (русский приоритетнее)
-        if (russianMaleVoices.length > 0) {
-          selectedVoice = russianMaleVoices[0];
-          utterance.lang = "ru-RU";
-          console.log(
-            "Используется русский мужской голос:",
-            selectedVoice.name,
-          );
-        } else if (britishMaleVoices.length > 0) {
-          selectedVoice = britishMaleVoices[0];
-          utterance.lang = "en-GB";
-          console.log(
-            "Используется британский голос Джарвиса:",
-            selectedVoice.name,
-          );
-        } else if (englishMaleVoices.length > 0) {
-          selectedVoice = englishMaleVoices[0];
-          utterance.lang = "en-US";
-          console.log(
-            "Используется английский мужской голос:",
-            selectedVoice.name,
-          );
-        } else {
-          // Последний шанс - любой мужской голос
-          const anyMaleVoice = voices.find(
-            (voice) =>
-              voice.name.toLowerCase().includes("male") &&
-              !voice.name.toLowerCase().includes("female"),
-          );
-          if (anyMaleVoice) {
-            selectedVoice = anyMaleVoice;
-            utterance.lang = anyMaleVoice.lang;
-            console.log(
-              "Используется запасной мужской голос:",
-              selectedVoice.name,
-            );
-          } else {
-            // Если ничего не найдено, делаем очень низкий тон
-            utterance.pitch = 0.4;
-            utterance.lang = "en-US";
-            console.log(
-              "Го��ос Джарвиса не найден, используется дефолтный с низки�� тоном",
-            );
-          }
-        }
-
-        if (selectedVoice) {
-          utterance.voice = selectedVoice;
-        }
-
-        utterance.onend = () => {
-          setIsSpeaking(false);
-        };
-
-        utterance.onerror = () => {
-          setIsSpeaking(false);
-        };
-
-        speechSynthesis.speak(utterance);
-      };
-
-      // Ждем загрузки голосов
-      if (speechSynthesis.getVoices().length === 0) {
-        speechSynthesis.addEventListener("voiceschanged", speakWithVoice, {
-          once: true,
-        });
-      } else {
-        speakWithVoice();
-      }
-    }
+    setIsSpeaking(true);
+    
+    // Создаем и воспроизводим ваш аудио-файл
+    const audio = new Audio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2F866a5966692d4b478ca44624c6e615af?alt=media&token=78fdbae1-412f-4acd-845f-987732b53098&apiKey=236158b44f8b45f680ab2467abfc361c");
+    
+    audio.onended = () => {
+      setIsSpeaking(false);
+    };
+    
+    audio.onerror = () => {
+      setIsSpeaking(false);
+      console.error("Ошибка воспроизведения аудио");
+    };
+    
+    audio.play().catch((error) => {
+      setIsSpeaking(false);
+      console.error("Не удалось воспроизвести аудио:", error);
+    });
   };
 
   const processVoiceCommand = (command: string) => {
@@ -210,13 +93,13 @@ export default function VoiceControl({
     // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
-      return; // Не обрабатываем слишком короткие команды
+      return; // Не обрабатываем слишком короткие ��оманды
     }
 
     // Проверяем, содержит ли команда значимые слова
-    const meaningfulWords = ["перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "д��арвис", "помощь", "команды", "расскажи", "тарифы", "привет", "здравствуй", "прокрутить", "скролл", "��аверх", "планам", "что", "как", "где"];
+    const meaningfulWords = ["перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "джарвис", "помощь", "команды", "расскажи", "тарифы", "привет", "здравствуй", "прокрутить", "скролл", "наверх", "планам", "что", "как", "где"];
     const hasValidWords = meaningfulWords.some(word => trimmedCommand.includes(word));
-
+    
     if (!hasValidWords) {
       return; // Не обрабатываем команды без значимых слов
     }
@@ -228,6 +111,7 @@ export default function VoiceControl({
       command.includes("домой")
     ) {
       navigate("/");
+      speak("Переходим на главную страницу.");
       return;
     }
 
@@ -237,6 +121,7 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
+      speak("Открываю страницу входа в систему.");
       return;
     }
 
@@ -245,22 +130,26 @@ export default function VoiceControl({
       command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
+      speak("Переходим к регистрации нового пользователя.");
       return;
     }
 
     if (command.includes("профиль") || command.includes("мой профиль")) {
       navigate("/profile");
+      speak("Открываю настройки вашего профиля.");
       return;
     }
 
     if (command.includes("заказ") || command.includes("оформить заказ")) {
       navigate("/order");
+      speak("Переходим к оформлению заказа.");
       return;
     }
 
-    // Команды корз��ны
+    // Команды корзины
     if (command.includes("корзина") && command.includes("очистить")) {
       clearCart();
+      speak("Корзина очищена.");
       return;
     }
 
@@ -269,7 +158,11 @@ export default function VoiceControl({
       command.includes("показать корзину")
     ) {
       const itemsCount = getTotalItems();
-      // Просто получаем информацию о корзине
+      if (itemsCount === 0) {
+        speak("Ваша корзина пуста.");
+      } else {
+        speak(`В корзине ${itemsCount} товаров.`);
+      }
       return;
     }
 
@@ -280,6 +173,7 @@ export default function VoiceControl({
       command.includes("basic план")
     ) {
       onAddBasicPlan();
+      speak("Базовый план добавлен в корзину.");
       return;
     }
 
@@ -289,6 +183,7 @@ export default function VoiceControl({
       command.includes("pro план")
     ) {
       onAddProPlan();
+      speak("Про план с искусственным интеллектом добавлен в корзину.");
       return;
     }
 
@@ -299,6 +194,7 @@ export default function VoiceControl({
       command.includes("джарвис")
     ) {
       onAddMaxPlan();
+      speak("Максимальный план с Джарвисом добавлен в корзину.");
       return;
     }
 
@@ -308,7 +204,9 @@ export default function VoiceControl({
       command.includes("помощь") ||
       command.includes("команды")
     ) {
-      // Показываем доступные команды
+      speak(
+        "Я умею навигировать по сайту, управлять корзиной, добавлять планы и контролировать функции сайта. Просто дайте мне команду.",
+      );
       return;
     }
 
@@ -317,12 +215,16 @@ export default function VoiceControl({
       command.includes("какие планы") ||
       command.includes("тарифы")
     ) {
-      // Показываем информацию о планах
+      speak(
+        "У нас есть три плана: Базовый за 2 миллиона сум, Про с ИИ за 3.5 миллиона, и Максимальный с Джарвисом за 5 миллионов сум.",
+      );
       return;
     }
 
     if (command.includes("привет") || command.includes("здравствуй")) {
-      // Приветствие
+      speak(
+        "Добро пожаловать! Я Джарвис, ваш персональный ИИ-помощник. Чем могу помочь?",
+      );
       return;
     }
 
@@ -332,6 +234,7 @@ export default function VoiceControl({
       command.includes("скролл вниз")
     ) {
       window.scrollBy(0, 500);
+      speak("Прокручиваю страницу вниз.");
       return;
     }
 
@@ -340,11 +243,13 @@ export default function VoiceControl({
       command.includes("скролл вверх")
     ) {
       window.scrollBy(0, -500);
+      speak("Прокручиваю страницу вверх.");
       return;
     }
 
-    if (command.includes("наверх страницы") || command.includes("в ��ачало")) {
+    if (command.includes("наверх страницы") || command.includes("в начало")) {
       window.scrollTo(0, 0);
+      speak("Возвращаемся в начало страницы.");
       return;
     }
 
@@ -352,11 +257,13 @@ export default function VoiceControl({
       const pricingSection = document.querySelector('[data-section="pricing"]');
       if (pricingSection) {
         pricingSection.scrollIntoView({ behavior: "smooth" });
+        speak("Показываю тарифные планы.");
       }
       return;
     }
 
-    // Команда не распознана - ничего не делаем
+    // Если команда не распознана
+    speak("Извините, я не понял команду. Попробуйте переформулировать.");
   };
 
   const toggleListening = () => {
@@ -403,7 +310,7 @@ export default function VoiceControl({
 
         {/* Status indicator */}
         <div className="text-xs text-white/60 text-center">
-          {isSpeaking ? "Говорю..." : isListening ? "��лушаю..." : "ДЖАРВИС"}
+          {isSpeaking ? "Говорю..." : isListening ? "Слушаю..." : "ДЖАРВИС"}
         </div>
       </div>
 
