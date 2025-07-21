@@ -39,7 +39,7 @@ export default function VoiceControl({
         recognitionRef.current.lang = "ru-RU";
         // Улучшенные настройки для лучшего распознавания тихих команд
         recognitionRef.current.maxAlternatives = 3;
-        // @ts-ignore - эти свойства могут не быть в типах, но р��ботают в браузерах
+        // @ts-ignore - эти свойства мог��т не быть в типах, но р��ботают в браузерах
         if ("webkitSpeechRecognition" in window) {
           recognitionRef.current.serviceURI =
             "wss://www.google.com/speech-api/full-duplex/v1/up";
@@ -155,7 +155,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Ошибка воспроизведения ау��ио");
+      console.error("Ошибка воспроизведения аудио");
     };
 
     audio.play().catch((error) => {
@@ -191,7 +191,7 @@ export default function VoiceControl({
       audioPlayingRef.current = false;
       lastCommandRef.current = "";
       currentAudioRef.current = null;
-      // После окончани�� аудио отключаем микрофон
+      // После окончания аудио отключаем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
@@ -256,7 +256,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим аудио дл�� благодарности
+    // Создаем �� воспроизводим аудио дл�� благодарности
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2Fafb1b8a7fc8645a7ab1e8513e8c1faa7?alt=media&token=be057092-6988-45dd-94dc-90427146589d&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -408,7 +408,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка воспроизведения оригинального аудио Джарвиса");
+      console.error("Ош��бка воспроизведения оригинального аудио Джарвиса");
     };
 
     audio.play().catch((error) => {
@@ -476,7 +476,7 @@ export default function VoiceControl({
       command.includes("выключись") ||
       command.includes("отключи микрофон") ||
       command.includes("стоп джарвис") ||
-      command.includes("выключи")
+      command.includes("выключ��")
     ) {
       // Принудительно выполняем команду отключения независимо от состояния
       speakShutdown();
@@ -506,7 +506,7 @@ export default function VoiceControl({
       command.includes("real jarvis") ||
       command.includes("movie jarvis") ||
       command.includes("джарвис из железного человека") ||
-      command.includes("голос джарвиса") ||
+      command.includes("гол��с джарвиса") ||
       command.includes("оригинал") ||
       command.includes("как в марвел")
     ) {
@@ -545,9 +545,30 @@ export default function VoiceControl({
       command.includes("hey jarvis") ||
       (command.includes("привет") && command.includes("джарвис"))
     ) {
-      // Дополнительная проверка, чтобы избежать повторных ср��батываний
+      // Дополнительная проверка, чтобы избежать повторных срабатываний
       if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
         speakAuthenticJarvis();
+      }
+      return;
+    }
+
+    // Команда "Как дела Джарвис"
+    if (
+      command.includes("как дела джарвис") ||
+      command.includes("джарвис как дела") ||
+      command.includes("как дела") ||
+      command.includes("как поживаешь джарвис") ||
+      command.includes("джарвис как поживаешь") ||
+      command.includes("как ты джарвис") ||
+      command.includes("how are you jarvis") ||
+      command.includes("jarvis how are you") ||
+      command.includes("how are you") ||
+      command.includes("как твои дел��") ||
+      command.includes("что нового джарвис")
+    ) {
+      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
+        speakHowAreYou();
       }
       return;
     }
@@ -971,7 +992,7 @@ export default function VoiceControl({
     if (
       command.includes("открыть корзину") ||
       command.includes("показать корзину") ||
-      command.includes("что в корзине")
+      command.includes("что в корзин��")
     ) {
       // Находим и нажимаем ��нопку корзины
       const cartButton = document.querySelector(
@@ -1011,7 +1032,7 @@ export default function VoiceControl({
       command.includes("добавить макс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
-      command.includes("джарвис план") ||
+      command.includes("��жарвис план") ||
       command.includes("макс в ��орзину") ||
       command.includes("отправить макс")
     ) {
@@ -1090,7 +1111,7 @@ export default function VoiceControl({
     // Прокрутка страницы
     if (
       command.includes("прокрутить вниз") ||
-      command.includes("скролл вни��") ||
+      command.includes("скролл вниз") ||
       command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
