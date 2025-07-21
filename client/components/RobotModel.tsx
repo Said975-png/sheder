@@ -99,24 +99,26 @@ export default function RobotModel() {
       <Canvas
         camera={{ position: [0, 0, 5], fov: 50 }}
         style={{ background: "transparent" }}
+        onError={(error) => {
+          console.warn("Canvas error:", error);
+        }}
       >
-        <Suspense fallback={null}>
-          {/* Lighting */}
-          <ambientLight intensity={0.4} />
+        <Suspense fallback={<LoadingFallback />}>
+          {/* Enhanced Lighting */}
+          <ambientLight intensity={0.6} />
           <directionalLight
             position={[10, 10, 5]}
-            intensity={1}
+            intensity={1.2}
             color="#ffffff"
+            castShadow
           />
           <directionalLight
             position={[-10, -10, -5]}
-            intensity={0.3}
+            intensity={0.4}
             color="#8b5cf6"
           />
-          <pointLight position={[0, 0, 3]} intensity={0.5} color="#3b82f6" />
-
-          {/* Environment for reflections */}
-          <Environment preset="city" />
+          <pointLight position={[0, 0, 3]} intensity={0.8} color="#3b82f6" />
+          <pointLight position={[2, 2, 2]} intensity={0.3} color="#10b981" />
 
           {/* 3D Robot Model */}
           <Robot />
@@ -124,9 +126,11 @@ export default function RobotModel() {
           {/* Controls */}
           <OrbitControls
             enablePan={false}
-            enableZoom={false}
+            enableZoom={true}
+            minDistance={3}
+            maxDistance={8}
             autoRotate={true}
-            autoRotateSpeed={0.5}
+            autoRotateSpeed={0.8}
           />
         </Suspense>
       </Canvas>
