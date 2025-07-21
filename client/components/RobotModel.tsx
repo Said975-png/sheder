@@ -10,7 +10,7 @@ function Robot() {
   // Load the GLB model
   const gltf = useLoader(
     GLTFLoader,
-    "https://cdn.builder.io/o/assets%2Fc7cc0af5c2b743a4bb2b78008c30e87d%2F1d1285b0ae324806af1acc17b766bb3e?alt=media&token=db852b94-8003-4bf7-9b47-ce3622256833&apiKey=c7cc0af5c2b743a4bb2b78008c30e87d",
+    "https://cdn.builder.io/o/assets%2Fce326d6fc01a49c8950b47b8e8656b05%2F19fc8fb46c894fc38df80d3555d4baae?alt=media&token=b3970bf3-ed76-4714-9e12-1bfd60357c8e&apiKey=ce326d6fc01a49c8950b47b8e8656b05",
   );
 
   // Auto-rotate the model
