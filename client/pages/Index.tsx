@@ -54,7 +54,7 @@ export default function Index() {
     });
   };
 
-  const handleAddMaxPlan = () => {
+    const handleAddMaxPlan = () => {
     addItem({
       id: 'max-plan',
       name: 'Max сайт с Джарвисом',
@@ -62,6 +62,10 @@ export default function Index() {
       description: 'ИИ-помощник типа Джарвис, интеграция с API, технологии нового поколения, WebGL и AI интерфейс',
       category: 'website-jarvis'
     });
+  };
+
+  const handleProceedToOrder = () => {
+    navigate('/order');
   };
 
   if (loading) {
