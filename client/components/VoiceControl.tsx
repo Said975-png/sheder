@@ -318,9 +318,12 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
             isListening
               ? 'bg-red-500 hover:bg-red-600 animate-pulse'
               : 'bg-purple-600 hover:bg-purple-700'
-          }`}
+          } ${isSpeaking ? 'ring-4 ring-blue-400/50' : ''}`}
+          disabled={isSpeaking}
         >
-          {isListening ? (
+          {isSpeaking ? (
+            <Volume2 className="w-6 h-6 text-white animate-pulse" />
+          ) : isListening ? (
             <Mic className="w-6 h-6 text-white" />
           ) : (
             <MicOff className="w-6 h-6 text-white" />
@@ -329,7 +332,7 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
 
         {/* Status indicator */}
         <div className="text-xs text-white/60 text-center">
-          {isListening ? 'Слушаю...' : 'Джарвис'}
+          {isSpeaking ? 'Speaking...' : isListening ? 'Listening...' : 'JARVIS'}
         </div>
       </div>
 
