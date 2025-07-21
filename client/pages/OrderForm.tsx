@@ -6,7 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
-import { ArrowLeft, Phone, User, FileText, CheckCircle } from "lucide-react";
+import { ArrowLeft, Phone, User, FileText, CheckCircle, AlertCircle } from "lucide-react";
+import { OrderRequest, OrderResponse } from "@shared/api";
 
 export default function OrderForm() {
   const { items, getTotalPrice, clearCart } = useCart();
@@ -52,7 +53,7 @@ export default function OrderForm() {
             Добавьте товары в корзину для оформления заказа
           </p>
           <Button asChild className="bg-purple-600 hover:bg-purple-700">
-            <Link to="/">Вернутьс�� на главную</Link>
+            <Link to="/">Вернуться на главную</Link>
           </Button>
         </div>
       </div>
