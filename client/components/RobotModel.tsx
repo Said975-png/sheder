@@ -93,7 +93,7 @@ function Robot() {
   try {
     gltf = useLoader(
       GLTFLoader,
-      "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2Fc7c8cac50bef4cc4a9a0b4eb2d43d5b5?alt=media&token=e722e790-73f6-4d64-9abd-1a737fad930f&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
+      "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F60c146ff906341f7ad422e19bf490e25?alt=media&token=ff4ec497-0d95-4df0-948b-42943b2678b2&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
       (loader) => {
         // Настройка загрузчика для обработки проблем с текстурами
         loader.crossOrigin = "anonymous";
@@ -123,7 +123,7 @@ function Robot() {
       clonedScene.traverse((child) => {
         if (child instanceof THREE.Mesh) {
           if (child.material) {
-            // Соз��аем новый материал с эффектом свечения
+            // Создаем новый материал с эффектом свечения
             const material = child.material as THREE.MeshStandardMaterial;
 
             // Если текстуры недоступны, создаем простой материал
