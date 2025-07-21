@@ -303,36 +303,133 @@ export default function Index() {
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="container mx-auto px-6 py-12 pt-24">
-        <div className="grid md:grid-cols-2 gap-12 items-center min-h-[600px]">
-          {/* Left Side - Content */}
-          <div className="space-y-8">
-            <div className="space-y-6">
-                            <h1 className="text-5xl lg:text-6xl font-bold leading-tight theme-text">
-                Jarvis - искусственный интеллект для вашего бизнеса
-              </h1>
+            {/* AI Hero Section */}
+      <main className="ai-hero-container py-20 pt-32 min-h-screen flex items-center">
+        {/* Neural Network Background */}
+        <div className="neural-network">
+          {/* Neural Nodes */}
+          <div className="neural-node" style={{top: '10%', left: '15%', animationDelay: '0s'}}></div>
+          <div className="neural-node" style={{top: '25%', left: '75%', animationDelay: '1s'}}></div>
+          <div className="neural-node" style={{top: '60%', left: '20%', animationDelay: '2s'}}></div>
+          <div className="neural-node" style={{top: '80%', left: '85%', animationDelay: '0.5s'}}></div>
+          <div className="neural-node" style={{top: '40%', left: '50%', animationDelay: '1.5s'}}></div>
 
-              <p className="text-lg theme-text-muted max-w-md">
-                Enter the future of bot-free mobile apps. Simplify bot
-                detection, enhance user experiences, and fortify your app's
-                ecosystem.
-              </p>
+          {/* Neural Connections */}
+          <div className="neural-connection" style={{
+            top: '15%',
+            left: '15%',
+            width: '60%',
+            transform: 'rotate(15deg)',
+            animationDelay: '0.5s'
+          }}></div>
+          <div className="neural-connection" style={{
+            top: '45%',
+            left: '20%',
+            width: '30%',
+            transform: 'rotate(-25deg)',
+            animationDelay: '1.2s'
+          }}></div>
+          <div className="neural-connection" style={{
+            top: '70%',
+            left: '50%',
+            width: '35%',
+            transform: 'rotate(35deg)',
+            animationDelay: '0.8s'
+          }}></div>
+        </div>
+
+        {/* AI Particles */}
+        <div className="ai-particles">
+          <div className="ai-particle" style={{top: '20%', left: '10%', animationDelay: '0s'}}></div>
+          <div className="ai-particle" style={{top: '40%', left: '90%', animationDelay: '2s'}}></div>
+          <div className="ai-particle" style={{top: '70%', left: '15%', animationDelay: '4s'}}></div>
+          <div className="ai-particle" style={{top: '30%', left: '80%', animationDelay: '1s'}}></div>
+          <div className="ai-particle" style={{top: '85%', left: '70%', animationDelay: '3s'}}></div>
+          <div className="ai-particle" style={{top: '15%', left: '60%', animationDelay: '5s'}}></div>
+        </div>
+
+        {/* Data Streams */}
+        <div className="data-stream" style={{top: '10%', left: '25%', animationDelay: '0s'}}></div>
+        <div className="data-stream" style={{top: '20%', left: '70%', animationDelay: '1s'}}></div>
+        <div className="data-stream" style={{top: '60%', left: '15%', animationDelay: '2s'}}></div>
+        <div className="data-stream" style={{top: '40%', left: '85%', animationDelay: '1.5s'}}></div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            {/* Left Side - Content */}
+            <div className="space-y-10">
+              <div className="space-y-8">
+                <h1 className="text-5xl lg:text-7xl font-bold leading-tight hologram-text" data-text="Jarvis - искусственный интеллект для вашего бизнеса">
+                  Jarvis - искусственный интеллект для вашего бизнеса
+                </h1>
+
+                <div className="relative p-6 bg-black/20 backdrop-blur-md border border-purple-500/30 rounded-2xl">
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-2xl"></div>
+                  <p className="text-lg text-purple-100 relative z-10 leading-relaxed">
+                    Enter the future of bot-free mobile apps. Simplify bot
+                    detection, enhance user experiences, and fortify your app's
+                    ecosystem.
+                  </p>
+
+                  {/* Holographic corner accents */}
+                  <div className="absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-purple-500 opacity-60"></div>
+                  <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-purple-500 opacity-60"></div>
+                  <div className="absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-purple-500 opacity-60"></div>
+                  <div className="absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-purple-500 opacity-60"></div>
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-4 p-4 bg-black/30 backdrop-blur-sm border border-purple-500/20 rounded-xl">
+                <div className="flex items-center space-x-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-purple-500 rounded-full animate-ping"></div>
+                  <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                </div>
+                <span className="text-purple-200 text-sm font-mono">Beta release date June 30th, 2023</span>
+                <div className="ml-auto text-xs text-purple-400 font-mono">STATUS: ACTIVE</div>
+              </div>
             </div>
 
-            <div className="flex items-center space-x-2 text-sm text-white/60">
-              <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-              <span>Beta release date June 30th, 2023</span>
-            </div>
-          </div>
+            {/* Right Side - AI Visualization */}
+            <div className="relative h-[500px] md:h-[600px] flex items-center justify-center">
+              {/* Central AI Core */}
+              <div className="relative">
+                <div className="w-64 h-64 relative">
+                  {/* Main AI Core */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full animate-pulse opacity-60"></div>
+                  <div className="absolute inset-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full animate-ping opacity-40"></div>
+                  <div className="absolute inset-8 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full opacity-80"></div>
 
-          {/* Right Side - Empty space where 3D model was */}
-          <div className="relative h-[400px] md:h-[500px] flex items-center justify-center">
-            <div className="w-full h-full relative">
-              {/* Floating elements for ambiance */}
-              <div className="absolute -top-8 -left-8 w-4 h-4 bg-white rounded-full opacity-60 animate-pulse pointer-events-none"></div>
-              <div className="absolute -top-4 right-12 w-3 h-3 bg-purple-400 rounded-full opacity-80 animate-bounce pointer-events-none"></div>
-              <div className="absolute bottom-8 -right-12 w-5 h-5 bg-blue-400 rounded-full opacity-70 pointer-events-none"></div>
+                  {/* Brain Icon in Center */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Brain className="w-16 h-16 text-white animate-pulse" />
+                  </div>
+
+                  {/* Orbiting Elements */}
+                  <div className="absolute inset-0 animate-spin" style={{animationDuration: '20s'}}>
+                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-purple-400 rounded-full opacity-80"></div>
+                    <div className="absolute top-1/2 -right-2 transform -translate-y-1/2 w-3 h-3 bg-blue-400 rounded-full opacity-60"></div>
+                    <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-5 h-5 bg-cyan-400 rounded-full opacity-70"></div>
+                    <div className="absolute top-1/2 -left-2 transform -translate-y-1/2 w-3 h-3 bg-purple-300 rounded-full opacity-50"></div>
+                  </div>
+                </div>
+
+                {/* Circuit Patterns */}
+                <div className="circuit-pattern top-10 -left-20 opacity-30" style={{animationDelay: '0s'}}></div>
+                <div className="circuit-pattern -top-10 right-16 opacity-25" style={{animationDelay: '1s'}}></div>
+                <div className="circuit-pattern -bottom-16 -left-10 opacity-20" style={{animationDelay: '2s'}}></div>
+
+                {/* Floating Code Elements */}
+                <div className="absolute -top-16 -right-8 p-3 bg-black/40 backdrop-blur-sm border border-green-500/30 rounded text-green-400 font-mono text-xs opacity-70 animate-pulse">
+                  {'{ AI: "active" }'}
+                </div>
+                <div className="absolute -bottom-12 -left-16 p-2 bg-black/40 backdrop-blur-sm border border-blue-500/30 rounded text-blue-400 font-mono text-xs opacity-60" style={{animationDelay: '1s'}}>
+                  neural.connect()
+                </div>
+                <div className="absolute top-20 -right-20 p-2 bg-black/40 backdrop-blur-sm border border-purple-500/30 rounded text-purple-400 font-mono text-xs opacity-50" style={{animationDelay: '2s'}}>
+                  ML.process()
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -494,7 +591,7 @@ export default function Index() {
                     <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
                       <CheckCircle className="w-3 h-3 text-blue-400" />
                     </div>
-                    Техподдержка 24/7
+                    Т��хподдержка 24/7
                   </li>
                 </ul>
 
