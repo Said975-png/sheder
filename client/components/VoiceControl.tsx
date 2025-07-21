@@ -182,7 +182,7 @@ export default function VoiceControl({
 
       // Поиск возможностей
       if (command.includes("возможности") || command.includes("возможность") || command.includes("мощные")) {
-        found = searchAndNavigate(["возможности", "мощные", "features"]);
+        found = searchAndNavigate(["возмож��ости", "мощные", "features"]);
         if (found) {
           speak("Показываю возможности");
           return;
@@ -239,7 +239,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск аналитики
+      // Поиск анал��тики
       if (command.includes("аналитик") || command.includes("статистик") || command.includes("данные")) {
         found = searchAndNavigate(["аналитик", "статистик", "данные", "analytics"]);
         if (found) {
@@ -363,18 +363,25 @@ export default function VoiceControl({
       return;
     }
 
-    // Навигация по секциям страницы
+    // Расширенная навигация по секциям страницы
     if (
       command.includes("к планам") ||
       command.includes("показать планы") ||
       command.includes("перейти к планам") ||
-      command.includes("спуститься к планам")
+      command.includes("спуститься к планам") ||
+      command.includes("тарифы") ||
+      command.includes("цены") ||
+      command.includes("стоимость")
     ) {
-      const pricingSection = document.querySelector('[data-section="pricing"]');
-      if (pricingSection) {
-        pricingSection.scrollIntoView({ behavior: "smooth" });
+      const found = searchAndNavigate(["план", "тариф", "цен", "pricing", "стоимость"], () => {
+        const pricingSection = document.querySelector('[data-section="pricing"]');
+        if (pricingSection) {
+          pricingSection.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+      if (found) {
+        speak("Показываю планы");
       }
-      speak("Показываю планы");
       return;
     }
 
@@ -382,16 +389,13 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спуститься к преимуществам") ||
-      command.includes("перейти к преимуществам")
+      command.includes("перейти к преимуществам") ||
+      command.includes("преимущества")
     ) {
-      // Ищем секцию с преимуществами по заголовку
-      const advantagesSection = Array.from(document.querySelectorAll('h2')).find(h =>
-        h.textContent?.toLowerCase().includes('преимущества')
-      );
-      if (advantagesSection) {
-        advantagesSection.scrollIntoView({ behavior: "smooth" });
+      const found = searchAndNavigate(["преимущества", "преимущество", "advantages"]);
+      if (found) {
+        speak("Показываю преимущества");
       }
-      speak("Показываю преимущества");
       return;
     }
 
@@ -399,17 +403,18 @@ export default function VoiceControl({
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
-      command.includes("перейти к возможностям")
+      command.includes("перейти к возможностям") ||
+      command.includes("возможности")
     ) {
-      // Ищем секцию с возможностями
-      const featuresSection = document.getElementById('features') ||
-                             Array.from(document.querySelectorAll('h2')).find(h =>
-                               h.textContent?.toLowerCase().includes('возможности')
-                             );
-      if (featuresSection) {
-        featuresSection.scrollIntoView({ behavior: "smooth" });
+      const found = searchAndNavigate(["возможности", "мощные", "features"], () => {
+        const featuresSection = document.getElementById('features');
+        if (featuresSection) {
+          featuresSection.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+      if (found) {
+        speak("Показываю возможности");
       }
-      speak("Показываю возможности");
       return;
     }
 
