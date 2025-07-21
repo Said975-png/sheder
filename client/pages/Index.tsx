@@ -178,20 +178,13 @@ export default function Index() {
             </div>
           </div>
 
-          {/* Right Side - 3D Robot Model */}
+                    {/* Right Side - Empty space where 3D model was */}
           <div className="relative h-[400px] md:h-[500px] flex items-center justify-center">
             <div className="w-full h-full relative">
-              <RobotModel />
-
               {/* Floating elements for ambiance */}
               <div className="absolute -top-8 -left-8 w-4 h-4 bg-white rounded-full opacity-60 animate-pulse pointer-events-none"></div>
               <div className="absolute -top-4 right-12 w-3 h-3 bg-purple-400 rounded-full opacity-80 animate-bounce pointer-events-none"></div>
               <div className="absolute bottom-8 -right-12 w-5 h-5 bg-blue-400 rounded-full opacity-70 pointer-events-none"></div>
-
-              {/* Credit text - styled to match design */}
-              <div className="absolute bottom-2 left-2 text-xs text-white/40 pointer-events-none">
-                <p>360° Sphere Robot by mikeramos</p>
-              </div>
             </div>
           </div>
         </div>
