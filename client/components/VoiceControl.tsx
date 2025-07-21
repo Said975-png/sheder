@@ -97,7 +97,7 @@ export default function VoiceControl({
     }
 
     // Проверяем, содержит ли команда значимые слова
-    const meaningfulWords = ["перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "джарвис", "базовый", "про", "макс", "прокрутить", "скролл", "наверх", "планам", "преимущества", "возможности", "открыть", "личный", "кабинет", "отправить", "секция", "спуститься", "перейти"];
+    const meaningfulWords = ["перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "джарвис", "базовый", "про", "макс", "прокрутить", "скролл", "наверх", "планам", "преимущества", "возможности", "открыть", "личный", "кабинет", "отправить", "с��кция", "спуститься", "перейти"];
     const hasValidWords = meaningfulWords.some(word => trimmedCommand.includes(word));
 
     if (!hasValidWords) {
@@ -219,8 +219,9 @@ export default function VoiceControl({
       command.includes("перейти к преимуществам")
     ) {
       // Ищем секцию с преимуществами по заголовку
-      const advantagesSection = document.querySelector('h2:contains("Наши преимущества")') ||
-                               Array.from(document.querySelectorAll('h2')).find(h => h.textContent?.includes('преимущества'));
+      const advantagesSection = Array.from(document.querySelectorAll('h2')).find(h =>
+        h.textContent?.toLowerCase().includes('преимущества')
+      );
       if (advantagesSection) {
         advantagesSection.scrollIntoView({ behavior: "smooth" });
       }
@@ -235,7 +236,9 @@ export default function VoiceControl({
     ) {
       // Ищем секцию с возможностями
       const featuresSection = document.getElementById('features') ||
-                             Array.from(document.querySelectorAll('h2')).find(h => h.textContent?.includes('возможности'));
+                             Array.from(document.querySelectorAll('h2')).find(h =>
+                               h.textContent?.toLowerCase().includes('возможности')
+                             );
       if (featuresSection) {
         featuresSection.scrollIntoView({ behavior: "smooth" });
       }
