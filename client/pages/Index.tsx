@@ -109,7 +109,7 @@ export default function Index() {
   }
 
   return (
-    <div className="min-h-screen theme-gradient theme-text overflow-hidden">
+        <div className="min-h-screen ai-hero-container theme-text overflow-hidden">
       {/* Header */}
       {/* Oval Navbar */}
       <nav
@@ -359,7 +359,7 @@ export default function Index() {
             {/* Left Side - Content */}
             <div className="space-y-10">
               <div className="space-y-8">
-                <h1 className="text-5xl lg:text-7xl font-bold leading-tight hologram-text" data-text="Jarvis - искусственный интеллект для вашего бизнеса">
+                <h1 className="text-5xl lg:text-7xl font-bold leading-tight hologram-text" data-text="Jarvis - искусственный интеллект ��ля вашего бизнеса">
                   Jarvis - искусственный интеллект для вашего бизнеса
                 </h1>
 
