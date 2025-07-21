@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import RobotModel from "@/components/RobotModel";
+import VoiceControl from "@/components/VoiceControl";
 import {
   Shield,
   User,
@@ -416,7 +417,7 @@ export default function Index() {
               <div className="space-y-8">
                 <h1
                   className="text-5xl lg:text-7xl font-bold leading-tight hologram-text"
-                  data-text="Jarvis - искусственный интеллект для вашего бизнеса"
+                  data-text="Jarvis - искусственный интеллект для в��шего бизнеса"
                 >
                   Jarvis - искусственный интеллект для вашего ��изнеса
                 </h1>
@@ -470,17 +471,17 @@ export default function Index() {
                 </div>
 
                 {/* Floating Code Elements with Gravity */}
-                <div className="absolute -top-8 -right-12 p-3 bg-black/40 backdrop-blur-sm border border-green-500/30 rounded text-green-400 font-mono text-xs gravity-float z-40">
+                <div className="absolute -top-8 -right-12 p-3 bg-black/40 backdrop-blur-sm border border-green-500/30 rounded text-green-400 font-mono text-xs gravity-float z-10">
                   {'{ AI: "active" }'}
                 </div>
                 <div
-                  className="absolute -bottom-6 -left-12 p-2 bg-black/40 backdrop-blur-sm border border-blue-500/30 rounded text-blue-400 font-mono text-xs gravity-bounce z-40"
+                  className="absolute -bottom-6 -left-12 p-2 bg-black/40 backdrop-blur-sm border border-blue-500/30 rounded text-blue-400 font-mono text-xs gravity-bounce z-10"
                   style={{ animationDelay: "1s" }}
                 >
                   neural.connect()
                 </div>
                 <div
-                  className="absolute top-24 -right-16 p-2 bg-black/40 backdrop-blur-sm border border-purple-500/30 rounded text-purple-400 font-mono text-xs gravity-drift z-40"
+                  className="absolute top-24 -right-16 p-2 bg-black/40 backdrop-blur-sm border border-purple-500/30 rounded text-purple-400 font-mono text-xs gravity-drift z-10"
                   style={{ animationDelay: "2s" }}
                 >
                   ML.process()
@@ -509,7 +510,7 @@ export default function Index() {
               </div>
               <h3 className="text-lg font-semibold mb-2">AI Detection</h3>
               <p className="text-white/60">
-                Передовые алгоритмы для обнаруж��ния ботов и автоматических
+                Перед��вые алгоритмы для обнаруж��ния ботов и автоматических
                 систем
               </p>
             </div>
@@ -969,6 +970,13 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* Voice Control Component */}
+      <VoiceControl
+        onAddBasicPlan={handleAddBasicPlan}
+        onAddProPlan={handleAddProPlan}
+        onAddMaxPlan={handleAddMaxPlan}
+      />
     </div>
   );
 }
