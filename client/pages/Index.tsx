@@ -155,6 +155,7 @@ export default function Index() {
                 <Button
                   variant="ghost"
                   className="relative theme-button-text p-2 rounded-full hover:bg-white/10"
+                  data-testid="cart-button"
                 >
                   <ShoppingCart className="w-5 h-5" />
                   {getTotalItems() > 0 && (
