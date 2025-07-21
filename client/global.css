@@ -855,6 +855,15 @@
     }
   }
 
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) scale(1);
+    }
+    50% {
+      transform: translateY(-10px) scale(1.05);
+    }
+  }
+
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .neural-node {
