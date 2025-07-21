@@ -207,9 +207,7 @@ export default function Index() {
                       </div>
                       <DropdownMenuSeparator className="bg-border my-3" />
                       <div className="flex justify-between items-center mb-3">
-                        <span className="font-semibold theme-text">
-                          Итого:
-                        </span>
+                        <span className="font-semibold theme-text">Итого:</span>
                         <span className="font-bold theme-text">
                           {getTotalPrice().toLocaleString()} сум
                         </span>

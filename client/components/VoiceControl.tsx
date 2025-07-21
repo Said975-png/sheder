@@ -413,7 +413,10 @@ export default function VoiceControl({
 
     audio.play().catch((error) => {
       resetState();
-      console.error("Не удалос�� воспроизвести оригинальное аудио Джарвиса:", error);
+      console.error(
+        "Не удалос�� воспроизвести оригинальное аудио Джарвиса:",
+        error,
+      );
     });
   };
 
@@ -434,15 +437,17 @@ export default function VoiceControl({
     audioPlayingRef.current = true;
 
     // Используем Web Speech API для синтеза фразы "у меня все в порядке сэр"
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance("у меня все в порядке сэр");
+    if ("speechSynthesis" in window) {
+      const utterance = new SpeechSynthesisUtterance(
+        "у меня все в порядке сэр",
+      );
 
       // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
       // Stability: 20 (низкая стабильность для более естественной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повествование)
 
-      utterance.lang = 'en-US'; // Английский для лучшего качества, потом переключим на русский
+      utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
       utterance.pitch = 0.7; // Средне-низкий тон для авторитетности
       utterance.volume = 0.95; // Четкая, но не резкая громкость
@@ -451,40 +456,44 @@ export default function VoiceControl({
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: голоса, похожие на британский/американский мужской
-      const jarvisLikeVoice = voices.find(voice =>
-        voice.lang.includes('en') &&
-        (voice.name.toLowerCase().includes('alex') ||
-         voice.name.toLowerCase().includes('daniel') ||
-         voice.name.toLowerCase().includes('male') ||
-         voice.name.toLowerCase().includes('british') ||
-         voice.name.toLowerCase().includes('uk') ||
-         voice.name.toLowerCase().includes('david') ||
-         voice.name.toLowerCase().includes('thomas'))
+      const jarvisLikeVoice = voices.find(
+        (voice) =>
+          voice.lang.includes("en") &&
+          (voice.name.toLowerCase().includes("alex") ||
+            voice.name.toLowerCase().includes("daniel") ||
+            voice.name.toLowerCase().includes("male") ||
+            voice.name.toLowerCase().includes("british") ||
+            voice.name.toLowerCase().includes("uk") ||
+            voice.name.toLowerCase().includes("david") ||
+            voice.name.toLowerCase().includes("thomas")),
       );
 
       // Если не нашли подходящий а��глийский, ищем русский мужской
-      const russianMaleVoice = voices.find(voice =>
-        voice.lang.includes('ru') &&
-        (voice.name.toLowerCase().includes('male') ||
-         voice.name.toLowerCase().includes('мужской') ||
-         voice.name.toLowerCase().includes('антон') ||
-         voice.name.toLowerCase().includes('николай'))
+      const russianMaleVoice = voices.find(
+        (voice) =>
+          voice.lang.includes("ru") &&
+          (voice.name.toLowerCase().includes("male") ||
+            voice.name.toLowerCase().includes("мужской") ||
+            voice.name.toLowerCase().includes("антон") ||
+            voice.name.toLowerCase().includes("николай")),
       );
 
       if (jarvisLikeVoice) {
         utterance.voice = jarvisLikeVoice;
-        utterance.lang = 'ru-RU';
+        utterance.lang = "ru-RU";
         utterance.pitch = 0.6; // Чуть ниже для лучшего звучания русского
       } else if (russianMaleVoice) {
         utterance.voice = russianMaleVoice;
-        utterance.lang = 'ru-RU';
+        utterance.lang = "ru-RU";
         utterance.pitch = 0.6; // Чуть ниже для русского голоса
       } else {
         // Fallback: любой доступный голос с оптимизированными настройками
-        const anyVoice = voices.find(voice => voice.lang.includes('en') || voice.lang.includes('ru'));
+        const anyVoice = voices.find(
+          (voice) => voice.lang.includes("en") || voice.lang.includes("ru"),
+        );
         if (anyVoice) {
           utterance.voice = anyVoice;
-          utterance.lang = 'ru-RU'; // Всегда русский язык
+          utterance.lang = "ru-RU"; // Всегда русский язык
         }
         utterance.pitch = 0.55; // Еще ниже для компенсации
         utterance.rate = 0.7; // Е��е медленнее для большей солидности
@@ -578,7 +587,11 @@ export default function VoiceControl({
       command.includes("оригинал") ||
       command.includes("как в марвел")
     ) {
-      if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
+      if (
+        !isSpeaking &&
+        !commandCooldownRef.current &&
+        !audioPlayingRef.current
+      ) {
         speakAuthenticJarvis();
       }
       return;
@@ -595,7 +608,11 @@ export default function VoiceControl({
       command.includes("доброго утра")
     ) {
       // Дополнит��льная проверка, чтобы избеж��ть повторных срабатываний
-      if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
+      if (
+        !isSpeaking &&
+        !commandCooldownRef.current &&
+        !audioPlayingRef.current
+      ) {
         speakGoodMorning();
       }
       return;
@@ -614,7 +631,11 @@ export default function VoiceControl({
       (command.includes("привет") && command.includes("джарвис"))
     ) {
       // Дополнительная проверка, чтобы избежать повторных срабатываний
-      if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
+      if (
+        !isSpeaking &&
+        !commandCooldownRef.current &&
+        !audioPlayingRef.current
+      ) {
         speakAuthenticJarvis();
       }
       return;
@@ -635,7 +656,11 @@ export default function VoiceControl({
       command.includes("что нового джарвис")
     ) {
       // Дополнительная проверка, чтобы избежать повторных срабатываний
-      if (!isSpeaking && !commandCooldownRef.current && !audioPlayingRef.current) {
+      if (
+        !isSpeaking &&
+        !commandCooldownRef.current &&
+        !audioPlayingRef.current
+      ) {
         speakHowAreYou();
       }
       return;
