@@ -4,7 +4,7 @@ import { OrbitControls } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 
-// Fallback робот из г��ометрических фигур
+// Fallback робот из геометрических фигур
 function SimpleRobot() {
   const robotRef = useRef<THREE.Group>(null);
   const bodyRef = useRef<THREE.Mesh>(null);
@@ -205,6 +205,21 @@ function LoadingFallback() {
 }
 
 export default function RobotModel() {
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="text-center text-white/60">
+          <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center animate-pulse">
+            <span className="text-2xl">���</span>
+          </div>
+          <p className="text-sm">3D Model Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full h-full">
       <Canvas
@@ -212,45 +227,41 @@ export default function RobotModel() {
         style={{ background: "transparent" }}
         onError={(error) => {
           console.warn("Canvas error:", error);
-          // Fallback: показать простую анимацию при ошибке
+          setHasError(true);
         }}
         gl={{ antialias: true, alpha: true }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0);
+        }}
       >
         <Suspense fallback={<LoadingFallback />}>
-          {/* Оптимизированное освещение для новой модели */}
-          <ambientLight intensity={0.4} />
+          {/* Оптимизированное освещение */}
+          <ambientLight intensity={0.6} />
           <directionalLight
             position={[10, 10, 5]}
-            intensity={1.0}
+            intensity={1.2}
             color="#ffffff"
             castShadow
           />
           <directionalLight
             position={[-10, -10, -5]}
-            intensity={0.3}
+            intensity={0.4}
             color="#8b5cf6"
           />
-          <pointLight position={[0, 2, 3]} intensity={0.6} color="#3b82f6" />
-          <pointLight position={[2, 0, 2]} intensity={0.4} color="#10b981" />
-          <spotLight
-            position={[0, 5, 0]}
-            intensity={0.5}
-            color="#ffffff"
-            angle={Math.PI / 4}
-            penumbra={0.3}
-          />
+          <pointLight position={[0, 0, 3]} intensity={0.8} color="#3b82f6" />
+          <pointLight position={[2, 2, 2]} intensity={0.3} color="#10b981" />
 
-          {/* Новая 3D модель */}
+          {/* 3D модель с fallback */}
           <Robot />
 
-          {/* Улучшенные контролы */}
+          {/* Контролы */}
           <OrbitControls
             enablePan={false}
             enableZoom={true}
-            minDistance={4}
-            maxDistance={10}
+            minDistance={3}
+            maxDistance={8}
             autoRotate={true}
-            autoRotateSpeed={0.5}
+            autoRotateSpeed={0.8}
             enableDamping={true}
             dampingFactor={0.05}
           />
