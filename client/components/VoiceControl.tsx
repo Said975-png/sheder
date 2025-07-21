@@ -21,6 +21,8 @@ export default function VoiceControl({
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const lastCommandRef = useRef<string>("");
   const commandCooldownRef = useRef<boolean>(false);
+  const audioPlayingRef = useRef<boolean>(false);
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
 
@@ -37,7 +39,7 @@ export default function VoiceControl({
         recognitionRef.current.lang = "ru-RU";
         // Улучшенные настройки для лучшего распознавания тихих команд
         recognitionRef.current.maxAlternatives = 3;
-        // @ts-ignore - эти свойства могут не быть в типах, но работают в браузерах
+        // @ts-ignore - эти свойства могут не быть в типах, но р��ботают в браузерах
         if ("webkitSpeechRecognition" in window) {
           recognitionRef.current.serviceURI =
             "wss://www.google.com/speech-api/full-duplex/v1/up";
@@ -105,7 +107,7 @@ export default function VoiceControl({
                 try {
                   recognitionRef.current.start();
                 } catch (error) {
-                  console.log("Перезапуск после ошибки");
+                  console.log("Перезапуск после ошиб��и");
                 }
               }
             }, 500);
@@ -117,6 +119,11 @@ export default function VoiceControl({
     return () => {
       if (recognitionRef.current) {
         recognitionRef.current.stop();
+      }
+      // Останавливаем любое воспроизводящееся аудио при размонтировании
+      if (currentAudioRef.current) {
+        currentAudioRef.current.pause();
+        currentAudioRef.current.currentTime = 0;
       }
     };
   }, []);
@@ -162,20 +169,28 @@ export default function VoiceControl({
   };
 
   const speakShutdown = () => {
-    if (isSpeaking || commandCooldownRef.current) return;
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
 
     setIsSpeaking(true);
     commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
 
-    // ��оздаем и воспроизводим аудио для команды "отключись"
+    // Создаем и воспроизводим аудио для команды "отключись"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
+    currentAudioRef.current = audio;
 
-    audio.onended = () => {
+    const shutdownComplete = () => {
       setIsSpeaking(false);
       commandCooldownRef.current = false;
+      audioPlayingRef.current = false;
       lastCommandRef.current = "";
+      currentAudioRef.current = null;
       // После окончания аудио отключаем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
@@ -184,30 +199,16 @@ export default function VoiceControl({
       setTranscript("");
     };
 
+    audio.onended = shutdownComplete;
+
     audio.onerror = () => {
-      setIsSpeaking(false);
-      commandCooldownRef.current = false;
-      lastCommandRef.current = "";
-      // Если ошибка с аудио, все равно отключаем микрофон
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-      setIsListening(false);
-      setTranscript("");
       console.error("Ошибка воспроизведения аудио отключения");
+      shutdownComplete();
     };
 
     audio.play().catch((error) => {
-      setIsSpeaking(false);
-      commandCooldownRef.current = false;
-      lastCommandRef.current = "";
-      // Если ошибка с аудио, все равно отключаем микрофон
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-      setIsListening(false);
-      setTranscript("");
-      console.error("Не удалось воспроизв��сти аудио отключения:", error);
+      console.error("Не удалось воспроизвести аудио отключения:", error);
+      shutdownComplete();
     });
   };
 
@@ -236,7 +237,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Ошибка воспроизведения аудио приветствия");
+      console.error("О��ибка воспроизведения аудио приветствия");
     };
 
     audio.play().catch((error) => {
@@ -255,7 +256,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим аудио для благодарности
+    // Создаем и воспроизводим аудио дл�� благодарности
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2Fafb1b8a7fc8645a7ab1e8513e8c1faa7?alt=media&token=be057092-6988-45dd-94dc-90427146589d&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -274,7 +275,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Ошибка воспроизведения аудио благодарности");
+      console.error("Ошибка во��произведения аудио благодарности");
     };
 
     audio.play().catch((error) => {
@@ -288,39 +289,45 @@ export default function VoiceControl({
   };
 
   const speakGoodMorning = () => {
-    if (isSpeaking || commandCooldownRef.current) return;
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
 
     setIsSpeaking(true);
     commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим аудио для утреннего приветствия
+    // Создаем и воспроизводим ауд��о для утреннего приветствия
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
+    currentAudioRef.current = audio;
 
-    audio.onended = () => {
+    const resetState = () => {
       setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
-      }, 1000);
+      }, 2000); // Увеличен таймаут до 2 секунд
     };
 
+    audio.onended = resetState;
     audio.onerror = () => {
-      setIsSpeaking(false);
-      setTimeout(() => {
-        commandCooldownRef.current = false;
-        lastCommandRef.current = "";
-      }, 1000);
-      console.error("Ошибка воспроизведения аудио утреннего приветствия");
+      resetState();
+      console.error("Ошибка воспроизведения аудио утреннего при��етствия");
     };
 
     audio.play().catch((error) => {
-      setIsSpeaking(false);
-      setTimeout(() => {
-        commandCooldownRef.current = false;
-        lastCommandRef.current = "";
-      }, 1000);
+      resetState();
       console.error(
         "Не удалось воспроизвести аудио утреннего приветствия:",
         error,
@@ -362,12 +369,177 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвести аудио ответа:", error);
+      console.error("Не удалось воспроизвести аудио ��твета:", error);
     });
   };
 
+  const speakAuthenticJarvis = () => {
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
+
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
+
+    // Используем ваш оригинальный аудиофайл Джарвиса
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2Fddde4fe5b47946c2a3bbb80e3bca0073%2F54eb93b1452742b6a1cd87cc6104bb59?alt=media&token=fc948eba-bbcd-485c-b129-d5a0c25cfc74&apiKey=ddde4fe5b47946c2a3bbb80e3bca0073",
+    );
+    currentAudioRef.current = audio;
+
+    const resetState = () => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 2000);
+    };
+
+    audio.onended = resetState;
+    audio.onerror = () => {
+      resetState();
+      console.error("Ошибка воспроизведения оригинального аудио Джарвиса");
+    };
+
+    audio.play().catch((error) => {
+      resetState();
+      console.error(
+        "Не удалос�� воспроизвести оригинальное аудио Джарвиса:",
+        error,
+      );
+    });
+  };
+
+  const speakHowAreYou = () => {
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
+
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
+
+    // Используем Web Speech API для синтеза фразы "у меня все в порядке сэр"
+    if ("speechSynthesis" in window) {
+      const utterance = new SpeechSynthesisUtterance(
+        "у меня все в порядке сэр",
+      );
+
+      // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
+      // Stability: 20 (низкая стабильность для более естественной речи)
+      // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
+      // Style: Assistant/Narration (помощник/повествование)
+
+      utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
+      utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
+      utterance.pitch = 0.7; // Средне-низкий тон для авторитетности
+      utterance.volume = 0.95; // Четкая, но не резкая громкость
+
+      // Поиск наиболее подходящего голоса для имитации Jarvis
+      const voices = speechSynthesis.getVoices();
+
+      // Приоритет: голоса, похожие на британский/американский мужской
+      const jarvisLikeVoice = voices.find(
+        (voice) =>
+          voice.lang.includes("en") &&
+          (voice.name.toLowerCase().includes("alex") ||
+            voice.name.toLowerCase().includes("daniel") ||
+            voice.name.toLowerCase().includes("male") ||
+            voice.name.toLowerCase().includes("british") ||
+            voice.name.toLowerCase().includes("uk") ||
+            voice.name.toLowerCase().includes("david") ||
+            voice.name.toLowerCase().includes("thomas")),
+      );
+
+      // Если не нашли подходящий а��глийский, ищем русский мужской
+      const russianMaleVoice = voices.find(
+        (voice) =>
+          voice.lang.includes("ru") &&
+          (voice.name.toLowerCase().includes("male") ||
+            voice.name.toLowerCase().includes("мужской") ||
+            voice.name.toLowerCase().includes("антон") ||
+            voice.name.toLowerCase().includes("николай")),
+      );
+
+      if (jarvisLikeVoice) {
+        utterance.voice = jarvisLikeVoice;
+        utterance.lang = "ru-RU";
+        utterance.pitch = 0.6; // Чуть ниже для лучшего звучания русского
+      } else if (russianMaleVoice) {
+        utterance.voice = russianMaleVoice;
+        utterance.lang = "ru-RU";
+        utterance.pitch = 0.6; // Чуть ниже для русского голоса
+      } else {
+        // Fallback: любой доступный голос с оптимизированными настройками
+        const anyVoice = voices.find(
+          (voice) => voice.lang.includes("en") || voice.lang.includes("ru"),
+        );
+        if (anyVoice) {
+          utterance.voice = anyVoice;
+          utterance.lang = "ru-RU"; // Всегда русский язык
+        }
+        utterance.pitch = 0.55; // Еще ниже для компенсации
+        utterance.rate = 0.7; // Е��е медленнее для большей солидности
+      }
+
+      const resetState = () => {
+        setIsSpeaking(false);
+        audioPlayingRef.current = false;
+        currentAudioRef.current = null;
+        setTimeout(() => {
+          commandCooldownRef.current = false;
+          lastCommandRef.current = "";
+        }, 1000);
+      };
+
+      utterance.onend = resetState;
+      utterance.onerror = () => {
+        resetState();
+        console.error("Ошибка синтеза речи");
+      };
+
+      try {
+        speechSynthesis.speak(utterance);
+      } catch (error) {
+        resetState();
+        console.error("Не удалось синтезировать речь:", error);
+      }
+    } else {
+      // Fallback если Speech Synthesis недоступен
+      const resetState = () => {
+        setIsSpeaking(false);
+        audioPlayingRef.current = false;
+        currentAudioRef.current = null;
+        setTimeout(() => {
+          commandCooldownRef.current = false;
+          lastCommandRef.current = "";
+        }, 1000);
+      };
+
+      console.log("Джарвис: у меня все в порядке сэр");
+      setTimeout(resetState, 2000);
+    }
+  };
+
   const processVoiceCommand = (command: string) => {
-    console.log("Обработка ко��анды:", command);
+    console.log("Обрабо��ка ко��анды:", command);
 
     // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
@@ -383,6 +555,7 @@ export default function VoiceControl({
       command.includes("стоп джарвис") ||
       command.includes("выключи")
     ) {
+      // Принудительно выполняем команду отключения независимо от состояния
       speakShutdown();
       return;
     }
@@ -398,17 +571,98 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда утреннего приветствия "Доброе утро Джарвис"
+    // Команды для оригинального голоса Джарвиса (из фильма)
+    if (
+      command.includes("оригинальный джарвис") ||
+      command.includes("настоящий джарвис") ||
+      command.includes("джарвис как в фильме") ||
+      command.includes("железный человек") ||
+      command.includes("tony stark") ||
+      command.includes("тони старк") ||
+      command.includes("authentic jarvis") ||
+      command.includes("real jarvis") ||
+      command.includes("movie jarvis") ||
+      command.includes("джарвис из железного человека") ||
+      command.includes("голос джарвиса") ||
+      command.includes("оригинал") ||
+      command.includes("как в марвел")
+    ) {
+      if (
+        !isSpeaking &&
+        !commandCooldownRef.current &&
+        !audioPlayingRef.current
+      ) {
+        speakAuthenticJarvis();
+      }
+      return;
+    }
+
+    // Команда утреннего приветствия "Доброе утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис доброе утро") ||
       command.includes("утро джарвис") ||
-      command.includes("доброе утро") ||
+      (command.includes("доброе утро") && command.length < 20) ||
       command.includes("good morning jarvis") ||
-      command.includes("good morning") ||
+      (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      speakGoodMorning();
+      // Дополнит��льная проверка, чтобы избеж��ть повторных срабатываний
+      if (
+        !isSpeaking &&
+        !commandCooldownRef.current &&
+        !audioPlayingRef.current
+      ) {
+        speakGoodMorning();
+      }
+      return;
+    }
+
+    // Команда приветствия "Привет Джарвис"
+    if (
+      command.includes("привет джарвис") ||
+      command.includes("джарвис привет") ||
+      command.includes("здравствуй джарвис") ||
+      command.includes("джарвис здравствуй") ||
+      command.includes("хай джарвис") ||
+      command.includes("hello jarvis") ||
+      command.includes("hi jarvis") ||
+      command.includes("hey jarvis") ||
+      (command.includes("привет") && command.includes("джарвис"))
+    ) {
+      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      if (
+        !isSpeaking &&
+        !commandCooldownRef.current &&
+        !audioPlayingRef.current
+      ) {
+        speakAuthenticJarvis();
+      }
+      return;
+    }
+
+    // Команда "Как дела Джар��ис"
+    if (
+      command.includes("как дела джарвис") ||
+      command.includes("джарвис как дела") ||
+      command.includes("как дела") ||
+      command.includes("как поживаешь джарвис") ||
+      command.includes("джарвис как поживаешь") ||
+      command.includes("как ты джарвис") ||
+      command.includes("how are you jarvis") ||
+      command.includes("jarvis how are you") ||
+      command.includes("how are you") ||
+      command.includes("как твои дела") ||
+      command.includes("что нового джарвис")
+    ) {
+      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      if (
+        !isSpeaking &&
+        !commandCooldownRef.current &&
+        !audioPlayingRef.current
+      ) {
+        speakHowAreYou();
+      }
       return;
     }
 
@@ -460,7 +714,7 @@ export default function VoiceControl({
       "корзина",
       "добавить",
       "план",
-      "джарвис",
+      "д��арвис",
       "базовый",
       "про",
       "макс",
@@ -478,7 +732,7 @@ export default function VoiceControl({
       "спуститься",
       "перейти",
       "покажи",
-      "найди",
+      "на��ди",
       "где",
       "что",
       "как",
@@ -529,7 +783,7 @@ export default function VoiceControl({
       "круто",
       "прекрасно",
       "чудесно",
-      "доброе",
+      "добр��е",
       "утро",
       "утра",
       "morning",
@@ -653,7 +907,7 @@ export default function VoiceControl({
         command.includes("план") ||
         command.includes("тариф") ||
         command.includes("цен") ||
-        command.includes("стоимость")
+        command.includes("стоим��сть")
       ) {
         found = searchAndNavigate(["план", "тариф", "цен", "pricing"], () => {
           const pricingSection = document.querySelector(
@@ -697,7 +951,7 @@ export default function VoiceControl({
           "contact",
         ]);
         if (found) {
-          speak("Показываю контакты");
+          speak("Пок��зываю контакты");
           return;
         }
       }
@@ -778,7 +1032,7 @@ export default function VoiceControl({
     if (
       command.includes("перейти на главную") ||
       command.includes("на главную страницу") ||
-      command.includes("домой")
+      command.includes("домо��")
     ) {
       navigate("/");
       speak("Переходим на главную страницу");
@@ -791,12 +1045,12 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Открываю страницу входа");
+      speak("Открываю страницу вх��да");
       return;
     }
 
     if (
-      command.includes("регистрация") ||
+      command.includes("рег��страция") ||
       command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
@@ -891,7 +1145,7 @@ export default function VoiceControl({
       command.includes("стоимость")
     ) {
       const found = searchAndNavigate(
-        ["план", "тариф", "цен", "pricing", "стоимость"],
+        ["пл��н", "тариф", "цен", "pricing", "стоимость"],
         () => {
           const pricingSection = document.querySelector(
             '[data-section="pricing"]',
@@ -910,9 +1164,9 @@ export default function VoiceControl({
     if (
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
-      command.includes("спуститься к преимуществам") ||
+      command.includes("спустит��ся к преимуществам") ||
       command.includes("перейти к преимуществам") ||
-      command.includes("преимущества")
+      command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
         "преимущества",
@@ -974,7 +1228,7 @@ export default function VoiceControl({
       command.includes("в самый верх")
     ) {
       window.scrollTo(0, 0);
-      speak("Перехожу в начало");
+      speak("Перехожу в нача��о");
       return;
     }
 
