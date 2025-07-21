@@ -74,7 +74,7 @@ export default function Index() {
   const handleAddProPlan = () => {
     addItem({
       id: "pro-plan",
-      name: "Pro сайт с ИИ",
+      name: "Pro сайт с ��И",
       price: 3500000,
       description:
         "ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация",
@@ -636,7 +636,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-blue-400" />
                       </div>
-                      Без искус��твенного интеллекта
+                      Без искус��твенного интеллект��
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
@@ -827,11 +827,11 @@ export default function Index() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 theme-text">
-              Наши преимущества
+              Наши преим��щества
             </h2>
             <p className="text-lg theme-text-muted max-w-3xl mx-auto">
               Мы создаем не просто сайты — мы разрабатываем и��теллектуальные
-              реше��ия, которые работают как ваш персональный ИИ-помощник
+              реше��ия, которые работают как ваш пер��ональный ИИ-помощник
             </p>
           </div>
 
@@ -843,7 +843,7 @@ export default function Index() {
                   <Rocket className="w-8 h-8 text-purple-400" />
                 </div>
                 <h3 className="text-xl font-bold theme-text mb-4">
-                  Молниеносная разработка
+                  Молниеносная р��зработка
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
                   Создаем полноценные сайты в 3-5 раз быстрее благодаря нашим
@@ -901,7 +901,7 @@ export default function Index() {
                   Прем��ум качество
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Используе�� только современные технологии и лучшие практики.
+                  Используе�� только современные технологии и л��чшие практики.
                   Каждый сайт проходит тщательное тестирование и оптимизацию
                   производител��ности.
                 </p>
@@ -936,7 +936,7 @@ export default function Index() {
                   Инновационные решения
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Внедряем передовые технологии: WebGL, м��шинное ��бучение,
+                  Внедряем передовые технологии: WebGL, м��шинное ��буч��ние,
                   голосово�� управление и AR/VR эл��менты для максимального
                   wow-эффекта.
                 </p>
@@ -954,8 +954,8 @@ export default function Index() {
                   Готовы создать что-то невероятное?
                 </h3>
                 <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
-                  Позвольте нашему ИИ Джарвису стать цифровым помощником вашего
-                  бизнеса. Начнем разработку уже сегодня!
+                  Позвольте наш��му ИИ Джарвису стать цифровым помощником вашего
+                  бизнеса. Начнем разработку у��е сегодня!
                 </p>
                 <Button
                   onClick={() =>
