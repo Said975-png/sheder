@@ -69,40 +69,51 @@ export default function RobotModel() {
   return (
     <div className="w-full h-full">
       <Canvas
-        camera={{ position: [0, 0, 5], fov: 50 }}
+        camera={{ position: [0, 0, 6], fov: 45 }}
         style={{ background: "transparent" }}
         onError={(error) => {
           console.warn("Canvas error:", error);
+          // Fallback: показать простую анимацию при ошибке
         }}
+        gl={{ antialias: true, alpha: true }}
       >
         <Suspense fallback={<LoadingFallback />}>
-          {/* Enhanced Lighting */}
-          <ambientLight intensity={0.6} />
+          {/* Оптимизированное освещение для новой модели */}
+          <ambientLight intensity={0.4} />
           <directionalLight
             position={[10, 10, 5]}
-            intensity={1.2}
+            intensity={1.0}
             color="#ffffff"
             castShadow
           />
           <directionalLight
             position={[-10, -10, -5]}
-            intensity={0.4}
+            intensity={0.3}
             color="#8b5cf6"
           />
-          <pointLight position={[0, 0, 3]} intensity={0.8} color="#3b82f6" />
-          <pointLight position={[2, 2, 2]} intensity={0.3} color="#10b981" />
+          <pointLight position={[0, 2, 3]} intensity={0.6} color="#3b82f6" />
+          <pointLight position={[2, 0, 2]} intensity={0.4} color="#10b981" />
+          <spotLight
+            position={[0, 5, 0]}
+            intensity={0.5}
+            color="#ffffff"
+            angle={Math.PI / 4}
+            penumbra={0.3}
+          />
 
-          {/* 3D Robot Model */}
+          {/* Новая 3D модель */}
           <Robot />
 
-          {/* Controls */}
+          {/* Улучшенные контролы */}
           <OrbitControls
             enablePan={false}
             enableZoom={true}
-            minDistance={3}
-            maxDistance={8}
+            minDistance={4}
+            maxDistance={10}
             autoRotate={true}
-            autoRotateSpeed={0.8}
+            autoRotateSpeed={0.5}
+            enableDamping={true}
+            dampingFactor={0.05}
           />
         </Suspense>
       </Canvas>
