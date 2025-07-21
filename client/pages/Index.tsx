@@ -426,8 +426,8 @@ export default function Index() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="container mx-auto px-6 py-24">
+            {/* Pricing Section */}
+      <section data-section="pricing" className="container mx-auto px-6 py-24">
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold mb-6 theme-text">
             Выберите подходящий план
@@ -693,7 +693,7 @@ export default function Index() {
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-cyan-500 rounded-full animate-pulse"></div>
               </div>
               <h3 className="text-xl font-bold theme-text mb-4">
-                Уникальный ИИ Дж��рвис
+                Уникальный ИИ Джарвис
               </h3>
               <p className="theme-text-muted leading-relaxed">
                 Разрабатываем персонального ИИ-помощника специально для вашего бизнеса.
@@ -748,7 +748,7 @@ export default function Index() {
               </h3>
               <p className="theme-text-muted leading-relaxed">
                 Встроенная ИИ-аналитика отслеживает поведение пользователей и
-                автоматически оптимизирует конверсию вашего онлайн-��агазина.
+                автоматически оптимизирует конверсию вашего онлайн-магазина.
               </p>
             </div>
             <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
