@@ -93,25 +93,24 @@ export default function VoiceControl({
     // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
-      return; // Не обрабатываем слишком короткие ��оманды
+      return;
     }
 
     // Проверяем, содержит ли команда значимые слова
-    const meaningfulWords = ["перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "джарвис", "помощь", "команды", "расскажи", "тарифы", "привет", "здравствуй", "прокрутить", "скролл", "наверх", "планам", "что", "как", "где"];
+    const meaningfulWords = ["перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "джарвис", "базовый", "про", "макс", "прокрутить", "скролл", "наверх", "планам", "преимущества", "возможности", "открыть", "личный", "кабинет", "отправить", "секция", "спуститься", "перейти"];
     const hasValidWords = meaningfulWords.some(word => trimmedCommand.includes(word));
-    
+
     if (!hasValidWords) {
-      return; // Не обрабатываем команды без значимых слов
+      return;
     }
 
-    // Команды навигации
+    // Команды навигации по страницам
     if (
       command.includes("перейти на главную") ||
       command.includes("на главную страницу") ||
       command.includes("домой")
     ) {
       navigate("/");
-      speak("Переходим на главную страницу.");
       return;
     }
 
@@ -121,7 +120,6 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Открываю страницу входа в систему.");
       return;
     }
 
@@ -130,140 +128,156 @@ export default function VoiceControl({
       command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
-      speak("Переходим к регистрации нового пользователя.");
       return;
     }
 
-    if (command.includes("профиль") || command.includes("мой профиль")) {
+    if (
+      command.includes("профиль") ||
+      command.includes("мой профиль") ||
+      command.includes("личный кабинет") ||
+      command.includes("открыть профиль")
+    ) {
       navigate("/profile");
-      speak("Открываю настройки вашего профиля.");
       return;
     }
 
     if (command.includes("заказ") || command.includes("оформить заказ")) {
       navigate("/order");
-      speak("Переходим к оформлению заказа.");
       return;
     }
 
     // Команды корзины
     if (command.includes("корзина") && command.includes("очистить")) {
       clearCart();
-      speak("Корзина очищена.");
       return;
     }
 
     if (
-      command.includes("что в корзине") ||
-      command.includes("показать корзину")
+      command.includes("открыть корзину") ||
+      command.includes("показать корзину") ||
+      command.includes("что в корзине")
     ) {
-      const itemsCount = getTotalItems();
-      if (itemsCount === 0) {
-        speak("Ваша корзина пуста.");
-      } else {
-        speak(`В корзине ${itemsCount} товаров.`);
+      // Находим и нажимаем кнопку корзины
+      const cartButton = document.querySelector('[data-testid="cart-button"]') as HTMLElement;
+      if (cartButton) {
+        cartButton.click();
       }
       return;
     }
 
-    // Команды добавления планов
+    // Команды добавления планов в корзину
     if (
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
-      command.includes("basic план")
+      command.includes("базовый в корзину") ||
+      command.includes("отправить базовый")
     ) {
       onAddBasicPlan();
-      speak("Базовый план добавлен в корзину.");
       return;
     }
 
     if (
       command.includes("добавить про") ||
       command.includes("про план") ||
-      command.includes("pro план")
+      command.includes("про в корзину") ||
+      command.includes("отправить про")
     ) {
       onAddProPlan();
-      speak("Про план с искусственным интеллектом добавлен в корзину.");
       return;
     }
 
     if (
       command.includes("добавить макс") ||
       command.includes("макс план") ||
-      command.includes("max план") ||
-      command.includes("джарвис")
+      command.includes("максимальный план") ||
+      command.includes("джарвис план") ||
+      command.includes("макс в корзину") ||
+      command.includes("отправить макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальный план с Джарвисом добавлен в корзину.");
       return;
     }
 
-    // Информационные команды
+    // Навигация по секциям страницы
     if (
-      command.includes("что ты умеешь") ||
-      command.includes("помощь") ||
-      command.includes("команды")
+      command.includes("к планам") ||
+      command.includes("показать планы") ||
+      command.includes("перейти к планам") ||
+      command.includes("спуститься к планам")
     ) {
-      speak(
-        "Я умею навигировать по сайту, управлять корзиной, добавлять планы и контролировать функции сайта. Просто дайте мне команду.",
-      );
+      const pricingSection = document.querySelector('[data-section="pricing"]');
+      if (pricingSection) {
+        pricingSection.scrollIntoView({ behavior: "smooth" });
+      }
       return;
     }
 
     if (
-      command.includes("расскажи о планах") ||
-      command.includes("какие планы") ||
-      command.includes("тарифы")
+      command.includes("к преимуществам") ||
+      command.includes("наши преимущества") ||
+      command.includes("спуститься к преимуществам") ||
+      command.includes("перейти к преимуществам")
     ) {
-      speak(
-        "У нас есть три плана: Базовый за 2 миллиона сум, Про с ИИ за 3.5 миллиона, и Максимальный с Джарвисом за 5 миллионов сум.",
-      );
+      // Ищем секцию с преимуществами по заголовку
+      const advantagesSection = document.querySelector('h2:contains("Наши преимущества")') ||
+                               Array.from(document.querySelectorAll('h2')).find(h => h.textContent?.includes('преимущества'));
+      if (advantagesSection) {
+        advantagesSection.scrollIntoView({ behavior: "smooth" });
+      }
       return;
     }
 
-    if (command.includes("привет") || command.includes("здравствуй")) {
-      speak(
-        "Добро пожаловать! Я Джарвис, ваш персональный ИИ-помощник. Чем могу помочь?",
-      );
+    if (
+      command.includes("к возможностям") ||
+      command.includes("мощные возможности") ||
+      command.includes("спуститься к возможностям") ||
+      command.includes("перейти к возможностям")
+    ) {
+      // Ищем секцию с возможностями
+      const featuresSection = document.getElementById('features') ||
+                             Array.from(document.querySelectorAll('h2')).find(h => h.textContent?.includes('возможности'));
+      if (featuresSection) {
+        featuresSection.scrollIntoView({ behavior: "smooth" });
+      }
       return;
     }
 
     // Прокрутка страницы
     if (
       command.includes("прокрутить вниз") ||
-      command.includes("скролл вниз")
+      command.includes("скролл вниз") ||
+      command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
-      speak("Прокручиваю страницу вниз.");
       return;
     }
 
     if (
       command.includes("прокрутить вверх") ||
-      command.includes("скролл вверх")
+      command.includes("скролл вверх") ||
+      command.includes("подняться вверх")
     ) {
       window.scrollBy(0, -500);
-      speak("Прокручиваю страницу вверх.");
       return;
     }
 
-    if (command.includes("наверх страницы") || command.includes("в начало")) {
+    if (
+      command.includes("наверх страницы") ||
+      command.includes("в начало") ||
+      command.includes("в самый верх")
+    ) {
       window.scrollTo(0, 0);
-      speak("Возвращаемся в начало страницы.");
       return;
     }
 
-    if (command.includes("к планам") || command.includes("показать планы")) {
-      const pricingSection = document.querySelector('[data-section="pricing"]');
-      if (pricingSection) {
-        pricingSection.scrollIntoView({ behavior: "smooth" });
-        speak("Показываю тарифные планы.");
-      }
+    if (
+      command.includes("в конец страницы") ||
+      command.includes("в самый низ") ||
+      command.includes("вниз страницы")
+    ) {
+      window.scrollTo(0, document.body.scrollHeight);
       return;
     }
-
-    // Если команда не распознана
-    speak("Извините, я не понял команду. Попробуйте переформулировать.");
   };
 
   const toggleListening = () => {
