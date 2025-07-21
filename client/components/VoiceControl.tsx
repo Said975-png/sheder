@@ -87,6 +87,45 @@ export default function VoiceControl({
     });
   };
 
+  const speakShutdown = () => {
+    setIsSpeaking(true);
+
+    // Создаем и воспроизводим аудио для команды "отключись"
+    const audio = new Audio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c");
+
+    audio.onended = () => {
+      setIsSpeaking(false);
+      // После окончания аудио отключаем микрофон
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+      setTranscript("");
+    };
+
+    audio.onerror = () => {
+      setIsSpeaking(false);
+      // Если ошибка с аудио, все равно отключаем микрофон
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+      setTranscript("");
+      console.error("Ошибка воспроизведения аудио отключения");
+    };
+
+    audio.play().catch((error) => {
+      setIsSpeaking(false);
+      // Если ошибка с аудио, все равно отключаем микрофон
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+      setTranscript("");
+      console.error("Не удалось воспроизвести аудио отключения:", error);
+    });
+  };
+
   const processVoiceCommand = (command: string) => {
     console.log("Обработка команды:", command);
 
@@ -96,7 +135,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверяем, содержит ли команда значимые слова
+    // Проверяем, содержит л�� команда значимые слова
     const meaningfulWords = [
       "перейти", "войти", "регистрация", "профиль", "заказ", "корзина", "добавить", "план", "джарвис",
       "базовый", "про", "макс", "прокрутить", "скролл", "наверх", "планам", "преимущества", "возможности",
@@ -142,7 +181,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск по тексту элементов
+      // Поиск по тек��ту элементов
       const allElements = Array.from(document.querySelectorAll('p, div, span, li'));
       for (const element of allElements) {
         const elementText = element.textContent?.toLowerCase() || '';
@@ -182,7 +221,7 @@ export default function VoiceControl({
 
       // Поиск возможностей
       if (command.includes("возможности") || command.includes("возможность") || command.includes("мощные")) {
-        found = searchAndNavigate(["возмож��ости", "мощные", "features"]);
+        found = searchAndNavigate(["возможности", "мощные", "features"]);
         if (found) {
           speak("Показываю возможности");
           return;
@@ -234,12 +273,12 @@ export default function VoiceControl({
       if (command.includes("качество") || command.includes("премиум") || command.includes("поддержка")) {
         found = searchAndNavigate(["качество", "премиум", "поддержка", "quality", "support"]);
         if (found) {
-          speak("Показываю информацию о качестве");
+          speak("Показываю информацию о каче��тве");
           return;
         }
       }
 
-      // Поиск анал��тики
+      // Поиск аналитики
       if (command.includes("аналитик") || command.includes("статистик") || command.includes("данные")) {
         found = searchAndNavigate(["аналитик", "статистик", "данные", "analytics"]);
         if (found) {
@@ -353,7 +392,7 @@ export default function VoiceControl({
     if (
       command.includes("добавить макс") ||
       command.includes("макс план") ||
-      command.includes("максимальный план") ||
+      command.includes("максимальный ��лан") ||
       command.includes("джарвис план") ||
       command.includes("макс в корзину") ||
       command.includes("отправить макс")
@@ -420,7 +459,7 @@ export default function VoiceControl({
 
     // Прокрутка страницы
     if (
-      command.includes("прокрутить вниз") ||
+      command.includes("прокр��тить вниз") ||
       command.includes("скролл вниз") ||
       command.includes("спуститься вниз")
     ) {
