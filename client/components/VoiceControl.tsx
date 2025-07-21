@@ -202,7 +202,7 @@ export default function VoiceControl({
       }
       setIsListening(false);
       setTranscript("");
-      console.error("Не удалось воспроизвести аудио отключения:", error);
+      console.error("Не удалось воспроизв��сти аудио отключения:", error);
     });
   };
 
@@ -278,7 +278,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвести аудио благодарности:", error);
+      console.error("Не удалось восп��оизвести аудио благодарности:", error);
     });
   };
 
@@ -320,8 +320,46 @@ export default function VoiceControl({
     });
   };
 
+  const speakIAmHere = () => {
+    if (isSpeaking || commandCooldownRef.current) return;
+
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+
+    // Создаем и воспроизводим аудио для ответа "Джарвис ты тут?"
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F5baee2408110417fbab785b0c6ffdde6?alt=media&token=a957a2b4-68ad-46de-bc3e-11943c8fb38b&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
+    );
+
+    audio.onended = () => {
+      setIsSpeaking(false);
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 1000);
+    };
+
+    audio.onerror = () => {
+      setIsSpeaking(false);
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 1000);
+      console.error("Ошибка воспроизведения аудио ответа");
+    };
+
+    audio.play().catch((error) => {
+      setIsSpeaking(false);
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 1000);
+      console.error("Не удалось воспроизвести аудио ответа:", error);
+    });
+  };
+
   const processVoiceCommand = (command: string) => {
-    console.log("Обработка команды:", command);
+    console.log("Обработка ко��анды:", command);
 
     // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
@@ -573,7 +611,7 @@ export default function VoiceControl({
       if (
         command.includes("возможности") ||
         command.includes("возможность") ||
-        command.includes("мощные")
+        command.includes("м��щные")
       ) {
         found = searchAndNavigate(["возможности", "мощные", "features"]);
         if (found) {
@@ -611,7 +649,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
         if (found) {
-          speak("Показываю информацию о компании");
+          speak("Показ��ваю информацию о компании");
           return;
         }
       }
