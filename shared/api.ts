@@ -35,3 +35,31 @@ export interface GeneratedCode {
     imageId: string;
   };
 }
+
+/**
+ * Orders API types
+ */
+export interface OrderItem {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  category: string;
+}
+
+export interface OrderFormData {
+  fullName: string;
+  phone: string;
+  description: string;
+}
+
+export interface OrderRequest {
+  items: OrderItem[];
+  formData: OrderFormData;
+  total: number;
+}
+
+export interface OrderResponse {
+  success: boolean;
+  message: string;
+}
