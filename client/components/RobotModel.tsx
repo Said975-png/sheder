@@ -93,7 +93,7 @@ function Robot() {
   try {
     gltf = useLoader(
       GLTFLoader,
-      "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F60c146ff906341f7ad422e19bf490e25?alt=media&token=ff4ec497-0d95-4df0-948b-42943b2678b2&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
+      "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2Fa5f6213fc7f740ccbb4749afef3fbac5?alt=media&token=b823a57a-4852-48e7-a694-204017c072f7&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
       (loader) => {
         // Настройка загрузчика для обработки проблем с текстурами
         loader.crossOrigin = "anonymous";
