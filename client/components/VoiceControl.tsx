@@ -55,7 +55,7 @@ export default function VoiceControl({
             }
           }
 
-          // Показываем промежуточный результат
+          // Показываем промежуточны�� результат
           if (interimTranscript) {
             setTranscript(interimTranscript);
           }
@@ -72,12 +72,39 @@ export default function VoiceControl({
         };
 
         recognitionRef.current.onend = () => {
-          setIsListening(false);
+          // Автоматически перезапускаем распознавание, если мы все еще слушаем
+          if (isListening && !isSpeaking) {
+            setTimeout(() => {
+              if (recognitionRef.current && isListening) {
+                try {
+                  recognitionRef.current.start();
+                } catch (error) {
+                  console.log("Распознавание уже запущено");
+                }
+              }
+            }, 100);
+          } else {
+            setIsListening(false);
+          }
         };
 
         recognitionRef.current.onerror = (event) => {
           console.error("Speech recognition error:", event.error);
-          setIsListening(false);
+          // Не отключаем полностью при ошибках, кроме критических
+          if (event.error === 'network' || event.error === 'not-allowed') {
+            setIsListening(false);
+          } else {
+            // Перезапускаем через короткое время для других ошибок
+            setTimeout(() => {
+              if (isListening && recognitionRef.current) {
+                try {
+                  recognitionRef.current.start();
+                } catch (error) {
+                  console.log("Перезапуск после ошибки");
+                }
+              }
+            }, 500);
+          }
         };
       }
     }
@@ -132,7 +159,7 @@ export default function VoiceControl({
 
     audio.onerror = () => {
       setIsSpeaking(false);
-      // Если ошибка с ау��ио, все равно отклю��аем микрофон
+      // Если ошибка с ау��ио, все равно отключаем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
@@ -243,7 +270,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приветствия "Джарвис я вернулся"
+    // Команда п��иветствия "Джарвис я вернулся"
     if (
       command.includes("джарвис я вернулся") ||
       command.includes("я вернулся джарвис") ||
@@ -543,7 +570,7 @@ export default function VoiceControl({
         command.includes("технолог") ||
         command.includes("webgl") ||
         command.includes("ии") ||
-        command.includes("искусственный")
+        command.includes("ис��усственный")
       ) {
         found = searchAndNavigate([
           "технолог",
@@ -747,8 +774,8 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спуститься к преимуществам") ||
-      command.includes("пер��йти к преимуществам") ||
-      command.includes("преимущества")
+      command.includes("перейти к преимуществам") ||
+      command.includes("пр��имущества")
     ) {
       const found = searchAndNavigate([
         "преимущества",
@@ -786,7 +813,7 @@ export default function VoiceControl({
     // Прокрутка страницы
     if (
       command.includes("прокрутить вниз") ||
-      command.includes("скрол�� вниз") ||
+      command.includes("скролл вниз") ||
       command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
