@@ -453,7 +453,7 @@ export default function Index() {
             </div>
 
             {/* Right Side - 3D Model positioned at header level */}
-            <div className="flex-shrink-0 w-full md:w-96 h-96 md:mt-8 lg:mt-4 xl:mt-0">
+            <div className="flex-shrink-0 w-full md:w-96 h-96 md:-mt-4 lg:-mt-8 xl:-mt-12">
               <div className="relative w-full h-full">
                 {/* 3D Model */}
                 <div className="relative w-full h-full flex items-center justify-center">
