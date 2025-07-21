@@ -239,24 +239,21 @@ export default function VoiceControl({ onAddBasicPlan, onAddProPlan, onAddMaxPla
         <Button
           onClick={toggleListening}
           className={`w-14 h-14 rounded-full p-0 transition-all duration-300 ${
-            isListening 
-              ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
+            isListening
+              ? 'bg-red-500 hover:bg-red-600 animate-pulse'
               : 'bg-purple-600 hover:bg-purple-700'
-          } ${isSpeaking ? 'ring-4 ring-blue-400/50' : ''}`}
-          disabled={isSpeaking}
+          }`}
         >
-          {isSpeaking ? (
-            <Volume2 className="w-6 h-6 text-white animate-pulse" />
-          ) : isListening ? (
+          {isListening ? (
             <Mic className="w-6 h-6 text-white" />
           ) : (
             <MicOff className="w-6 h-6 text-white" />
           )}
         </Button>
-        
+
         {/* Status indicator */}
         <div className="text-xs text-white/60 text-center">
-          {isSpeaking ? 'Говорю...' : isListening ? 'Слушаю...' : 'Джарвис'}
+          {isListening ? 'Слушаю...' : 'Джарвис'}
         </div>
       </div>
 
