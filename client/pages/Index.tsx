@@ -162,7 +162,7 @@ export default function Index() {
           <div className="space-y-8">
             <div className="space-y-6">
                             <h1 className="text-5xl lg:text-6xl font-bold leading-tight theme-text">
-                Jarvis - искусственный интеллект для вашего бизнеса
+                Jarvis - искусственный и��теллект для вашего бизнеса
               </h1>
 
               <p className="text-lg theme-text-muted max-w-md">
@@ -217,7 +217,7 @@ export default function Index() {
             </div>
             <h3 className="text-lg font-semibold mb-2">Easy Integration</h3>
             <p className="text-white/60">
-              Простая интеграция �� любыми прилож��ниями и платформами
+                            Простая интеграция с любыми приложениями и платформами
             </p>
           </div>
 
