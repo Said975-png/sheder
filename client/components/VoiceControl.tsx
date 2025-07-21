@@ -39,7 +39,7 @@ export default function VoiceControl({
         recognitionRef.current.lang = "ru-RU";
         // Улучшенные настройки для лучшего распознавания тихих команд
         recognitionRef.current.maxAlternatives = 3;
-        // @ts-ignore - эти свойства мог��т не быть в типах, но р��ботают в браузерах
+        // @ts-ignore - эти свойства могут не быть в типах, но р��ботают в браузерах
         if ("webkitSpeechRecognition" in window) {
           recognitionRef.current.serviceURI =
             "wss://www.google.com/speech-api/full-duplex/v1/up";
@@ -256,7 +256,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем �� воспроизводим аудио дл�� благодарности
+    // Создаем и воспроизводим аудио дл�� благодарности
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2Fafb1b8a7fc8645a7ab1e8513e8c1faa7?alt=media&token=be057092-6988-45dd-94dc-90427146589d&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -408,7 +408,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ош��бка воспроизведения оригинального аудио Джарвиса");
+      console.error("Ошибка воспроизведения оригинального аудио Джарвиса");
     };
 
     audio.play().catch((error) => {
@@ -433,32 +433,51 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Используем тот же аудиофайл для ответа на "как дела" (можно заменить на специальный ответ)
-    const audio = new Audio(
-      "https://cdn.builder.io/o/assets%2Fddde4fe5b47946c2a3bbb80e3bca0073%2F54eb93b1452742b6a1cd87cc6104bb59?alt=media&token=fc948eba-bbcd-485c-b129-d5a0c25cfc74&apiKey=ddde4fe5b47946c2a3bbb80e3bca0073",
-    );
-    currentAudioRef.current = audio;
+    // Используем Web Speech API для синтеза ф��азы "у меня все в порядке сэр"
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance("у меня все в порядке сэр");
+      utterance.lang = 'ru-RU';
+      utterance.rate = 0.9; // Немного медленнее для более формального звучания
+      utterance.pitch = 0.8; // Чуть ниже для солидности
+      utterance.volume = 1;
 
-    const resetState = () => {
-      setIsSpeaking(false);
-      audioPlayingRef.current = false;
-      currentAudioRef.current = null;
-      setTimeout(() => {
-        commandCooldownRef.current = false;
-        lastCommandRef.current = "";
-      }, 2000);
-    };
+      const resetState = () => {
+        setIsSpeaking(false);
+        audioPlayingRef.current = false;
+        currentAudioRef.current = null;
+        setTimeout(() => {
+          commandCooldownRef.current = false;
+          lastCommandRef.current = "";
+        }, 1000);
+      };
 
-    audio.onended = resetState;
-    audio.onerror = () => {
-      resetState();
-      console.error("Ошибка воспроизведения ответа на 'как дела'");
-    };
+      utterance.onend = resetState;
+      utterance.onerror = () => {
+        resetState();
+        console.error("Ошибка синтеза речи");
+      };
 
-    audio.play().catch((error) => {
-      resetState();
-      console.error("Не удалось воспроизвести ответ на 'как дела':", error);
-    });
+      try {
+        speechSynthesis.speak(utterance);
+      } catch (error) {
+        resetState();
+        console.error("Не удалось синтезировать речь:", error);
+      }
+    } else {
+      // Fallback если Speech Synthesis недоступен
+      const resetState = () => {
+        setIsSpeaking(false);
+        audioPlayingRef.current = false;
+        currentAudioRef.current = null;
+        setTimeout(() => {
+          commandCooldownRef.current = false;
+          lastCommandRef.current = "";
+        }, 1000);
+      };
+
+      console.log("Джарвис: у меня все в порядке сэр");
+      setTimeout(resetState, 2000);
+    }
   };
 
   const processVoiceCommand = (command: string) => {
@@ -476,7 +495,7 @@ export default function VoiceControl({
       command.includes("выключись") ||
       command.includes("отключи микрофон") ||
       command.includes("стоп джарвис") ||
-      command.includes("выключ��")
+      command.includes("выключи")
     ) {
       // Принудительно выполняем команду отключения независимо от состояния
       speakShutdown();
@@ -506,7 +525,7 @@ export default function VoiceControl({
       command.includes("real jarvis") ||
       command.includes("movie jarvis") ||
       command.includes("джарвис из железного человека") ||
-      command.includes("гол��с джарвиса") ||
+      command.includes("голос джарвиса") ||
       command.includes("оригинал") ||
       command.includes("как в марвел")
     ) {
@@ -516,7 +535,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда утреннего приветствия "Доброе утр�� Джарвис"
+    // Команда утреннего приветствия "Добр��е утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис доброе утро") ||
@@ -563,7 +582,7 @@ export default function VoiceControl({
       command.includes("how are you jarvis") ||
       command.includes("jarvis how are you") ||
       command.includes("how are you") ||
-      command.includes("как твои дел��") ||
+      command.includes("как твои дела") ||
       command.includes("что нового джарвис")
     ) {
       // Дополнительная проверка, чтобы избежать повторных срабатываний
@@ -573,7 +592,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды благодарности
+    // ��оманды благодарности
     if (
       command.includes("спасибо") ||
       command.includes("благодарю") ||
@@ -714,7 +733,7 @@ export default function VoiceControl({
       searchTerms: string[],
       fallbackAction?: () => void,
     ) => {
-      // Поиск по заголовкам
+      // Поиск по ��аголовкам
       const headings = Array.from(
         document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
       );
@@ -832,7 +851,7 @@ export default function VoiceControl({
 
       // Поиск информации о компании
       if (
-        command.includes("компан") ||
+        command.includes("к��мпан") ||
         command.includes("о нас") ||
         command.includes("кто мы")
       ) {
@@ -992,7 +1011,7 @@ export default function VoiceControl({
     if (
       command.includes("открыть корзину") ||
       command.includes("показать корзину") ||
-      command.includes("что в корзин��")
+      command.includes("что в корзине")
     ) {
       // Находим и нажимаем ��нопку корзины
       const cartButton = document.querySelector(
@@ -1032,7 +1051,7 @@ export default function VoiceControl({
       command.includes("добавить макс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
-      command.includes("��жарвис план") ||
+      command.includes("джарвис план") ||
       command.includes("макс в ��орзину") ||
       command.includes("отправить макс")
     ) {
@@ -1120,7 +1139,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("прокрутить вверх") ||
+      command.includes("прокрутит�� вверх") ||
       command.includes("скролл вверх") ||
       command.includes("подняться вверх")
     ) {
