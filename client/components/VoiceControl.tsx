@@ -111,6 +111,154 @@ export default function VoiceControl({
       return;
     }
 
+    // Умный поиск контента по всему сайту
+    const searchAndNavigate = (searchTerms: string[], fallbackAction?: () => void) => {
+      // Поиск по заголовкам
+      const headings = Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+      for (const heading of headings) {
+        const headingText = heading.textContent?.toLowerCase() || '';
+        if (searchTerms.some(term => headingText.includes(term))) {
+          heading.scrollIntoView({ behavior: "smooth" });
+          return true;
+        }
+      }
+
+      // Поиск по data-section атрибутам
+      const sections = Array.from(document.querySelectorAll('[data-section]'));
+      for (const section of sections) {
+        const sectionName = section.getAttribute('data-section')?.toLowerCase() || '';
+        if (searchTerms.some(term => sectionName.includes(term))) {
+          section.scrollIntoView({ behavior: "smooth" });
+          return true;
+        }
+      }
+
+      // Поиск по id элементов
+      for (const term of searchTerms) {
+        const elementById = document.getElementById(term);
+        if (elementById) {
+          elementById.scrollIntoView({ behavior: "smooth" });
+          return true;
+        }
+      }
+
+      // Поиск по тексту элементов
+      const allElements = Array.from(document.querySelectorAll('p, div, span, li'));
+      for (const element of allElements) {
+        const elementText = element.textContent?.toLowerCase() || '';
+        if (searchTerms.some(term => elementText.includes(term)) && element.offsetParent !== null) {
+          element.scrollIntoView({ behavior: "smooth" });
+          return true;
+        }
+      }
+
+      // Если ничего не найдено, выполняем запасное действие
+      if (fallbackAction) {
+        fallbackAction();
+        return true;
+      }
+
+      return false;
+    };
+
+    // Универсальные команды поиска
+    if (
+      command.includes("покажи") ||
+      command.includes("найди") ||
+      command.includes("где") ||
+      command.includes("перейди к") ||
+      command.includes("спустись к")
+    ) {
+      let found = false;
+
+      // Поиск преимуществ
+      if (command.includes("преимущества") || command.includes("преимущество")) {
+        found = searchAndNavigate(["преимущества", "преимущество", "advantages"]);
+        if (found) {
+          speak("Показываю преимущества");
+          return;
+        }
+      }
+
+      // Поиск возможностей
+      if (command.includes("возможности") || command.includes("возможность") || command.includes("мощные")) {
+        found = searchAndNavigate(["возможности", "мощные", "features"]);
+        if (found) {
+          speak("Показываю возможности");
+          return;
+        }
+      }
+
+      // Поиск планов и тарифов
+      if (command.includes("план") || command.includes("тариф") || command.includes("цен") || command.includes("стоимость")) {
+        found = searchAndNavigate(["план", "тариф", "цен", "pricing"], () => {
+          const pricingSection = document.querySelector('[data-section="pricing"]');
+          if (pricingSection) {
+            pricingSection.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+        if (found) {
+          speak("Показываю планы и цены");
+          return;
+        }
+      }
+
+      // Поиск информации о компании
+      if (command.includes("компан") || command.includes("о нас") || command.includes("кто мы")) {
+        found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
+        if (found) {
+          speak("Показываю информацию о компании");
+          return;
+        }
+      }
+
+      // Поиск контактов
+      if (command.includes("контакт") || command.includes("связь") || command.includes("телефон") || command.includes("email")) {
+        found = searchAndNavigate(["контакт", "связь", "телефон", "email", "contact"]);
+        if (found) {
+          speak("Показываю контакты");
+          return;
+        }
+      }
+
+      // Поиск технологий
+      if (command.includes("технолог") || command.includes("webgl") || command.includes("ии") || command.includes("искусственный")) {
+        found = searchAndNavigate(["технолог", "webgl", "ии", "искусственный", "ai", "джарвис", "jarvis"]);
+        if (found) {
+          speak("Показываю технологии");
+          return;
+        }
+      }
+
+      // Поиск качества и премиум услуг
+      if (command.includes("качество") || command.includes("премиум") || command.includes("поддержка")) {
+        found = searchAndNavigate(["качество", "премиум", "поддержка", "quality", "support"]);
+        if (found) {
+          speak("Показываю информацию о качестве");
+          return;
+        }
+      }
+
+      // Поиск аналитики
+      if (command.includes("аналитик") || command.includes("статистик") || command.includes("данные")) {
+        found = searchAndNavigate(["аналитик", "статистик", "данные", "analytics"]);
+        if (found) {
+          speak("Показываю аналитику");
+          return;
+        }
+      }
+
+      // Если ничего специфичного не найдено, попробуем общий поиск
+      if (!found) {
+        const searchTerms = command.split(' ').filter(word => word.length > 2);
+        found = searchAndNavigate(searchTerms);
+        if (found) {
+          speak("Найдено");
+          return;
+        }
+      }
+    }
+
     // Команды навигации по страницам
     if (
       command.includes("перейти на главную") ||
@@ -298,7 +446,7 @@ export default function VoiceControl({
 
     if (
       command.includes("в конец страницы") ||
-      command.includes("в самы�� низ") ||
+      command.includes("в самый низ") ||
       command.includes("вниз страницы")
     ) {
       window.scrollTo(0, document.body.scrollHeight);
