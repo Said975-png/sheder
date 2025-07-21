@@ -419,14 +419,14 @@ export default function Index() {
                 <div className="circuit-pattern -top-10 right-16 opacity-25" style={{animationDelay: '1s'}}></div>
                 <div className="circuit-pattern -bottom-16 -left-10 opacity-20" style={{animationDelay: '2s'}}></div>
 
-                {/* Floating Code Elements */}
-                <div className="absolute -top-16 -right-8 p-3 bg-black/40 backdrop-blur-sm border border-green-500/30 rounded text-green-400 font-mono text-xs opacity-70 animate-pulse">
+                                {/* Floating Code Elements with Gravity */}
+                <div className="absolute -top-16 -right-8 p-3 bg-black/40 backdrop-blur-sm border border-green-500/30 rounded text-green-400 font-mono text-xs gravity-float">
                   {'{ AI: "active" }'}
                 </div>
-                <div className="absolute -bottom-12 -left-16 p-2 bg-black/40 backdrop-blur-sm border border-blue-500/30 rounded text-blue-400 font-mono text-xs opacity-60" style={{animationDelay: '1s'}}>
+                <div className="absolute -bottom-12 -left-16 p-2 bg-black/40 backdrop-blur-sm border border-blue-500/30 rounded text-blue-400 font-mono text-xs gravity-bounce" style={{animationDelay: '1s'}}>
                   neural.connect()
                 </div>
-                <div className="absolute top-20 -right-20 p-2 bg-black/40 backdrop-blur-sm border border-purple-500/30 rounded text-purple-400 font-mono text-xs opacity-50" style={{animationDelay: '2s'}}>
+                <div className="absolute top-20 -right-20 p-2 bg-black/40 backdrop-blur-sm border border-purple-500/30 rounded text-purple-400 font-mono text-xs gravity-drift" style={{animationDelay: '2s'}}>
                   ML.process()
                 </div>
               </div>
