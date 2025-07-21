@@ -417,7 +417,7 @@ export default function Index() {
               <div className="space-y-8">
                 <h1
                   className="text-5xl lg:text-7xl font-bold leading-tight hologram-text"
-                  data-text="Jarvis - искусственный интеллект для вашего бизнеса"
+                  data-text="Jarvis - искусственный интеллект для в��шего бизнеса"
                 >
                   Jarvis - искусственный интеллект для вашего ��изнеса
                 </h1>
@@ -510,7 +510,7 @@ export default function Index() {
               </div>
               <h3 className="text-lg font-semibold mb-2">AI Detection</h3>
               <p className="text-white/60">
-                Передовые алгоритмы для обнаруж��ния ботов и автоматических
+                Перед��вые алгоритмы для обнаруж��ния ботов и автоматических
                 систем
               </p>
             </div>
@@ -970,6 +970,13 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* Voice Control Component */}
+      <VoiceControl
+        onAddBasicPlan={handleAddBasicPlan}
+        onAddProPlan={handleAddProPlan}
+        onAddMaxPlan={handleAddMaxPlan}
+      />
     </div>
   );
 }
