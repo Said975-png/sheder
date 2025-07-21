@@ -44,6 +44,7 @@ export default function Index() {
   } = useCart();
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
+  const [show3D, setShow3D] = useState(false);
 
   // Запуск анимации при загрузке компонента
   useEffect(() => {
@@ -76,7 +77,7 @@ export default function Index() {
       name: "Pro сайт с ИИ",
       price: 3500000,
       description:
-        "ИИ: ��ат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация",
+        "ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация",
       category: "website-ai",
     });
   };
@@ -778,7 +779,7 @@ export default function Index() {
                       <div className="absolute top-0 left-0 w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
                     </div>
                     <h3 className="text-xl font-semibold theme-text mb-2">
-                      Max сай�� с Джарвисом
+                      Max ��ай�� с Джарвисом
                     </h3>
                     <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent mb-1">
                       5 000 000
