@@ -107,7 +107,7 @@ export default function VoiceControl({
                 try {
                   recognitionRef.current.start();
                 } catch (error) {
-                  console.log("Перезапуск после ошибки");
+                  console.log("Перезапуск после ошиб��и");
                 }
               }
             }, 500);
@@ -284,7 +284,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось восп��оизвести ��удио благодарности:", error);
+      console.error("Не удалось восп��оизвести аудио благодарности:", error);
     });
   };
 
@@ -413,7 +413,7 @@ export default function VoiceControl({
 
     audio.play().catch((error) => {
       resetState();
-      console.error("Не удалось воспроизвести оригинальное аудио Джарвиса:", error);
+      console.error("Не удалос�� воспроизвести оригинальное аудио Джарвиса:", error);
     });
   };
 
@@ -462,7 +462,7 @@ export default function VoiceControl({
          voice.name.toLowerCase().includes('thomas'))
       );
 
-      // Если не нашли подходящий английский, ищем русский мужской
+      // Если не нашли подходящий а��глийский, ищем русский мужской
       const russianMaleVoice = voices.find(voice =>
         voice.lang.includes('ru') &&
         (voice.name.toLowerCase().includes('male') ||
@@ -473,9 +473,8 @@ export default function VoiceControl({
 
       if (jarvisLikeVoice) {
         utterance.voice = jarvisLikeVoice;
-        utterance.lang = 'en-US';
-        // Для английского голоса переводим фразу
-        utterance.text = "Everything is in order, Sir";
+        utterance.lang = 'ru-RU';
+        utterance.pitch = 0.6; // Чуть ниже для лучшего звучания русского
       } else if (russianMaleVoice) {
         utterance.voice = russianMaleVoice;
         utterance.lang = 'ru-RU';
@@ -485,13 +484,10 @@ export default function VoiceControl({
         const anyVoice = voices.find(voice => voice.lang.includes('en') || voice.lang.includes('ru'));
         if (anyVoice) {
           utterance.voice = anyVoice;
-          if (anyVoice.lang.includes('en')) {
-            utterance.text = "Everything is in order, Sir";
-            utterance.lang = 'en-US';
-          }
+          utterance.lang = 'ru-RU'; // Всегда русский язык
         }
         utterance.pitch = 0.55; // Еще ниже для компенсации
-        utterance.rate = 0.7; // Еще медленнее для большей солидности
+        utterance.rate = 0.7; // Е��е медленнее для большей солидности
       }
 
       const resetState = () => {
@@ -624,7 +620,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Как дела Джарвис"
+    // Команда "Как дела Джар��ис"
     if (
       command.includes("как дела джарвис") ||
       command.includes("джарвис как дела") ||
@@ -935,7 +931,7 @@ export default function VoiceControl({
         }
       }
 
-      // П��иск технологий
+      // Поиск технологий
       if (
         command.includes("технолог") ||
         command.includes("webgl") ||
@@ -1104,7 +1100,7 @@ export default function VoiceControl({
       command.includes("добавить макс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
-      command.includes("джа��вис план") ||
+      command.includes("джарвис план") ||
       command.includes("макс в ��орзину") ||
       command.includes("отправить макс")
     ) {
@@ -1124,7 +1120,7 @@ export default function VoiceControl({
       command.includes("стоимость")
     ) {
       const found = searchAndNavigate(
-        ["план", "тариф", "цен", "pricing", "стоимость"],
+        ["пл��н", "тариф", "цен", "pricing", "стоимость"],
         () => {
           const pricingSection = document.querySelector(
             '[data-section="pricing"]',
