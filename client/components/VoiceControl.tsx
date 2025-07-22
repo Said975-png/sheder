@@ -43,7 +43,7 @@ export default function VoiceControl({
         recognitionRef.current.continuous = true;
         recognitionRef.current.interimResults = true;
         recognitionRef.current.lang = "ru-RU";
-        // Улучшенные настройки дл�� лучшего распознавания тихих команд
+        // Улучшенны�� настройки дл�� лучшего распознавания тихих команд
         recognitionRef.current.maxAlternatives = 3;
         // @ts-ignore - эти свойства могут не быть в типах, но р��ботают в браузерах
         if ("webkitSpeechRecognition" in window) {
@@ -72,7 +72,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяем, что команда от��ичается от предыдущей и не пустая
+            // Проверяе��, что команда от��ичается от предыдущей и не пустая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -104,21 +104,31 @@ export default function VoiceControl({
         };
 
         recognitionRef.current.onerror = (event) => {
-          console.error("Speech recognition error:", event.error);
-          // Не отключаем полностью при ошибках, кроме кр��тических
+          console.log("Speech recognition event:", event.error);
+
+          // Критические ошибки - полностью останавливаем
           if (event.error === "network" || event.error === "not-allowed") {
+            console.error("❌ Критическая ошибка распознавания:", event.error);
             setIsListening(false);
-          } else {
-            // Перезапускаем через короткое время для других ошибок
+            onListeningChange?.(false, "");
+          }
+          // Некритические ошибки - игнорируем и продолжаем
+          else if (event.error === "no-speech" || event.error === "audio-capture" || event.error === "aborted") {
+            console.log("ℹ️ Некритическая ошибка распознавания:", event.error, "- продолжаем слушать");
+            // Не делаем ничего, система автоматически перезапустится через onend
+          }
+          // Другие ошибки - перезапускаем через короткое время
+          else {
+            console.warn("⚠️ Неожиданная ошибка распознавания:", event.error, "- перезапускаем");
             setTimeout(() => {
               if (isListening && recognitionRef.current) {
                 try {
                   recognitionRef.current.start();
                 } catch (error) {
-                  console.log("Перезапуск после ошиб��и");
+                  console.log("Перезапуск после ошибки");
                 }
               }
-            }, 500);
+            }, 1000);
           }
         };
       }
@@ -557,7 +567,7 @@ export default function VoiceControl({
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
-      // Поиск наиболее подходящего голоса для имитации Jarvis
+      // Поиск наиболе�� подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: голоса, похожие на британский/американский мужской
@@ -840,7 +850,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис как дела" с ответом "Все системы ф��нкционируют нормально"
+    // Команд�� "Джарвис как дела" с ответом "Все системы ф��нкционируют нормально"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
@@ -906,7 +916,7 @@ export default function VoiceControl({
     // Команда диагностики системы
     if (
       command.includes("диагностик") ||
-      command.includes("проведи") ||
+      command.includes("прове��и") ||
       command.includes("запусти") ||
       command.includes("проверь систему") ||
       command.includes("тест")
@@ -984,7 +994,7 @@ export default function VoiceControl({
       "услуги",
       "компания",
       "контакты",
-      "поддержка",
+      "п��ддержка",
       "технологи��",
       "разработка",
       "сайт",
@@ -1407,7 +1417,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("Пока���ываю планы");
+        speak("Пока���ываю п��аны");
       }
       return;
     }
