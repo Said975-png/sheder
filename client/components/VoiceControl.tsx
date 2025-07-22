@@ -58,7 +58,7 @@ export default function VoiceControl({
             }
           }
 
-          // Показываем промежуточный результат
+          // Показыва��м промежуточный результат
           if (interimTranscript) {
             setTranscript(interimTranscript);
           }
@@ -275,7 +275,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Ошибка во��произведения аудио благодарности");
+      console.error("Ошибка во����произведения аудио благодарности");
     };
 
     audio.play().catch((error) => {
@@ -491,10 +491,7 @@ export default function VoiceControl({
   };
 
   const speakSystemsOperational = async () => {
-    // Множественная защита от повторного воспроизведения
-    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
-      return;
-    }
+    await speakWithElevenLabs("Все системы работают сэр");
 
     // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
@@ -512,7 +509,7 @@ export default function VoiceControl({
         "Все системы работают сэр",
       );
 
-      // Настройки максимально приближенные к ElevenLabs Jarvis
+      // Настройки максимально при��лиженные к ElevenLabs Jarvis
       // Мужской голос ИИ с глубоким, уверенным тоном, как голос из научной фантастики
       // Говорит по-русски чётко и без акцента. Подходит для ассистента наподобие Джарвиса
       // Стиль — вежливый, спокойный, слегка роботизированный, интеллектуаль��ый
@@ -851,7 +848,7 @@ export default function VoiceControl({
 
     // Команда "Как дела" (общая, без имени Джарвис)
     if (
-      command.includes("как дела") ||
+      command.includes("как де��а") ||
       command.includes("как поживаешь джарвис") ||
       command.includes("джарвис как поживаешь") ||
       command.includes("как ты джарвис") ||
@@ -1184,7 +1181,7 @@ export default function VoiceControl({
           "jarvis",
         ]);
         if (found) {
-          speak("Показываю технологии");
+          speak("Пока��ываю технологии");
           return;
         }
       }
@@ -1317,7 +1314,7 @@ export default function VoiceControl({
       command.includes("отправить базовый")
     ) {
       onAddBasicPlan();
-      speak("Базовый план д��бавлен");
+      speak("Ба��овый план д��бавлен");
       return;
     }
 
@@ -1353,7 +1350,7 @@ export default function VoiceControl({
       command.includes("спуститься к планам") ||
       command.includes("тарифы") ||
       command.includes("цены") ||
-      command.includes("стоимость")
+      command.includes("стои��ость")
     ) {
       const found = searchAndNavigate(
         ["пл��н", "тариф", "цен", "pricing", "стоимость"],
