@@ -57,14 +57,39 @@ function Model({
   );
 }
 
-function LoadingFallback() {
+// 3D Loading fallback для использования внутри Canvas
+function ThreeLoadingFallback() {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x += 0.01;
+      meshRef.current.rotation.y += 0.01;
+    }
+  });
+
   return (
-    <div className="w-full h-full flex items-center justify-center">
+    <mesh ref={meshRef}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial
+        color="#8b45ff"
+        emissive="#4c1d95"
+        emissiveIntensity={0.2}
+        wireframe
+      />
+    </mesh>
+  );
+}
+
+// HTML Loading fallback для использования вне Canvas
+function HTMLLoadingFallback() {
+  return (
+    <div className="w-full h-full flex items-center justify-center absolute inset-0 bg-black/50 backdrop-blur-sm">
       <div className="text-center">
-        <div className="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4 animate-pulse">
+        <div className="w-16 h-16 bg-cyan-600 rounded-lg flex items-center justify-center mx-auto mb-4 animate-pulse">
           <div className="w-8 h-8 bg-white rounded opacity-80"></div>
         </div>
-        <p className="text-purple-200 text-sm">Loading 3D Model...</p>
+        <p className="text-cyan-200 text-sm">Loading 3D Model...</p>
       </div>
     </div>
   );
