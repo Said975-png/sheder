@@ -20,8 +20,6 @@ export default function ConversationPanel({
   onAddMaxPlan,
 }: ConversationPanelProps) {
   const [animationState, setAnimationState] = useState<'hidden' | 'entering' | 'visible' | 'exiting'>('hidden');
-  const [shouldStopVoice, setShouldStopVoice] = useState(false);
-
   useEffect(() => {
     if (isOpen) {
       setAnimationState('entering');
@@ -37,10 +35,6 @@ export default function ConversationPanel({
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
-
-  const handleVoiceListeningChange = (isListening: boolean) => {
-    // Теперь панель закрывается только по крестику, не автоматически при отключении микрофона
-  };
 
   if (animationState === 'hidden') {
     return null;
