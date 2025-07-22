@@ -21,19 +21,12 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
       body: JSON.stringify({
         text: `[RU] ${text}`,
         model_id: "eleven_multilingual_v2",
-        language_code: "ru",
         voice_settings: {
-          stability: 0.3,
-          similarity_boost: 0.95,
+          stability: 0.2,
+          similarity_boost: 0.9,
           style: 1.0,
           use_speaker_boost: true
-        },
-        pronunciation_dictionary_locators: [
-          {
-            pronunciation_dictionary_id: "ru",
-            version_id: "latest"
-          }
-        ]
+        }
       })
     });
 
