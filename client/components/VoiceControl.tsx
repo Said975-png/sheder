@@ -65,6 +65,7 @@ export default function VoiceControl({
           // Показываем пром��жуточный результат
           if (interimTranscript) {
             setTranscript(interimTranscript);
+            onListeningChange?.(true, interimTranscript);
           }
 
           if (finalTranscript && !commandCooldownRef.current) {
@@ -384,7 +385,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Останавливаем ��юбое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -528,7 +529,7 @@ export default function VoiceControl({
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
-      utterance.volume = 0.95; // Четкая, но не резкая громкость
+      utterance.volume = 0.95; // Четкая, но не резкая гр��мкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
@@ -797,7 +798,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверяем, содержит л���� команда значимые слова
+    // Проверя��м, содержит л���� команда значимые слова
     const meaningfulWords = [
       "перейти",
       "войти",
@@ -1299,7 +1300,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Прокрутка страницы
+    // Про��рутка страницы
     if (
       command.includes("прокрутить вниз") ||
       command.includes("скролл вниз") ||
