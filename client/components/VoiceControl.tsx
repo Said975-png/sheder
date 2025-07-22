@@ -43,7 +43,7 @@ export default function VoiceControl({
         recognitionRef.current.continuous = true;
         recognitionRef.current.interimResults = true;
         recognitionRef.current.lang = "ru-RU";
-        // Улучшенные настройки для лучшего распознавания тихих команд
+        // Улучшенные настройки дл�� лучшего распознавания тихих команд
         recognitionRef.current.maxAlternatives = 3;
         // @ts-ignore - эти свойства могут не быть в типах, но р��ботают в браузерах
         if ("webkitSpeechRecognition" in window) {
@@ -72,7 +72,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяем, что команда отличается от предыдущей и не пустая
+            // Проверяем, что команда от��ичается от предыдущей и не пустая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -105,7 +105,7 @@ export default function VoiceControl({
 
         recognitionRef.current.onerror = (event) => {
           console.error("Speech recognition error:", event.error);
-          // Не отключаем полностью при ошибках, кроме критических
+          // Не отключаем полностью при ошибках, кроме кр��тических
           if (event.error === "network" || event.error === "not-allowed") {
             setIsListening(false);
           } else {
@@ -780,7 +780,7 @@ export default function VoiceControl({
     if (
       command.includes("привет джарвис") ||
       command.includes("джарвис привет") ||
-      command.includes("здравствуй джарвис") ||
+      command.includes("здравствуй д��арвис") ||
       command.includes("джарвис здравствуй") ||
       command.includes("хай джарвис") ||
       command.includes("hello jarvis") ||
@@ -859,6 +859,27 @@ export default function VoiceControl({
       command.includes("чудесно")
     ) {
       speakThankYou();
+      return;
+    }
+
+    // Команда диагностики системы
+    if (
+      command.includes("проведи диагностику системы") ||
+      command.includes("диагностика системы") ||
+      command.includes("запусти диагностику") ||
+      command.includes("джарвис диагностика") ||
+      command.includes("системная диагностика") ||
+      command.includes("проверь систему") ||
+      command.includes("диагностируй систему")
+    ) {
+      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      if (
+        !isSpeaking &&
+        !commandCooldownRef.current &&
+        !audioPlayingRef.current
+      ) {
+        speakSystemDiagnostics();
+      }
       return;
     }
 
@@ -1109,7 +1130,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
         if (found) {
-          speak("Показ��ваю информацию о компании");
+          speak("Показ��ваю инфор��ацию о компании");
           return;
         }
       }
@@ -1243,7 +1264,7 @@ export default function VoiceControl({
       command.includes("открыть профиль")
     ) {
       navigate("/profile");
-      speak("Открываю личный кабинет");
+      speak("Открываю ли��ный кабинет");
       return;
     }
 
@@ -1289,7 +1310,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("добавить про") ||
+      command.includes("добавить ��ро") ||
       command.includes("про план") ||
       command.includes("про в корзину") ||
       command.includes("отправить про")
@@ -1361,7 +1382,7 @@ export default function VoiceControl({
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
-      command.includes("перейти к возмо��ностям") ||
+      command.includes("перей��и к возмо��ностям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
