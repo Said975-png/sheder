@@ -24,6 +24,7 @@ interface JarvisInterfaceProps {
   onAddProPlan: () => void;
   onAddMaxPlan: () => void;
   inNavbar?: boolean;
+  onVoiceListeningChange?: (isListening: boolean) => void;
 }
 
 export default function JarvisInterface({
