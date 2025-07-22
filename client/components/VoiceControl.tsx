@@ -86,7 +86,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяе��, что команда от��ичается от предыдущей и не пустая
+            // Проверяе���, что команда от��ичается от предыдущей и не пустая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -112,7 +112,7 @@ export default function VoiceControl({
                   recognitionRef.current.start();
                   console.log("✅ Распознавание перезапущено");
                 } catch (error) {
-                  console.log("ℹ️ Распознавание ��же запущено или недоступно:", error);
+                  console.log("ℹ️ Распознавание уже запущено или недоступно:", error);
                 }
               }
             }, 100);
@@ -134,8 +134,28 @@ export default function VoiceControl({
           }
           // Некритические ошибки - игнорируем и продолжаем
           else if (event.error === "no-speech" || event.error === "audio-capture" || event.error === "aborted") {
-            console.log("ℹ️ Некритическая ошибка распознавания:", event.error, "- продолжаем слушать");
-            // Не делаем ничего, система автоматически перезапу��тится через onend
+            if (event.error === "no-speech") {
+              setNoSpeechCount(prev => prev + 1);
+              console.log(`ℹ️ No-speech ошибка #${noSpeechCount + 1} - продолжаем слушать`);
+
+              // Если слишком много no-speech ошибок подряд, делаем небольшую паузу
+              if (noSpeechCount >= 3) {
+                console.log("⏸️ Много no-speech ошибок, делаем паузу 2 сек...");
+                setTimeout(() => {
+                  setNoSpeechCount(0);
+                  if (isListening && recognitionRef.current) {
+                    try {
+                      recognitionRef.current.start();
+                    } catch (error) {
+                      console.log("Перезапуск после паузы");
+                    }
+                  }
+                }, 2000);
+              }
+            } else {
+              console.log("ℹ️ Некритическая ошибка распознавания:", event.error, "- продолжаем слушать");
+            }
+            // Система автоматически перезапустится через onend
           }
           // Другие ошибки - перезапускаем через короткое время
           else {
@@ -203,7 +223,7 @@ export default function VoiceControl({
 
     audio.onended = () => {
       setIsSpeaking(false);
-      // Сбрасываем кулдаун через небольшу�� задержку
+      // Сбрасываем кулдаун через небольшую задержку
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
@@ -252,7 +272,7 @@ export default function VoiceControl({
       audioPlayingRef.current = false;
       lastCommandRef.current = "";
       currentAudioRef.current = null;
-      // После окончания аудио отключаем микрофон
+      // После ок��нчания аудио отключаем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
@@ -561,7 +581,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем ��юбое текущее воспрои��ведение
+    // Ос��анавливаем ��юбое текущее воспрои��веден��е
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -628,7 +648,7 @@ export default function VoiceControl({
         );
         if (anyVoice) {
           utterance.voice = anyVoice;
-          utterance.lang = "ru-RU"; // Всег��а русский язык
+          utterance.lang = "ru-RU"; // Всегда русский язык
         }
         utterance.pitch = 0.55; // Еще ниже для компенсации
         utterance.rate = 0.7; // Е����е медленнее для большей солидности
@@ -668,7 +688,7 @@ export default function VoiceControl({
         }, 1000);
       };
 
-      console.log("Джарвис: у меня ��се в порядке сэр");
+      console.log("Джарвис: у меня все в порядке сэр");
       setTimeout(resetState, 2000);
     }
   };
@@ -826,7 +846,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда утре��него приветствия "Доброе утр�� Джарвис"
+    // Команда утреннего приветствия "Доброе утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис до��рое утро") ||
@@ -896,7 +916,7 @@ export default function VoiceControl({
       command.includes("how are you jarvis") ||
       command.includes("jarvis how are you") ||
       command.includes("how are you") ||
-      command.includes("как твои дела") ||
+      command.includes("как ��вои дела") ||
       command.includes("что ново��о джарвис")
     ) {
       // Дополнительная про��ерка, чтобы избежать п��вторных с��абатываний
@@ -921,7 +941,7 @@ export default function VoiceControl({
       command.includes("thanks") ||
       command.includes("мерси") ||
       command.includes("рахмат") ||
-      command.includes("ра��мет") ||
+      command.includes("рахмет") ||
       command.includes("хорошо") ||
       command.includes("отлично") ||
       command.includes("замечательно") ||
@@ -933,7 +953,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда диагностики системы
+    // Команда диагностики с��стемы
     if (
       command.includes("диагностик") ||
       command.includes("прове��и") ||
@@ -1188,7 +1208,7 @@ export default function VoiceControl({
         command.includes("план") ||
         command.includes("тариф") ||
         command.includes("цен") ||
-        command.includes("стоим��сть")
+        command.includes("сто��м��сть")
       ) {
         found = searchAndNavigate(["план", "тариф", "цен", "pricing"], () => {
           const pricingSection = document.querySelector(
@@ -1227,7 +1247,7 @@ export default function VoiceControl({
         found = searchAndNavigate([
           "контакт",
           "связь",
-          "телефон",
+          "телефо��",
           "email",
           "contact",
         ]);
@@ -1261,7 +1281,7 @@ export default function VoiceControl({
 
       // Поиск качества и премиум услуг
       if (
-        command.includes("ка��ество") ||
+        command.includes("качество") ||
         command.includes("премиум") ||
         command.includes("поддержка")
       ) {
@@ -1384,7 +1404,7 @@ export default function VoiceControl({
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
       command.includes("базовый в корзину") ||
-      command.includes("отправить базов��й")
+      command.includes("отправить базовый")
     ) {
       onAddBasicPlan();
       speak("Базовый план д��бавлен");
@@ -1398,7 +1418,7 @@ export default function VoiceControl({
       command.includes("отправить про")
     ) {
       onAddProPlan();
-      speak("Про план д��бавлен");
+      speak("��ро план д��бавлен");
       return;
     }
 
@@ -1461,14 +1481,14 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к возмо��ностям") ||
+      command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
       command.includes("перей���и к возмо��ностям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
-        ["возможности", "мощные", "features"],
+        ["возможности", "мощны��", "features"],
         () => {
           const featuresSection = document.getElementById("features");
           if (featuresSection) {
@@ -1541,7 +1561,7 @@ export default function VoiceControl({
           setIsListening(true);
           onListeningChange?.(true, "");
         } catch (error) {
-          console.log("Распозн��вание уже зап��щено или недо��ту��но");
+          console.log("Распознавание уже зап��щено или недо��ту��но");
         }
       }
     }
