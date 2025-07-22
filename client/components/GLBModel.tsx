@@ -1,7 +1,6 @@
 import React, { Suspense, useMemo, useRef } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import { Vector2 } from "three";
 
 interface GLBModelProps {
   url: string;
