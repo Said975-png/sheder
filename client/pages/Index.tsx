@@ -122,7 +122,7 @@ export default function Index() {
           {/* Home Button */}
           <Button
             variant="ghost"
-            className="text-sm px-3 py-1.5 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+            className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             <span className="stark-text-glow">Home</span>
