@@ -321,7 +321,7 @@ export default function Index() {
               <div className="w-16 h-16 bg-purple-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-600/30 transition-colors">
                 <TrendingUp className="w-8 h-8 text-purple-400" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Efficiency</h3>
+              <h3 className="text-xl font-bold mb-4 text-white">Efficiency</h3>
               <p className="text-white/70">Faster, cost-effective processes</p>
             </div>
           </div>
