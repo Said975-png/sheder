@@ -8,8 +8,8 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
   }
 
   try {
-    // Заглушка для демонстрации - в реальном проекте добавьте свой API ключ ElevenLabs
-    const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY || "sk_demo_key_here";
+    // Используем ваш реальный API ключ ElevenLabs
+    const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY || "sk_e2c893aaca006de74fb3fc5bc4e605115e2e1b0dfc2f210f";
     
     const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voice_id}`, {
       method: 'POST',
