@@ -180,6 +180,7 @@ export default function Index() {
             onAddProPlan={handleAddIntermediatePlan}
             onAddMaxPlan={handleAddAdvancedPlan}
             inNavbar={true}
+            onListeningChange={handleListeningChange}
           />
 
           {/* Cart Dropdown */}
