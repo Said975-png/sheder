@@ -203,7 +203,7 @@ export default function VoiceControl({
       }
       setIsListening(false);
       setTranscript("");
-      onListeningChange?.(false);
+      onListeningChange?.(false, "");
     };
 
     audio.onended = shutdownComplete;
@@ -561,7 +561,7 @@ export default function VoiceControl({
       if (jarvisLikeVoice) {
         utterance.voice = jarvisLikeVoice;
         utterance.lang = "ru-RU";
-        utterance.pitch = 0.6; // Чуть ниже для лучшего звучания русского
+        utterance.pitch = 0.6; // ��уть ниже для лучшего звучания русского
       } else if (russianMaleVoice) {
         utterance.voice = russianMaleVoice;
         utterance.lang = "ru-RU";
@@ -592,7 +592,7 @@ export default function VoiceControl({
       utterance.onend = resetState;
       utterance.onerror = () => {
         resetState();
-        console.error("Ошибка синтеза речи");
+        console.error("Ошибка ��интеза речи");
       };
 
       try {
@@ -725,9 +725,9 @@ export default function VoiceControl({
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
-      (command.includes("джарвис") && command.includes("как де��а"))
+      (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнительная провер���а, ��тобы избежать повторных срабат��ваний
+      // Дополнит��льная провер���а, ��тобы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -761,7 +761,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды благод����рности
+    // Команды благод��рности
     if (
       command.includes("спасибо") ||
       command.includes("благодарю") ||
@@ -850,7 +850,7 @@ export default function VoiceControl({
       "аналитика",
       "пр��миум",
       "невероятное",
-      "го��овы",
+      "готовы",
       "создать",
       "бизнес",
       "помощник",
@@ -902,7 +902,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Умный поиск контента по все��у сайту
+    // Умный поиск контента по всему сайту
     const searchAndNavigate = (
       searchTerms: string[],
       fallbackAction?: () => void,
@@ -939,7 +939,7 @@ export default function VoiceControl({
         }
       }
 
-      // Пои��к по тексту элементов
+      // Пои��к по тексту элемен��ов
       const allElements = Array.from(
         document.querySelectorAll("p, div, span, li"),
       );
@@ -980,7 +980,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate([
           "преимущества",
-          "преимущество",
+          "преимущес��во",
           "advantages",
         ]);
         if (found) {
@@ -1018,7 +1018,7 @@ export default function VoiceControl({
           }
         });
         if (found) {
-          speak("Показыв��ю планы и цены");
+          speak("Показываю планы и цены");
           return;
         }
       }
@@ -1151,7 +1151,7 @@ export default function VoiceControl({
 
     if (
       command.includes("рег��страция") ||
-      command.includes("зарегистри��оваться")
+      command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
       speak("Переходим к регистрации");
@@ -1230,7 +1230,7 @@ export default function VoiceControl({
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальный пл��н добавлен");
+      speak("Максимальный пл���н добавлен");
       return;
     }
 
@@ -1265,7 +1265,7 @@ export default function VoiceControl({
       command.includes("к пре��муществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("перейти к преимуществам") ||
+      command.includes("перейти к преимущест��ам") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
