@@ -152,7 +152,7 @@ export default function VoiceControl({
         };
 
         recognitionRef.current.onend = () => {
-          console.log("🎤 Р��спознавание завершилось, isListening:", isListening, "isSpeaking:", isSpeaking);
+          console.log("🎤 Р���спознавание завершилось, isListening:", isListening, "isSpeaking:", isSpeaking);
 
           // Автоматически перезапускаем распознавание, если мы все еще слушаем
           if (isListening && !isSpeaking) {
@@ -198,7 +198,7 @@ export default function VoiceControl({
                     try {
                       recognitionRef.current.start();
                     } catch (error) {
-                      console.log("Перезапуск после паузы");
+                      console.log("Перезапус�� после паузы");
                     }
                   }
                 }, 2000);
@@ -278,11 +278,13 @@ export default function VoiceControl({
 
     audio.onended = () => {
       setIsSpeaking(false);
-      // Сбрасыва���� кулда��н через небольшую задержку
+      // Сбрасываем кулдаун через более длительную задержку после аудио
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
-      }, 1000);
+        setTranscript(""); // Очищаем транскрипт
+        console.log("🧹 Полный сброс состояния после аудио");
+      }, 3000); // Увеличиваем до 3 секунд
     };
 
     audio.onerror = () => {
@@ -787,7 +789,7 @@ export default function VoiceControl({
     audioPlayingRef.current = true;
 
     // Воспроизводим первое аудио
-    console.log("🎵 Создаем первое аудио для диагнос��ики");
+    console.log("��� Создаем первое аудио для диагнос��ики");
     const firstAudio = new Audio(
       "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76"
     );
@@ -845,7 +847,7 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("Обрабо��ка ко��анды:", command);
 
-    // Фильтруем пустые или слишком короткие команды
+    // Фильт��уем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -1026,7 +1028,7 @@ export default function VoiceControl({
       command.includes("проверь систему") ||
       command.includes("тест")
     ) {
-      console.log("🎯 Распознана команда диагностики:", command);
+      console.log("🎯 Распознана ко��анда диагностики:", command);
 
       // Дополнительная проверка, чтобы избежать повторных срабатываний
       if (
@@ -1104,7 +1106,7 @@ export default function VoiceControl({
       "контакты",
       "п��ддержка",
       "технологи��",
-      "разработка",
+      "разр��ботка",
       "сайт",
       "интеллект",
       "ии",
