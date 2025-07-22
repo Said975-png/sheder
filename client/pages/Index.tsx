@@ -294,7 +294,7 @@ export default function Index() {
               <div className="w-16 h-16 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600/30 transition-colors">
                 <Layers className="w-8 h-8 text-blue-400" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Decentralization</h3>
+              <h3 className="text-xl font-bold mb-4 text-white">Decentralization</h3>
               <p className="text-white/70">No single entity controls the system</p>
             </div>
 
