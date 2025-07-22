@@ -570,7 +570,7 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
-      utterance.pitch = 0.7; // Средне-низкий тон для авторитетности
+      utterance.pitch = 0.7; // Средне-низкий тон для авторитет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
@@ -668,7 +668,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда отключения (приоритетная)
+    // Команда о��ключения (приоритетная)
     if (
       command.includes("отключись") ||
       command.includes("выключись") ||
@@ -703,7 +703,7 @@ export default function VoiceControl({
       command.includes("authentic jarvis") ||
       command.includes("real jarvis") ||
       command.includes("movie jarvis") ||
-      command.includes("джарвис из железного человека") ||
+      command.includes("джарвис из железного ч��ловека") ||
       command.includes("голос джарвиса") ||
       command.includes("оригинал") ||
       command.includes("как в марвел")
@@ -739,7 +739,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приветствия "Привет Джарвис"
+    // Команда приветствия "Привет Дж��рвис"
     if (
       command.includes("привет джарвис") ||
       command.includes("джарвис привет") ||
@@ -762,10 +762,25 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Как дела Джар��ис"
+    // Команда "Джарвис как дела" с ответом "Все системы работают сэр"
     if (
-      command.includes("как дела джарвис") ||
       command.includes("джарвис как дела") ||
+      command.includes("как дела джарвис") ||
+      (command.includes("джарвис") && command.includes("как дела"))
+    ) {
+      // Дополнительная проверка, чтобы избежать повторных срабат��ваний
+      if (
+        !isSpeaking &&
+        !commandCooldownRef.current &&
+        !audioPlayingRef.current
+      ) {
+        speakSystemsOperational();
+      }
+      return;
+    }
+
+    // Команда "Как дела" (общая, без имени Джарвис)
+    if (
       command.includes("как дела") ||
       command.includes("как поживаешь джарвис") ||
       command.includes("джарвис как поживаешь") ||
@@ -791,7 +806,7 @@ export default function VoiceControl({
     if (
       command.includes("спасибо") ||
       command.includes("благодарю") ||
-      command.includes("благодарность") ||
+      command.includes("благодарно��ть") ||
       command.includes("спс") ||
       command.includes("сенк ю") ||
       command.includes("thank you") ||
@@ -825,7 +840,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверяем, содержит ли команда значимые слова
+    // Проверяем, содержит л�� команда значимые слова
     const meaningfulWords = [
       "перейти",
       "войти",
@@ -1044,7 +1059,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск информации о компании
+      // Поиск инфор��ации о компании
       if (
         command.includes("компан") ||
         command.includes("о нас") ||
@@ -1336,7 +1351,7 @@ export default function VoiceControl({
     if (
       command.includes("прокрутить вверх") ||
       command.includes("скролл вверх") ||
-      command.includes("подняться вверх")
+      command.includes("поднятьс�� вверх")
     ) {
       window.scrollBy(0, -500);
       speak("Прокручиваю вверх");
@@ -1379,7 +1394,7 @@ export default function VoiceControl({
           recognitionRef.current.start();
           setIsListening(true);
         } catch (error) {
-          console.log("Распознавание уже зап��щено или недоступно");
+          console.log("Распознавание уже зап��щено или недосту��но");
         }
       }
     }
