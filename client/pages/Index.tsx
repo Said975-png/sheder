@@ -65,17 +65,19 @@ export default function Index() {
       id: "beginner-plan",
       name: "Beginner Plan",
       price: 199,
-      description: "Access to basic blockchain guides and fundamental knowledge",
+      description:
+        "Access to basic blockchain guides and fundamental knowledge",
       category: "blockchain-basic",
     });
   };
 
   const handleAddIntermediatePlan = () => {
     addItem({
-      id: "intermediate-plan", 
+      id: "intermediate-plan",
       name: "Intermediate Plan",
       price: 349,
-      description: "Everything in Beginner + Advanced blockchain insights and tools",
+      description:
+        "Everything in Beginner + Advanced blockchain insights and tools",
       category: "blockchain-intermediate",
     });
   };
@@ -83,9 +85,10 @@ export default function Index() {
   const handleAddAdvancedPlan = () => {
     addItem({
       id: "advanced-plan",
-      name: "Advanced Plan", 
+      name: "Advanced Plan",
       price: 495,
-      description: "Everything in Intermediate + Professional tools and priority support",
+      description:
+        "Everything in Intermediate + Professional tools and priority support",
       category: "blockchain-advanced",
     });
   };
@@ -123,10 +126,30 @@ export default function Index() {
 
             {/* Navigation Links */}
             <div className="hidden md:flex items-center space-x-8">
-              <a href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors">Home</a>
-              <a href="#why-blockchain" className="text-white/70 hover:text-white transition-colors">Why Blockchain</a>
-              <a href="#pricing" className="text-white/70 hover:text-white transition-colors">Pricing</a>
-              <a href="#how-it-works" className="text-white/70 hover:text-white transition-colors">How it Works</a>
+              <a
+                href="#"
+                className="text-cyan-400 hover:text-cyan-300 transition-colors"
+              >
+                Home
+              </a>
+              <a
+                href="#why-blockchain"
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                Why Blockchain
+              </a>
+              <a
+                href="#pricing"
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                Pricing
+              </a>
+              <a
+                href="#how-it-works"
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                How it Works
+              </a>
             </div>
 
             {/* Right Side */}
@@ -134,7 +157,10 @@ export default function Index() {
               {/* Cart Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative p-2 rounded-full hover:bg-white/10">
+                  <Button
+                    variant="ghost"
+                    className="relative p-2 rounded-full hover:bg-white/10"
+                  >
                     <ShoppingCart className="w-5 h-5" />
                     {getTotalItems() > 0 && (
                       <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center">
@@ -143,20 +169,34 @@ export default function Index() {
                     )}
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-80 bg-black border-gray-700 mt-2">
+                <DropdownMenuContent
+                  align="end"
+                  className="w-80 bg-black border-gray-700 mt-2"
+                >
                   <div className="px-3 py-2">
                     <h3 className="font-semibold text-white mb-2">Cart</h3>
                     {items.length === 0 ? (
-                      <p className="text-sm text-white/60 text-center py-4">Cart is empty</p>
+                      <p className="text-sm text-white/60 text-center py-4">
+                        Cart is empty
+                      </p>
                     ) : (
                       <>
                         <div className="space-y-2 max-h-60 overflow-y-auto">
                           {items.map((item) => (
-                            <div key={item.id} className="flex items-start justify-between p-2 bg-gray-800 rounded-lg">
+                            <div
+                              key={item.id}
+                              className="flex items-start justify-between p-2 bg-gray-800 rounded-lg"
+                            >
                               <div className="flex-1">
-                                <h4 className="font-medium text-sm text-white">{item.name}</h4>
-                                <p className="text-xs text-white/60 mt-1">{item.description.substring(0, 60)}...</p>
-                                <p className="text-sm font-semibold text-white mt-1">${item.price}</p>
+                                <h4 className="font-medium text-sm text-white">
+                                  {item.name}
+                                </h4>
+                                <p className="text-xs text-white/60 mt-1">
+                                  {item.description.substring(0, 60)}...
+                                </p>
+                                <p className="text-sm font-semibold text-white mt-1">
+                                  ${item.price}
+                                </p>
                               </div>
                               <Button
                                 variant="ghost"
@@ -171,14 +211,27 @@ export default function Index() {
                         </div>
                         <DropdownMenuSeparator className="bg-gray-700 my-3" />
                         <div className="flex justify-between items-center mb-3">
-                          <span className="font-semibold text-white">Total:</span>
-                          <span className="font-bold text-white">${getTotalPrice()}</span>
+                          <span className="font-semibold text-white">
+                            Total:
+                          </span>
+                          <span className="font-bold text-white">
+                            ${getTotalPrice()}
+                          </span>
                         </div>
                         <div className="flex space-x-2">
-                          <Button onClick={clearCart} variant="outline" size="sm" className="flex-1">
+                          <Button
+                            onClick={clearCart}
+                            variant="outline"
+                            size="sm"
+                            className="flex-1"
+                          >
                             Clear
                           </Button>
-                          <Button onClick={handleProceedToOrder} size="sm" className="flex-1 bg-blue-600 hover:bg-blue-700">
+                          <Button
+                            onClick={handleProceedToOrder}
+                            size="sm"
+                            className="flex-1 bg-blue-600 hover:bg-blue-700"
+                          >
                             Checkout
                           </Button>
                         </div>
@@ -193,29 +246,48 @@ export default function Index() {
               {isAuthenticated && currentUser ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="flex items-center space-x-2 p-2 rounded-full hover:bg-white/10">
+                    <Button
+                      variant="ghost"
+                      className="flex items-center space-x-2 p-2 rounded-full hover:bg-white/10"
+                    >
                       <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                         <User className="w-4 h-4" />
                       </div>
-                      <span className="hidden sm:block text-sm">{currentUser.name}</span>
+                      <span className="hidden sm:block text-sm">
+                        {currentUser.name}
+                      </span>
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 bg-black border-gray-700 mt-2">
+                  <DropdownMenuContent
+                    align="end"
+                    className="w-56 bg-black border-gray-700 mt-2"
+                  >
                     <div className="px-2 py-1.5 text-sm text-white/60">
-                      <div className="font-medium text-white">{currentUser.name}</div>
+                      <div className="font-medium text-white">
+                        {currentUser.name}
+                      </div>
                       <div className="text-xs">{currentUser.email}</div>
                     </div>
                     <DropdownMenuSeparator className="bg-gray-700" />
-                    <DropdownMenuItem onClick={() => (window.location.href = "/profile")} className="text-white hover:bg-gray-800 cursor-pointer">
+                    <DropdownMenuItem
+                      onClick={() => (window.location.href = "/profile")}
+                      className="text-white hover:bg-gray-800 cursor-pointer"
+                    >
                       <User className="mr-2 h-4 w-4" />
                       <span>Profile</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => (window.location.href = "/profile")} className="text-white hover:bg-gray-800 cursor-pointer">
+                    <DropdownMenuItem
+                      onClick={() => (window.location.href = "/profile")}
+                      className="text-white hover:bg-gray-800 cursor-pointer"
+                    >
                       <Settings className="mr-2 h-4 w-4" />
                       <span>Settings</span>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator className="bg-gray-700" />
-                    <DropdownMenuItem onClick={handleLogout} className="text-red-400 hover:bg-gray-800 cursor-pointer">
+                    <DropdownMenuItem
+                      onClick={handleLogout}
+                      className="text-red-400 hover:bg-gray-800 cursor-pointer"
+                    >
                       <LogOut className="mr-2 h-4 w-4" />
                       <span>Logout</span>
                     </DropdownMenuItem>
@@ -223,7 +295,11 @@ export default function Index() {
                 </DropdownMenu>
               ) : (
                 <>
-                  <Button variant="ghost" className="text-sm px-4 py-2 rounded-full hover:bg-white/10" asChild>
+                  <Button
+                    variant="ghost"
+                    className="text-sm px-4 py-2 rounded-full hover:bg-white/10"
+                    asChild
+                  >
                     <Link to="/signup">Sign up</Link>
                   </Button>
                   <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-6 py-2 rounded-full">
@@ -239,7 +315,7 @@ export default function Index() {
       {/* Hero Section */}
       <section className="pt-24 pb-20 bg-black relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(59,130,246,0.3)_0%,transparent_50%),radial-gradient(circle_at_80%_70%,rgba(16,185,129,0.2)_0%,transparent_50%)]"></div>
-        
+
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center min-h-[600px]">
             {/* Left Content */}
@@ -251,9 +327,10 @@ export default function Index() {
                     Blockchain
                   </span>
                 </h1>
-                
+
                 <p className="text-xl text-white/70 leading-relaxed max-w-lg">
-                  Transforming industries with secure, decentralized and transparent technology.
+                  Transforming industries with secure, decentralized and
+                  transparent technology.
                 </p>
               </div>
 
@@ -261,7 +338,10 @@ export default function Index() {
                 <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg">
                   Get Started with Blockchain
                 </Button>
-                <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 px-8 py-3 rounded-lg text-lg">
+                <Button
+                  variant="outline"
+                  className="border-white/20 text-white hover:bg-white/10 px-8 py-3 rounded-lg text-lg"
+                >
                   Discover How it Works
                 </Button>
               </div>
@@ -289,7 +369,8 @@ export default function Index() {
               Why <span className="text-blue-400">Blockchain?</span>
             </h2>
             <p className="text-lg text-white/70 max-w-2xl mx-auto">
-              Blockchain is redefining trust in the digital world. Here's why it matters:
+              Blockchain is redefining trust in the digital world. Here's why it
+              matters:
             </p>
           </div>
 
@@ -299,8 +380,12 @@ export default function Index() {
               <div className="w-16 h-16 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600/30 transition-colors">
                 <Layers className="w-8 h-8 text-blue-400" />
               </div>
-              <h3 className="text-xl font-bold mb-4 text-white">Decentralization</h3>
-              <p className="text-white/70">No single entity controls the system</p>
+              <h3 className="text-xl font-bold mb-4 text-white">
+                Decentralization
+              </h3>
+              <p className="text-white/70">
+                No single entity controls the system
+              </p>
             </div>
 
             {/* Security */}
@@ -309,7 +394,9 @@ export default function Index() {
                 <Lock className="w-8 h-8 text-green-400" />
               </div>
               <h3 className="text-xl font-bold mb-4 text-white">Security</h3>
-              <p className="text-white/70">Encrypted and tamper-proof technology</p>
+              <p className="text-white/70">
+                Encrypted and tamper-proof technology
+              </p>
             </div>
 
             {/* Transparency */}
@@ -317,7 +404,9 @@ export default function Index() {
               <div className="w-16 h-16 bg-cyan-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-600/30 transition-colors">
                 <Search className="w-8 h-8 text-cyan-400" />
               </div>
-              <h3 className="text-xl font-bold mb-4 text-white">Transparency</h3>
+              <h3 className="text-xl font-bold mb-4 text-white">
+                Transparency
+              </h3>
               <p className="text-white/70">Public, accessible transactions</p>
             </div>
 
@@ -342,9 +431,12 @@ export default function Index() {
               <h2 className="text-4xl lg:text-5xl font-bold">
                 Why Blockchain <span className="text-blue-400">Matters</span>
               </h2>
-              
+
               <p className="text-lg text-white/70 leading-relaxed">
-                Blockchain is revolutionizing how we handle data, transactions, and trust. By eliminating intermediaries and creating secure, transparent systems, blockchain is laying the foundation for a more efficient and fair digital future.
+                Blockchain is revolutionizing how we handle data, transactions,
+                and trust. By eliminating intermediaries and creating secure,
+                transparent systems, blockchain is laying the foundation for a
+                more efficient and fair digital future.
               </p>
 
               <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg">
@@ -374,7 +466,8 @@ export default function Index() {
               Pricing <span className="text-blue-400">Plans</span>
             </h2>
             <p className="text-lg text-white/70 max-w-2xl mx-auto">
-              Choose the plan that fits your needs and start exploring the power of blockchain today
+              Choose the plan that fits your needs and start exploring the power
+              of blockchain today
             </p>
           </div>
 
@@ -382,7 +475,9 @@ export default function Index() {
             {/* Beginner Plan */}
             <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:border-blue-500/50 transition-all duration-300">
               <div className="text-center mb-8">
-                <h3 className="text-xl font-semibold mb-4 text-white">Beginner Plan</h3>
+                <h3 className="text-xl font-semibold mb-4 text-white">
+                  Beginner Plan
+                </h3>
                 <div className="text-4xl font-bold mb-2">
                   $199<span className="text-lg text-white/60">/month</span>
                 </div>
@@ -407,7 +502,7 @@ export default function Index() {
                 </ul>
               </div>
 
-              <Button 
+              <Button
                 onClick={handleAddBeginnerPlan}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-xl"
               >
@@ -424,11 +519,15 @@ export default function Index() {
               </div>
 
               <div className="text-center mb-8">
-                <h3 className="text-xl font-semibold mb-4 text-white">Intermediate Plan</h3>
+                <h3 className="text-xl font-semibold mb-4 text-white">
+                  Intermediate Plan
+                </h3>
                 <div className="text-4xl font-bold mb-2">
                   $349<span className="text-lg text-white/60">/month</span>
                 </div>
-                <p className="text-white/60">Users with some blockchain knowledge</p>
+                <p className="text-white/60">
+                  Users with some blockchain knowledge
+                </p>
               </div>
 
               <div className="space-y-4 mb-8">
@@ -449,7 +548,7 @@ export default function Index() {
                 </ul>
               </div>
 
-              <Button 
+              <Button
                 onClick={handleAddIntermediatePlan}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-xl"
               >
@@ -460,11 +559,15 @@ export default function Index() {
             {/* Advanced Plan */}
             <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
               <div className="text-center mb-8">
-                <h3 className="text-xl font-semibold mb-4 text-white">Advanced Plan</h3>
+                <h3 className="text-xl font-semibold mb-4 text-white">
+                  Advanced Plan
+                </h3>
                 <div className="text-4xl font-bold mb-2">
                   $495<span className="text-lg text-white/60">/month</span>
                 </div>
-                <p className="text-white/60">Professionals looking for advanced tools and insights</p>
+                <p className="text-white/60">
+                  Professionals looking for advanced tools and insights
+                </p>
               </div>
 
               <div className="space-y-4 mb-8">
@@ -485,7 +588,7 @@ export default function Index() {
                 </ul>
               </div>
 
-              <Button 
+              <Button
                 onClick={handleAddAdvancedPlan}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-xl"
               >
