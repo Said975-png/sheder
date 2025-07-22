@@ -47,7 +47,7 @@ export default function VoiceControl({
         recognitionRef.current.interimResults = true;
         recognitionRef.current.lang = "ru-RU";
 
-        // Улучшенные настройк�� для лучшего распознавания
+        // Улучшенные настро��к�� для лучшего распознавания
         recognitionRef.current.maxAlternatives = 5;
 
         // Дополнительные настройки для Chrome/WebKit - улучшаем чувствительн��с��ь
@@ -153,7 +153,7 @@ export default function VoiceControl({
 
                   processVoiceCommand(command);
 
-                  // Быстрая очистка транскрипта после запуска команды
+                  // Быстрая очистка транскрипта после зап��ска команды
                   setTimeout(() => {
                     console.log("🧹 Быстрая очистка транскрипта");
                     setTranscript("");
@@ -175,7 +175,7 @@ export default function VoiceControl({
                         setTimeout(() => {
                           if (recognitionRef.current && isListening) {
                             recognitionRef.current.start();
-                            console.log("✅ Recognition перезапущен и очищен");
+                            console.log("✅ Recognition пер��запущен и очищен");
                           }
                         }, 300);
                       } catch (error) {
@@ -207,7 +207,7 @@ export default function VoiceControl({
 
           // Автоматически перезапускаем распознавание, если мы все еще слушаем
           if (isListening && !isSpeaking) {
-            console.log("�� Перезапускаем распознавание...");
+            console.log("�� Перезапуск��ем распознавание...");
 
             // Очищаем состояние перед перезапуском
             setTranscript("");
@@ -238,7 +238,7 @@ export default function VoiceControl({
 
           // Критические ошибки - полностью останавливаем
           if (event.error === "network" || event.error === "not-allowed") {
-            console.error("��� Критическая ошибка ра��познавания:", event.error);
+            console.error("��� Кр��тическая ошибка ра��познавания:", event.error);
             setIsListening(false);
             onListeningChange?.(false, "");
           }
@@ -263,7 +263,7 @@ export default function VoiceControl({
                     try {
                       recognitionRef.current.start();
                     } catch (error) {
-                      console.log("Перезапус�� после паузы");
+                      console.log("Перезапус�� посл�� паузы");
                     }
                   }
                 }, 2000);
@@ -314,6 +314,29 @@ export default function VoiceControl({
     };
   }, []);
 
+  // Функция для полного сброса Speech Recognition
+  const resetSpeechRecognition = () => {
+    if (recognitionRef.current) {
+      console.log("🔄 Полный сброс Speech Recognition");
+      try {
+        recognitionRef.current.stop();
+      } catch (error) {
+        console.log("Ошибка остановки при сбросе:", error);
+      }
+
+      setTimeout(() => {
+        if (isListening && recognitionRef.current) {
+          try {
+            recognitionRef.current.start();
+            console.log("✅ Speech Recognition перезапущен и очищен");
+          } catch (error) {
+            console.log("Ошибка запуска при сбросе:", error);
+          }
+        }
+      }, 200);
+    }
+  };
+
   // Effect ��ля обработки тестов��х команд
   useEffect(() => {
     const handleTestCommand = (event: any) => {
@@ -355,7 +378,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Очищаем транскрипт когда начинаем говорить
+    // Очищаем тр��нскрипт когда начинаем говорить
     setTranscript("");
     onListeningChange?.(true, "");
 
@@ -390,7 +413,7 @@ export default function VoiceControl({
   };
 
   const speakShutdown = () => {
-    // Оста����авливаем любое текущее воспроизведение
+    // Оста������авливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -424,7 +447,7 @@ export default function VoiceControl({
     audio.onended = shutdownComplete;
 
     audio.onerror = () => {
-      console.error("Ошибка вос���роизведения а��дио отключения");
+      console.error("Ошибка во�����роизведения а��дио отключения");
       shutdownComplete();
     };
 
@@ -459,7 +482,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("О��ибка воспроизведен���я ау������о приветств��я");
+      console.error("О��ибка воспроизведен���я ау������о прив��тств��я");
     };
 
     audio.play().catch((error) => {
@@ -687,7 +710,7 @@ export default function VoiceControl({
     setTranscript("");
     onListeningChange?.(true, "");
 
-    // Временн�� останавливаем ��аспознавание речи во время воспроизведения
+    // Временн�� ос��анавливаем ��аспознавание речи во время воспроизведения
     if (recognitionRef.current && wasListening) {
       console.log("⏸️ Временно остана��ливаем распознавание на время аудио");
       try {
@@ -711,7 +734,7 @@ export default function VoiceControl({
       // Возобновляем распознавание речи после завершения аудио, используя сохраненн��е состояние
       setTimeout(() => {
         if (wasListening && recognitionRef.current) {
-          console.log("▶️ Возобновляем распозна��ание после аудио");
+          console.log("▶️ Возобновляем распозна����ание после аудио");
           try {
             recognitionRef.current.start();
             // НЕ изменяем isListening здесь, так как оно должно остаться true
@@ -800,7 +823,7 @@ export default function VoiceControl({
           voice.lang.includes("ru") &&
           (voice.name.toLowerCase().includes("male") ||
             voice.name.toLowerCase().includes("муж�����кой") ||
-            voice.name.toLowerCase().includes("антон") ||
+            voice.name.toLowerCase().includes("а��тон") ||
             voice.name.toLowerCase().includes("ник��лай")),
       );
 
@@ -956,7 +979,7 @@ export default function VoiceControl({
       console.error("❌ Ошибка воспроизведения первого аудио диагностик��");
     };
 
-    console.log("▶️ ��апускаем перво�� ауди��");
+    console.log("▶️ ����апускаем перво�� ауди��");
     firstAudio.play().catch((error) => {
       resetState();
       console.error(
@@ -1258,7 +1281,7 @@ export default function VoiceControl({
       "ии",
       "jarvis",
       "мощный",
-      "уникальный",
+      "уника��ьный",
       "качество",
       "ан��литика",
       "пр��миум",
