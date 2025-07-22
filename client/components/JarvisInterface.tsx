@@ -34,6 +34,7 @@ export default function JarvisInterface({
   onAddMaxPlan,
   inNavbar = false,
   onListeningChange,
+  forceStop = false,
 }: JarvisInterfaceProps) {
   const [isActive, setIsActive] = useState(false);
   const [systemStatus, setSystemStatus] = useState("STANDBY");
