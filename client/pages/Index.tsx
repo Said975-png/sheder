@@ -129,6 +129,7 @@ export default function Index() {
             onAddBasicPlan={handleAddBeginnerPlan}
             onAddProPlan={handleAddIntermediatePlan}
             onAddMaxPlan={handleAddAdvancedPlan}
+            inNavbar={true}
           />
 
           {/* Cart Dropdown */}
