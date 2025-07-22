@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import RobotModel from "@/components/RobotModel";
 import VoiceControl from "@/components/VoiceControl";
 import {
   Shield,
@@ -15,11 +14,6 @@ import {
   Zap,
   CheckCircle,
   ShoppingCart,
-  Rocket,
-  Clock,
-  Star,
-  Target,
-  Sparkles,
   Bot,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
@@ -66,7 +60,7 @@ export default function Index() {
       name: "Basic сайт",
       price: 2000000,
       description:
-        "Базовая вёрстка, адаптив под все устройс��ва, бесплатный SSL, техподдержка 24/7",
+        "Базовая вёрстка, адаптив под все устройства, бесплатный SSL, техподдержка 24/7",
       category: "website",
     });
   };
@@ -77,7 +71,7 @@ export default function Index() {
       name: "Pro сайт с ИИ",
       price: 3500000,
       description:
-        "ИИ: чат-бот, автозаполнение, умные блоки, полный ада��тив, быстрая загрузка, SEO оптимизация",
+        "ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация",
       category: "website-ai",
     });
   };
@@ -306,16 +300,10 @@ export default function Index() {
         </div>
       </nav>
 
-
-
-
-
-
-
       {/* Pricing Section */}
       <section
         data-section="pricing"
-        className="ai-hero-container py-24 relative"
+        className="ai-hero-container py-24 relative pt-32"
       >
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
@@ -422,7 +410,7 @@ export default function Index() {
                       <div className="absolute top-0 left-0 w-2 h-2 bg-yellow-500 rounded-full animate-bounce"></div>
                     </div>
                     <h3 className="text-xl font-semibold theme-text mb-2">
-                      Pro са��т с ИИ
+                      Pro сайт с ИИ
                     </h3>
                     <div className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-1">
                       3 500 000
@@ -522,7 +510,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-cyan-400" />
                       </div>
-                      Поддержка WebGL �� AI интерфейса
+                      Поддержка WebGL и AI интерфейса
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
@@ -539,158 +527,6 @@ export default function Index() {
                     Заказать
                   </Button>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Our Advantages Section */}
-      <section className="ai-hero-container py-24 relative">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 theme-text">
-              Наши преимущества
-            </h2>
-            <p className="text-lg theme-text-muted max-w-3xl mx-auto">
-              Мы создаем не просто сайты — мы разрабатываем интеллектуал��ные
-              решения, которые работают как ваш персональный ИИ-помощник
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Speed Advantage */}
-            <div className="group relative p-8 theme-card border border-purple-500/20 rounded-2xl hover:border-purple-500/40 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="relative z-10">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Rocket className="w-8 h-8 text-purple-400" />
-                </div>
-                <h3 className="text-xl font-bold theme-text mb-4">
-                  Молниеносная разработка
-                </h3>
-                <p className="theme-text-muted leading-relaxed">
-                  Создаем полноценные сайты в 3-5 раз быстрее благодаря нашим
-                  ИИ-инструментам и готовым модулям. То, что другие делают
-                  месяцами, мы реализуем за недели.
-                </p>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-
-            {/* AI Jarvis */}
-            <div className="group relative p-8 theme-card border border-cyan-500/20 rounded-2xl hover:border-cyan-500/40 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="relative z-10">
-                <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-teal-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 relative">
-                  <Brain className="w-8 h-8 text-cyan-400" />
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-cyan-500 rounded-full animate-pulse"></div>
-                </div>
-                <h3 className="text-xl font-bold theme-text mb-4">
-                  Уникальный ИИ Джарвис
-                </h3>
-                <p className="theme-text-muted leading-relaxed">
-                  Разрабатываем персонального ИИ-помощника специально для вашего
-                  бизнеса. Джарвис умеет общаться с клиентами, обрабатывать
-                  заказы и управлять контентом.
-                </p>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-teal-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-
-            {/* 24/7 Support */}
-            <div className="group relative p-8 theme-card border border-orange-500/20 rounded-2xl hover:border-orange-500/40 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="relative z-10">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Clock className="w-8 h-8 text-orange-400" />
-                </div>
-                <h3 className="text-xl font-bold theme-text mb-4">
-                  ��оддержка 24/7
-                </h3>
-                <p className="theme-text-muted leading-relaxed">
-                  Круглосуточная техническая п��ддержка и мониторинг вашего
-                  ��айта. Мы оперативно решаем любые вопросы и следим за
-                  стабильной работой.
-                </p>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-
-            {/* Premium Quality */}
-            <div className="group relative p-8 theme-card border border-yellow-500/20 rounded-2xl hover:border-yellow-500/40 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="relative z-10">
-                <div className="w-16 h-16 bg-gradient-to-br from-yellow-500/20 to-amber-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Star className="w-8 h-8 text-yellow-400" />
-                </div>
-                <h3 className="text-xl font-bold theme-text mb-4">
-                  Премиум ка��ество
-                </h3>
-                <p className="theme-text-muted leading-relaxed">
-                  Используем только современные ��ехнологии и лучшие практики.
-                  Каждый сайт проходит тщательное тестирование и оптимизацию
-                  производительности.
-                </p>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-amber-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-
-            {/* Smart Analytics */}
-            <div className="group relative p-8 theme-card border border-green-500/20 rounded-2xl hover:border-green-500/40 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="relative z-10">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Target className="w-8 h-8 text-green-400" />
-                </div>
-                <h3 className="text-xl font-bold theme-text mb-4">
-                  Умная аналитика
-                </h3>
-                <p className="theme-text-muted leading-relaxed">
-                  Встроенная ИИ-аналитика отслеживает поведение пользователей и
-                  автоматически оптимизирует конверсию вашего онлайн-магазина.
-                </p>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-
-            {/* Innovation */}
-            <div className="group relative p-8 theme-card border border-pink-500/20 rounded-2xl hover:border-pink-500/40 transition-all duration-300 hover:transform hover:scale-105">
-              <div className="relative z-10">
-                <div className="w-16 h-16 bg-gradient-to-br from-pink-500/20 to-purple-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Sparkles className="w-8 h-8 text-pink-400" />
-                </div>
-                <h3 className="text-xl font-bold theme-text mb-4">
-                  Инновационные решения
-                </h3>
-                <p className="theme-text-muted leading-relaxed">
-                  Внедряем передовые технологии: WebGL, машинное об��чение,
-                  голосовое управление и AR/VR элементы для максимального
-                  wow-эффекта.
-                </p>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-          </div>
-
-          {/* Bottom CTA */}
-          <div className="text-center mt-16">
-            <div className="relative inline-block">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
-              <div className="relative bg-gradient-to-r from-purple-600/20 to-cyan-600/20 backdrop-blur-lg border border-purple-500/30 rounded-2xl p-8">
-                <h3 className="text-2xl font-bold theme-text mb-4">
-                  Готовы создать что-то невероятное?
-                </h3>
-                <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
-                  Позвольте нашему ИИ Джа��вису стать цифровым помощником вашего
-                  бизнеса. Начнем разработку уже сегодня!
-                </p>
-                <Button
-                  onClick={() =>
-                    document
-                      .querySelector('[data-section="pricing"]')
-                      ?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white px-8 py-3 text-lg font-semibold"
-                >
-                  <Bot className="w-5 h-5 mr-2" />
-                  Заказать разработку
-                </Button>
               </div>
             </div>
           </div>
