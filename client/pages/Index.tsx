@@ -329,7 +329,7 @@ export default function Index() {
       </section>
 
       {/* Why Blockchain Matters Section */}
-      <section className="py-20 bg-slate-900">
+      <section className="py-20 bg-black">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
