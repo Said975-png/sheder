@@ -491,8 +491,6 @@ export default function VoiceControl({
 
   const speakSystemsOperational = async () => {
     await speakWithElevenLabs("Все системы функционируют нормально");
-
-    // Используем Web Speech API для синтеза фразы "Все системы функционируют нормально"
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(
         "Все системы функционируют нормально",
@@ -620,7 +618,7 @@ export default function VoiceControl({
       );
 
       // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
-      // Stability: 20 (низкая ст��бильность для более естественной речи)
+      // Stability: 20 (низкая ст��бильность для более естественн��й речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
 
@@ -740,7 +738,7 @@ export default function VoiceControl({
     // Команда приветствия "Джарвис я вернулся"
     if (
       command.includes("джарвис я вернулся") ||
-      command.includes("я вернулся джарвис") ||
+      command.includes("я вернулся джарви��") ||
       command.includes("джарвис я здесь") ||
       command.includes("я снова здесь")
     ) {
@@ -774,7 +772,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда утреннего приветствия "Доброе утр�� Джарвис"
+    // Команда утреннего приветствия "Доброе утр��� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис доброе утро") ||
@@ -917,7 +915,7 @@ export default function VoiceControl({
       "преимущества",
       "возможности",
       "открыть",
-      "личный",
+      "личны��",
       "кабинет",
       "отправить",
       "секция",
