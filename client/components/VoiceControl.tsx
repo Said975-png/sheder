@@ -129,7 +129,7 @@ export default function VoiceControl({
   }, []);
 
   const speak = (text: string) => {
-    // Предотвращ��ем повторное воспроизведение
+    // Предотвращаем повторное воспроизведение
     if (isSpeaking || commandCooldownRef.current) return;
 
     setIsSpeaking(true);
@@ -164,7 +164,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизв��сти аудио:", error);
+      console.error("Не удалось воспроизвести аудио:", error);
     });
   };
 
@@ -237,7 +237,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("О��ибка воспроизведения аудио прив��тствия");
+      console.error("О��ибка воспроизведения аудио приветстви��");
     };
 
     audio.play().catch((error) => {
@@ -498,12 +498,7 @@ export default function VoiceControl({
 
 
 
-      if (englishMaleVoice) {
-        utterance.voice = englishMaleVoice;
-        utterance.lang = "ru-RU";
-        utterance.pitch = 0.5; // Еще ниже для английского голоса на русском
-        utterance.rate = 0.7; // Медленнее для лучшего произношения
-      } else {
+      {
         // Fallback: любой доступный голос с оптимизированными нас��ройками
         const anyVoice = voices.find(
           (voice) => voice.lang.includes("ru") || voice.lang.includes("en"),
@@ -561,7 +556,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем любое текущее воспроизведение
+    // Ос��а��авливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -603,7 +598,7 @@ export default function VoiceControl({
             voice.name.toLowerCase().includes("thomas")),
       );
 
-      // ���сли н�� нашли подходящий а��глийский, ищем русский мужской
+      // ��сли н�� нашли подходящий а��глийский, ищем русский мужской
       const russianMaleVoice = voices.find(
         (voice) =>
           voice.lang.includes("ru") &&
@@ -742,7 +737,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит����льная проверка, ч��обы избеж��ть повторных срабатываний
+      // ��ополнит����льная проверка, ч��обы избеж��ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -765,7 +760,7 @@ export default function VoiceControl({
       command.includes("hey jarvis") ||
       (command.includes("привет") && command.includes("джарвис"))
     ) {
-      // Дополнительная проверка, чтобы из��ежа��ь повторных срабатываний
+      // Дополнительная проверка, чтобы из��ежать повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -803,9 +798,9 @@ export default function VoiceControl({
       command.includes("jarvis how are you") ||
       command.includes("how are you") ||
       command.includes("как твои дела") ||
-      command.includes("что нового джарв��с")
+      command.includes("что нового джарвис")
     ) {
-      // Дополнительная проверка, чтобы избежать повторных с��абатываний
+      // Дополнительная проверка, чтобы избежать пов��орных с��абатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -841,7 +836,7 @@ export default function VoiceControl({
 
     // Команда проверки присутствия "Джарвис ты тут?"
     if (
-      command.includes("джарви�� ты тут") ||
+      command.includes("джарвис ты тут") ||
       command.includes("ты тут джарвис") ||
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
@@ -896,7 +891,7 @@ export default function VoiceControl({
       "технологии",
       "разработка",
       "сайт",
-      "интеллект",
+      "инте��лект",
       "ии",
       "jarvis",
       "мощный",
@@ -932,7 +927,7 @@ export default function VoiceControl({
       "замечательно",
       "круто",
       "прекрасно",
-      "чуде��но",
+      "чудесно",
       "добр��е",
       "утро",
       "утра",
@@ -947,7 +942,7 @@ export default function VoiceControl({
       "работают",
       "дела",
       "поживаешь",
-      "порядке",
+      "пор��дке",
     ];
     const hasValidWords = meaningfulWords.some((word) =>
       trimmedCommand.includes(word),
@@ -1142,7 +1137,7 @@ export default function VoiceControl({
         found = searchAndNavigate([
           "качество",
           "премиум",
-          "под��ержка",
+          "поддержка",
           "quality",
           "support",
         ]);
@@ -1186,7 +1181,7 @@ export default function VoiceControl({
     // Команды навигации по страницам
     if (
       command.includes("пере��ти на главную") ||
-      command.includes("на главную ��траницу") ||
+      command.includes("на главную страницу") ||
       command.includes("домо��")
     ) {
       navigate("/");
@@ -1240,7 +1235,7 @@ export default function VoiceControl({
     if (
       command.includes("открыть корзину") ||
       command.includes("показать корзину") ||
-      command.includes("что в корзине")
+      command.includes("ч��о в корзине")
     ) {
       // Находим и нажимаем ��нопку корзины
       const cartButton = document.querySelector(
@@ -1320,7 +1315,7 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("перейти к преимуществам") ||
+      command.includes("пе��ейти к преимуществам") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
