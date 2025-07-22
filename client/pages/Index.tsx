@@ -142,7 +142,7 @@ export default function Index() {
                     )}
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-80 bg-slate-800 border-slate-700 mt-2">
+                <DropdownMenuContent align="end" className="w-80 bg-black border-gray-700 mt-2">
                   <div className="px-3 py-2">
                     <h3 className="font-semibold text-white mb-2">Cart</h3>
                     {items.length === 0 ? (
