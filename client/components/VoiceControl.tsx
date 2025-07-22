@@ -79,7 +79,7 @@ export default function VoiceControl({
         };
 
         recognitionRef.current.onend = () => {
-          // Автоматически перезапускаем распознавание, если мы все еще слушаем
+          // Автоматически перезапу��каем распознавание, если мы все еще слушаем
           if (isListening && !isSpeaking) {
             setTimeout(() => {
               if (recognitionRef.current && isListening) {
@@ -379,7 +379,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // О��танавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -420,6 +420,127 @@ export default function VoiceControl({
     });
   };
 
+  const speakSystemsOperational = () => {
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
+
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
+
+    // Используем Web Speech API для синтеза фразы "Все системы работают сэр"
+    if ("speechSynthesis" in window) {
+      const utterance = new SpeechSynthesisUtterance(
+        "Все системы работают сэр",
+      );
+
+      // Настройки максимально приближенные к ElevenLabs Jarvis
+      // Мужской голос ИИ с глубоким, уверенным тоном, как голос из научной фантастики
+      // Говорит по-русски чётко и без акцента. Подходит для ассистента наподобие Джарвиса
+      // Стиль — вежливый, спокойный, слегка роботизированный, интеллектуальный
+
+      utterance.lang = "ru-RU"; // Русский язык
+      utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса
+      utterance.pitch = 0.6; // Глубокий, низкий тон для авторитетности
+      utterance.volume = 0.95; // Громкость 90-100%
+
+      // Поиск наиболее подходящего голоса для имитации Jarvis
+      const voices = speechSynthesis.getVoices();
+
+      // Приоритет: русский мужской голос с глубоким тембром
+      const russianMaleVoice = voices.find(
+        (voice) =>
+          voice.lang.includes("ru") &&
+          (voice.name.toLowerCase().includes("male") ||
+            voice.name.toLowerCase().includes("мужской") ||
+            voice.name.toLowerCase().includes("антон") ||
+            voice.name.toLowerCase().includes("николай") ||
+            voice.name.toLowerCase().includes("дмитрий") ||
+            voice.name.toLowerCase().includes("павел")),
+      );
+
+      // Если не нашли ��усский мужской, ищем английский с настройками для русского
+      const englishMaleVoice = voices.find(
+        (voice) =>
+          voice.lang.includes("en") &&
+          (voice.name.toLowerCase().includes("alex") ||
+            voice.name.toLowerCase().includes("daniel") ||
+            voice.name.toLowerCase().includes("male") ||
+            voice.name.toLowerCase().includes("british") ||
+            voice.name.toLowerCase().includes("uk") ||
+            voice.name.toLowerCase().includes("david") ||
+            voice.name.toLowerCase().includes("thomas")),
+      );
+
+      if (russianMaleVoice) {
+        utterance.voice = russianMaleVoice;
+        utterance.pitch = 0.6; // Глубокий тон для русского голоса
+        utterance.rate = 0.75; // Спокойная речь
+      } else if (englishMaleVoice) {
+        utterance.voice = englishMaleVoice;
+        utterance.lang = "ru-RU";
+        utterance.pitch = 0.5; // Еще ниже для английского голоса на русском
+        utterance.rate = 0.7; // Медленнее для лучшего произношения
+      } else {
+        // Fallback: любой доступный голос с оптимизированными нас��ройками
+        const anyVoice = voices.find(
+          (voice) => voice.lang.includes("ru") || voice.lang.includes("en"),
+        );
+        if (anyVoice) {
+          utterance.voice = anyVoice;
+          utterance.lang = "ru-RU";
+        }
+        utterance.pitch = 0.45; // Самый низкий тон для компенсации
+        utterance.rate = 0.65; // Самая медленная речь для солидности
+      }
+
+      const resetState = () => {
+        setIsSpeaking(false);
+        audioPlayingRef.current = false;
+        currentAudioRef.current = null;
+        setTimeout(() => {
+          commandCooldownRef.current = false;
+          lastCommandRef.current = "";
+        }, 1000);
+      };
+
+      utterance.onend = resetState;
+      utterance.onerror = () => {
+        resetState();
+        console.error("Ошибка синтеза речи");
+      };
+
+      try {
+        speechSynthesis.speak(utterance);
+      } catch (error) {
+        resetState();
+        console.error("Не удалось синтезировать речь:", error);
+      }
+    } else {
+      // Fallback если Speech Synthesis недоступен
+      const resetState = () => {
+        setIsSpeaking(false);
+        audioPlayingRef.current = false;
+        currentAudioRef.current = null;
+        setTimeout(() => {
+          commandCooldownRef.current = false;
+          lastCommandRef.current = "";
+        }, 1000);
+      };
+
+      console.log("Джарвис: Все системы работают сэр");
+      setTimeout(resetState, 2000);
+    }
+  };
+
   const speakHowAreYou = () => {
     // Множественная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
@@ -443,7 +564,7 @@ export default function VoiceControl({
       );
 
       // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
-      // Stability: 20 (низкая стабильность для более естественной речи)
+      // Stability: 20 (низкая ст��бильность для более естественной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повествование)
 
@@ -468,7 +589,7 @@ export default function VoiceControl({
             voice.name.toLowerCase().includes("thomas")),
       );
 
-      // Если не нашли подходящий а��глийский, ищем русский мужской
+      // ��сли не нашли подходящий а��глийский, ищем русский мужской
       const russianMaleVoice = voices.find(
         (voice) =>
           voice.lang.includes("ru") &&
@@ -571,7 +692,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды для оригинального голоса Джарвиса (из фильма)
+    // Команды ��ля оригинального голоса Джарвиса (из фильма)
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
@@ -839,7 +960,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск по тексту элементов
+      // Пои��к по тексту элементов
       const allElements = Array.from(
         document.querySelectorAll("p, div, span, li"),
       );
@@ -889,7 +1010,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск возможностей
+      // Поиск возможно��тей
       if (
         command.includes("возможности") ||
         command.includes("возможность") ||
@@ -1061,7 +1182,7 @@ export default function VoiceControl({
     if (
       command.includes("профиль") ||
       command.includes("мой профиль") ||
-      command.includes("личный кабинет") ||
+      command.includes("личный к��бинет") ||
       command.includes("открыть профиль")
     ) {
       navigate("/profile");
@@ -1174,7 +1295,7 @@ export default function VoiceControl({
         "advantages",
       ]);
       if (found) {
-        speak("Показываю преимущества");
+        speak("Показываю преим��щества");
       }
       return;
     }
@@ -1258,7 +1379,7 @@ export default function VoiceControl({
           recognitionRef.current.start();
           setIsListening(true);
         } catch (error) {
-          console.log("Распознавание уже запущено или недоступно");
+          console.log("Распознавание уже зап��щено или недоступно");
         }
       }
     }
