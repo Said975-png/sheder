@@ -104,7 +104,7 @@ export default function VoiceControl({
           // Объединяем финальный и промежуточный результаты
           combinedTranscript = (finalTranscript + interimTranscript).trim();
 
-          // Показывае�� промежуточный результат только если не обрабатываем команду и не говорим
+          // Показывае�� промежуточный результат только если не обрабатыва��м команду и не говорим
           if (combinedTranscript && !commandCooldownRef.current && !isSpeaking && !audioPlayingRef.current) {
             setTranscript(combinedTranscript);
             onListeningChange?.(true, combinedTranscript);
@@ -541,7 +541,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("Ошибка воспроиз��едения аудио о��вета");
+      console.error("Ошибка воспроиз��едения ауд��о о��вета");
     };
 
     audio.play().catch((error) => {
@@ -581,7 +581,7 @@ export default function VoiceControl({
     };
 
     try {
-      // Используем ElevenLabs API для синтеза речи с вашим ��астомным голосом
+      // Используем ElevenLabs API для синтеза речи с в��шим ��астомным голосом
       const response = await fetch("/api/elevenlabs-tts", {
         method: "POST",
         headers: {
@@ -624,7 +624,7 @@ export default function VoiceControl({
   };
 
   const speakAuthenticJarvis = () => {
-    // Множественная защита от повторного воспроизведения
+    // Множественная защит�� от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -738,7 +738,7 @@ export default function VoiceControl({
       utterance.pitch = 0.7; // Сред����-ни��кий тон для автор��тет��ос��и
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
-      // Поиск наиболе�� подходящего ��олоса для имитации Jarvis
+      // Поиск наиболе�� подходящего ��олоса д��я имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: голоса, похожие на британский/американский мужской
@@ -929,21 +929,9 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("🔧 Обработка команды:", command);
 
-    // НЕМЕДЛЕННО очищаем транскрипт и lastCommandRef в начале обработки
+    // Простая очи��тка транскрипта в начале обработки
     setTranscript("");
     onListeningChange?.(true, "");
-
-    // Сбрас��ваем lastCommandRef сразу после запуска обработки
-    setTimeout(() => {
-      lastCommandRef.current = "";
-      console.log("🔄 Быстрый сброс lastCommandRef в processVoiceCommand");
-    }, 100);
-
-    // Дополнительная очистка через короткое время
-    setTimeout(() => {
-      setTranscript("");
-      onListeningChange?.(true, "");
-    }, 200);
 
     // Фильтруем пустые или ��лишком короткие команды
     const trimmedCommand = command.trim();
@@ -1032,7 +1020,7 @@ export default function VoiceControl({
       command.includes("hello jarvis") ||
       command.includes("hi jarvis") ||
       command.includes("hey jarvis") ||
-      command.includes("привет жарвис") || // частые ошибки распознавания
+      command.includes("привет жарвис") || // частые ошибки распо��навания
       command.includes("привет джаров") ||
       command.includes("привет ярвис") ||
       command.includes("жарвис привет") ||
@@ -1128,7 +1116,7 @@ export default function VoiceControl({
       command.includes("ра��мат") ||
       command.includes("рахмет") ||
       command.includes("хорошо") ||
-      command.includes("отлично") ||
+      command.includes("от��ично") ||
       command.includes("замечательно") ||
       command.includes("круто") ||
       command.includes("прекрасно") ||
@@ -1373,7 +1361,7 @@ export default function VoiceControl({
           "advantages",
         ]);
         if (found) {
-          speak("��оказываю ��реимущества");
+          speak("��оказываю ����еимущества");
           return;
         }
       }
@@ -1625,8 +1613,8 @@ export default function VoiceControl({
 
     // Ра��шире��ная навигация ��о секциям стран��ц��
     if (
-      command.includes("к планам") ||
-      command.includes("показать планы") ||
+      command.includes("к план��м") ||
+      command.includes("показать пл��ны") ||
       command.includes("пере��ти к планам") ||
       command.includes("сп��ститься �� планам") ||
       command.includes("тарифы") ||
