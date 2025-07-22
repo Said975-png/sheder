@@ -77,6 +77,7 @@ export default function VoiceControl({
               command.length > 2
             ) {
               setTranscript(finalTranscript);
+              onListeningChange?.(true, finalTranscript);
               lastCommandRef.current = command;
               processVoiceCommand(command);
             }
@@ -385,7 +386,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем ��юбое текущее воспроизведение
+    // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -464,7 +465,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Используем ваш оригинальный аудиофайл Джарвиса
+    // Используем ваш оригинальный аудиофайл Джар��иса
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2Fddde4fe5b47946c2a3bbb80e3bca0073%2F54eb93b1452742b6a1cd87cc6104bb59?alt=media&token=fc948eba-bbcd-485c-b129-d5a0c25cfc74&apiKey=ddde4fe5b47946c2a3bbb80e3bca0073",
     );
@@ -529,7 +530,7 @@ export default function VoiceControl({
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
-      utterance.volume = 0.95; // Четкая, но не резкая гр��мкость
+      utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
@@ -575,7 +576,7 @@ export default function VoiceControl({
           utterance.lang = "ru-RU"; // Всегда русский язык
         }
         utterance.pitch = 0.55; // Еще ниже для компенсации
-        utterance.rate = 0.7; // Е����е медленнее для большей солидности
+        utterance.rate = 0.7; // Е����е медленнее для большей с��лидности
       }
 
       const resetState = () => {
@@ -798,7 +799,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверя��м, содержит л���� команда значимые слова
+    // Проверяем, содержит л���� команда значимые слова
     const meaningfulWords = [
       "перейти",
       "войти",
@@ -884,7 +885,7 @@ export default function VoiceControl({
       "good",
       "тут",
       "присутствуешь",
-      "присутствие",
+      "присутств��е",
       "месте",
       "there",
       "системы",
@@ -1300,7 +1301,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Про��рутка страницы
+    // Прокрутка страницы
     if (
       command.includes("прокрутить вниз") ||
       command.includes("скролл вниз") ||
