@@ -331,7 +331,7 @@ export default function VoiceControl({
     audio.play().catch((error) => {
       resetState();
       console.error(
-        "Не удалось воспроизвести аудио утреннего приветствия:",
+        "Не удалось во��произвести аудио утреннего приветствия:",
         error,
       );
     });
@@ -376,7 +376,7 @@ export default function VoiceControl({
   };
 
   const speakWithElevenLabs = async (text: string) => {
-    // Множественная защита от повторного воспроизведения
+    // Множественная защи��а от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -496,7 +496,7 @@ export default function VoiceControl({
   };
 
   const speakHowAreYou = () => {
-    // Множественная ��ащита от повторного воспроизведения
+    // ��ножественная ��ащита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -594,7 +594,7 @@ export default function VoiceControl({
         speechSynthesis.speak(utterance);
       } catch (error) {
         resetState();
-        console.error("Не удалось синтезировать ре��ь:", error);
+        console.error("Не удалось синтезировать речь:", error);
       }
     } else {
       // Fallback если Speech Synthesis недоступен
@@ -646,7 +646,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды ��ля оригинального голоса Джарвиса (из фильма)
+    // Команды ��ля оригинального голоса Джарвиса (из фи��ьма)
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
@@ -660,7 +660,7 @@ export default function VoiceControl({
       command.includes("джарвис из железного ч��ловека") ||
       command.includes("голос джарвиса") ||
       command.includes("оригинал") ||
-      command.includes("как в марве��")
+      command.includes("как в марвел")
     ) {
       if (
         !isSpeaking &&
@@ -796,7 +796,7 @@ export default function VoiceControl({
 
     // Проверяем, содержит л���� команда значимые слова
     const meaningfulWords = [
-      "пер��йти",
+      "перейти",
       "войти",
       "регистрация",
       "профиль",
@@ -855,7 +855,7 @@ export default function VoiceControl({
       "отключи",
       "выключи",
       "стоп",
-      "вернул��я",
+      "вернулся",
       "здесь",
       "снова",
       "спасибо",
@@ -1212,7 +1212,7 @@ export default function VoiceControl({
       command.includes("отправить про")
     ) {
       onAddProPlan();
-      speak("Про план добавлен");
+      speak("Про план д��бавлен");
       return;
     }
 
@@ -1309,7 +1309,7 @@ export default function VoiceControl({
 
     if (
       command.includes("прокрутить вверх") ||
-      command.includes("скролл вве��х") ||
+      command.includes("скролл вверх") ||
       command.includes("поднятьс�� вверх")
     ) {
       window.scrollBy(0, -500);
@@ -1360,10 +1360,10 @@ export default function VoiceControl({
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <div className="flex flex-col items-end space-y-2">
+    <div className={inNavbar ? "relative" : "fixed bottom-6 right-6 z-50"}>
+      <div className={inNavbar ? "flex items-center space-x-2" : "flex flex-col items-end space-y-2"}>
         {/* Transcript display */}
-        {transcript && (
+        {transcript && !inNavbar && (
           <div className="max-w-xs p-3 bg-black/80 backdrop-blur-lg border border-purple-500/30 rounded-lg text-white text-sm">
             {transcript}
           </div>
