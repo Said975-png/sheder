@@ -117,8 +117,8 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Navigation - Enhanced with Stark styling */}
-      <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-black/80 backdrop-blur-lg border border-cyan-400/30 rounded-full px-8 py-3 stark-glow">
-        <div className="flex items-center space-x-6">
+      <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-black/80 backdrop-blur-lg border border-cyan-400/30 rounded-full px-4 py-2 stark-glow">
+        <div className="flex items-center space-x-3">
           {/* Home Button */}
           <Button
             variant="ghost"
