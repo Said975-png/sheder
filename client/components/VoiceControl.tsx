@@ -438,7 +438,7 @@ export default function VoiceControl({
       audio.onerror = () => {
         URL.revokeObjectURL(audioUrl);
         resetState();
-        console.error("Ошибка воспроизведения аудио из ElevenLabs");
+        console.error("Ошибка ��оспроизведения аудио из ElevenLabs");
       };
 
       await audio.play();
@@ -532,7 +532,7 @@ export default function VoiceControl({
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
-      utterance.volume = 0.95; // Четкая, но не резкая громкость
+      utterance.volume = 0.95; // Четкая, но не резка�� громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
@@ -1103,7 +1103,7 @@ export default function VoiceControl({
       if (
         command.includes("аналитик") ||
         command.includes("статистик") ||
-        command.includes("да��ные")
+        command.includes("да��ны��")
       ) {
         found = searchAndNavigate([
           "анал��тик",
@@ -1147,7 +1147,7 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Откр��ваю страницу вх��да");
+      speak("Откр��ваю ст��аницу вх��да");
       return;
     }
 
@@ -1227,7 +1227,7 @@ export default function VoiceControl({
       command.includes("добавить макс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
-      command.includes("джарвис пла��") ||
+      command.includes("джарвис пла���") ||
       command.includes("макс в ��орзину") ||
       command.includes("о��править макс")
     ) {
@@ -1346,6 +1346,9 @@ export default function VoiceControl({
   };
 
   const toggleListening = () => {
+    console.log('toggleListening called, current isListening:', isListening);
+    console.log('onListeningChange callback exists:', !!onListeningChange);
+
     if (isListening) {
       recognitionRef.current?.stop();
       setIsListening(false);
@@ -1360,7 +1363,7 @@ export default function VoiceControl({
           recognitionRef.current.start();
           setIsListening(true);
         } catch (error) {
-          console.log("Распознавание уже зап��щено или недосту��но", error);
+          console.log("Распознавание уже запущено или недоступно", error);
         }
       }
     }
