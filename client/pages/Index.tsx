@@ -236,7 +236,7 @@ export default function Index() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-24 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+      <section className="pt-24 pb-20 bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(59,130,246,0.3)_0%,transparent_50%),radial-gradient(circle_at_80%_70%,rgba(16,185,129,0.2)_0%,transparent_50%)]"></div>
         
         <div className="container mx-auto px-6 relative z-10">
