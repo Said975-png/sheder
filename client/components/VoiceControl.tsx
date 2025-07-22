@@ -97,7 +97,7 @@ export default function VoiceControl({
 
         recognitionRef.current.onerror = (event) => {
           console.error("Speech recognition error:", event.error);
-          // Не отключаем полностью при ошибках, кроме критических
+          // Не отключаем полностью при ��шибках, кроме критических
           if (event.error === "network" || event.error === "not-allowed") {
             setIsListening(false);
           } else {
@@ -436,7 +436,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Используем Web Speech API для синтеза фразы "Все системы функционируют нормально"
+    // Исп��льзуем Web Speech API для синтеза фразы "Все системы функционируют нормально"
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(
         "Все системы функционируют нормально",
@@ -728,7 +728,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит����льная проверка, ч��обы избе����ть повторных срабатываний
+      // Дополнит����льн��я проверка, ч��обы избе����ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -774,7 +774,7 @@ export default function VoiceControl({
         !commandCooldownRef.current &&
         !audioPlayingRef.current
       ) {
-        speak("Все системы функционируют нормально");
+        speakSystemsOperational();
       }
       return;
     }
@@ -797,7 +797,7 @@ export default function VoiceControl({
         !commandCooldownRef.current &&
         !audioPlayingRef.current
       ) {
-        speak("Все системы функционируют нормально");
+        speakSystemsOperational();
       }
       return;
     }
@@ -1097,7 +1097,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск технологи��
+      // Поиск технологи���
       if (
         command.includes("технолог") ||
         command.includes("webgl") ||
@@ -1271,7 +1271,7 @@ export default function VoiceControl({
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальный пл��н добавлен");
+      speak("Максималь��ый пл��н добавлен");
       return;
     }
 
@@ -1306,7 +1306,7 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("перейти к преимуществам") ||
+      command.includes("перейти к преимущ��ствам") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
