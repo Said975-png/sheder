@@ -9,6 +9,7 @@ interface VoiceControlProps {
   onAddProPlan: () => void;
   onAddMaxPlan: () => void;
   inNavbar?: boolean;
+  onListeningChange?: (isListening: boolean) => void;
 }
 
 export default function VoiceControl({
@@ -144,7 +145,7 @@ export default function VoiceControl({
 
     audio.onended = () => {
       setIsSpeaking(false);
-      // Сбрасываем кулдаун через небольшую задержку
+      // Сбрасываем кулдау�� через небольшую задержку
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
@@ -705,7 +706,7 @@ export default function VoiceControl({
       command.includes("hey jarvis") ||
       (command.includes("привет") && command.includes("джарвис"))
     ) {
-      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      // Дополнительная проверка, чтобы избежать повторных с��абатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -958,7 +959,7 @@ export default function VoiceControl({
       return false;
     };
 
-    // Универсальные команды поиска
+    // Универсальные коман��ы поиска
     if (
       command.includes("покажи") ||
       command.includes("найди") ||
@@ -1127,7 +1128,7 @@ export default function VoiceControl({
     if (
       command.includes("перейти на главную") ||
       command.includes("на главную страницу") ||
-      command.includes("домо��")
+      command.includes("домо����")
     ) {
       navigate("/");
       speak("Переходим на главную страницу");
@@ -1209,7 +1210,7 @@ export default function VoiceControl({
       command.includes("добавить про") ||
       command.includes("про план") ||
       command.includes("про в корзину") ||
-      command.includes("отправить про")
+      command.includes("отправ��ть про")
     ) {
       onAddProPlan();
       speak("Про план д��бавлен");
@@ -1282,7 +1283,7 @@ export default function VoiceControl({
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
-        ["возможности", "мощные", "features"],
+        ["возмож��ости", "мощные", "features"],
         () => {
           const featuresSection = document.getElementById("features");
           if (featuresSection) {
