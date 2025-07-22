@@ -189,7 +189,7 @@ export default function VoiceControl({
   };
 
   const speakShutdown = () => {
-    // Оста��авливаем любое текущее воспроизведение
+    // Оста��авливаем любое текущее воспр��изведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -498,7 +498,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("��шибка воспроизведения оригинального аудио Джарвиса");
+      console.error("Ошибка воспроизведения оригинального аудио Джарвиса");
     };
 
     audio.play().catch((error) => {
@@ -613,7 +613,7 @@ export default function VoiceControl({
         speechSynthesis.speak(utterance);
       } catch (error) {
         resetState();
-        console.error("Не удалось синтезиро��ать речь:", error);
+        console.error("Не удалось синтезировать речь:", error);
       }
     } else {
       // Fallback если Speech Synthesis недоступен
@@ -632,8 +632,27 @@ export default function VoiceControl({
     }
   };
 
+  // Тестовая функция для проверки аудио
+  const testAudioUrls = () => {
+    const url1 = "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76";
+    const url2 = "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76";
+
+    console.log("🧪 Тестируем URL аудиофайлов:");
+    console.log("URL1:", url1);
+    console.log("URL2:", url2);
+
+    fetch(url1)
+      .then(response => console.log("✅ URL1 доступен:", response.status))
+      .catch(error => console.error("❌ URL1 недоступен:", error));
+
+    fetch(url2)
+      .then(response => console.log("✅ URL2 доступен:", response.status))
+      .catch(error => console.error("❌ URL2 недоступен:", error));
+  };
+
   const speakSystemDiagnostics = () => {
     console.log("🔧 Запуск диагностики системы...");
+    testAudioUrls(); // Тестируем URL
 
     // Множественная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
@@ -651,7 +670,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Воспро��зводим первое аудио
+    // Воспроизводим первое аудио
     console.log("🎵 Создаем первое аудио для диагностики");
     const firstAudio = new Audio(
       "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76"
@@ -708,7 +727,7 @@ export default function VoiceControl({
   };
 
   const processVoiceCommand = (command: string) => {
-    console.log("Обрабо��ка ко��ан��ы:", command);
+    console.log("Обрабо��ка ко��анды:", command);
 
     // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
@@ -776,7 +795,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит����льная проверка, ч��обы избе����ть повто��ных срабатываний
+      // Дополнит����льная проверка, ч��обы избе����ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -911,7 +930,7 @@ export default function VoiceControl({
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
-      command.includes("джарвис ��рисутствуешь") ||
+      command.includes("джарвис ���рисутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
     ) {
@@ -1009,7 +1028,7 @@ export default function VoiceControl({
       "месте",
       "there",
       "системы",
-      "раб��тают",
+      "ра����тают",
       "дела",
       "пож��ваешь",
       "порядк��",
@@ -1163,7 +1182,7 @@ export default function VoiceControl({
       // Поиск контактов
       if (
         command.includes("контакт") ||
-        command.includes("св���зь") ||
+        command.includes("св��зь") ||
         command.includes("телефон") ||
         command.includes("email")
       ) {
@@ -1254,7 +1273,7 @@ export default function VoiceControl({
 
     // Команды навигации по страницам
     if (
-      command.includes("пере��ти на глав��ую") ||
+      command.includes("перейти на глав��ую") ||
       command.includes("на главную страницу") ||
       command.includes("домо��")
     ) {
@@ -1308,7 +1327,7 @@ export default function VoiceControl({
 
     if (
       command.includes("открыть корзину") ||
-      command.includes("показать корзину") ||
+      command.includes("пок��зать корзину") ||
       command.includes("что в корзине")
     ) {
       // Находим и нажимаем ��нопку ко��зины
@@ -1380,7 +1399,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("Пока��ываю планы");
+        speak("Пока��ываю ��ланы");
       }
       return;
     }
