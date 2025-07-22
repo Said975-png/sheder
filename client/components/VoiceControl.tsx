@@ -386,7 +386,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведе��ие
+    // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -532,7 +532,7 @@ export default function VoiceControl({
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
-      // Поиск наибол��е подходящего голоса для имитации Jarvis
+      // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: голоса, похожие на британский/американский мужской
@@ -725,7 +725,7 @@ export default function VoiceControl({
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
-      (command.includes("джарвис") && command.includes("как дела"))
+      (command.includes("джарвис") && command.includes("как де��а"))
     ) {
       // Дополнительная провер���а, ��тобы избежать повторных срабат��ваний
       if (
@@ -761,7 +761,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды благод��рности
+    // Команды благод����рности
     if (
       command.includes("спасибо") ||
       command.includes("благодарю") ||
@@ -791,7 +791,7 @@ export default function VoiceControl({
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
-      command.includes("джарвис ���рисутствуешь") ||
+      command.includes("джарвис ��рисутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
     ) {
@@ -799,7 +799,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверяем, содержит л���� команд�� значимые слова
+    // Проверяем, содержит л���� команда значимые слова
     const meaningfulWords = [
       "перейти",
       "войти",
@@ -850,7 +850,7 @@ export default function VoiceControl({
       "аналитика",
       "пр��миум",
       "невероятное",
-      "готовы",
+      "го��овы",
       "создать",
       "бизнес",
       "помощник",
@@ -902,7 +902,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Умный поиск контента по всему сайту
+    // Умный поиск контента по все��у сайту
     const searchAndNavigate = (
       searchTerms: string[],
       fallbackAction?: () => void,
@@ -1018,7 +1018,7 @@ export default function VoiceControl({
           }
         });
         if (found) {
-          speak("Показываю планы и цены");
+          speak("Показыв��ю планы и цены");
           return;
         }
       }
@@ -1060,7 +1060,7 @@ export default function VoiceControl({
       if (
         command.includes("технолог") ||
         command.includes("webgl") ||
-        command.includes("и��") ||
+        command.includes("ии") ||
         command.includes("искусственный")
       ) {
         found = searchAndNavigate([
@@ -1151,7 +1151,7 @@ export default function VoiceControl({
 
     if (
       command.includes("рег��страция") ||
-      command.includes("зарегистрироваться")
+      command.includes("зарегистри��оваться")
     ) {
       navigate("/signup");
       speak("Переходим к регистрации");
@@ -1264,7 +1264,7 @@ export default function VoiceControl({
     if (
       command.includes("к пре��муществам") ||
       command.includes("наши преимущества") ||
-      command.includes("спустит����ся к преимуществам") ||
+      command.includes("спустит��ся к преимуществам") ||
       command.includes("перейти к преимуществам") ||
       command.includes("преим��щества")
     ) {
@@ -1358,7 +1358,7 @@ export default function VoiceControl({
         try {
           recognitionRef.current.start();
           setIsListening(true);
-          onListeningChange?.(true);
+          onListeningChange?.(true, "");
         } catch (error) {
           console.log("Распознавание уже зап��щено или недо��ту��но");
         }
