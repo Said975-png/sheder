@@ -376,7 +376,7 @@ export default function VoiceControl({
   };
 
   const speakWithElevenLabs = async (text: string) => {
-    // Множественная защи��а от повторного воспроизведения
+    // Множественная защи��а от повторного восп��оизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -501,7 +501,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем любое текущее воспрои��ведение
+    // Ос��анавливаем ��юбое текущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -548,7 +548,7 @@ export default function VoiceControl({
         (voice) =>
           voice.lang.includes("ru") &&
           (voice.name.toLowerCase().includes("male") ||
-            voice.name.toLowerCase().includes("мужской") ||
+            voice.name.toLowerCase().includes("муж��кой") ||
             voice.name.toLowerCase().includes("антон") ||
             voice.name.toLowerCase().includes("николай")),
       );
@@ -716,7 +716,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис как дела" с ответом "Все системы функционируют нормально"
+    // Команда "Джарвис как дела" с ответом "Все системы ф��нкционируют нормально"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
@@ -968,7 +968,7 @@ export default function VoiceControl({
     ) {
       let found = false;
 
-      // Поис�� преимущ��ств
+      // Поис���� преимущ��ств
       if (
         command.includes("преимущества") ||
         command.includes("преимущество")
@@ -1257,7 +1257,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к преимуществам") ||
+      command.includes("к пре��муществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
       command.includes("перейти к преимуществам") ||
@@ -1372,10 +1372,8 @@ export default function VoiceControl({
         {/* Voice control button */}
         <Button
           onClick={toggleListening}
-          className={`w-14 h-14 rounded-full p-0 transition-all duration-300 ${
-            isListening
-              ? "bg-red-500 hover:bg-red-600 animate-pulse"
-              : "bg-purple-600 hover:bg-purple-700"
+          className={`w-14 h-14 rounded-full p-0 transition-all duration-300 bg-transparent hover:bg-white/10 ${
+            isListening ? "animate-pulse" : ""
           } ${isSpeaking ? "ring-4 ring-blue-400/50" : ""}`}
           disabled={isSpeaking}
         >
