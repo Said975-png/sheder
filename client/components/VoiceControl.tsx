@@ -19,7 +19,7 @@ export default function VoiceControl({
   onAddMaxPlan,
   inNavbar = false,
   onListeningChange,
-  onStopListening,
+  forceStop = false,
 }: VoiceControlProps) {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -128,7 +128,7 @@ export default function VoiceControl({
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
-      // Останавливаем любое воспроизводящееся аудио при размонтировании
+      // Останавливаем любое воспроизводящееся аудио при размонти��овании
       if (currentAudioRef.current) {
         currentAudioRef.current.pause();
         currentAudioRef.current.currentTime = 0;
@@ -199,7 +199,7 @@ export default function VoiceControl({
       audioPlayingRef.current = false;
       lastCommandRef.current = "";
       currentAudioRef.current = null;
-      // После окончания аудио отключаем микрофон
+      // После окончания аудио отключа��м микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
@@ -388,7 +388,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведен��е
+    // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -531,7 +531,7 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
-      utterance.pitch = 0.7; // ��редне-ни��кий тон для автор��тет��ости
+      utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
@@ -689,7 +689,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополни������льная проверка, ч��обы избе����ть повторных срабатываний
+      // Дополнит����льная проверка, ч��обы избе����ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -723,7 +723,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис как дела" с ответом "Все систе��ы ф��нкционируют нормально"
+    // Команда "Джарвис как дела" с ответом "Все системы ф��нкционируют нормально"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
@@ -793,7 +793,7 @@ export default function VoiceControl({
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
-      command.includes("джарвис ����рисутствуешь") ||
+      command.includes("джарвис ��рисутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
     ) {
@@ -975,7 +975,7 @@ export default function VoiceControl({
     ) {
       let found = false;
 
-      // Поис���� преимущ��ств
+      // Поис���� преимущ��ст��
       if (
         command.includes("преимущества") ||
         command.includes("преимущество")
@@ -1011,7 +1011,7 @@ export default function VoiceControl({
         command.includes("цен") ||
         command.includes("стоим��сть")
       ) {
-        found = searchAndNavigate(["план", "тариф", "ц��н", "pricing"], () => {
+        found = searchAndNavigate(["план", "тариф", "цен", "pricing"], () => {
           const pricingSection = document.querySelector(
             '[data-section="pricing"]',
           );
@@ -1058,7 +1058,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск технологи��
+      // Поиск технолог����
       if (
         command.includes("технолог") ||
         command.includes("webgl") ||
@@ -1264,7 +1264,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к пре��муществам") ||
+      command.includes("к пр����муществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
       command.includes("перейти к преимуществам") ||
