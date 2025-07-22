@@ -50,7 +50,7 @@ export default function VoiceControl({
         // Улучшенные настройк�� для лучшего распознавания
         recognitionRef.current.maxAlternatives = 5;
 
-        // Дополнительные настройки для Chrome/WebKit - улучшаем чувствительн��с��ь
+        // Дополнительные настройки дл�� Chrome/WebKit - улучшаем чувствительн��с��ь
         if (
           recognitionRef.current.webkitSpeechRecognition ||
           "webkitSpeechRecognition" in window
@@ -104,7 +104,7 @@ export default function VoiceControl({
           // Объединяем финальный и промежуточный результаты
           combinedTranscript = (finalTranscript + interimTranscript).trim();
 
-          // Показывае�� промежуточный результат только если не обрабатываем команду и не говорим
+          // Показывае�� промежуточный результат толь��о если не обрабатываем команду и не говорим
           if (combinedTranscript && !commandCooldownRef.current && !isSpeaking && !audioPlayingRef.current) {
             setTranscript(combinedTranscript);
             onListeningChange?.(true, combinedTranscript);
@@ -145,20 +145,26 @@ export default function VoiceControl({
 
                   processVoiceCommand(command);
 
-                  // Немедленно очищаем транскрипт после запуска обработки команды
+                  // НЕМЕДЛЕННО сбрасываем lastCommandRef для приема новых команд
+                  setTimeout(() => {
+                    lastCommandRef.current = "";
+                    console.log("🧹 Немедленная очистка lastCommandRef");
+                  }, 300);
+
+                  // Быстрая очистка транскрипта
                   setTimeout(() => {
                     console.log("🧹 Быстрая очистка транскрипта");
                     setTranscript("");
                     onListeningChange?.(true, "");
-                  }, 200);
+                  }, 500);
 
-                  // Полная очистка состоя��ия команды для приема новых команд
+                  // Полная очистка состояния
                   setTimeout(() => {
                     console.log("🧹 Полная очистка состояния после команды");
                     setTranscript("");
                     onListeningChange?.(true, "");
-                    lastCommandRef.current = "";
-                  }, 1000); // Сокращаем время до 1 секунды
+                    lastCommandRef.current = ""; // Дублируем для надежности
+                  }, 1000);
                 },
                 finalTranscript ? 100 : 1000,
               ); // Меньше задержки для финальных результатов
@@ -181,7 +187,7 @@ export default function VoiceControl({
             isSpeaking,
           );
 
-          // Автоматически перезапускаем распознавание, если мы все еще слушаем
+          // Автоматически перезапускае�� распознавание, если мы все еще слушаем
           if (isListening && !isSpeaking) {
             console.log("�� Перезапускаем распознавание...");
             setTimeout(() => {
@@ -234,7 +240,7 @@ export default function VoiceControl({
                     try {
                       recognitionRef.current.start();
                     } catch (error) {
-                      console.log("Перезапус�� после паузы");
+                      console.log("Перезапус�� после ��аузы");
                     }
                   }
                 }, 2000);
@@ -273,7 +279,7 @@ export default function VoiceControl({
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
-      // Останавливаем любое воспроизводящееся аудио при размонтировании
+      // О��танавливаем любое воспроизводящееся аудио при размонтировании
       if (currentAudioRef.current) {
         currentAudioRef.current.pause();
         currentAudioRef.current.currentTime = 0;
@@ -529,7 +535,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и во��производим аудио для ответа "��ж��рвис ты тут?"
+    // Создаем и во��производим аудио для ответа "���ж��рвис ты тут?"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F5baee2408110417fbab785b0c6ffdde6?alt=media&token=a957a2b4-68ad-46de-bc3e-11943c8fb38b&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -673,7 +679,7 @@ export default function VoiceControl({
       // Возобновляем распознавание речи после завершения аудио, используя сохраненное состояние
       setTimeout(() => {
         if (wasListening && recognitionRef.current) {
-          console.log("▶️ Возобновляем распознавание после аудио");
+          console.log("���️ Возобновляем распознавание после аудио");
           try {
             recognitionRef.current.start();
             // НЕ изменяем isListening здесь, так как оно должно остаться true
@@ -709,12 +715,12 @@ export default function VoiceControl({
   };
 
   const speakHowAreYou = () => {
-    // ��ножественная ��ащита от повторног�� восп��оизве��ения
+    // ��ножес��венная ��ащита от повторног�� восп��оизве��ения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
 
-    // Ос��анавливаем ��юбое те��ущее воспрои��ведение
+    // Ос��анавливаем ��юбое те���ущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -1041,7 +1047,7 @@ export default function VoiceControl({
       const timeSinceLastGreeting = now - lastGreetingTimeRef.current;
 
       console.log(
-        "🎯 Команда приветствия распознана, времени прошло:",
+        "🎯 Команда приветствия распознана, времени прошл��:",
         timeSinceLastGreeting,
       );
 
