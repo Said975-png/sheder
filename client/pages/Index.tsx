@@ -77,7 +77,7 @@ export default function Index() {
       name: "Pro сайт с ИИ",
       price: 3500000,
       description:
-        "ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация",
+        "ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, ��ыстрая загрузка, SEO оптимизация",
       category: "website-ai",
     });
   };
@@ -417,7 +417,7 @@ export default function Index() {
             <div className="flex-1 space-y-10">
               <div className="space-y-8">
                 <h1
-                  className="text-5xl lg:text-7xl font-bold leading-tight hologram-text"
+                  className="text-5xl lg:text-7xl font-bold leading-tight hologram-text text-left max-w-4xl"
                   data-text="Jarvis - искусственный интеллект для вашего бизнеса"
                 >
                   Jarvis - искусственный интеллект для вашего бизнеса
@@ -807,7 +807,7 @@ export default function Index() {
                   <Rocket className="w-8 h-8 text-purple-400" />
                 </div>
                 <h3 className="text-xl font-bold theme-text mb-4">
-                  Молниеносная разработка
+                  Молниенос��ая разработка
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
                   Создаем полноценные сайты в 3-5 раз быстрее благодаря нашим
