@@ -121,7 +121,6 @@ export default function Index() {
   };
 
   const handleVoiceListeningChange = (isListening: boolean) => {
-    console.log('Voice listening change:', isListening);
     setIsVoiceActive(isListening);
   };
 
@@ -151,8 +150,7 @@ export default function Index() {
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
-          isVoiceActive ? "opacity-0 scale-90 pointer-events-none" : "opacity-100 scale-100",
-          "DEBUG: " + (isVoiceActive ? "VOICE_ACTIVE" : "VOICE_INACTIVE")
+          isVoiceActive ? "opacity-0 scale-90 pointer-events-none" : "opacity-100 scale-100"
         )}
       >
         <div className="flex items-center space-x-2">
