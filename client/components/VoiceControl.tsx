@@ -37,6 +37,16 @@ export default function VoiceControl({
     onListeningChange?.(isListening);
   }, [isListening, onListeningChange]);
 
+  // Принудительная остановка при получении сигнала
+  useEffect(() => {
+    if (forceStop && isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+      lastCommandRef.current = "";
+      commandCooldownRef.current = false;
+    }
+  }, [forceStop, isListening]);
+
   useEffect(() => {
     // Проверяем поддержку Speech Recognition
     if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
@@ -488,7 +498,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошиб��а воспроизведения оригинального аудио Джарвиса");
+      console.error("Ошиб��а воспроизведения ор��гинального аудио Джарвиса");
     };
 
     audio.play().catch((error) => {
@@ -706,7 +716,7 @@ export default function VoiceControl({
     if (
       command.includes("привет джарвис") ||
       command.includes("джарвис привет") ||
-      command.includes("здравствуй джарвис") ||
+      command.includes("здравст��уй джарвис") ||
       command.includes("джарвис здравствуй") ||
       command.includes("хай джарвис") ||
       command.includes("hello jarvis") ||
@@ -1030,7 +1040,7 @@ export default function VoiceControl({
       // Поиск инфор��ации о компании
       if (
         command.includes("компан") ||
-        command.includes("о ��ас") ||
+        command.includes("о ���ас") ||
         command.includes("кто мы")
       ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
@@ -1164,7 +1174,7 @@ export default function VoiceControl({
 
     if (
       command.includes("профиль") ||
-      command.includes("мой пр��филь") ||
+      command.includes("мо�� пр��филь") ||
       command.includes("личный к��бинет") ||
       command.includes("открыть профиль")
     ) {
@@ -1285,7 +1295,7 @@ export default function VoiceControl({
 
     if (
       command.includes("к возможностям") ||
-      command.includes("мощные возм��жности") ||
+      command.includes("мощны�� возм��жности") ||
       command.includes("спуститься к возможностям") ||
       command.includes("перейти к возможностям") ||
       command.includes("возможности")
@@ -1322,7 +1332,7 @@ export default function VoiceControl({
       command.includes("поднятьс�� вверх")
     ) {
       window.scrollBy(0, -500);
-      speak("Прокручиваю вверх");
+      speak("Прокручиваю ��верх");
       return;
     }
 
