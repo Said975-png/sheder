@@ -603,7 +603,17 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Используем ваш оригинальный аудиофай�� Джарвиса
+    // Временно останавливаем распознавание речи во время воспроизведения
+    if (recognitionRef.current && isListening) {
+      console.log("⏸️ Временно останавливаем распознавание на время аудио");
+      try {
+        recognitionRef.current.stop();
+      } catch (error) {
+        console.log("Ошибка остановки распознавания:", error);
+      }
+    }
+
+    // Используем ваш оригинальный аудиофайл Джарвиса
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2Fddde4fe5b47946c2a3bbb80e3bca0073%2F54eb93b1452742b6a1cd87cc6104bb59?alt=media&token=fc948eba-bbcd-485c-b129-d5a0c25cfc74&apiKey=ddde4fe5b47946c2a3bbb80e3bca0073",
     );
@@ -859,7 +869,7 @@ export default function VoiceControl({
       onListeningChange?.(true, "");
     }, 500);
 
-    // Фильтруем пустые или слишком короткие команды
+    // Фильтруем пустые или ��лишком короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -978,7 +988,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис как дела" с ответом "Все системы функционируют нормально"
+    // Команда "Джарвис как дела" с ответом "Все системы функционируют нормал��но"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
@@ -1169,7 +1179,7 @@ export default function VoiceControl({
       "отлично",
       "замечательно",
       "круто",
-      "прекрасно",
+      "пре��расно",
       "чудесно",
       "добр��е",
       "утро",
