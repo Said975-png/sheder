@@ -420,7 +420,7 @@ export default function VoiceControl({
     });
   };
 
-  const speakSystemsOperational = () => {
+  const speakSystemsOperational = async () => {
     // Множественная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
@@ -452,7 +452,7 @@ export default function VoiceControl({
       utterance.pitch = 0.6; // Глубокий, низкий тон для авторитетности
       utterance.volume = 0.95; // Громкость 90-100%
 
-      // Поиск наиболее подходящего голоса для имитации Jarvis
+      // Поиск наиболее подходящего голос�� для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: русский мужской голос с глубоким тембром
@@ -547,7 +547,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем любое текущее воспроизведение
+    // ��с��анавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -728,7 +728,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит����льная проверка, ч��обы избеж��ть повторных срабатываний
+      // Допо��нит����льная проверка, ч��обы избеж��ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -762,7 +762,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис как дела" с ответом "Все системы функционируют нормально"
+    // Команда "Джарвис как дела" с ответом "Все сист��мы функционируют нормально"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
@@ -1306,7 +1306,7 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("перейти к преимуществам") ||
+      command.includes("перейти к преимущества��") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
