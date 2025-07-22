@@ -121,12 +121,14 @@ export default function Index() {
     navigate("/order");
   };
 
-  const handleListeningChange = (isListening: boolean) => {
+  const handleListeningChange = (isListening: boolean, transcript?: string) => {
     setIsVoicePanelActive(isListening);
+    setCurrentTranscript(transcript || "");
   };
 
   const handleCloseVoicePanel = () => {
     setIsVoicePanelActive(false);
+    setCurrentTranscript("");
   };
 
   if (loading) {
