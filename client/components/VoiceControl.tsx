@@ -65,7 +65,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяем, что команда отличается от предыдущей и не ��устая
+            // Проверяем, что команда отличается от предыдущей и не пустая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -79,7 +79,7 @@ export default function VoiceControl({
         };
 
         recognitionRef.current.onend = () => {
-          // Автоматически перезапу��каем распознавание, если м�� все еще слушаем
+          // Автоматически перезапу��каем распознавание, если мы все еще слушаем
           if (isListening && !isSpeaking) {
             setTimeout(() => {
               if (recognitionRef.current && isListening) {
@@ -129,7 +129,7 @@ export default function VoiceControl({
   }, []);
 
   const speak = (text: string) => {
-    // Предотвращаем повторное воспроизведение
+    // Предотвраща��м повторное воспроизведение
     if (isSpeaking || commandCooldownRef.current) return;
 
     setIsSpeaking(true);
@@ -164,7 +164,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвести аудио:", error);
+      console.error("Не удалось воспроизве��ти аудио:", error);
     });
   };
 
@@ -237,7 +237,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("О��ибка воспроизведения аудио приветстви��");
+      console.error("О��ибка воспроизведения аудио приве��ствия");
     };
 
     audio.play().catch((error) => {
@@ -369,7 +369,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвести ауд��о ��твета:", error);
+      console.error("Не удалось воспроизвести аудио ��твета:", error);
     });
   };
 
@@ -379,7 +379,7 @@ export default function VoiceControl({
       return;
     }
 
-    // О��танавливаем любое те��ущее воспроизведение
+    // О��танавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -482,7 +482,7 @@ export default function VoiceControl({
       await audio.play();
     } catch (error) {
       resetState();
-      console.error("Не удалось пол��чить аудио из ElevenLabs:", error);
+      console.error("Не удалось получить аудио из ElevenLabs:", error);
 
       // Fallback: простое текстовое сообщение
       console.log("Джарвис: Все системы функционируют нормально");
@@ -494,14 +494,52 @@ export default function VoiceControl({
 
 
 
+      // Поиск наиболее подходящего голоса для имитации Jarvis
+      const voices = speechSynthesis.getVoices();
 
+      // Приоритет: русский мужской голос с глубоким тембром
+      const russianMaleVoice = voices.find(
+        (voice) =>
+          voice.lang.includes("ru") &&
+          (voice.name.toLowerCase().includes("male") ||
+            voice.name.toLowerCase().includes("мужской") ||
+            voice.name.toLowerCase().includes("антон") ||
+            voice.name.toLowerCase().includes("николай") ||
+            voice.name.toLowerCase().includes("дмитрий") ||
+            voice.name.toLowerCase().includes("павел")),
+      );
 
+      // Если не нашли ��усский мужской, ищем английский с настройками для русского
+      const englishMaleVoice = voices.find(
+        (voice) =>
+          voice.lang.includes("en") &&
+          (voice.name.toLowerCase().includes("alex") ||
+            voice.name.toLowerCase().includes("daniel") ||
+            voice.name.toLowerCase().includes("male") ||
+            voice.name.toLowerCase().includes("british") ||
+            voice.name.toLowerCase().includes("uk") ||
+            voice.name.toLowerCase().includes("david") ||
+            voice.name.toLowerCase().includes("thomas")),
+      );
 
-
-      {
-
-
-
+      if (russianMaleVoice) {
+        utterance.voice = russianMaleVoice;
+        utterance.pitch = 0.6; // Глубокий тон для русского голоса
+        utterance.rate = 0.75; // Спокойная речь
+      } else if (englishMaleVoice) {
+        utterance.voice = englishMaleVoice;
+        utterance.lang = "ru-RU";
+        utterance.pitch = 0.5; // Еще ниже для английского голоса на русском
+        utterance.rate = 0.7; // Медленнее для лучшего произношения
+      } else {
+        // Fallback: любой доступный голос с оптимизированными нас��ройками
+        const anyVoice = voices.find(
+          (voice) => voice.lang.includes("ru") || voice.lang.includes("en"),
+        );
+        if (anyVoice) {
+          utterance.voice = anyVoice;
+          utterance.lang = "ru-RU";
+        }
         utterance.pitch = 0.45; // Самый низкий тон для компенсации
         utterance.rate = 0.65; // Самая медленная речь для солидности
       }
@@ -551,7 +589,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��а��авливаем любое текущее воспроизведение
+    // Ос��анавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -568,7 +606,7 @@ export default function VoiceControl({
       );
 
       // Настройки ��аксимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
-      // Stability: 20 (низкая ст��бильность д��я более естественной речи)
+      // Stability: 20 (низкая ст��бильность для более естественной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
 
@@ -612,7 +650,7 @@ export default function VoiceControl({
         utterance.lang = "ru-RU";
         utterance.pitch = 0.6; // Чуть ниже для русского голоса
       } else {
-        // Fallback: любой доступный гол��с с оптимизированными настройками
+        // Fallback: любой доступный голос с оптимизированными настройками
         const anyVoice = voices.find(
           (voice) => voice.lang.includes("en") || voice.lang.includes("ru"),
         );
@@ -676,7 +714,7 @@ export default function VoiceControl({
     if (
       command.includes("отключись") ||
       command.includes("выключись") ||
-      command.includes("отклю��и микрофон") ||
+      command.includes("отключи микрофон") ||
       command.includes("стоп джарвис") ||
       command.includes("выключи")
     ) {
@@ -732,7 +770,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // ��ополнит����льная проверка, ч��обы избеж��ть повторных срабатываний
+      // Дополнит����льная проверка, ч��обы избеж��ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -753,9 +791,9 @@ export default function VoiceControl({
       command.includes("hello jarvis") ||
       command.includes("hi jarvis") ||
       command.includes("hey jarvis") ||
-      (command.includes("привет") && command.includes("джарвис"))
+      (command.includes("привет") && command.includes("дж��рвис"))
     ) {
-      // Дополнительная проверка, чтобы из��ежать повторных срабатываний
+      // Дополнительная проверка, чтобы избежать повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -795,7 +833,7 @@ export default function VoiceControl({
       command.includes("как твои дела") ||
       command.includes("что нового джарвис")
     ) {
-      // Дополнительная проверка, чтобы избежать пов��орных с��абатываний
+      // Дополнительная проверка, чтобы избежать повторных с��абатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -866,7 +904,7 @@ export default function VoiceControl({
       "возможности",
       "открыть",
       "личный",
-      "каб��нет",
+      "кабинет",
       "отправить",
       "секция",
       "спуститься",
@@ -886,7 +924,7 @@ export default function VoiceControl({
       "технологии",
       "разработка",
       "сайт",
-      "инте��лект",
+      "интеллект",
       "ии",
       "jarvis",
       "мощный",
@@ -910,7 +948,7 @@ export default function VoiceControl({
       "снова",
       "спасибо",
       "благодарю",
-      "благодарность",
+      "благо��арность",
       "спс",
       "thank",
       "thanks",
@@ -937,7 +975,7 @@ export default function VoiceControl({
       "работают",
       "дела",
       "поживаешь",
-      "пор��дке",
+      "порядке",
     ];
     const hasValidWords = meaningfulWords.some((word) =>
       trimmedCommand.includes(word),
@@ -984,7 +1022,7 @@ export default function VoiceControl({
         }
       }
 
-      // Пои��к по тексту ��лементов
+      // Пои��к по тексту элементов
       const allElements = Array.from(
         document.querySelectorAll("p, div, span, li"),
       );
@@ -1025,7 +1063,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate([
           "преимущества",
-          "преимуще��тво",
+          "преимущество",
           "advantages",
         ]);
         if (found) {
@@ -1038,7 +1076,7 @@ export default function VoiceControl({
       if (
         command.includes("возможности") ||
         command.includes("возможность") ||
-        command.includes("м��щн��е")
+        command.includes("м��щные")
       ) {
         found = searchAndNavigate(["возможности", "мощные", "features"]);
         if (found) {
@@ -1076,7 +1114,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
         if (found) {
-          speak("Пока����ваю информацию о компании");
+          speak("Показ��ваю информацию о компании");
           return;
         }
       }
@@ -1123,11 +1161,11 @@ export default function VoiceControl({
         }
       }
 
-      // ��оиск качества и премиум усл��г
+      // ��оиск качества и премиум услуг
       if (
         command.includes("качество") ||
         command.includes("премиум") ||
-        command.includes("подде��жка")
+        command.includes("поддержка")
       ) {
         found = searchAndNavigate([
           "качество",
@@ -1210,7 +1248,7 @@ export default function VoiceControl({
       command.includes("открыть профиль")
     ) {
       navigate("/profile");
-      speak("Открыв��ю личный кабинет");
+      speak("Открываю ��ичный кабинет");
       return;
     }
 
@@ -1230,7 +1268,7 @@ export default function VoiceControl({
     if (
       command.includes("открыть корзину") ||
       command.includes("показать корзину") ||
-      command.includes("ч��о в корзине")
+      command.includes("что в корзине")
     ) {
       // Находим и нажимаем ��нопку корзины
       const cartButton = document.querySelector(
@@ -1248,7 +1286,7 @@ export default function VoiceControl({
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
       command.includes("базовый в корзину") ||
-      command.includes("о��править базовый")
+      command.includes("отправить базовый")
     ) {
       onAddBasicPlan();
       speak("Базовый план д��бавлен");
@@ -1275,7 +1313,7 @@ export default function VoiceControl({
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальный пл��н доба��лен");
+      speak("Максимальный пл��н добавлен");
       return;
     }
 
@@ -1310,7 +1348,7 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("пе��ейти к преимуществам") ||
+      command.includes("перейти к преимуществам") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
@@ -1325,14 +1363,14 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к возможностя��") ||
+      command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
-      command.includes("перейти к возможностям") ||
+      command.includes("перейти к возможнос��ям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
-        ["возможности", "��ощные", "features"],
+        ["возможности", "мощные", "features"],
         () => {
           const featuresSection = document.getElementById("features");
           if (featuresSection) {
@@ -1350,7 +1388,7 @@ export default function VoiceControl({
     if (
       command.includes("прокрутить вниз") ||
       command.includes("скролл вниз") ||
-      command.includes("спус��иться вниз")
+      command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
       speak("Прок��учиваю вниз");
@@ -1370,7 +1408,7 @@ export default function VoiceControl({
     if (
       command.includes("наверх страницы") ||
       command.includes("в начало") ||
-      command.includes("в самый вер��")
+      command.includes("в са��ый вер��")
     ) {
       window.scrollTo(0, 0);
       speak("Перехожу в нача��о");
