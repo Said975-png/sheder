@@ -46,16 +46,23 @@ function Model({
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  useFrame(() => {
+  useFrame((state) => {
     if (modelRef.current) {
-      // Увеличиваем чувствительность для более заметно��о эффекта
-      const targetRotationY = mouseRef.current.x * 0.5;
-      const targetRotationX = -mouseRef.current.y * 0.3;
+      // Добавляем эффект гравитации - модель слегка покачивается
+      const time = state.clock.getElapsedTime();
+
+      // Гравитационное покачивание
+      modelRef.current.position.y = Math.sin(time * 0.8) * 0.2;
+      modelRef.current.rotation.z = Math.sin(time * 0.5) * 0.1;
+
+      // Легкое вращение от мыши (уменьшенное)
+      const targetRotationY = mouseRef.current.x * 0.2;
+      const targetRotationX = -mouseRef.current.y * 0.1;
 
       modelRef.current.rotation.y +=
-        (targetRotationY - modelRef.current.rotation.y) * 0.08;
+        (targetRotationY - modelRef.current.rotation.y) * 0.05;
       modelRef.current.rotation.x +=
-        (targetRotationX - modelRef.current.rotation.x) * 0.08;
+        (targetRotationX - modelRef.current.rotation.x) * 0.05;
     }
   });
 
@@ -149,13 +156,11 @@ const GLBModel: React.FC<GLBModelProps> = ({
         </Suspense>
 
         <OrbitControls
-          enableZoom={true}
+          enableZoom={false}
           enablePan={false}
           enableRotate={true}
           autoRotate={autoRotate}
           makeDefault
-          maxDistance={10}
-          minDistance={2}
         />
       </Canvas>
     </div>
