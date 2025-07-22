@@ -133,7 +133,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
       {isLoading && <HTMLLoadingFallback />}
       <Canvas
         camera={stableProps.camera}
-        style={{...stableProps.style, background: 'transparent'}}
+        style={{ ...stableProps.style, background: "transparent" }}
         gl={{
           preserveDrawingBuffer: true,
           antialias: true,

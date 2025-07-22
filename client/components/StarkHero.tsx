@@ -141,7 +141,10 @@ export default function StarkHero({ className }: StarkHeroProps) {
                     <span className="text-white">Unleashing the</span>
                   </GlitchText>
                 </div>
-                <HologramText className="text-4xl lg:text-6xl xl:text-7xl font-bold" glitch>
+                <HologramText
+                  className="text-4xl lg:text-6xl xl:text-7xl font-bold"
+                  glitch
+                >
                   Power of Blockchain
                 </HologramText>
               </h1>
