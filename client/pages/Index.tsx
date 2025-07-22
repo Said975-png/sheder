@@ -112,7 +112,79 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-
+      {/* Navigation */}
+      <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-transparent backdrop-blur-md border border-white/20 rounded-full px-8 py-3">
+        <div className="flex items-center space-x-6">
+          {isAuthenticated && currentUser ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="flex items-center space-x-2 p-2 rounded-full hover:bg-white/10"
+                >
+                  <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                    <User className="w-4 h-4" />
+                  </div>
+                  <span className="hidden sm:block text-sm">
+                    {currentUser.name}
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-56 bg-black border-gray-700 mt-2"
+              >
+                <div className="px-2 py-1.5 text-sm text-white/60">
+                  <div className="font-medium text-white">
+                    {currentUser.name}
+                  </div>
+                  <div className="text-xs">{currentUser.email}</div>
+                </div>
+                <DropdownMenuSeparator className="bg-gray-700" />
+                <DropdownMenuItem
+                  onClick={() => (window.location.href = "/profile")}
+                  className="text-white hover:bg-gray-800 cursor-pointer"
+                >
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Profile</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => (window.location.href = "/profile")}
+                  className="text-white hover:bg-gray-800 cursor-pointer"
+                >
+                  <Settings className="mr-2 h-4 w-4" />
+                  <span>Settings</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-gray-700" />
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  className="text-red-400 hover:bg-gray-800 cursor-pointer"
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Logout</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <div className="flex items-center space-x-4">
+              <Button
+                variant="ghost"
+                className="text-sm px-4 py-2 rounded-full hover:bg-white/10"
+                asChild
+              >
+                <Link to="/login">Login</Link>
+              </Button>
+              <Button
+                variant="ghost"
+                className="text-sm px-4 py-2 rounded-full hover:bg-white/10"
+                asChild
+              >
+                <Link to="/signup">Sign up</Link>
+              </Button>
+            </div>
+          )}
+        </div>
+      </nav>
 
       {/* Hero Section */}
       <section className="pt-24 pb-20 bg-black relative overflow-hidden">
