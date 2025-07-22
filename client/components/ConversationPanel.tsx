@@ -65,14 +65,7 @@ export default function ConversationPanel({
           </div>
           
           <Button
-            onClick={() => {
-              // При закрытии панели также останавливаем голосовое распознавание
-              setShouldStopVoice(true);
-              setTimeout(() => {
-                onClose();
-                setShouldStopVoice(false);
-              }, 100);
-            }}
+            onClick={onClose}
             variant="ghost"
             className="w-8 h-8 p-0 rounded-full hover:bg-red-500/20 text-red-400"
           >
@@ -95,7 +88,7 @@ export default function ConversationPanel({
           <div className="flex items-center justify-center space-x-2">
             <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
             <span className="text-xs text-cyan-400 font-mono">
-              Система прослушивания активна
+              Система прослушивания ��ктивна
             </span>
           </div>
           
