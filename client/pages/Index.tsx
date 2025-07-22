@@ -120,6 +120,14 @@ export default function Index() {
     navigate("/order");
   };
 
+  const handleListeningChange = (isListening: boolean) => {
+    setIsVoicePanelActive(isListening);
+  };
+
+  const handleCloseVoicePanel = () => {
+    setIsVoicePanelActive(false);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
