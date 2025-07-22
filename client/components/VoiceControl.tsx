@@ -223,7 +223,7 @@ export default function VoiceControl({
     audio.onended = shutdownComplete;
 
     audio.onerror = () => {
-      console.error("Ошибка воспроизведения аудио отключения");
+      console.error("Ошибка вос��роизведения аудио отключения");
       shutdownComplete();
     };
 
@@ -633,8 +633,11 @@ export default function VoiceControl({
   };
 
   const speakSystemDiagnostics = () => {
+    console.log("🔧 Запуск диагностики системы...");
+
     // Множественная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      console.log("❌ Диагностика заблокирована - система занята");
       return;
     }
 
@@ -675,7 +678,7 @@ export default function VoiceControl({
         secondAudio.onended = resetState;
         secondAudio.onerror = () => {
           resetState();
-          console.error("Ошибка воспроизведения второго аудио диагностики");
+          console.error("Ошибка воспроизведения вто��ого аудио диагностики");
         };
 
         secondAudio.play().catch((error) => {
@@ -776,7 +779,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приветствия "Привет Дж��рвис"
+    // Команда приветствия "Прив��т Дж��рвис"
     if (
       command.includes("привет джарвис") ||
       command.includes("джарвис привет") ||
@@ -969,7 +972,7 @@ export default function VoiceControl({
       "thank",
       "thanks",
       "мерси",
-      "рахмат",
+      "��ахмат",
       "рахмет",
       "хорошо",
       "отлично",
@@ -1504,7 +1507,7 @@ export default function VoiceControl({
 
         {/* Status indicator */}
         <div className="text-xs text-white/60 text-center">
-          {isSpeaking ? "Говорю..." : isListening ? "Слушаю..." : "ДЖАРВИС"}
+          {isSpeaking ? "Говорю..." : isListening ? "Сл��шаю..." : "ДЖАРВИС"}
         </div>
       </div>
 
