@@ -86,7 +86,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяе���, что команда от��ичается от предыдущей и не пустая
+            // Проверяе��, что команда от��ичается от предыдущей и не пустая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -95,6 +95,7 @@ export default function VoiceControl({
               setTranscript(finalTranscript);
               onListeningChange?.(true, finalTranscript);
               lastCommandRef.current = command;
+              setNoSpeechCount(0); // Сбрасываем счетчик при успешном распознавании
               processVoiceCommand(command);
             }
           }
@@ -105,7 +106,7 @@ export default function VoiceControl({
 
           // Автоматически перезапускаем распознавание, если мы все еще слушаем
           if (isListening && !isSpeaking) {
-            console.log("🔄 Перезапускаем распознавание...");
+            console.log("�� Перезапускаем распознавание...");
             setTimeout(() => {
               if (recognitionRef.current && isListening && !isSpeaking) {
                 try {
@@ -189,7 +190,7 @@ export default function VoiceControl({
   // Effect для обработки тестовых команд
   useEffect(() => {
     const handleTestCommand = (event: any) => {
-      console.log("🧪 Получена тестовая команда:", event.detail.command);
+      console.log("🧪 Получена тестовая ��оманда:", event.detail.command);
       processVoiceCommand(event.detail.command);
     };
 
@@ -223,7 +224,7 @@ export default function VoiceControl({
 
     audio.onended = () => {
       setIsSpeaking(false);
-      // Сбрасываем кулдаун через небольшую задержку
+      // Сбрасывае�� кулдаун через небольшую задержку
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
@@ -272,7 +273,7 @@ export default function VoiceControl({
       audioPlayingRef.current = false;
       lastCommandRef.current = "";
       currentAudioRef.current = null;
-      // После ок��нчания аудио отключаем микрофон
+      // После окончания аудио отключаем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
@@ -300,7 +301,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим аудио для команды "Джарвис я вернулся"
+    // Создаем и воспроизводим ауд��о для команды "Джарвис я вернулся"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -451,7 +452,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвест�� аудио ��твета:", error);
+      console.error("Не удалось воспроизвест�� аудио ��тве��а:", error);
     });
   };
 
@@ -581,7 +582,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем ��юбое текущее воспрои��веден��е
+    // Ос��анавливаем ��юбое текущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -811,7 +812,7 @@ export default function VoiceControl({
 
     // Команда приветствия "Джарвис я вернулся"
     if (
-      command.includes("джарвис я вернулся") ||
+      command.includes("джарв��с я вернулся") ||
       command.includes("я вернулся джарвис") ||
       command.includes("джарвис я здесь") ||
       command.includes("я снова здесь")
@@ -907,7 +908,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Как дела" (общая, без имени Джарвис)
+    // Команда "Как дела" (общая, без имени Джа��вис)
     if (
       command.includes("как дела") ||
       command.includes("как поживаешь джарвис") ||
@@ -916,7 +917,7 @@ export default function VoiceControl({
       command.includes("how are you jarvis") ||
       command.includes("jarvis how are you") ||
       command.includes("how are you") ||
-      command.includes("как ��вои дела") ||
+      command.includes("как твои дела") ||
       command.includes("что ново��о джарвис")
     ) {
       // Дополнительная про��ерка, чтобы избежать п��вторных с��абатываний
@@ -940,7 +941,7 @@ export default function VoiceControl({
       command.includes("thank you") ||
       command.includes("thanks") ||
       command.includes("мерси") ||
-      command.includes("рахмат") ||
+      command.includes("ра��мат") ||
       command.includes("рахмет") ||
       command.includes("хорошо") ||
       command.includes("отлично") ||
@@ -953,7 +954,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда диагностики с��стемы
+    // Команда диагностики системы
     if (
       command.includes("диагностик") ||
       command.includes("прове��и") ||
@@ -1190,7 +1191,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск возможно��тей
+      // Поиск возмож��о��тей
       if (
         command.includes("возможности") ||
         command.includes("возможность") ||
@@ -1208,7 +1209,7 @@ export default function VoiceControl({
         command.includes("план") ||
         command.includes("тариф") ||
         command.includes("цен") ||
-        command.includes("сто��м��сть")
+        command.includes("стоим��сть")
       ) {
         found = searchAndNavigate(["план", "тариф", "цен", "pricing"], () => {
           const pricingSection = document.querySelector(
@@ -1247,7 +1248,7 @@ export default function VoiceControl({
         found = searchAndNavigate([
           "контакт",
           "связь",
-          "телефо��",
+          "телефон",
           "email",
           "contact",
         ]);
@@ -1366,7 +1367,7 @@ export default function VoiceControl({
       command.includes("открыть профиль")
     ) {
       navigate("/profile");
-      speak("Открываю ли��ный кабинет");
+      speak("Откр��ваю ли��ный кабинет");
       return;
     }
 
@@ -1418,7 +1419,7 @@ export default function VoiceControl({
       command.includes("отправить про")
     ) {
       onAddProPlan();
-      speak("��ро план д��бавлен");
+      speak("Про план д��бавлен");
       return;
     }
 
@@ -1440,7 +1441,7 @@ export default function VoiceControl({
       command.includes("к планам") ||
       command.includes("показать планы") ||
       command.includes("пере��ти к планам") ||
-      command.includes("спуститься к планам") ||
+      command.includes("спуститься �� планам") ||
       command.includes("тарифы") ||
       command.includes("цены") ||
       command.includes("стоимость")
@@ -1488,7 +1489,7 @@ export default function VoiceControl({
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
-        ["возможности", "мощны��", "features"],
+        ["возможности", "мощные", "features"],
         () => {
           const featuresSection = document.getElementById("features");
           if (featuresSection) {
