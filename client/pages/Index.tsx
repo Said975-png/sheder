@@ -394,16 +394,37 @@ export default function Index() {
       </section>
 
       {/* Why Blockchain Section */}
-      <section id="why-blockchain" className="py-20 bg-black">
-        <div className="container mx-auto px-6">
+      <section id="why-blockchain" className="py-20 bg-black relative overflow-hidden">
+        {/* JARVIS Background Grid */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="w-full h-full" style={{
+            backgroundImage: `
+              linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}></div>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
+            {/* JARVIS-style Header */}
+            <div className="inline-block relative mb-4">
+              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-lg blur opacity-30"></div>
+              <div className="relative bg-black px-6 py-2 rounded-lg border border-cyan-400/50">
+                <span className="text-sm text-cyan-400 uppercase tracking-widest">[ SYSTEM ANALYSIS ]</span>
+              </div>
+            </div>
+
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Why <span className="text-blue-400">Blockchain?</span>
+              Why <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Blockchain?</span>
             </h2>
             <p className="text-lg text-white/70 max-w-2xl mx-auto">
-              Blockchain is redefining trust in the digital world. Here's why it
-              matters:
+              Advanced distributed ledger technology protocols analyzing security matrices:
             </p>
+
+            {/* Scanning Line Animation */}
+            <div className="mt-4 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
