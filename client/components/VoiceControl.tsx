@@ -139,7 +139,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Созда��м и воспроизводим ваш ��овый аудио-файл
+    // Созда��м и воспроизводим ваш новый аудио-файл
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fdb47541068444a9093b406f29a6af3ce?alt=media&token=43fbc024-64ae-479b-8a6c-5b9d12b43294&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -201,6 +201,7 @@ export default function VoiceControl({
       }
       setIsListening(false);
       setTranscript("");
+      onListeningChange?.(false);
     };
 
     audio.onended = shutdownComplete;
@@ -211,7 +212,7 @@ export default function VoiceControl({
     };
 
     audio.play().catch((error) => {
-      console.error("Н�� удалось воспроизве��ти аудио отключения:", error);
+      console.error("Н�� удалось воспроизвести аудио отключения:", error);
       shutdownComplete();
     });
   };
@@ -378,12 +379,12 @@ export default function VoiceControl({
   };
 
   const speakWithElevenLabs = async (text: string) => {
-    // Множественная защи��а от повторного восп��оизведения
+    // Множественная защи��а о�� повторного восп��оизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Останавливаем любое ��екущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -404,7 +405,7 @@ export default function VoiceControl({
     };
 
     try {
-      // Используем ElevenLabs API для синтеза речи с вашим кастомным гол��сом
+      // Используем ElevenLabs API для синтеза речи с вашим кастомным голосом
       const response = await fetch("/api/elevenlabs-tts", {
         method: "POST",
         headers: {
@@ -519,7 +520,7 @@ export default function VoiceControl({
         "у меня все в порядке сэр",
       );
 
-      // Настройки максимально приб��иженные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
+      // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
       // Stability: 20 (низкая ст��бильность для более естественной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
@@ -564,7 +565,7 @@ export default function VoiceControl({
         utterance.lang = "ru-RU";
         utterance.pitch = 0.6; // Чуть ниже для русского голоса
       } else {
-        // Fallback: любой дос��упный голос с оптимизированными настройками
+        // Fallback: любой доступный голос с оптимизированными настройками
         const anyVoice = voices.find(
           (voice) => voice.lang.includes("en") || voice.lang.includes("ru"),
         );
@@ -637,7 +638,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приветствия "Д��арвис я вернулся"
+    // Команда приветствия "Джарвис я вернулся"
     if (
       command.includes("джарвис я вернулся") ||
       command.includes("я вернулся джарвис") ||
@@ -652,7 +653,7 @@ export default function VoiceControl({
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
-      command.includes("джарвис как в фильме") ||
+      command.includes("джар��ис как в фильме") ||
       command.includes("железный человек") ||
       command.includes("tony stark") ||
       command.includes("тони старк") ||
@@ -682,7 +683,7 @@ export default function VoiceControl({
       (command.includes("доброе утро") && command.length < 20) ||
       command.includes("good morning jarvis") ||
       (command.includes("good morning") && command.length < 20) ||
-      command.includes("доброго утра")
+      command.includes("доброго ут��а")
     ) {
       // Дополнит����льная проверка, ч��обы избе����ть повторных срабатываний
       if (
@@ -747,7 +748,7 @@ export default function VoiceControl({
       command.includes("как твои дела") ||
       command.includes("что нового джарвис")
     ) {
-      // Дополнительная проверка, чтобы избежать повторных с��абатываний
+      // Дополнительная проверк��, чтобы избежать повторных с��абатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -784,7 +785,7 @@ export default function VoiceControl({
     // Команда проверки присутствия "Джарвис ты тут?"
     if (
       command.includes("джарвис ты тут") ||
-      command.includes("ты тут джарвис") ||
+      command.includes("ты тут джар��ис") ||
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
@@ -810,7 +811,7 @@ export default function VoiceControl({
       "базовый",
       "про",
       "макс",
-      "про��рутить",
+      "прокрутить",
       "скролл",
       "наверх",
       "планам",
@@ -1094,7 +1095,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск аналитики
+      // Поиск а��алитики
       if (
         command.includes("аналитик") ||
         command.includes("статистик") ||
@@ -1219,7 +1220,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("добавить макс") ||
+      command.includes("добавить м��кс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
       command.includes("джарвис пла��") ||
@@ -1271,7 +1272,7 @@ export default function VoiceControl({
         "advantages",
       ]);
       if (found) {
-        speak("Показываю преим���щества");
+        speak("Показываю преим��щества");
       }
       return;
     }
