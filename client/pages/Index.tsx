@@ -349,7 +349,7 @@ export default function Index() {
 
             {/* Right Side - 3D Isometric Placeholder */}
             <div className="flex items-center justify-center">
-              <div className="w-full h-96 bg-gradient-to-br from-slate-800 to-slate-700 rounded-2xl border border-slate-600/50 flex items-center justify-center">
+              <div className="w-full h-96 bg-gradient-to-br from-gray-800 to-gray-700 rounded-2xl border border-gray-600/50 flex items-center justify-center">
                 <p className="text-white/50 text-lg">3D Isometric Model will be placed here</p>
               </div>
             </div>
