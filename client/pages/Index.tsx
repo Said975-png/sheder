@@ -163,6 +163,7 @@ export default function Index() {
             onAddProPlan={handleAddIntermediatePlan}
             onAddMaxPlan={handleAddAdvancedPlan}
             inNavbar={true}
+            onVoiceListeningChange={handleVoiceListeningChange}
           />
 
           {/* Cart Dropdown */}
