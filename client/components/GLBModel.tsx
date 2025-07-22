@@ -55,14 +55,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
     style: { width: "100%", height: "100%" },
   }), []);
 
-  const controlsProps = useMemo(() => ({
-    global: true,
-    config: { mass: 2, tension: 500 },
-    snap: { mass: 4, tension: 1500 },
-    rotation: [0, 0.3, 0] as [number, number, number],
-    polar: [-Math.PI / 2, Math.PI / 2] as [number, number],
-    azimuth: [-Math.PI, Math.PI] as [number, number],
-  }), []);
+
 
   return (
     <div className="w-full h-full">
