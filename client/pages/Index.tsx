@@ -371,9 +371,9 @@ export default function Index() {
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Beginner Plan */}
-            <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 hover:border-blue-500/50 transition-all duration-300">
+            <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:border-blue-500/50 transition-all duration-300">
               <div className="text-center mb-8">
-                <h3 className="text-xl font-semibold mb-4">Beginner Plan</h3>
+                <h3 className="text-xl font-semibold mb-4 text-white">Beginner Plan</h3>
                 <div className="text-4xl font-bold mb-2">
                   $199<span className="text-lg text-white/60">/month</span>
                 </div>
