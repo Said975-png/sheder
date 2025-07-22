@@ -575,13 +575,6 @@ export default function Index() {
           </div>
         </div>
       </section>
-
-      {/* Voice Control Component */}
-      <VoiceControl
-        onAddBasicPlan={handleAddBeginnerPlan}
-        onAddProPlan={handleAddIntermediatePlan}
-        onAddMaxPlan={handleAddAdvancedPlan}
-      />
     </div>
   );
 }
