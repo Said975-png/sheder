@@ -4,7 +4,6 @@ import { Zap, Code, Shield, Target, Cpu, Activity } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { StarkHUD, DataStream, CircuitPattern, HologramText } from "@/components/StarkHUD";
 import { ArcReactor, PowerIndicator, GlitchText, MatrixRain } from "@/components/StarkEffects";
-import GLBModel from "@/components/GLBModel";
 
 interface StarkHeroProps {
   className?: string;
