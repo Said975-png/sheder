@@ -10,7 +10,7 @@ interface VoiceControlProps {
   onAddMaxPlan: () => void;
   inNavbar?: boolean;
   onListeningChange?: (isListening: boolean, transcript?: string) => void;
-  onStopListening?: () => void;
+  forceStop?: boolean;
 }
 
 export default function VoiceControl({
@@ -313,7 +313,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим ауд��о для утреннего приветс��вия
+    // Создаем и воспроизводим ауд��о для утреннего приветствия
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -388,7 +388,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Останавливаем любое текущее воспроизведен��е
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -531,8 +531,8 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
-      utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
-      utterance.volume = 0.95; // Ч��ткая, но не резкая громкость
+      utterance.pitch = 0.7; // ��редне-ни��кий тон для автор��тет��ости
+      utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
@@ -629,7 +629,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда о��ключения (приор��тетная)
+    // Команда о��ключения (приоритетная)
     if (
       command.includes("отключись") ||
       command.includes("выключись") ||
@@ -689,7 +689,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит����льная проверка, ч��обы избе����ть повторных срабатыв��ний
+      // Дополни������льная проверка, ч��обы избе����ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -723,7 +723,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис как дела" с ответом "Все системы ф��нкционируют нормально"
+    // Команда "Джарвис как дела" с ответом "Все систе��ы ф��нкционируют нормально"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
@@ -793,7 +793,7 @@ export default function VoiceControl({
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
-      command.includes("джарвис ��рисутствуешь") ||
+      command.includes("джарвис ����рисутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
     ) {
@@ -1011,7 +1011,7 @@ export default function VoiceControl({
         command.includes("цен") ||
         command.includes("стоим��сть")
       ) {
-        found = searchAndNavigate(["план", "тариф", "цен", "pricing"], () => {
+        found = searchAndNavigate(["план", "тариф", "ц��н", "pricing"], () => {
           const pricingSection = document.querySelector(
             '[data-section="pricing"]',
           );
@@ -1187,7 +1187,7 @@ export default function VoiceControl({
     if (
       command.includes("открыть корзину") ||
       command.includes("показать корзину") ||
-      command.includes("что в кор��ине")
+      command.includes("что в корзине")
     ) {
       // Находим и нажимаем ��нопку корзины
       const cartButton = document.querySelector(
