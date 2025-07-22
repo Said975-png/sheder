@@ -299,25 +299,25 @@ export default function Index() {
             </div>
 
             {/* Security */}
-            <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:border-green-500/50 transition-all duration-300 group">
+            <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 hover:border-green-500/50 transition-all duration-300 group">
               <div className="w-16 h-16 bg-green-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-600/30 transition-colors">
                 <Lock className="w-8 h-8 text-green-400" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Security</h3>
+              <h3 className="text-xl font-bold mb-4 text-white">Security</h3>
               <p className="text-white/70">Encrypted and tamper-proof technology</p>
             </div>
 
             {/* Transparency */}
-            <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-300 group">
+            <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-300 group">
               <div className="w-16 h-16 bg-cyan-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-600/30 transition-colors">
                 <Search className="w-8 h-8 text-cyan-400" />
               </div>
-              <h3 className="text-xl font-bold mb-4">Transparency</h3>
+              <h3 className="text-xl font-bold mb-4 text-white">Transparency</h3>
               <p className="text-white/70">Public, accessible transactions</p>
             </div>
 
             {/* Efficiency */}
-            <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-300 group">
+            <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-300 group">
               <div className="w-16 h-16 bg-purple-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-600/30 transition-colors">
                 <TrendingUp className="w-8 h-8 text-purple-400" />
               </div>
