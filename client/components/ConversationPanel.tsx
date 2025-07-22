@@ -62,7 +62,7 @@ export default function ConversationPanel({
             <ArcReactor size="small" pulsing />
             <div>
               <h3 className="text-lg font-bold text-cyan-400 font-mono">
-                <GlitchText intensity="low">ДЖАР��ИС АКТИВЕН</GlitchText>
+                <GlitchText intensity="low">ДЖАРВИС АКТИВЕН</GlitchText>
               </h3>
               <p className="text-xs text-cyan-300/70 font-mono">
                 Голосовое управление включено
@@ -71,7 +71,10 @@ export default function ConversationPanel({
           </div>
           
           <Button
-            onClick={onClose}
+            onClick={() => {
+              // При закрытии панели также останавливаем голосовое распознавание
+              onClose();
+            }}
             variant="ghost"
             className="w-8 h-8 p-0 rounded-full hover:bg-red-500/20 text-red-400"
           >
