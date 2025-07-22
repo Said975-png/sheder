@@ -122,7 +122,7 @@ export default function VoiceControl({
               setTranscript(command);
               onListeningChange?.(true, command);
 
-              // Очищаем предыдущий таймер
+              // Очи��аем предыдущий таймер
               if (commandDelayRef.current) {
                 clearTimeout(commandDelayRef.current);
               }
@@ -519,7 +519,7 @@ export default function VoiceControl({
   };
 
   const speakWithElevenLabs = async (text: string) => {
-    // Множественная защи��а от повторного восп��оизведения
+    // Множественна�� защи��а от повторного восп��оизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -623,6 +623,19 @@ export default function VoiceControl({
       setIsSpeaking(false);
       audioPlayingRef.current = false;
       currentAudioRef.current = null;
+
+      // Возобновляем распознавание речи после завершения аудио
+      setTimeout(() => {
+        if (isListening && recognitionRef.current) {
+          console.log("▶️ Возобновляем распознавание после аудио");
+          try {
+            recognitionRef.current.start();
+          } catch (error) {
+            console.log("Распознавание уже активно:", error);
+          }
+        }
+      }, 500);
+
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
@@ -677,7 +690,7 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переклю��им ��а русский
       utterance.rate = 0.75; // Медлен��ая, размеренная речь как у Джарвиса из фильма
-      utterance.pitch = 0.7; // Средн��-ни��кий тон для автор��тет��ос��и
+      utterance.pitch = 0.7; // Сред����-ни��кий тон для автор��тет��ос��и
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболе�� подходящего ��олоса для имитации Jarvis
@@ -925,7 +938,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда утреннего приветствия "Доброе утр�� Джарвис"
+    // Команда утреннего приветстви�� "Доброе утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис до��рое утро") ||
