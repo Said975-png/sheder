@@ -191,13 +191,13 @@ export default function StarkHero({ className }: StarkHeroProps) {
 
           {/* Правая часть - GLB модель */}
           <div className="flex items-center justify-center lg:justify-end order-first lg:order-last">
-            <StarkHUD className="w-full max-w-sm lg:max-w-md h-80 lg:h-96 overflow-hidden">
+            <div className="w-full max-w-xs lg:max-w-sm h-64 lg:h-80">
               <GLBModel
                 url="https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2Fb4ef7bf18c5549bd9f8852b83394ebc8?alt=media&token=b8c73f7a-800f-4ec6-8ff9-36107fc91a86&apiKey=4349887fbc264ef3847731359e547c4f"
-                scale={1.8}
+                scale={1.2}
                 autoRotate={true}
               />
-            </StarkHUD>
+            </div>
           </div>
         </div>
       </div>
