@@ -39,7 +39,7 @@ export default function VoiceControl({
         recognitionRef.current.lang = "ru-RU";
         // Улучшенные настройки для лучшего распознавания тихих команд
         recognitionRef.current.maxAlternatives = 3;
-        // @ts-ignore - эти свойства могут не быть в типах, но р��ботают в браузерах
+        // @ts-ignore - эти свойства могут не быть в ти��ах, но р��ботают в браузерах
         if ("webkitSpeechRecognition" in window) {
           recognitionRef.current.serviceURI =
             "wss://www.google.com/speech-api/full-duplex/v1/up";
@@ -169,7 +169,7 @@ export default function VoiceControl({
   };
 
   const speakShutdown = () => {
-    // Останавливаем люб��е текущее воспроизведение
+    // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -218,7 +218,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим аудио для команды "Джарвис я вернулся"
+    // Создаем и воспроизводим ау��ио для команды "Джарвис я вернулся"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -420,6 +420,76 @@ export default function VoiceControl({
     });
   };
 
+  const speakWithElevenLabs = async (text: string) => {
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
+
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
+
+    const resetState = () => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 1000);
+    };
+
+    try {
+      // Используем ElevenLabs API для синтеза речи с кастомным голосом
+      const response = await fetch('/api/elevenlabs-tts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: text,
+          voice_id: "YyXZ45ZTmrPak6Ecz0mK"
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      currentAudioRef.current = audio;
+
+      audio.onended = () => {
+        URL.revokeObjectURL(audioUrl);
+        resetState();
+      };
+
+      audio.onerror = () => {
+        URL.revokeObjectURL(audioUrl);
+        resetState();
+        console.error("Ошибка воспроизведения аудио из ElevenLabs");
+      };
+
+      await audio.play();
+    } catch (error) {
+      resetState();
+      console.error("Не удалось получить аудио из ElevenLabs:", error);
+
+      // Fallback: простое текстовое сообщение
+      console.log("Джарвис:", text);
+      setTimeout(resetState, 2000);
+    }
+  };
+
   const speakSystemsOperational = async () => {
     // Множественная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
@@ -445,7 +515,7 @@ export default function VoiceControl({
       // Настройки максимально приближенные к ElevenLabs Jarvis
       // Мужской голос ИИ с глубоким, уверенным тоном, как голос из научной фантастики
       // Говорит по-русски чётко и без акцента. Подходит для ассистента наподобие Джарвиса
-      // Стиль — вежливый, спокойный, слегка роботизированный, интеллектуальный
+      // Стиль — вежливый, спокойный, слегка роботизированный, интеллектуаль��ый
 
       utterance.lang = "ru-RU"; // Русский язык
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса
@@ -728,7 +798,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит��льная проверка, чтобы избеж����ть повторных срабатываний
+      // Дополнит��льная проверка, чтобы избеж��ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -768,7 +838,7 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнительная проверка, чтобы избе��ать повторных срабат��ваний
+      // Дополнительная проверка, чтобы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1191,7 +1261,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("рег��с��рация") ||
+      command.includes("рег��страция") ||
       command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
@@ -1268,7 +1338,7 @@ export default function VoiceControl({
       command.includes("максимальный план") ||
       command.includes("джарвис план") ||
       command.includes("макс в ��орзину") ||
-      command.includes("отправить м��кс")
+      command.includes("отправить макс")
     ) {
       onAddMaxPlan();
       speak("Максимальный план добавлен");
@@ -1310,7 +1380,7 @@ export default function VoiceControl({
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
-        "пр��имущества",
+        "преимущества",
         "преимущество",
         "advantages",
       ]);
@@ -1349,7 +1419,7 @@ export default function VoiceControl({
       command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
-      speak("Прокручиваю вн��з");
+      speak("Прокручиваю вниз");
       return;
     }
 
