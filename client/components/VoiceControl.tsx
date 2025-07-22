@@ -30,6 +30,11 @@ export default function VoiceControl({
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
 
+  // Уведомляем родительский компонент об изменении состояния прослушивания
+  useEffect(() => {
+    onListeningChange?.(isListening);
+  }, [isListening, onListeningChange]);
+
   useEffect(() => {
     // Проверяем поддержку Speech Recognition
     if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
@@ -333,7 +338,7 @@ export default function VoiceControl({
     audio.play().catch((error) => {
       resetState();
       console.error(
-        "Не удалось во��произвести аудио утреннего приветствия:",
+        "Не удалось во���произвести аудио утреннего приветствия:",
         error,
       );
     });
@@ -378,12 +383,12 @@ export default function VoiceControl({
   };
 
   const speakWithElevenLabs = async (text: string) => {
-    // Множественная защи��а от повторного восп��оизведения
+    // Множественная защи����а от повторного восп��оизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
 
-    // Останавливаем любое текущее воспр��изведение
+    // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -529,7 +534,7 @@ export default function VoiceControl({
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
-      // Поиск н��иболее подходящего голоса для имитации Jarvis
+      // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: голоса, похожие на британский/американский мужской
@@ -545,7 +550,7 @@ export default function VoiceControl({
             voice.name.toLowerCase().includes("thomas")),
       );
 
-      // ��сли н�� нашли подходящий а��глийский, ищем русский мужской
+      // ��сли н�� нашли подходящий а��глийский, ��щем русский мужской
       const russianMaleVoice = voices.find(
         (voice) =>
           voice.lang.includes("ru") &&
@@ -572,7 +577,7 @@ export default function VoiceControl({
           utterance.voice = anyVoice;
           utterance.lang = "ru-RU"; // Всегда русский язык
         }
-        utterance.pitch = 0.55; // Еще ниже для компенсации
+        utterance.pitch = 0.55; // Еще ниже для ко��пенсации
         utterance.rate = 0.7; // Е����е медленнее для большей солидности
       }
 
@@ -785,10 +790,10 @@ export default function VoiceControl({
     if (
       command.includes("джарвис ты тут") ||
       command.includes("ты тут джарвис") ||
-      command.includes("джарвис ты здесь") ||
+      command.includes("джарви�� ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
-      command.includes("джарв��с присутствуешь") ||
+      command.includes("джарвис присутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
     ) {
@@ -796,7 +801,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверяем, содержит л���� коман��а значимые слова
+    // Проверяем, содержит л���� команда значимые слова
     const meaningfulWords = [
       "перейти",
       "войти",
@@ -845,7 +850,7 @@ export default function VoiceControl({
       "уникальный",
       "качество",
       "аналитика",
-      "пр��м��ум",
+      "пр��миум",
       "невероятное",
       "готовы",
       "создать",
@@ -1041,7 +1046,7 @@ export default function VoiceControl({
         command.includes("email")
       ) {
         found = searchAndNavigate([
-          "контакт",
+          "ко��такт",
           "связь",
           "телефон",
           "email",
