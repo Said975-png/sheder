@@ -352,10 +352,14 @@ export default function Index() {
               </Button>
             </div>
 
-            {/* Right Side - 3D Isometric Placeholder */}
+            {/* Right Side - 3D Model */}
             <div className="flex items-center justify-center">
-              <div className="w-full h-96 bg-gradient-to-br from-gray-800 to-gray-700 rounded-2xl border border-gray-600/50 flex items-center justify-center">
-                <p className="text-white/50 text-lg">3D Isometric Model will be placed here</p>
+              <div className="w-full h-96 rounded-2xl overflow-hidden">
+                <GLBModel
+                  url="https://cdn.builder.io/o/assets%2Fe7ee46b6f06b4b02a9803aeda10a012b%2Fc0894c02d77649a3aecc80105a96cd68?alt=media&token=0fe7336c-92c5-4c4c-928f-d3a77338f0e9&apiKey=e7ee46b6f06b4b02a9803aeda10a012b"
+                  scale={1.5}
+                  autoRotate={false}
+                />
               </div>
             </div>
           </div>
