@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Zap, Code, Shield, Cpu, Activity } from "lucide-react";
+import { Zap, Code } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { StarkHUD, DataStream, CircuitPattern, HologramText } from "@/components/StarkHUD";
 import { ArcReactor, PowerIndicator, GlitchText, MatrixRain } from "@/components/StarkEffects";
@@ -39,7 +39,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
     <section className={cn("relative min-h-screen bg-black overflow-hidden", className)}>
       {/* Фоновые эффекты */}
       <div className="absolute inset-0">
-        {/* Матричный дождь */}
+        {/* Матричный ��ождь */}
         <MatrixRain density="low" speed="slow" color="cyan" />
         
         {/* Схемы и паттерны */}
