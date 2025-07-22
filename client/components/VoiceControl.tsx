@@ -488,9 +488,7 @@ export default function VoiceControl({
       console.log("Джарвис: Все системы функционируют нормально");
     }
     if ("speechSynthesis" in window) {
-      const utterance = new SpeechSynthesisUtterance(
-        "Все системы функционируют нормально",
-      );
+
 
       // Настройки максимально приближенные к ElevenLabs Jarvis
       // Мужской голос ИИ с глубоким, уверенным тоном, как голос из научной фантастики
@@ -712,7 +710,7 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("Обрабо��ка ко��анды:", command);
 
-    // Фильтруем пустые или слишком короткие команды
+    // Фил��труем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -1142,7 +1140,7 @@ export default function VoiceControl({
           "contact",
         ]);
         if (found) {
-          speak("Пок��зываю контакты");
+          speak("Пок����зываю контакты");
           return;
         }
       }
@@ -1232,7 +1230,7 @@ export default function VoiceControl({
 
     if (
       command.includes("войти") ||
-      command.includes("логин") ||
+      command.includes("��огин") ||
       command.includes("авторизация")
     ) {
       navigate("/login");
@@ -1317,7 +1315,7 @@ export default function VoiceControl({
       command.includes("макс план") ||
       command.includes("максимальный план") ||
       command.includes("джарвис пла��") ||
-      command.includes("макс в ��орзину") ||
+      command.includes("макс в ��орзи��у") ||
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
