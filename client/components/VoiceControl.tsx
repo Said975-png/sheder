@@ -79,7 +79,7 @@ export default function VoiceControl({
         };
 
         recognitionRef.current.onend = () => {
-          // Автоматически перезапу��каем распознавание, если мы все еще слушаем
+          // Автоматически перезапу��каем распознавание, если м�� все еще слушаем
           if (isListening && !isSpeaking) {
             setTimeout(() => {
               if (recognitionRef.current && isListening) {
@@ -379,7 +379,7 @@ export default function VoiceControl({
       return;
     }
 
-    // О��танавливаем любое текущее воспроизведение
+    // О��танавливаем любое те��ущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -496,18 +496,7 @@ export default function VoiceControl({
 
 
 
-      // Если не нашли ��усский мужской, ищем английский �� настройками для русского
-      const englishMaleVoice = voices.find(
-        (voice) =>
-          voice.lang.includes("en") &&
-          (voice.name.toLowerCase().includes("alex") ||
-            voice.name.toLowerCase().includes("daniel") ||
-            voice.name.toLowerCase().includes("male") ||
-            voice.name.toLowerCase().includes("british") ||
-            voice.name.toLowerCase().includes("uk") ||
-            voice.name.toLowerCase().includes("david") ||
-            voice.name.toLowerCase().includes("thomas")),
-      );
+
 
       if (russianMaleVoice) {
         utterance.voice = russianMaleVoice;
@@ -701,7 +690,7 @@ export default function VoiceControl({
     if (
       command.includes("отключись") ||
       command.includes("выключись") ||
-      command.includes("отключи микрофон") ||
+      command.includes("отклю��и микрофон") ||
       command.includes("стоп джарвис") ||
       command.includes("выключи")
     ) {
@@ -1009,7 +998,7 @@ export default function VoiceControl({
         }
       }
 
-      // Пои��к по тексту элементов
+      // Пои��к по тексту ��лементов
       const allElements = Array.from(
         document.querySelectorAll("p, div, span, li"),
       );
@@ -1050,7 +1039,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate([
           "преимущества",
-          "преимущество",
+          "преимуще��тво",
           "advantages",
         ]);
         if (found) {
@@ -1300,7 +1289,7 @@ export default function VoiceControl({
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальный пл��н добавлен");
+      speak("Максимальный пл��н доба��лен");
       return;
     }
 
@@ -1375,7 +1364,7 @@ export default function VoiceControl({
     if (
       command.includes("прокрутить вниз") ||
       command.includes("скролл вниз") ||
-      command.includes("спуститься вниз")
+      command.includes("спус��иться вниз")
     ) {
       window.scrollBy(0, 500);
       speak("Прок��учиваю вниз");
