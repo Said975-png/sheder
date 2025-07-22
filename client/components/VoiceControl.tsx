@@ -69,7 +69,7 @@ export default function VoiceControl({
             recognitionRef.current.webkitSpeechRecognition.interimResults = true;
           }
         } catch (e) {
-          // Игнорируем ошибки настроек
+          // Игнорируем ��шибки настроек
         }
         // @ts-ignore - эти свойства могут не быть в типах, но р��ботают в браузерах
         if ("webkitSpeechRecognition" in window) {
@@ -99,7 +99,7 @@ export default function VoiceControl({
           // Объединяем финальный и промежуточный результаты
           combinedTranscript = (finalTranscript + interimTranscript).trim();
 
-          // Показываем промежуточный результат
+          // Показывае�� промежуточный результат
           if (combinedTranscript) {
             setTranscript(combinedTranscript);
             onListeningChange?.(true, combinedTranscript);
@@ -298,7 +298,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Ошибка воспроизведения аудио");
+      console.error("Ошибка воспроизведения ауди��");
     };
 
     audio.play().catch((error) => {
@@ -334,7 +334,7 @@ export default function VoiceControl({
       audioPlayingRef.current = false;
       lastCommandRef.current = "";
       currentAudioRef.current = null;
-      // После окончания аудио отключаем микрофон
+      // После око��чания аудио отключаем микрофон
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
@@ -485,7 +485,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим аудио для ответа "Дж��рвис ты тут?"
+    // Создаем и во��производим аудио для ответа "Дж��рвис ты тут?"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F5baee2408110417fbab785b0c6ffdde6?alt=media&token=a957a2b4-68ad-46de-bc3e-11943c8fb38b&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -638,7 +638,7 @@ export default function VoiceControl({
   };
 
   const speakHowAreYou = () => {
-    // ��ножественная ��ащита от повторного воспроизведения
+    // ��ножественная ��ащита от повторног�� воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -664,7 +664,7 @@ export default function VoiceControl({
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
 
-      utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
+      utterance.lang = "en-US"; // Английский для лучшего качества, потом переклю��им на русский
       utterance.rate = 0.75; // Медлен��ая, размеренная речь как у Джарвиса из фильма
       utterance.pitch = 0.7; // Средн��-ни��кий тон для автор��тет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
@@ -842,7 +842,7 @@ export default function VoiceControl({
       console.error("❌ Ошибка воспроизведения первого аудио диагностики");
     };
 
-    console.log("▶️ ��апускаем первое аудио");
+    console.log("▶️ ��апускаем первое ауди��");
     firstAudio.play().catch((error) => {
       resetState();
       console.error("❌ Не удалось воспроизвести первое аудио диагностики:", error);
@@ -850,9 +850,15 @@ export default function VoiceControl({
   };
 
   const processVoiceCommand = (command: string) => {
-    console.log("Обрабо��ка ко��анды:", command);
+    console.log("🔧 Обработка команды:", command);
 
-    // Фильт��уем пустые или слишком короткие команды
+    // Немедленно очищаем транскрипт чтобы предотвратить слипание команд
+    setTimeout(() => {
+      setTranscript("");
+      onListeningChange?.(true, "");
+    }, 500);
+
+    // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -1599,7 +1605,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("наверх страницы") ||
+      command.includes("наверх страни��ы") ||
       command.includes("в на��ало") ||
       command.includes("в самый верх")
     ) {
