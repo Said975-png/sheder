@@ -338,6 +338,15 @@ export default function Index() {
         </div>
       </nav>
 
+      {/* Conversation Panel */}
+      <ConversationPanel
+        isOpen={isVoiceActive}
+        onClose={handleCloseConversationPanel}
+        onAddBasicPlan={handleAddBeginnerPlan}
+        onAddProPlan={handleAddIntermediatePlan}
+        onAddMaxPlan={handleAddAdvancedPlan}
+      />
+
       {/* Hero Section - Stark Style */}
       <StarkHero />
 
