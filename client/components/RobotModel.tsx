@@ -1,7 +1,7 @@
 import React, { useRef, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import { Mesh } from "three";
+import * as THREE from "three";
 
 // Set this to your actual .glb file URL when you have one
 const MODEL_URL = ""; // Leave empty until you have a real URL
