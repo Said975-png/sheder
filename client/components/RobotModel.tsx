@@ -24,7 +24,7 @@ function GLBModel({ url }: { url: string }) {
 }
 
 function FallbackModel() {
-  const meshRef = useRef<Mesh>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((_state, delta) => {
     if (meshRef.current) {
