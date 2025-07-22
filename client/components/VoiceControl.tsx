@@ -129,7 +129,7 @@ export default function VoiceControl({
   }, []);
 
   const speak = (text: string) => {
-    // Предотвращаем повторное воспроизведение
+    // Предотвраща��м повторное воспроизведение
     if (isSpeaking || commandCooldownRef.current) return;
 
     setIsSpeaking(true);
@@ -164,7 +164,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвести аудио:", error);
+      console.error("Не удалось воспроизве��ти аудио:", error);
     });
   };
 
@@ -237,7 +237,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("О��ибка воспроизведения аудио приветствия");
+      console.error("О��ибка воспроизведения аудио приве��ствия");
     };
 
     audio.play().catch((error) => {
@@ -304,7 +304,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим ауд��о для утренне���� приветствия
+    // Создаем и воспроизводим ауд��о для утренне��о приветствия
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -379,7 +379,7 @@ export default function VoiceControl({
       return;
     }
 
-    // ����танавливаем любое текущее воспроизведение
+    // О��танавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -421,7 +421,7 @@ export default function VoiceControl({
   };
 
   const speakSystemsOperational = async () => {
-    // Множественная защита от ��овторного воспроизведения
+    // Множественная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -492,12 +492,9 @@ export default function VoiceControl({
 
 
 
-      utterance.lang = "ru-RU"; // Русский язык
-      utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса
-      utterance.pitch = 0.6; // Глубокий, низкий тон для авторитетности
-      utterance.volume = 0.95; // Громкость 90-100%
 
-      // Поиск наиболее подходящего голос�� для имитации Jarvis
+
+      // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: русский мужской голос с глубоким тембром
@@ -592,7 +589,7 @@ export default function VoiceControl({
       return;
     }
 
-    // ��с��анавливаем любое текущее воспроизведение
+    // Ос��анавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -741,7 +738,7 @@ export default function VoiceControl({
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
-      command.includes("джарвис как в фильм��") ||
+      command.includes("джарвис как в фильме") ||
       command.includes("железный человек") ||
       command.includes("tony stark") ||
       command.includes("тони старк") ||
@@ -794,7 +791,7 @@ export default function VoiceControl({
       command.includes("hello jarvis") ||
       command.includes("hi jarvis") ||
       command.includes("hey jarvis") ||
-      (command.includes("привет") && command.includes("джарвис"))
+      (command.includes("привет") && command.includes("дж��рвис"))
     ) {
       // Дополнительная проверка, чтобы избежать повторных срабатываний
       if (
@@ -847,7 +844,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды благод����рности
+    // Команды благод��рности
     if (
       command.includes("спасибо") ||
       command.includes("благодарю") ||
@@ -927,7 +924,7 @@ export default function VoiceControl({
       "технологии",
       "разработка",
       "сайт",
-      "интелл��кт",
+      "интеллект",
       "ии",
       "jarvis",
       "мощный",
@@ -951,7 +948,7 @@ export default function VoiceControl({
       "снова",
       "спасибо",
       "благодарю",
-      "благодарность",
+      "благо��арность",
       "спс",
       "thank",
       "thanks",
@@ -978,7 +975,7 @@ export default function VoiceControl({
       "работают",
       "дела",
       "поживаешь",
-      "поряд��е",
+      "порядке",
     ];
     const hasValidWords = meaningfulWords.some((word) =>
       trimmedCommand.includes(word),
@@ -1251,7 +1248,7 @@ export default function VoiceControl({
       command.includes("открыть профиль")
     ) {
       navigate("/profile");
-      speak("Открываю личный кабинет");
+      speak("Открываю ��ичный кабинет");
       return;
     }
 
@@ -1271,7 +1268,7 @@ export default function VoiceControl({
     if (
       command.includes("открыть корзину") ||
       command.includes("показать корзину") ||
-      command.includes("что в корз��не")
+      command.includes("что в корзине")
     ) {
       // Находим и нажимаем ��нопку корзины
       const cartButton = document.querySelector(
@@ -1351,7 +1348,7 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("перейти к ��реимуществам") ||
+      command.includes("перейти к преимуществам") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
@@ -1369,7 +1366,7 @@ export default function VoiceControl({
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
-      command.includes("перейти к возможностям") ||
+      command.includes("перейти к возможнос��ям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
@@ -1411,7 +1408,7 @@ export default function VoiceControl({
     if (
       command.includes("наверх страницы") ||
       command.includes("в начало") ||
-      command.includes("в самый вер��")
+      command.includes("в са��ый вер��")
     ) {
       window.scrollTo(0, 0);
       speak("Перехожу в нача��о");
