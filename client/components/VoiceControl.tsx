@@ -106,7 +106,7 @@ export default function VoiceControl({
             console.log("🎯 Распознано:", `"${combinedTranscript}"`);
           }
 
-          // Обрабатываем финальные результаты или достаточно длинные промежуточные
+          // Обрабатываем финальные результаты или ��остаточно длинные промежуточные
           if ((finalTranscript || combinedTranscript.length > 5) && !commandCooldownRef.current) {
             const command = (finalTranscript || combinedTranscript).toLowerCase().trim();
             console.log("🔍 Анализируем команду:", `"${command}"`);
@@ -129,7 +129,7 @@ export default function VoiceControl({
               // Добавляем небольшую задержку для завершения фразы
               commandDelayRef.current = setTimeout(() => {
                 lastCommandRef.current = command;
-                setNoSpeechCount(0); // Сбрасываем счетчик при успешном распознавании
+                setNoSpeechCount(0); // Сбрасываем счетчик при усп��шном распознавании
                 processVoiceCommand(command);
               }, finalTranscript ? 100 : 1000); // Меньше задержки для финальных результатов
             } else {
@@ -179,7 +179,7 @@ export default function VoiceControl({
           else if (event.error === "no-speech" || event.error === "audio-capture" || event.error === "aborted") {
             if (event.error === "no-speech") {
               setNoSpeechCount(prev => prev + 1);
-              console.log(`ℹ️ No-speech ошибка #${noSpeechCount + 1} - продолжаем слушать`);
+              console.log(`ℹ️ No-speech ошибка #${noSpeechCount + 1} - п��одолжаем слушать`);
 
               // Если сл��шком много no-speech ошибок подряд, делаем небольшую паузу
               if (noSpeechCount >= 3) {
@@ -202,7 +202,7 @@ export default function VoiceControl({
           }
           // Другие ошибки - перезапускаем через короткое время
           else {
-            console.warn("⚠️ Неожиданная ошибка распознав��ния:", event.error, "- перезапускаем");
+            console.warn("⚠️ Неожиданная ошибка распознав��ния:", event.error, "- перезапу��каем");
             setTimeout(() => {
               if (isListening && recognitionRef.current) {
                 try {
@@ -498,7 +498,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвест�� аудио ��тве��а:", error);
+      console.error("Не удалось воспроизв��ст�� аудио ��тве��а:", error);
     });
   };
 
@@ -827,7 +827,7 @@ export default function VoiceControl({
       console.error("❌ Ошибка воспроизведения первого аудио диагностики");
     };
 
-    console.log("▶️ Запускаем первое аудио");
+    console.log("▶️ ��апускаем первое аудио");
     firstAudio.play().catch((error) => {
       resetState();
       console.error("❌ Не удалось воспроизвести первое аудио диагностики:", error);
@@ -914,17 +914,22 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приветствия "Прив��т Дж��рвис"
+    // Команда приветствия "Привет Джарвис" - улучшенное распознавание
     if (
       command.includes("привет джарвис") ||
       command.includes("джарвис привет") ||
-      command.includes("здравствуй д��арвис") ||
+      command.includes("здравствуй джарвис") ||
       command.includes("джарвис здравствуй") ||
       command.includes("хай джарвис") ||
       command.includes("hello jarvis") ||
       command.includes("hi jarvis") ||
       command.includes("hey jarvis") ||
-      (command.includes("привет") && command.includes("джарвис"))
+      command.includes("привет жарвис") || // частые ошибки распознавания
+      command.includes("привет джаров") ||
+      command.includes("привет ярвис") ||
+      command.includes("жарвис привет") ||
+      (command.includes("привет") && (command.includes("джарвис") || command.includes("жарвис") || command.includes("ярвис"))) ||
+      (command.includes("привет") && command.length < 20) // если слышно только "привет" в короткой фразе
     ) {
       // Дополнительная прове��ка, чтобы из��ежать повторных срабатываний
       if (
@@ -1043,7 +1048,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверяем, содержит л���� команда значимые слова
+    // Проверяем, со��ержит л���� команда значимые слова
     const meaningfulWords = [
       "перейти",
       "войти",
@@ -1504,7 +1509,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("Пока���ываю п��аны");
+        speak("По��а���ываю п��аны");
       }
       return;
     }
