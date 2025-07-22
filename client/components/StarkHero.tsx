@@ -14,6 +14,7 @@ import {
   GlitchText,
   MatrixRain,
 } from "@/components/StarkEffects";
+import GLBModel from "@/components/GLBModel";
 
 interface StarkHeroProps {
   className?: string;
