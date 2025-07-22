@@ -8,12 +8,14 @@ interface VoiceControlProps {
   onAddBasicPlan: () => void;
   onAddProPlan: () => void;
   onAddMaxPlan: () => void;
+  inNavbar?: boolean;
 }
 
 export default function VoiceControl({
   onAddBasicPlan,
   onAddProPlan,
   onAddMaxPlan,
+  inNavbar = false,
 }: VoiceControlProps) {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -329,7 +331,7 @@ export default function VoiceControl({
     audio.play().catch((error) => {
       resetState();
       console.error(
-        "Не удалось воспроизвести аудио утреннего приветствия:",
+        "Не удалось во��произвести аудио утреннего приветствия:",
         error,
       );
     });
@@ -374,7 +376,7 @@ export default function VoiceControl({
   };
 
   const speakWithElevenLabs = async (text: string) => {
-    // Множественная защита от повторного воспроизведения
+    // Множественная защи��а от повторного восп��оизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -494,12 +496,12 @@ export default function VoiceControl({
   };
 
   const speakHowAreYou = () => {
-    // Множественная ��ащита от повторного воспроизведения
+    // ��ножественная ��ащита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
 
-    // Ос��анавливаем любое текущее воспрои��ведение
+    // Ос��анавливаем ��юбое текущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -546,7 +548,7 @@ export default function VoiceControl({
         (voice) =>
           voice.lang.includes("ru") &&
           (voice.name.toLowerCase().includes("male") ||
-            voice.name.toLowerCase().includes("мужской") ||
+            voice.name.toLowerCase().includes("муж��кой") ||
             voice.name.toLowerCase().includes("антон") ||
             voice.name.toLowerCase().includes("николай")),
       );
@@ -644,7 +646,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды ��ля оригинального голоса Джарвиса (из фильма)
+    // Команды ��ля оригинального голоса Джарвиса (из фи��ьма)
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
@@ -714,7 +716,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис как дела" с ответом "Все системы функционируют нормально"
+    // Команда "Джарвис как дела" с ответом "Все системы ф��нкционируют нормально"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
@@ -966,7 +968,7 @@ export default function VoiceControl({
     ) {
       let found = false;
 
-      // Поис�� преимущ��ств
+      // Поис���� преимущ��ств
       if (
         command.includes("преимущества") ||
         command.includes("преимущество")
@@ -1210,7 +1212,7 @@ export default function VoiceControl({
       command.includes("отправить про")
     ) {
       onAddProPlan();
-      speak("Про план добавлен");
+      speak("Про план д��бавлен");
       return;
     }
 
@@ -1255,7 +1257,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к преимуществам") ||
+      command.includes("к пре��муществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
       command.includes("перейти к преимуществам") ||
@@ -1358,10 +1360,16 @@ export default function VoiceControl({
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <div className="flex flex-col items-end space-y-2">
+    <div className={inNavbar ? "relative" : "fixed bottom-6 right-6 z-50"}>
+      <div
+        className={
+          inNavbar
+            ? "flex items-center space-x-2"
+            : "flex flex-col items-end space-y-2"
+        }
+      >
         {/* Transcript display */}
-        {transcript && (
+        {transcript && !inNavbar && (
           <div className="max-w-xs p-3 bg-black/80 backdrop-blur-lg border border-purple-500/30 rounded-lg text-white text-sm">
             {transcript}
           </div>
@@ -1370,10 +1378,8 @@ export default function VoiceControl({
         {/* Voice control button */}
         <Button
           onClick={toggleListening}
-          className={`w-14 h-14 rounded-full p-0 transition-all duration-300 ${
-            isListening
-              ? "bg-red-500 hover:bg-red-600 animate-pulse"
-              : "bg-purple-600 hover:bg-purple-700"
+          className={`w-14 h-14 rounded-full p-0 transition-all duration-300 bg-transparent hover:bg-white/10 ${
+            isListening ? "animate-pulse" : ""
           } ${isSpeaking ? "ring-4 ring-blue-400/50" : ""}`}
           disabled={isSpeaking}
         >
