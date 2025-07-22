@@ -77,31 +77,37 @@ export default function VoiceControl({
         }
 
         recognitionRef.current.onstart = () => {
-          console.log("🎤 Распознавание речи запущено");
+          console.log("🎤 Ра��познавание речи запущено");
         };
 
         recognitionRef.current.onresult = (event) => {
           let finalTranscript = "";
           let interimTranscript = "";
+          let combinedTranscript = "";
 
-          for (let i = event.resultIndex; i < event.results.length; i++) {
-            const transcript = event.results[i][0].transcript;
+          // Собираем все результаты, включая предыдущие
+          for (let i = 0; i < event.results.length; i++) {
+            const transcript = event.results[i][0].transcript.trim();
             if (event.results[i].isFinal) {
-              finalTranscript += transcript;
+              finalTranscript += transcript + " ";
             } else {
-              interimTranscript += transcript;
+              interimTranscript += transcript + " ";
             }
           }
 
-          // Показываем пром��жуточный результат
-          if (interimTranscript) {
-            setTranscript(interimTranscript);
-            onListeningChange?.(true, interimTranscript);
+          // Объединяем финальный и промежуточный результаты
+          combinedTranscript = (finalTranscript + interimTranscript).trim();
+
+          // Показываем промежуточный результат
+          if (combinedTranscript) {
+            setTranscript(combinedTranscript);
+            onListeningChange?.(true, combinedTranscript);
+            console.log("🎯 Распознано:", `"${combinedTranscript}"`);
           }
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяе��, что команда от��ичается от предыдущей и не пустая
+            // Пр��веряе��, что команда от��ичается от предыдущей и не пустая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -126,7 +132,7 @@ export default function VoiceControl({
               if (recognitionRef.current && isListening && !isSpeaking) {
                 try {
                   recognitionRef.current.start();
-                  console.log("✅ Распознавание перезапущено");
+                  console.log("✅ Распознавание п��резапущено");
                 } catch (error) {
                   console.log("ℹ️ Распозн��вание уже запущено или недоступно:", error);
                 }
@@ -175,7 +181,7 @@ export default function VoiceControl({
           }
           // Другие ошибки - перезапускаем через короткое время
           else {
-            console.warn("⚠️ Неожиданная ошибка распознавания:", event.error, "- перезапускаем");
+            console.warn("⚠️ Неожиданная ошибка распознав��ния:", event.error, "- перезапускаем");
             setTimeout(() => {
               if (isListening && recognitionRef.current) {
                 try {
@@ -213,7 +219,7 @@ export default function VoiceControl({
     return () => window.removeEventListener('voiceCommand', handleTestCommand);
   }, []);
 
-  // Effect для принудительной остановки
+  // Effect для принудите��ьной остановки
   useEffect(() => {
     if (forceStop && isListening) {
       recognitionRef.current?.stop();
@@ -439,7 +445,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим аудио для ответа "Джарвис ты тут?"
+    // Создаем и воспроизводим аудио для ответа "Дж��рвис ты тут?"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F5baee2408110417fbab785b0c6ffdde6?alt=media&token=a957a2b4-68ad-46de-bc3e-11943c8fb38b&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -619,7 +625,7 @@ export default function VoiceControl({
       // Style: Assistant/Narration (помощник/повеств��вание)
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
-      utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
+      utterance.rate = 0.75; // Медлен��ая, размеренная речь как у Джарвиса из фильма
       utterance.pitch = 0.7; // Средн��-ни��кий тон для автор��тет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
@@ -667,7 +673,7 @@ export default function VoiceControl({
           utterance.lang = "ru-RU"; // Всегда русский язык
         }
         utterance.pitch = 0.55; // Еще ниже для компенсации
-        utterance.rate = 0.7; // Е����е медленнее для большей солидности
+        utterance.rate = 0.7; // Е����е медленнее для большей солидно��ти
       }
 
       const resetState = () => {
@@ -895,7 +901,7 @@ export default function VoiceControl({
       command.includes("hey jarvis") ||
       (command.includes("привет") && command.includes("джарвис"))
     ) {
-      // Дополнительная проверка, чтобы из��ежать повторных срабатываний
+      // Дополнительная прове��ка, чтобы из��ежать повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1388,7 +1394,7 @@ export default function VoiceControl({
 
     if (command.includes("заказ") || command.includes("оформить заказ")) {
       navigate("/order");
-      speak("Переходим к оф��рмлению заказа");
+      speak("Переходим к оф��рмлен��ю заказа");
       return;
     }
 
@@ -1500,7 +1506,7 @@ export default function VoiceControl({
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
-      command.includes("перей���и к возмо��ностям") ||
+      command.includes("пере�����и к возмо��ностям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
