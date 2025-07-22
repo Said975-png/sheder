@@ -58,6 +58,7 @@ export default function Index() {
   const [navbarScrolled, setNavbarScrolled] = useState(false);
   const [isVoicePanelActive, setIsVoicePanelActive] = useState(false);
   const [currentTranscript, setCurrentTranscript] = useState("");
+  const [lastProcessedTranscript, setLastProcessedTranscript] = useState("");
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
   // Запуск аним��ции при загрузке компонента
