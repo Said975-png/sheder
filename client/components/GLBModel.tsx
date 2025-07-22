@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   OrbitControls,
@@ -24,7 +24,10 @@ function Model({
 }) {
   const { scene } = useGLTF(url);
 
-  return <primitive object={scene} scale={scale} position={position} />;
+  // Клонируем сцену для избежания конфликтов при повторном использовании
+  const clonedScene = useMemo(() => scene.clone(), [scene]);
+
+  return <primitive object={clonedScene} scale={scale} position={position} />;
 }
 
 const GLBModel: React.FC<GLBModelProps> = ({
