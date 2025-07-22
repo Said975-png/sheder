@@ -603,7 +603,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Используем ваш оригинальный аудиофайл Джарвиса
+    // Используем ваш оригинальный аудиофай�� Джарвиса
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2Fddde4fe5b47946c2a3bbb80e3bca0073%2F54eb93b1452742b6a1cd87cc6104bb59?alt=media&token=fc948eba-bbcd-485c-b129-d5a0c25cfc74&apiKey=ddde4fe5b47946c2a3bbb80e3bca0073",
     );
@@ -639,7 +639,7 @@ export default function VoiceControl({
   };
 
   const speakHowAreYou = () => {
-    // ��ножественная ��ащита от повторног�� воспроизведения
+    // ��ножественная ��ащита от повторног�� восп��оизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -665,9 +665,9 @@ export default function VoiceControl({
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
 
-      utterance.lang = "en-US"; // Английский для лучшего качества, потом переклю��им на русский
+      utterance.lang = "en-US"; // Английский для лучшего качества, потом переклю��им ��а русский
       utterance.rate = 0.75; // Медлен��ая, размеренная речь как у Джарвиса из фильма
-      utterance.pitch = 0.7; // Средн��-ни��кий тон для автор��тет��ости
+      utterance.pitch = 0.7; // Средн��-ни��кий тон для автор��тет��ос��и
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболе�� подходящего ��олоса для имитации Jarvis
@@ -784,7 +784,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Останавливаем любое текущее воспроиз��едение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -936,7 +936,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приветствия "Привет Джарви��" - улучшенное распознавание
+    // Команда приветствия "Привет Джарвис" - улучшенное распознавание с защитой от повторов
     if (
       command.includes("привет джарвис") ||
       command.includes("джарвис привет") ||
@@ -950,16 +950,30 @@ export default function VoiceControl({
       command.includes("привет джаров") ||
       command.includes("привет ярвис") ||
       command.includes("жарвис привет") ||
-      (command.includes("привет") && (command.includes("джарвис") || command.includes("жарвис") || command.includes("ярвис"))) ||
-      (command.includes("привет") && command.length < 20) // если слышно только "привет" в короткой фразе
+      (command.includes("привет") && (command.includes("джарвис") || command.includes("жарвис") || command.includes("ярвис")))
     ) {
-      // Дополнительная пр��ве��ка, чтобы из��ежать повторных срабатываний
+      const now = Date.now();
+      const timeSinceLastGreeting = now - lastGreetingTimeRef.current;
+
+      console.log("🎯 Команда приветствия распознана, времени прошло:", timeSinceLastGreeting);
+
+      // Дополнительная проверка + защита от повторов (минимум 10 секунд между приветствиями)
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
-        !audioPlayingRef.current
+        !audioPlayingRef.current &&
+        timeSinceLastGreeting > 10000
       ) {
+        console.log("✅ Выполняем команду приветствия");
+        lastGreetingTimeRef.current = now;
         speakAuthenticJarvis();
+      } else {
+        console.log("❌ Приветствие заблокировано:", {
+          isSpeaking,
+          commandCooldown: commandCooldownRef.current,
+          audioPlaying: audioPlayingRef.current,
+          timeSinceLastGreeting
+        });
       }
       return;
     }
@@ -1048,7 +1062,7 @@ export default function VoiceControl({
         !commandCooldownRef.current &&
         !audioPlayingRef.current
       ) {
-        console.log("✅ Условия выполнены, запуск��ем диагностику");
+        console.log("✅ Условия выполнены, ��апуск��ем диагностику");
         speakSystemDiagnostics();
       } else {
         console.log("❌ Диагностика заблокирована:", {
@@ -1508,7 +1522,7 @@ export default function VoiceControl({
       command.includes("добави��ь макс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
-      command.includes("джа��вис пла��") ||
+      command.includes("д��а��вис пла��") ||
       command.includes("макс в ��орзину") ||
       command.includes("о��править макс")
     ) {
@@ -1548,7 +1562,7 @@ export default function VoiceControl({
       command.includes("к пре���муществам") ||
       command.includes("наши пре��мущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("перейти к преимуществам") ||
+      command.includes("перейти к преимущес��вам") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
