@@ -56,6 +56,7 @@ export default function Index() {
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
   const [navbarScrolled, setNavbarScrolled] = useState(false);
+  const [isVoicePanelActive, setIsVoicePanelActive] = useState(false);
 
   // Запуск аним��ции при загрузке компонента
   useEffect(() => {
