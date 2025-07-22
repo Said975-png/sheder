@@ -169,7 +169,7 @@ export default function VoiceControl({
   };
 
   const speakShutdown = () => {
-    // Оста��авлив��ем любое текущее воспроизведение
+    // Оста��авливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -477,7 +477,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка ��оспроизведения оригинального аудио Джарвиса");
+      console.error("Ошибка воспроизведения оригинального аудио Джарвиса");
     };
 
     audio.play().catch((error) => {
@@ -492,7 +492,7 @@ export default function VoiceControl({
   const speakSystemsOperational = async () => {
     await speakWithElevenLabs("Все системы функционируют нормально");
 
-
+    // Используем Web Speech API для синтеза фразы "Все системы функционируют нормально"
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(
         "Все системы функционируют нормально",
@@ -504,7 +504,7 @@ export default function VoiceControl({
       // Стиль — вежливый, спокойный, слегка роботизированный, интеллектуальный
 
       utterance.lang = "ru-RU"; // Русский язык
-      utterance.rate = 0.75; // Ме��ленная, размеренная речь как у Джарвиса
+      utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса
       utterance.pitch = 0.6; // Глубокий, низкий тон для авторитетности
       utterance.volume = 0.95; // Громкость 90-100%
 
@@ -622,7 +622,7 @@ export default function VoiceControl({
       // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
       // Stability: 20 (низкая ст��бильность для более естественной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
-      // Style: Assistant/Narration (помо��ник/повеств��вание)
+      // Style: Assistant/Narration (помощник/повеств��вание)
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
@@ -670,7 +670,7 @@ export default function VoiceControl({
         );
         if (anyVoice) {
           utterance.voice = anyVoice;
-          utterance.lang = "ru-RU"; // Всегда р��сский язык
+          utterance.lang = "ru-RU"; // Всегда русский язык
         }
         utterance.pitch = 0.55; // Еще ниже для компенсации
         utterance.rate = 0.7; // Е����е медленнее для большей солидности
@@ -710,7 +710,7 @@ export default function VoiceControl({
         }, 1000);
       };
 
-      console.log("Джарвис: у меня все �� порядке сэр");
+      console.log("Джарвис: у меня все в порядке сэр");
       setTimeout(resetState, 2000);
     }
   };
@@ -847,7 +847,7 @@ export default function VoiceControl({
       command.includes("как твои дела") ||
       command.includes("что нового джарвис")
     ) {
-      // ��ополнительная проверка, чтобы избежать повторных с��абатываний
+      // Дополнительная проверка, чтобы избежать повторных с��абатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1319,7 +1319,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("доба��ить макс") ||
+      command.includes("добавить макс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
       command.includes("джарвис пла��") ||
