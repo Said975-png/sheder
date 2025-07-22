@@ -493,7 +493,7 @@ export default function VoiceControl({
     audio.onended = shutdownComplete;
 
     audio.onerror = () => {
-      console.error("Ошибка вос���роизведения а��ди�� отключения");
+      console.error("��шибка вос���роизведения а��ди�� отключения");
       shutdownComplete();
     };
 
@@ -639,7 +639,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и во��производим аудио для ответа "��ж��рв��с ты тут?"
+    // Создаем и во��производим аудио для ответа "��ж��рв����с ты тут?"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F5baee2408110417fbab785b0c6ffdde6?alt=media&token=a957a2b4-68ad-46de-bc3e-11943c8fb38b&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -828,7 +828,7 @@ export default function VoiceControl({
   };
 
   const speakHowAreYou = () => {
-    // ��ножественная ��ащита от повторног�� восп��оизве��ения
+    // ��ноже��твенная ��ащита от повторног�� восп��оизве��ения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -875,7 +875,7 @@ export default function VoiceControl({
             voice.name.toLowerCase().includes("thomas")),
       );
 
-      // ��сли н�� нашли подходящий а��глийский, ищем русский мужской
+      // ��сли н���� нашли подходящий а��глийский, ищем русский мужской
       const russianMaleVoice = voices.find(
         (voice) =>
           voice.lang.includes("ru") &&
@@ -1062,7 +1062,7 @@ export default function VoiceControl({
       resetSpeechRecognition();
     }, 3000);
 
-    // Фильтруем пустые или ��лишком короткие команды
+    // Фильтруем пустые или ��лишком короткие кома��ды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -1128,7 +1128,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит����льная проверка, ч��обы избе������ть повторных срабатываний
+      // Дополнит����льная проверка, ч��обы избе������ть повторны�� срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1367,7 +1367,7 @@ export default function VoiceControl({
       "снова",
       "спас��бо",
       "благодарю",
-      "благодарность",
+      "благ��дарность",
       "спс",
       "thank",
       "thanks",
@@ -1495,7 +1495,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск возмож��о��тей
+      // ��оиск возмож��о��тей
       if (
         command.includes("возможности") ||
         command.includes("возможность") ||
@@ -1532,7 +1532,7 @@ export default function VoiceControl({
       // Поиск инфор��ации о компании
       if (
         command.includes("комп��н") ||
-        command.includes("о нас") ||
+        command.includes("�� нас") ||
         command.includes("кто мы")
       ) {
         found = searchAndNavigate(["компан", "�� нас", "about", "кто мы"]);
@@ -1743,7 +1743,7 @@ export default function VoiceControl({
     // Ра��шире��ная навигация ��о секциям стран��ц��
     if (
       command.includes("к планам") ||
-      command.includes("по��азать планы") ||
+      command.includes("по��азать пла��ы") ||
       command.includes("пере��ти к планам") ||
       command.includes("сп��ститься �� планам") ||
       command.includes("тарифы") ||
@@ -1853,6 +1853,7 @@ export default function VoiceControl({
     if (isListening) {
       recognitionRef.current?.stop();
       setIsListening(false);
+      setTranscript("");
       lastCommandRef.current = "";
       commandCooldownRef.current = false;
       onListeningChange?.(false, "");
