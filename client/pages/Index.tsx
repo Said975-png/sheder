@@ -119,7 +119,7 @@ export default function Index() {
           <Button
             variant="ghost"
             className="text-sm px-4 py-2 rounded-full hover:bg-white/10"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             Home
           </Button>
@@ -297,37 +297,102 @@ export default function Index() {
           {/* Neural Network Grid */}
           <div className="absolute inset-0 opacity-20">
             <div className="absolute top-10 left-10 w-32 h-32 border border-cyan-400/30 rounded-lg animate-pulse"></div>
-            <div className="absolute top-20 right-20 w-24 h-24 border border-blue-400/30 rounded-lg animate-pulse" style={{ animationDelay: '1s' }}></div>
-            <div className="absolute bottom-20 left-20 w-28 h-28 border border-cyan-400/30 rounded-lg animate-pulse" style={{ animationDelay: '2s' }}></div>
-            <div className="absolute bottom-10 right-10 w-20 h-20 border border-blue-400/30 rounded-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+            <div
+              className="absolute top-20 right-20 w-24 h-24 border border-blue-400/30 rounded-lg animate-pulse"
+              style={{ animationDelay: "1s" }}
+            ></div>
+            <div
+              className="absolute bottom-20 left-20 w-28 h-28 border border-cyan-400/30 rounded-lg animate-pulse"
+              style={{ animationDelay: "2s" }}
+            ></div>
+            <div
+              className="absolute bottom-10 right-10 w-20 h-20 border border-blue-400/30 rounded-lg animate-pulse"
+              style={{ animationDelay: "0.5s" }}
+            ></div>
           </div>
 
           {/* Connecting Lines */}
-          <svg className="absolute inset-0 w-full h-full opacity-30" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            className="absolute inset-0 w-full h-full opacity-30"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <defs>
-              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.8"/>
-                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.3"/>
+              <linearGradient
+                id="lineGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.3" />
               </linearGradient>
             </defs>
-            <line x1="10%" y1="20%" x2="90%" y2="30%" stroke="url(#lineGradient)" strokeWidth="1" className="animate-pulse"/>
-            <line x1="20%" y1="80%" x2="80%" y2="20%" stroke="url(#lineGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '1s' }}/>
-            <line x1="80%" y1="70%" x2="20%" y2="90%" stroke="url(#lineGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '2s' }}/>
+            <line
+              x1="10%"
+              y1="20%"
+              x2="90%"
+              y2="30%"
+              stroke="url(#lineGradient)"
+              strokeWidth="1"
+              className="animate-pulse"
+            />
+            <line
+              x1="20%"
+              y1="80%"
+              x2="80%"
+              y2="20%"
+              stroke="url(#lineGradient)"
+              strokeWidth="1"
+              className="animate-pulse"
+              style={{ animationDelay: "1s" }}
+            />
+            <line
+              x1="80%"
+              y1="70%"
+              x2="20%"
+              y2="90%"
+              stroke="url(#lineGradient)"
+              strokeWidth="1"
+              className="animate-pulse"
+              style={{ animationDelay: "2s" }}
+            />
           </svg>
 
           {/* Floating Particles */}
           <div className="absolute inset-0">
-            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-cyan-400 rounded-full opacity-60 animate-bounce" style={{ animationDelay: '0s', animationDuration: '3s' }}></div>
-            <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-blue-400 rounded-full opacity-80 animate-bounce" style={{ animationDelay: '1s', animationDuration: '4s' }}></div>
-            <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-cyan-300 rounded-full opacity-70 animate-bounce" style={{ animationDelay: '2s', animationDuration: '3.5s' }}></div>
-            <div className="absolute bottom-1/3 right-1/4 w-1 h-1 bg-blue-300 rounded-full opacity-60 animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '2.8s' }}></div>
+            <div
+              className="absolute top-1/4 left-1/4 w-2 h-2 bg-cyan-400 rounded-full opacity-60 animate-bounce"
+              style={{ animationDelay: "0s", animationDuration: "3s" }}
+            ></div>
+            <div
+              className="absolute top-1/3 right-1/3 w-1 h-1 bg-blue-400 rounded-full opacity-80 animate-bounce"
+              style={{ animationDelay: "1s", animationDuration: "4s" }}
+            ></div>
+            <div
+              className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-cyan-300 rounded-full opacity-70 animate-bounce"
+              style={{ animationDelay: "2s", animationDuration: "3.5s" }}
+            ></div>
+            <div
+              className="absolute bottom-1/3 right-1/4 w-1 h-1 bg-blue-300 rounded-full opacity-60 animate-bounce"
+              style={{ animationDelay: "0.5s", animationDuration: "2.8s" }}
+            ></div>
           </div>
 
           {/* HUD Corner Elements */}
           <div className="absolute top-4 left-4 w-16 h-16 border-l-2 border-t-2 border-cyan-400/60 animate-pulse"></div>
-          <div className="absolute top-4 right-4 w-16 h-16 border-r-2 border-t-2 border-cyan-400/60 animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-4 left-4 w-16 h-16 border-l-2 border-b-2 border-cyan-400/60 animate-pulse" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute bottom-4 right-4 w-16 h-16 border-r-2 border-b-2 border-cyan-400/60 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          <div
+            className="absolute top-4 right-4 w-16 h-16 border-r-2 border-t-2 border-cyan-400/60 animate-pulse"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className="absolute bottom-4 left-4 w-16 h-16 border-l-2 border-b-2 border-cyan-400/60 animate-pulse"
+            style={{ animationDelay: "2s" }}
+          ></div>
+          <div
+            className="absolute bottom-4 right-4 w-16 h-16 border-r-2 border-b-2 border-cyan-400/60 animate-pulse"
+            style={{ animationDelay: "0.5s" }}
+          ></div>
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -365,16 +430,34 @@ export default function Index() {
               {/* JARVIS-style Stats */}
               <div className="grid grid-cols-3 gap-6 mt-8">
                 <div className="bg-black/40 backdrop-blur-sm border border-cyan-400/30 rounded-lg p-4 text-center hover:border-cyan-400/60 transition-all duration-300">
-                  <div className="text-2xl font-bold text-cyan-400 animate-pulse">99.9%</div>
-                  <div className="text-xs text-white/60 uppercase tracking-wider">Security Level</div>
+                  <div className="text-2xl font-bold text-cyan-400 animate-pulse">
+                    99.9%
+                  </div>
+                  <div className="text-xs text-white/60 uppercase tracking-wider">
+                    Security Level
+                  </div>
                 </div>
                 <div className="bg-black/40 backdrop-blur-sm border border-blue-400/30 rounded-lg p-4 text-center hover:border-blue-400/60 transition-all duration-300">
-                  <div className="text-2xl font-bold text-blue-400 animate-pulse" style={{ animationDelay: '0.5s' }}>24/7</div>
-                  <div className="text-xs text-white/60 uppercase tracking-wider">System Status</div>
+                  <div
+                    className="text-2xl font-bold text-blue-400 animate-pulse"
+                    style={{ animationDelay: "0.5s" }}
+                  >
+                    24/7
+                  </div>
+                  <div className="text-xs text-white/60 uppercase tracking-wider">
+                    System Status
+                  </div>
                 </div>
                 <div className="bg-black/40 backdrop-blur-sm border border-cyan-400/30 rounded-lg p-4 text-center hover:border-cyan-400/60 transition-all duration-300">
-                  <div className="text-2xl font-bold text-cyan-400 animate-pulse" style={{ animationDelay: '1s' }}>∞</div>
-                  <div className="text-xs text-white/60 uppercase tracking-wider">Scalability</div>
+                  <div
+                    className="text-2xl font-bold text-cyan-400 animate-pulse"
+                    style={{ animationDelay: "1s" }}
+                  >
+                    ∞
+                  </div>
+                  <div className="text-xs text-white/60 uppercase tracking-wider">
+                    Scalability
+                  </div>
                 </div>
               </div>
             </div>
@@ -394,16 +477,22 @@ export default function Index() {
       </section>
 
       {/* Why Blockchain Section */}
-      <section id="why-blockchain" className="py-20 bg-black relative overflow-hidden">
+      <section
+        id="why-blockchain"
+        className="py-20 bg-black relative overflow-hidden"
+      >
         {/* JARVIS Background Grid */}
         <div className="absolute inset-0 opacity-10">
-          <div className="w-full h-full" style={{
-            backgroundImage: `
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage: `
               linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px),
               linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)
             `,
-            backgroundSize: '50px 50px'
-          }}></div>
+              backgroundSize: "50px 50px",
+            }}
+          ></div>
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -412,15 +501,21 @@ export default function Index() {
             <div className="inline-block relative mb-4">
               <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-lg blur opacity-30"></div>
               <div className="relative bg-black px-6 py-2 rounded-lg border border-cyan-400/50">
-                <span className="text-sm text-cyan-400 uppercase tracking-widest">[ SYSTEM ANALYSIS ]</span>
+                <span className="text-sm text-cyan-400 uppercase tracking-widest">
+                  [ SYSTEM ANALYSIS ]
+                </span>
               </div>
             </div>
 
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Why <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Blockchain?</span>
+              Why{" "}
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                Blockchain?
+              </span>
             </h2>
             <p className="text-lg text-white/70 max-w-2xl mx-auto">
-              Advanced distributed ledger technology protocols analyzing security matrices:
+              Advanced distributed ledger technology protocols analyzing
+              security matrices:
             </p>
 
             {/* Scanning Line Animation */}
@@ -441,15 +536,23 @@ export default function Index() {
               <p className="text-white/70 text-sm">
                 Distributed network architecture • No single point of failure
               </p>
-              <div className="mt-4 text-xs text-cyan-400/60 uppercase tracking-widest">STATUS: ACTIVE</div>
+              <div className="mt-4 text-xs text-cyan-400/60 uppercase tracking-widest">
+                STATUS: ACTIVE
+              </div>
             </div>
 
             {/* Security */}
             <div className="bg-black/60 backdrop-blur-sm border border-blue-400/30 rounded-xl p-6 hover:border-blue-400/60 hover:shadow-lg hover:shadow-blue-400/20 transition-all duration-500 group relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-50 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              <div
+                className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-50 animate-pulse"
+                style={{ animationDelay: "0.5s" }}
+              ></div>
               <div className="w-16 h-16 bg-blue-400/10 border border-blue-400/30 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-400/20 group-hover:border-blue-400/50 transition-all duration-300 relative">
                 <Lock className="w-8 h-8 text-blue-400" />
-                <div className="absolute inset-0 bg-blue-400/5 rounded-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                <div
+                  className="absolute inset-0 bg-blue-400/5 rounded-lg animate-pulse"
+                  style={{ animationDelay: "0.5s" }}
+                ></div>
               </div>
               <h3 className="text-xl font-bold mb-4 text-blue-400 uppercase tracking-wider">
                 [ SECURITY ]
@@ -457,15 +560,23 @@ export default function Index() {
               <p className="text-white/70 text-sm">
                 Cryptographic protocols • Immutable data structures
               </p>
-              <div className="mt-4 text-xs text-blue-400/60 uppercase tracking-widest">THREAT LEVEL: MINIMAL</div>
+              <div className="mt-4 text-xs text-blue-400/60 uppercase tracking-widest">
+                THREAT LEVEL: MINIMAL
+              </div>
             </div>
 
             {/* Transparency */}
             <div className="bg-black/60 backdrop-blur-sm border border-cyan-400/30 rounded-xl p-6 hover:border-cyan-400/60 hover:shadow-lg hover:shadow-cyan-400/20 transition-all duration-500 group relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-50 animate-pulse" style={{ animationDelay: '1s' }}></div>
+              <div
+                className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-50 animate-pulse"
+                style={{ animationDelay: "1s" }}
+              ></div>
               <div className="w-16 h-16 bg-cyan-400/10 border border-cyan-400/30 rounded-lg flex items-center justify-center mb-6 group-hover:bg-cyan-400/20 group-hover:border-cyan-400/50 transition-all duration-300 relative">
                 <Eye className="w-8 h-8 text-cyan-400" />
-                <div className="absolute inset-0 bg-cyan-400/5 rounded-lg animate-pulse" style={{ animationDelay: '1s' }}></div>
+                <div
+                  className="absolute inset-0 bg-cyan-400/5 rounded-lg animate-pulse"
+                  style={{ animationDelay: "1s" }}
+                ></div>
               </div>
               <h3 className="text-xl font-bold mb-4 text-cyan-400 uppercase tracking-wider">
                 [ TRANSPARENCY ]
@@ -473,15 +584,23 @@ export default function Index() {
               <p className="text-white/70 text-sm">
                 Public ledger • Verifiable transactions
               </p>
-              <div className="mt-4 text-xs text-cyan-400/60 uppercase tracking-widest">VISIBILITY: MAXIMUM</div>
+              <div className="mt-4 text-xs text-cyan-400/60 uppercase tracking-widest">
+                VISIBILITY: MAXIMUM
+              </div>
             </div>
 
             {/* Efficiency */}
             <div className="bg-black/60 backdrop-blur-sm border border-blue-400/30 rounded-xl p-6 hover:border-blue-400/60 hover:shadow-lg hover:shadow-blue-400/20 transition-all duration-500 group relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-50 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+              <div
+                className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-50 animate-pulse"
+                style={{ animationDelay: "1.5s" }}
+              ></div>
               <div className="w-16 h-16 bg-blue-400/10 border border-blue-400/30 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-400/20 group-hover:border-blue-400/50 transition-all duration-300 relative">
                 <Cpu className="w-8 h-8 text-blue-400" />
-                <div className="absolute inset-0 bg-blue-400/5 rounded-lg animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+                <div
+                  className="absolute inset-0 bg-blue-400/5 rounded-lg animate-pulse"
+                  style={{ animationDelay: "1.5s" }}
+                ></div>
               </div>
               <h3 className="text-xl font-bold mb-4 text-blue-400 uppercase tracking-wider">
                 [ EFFICIENCY ]
@@ -489,7 +608,9 @@ export default function Index() {
               <p className="text-white/70 text-sm">
                 Optimized algorithms • Reduced overhead
               </p>
-              <div className="mt-4 text-xs text-blue-400/60 uppercase tracking-widest">PERFORMANCE: OPTIMAL</div>
+              <div className="mt-4 text-xs text-blue-400/60 uppercase tracking-widest">
+                PERFORMANCE: OPTIMAL
+              </div>
             </div>
           </div>
         </div>
@@ -535,8 +656,14 @@ export default function Index() {
       <section id="pricing" className="py-20 bg-black relative overflow-hidden">
         {/* JARVIS Tech Background */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-1/4 left-10 w-40 h-40 border border-cyan-400 rounded-full animate-spin" style={{ animationDuration: '20s' }}></div>
-          <div className="absolute bottom-1/4 right-10 w-32 h-32 border border-blue-400 rounded-full animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
+          <div
+            className="absolute top-1/4 left-10 w-40 h-40 border border-cyan-400 rounded-full animate-spin"
+            style={{ animationDuration: "20s" }}
+          ></div>
+          <div
+            className="absolute bottom-1/4 right-10 w-32 h-32 border border-blue-400 rounded-full animate-spin"
+            style={{ animationDuration: "15s", animationDirection: "reverse" }}
+          ></div>
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -545,15 +672,21 @@ export default function Index() {
             <div className="inline-block relative mb-4">
               <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-lg blur opacity-30"></div>
               <div className="relative bg-black px-6 py-2 rounded-lg border border-cyan-400/50">
-                <span className="text-sm text-cyan-400 uppercase tracking-widest">[ SUBSCRIPTION MATRIX ]</span>
+                <span className="text-sm text-cyan-400 uppercase tracking-widest">
+                  [ SUBSCRIPTION MATRIX ]
+                </span>
               </div>
             </div>
 
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Access <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Protocols</span>
+              Access{" "}
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                Protocols
+              </span>
             </h2>
             <p className="text-lg text-white/70 max-w-2xl mx-auto">
-              Select your clearance level and initialize blockchain protocol access
+              Select your clearance level and initialize blockchain protocol
+              access
             </p>
 
             {/* Scanning Line */}
