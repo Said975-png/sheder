@@ -17,12 +17,9 @@ function GLBModel({ url }: { url: string }) {
   });
 
   return (
-    <primitive
-      ref={modelRef}
-      object={gltf.scene}
-      scale={[1, 1, 1]}
-      position={[0, 0, 0]}
-    />
+    <group ref={modelRef} scale={[1, 1, 1]} position={[0, 0, 0]}>
+      <primitive object={gltf.scene} />
+    </group>
   );
 }
 
