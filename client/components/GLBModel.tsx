@@ -101,6 +101,8 @@ const GLBModel: React.FC<GLBModelProps> = ({
   position = [0, 0, 0],
   autoRotate = true,
 }) => {
+  const [isLoading, setIsLoading] = React.useState(true);
+
   // Стабилизируем параметры чтобы избежать пересоздания Canvas
   const stableProps = useMemo(
     () => ({
@@ -111,7 +113,8 @@ const GLBModel: React.FC<GLBModelProps> = ({
   );
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
+      {isLoading && <HTMLLoadingFallback />}
       <Canvas
         camera={stableProps.camera}
         style={stableProps.style}
@@ -127,7 +130,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
         <pointLight position={[10, 10, 10]} intensity={1} />
         <directionalLight position={[5, 5, 5]} intensity={0.5} />
 
-        <Suspense fallback={<LoadingFallback />}>
+        <Suspense fallback={<ThreeLoadingFallback />}>
           <Model url={url} scale={scale} position={position} />
         </Suspense>
 
@@ -135,7 +138,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
           enableZoom={true}
           enablePan={false}
           enableRotate={true}
-          autoRotate={false}
+          autoRotate={autoRotate}
           makeDefault
           maxDistance={10}
           minDistance={2}
