@@ -51,12 +51,9 @@ function Model({
   });
 
   return (
-    <primitive
-      ref={modelRef}
-      object={clonedScene}
-      scale={scale}
-      position={position}
-    />
+    <group ref={modelRef} scale={scale} position={position}>
+      <primitive object={clonedScene} />
+    </group>
   );
 }
 
