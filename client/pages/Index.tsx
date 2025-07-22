@@ -132,18 +132,7 @@ export default function Index() {
               >
                 Home
               </a>
-              <a
-                href="#why-blockchain"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                Why Blockchain
-              </a>
-              <a
-                href="#pricing"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                Pricing
-              </a>
+
               <a
                 href="#how-it-works"
                 className="text-white/70 hover:text-white transition-colors"
@@ -302,9 +291,7 @@ export default function Index() {
                   >
                     <Link to="/signup">Sign up</Link>
                   </Button>
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-6 py-2 rounded-full">
-                    Contact US
-                  </Button>
+
                 </>
               )}
             </div>
