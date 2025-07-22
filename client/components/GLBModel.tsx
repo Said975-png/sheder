@@ -19,7 +19,7 @@ function Model({
   position: [number, number, number];
 }) {
   const { scene } = useGLTF(url);
-  const modelRef = useRef<any>();
+  const modelRef = useRef<THREE.Group>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
 
   // Клонируем сцену для избежания конфликтов при повторном использовании
@@ -78,7 +78,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
   position = [0, 0, 0],
   autoRotate = true,
 }) => {
-  // Стабилизируем параметры чтобы избежать пересоздания Canvas
+  // Стабилизируем п��раметры чтобы избежать пересоздания Canvas
   const stableProps = useMemo(
     () => ({
       camera: { position: [0, 0, 5] as [number, number, number], fov: 50 },
