@@ -141,7 +141,7 @@ export default function Index() {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="relative p-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                className="relative p-1.5 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
               >
                 <ShoppingCart className="w-5 h-5 text-cyan-400" />
                 {getTotalItems() > 0 && (
