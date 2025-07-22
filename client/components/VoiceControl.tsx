@@ -325,7 +325,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим ауд��о для утреннего приветствия
+    // Создаем и воспроизводим ауд��о для утреннего приветстви��
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -632,6 +632,70 @@ export default function VoiceControl({
     }
   };
 
+  const speakSystemDiagnostics = () => {
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
+
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
+
+    // Воспроизводим первое аудио
+    const firstAudio = new Audio(
+      "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76"
+    );
+    currentAudioRef.current = firstAudio;
+
+    const resetState = () => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 1000);
+    };
+
+    firstAudio.onended = () => {
+      // Через 2 секунды воспроизводим второе аудио
+      setTimeout(() => {
+        const secondAudio = new Audio(
+          "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76"
+        );
+        currentAudioRef.current = secondAudio;
+
+        secondAudio.onended = resetState;
+        secondAudio.onerror = () => {
+          resetState();
+          console.error("Ошибка воспроизведения второго аудио диагностики");
+        };
+
+        secondAudio.play().catch((error) => {
+          resetState();
+          console.error("Не удалось воспроизвести второе аудио диагностики:", error);
+        });
+      }, 2000);
+    };
+
+    firstAudio.onerror = () => {
+      resetState();
+      console.error("Ошибка воспроизведения первого аудио диагностики");
+    };
+
+    firstAudio.play().catch((error) => {
+      resetState();
+      console.error("Не удалось воспроизвести первое аудио диагностики:", error);
+    });
+  };
+
   const processVoiceCommand = (command: string) => {
     console.log("Обрабо��ка ко��анды:", command);
 
@@ -670,7 +734,7 @@ export default function VoiceControl({
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
       command.includes("джарвис как в фильме") ||
-      command.includes("железный человек") ||
+      command.includes("железный чело��ек") ||
       command.includes("tony stark") ||
       command.includes("тони старк") ||
       command.includes("authentic jarvis") ||
@@ -741,7 +805,7 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнительная провер���а, ��тобы избежать повторных срабат��ваний
+      // До��олнительная провер���а, ��тобы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -906,7 +970,7 @@ export default function VoiceControl({
       "раб��тают",
       "дела",
       "пож��ваешь",
-      "порядке",
+      "порядк��",
     ];
     const hasValidWords = meaningfulWords.some((word) =>
       trimmedCommand.includes(word),
@@ -1070,7 +1134,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск технологи��
+      // ��оиск технологи��
       if (
         command.includes("технолог") ||
         command.includes("webgl") ||
@@ -1317,7 +1381,7 @@ export default function VoiceControl({
 
     // Прокрутка страницы
     if (
-      command.includes("прокрутить вниз") ||
+      command.includes("прокр��тить вниз") ||
       command.includes("скролл вниз") ||
       command.includes("спуститься вниз")
     ) {
