@@ -67,7 +67,7 @@ export default function VoiceControl({
             }
           }
 
-          // Показываем пром��жуточный результат
+          // Показываем пром��ж��точный результат
           if (interimTranscript) {
             setTranscript(interimTranscript);
           }
@@ -246,7 +246,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("О��ибка воспроизведения аудио приветствия");
+      console.error("О����бка воспроизведения аудио приветствия");
     };
 
     audio.play().catch((error) => {
@@ -284,7 +284,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Ошибка во��п��оизведения аудио благодарности");
+      console.error("Ошибка в����п��оизведения аудио благодарности");
     };
 
     audio.play().catch((error) => {
@@ -438,7 +438,7 @@ export default function VoiceControl({
       audio.onerror = () => {
         URL.revokeObjectURL(audioUrl);
         resetState();
-        console.error("Ошибка ��оспроизведения аудио из ElevenLabs");
+        console.error("Ошиб��а воспроизведения аудио из ElevenLabs");
       };
 
       await audio.play();
@@ -532,7 +532,7 @@ export default function VoiceControl({
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
-      utterance.volume = 0.95; // Четкая, но не резка�� громкость
+      utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
@@ -557,7 +557,7 @@ export default function VoiceControl({
           (voice.name.toLowerCase().includes("male") ||
             voice.name.toLowerCase().includes("муж��кой") ||
             voice.name.toLowerCase().includes("антон") ||
-            voice.name.toLowerCase().includes("николай")),
+            voice.name.toLowerCase().includes("ни��олай")),
       );
 
       if (jarvisLikeVoice) {
@@ -660,7 +660,7 @@ export default function VoiceControl({
       command.includes("джарвис как в фильме") ||
       command.includes("железный человек") ||
       command.includes("tony stark") ||
-      command.includes("тони старк") ||
+      command.includes("тони ��тарк") ||
       command.includes("authentic jarvis") ||
       command.includes("real jarvis") ||
       command.includes("movie jarvis") ||
@@ -941,7 +941,7 @@ export default function VoiceControl({
         }
       }
 
-      // Пои��к по тексту элементов
+      // Пои��к по ��ексту элементов
       const allElements = Array.from(
         document.querySelectorAll("p, div, span, li"),
       );
@@ -1020,7 +1020,7 @@ export default function VoiceControl({
           }
         });
         if (found) {
-          speak("Показываю планы и цены");
+          speak("Показываю планы и це��ы");
           return;
         }
       }
@@ -1103,7 +1103,7 @@ export default function VoiceControl({
       if (
         command.includes("аналитик") ||
         command.includes("статистик") ||
-        command.includes("да��ны��")
+        command.includes("да��ные")
       ) {
         found = searchAndNavigate([
           "анал��тик",
@@ -1147,7 +1147,7 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Откр��ваю ст��аницу вх��да");
+      speak("Откр��ваю страницу вх��да");
       return;
     }
 
@@ -1227,7 +1227,7 @@ export default function VoiceControl({
       command.includes("добавить макс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
-      command.includes("джарвис пла���") ||
+      command.includes("джарвис пла��") ||
       command.includes("макс в ��орзину") ||
       command.includes("о��править макс")
     ) {
@@ -1306,7 +1306,7 @@ export default function VoiceControl({
     // Прокрутка страницы
     if (
       command.includes("прокрутить вниз") ||
-      command.includes("скролл вниз") ||
+      command.includes("скролл вни��") ||
       command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
@@ -1346,9 +1346,6 @@ export default function VoiceControl({
   };
 
   const toggleListening = () => {
-    console.log('toggleListening called, current isListening:', isListening);
-    console.log('onListeningChange callback exists:', !!onListeningChange);
-
     if (isListening) {
       recognitionRef.current?.stop();
       setIsListening(false);
