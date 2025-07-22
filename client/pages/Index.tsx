@@ -143,13 +143,25 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      {/* Voice Panel - показывается при активации микрофона */}
+      {isVoicePanelActive && (
+        <VoicePanel
+          onAddBasicPlan={handleAddBeginnerPlan}
+          onAddProPlan={handleAddIntermediatePlan}
+          onAddMaxPlan={handleAddAdvancedPlan}
+          onClose={handleCloseVoicePanel}
+          isListening={isVoicePanelActive}
+        />
+      )}
+
       {/* Navigation - Enhanced with Stark styling */}
       <nav
         className={cn(
-          "fixed top-2 left-1/2 transform -translate-x-1/2 z-50 rounded-full px-2 py-1 transition-all duration-300",
+          "fixed top-2 left-1/2 transform -translate-x-1/2 z-40 rounded-full px-2 py-1 transition-all duration-300",
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
+          isVoicePanelActive && "opacity-20 pointer-events-none",
         )}
       >
         <div className="flex items-center space-x-2">
