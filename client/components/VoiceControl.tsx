@@ -95,7 +95,7 @@ export default function VoiceControl({
                 try {
                   recognitionRef.current.start();
                 } catch (error) {
-                  console.log("Распознавание уже запущено");
+                  console.log("Распоз��авание уже запущено");
                 }
               }
             }, 100);
@@ -211,7 +211,7 @@ export default function VoiceControl({
     audio.onended = shutdownComplete;
 
     audio.onerror = () => {
-      console.error("Ошибка воспроизведения аудио о��ключения");
+      console.error("Ошибка воспроизведения аудио отключения");
       shutdownComplete();
     };
 
@@ -637,7 +637,7 @@ export default function VoiceControl({
       command.includes("стоп джарвис") ||
       command.includes("выключи")
     ) {
-      // Принудительно выполняем к��манду отключения независимо от состояния
+      // Принудительно выполняем команду отключения независимо от состояния
       speakShutdown();
       return;
     }
@@ -801,7 +801,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверяем, содержит л���� команда значимые слова
+    // Проверяем, содержит л���� коман��а значимые слова
     const meaningfulWords = [
       "перейти",
       "войти",
@@ -810,7 +810,7 @@ export default function VoiceControl({
       "заказ",
       "корзина",
       "добавить",
-      "пла��",
+      "план",
       "д��арвис",
       "базовый",
       "про",
@@ -904,7 +904,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Умный поиск контента по всему сайту
+    // У��ный поиск контента по всему сайту
     const searchAndNavigate = (
       searchTerms: string[],
       fallbackAction?: () => void,
@@ -1028,7 +1028,7 @@ export default function VoiceControl({
       // Поиск инфор��ации о компании
       if (
         command.includes("компан") ||
-        command.includes("�� ��ас") ||
+        command.includes("о ��ас") ||
         command.includes("кто мы")
       ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
@@ -1162,7 +1162,7 @@ export default function VoiceControl({
 
     if (
       command.includes("профиль") ||
-      command.includes("��ой пр��филь") ||
+      command.includes("мой пр��филь") ||
       command.includes("личный к��бинет") ||
       command.includes("открыть профиль")
     ) {
@@ -1310,7 +1310,7 @@ export default function VoiceControl({
       command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
-      speak("Прок��учиваю вниз");
+      speak("Прок���учиваю вниз");
       return;
     }
 
@@ -1346,7 +1346,6 @@ export default function VoiceControl({
   };
 
   const toggleListening = () => {
-    console.log('VoiceControl: toggleListening called, current isListening:', isListening);
     if (isListening) {
       recognitionRef.current?.stop();
       setIsListening(false);
@@ -1360,12 +1359,9 @@ export default function VoiceControl({
         try {
           recognitionRef.current.start();
           setIsListening(true);
-          console.log('VoiceControl: Speech recognition started');
         } catch (error) {
           console.log("Распознавание уже зап��щено или недосту��но", error);
         }
-      } else {
-        console.log('VoiceControl: recognitionRef.current is null');
       }
     }
   };
