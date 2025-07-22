@@ -304,7 +304,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим ауд��о для утренне��о приветствия
+    // Создаем и воспроизводим ауд��о для утренне���� приветствия
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -379,7 +379,7 @@ export default function VoiceControl({
       return;
     }
 
-    // О��танавливаем любое текущее воспроизведение
+    // ����танавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -421,7 +421,7 @@ export default function VoiceControl({
   };
 
   const speakSystemsOperational = async () => {
-    // Множественная защита от повторного воспроизведения
+    // Множественная защита от ��овторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -490,17 +490,14 @@ export default function VoiceControl({
     if ("speechSynthesis" in window) {
 
 
-      // Настройки максимально приближенные к ElevenLabs Jarvis
-      // Мужской голос ИИ с глубоким, уверенным тоном, как голос из научной фантастики
-      // Говорит по-русски чётко и без акцента. Подходит для ассистента наподобие Джарвиса
-      // Стиль — вежливый, спокойный, слегка роботизированный, интеллектуальный
+
 
       utterance.lang = "ru-RU"; // Русский язык
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса
       utterance.pitch = 0.6; // Глубокий, низкий тон для авторитетности
       utterance.volume = 0.95; // Громкость 90-100%
 
-      // Поиск наиболее подходящего голоса для имитации Jarvis
+      // Поиск наиболее подходящего голос�� для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: русский мужской голос с глубоким тембром
@@ -595,7 +592,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем любое текущее воспроизведение
+    // ��с��анавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -710,7 +707,7 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("Обрабо��ка ко��анды:", command);
 
-    // Фил��труем пустые или слишком короткие команды
+    // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -744,7 +741,7 @@ export default function VoiceControl({
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
-      command.includes("джарвис как в фильме") ||
+      command.includes("джарвис как в фильм��") ||
       command.includes("железный человек") ||
       command.includes("tony stark") ||
       command.includes("тони старк") ||
@@ -850,7 +847,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды благод��рности
+    // Команды благод����рности
     if (
       command.includes("спасибо") ||
       command.includes("благодарю") ||
@@ -930,7 +927,7 @@ export default function VoiceControl({
       "технологии",
       "разработка",
       "сайт",
-      "интеллект",
+      "интелл��кт",
       "ии",
       "jarvis",
       "мощный",
@@ -981,7 +978,7 @@ export default function VoiceControl({
       "работают",
       "дела",
       "поживаешь",
-      "порядке",
+      "поряд��е",
     ];
     const hasValidWords = meaningfulWords.some((word) =>
       trimmedCommand.includes(word),
@@ -1140,7 +1137,7 @@ export default function VoiceControl({
           "contact",
         ]);
         if (found) {
-          speak("Пок����зываю контакты");
+          speak("Пок��зываю контакты");
           return;
         }
       }
@@ -1230,7 +1227,7 @@ export default function VoiceControl({
 
     if (
       command.includes("войти") ||
-      command.includes("��огин") ||
+      command.includes("логин") ||
       command.includes("авторизация")
     ) {
       navigate("/login");
@@ -1274,7 +1271,7 @@ export default function VoiceControl({
     if (
       command.includes("открыть корзину") ||
       command.includes("показать корзину") ||
-      command.includes("что в корзине")
+      command.includes("что в корз��не")
     ) {
       // Находим и нажимаем ��нопку корзины
       const cartButton = document.querySelector(
@@ -1315,7 +1312,7 @@ export default function VoiceControl({
       command.includes("макс план") ||
       command.includes("максимальный план") ||
       command.includes("джарвис пла��") ||
-      command.includes("макс в ��орзи��у") ||
+      command.includes("макс в ��орзину") ||
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
@@ -1354,7 +1351,7 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("перейти к преимуществам") ||
+      command.includes("перейти к ��реимуществам") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
