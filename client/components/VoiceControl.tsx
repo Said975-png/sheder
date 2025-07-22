@@ -32,7 +32,6 @@ export default function VoiceControl({
 
   // Уведомляем родительский компонент об изменении состояния прослушивания
   useEffect(() => {
-    console.log('VoiceControl: isListening changed to:', isListening);
     onListeningChange?.(isListening);
   }, [isListening, onListeningChange]);
 
@@ -212,7 +211,7 @@ export default function VoiceControl({
     audio.onended = shutdownComplete;
 
     audio.onerror = () => {
-      console.error("Ошибка воспроизведения аудио отключения");
+      console.error("Ошибка воспроизведения аудио о��ключения");
       shutdownComplete();
     };
 
@@ -533,7 +532,7 @@ export default function VoiceControl({
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
-      utterance.volume = 0.95; // Четкая, но не рез��ая громкость
+      utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
@@ -638,7 +637,7 @@ export default function VoiceControl({
       command.includes("стоп джарвис") ||
       command.includes("выключи")
     ) {
-      // Принудительно выполняем команду отключения независимо от состояния
+      // Принудительно выполняем к��манду отключения независимо от состояния
       speakShutdown();
       return;
     }
@@ -811,7 +810,7 @@ export default function VoiceControl({
       "заказ",
       "корзина",
       "добавить",
-      "план",
+      "пла��",
       "д��арвис",
       "базовый",
       "про",
@@ -1029,7 +1028,7 @@ export default function VoiceControl({
       // Поиск инфор��ации о компании
       if (
         command.includes("компан") ||
-        command.includes("о ��ас") ||
+        command.includes("�� ��ас") ||
         command.includes("кто мы")
       ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
@@ -1148,7 +1147,7 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Откр��ваю стра��ицу вх��да");
+      speak("Откр��ваю страницу вх��да");
       return;
     }
 
@@ -1163,7 +1162,7 @@ export default function VoiceControl({
 
     if (
       command.includes("профиль") ||
-      command.includes("мой пр��филь") ||
+      command.includes("��ой пр��филь") ||
       command.includes("личный к��бинет") ||
       command.includes("открыть профиль")
     ) {
