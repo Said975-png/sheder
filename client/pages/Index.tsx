@@ -532,16 +532,32 @@ export default function Index() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-black">
-        <div className="container mx-auto px-6">
+      <section id="pricing" className="py-20 bg-black relative overflow-hidden">
+        {/* JARVIS Tech Background */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-1/4 left-10 w-40 h-40 border border-cyan-400 rounded-full animate-spin" style={{ animationDuration: '20s' }}></div>
+          <div className="absolute bottom-1/4 right-10 w-32 h-32 border border-blue-400 rounded-full animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
+            {/* JARVIS-style Header */}
+            <div className="inline-block relative mb-4">
+              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-lg blur opacity-30"></div>
+              <div className="relative bg-black px-6 py-2 rounded-lg border border-cyan-400/50">
+                <span className="text-sm text-cyan-400 uppercase tracking-widest">[ SUBSCRIPTION MATRIX ]</span>
+              </div>
+            </div>
+
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Pricing <span className="text-blue-400">Plans</span>
+              Access <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Protocols</span>
             </h2>
             <p className="text-lg text-white/70 max-w-2xl mx-auto">
-              Choose the plan that fits your needs and start exploring the power
-              of blockchain today
+              Select your clearance level and initialize blockchain protocol access
             </p>
+
+            {/* Scanning Line */}
+            <div className="mt-4 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
