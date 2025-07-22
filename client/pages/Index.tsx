@@ -151,7 +151,7 @@ export default function Index() {
                       <>
                         <div className="space-y-2 max-h-60 overflow-y-auto">
                           {items.map((item) => (
-                            <div key={item.id} className="flex items-start justify-between p-2 bg-slate-700 rounded-lg">
+                            <div key={item.id} className="flex items-start justify-between p-2 bg-gray-800 rounded-lg">
                               <div className="flex-1">
                                 <h4 className="font-medium text-sm text-white">{item.name}</h4>
                                 <p className="text-xs text-white/60 mt-1">{item.description.substring(0, 60)}...</p>
