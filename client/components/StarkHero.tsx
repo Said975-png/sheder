@@ -205,23 +205,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
                 />
               </div>
 
-              {/* HUD оверлеи */}
-              <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-sm px-3 py-2 rounded border border-cyan-400/30">
-                <div className="text-xs font-mono text-cyan-400">OBJECT ANALYSIS</div>
-                <div className="text-sm font-mono text-white mt-1">
-                  {targetLocked ? "BLOCKCHAIN NODE" : "SCANNING..."}
-                </div>
-              </div>
 
-              <div className="absolute top-4 right-4 bg-black/80 backdrop-blur-sm px-3 py-2 rounded border border-blue-400/30">
-                <div className="text-xs font-mono text-blue-400">INTEGRITY</div>
-                <div className="text-sm font-mono text-white mt-1">100%</div>
-              </div>
-
-              <div className="absolute bottom-4 left-4 bg-black/80 backdrop-blur-sm px-3 py-2 rounded border border-cyan-400/30">
-                <div className="text-xs font-mono text-cyan-400">THREAT LEVEL</div>
-                <div className="text-sm font-mono text-green-400 mt-1">MINIMAL</div>
-              </div>
 
               {/* Целевые индикаторы */}
               {targetLocked && (
