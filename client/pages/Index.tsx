@@ -125,8 +125,8 @@ export default function Index() {
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
     setIsVoicePanelActive(isListening);
 
-    // Если транскрипт пустой или слушание остановлено, очищаем отображение
-    if (!transcript || transcript.trim() === "" || !isListening) {
+    // Если транскрипт пустой, очищаем отображение, но сохраняем активность панели
+    if (!transcript || transcript.trim() === "") {
       setCurrentTranscript("");
     } else {
       setCurrentTranscript(transcript);
