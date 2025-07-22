@@ -304,7 +304,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим ауд��о для утреннего приветствия
+    // Создаем и воспроизводим ауд��о для утреннего приветс��вия
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -493,12 +493,6 @@ export default function VoiceControl({
   const speakSystemsOperational = async () => {
     await speakWithElevenLabs("Все системы работают сэр");
 
-    // Останавливаем любое текущее воспроизведение
-    if (currentAudioRef.current) {
-      currentAudioRef.current.pause();
-      currentAudioRef.current.currentTime = 0;
-    }
-
     setIsSpeaking(true);
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
@@ -509,7 +503,7 @@ export default function VoiceControl({
         "Все системы работают сэр",
       );
 
-      // Настройки максимально при��лиженные к ElevenLabs Jarvis
+      // Настройки максимально при����иженные к ElevenLabs Jarvis
       // Мужской голос ИИ с глубоким, уверенным тоном, как голос из научной фантастики
       // Говорит по-русски чётко и без акцента. Подходит для ассистента наподобие Джарвиса
       // Стиль — вежливый, спокойный, слегка роботизированный, интеллектуаль��ый
@@ -965,7 +959,7 @@ export default function VoiceControl({
       "персональный",
       "отключись",
       "выключись",
-      "отключи",
+      "отк��ючи",
       "выключи",
       "стоп",
       "вернулся",
