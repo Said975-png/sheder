@@ -32,6 +32,7 @@ export default function JarvisInterface({
   onAddProPlan,
   onAddMaxPlan,
   inNavbar = false,
+  onVoiceListeningChange,
 }: JarvisInterfaceProps) {
   const [isActive, setIsActive] = useState(false);
   const [systemStatus, setSystemStatus] = useState("STANDBY");
