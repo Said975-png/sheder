@@ -65,7 +65,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяем, что команда отличается от пр��дыдущей и не пустая
+            // Проверяем, что команда отличается от предыдущей и не пустая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -79,7 +79,7 @@ export default function VoiceControl({
         };
 
         recognitionRef.current.onend = () => {
-          // Автоматически перезапу��каем распознавание, если мы все еще слушаем
+          // Автоматически перезапу����каем распознавание, если мы все еще слушаем
           if (isListening && !isSpeaking) {
             setTimeout(() => {
               if (recognitionRef.current && isListening) {
@@ -490,20 +490,7 @@ export default function VoiceControl({
   };
 
   const speakSystemsOperational = async () => {
-    // Множественная защита от повторного воспроизведения
-    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
-      return;
-    }
-
-    // Останавливаем любое текущее воспроизведение
-    if (currentAudioRef.current) {
-      currentAudioRef.current.pause();
-      currentAudioRef.current.currentTime = 0;
-    }
-
-    setIsSpeaking(true);
-    commandCooldownRef.current = true;
-    audioPlayingRef.current = true;
+    await speakWithElevenLabs("Все системы функционируют нормально");
 
     // Используем Web Speech API для синтеза фразы "Все системы функционируют нормально"
     if ("speechSynthesis" in window) {
@@ -551,7 +538,7 @@ export default function VoiceControl({
 
       if (russianMaleVoice) {
         utterance.voice = russianMaleVoice;
-        utterance.pitch = 0.6; // Глубокий тон для русского голоса
+        utterance.pitch = 0.6; // Глубокий тон для рус��кого голоса
         utterance.rate = 0.75; // Спокойная речь
       } else if (englishMaleVoice) {
         utterance.voice = englishMaleVoice;
@@ -909,7 +896,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверяем, содержит л�� команда значимые слова
+    // Проверяем, содержит л���� команда значимые слова
     const meaningfulWords = [
       "перейти",
       "войти",
@@ -923,7 +910,7 @@ export default function VoiceControl({
       "базовый",
       "про",
       "макс",
-      "прокрут��ть",
+      "прокрутить",
       "скролл",
       "наверх",
       "планам",
@@ -958,7 +945,7 @@ export default function VoiceControl({
       "уникальный",
       "качество",
       "аналитика",
-      "премиум",
+      "пр��миум",
       "невероятное",
       "готовы",
       "создать",
@@ -1308,7 +1295,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды добавления планов в корзину
+    // Команды доб��вления планов в корзину
     if (
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
@@ -1344,7 +1331,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ра��ширенная навигация по секциям страницы
+    // Ра��ширенная навигация по секциям страниц��
     if (
       command.includes("к планам") ||
       command.includes("показать планы") ||
@@ -1393,7 +1380,7 @@ export default function VoiceControl({
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
-      command.includes("перейти к в��зможностям") ||
+      command.includes("перейти к возможностям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
