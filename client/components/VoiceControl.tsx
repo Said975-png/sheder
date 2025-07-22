@@ -17,6 +17,7 @@ export default function VoiceControl({
   onAddProPlan,
   onAddMaxPlan,
   inNavbar = false,
+  onListeningChange,
 }: VoiceControlProps) {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -89,7 +90,7 @@ export default function VoiceControl({
                 try {
                   recognitionRef.current.start();
                 } catch (error) {
-                  console.log("Распознава��ие уже запущено");
+                  console.log("Распознавание уже запущено");
                 }
               }
             }, 100);
@@ -382,7 +383,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Останавливаем любое текущее воспр��изведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -528,7 +529,7 @@ export default function VoiceControl({
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
-      // Поиск наиболее подходящего голоса для имитации Jarvis
+      // Поиск н��иболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: голоса, похожие на британский/американский мужской
@@ -787,7 +788,7 @@ export default function VoiceControl({
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
-      command.includes("джарвис присутствуешь") ||
+      command.includes("джарв��с присутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
     ) {
@@ -795,7 +796,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверяем, содержит л���� команда значимые слова
+    // Проверяем, содержит л���� коман��а значимые слова
     const meaningfulWords = [
       "перейти",
       "войти",
@@ -844,7 +845,7 @@ export default function VoiceControl({
       "уникальный",
       "качество",
       "аналитика",
-      "пр��миум",
+      "пр��м��ум",
       "невероятное",
       "готовы",
       "создать",
@@ -898,7 +899,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Умный поиск контента ��о всему сайту
+    // Умный поиск контента по всему сайту
     const searchAndNavigate = (
       searchTerms: string[],
       fallbackAction?: () => void,
@@ -975,7 +976,7 @@ export default function VoiceControl({
         command.includes("преимущество")
       ) {
         found = searchAndNavigate([
-          "пр��имущества",
+          "преимущества",
           "преимущество",
           "advantages",
         ]);
@@ -1057,7 +1058,7 @@ export default function VoiceControl({
         command.includes("технолог") ||
         command.includes("webgl") ||
         command.includes("ии") ||
-        command.includes("искусственны��")
+        command.includes("искусственный")
       ) {
         found = searchAndNavigate([
           "технолог",
