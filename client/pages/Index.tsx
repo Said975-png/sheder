@@ -125,11 +125,16 @@ export default function Index() {
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
     setIsVoicePanelActive(isListening);
 
-    // Если транскрипт пустой, очищаем отображение, но сохраняем активность панели
+    // Немедленно обновляем транскрипт - если пустой, то очищаем
     if (!transcript || transcript.trim() === "") {
       setCurrentTranscript("");
     } else {
       setCurrentTranscript(transcript);
+
+      // Автоматически очищаем транскрипт через короткое время для предотвращения застревания
+      setTimeout(() => {
+        setCurrentTranscript("");
+      }, 2000);
     }
   };
 
