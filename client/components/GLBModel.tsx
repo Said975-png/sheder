@@ -38,7 +38,7 @@ function Model({
   }, []);
 
   useFrame(() => {
-    if (modelRef.current) {
+    if (modelRef.current && modelRef.current.rotation) {
       // Увеличиваем чувствительность для более заметно��о эффекта
       const targetRotationY = mouseRef.current.x * 0.5;
       const targetRotationX = -mouseRef.current.y * 0.3;
