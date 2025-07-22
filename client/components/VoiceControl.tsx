@@ -27,6 +27,7 @@ export default function VoiceControl({
   const [noSpeechCount, setNoSpeechCount] = useState(0);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const commandDelayRef = useRef<NodeJS.Timeout | null>(null);
+  const lastGreetingTimeRef = useRef<number>(0);
   const lastCommandRef = useRef<string>("");
   const commandCooldownRef = useRef<boolean>(false);
   const audioPlayingRef = useRef<boolean>(false);
@@ -264,7 +265,7 @@ export default function VoiceControl({
     }
   }, [forceStop, isListening, onListeningChange]);
 
-  // Функция для полного сброса состояния после команды
+  // Фу��кция для полного сброса состояния после команды
   const resetCommandState = (delay: number = 3000) => {
     setTimeout(() => {
       commandCooldownRef.current = false;
@@ -485,7 +486,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и во��производим аудио для ответа "Дж��рвис ты тут?"
+    // Создаем и во��производим аудио для ответа "��ж��рвис ты тут?"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F5baee2408110417fbab785b0c6ffdde6?alt=media&token=a957a2b4-68ad-46de-bc3e-11943c8fb38b&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -713,7 +714,7 @@ export default function VoiceControl({
           utterance.lang = "ru-RU"; // Всегда русский язык
         }
         utterance.pitch = 0.55; // Еще ниже для компенсации
-        utterance.rate = 0.7; // Е����е медленнее для большей солидно��ти
+        utterance.rate = 0.7; // Е����е медленнее ��ля большей солидно��ти
       }
 
       const resetState = () => {
@@ -990,7 +991,7 @@ export default function VoiceControl({
       command.includes("как дела") ||
       command.includes("как поживаешь джарвис") ||
       command.includes("джарвис как поживаешь") ||
-      command.includes("как ты джарвис") ||
+      command.includes("как ты дж��рвис") ||
       command.includes("how are you jarvis") ||
       command.includes("jarvis how are you") ||
       command.includes("how are you") ||
@@ -1097,7 +1098,7 @@ export default function VoiceControl({
       "планам",
       "преимущества",
       "возможности",
-      "открыть",
+      "от��рыть",
       "личный",
       "кабинет",
       "отправить",
@@ -1597,7 +1598,7 @@ export default function VoiceControl({
     if (
       command.includes("прокрутить вверх") ||
       command.includes("скролл вверх") ||
-      command.includes("поднятьс��� вверх")
+      command.includes("поднятьс��� ��верх")
     ) {
       window.scrollBy(0, -500);
       speak("Прокручиваю вверх");
