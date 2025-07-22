@@ -82,24 +82,19 @@ const GLBModel: React.FC<GLBModelProps> = ({
         <directionalLight position={[5, 5, 5]} intensity={0.5} />
 
         <Suspense fallback={<LoadingFallback />}>
-          <PresentationControls {...controlsProps}>
-            <Model url={url} scale={scale} position={position} />
-          </PresentationControls>
+          <Model url={url} scale={scale} position={position} />
         </Suspense>
 
-        {autoRotate && (
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            autoRotate
-            autoRotateSpeed={2}
-            makeDefault
-            minPolarAngle={0}
-            maxPolarAngle={Math.PI}
-            minAzimuthAngle={-Infinity}
-            maxAzimuthAngle={Infinity}
-          />
-        )}
+        <OrbitControls
+          enableZoom={true}
+          enablePan={false}
+          enableRotate={true}
+          autoRotate={autoRotate}
+          autoRotateSpeed={2}
+          makeDefault
+          maxDistance={10}
+          minDistance={2}
+        />
       </Canvas>
     </div>
   );
