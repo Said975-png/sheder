@@ -87,16 +87,14 @@ export default function ConversationPanel({
           </Button>
         </div>
 
-        {/* Голосовое управление */}
+        {/* Статус разговора */}
         <div className="flex justify-center mb-4">
-          <VoiceControl
-            onAddBasicPlan={onAddBasicPlan}
-            onAddProPlan={onAddProPlan}
-            onAddMaxPlan={onAddMaxPlan}
-            inNavbar={false}
-            onListeningChange={handleVoiceListeningChange}
-            forceStop={shouldStopVoice}
-          />
+          <div className="text-center">
+            <div className="w-12 h-12 bg-cyan-400/20 rounded-full flex items-center justify-center mb-2">
+              <Mic className="w-6 h-6 text-cyan-400 animate-pulse" />
+            </div>
+            <p className="text-sm text-cyan-400 font-mono">Слушаю...</p>
+          </div>
         </div>
 
         {/* Статус и индикаторы */}
