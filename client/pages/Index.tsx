@@ -138,7 +138,11 @@ export default function Index() {
         setCurrentTranscript(transcript);
         setLastProcessedTranscript(transcript);
       } else if (transcript.length >= 50) {
-        console.log("📱 Отклоняем слишком длинный транскрипт:", transcript.length, "символов");
+        console.log(
+          "📱 Отклоняем слишком длинный транскрипт:",
+          transcript.length,
+          "символов",
+        );
         setCurrentTranscript("");
         setLastProcessedTranscript("");
       }

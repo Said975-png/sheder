@@ -94,7 +94,8 @@ export default function VoiceControl({
           // Обрабатываем только ПОСЛЕДНИЙ результат, чтобы не накапливать старые
           const lastResultIndex = event.results.length - 1;
           if (lastResultIndex >= 0) {
-            const transcript = event.results[lastResultIndex][0].transcript.trim();
+            const transcript =
+              event.results[lastResultIndex][0].transcript.trim();
             if (event.results[lastResultIndex].isFinal) {
               finalTranscript = transcript;
             } else {
@@ -107,12 +108,16 @@ export default function VoiceControl({
 
           // Фильтруем повторяющиеся фразы и слишком длинные результаты
           if (combinedTranscript.length > 50) {
-            console.log("🚫 Отклоняем слишком длинный результат:", combinedTranscript.length, "символов");
+            console.log(
+              "🚫 Отклоняем слишком длинный результат:",
+              combinedTranscript.length,
+              "символов",
+            );
             combinedTranscript = "";
           }
 
           // Проверяем на повторяющиеся слова (признак накопления)
-          const words = combinedTranscript.split(' ');
+          const words = combinedTranscript.split(" ");
           const uniqueWords = [...new Set(words)];
           if (words.length > uniqueWords.length * 2) {
             console.log("🚫 Отклоняем результат с повторяющимися словами");
@@ -151,7 +156,10 @@ export default function VoiceControl({
               command !== lastCommandRef.current &&
               command.length > 2
             ) {
-              console.log("✅ К��манда принята дл�� обработ��и:", `"${command}"`);
+              console.log(
+                "✅ К��манда принята дл�� обработ��и:",
+                `"${command}"`,
+              );
               setTranscript(command);
               onListeningChange?.(true, command);
 
@@ -184,7 +192,9 @@ export default function VoiceControl({
 
                     // Перезапускаем Recognition для очистки накопленной истории
                     if (recognitionRef.current && isListening) {
-                      console.log("🔄 Перезапуск Recognition для очистки истории");
+                      console.log(
+                        "🔄 Перезапуск Recognition для очистки истории",
+                      );
                       try {
                         recognitionRef.current.stop();
                         setTimeout(() => {
@@ -253,7 +263,10 @@ export default function VoiceControl({
 
           // Критические ошибки - полностью останавливаем
           if (event.error === "network" || event.error === "not-allowed") {
-            console.error("��� Критическая ошибка ра��по��навания:", event.error);
+            console.error(
+              "��� Критическая ошибка ра��по��навания:",
+              event.error,
+            );
             setIsListening(false);
             onListeningChange?.(false, "");
           }
@@ -869,8 +882,8 @@ export default function VoiceControl({
         currentAudioRef.current = null;
         setTimeout(() => {
           commandCooldownRef.current = false;
-        lastCommandRef.current = "";
-      }, 500);
+          lastCommandRef.current = "";
+        }, 500);
       };
 
       utterance.onend = resetState;
@@ -893,8 +906,8 @@ export default function VoiceControl({
         currentAudioRef.current = null;
         setTimeout(() => {
           commandCooldownRef.current = false;
-        lastCommandRef.current = "";
-      }, 500);
+          lastCommandRef.current = "";
+        }, 500);
       };
 
       console.log("Джарвис: у меня все в порядке сэр");
