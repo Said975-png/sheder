@@ -128,11 +128,13 @@ export default function Index() {
 
     // Простая логика: если транскрипт пустой - очищаем, если нет - отображаем
     if (!transcript || transcript.trim() === "") {
+      console.log("📱 Очищаем транскрипт в Index.tsx");
       setCurrentTranscript("");
       setLastProcessedTranscript("");
     } else {
       // Показываем транскрипт только если он отличается от предыдущего
       if (transcript !== lastProcessedTranscript) {
+        console.log("📱 Устанавливаем новый транскрипт:", transcript);
         setCurrentTranscript(transcript);
         setLastProcessedTranscript(transcript);
       }
