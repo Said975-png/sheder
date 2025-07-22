@@ -137,7 +137,7 @@ export default function VoiceControl({
                 clearTimeout(commandDelayRef.current);
               }
 
-              // Добавляем небольшую задержку для завершения фразы
+              // Добавляем небольшую задержку для завершения фр��зы
               commandDelayRef.current = setTimeout(
                 () => {
                   lastCommandRef.current = command;
@@ -403,7 +403,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим ауд��о для команды "Джарвис я вернулся"
+    // Создаем и воспроизводим ��уд��о для команды "Джарвис я вернулся"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -508,7 +508,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка во��произведения аудио утреннего при��етствия");
+      console.error("Ошибка во��произведения аудио утреннего при���етствия");
     };
 
     audio.play().catch((error) => {
@@ -667,12 +667,13 @@ export default function VoiceControl({
       audioPlayingRef.current = false;
       currentAudioRef.current = null;
 
-      // В��зобновляем распознавание речи после завершения аудио
+      // Возобновляем распознавание речи после завершения аудио, используя сохраненное состояние
       setTimeout(() => {
-        if (isListening && recognitionRef.current) {
+        if (wasListening && recognitionRef.current) {
           console.log("▶️ Возобновляем распознавание после аудио");
           try {
             recognitionRef.current.start();
+            // НЕ изменяем isListening здесь, так как оно должно остаться true
           } catch (error) {
             console.log("Распознавание уже активно:", error);
           }
@@ -682,7 +683,7 @@ export default function VoiceControl({
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
-      }, 2000);
+      }, 1500); // Сокращаем время до 1.5 секунд
     };
 
     audio.onended = resetState;
@@ -705,12 +706,12 @@ export default function VoiceControl({
   };
 
   const speakHowAreYou = () => {
-    // ��ножест��енная ��ащита от повторног�� восп��оизведения
+    // ��ножественная ��ащита от повторног�� восп��оизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
 
-    // Ос��анавливаем ����юбое те��ущее воспрои��ведение
+    // Ос��анавливаем ��юбое те��ущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -965,7 +966,7 @@ export default function VoiceControl({
 
     // Команды ��ля оригинально��о голоса Джарвиса (из фи��ьма)
     if (
-      command.includes("оригинальный джарвис") ||
+      command.includes("оригинальный джа��вис") ||
       command.includes("настоящий джарвис") ||
       command.includes("джарвис как в фильме") ||
       command.includes("железный чело��ек") ||
@@ -974,7 +975,7 @@ export default function VoiceControl({
       command.includes("authentic jarvis") ||
       command.includes("real jarvis") ||
       command.includes("movie jarvis") ||
-      command.includes("джарвис из ��елезного ч��ловека") ||
+      command.includes("джарвис из железного ч��ловека") ||
       command.includes("голос джарвиса") ||
       command.includes("оригинал") ||
       command.includes("как в марвел")
@@ -1010,7 +1011,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команд�� приветствия "Привет Джарвис" - улучшенное распознавание с защитой от повторов
+    // Команда приветствия "Привет Джарвис" - улучшенное распознавание с защитой от повторов
     if (
       command.includes("привет джарвис") ||
       command.includes("джарвис привет") ||
@@ -1058,7 +1059,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис как дела" с ответом "Все системы функционируют нормал��но"
+    // Команда "Джар��ис как дела" с ответом "Все системы функционируют нормал��но"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
@@ -1083,7 +1084,7 @@ export default function VoiceControl({
     // Команда "Как дела" (общая, без имени ��жа��вис)
     if (
       command.includes("как дела") ||
-      command.includes("как поживаешь джарвис") ||
+      command.includes("как по��иваешь джарвис") ||
       command.includes("джарвис как поживаешь") ||
       command.includes("как ты дж��рвис") ||
       command.includes("how are you jarvis") ||
@@ -1134,7 +1135,7 @@ export default function VoiceControl({
       command.includes("проверь систему") ||
       command.includes("тест")
     ) {
-      console.log("🎯 Распознана ко����анда диагностики:", command);
+      console.log("🎯 Распознана ко��анда диагностики:", command);
 
       // Дополнительная проверка, чтобы избежать повторных срабатываний
       if (
@@ -1193,7 +1194,7 @@ export default function VoiceControl({
       "преимущества",
       "возможности",
       "от��рыть",
-      "личный",
+      "ли��ный",
       "кабинет",
       "отправить",
       "секция",
@@ -1406,7 +1407,7 @@ export default function VoiceControl({
         command.includes("о нас") ||
         command.includes("кто мы")
       ) {
-        found = searchAndNavigate(["компан", "�� нас", "about", "кто мы"]);
+        found = searchAndNavigate(["компан", "��� нас", "about", "кто мы"]);
         if (found) {
           speak("Показ��ваю инфор��ацию о ко��пании");
           return;
@@ -1421,7 +1422,7 @@ export default function VoiceControl({
         command.includes("email")
       ) {
         found = searchAndNavigate([
-          "��онтакт",
+          "контакт",
           "связь",
           "телефон",
           "email",
@@ -1450,7 +1451,7 @@ export default function VoiceControl({
           "jarvis",
         ]);
         if (found) {
-          speak("Показываю технолог��и");
+          speak("Показываю техн��лог��и");
           return;
         }
       }
@@ -1577,7 +1578,7 @@ export default function VoiceControl({
 
     // Команды доб����вления планов в корзину
     if (
-      command.includes("добавить базовый") ||
+      command.includes("добавить ��азовый") ||
       command.includes("базовый план") ||
       command.includes("базовый в корзину") ||
       command.includes("отправить базовый")
@@ -1616,9 +1617,9 @@ export default function VoiceControl({
       command.includes("к планам") ||
       command.includes("показать планы") ||
       command.includes("пере��ти к планам") ||
-      command.includes("сп���ститься �� планам") ||
+      command.includes("сп��ститься �� планам") ||
       command.includes("тарифы") ||
-      command.includes("цены") ||
+      command.includes("��ены") ||
       command.includes("стоимость")
     ) {
       const found = searchAndNavigate(
@@ -1737,7 +1738,7 @@ export default function VoiceControl({
           setIsListening(true);
           onListeningChange?.(true, "");
         } catch (error) {
-          console.log("Распознавание уже зап��щено или н��до��ту��но");
+          console.log("Распознавание уж�� зап��щено или н��до��ту��но");
         }
       }
     }
