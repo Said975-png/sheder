@@ -274,10 +274,10 @@ export default function Index() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1">
               <Button
                 variant="ghost"
-                className="text-sm px-3 py-1.5 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
                 asChild
               >
                 <Link to="/login">
@@ -286,7 +286,7 @@ export default function Index() {
               </Button>
               <Button
                 variant="ghost"
-                className="text-sm px-3 py-1.5 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
                 asChild
               >
                 <Link to="/signup">
