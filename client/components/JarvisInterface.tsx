@@ -64,7 +64,7 @@ export default function JarvisInterface({
 
   const statusColors = {
     STANDBY: "text-gray-400",
-    INITIALIZING: "text-yellow-400 animate-pulse",
+    INITIALIZING: "text-yellow-400",
     ONLINE: "text-cyan-400",
     ERROR: "text-red-400",
   };
