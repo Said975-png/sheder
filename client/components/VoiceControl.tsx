@@ -678,15 +678,19 @@ export default function VoiceControl({
         );
         currentAudioRef.current = secondAudio;
 
-        secondAudio.onended = resetState;
+        secondAudio.onended = () => {
+          console.log("✅ Второе аудио закончилось, диагностика завершена");
+          resetState();
+        };
         secondAudio.onerror = () => {
           resetState();
-          console.error("Ошибка воспроизведения вто��ого аудио диагностики");
+          console.error("❌ Ошибка воспроизведения второго аудио диагностики");
         };
 
+        console.log("▶️ Запускаем второе аудио");
         secondAudio.play().catch((error) => {
           resetState();
-          console.error("Не удалось воспроизвести второе аудио диагностики:", error);
+          console.error("❌ Не удалось воспроизвести второе аудио диагностики:", error);
         });
       }, 2000);
     };
@@ -698,14 +702,14 @@ export default function VoiceControl({
 
     firstAudio.play().catch((error) => {
       resetState();
-      console.error("��е удалось воспроизвести первое аудио диагностики:", error);
+      console.error("��е удалось воспро��звести первое аудио диагностики:", error);
     });
   };
 
   const processVoiceCommand = (command: string) => {
     console.log("Обрабо��ка ко��анды:", command);
 
-    // Фильтруем пустые или слишк��м короткие команды
+    // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -738,7 +742,7 @@ export default function VoiceControl({
     // Команды ��ля оригинального голоса Джарвиса (из фи��ьма)
     if (
       command.includes("оригинальный джарвис") ||
-      command.includes("настоящий джар��ис") ||
+      command.includes("настоящий джарвис") ||
       command.includes("джарвис как в фильме") ||
       command.includes("железный чело��ек") ||
       command.includes("tony stark") ||
@@ -764,7 +768,7 @@ export default function VoiceControl({
     // Команда утреннего приветствия "Доброе утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
-      command.includes("джарвис доброе утро") ||
+      command.includes("джарвис до��рое утро") ||
       command.includes("утро джар��ис") ||
       (command.includes("доброе утро") && command.length < 20) ||
       command.includes("good morning jarvis") ||
@@ -832,7 +836,7 @@ export default function VoiceControl({
       command.includes("jarvis how are you") ||
       command.includes("how are you") ||
       command.includes("как твои дела") ||
-      command.includes("что нового джарвис")
+      command.includes("что ново��о джарвис")
     ) {
       // Дополнительная проверка, чтобы избежать п��вторных с��абатываний
       if (
@@ -874,7 +878,7 @@ export default function VoiceControl({
       command.includes("диагностика системы") ||
       command.includes("запусти диагностику") ||
       command.includes("джарвис диагностика") ||
-      command.includes("сист��мная диагностика") ||
+      command.includes("системная диагностика") ||
       command.includes("проверь систему") ||
       command.includes("диагностируй систему") ||
       command.includes("диагностика")
@@ -899,7 +903,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда проверки присутствия "Джарвис ты тут?"
+    // Команда проверки присутствия "��жарвис ты тут?"
     if (
       command.includes("джарвис ты тут") ||
       command.includes("ты тут джарвис") ||
@@ -950,7 +954,7 @@ export default function VoiceControl({
       "стоимость",
       "тариф",
       "услуги",
-      "��омпания",
+      "компания",
       "контакты",
       "поддержка",
       "технологи��",
@@ -1082,7 +1086,7 @@ export default function VoiceControl({
       return false;
     };
 
-    // Универсальны�� команды поиска
+    // Универсальные команды поиска
     if (
       command.includes("покажи") ||
       command.includes("найди") ||
@@ -1249,7 +1253,7 @@ export default function VoiceControl({
 
     // Команды навигации по страницам
     if (
-      command.includes("перейти на главную") ||
+      command.includes("перейти на глав��ую") ||
       command.includes("на главную страницу") ||
       command.includes("домо��")
     ) {
@@ -1290,7 +1294,7 @@ export default function VoiceControl({
 
     if (command.includes("заказ") || command.includes("оформить заказ")) {
       navigate("/order");
-      speak("Переходим к оформлению заказа");
+      speak("Переходим к оф��рмлению заказа");
       return;
     }
 
@@ -1402,7 +1406,7 @@ export default function VoiceControl({
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
-      command.includes("перей��и к возмо��ностям") ||
+      command.includes("перей���и к возмо��ностям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
@@ -1443,7 +1447,7 @@ export default function VoiceControl({
 
     if (
       command.includes("наверх страницы") ||
-      command.includes("в начало") ||
+      command.includes("в на��ало") ||
       command.includes("в самый верх")
     ) {
       window.scrollTo(0, 0);
