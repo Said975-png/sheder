@@ -77,7 +77,7 @@ export default function Index() {
       name: "Pro сайт с ИИ",
       price: 3500000,
       description:
-        "ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, ��ыстрая загрузка, SEO оптимизация",
+        "ИИ: чат-бот, автозаполнение, умные блоки, полный ада��тив, быстрая загрузка, SEO оптимизация",
       category: "website-ai",
     });
   };
@@ -416,12 +416,12 @@ export default function Index() {
             {/* Left Side - Content */}
             <div className="flex-1 space-y-10">
               <div className="space-y-8">
-                <h1
-                  className="text-5xl lg:text-7xl font-bold leading-tight hologram-text text-left max-w-4xl"
+                <h3
+                  className="text-2xl lg:text-3xl font-bold leading-tight hologram-text text-left max-w-4xl"
                   data-text="Jarvis - искусственный интеллект для вашего бизнеса"
                 >
                   Jarvis - искусственный интеллект для вашего бизнеса
-                </h1>
+                </h3>
 
                 <div className="relative p-6 bg-black/20 backdrop-blur-md border border-purple-500/30 rounded-2xl">
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-2xl"></div>
@@ -663,7 +663,7 @@ export default function Index() {
                       <div className="absolute top-0 left-0 w-2 h-2 bg-yellow-500 rounded-full animate-bounce"></div>
                     </div>
                     <h3 className="text-xl font-semibold theme-text mb-2">
-                      Pro сайт с ИИ
+                      Pro са��т с ИИ
                     </h3>
                     <div className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-1">
                       3 500 000
@@ -807,7 +807,7 @@ export default function Index() {
                   <Rocket className="w-8 h-8 text-purple-400" />
                 </div>
                 <h3 className="text-xl font-bold theme-text mb-4">
-                  Молниенос��ая разработка
+                  Молниеносная разработка
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
                   Создаем полноценные сайты в 3-5 раз быстрее благодаря нашим
@@ -918,7 +918,7 @@ export default function Index() {
                   Готовы создать что-то невероятное?
                 </h3>
                 <p className="theme-text-muted mb-6 max-w-2xl mx-auto">
-                  Позвольте нашему ИИ Джарвису стать цифровым помощником вашего
+                  Позвольте нашему ИИ Джа��вису стать цифровым помощником вашего
                   бизнеса. Начнем разработку уже сегодня!
                 </p>
                 <Button
