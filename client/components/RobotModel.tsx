@@ -7,7 +7,7 @@ import { Mesh } from "three";
 const MODEL_URL = ""; // Leave empty until you have a real URL
 
 function GLBModel({ url }: { url: string }) {
-  const modelRef = useRef<Mesh>(null);
+  const modelRef = useRef<THREE.Group>(null);
   const gltf = useGLTF(url);
 
   useFrame((_state, delta) => {
