@@ -124,6 +124,10 @@ export default function Index() {
     setIsVoiceActive(isListening);
   };
 
+  const handleCloseConversationPanel = () => {
+    setIsVoiceActive(false);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
