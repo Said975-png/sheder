@@ -8,6 +8,7 @@ import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
 import { ArcReactor, PowerIndicator, GlitchText } from "@/components/StarkEffects";
+import { cn } from "@/lib/utils";
 import {
   Shield,
   User,
