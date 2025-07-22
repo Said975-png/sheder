@@ -26,6 +26,7 @@ export default function VoiceControl({
   const [transcript, setTranscript] = useState("");
   const [noSpeechCount, setNoSpeechCount] = useState(0);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const commandDelayRef = useRef<NodeJS.Timeout | null>(null);
   const lastCommandRef = useRef<string>("");
   const commandCooldownRef = useRef<boolean>(false);
   const audioPlayingRef = useRef<boolean>(false);
@@ -105,7 +106,7 @@ export default function VoiceControl({
             console.log("🎯 Распознано:", `"${combinedTranscript}"`);
           }
 
-          // Обрабатываем финальные результаты или достаточно длинные промежуточные
+          // Обрабатываем финальные результаты или достаточно длин��ые промежуточные
           if ((finalTranscript || combinedTranscript.length > 5) && !commandCooldownRef.current) {
             const command = (finalTranscript || combinedTranscript).toLowerCase().trim();
             console.log("🔍 Анализируем команду:", `"${command}"`);
@@ -173,7 +174,7 @@ export default function VoiceControl({
 
               // Если сл��шком много no-speech ошибок подряд, делаем небольшую паузу
               if (noSpeechCount >= 3) {
-                console.log("⏸️ Много no-speech ошибок, делаем п��узу 2 сек...");
+                console.log("⏸️ Много no-speech ошибок, делаем паузу 2 сек...");
                 setTimeout(() => {
                   setNoSpeechCount(0);
                   if (isListening && recognitionRef.current) {
@@ -211,7 +212,7 @@ export default function VoiceControl({
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
-      // Останавливаем любое воспроизводящееся аудио при размонтировании
+      // Останавл��ваем любое воспроизводящееся аудио при размонтировании
       if (currentAudioRef.current) {
         currentAudioRef.current.pause();
         currentAudioRef.current.currentTime = 0;
@@ -317,7 +318,7 @@ export default function VoiceControl({
     audio.onended = shutdownComplete;
 
     audio.onerror = () => {
-      console.error("Ошибка вос��роизведен��я аудио отключения");
+      console.error("Ошибка вос��роизведения аудио откл��чения");
       shutdownComplete();
     };
 
@@ -399,7 +400,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось восп��оизвести аудио благодарности:", error);
+      console.error("Не удалось восп���оизвести аудио благодарности:", error);
     });
   };
 
@@ -432,7 +433,7 @@ export default function VoiceControl({
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
-      }, 2000); // Увеличен таймаут до 2 секунд
+      }, 2000); // Увел��чен таймаут до 2 секунд
     };
 
     audio.onended = resetState;
@@ -797,7 +798,7 @@ export default function VoiceControl({
         };
         secondAudio.onerror = () => {
           resetState();
-          console.error("❌ Ошибка воспроизведения второго аудио диагностики");
+          console.error("❌ Ошиб��а воспроизведения второго аудио диагностики");
         };
 
         console.log("▶️ Запускаем второе аудио");
@@ -831,7 +832,7 @@ export default function VoiceControl({
 
     // Команда о��ключения (приоритетная)
     if (
-      command.includes("от��лючись") ||
+      command.includes("��т��лючись") ||
       command.includes("выключись") ||
       command.includes("отключи микрофон") ||
       command.includes("стоп джарвис") ||
@@ -950,7 +951,7 @@ export default function VoiceControl({
       command.includes("jarvis how are you") ||
       command.includes("how are you") ||
       command.includes("как твои дела") ||
-      command.includes("что ново��о джарви��")
+      command.includes("что ново��о джарвис")
     ) {
       // Дополнительная про��ерка, чтобы избежать п��вторных с��абатываний
       if (
@@ -994,7 +995,7 @@ export default function VoiceControl({
       command.includes("проверь систему") ||
       command.includes("тест")
     ) {
-      console.log("🎯 Распознана команда диагностики:", command);
+      console.log("🎯 ��аспознана команда диагностики:", command);
 
       // Дополнительная проверка, чтобы избежать повторных срабатываний
       if (
@@ -1074,7 +1075,7 @@ export default function VoiceControl({
       "интеллект",
       "ии",
       "jarvis",
-      "мощный",
+      "м��щный",
       "уникальный",
       "качество",
       "аналитика",
@@ -1115,7 +1116,7 @@ export default function VoiceControl({
       "good",
       "тут",
       "присутствуешь",
-      "присутст��ие",
+      "присутствие",
       "месте",
       "there",
       "системы",
@@ -1123,7 +1124,7 @@ export default function VoiceControl({
       "дела",
       "пож��ваешь",
       "порядк��",
-      "диагностика",
+      "диагностик��",
       "проведи",
       "диагностируй",
       "проверь",
@@ -1417,7 +1418,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("открыть корз��ну") ||
+      command.includes("открыть корзину") ||
       command.includes("показать корзину") ||
       command.includes("что в корзине")
     ) {
@@ -1460,7 +1461,7 @@ export default function VoiceControl({
       command.includes("макс план") ||
       command.includes("максимальный план") ||
       command.includes("джа��вис пла��") ||
-      command.includes("макс в ��орзину") ||
+      command.includes("макс в ���орзину") ||
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
