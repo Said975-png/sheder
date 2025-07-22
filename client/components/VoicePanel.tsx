@@ -24,6 +24,7 @@ interface VoicePanelProps {
   onAddProPlan: () => void;
   onAddMaxPlan: () => void;
   onClose: () => void;
+  onStopListening: () => void;
   isListening: boolean;
   transcript?: string;
 }
