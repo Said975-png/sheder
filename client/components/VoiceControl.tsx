@@ -36,7 +36,7 @@ export default function VoiceControl({
   const { getTotalItems, clearCart } = useCart();
 
   useEffect(() => {
-    // Проверяем поддержку Speech Recognition
+    // Проверяем поддер��ку Speech Recognition
     if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
       const SpeechRecognition =
         window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -169,7 +169,7 @@ export default function VoiceControl({
                   }, 2000);
                 },
                 finalTranscript ? 100 : 1000,
-              ); // Меньше задержки для финальных результатов
+              ); // Меньше задержки для фи��альных результатов
             } else {
               console.log("❌ Команда отклонена:", {
                 isEmpty: !command,
@@ -192,6 +192,11 @@ export default function VoiceControl({
           // Автоматически перезапускаем распознавание, если мы все еще слушаем
           if (isListening && !isSpeaking) {
             console.log("�� Перезапускаем распознавание...");
+
+            // Очищаем состояние перед перезапуском
+            setTranscript("");
+            lastCommandRef.current = "";
+
             setTimeout(() => {
               if (recognitionRef.current && isListening && !isSpeaking) {
                 try {
@@ -254,7 +259,7 @@ export default function VoiceControl({
                 "- ��родолжаем слушать",
               );
             }
-            // Система автоматически перезапустится через onend
+            // Система автоматически переза��устится через onend
           }
           // Другие оши��ки - перезапускаем через короткое время
           else {
@@ -293,7 +298,7 @@ export default function VoiceControl({
     };
   }, []);
 
-  // Effect для обработки тестов��х команд
+  // Effect ��ля обработки тестов��х команд
   useEffect(() => {
     const handleTestCommand = (event: any) => {
       console.log("🧪 Получена тестовая ��ом��нда:", event.detail.command);
@@ -438,7 +443,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("О��ибка воспроизведен��я ау������о приветств��я");
+      console.error("О��ибка воспроизведен���я ау������о приветств��я");
     };
 
     audio.play().catch((error) => {
@@ -754,7 +759,7 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переклю��им ��а русский
       utterance.rate = 0.75; // Мед��ен��ая, размеренная речь как у Джарвиса из фильма
-      utterance.pitch = 0.7; // Сред����-ни��кий тон для автор��тет��ос��и
+      utterance.pitch = 0.7; // Сред����-ни��кий тон для ��втор��тет��ос��и
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболе�� подходящего ��олоса для имитации Jarvis
@@ -873,7 +878,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроиз��ед��ние
+    // Останавл��ваем любое текущее воспроиз��ед��ние
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -904,7 +909,7 @@ export default function VoiceControl({
       console.log("✅ Пер��ое аудио за��ончилось, ждем 2 секун��ы...");
       // Через 2 секунды воспроизводим второе аудио
       setTimeout(() => {
-        console.log("🎵 Создаем второе аудио для диагностики");
+        console.log("🎵 ��оздаем второе аудио для диагностики");
         const secondAudio = new Audio(
           "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76",
         );
@@ -1155,7 +1160,7 @@ export default function VoiceControl({
     ) {
       console.log("🎯 Распознана ко����анда диагностики:", command);
 
-      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      // Дополнительная проверка, чтобы избежать пов��орных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1572,7 +1577,7 @@ export default function VoiceControl({
     }
 
     // Команды корзины
-    if (command.includes("корзина") && command.includes("очистить")) {
+    if (command.includes("корзина") && command.includes("о��истить")) {
       clearCart();
       speak("Корзин�� очищена");
       return;
@@ -1652,7 +1657,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("По��а���ываю п��аны");
+        speak("По���а���ываю п��аны");
       }
       return;
     }
@@ -1730,7 +1735,7 @@ export default function VoiceControl({
 
     if (
       command.includes("в конец страницы") ||
-      command.includes("в сам��й низ") ||
+      command.includes("в сам��й н��з") ||
       command.includes("вниз страницы")
     ) {
       window.scrollTo(0, document.body.scrollHeight);
