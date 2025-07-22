@@ -78,7 +78,7 @@ export default function VoiceControl({
         }
 
         recognitionRef.current.onstart = () => {
-          console.log("🎤 Ра��познавани�� речи запущено");
+          console.log("🎤 Ра��познавание речи запущено");
         };
 
         recognitionRef.current.onresult = (event) => {
@@ -288,13 +288,8 @@ export default function VoiceControl({
 
     audio.onended = () => {
       setIsSpeaking(false);
-      // Сбрасываем кулдаун через более длительную задержку после аудио
-      setTimeout(() => {
-        commandCooldownRef.current = false;
-        lastCommandRef.current = "";
-        setTranscript(""); // Очищаем транскрипт
-        console.log("🧹 Полный сброс состояния после аудио");
-      }, 3000); // Увеличиваем до 3 секунд
+      // Сбрасываем состояние через более длительную задержку после аудио
+      resetCommandState(3000);
     };
 
     audio.onerror = () => {
@@ -386,7 +381,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("О��ибка воспроизведения ау��ио приветствия");
+      console.error("О��ибка воспроизведен��я ау��ио приветствия");
     };
 
     audio.play().catch((error) => {
@@ -528,7 +523,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизв��дение
+    // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -648,7 +643,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавли��аем ��юбое те��ущее воспрои��ведение
+    // Ос��анавливаем ��юбое те��ущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -734,7 +729,7 @@ export default function VoiceControl({
       utterance.onend = resetState;
       utterance.onerror = () => {
         resetState();
-        console.error("Ошибка синтеза речи");
+        console.error("Оши��ка синтеза речи");
       };
 
       try {
@@ -765,7 +760,7 @@ export default function VoiceControl({
     const url1 = "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76";
     const url2 = "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76";
 
-    console.log("🧪 Тестируем URL аудиофайлов:");
+    console.log("🧪 Т��стируем URL аудиофайлов:");
     console.log("URL1:", url1);
     console.log("URL2:", url2);
 
@@ -916,7 +911,7 @@ export default function VoiceControl({
     // Команда утреннего приветствия "Доброе утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
-      command.includes("джарвис д����рое утро") ||
+      command.includes("джарвис до��рое утро") ||
       command.includes("утро джар��ис") ||
       (command.includes("доброе утро") && command.length < 20) ||
       command.includes("good morning jarvis") ||
@@ -1033,7 +1028,7 @@ export default function VoiceControl({
     // Команда диагностики системы
     if (
       command.includes("диагностик") ||
-      command.includes("про��е��и") ||
+      command.includes("прове��и") ||
       command.includes("запусти") ||
       command.includes("проверь систему") ||
       command.includes("тест")
@@ -1064,7 +1059,7 @@ export default function VoiceControl({
       command.includes("ты тут джарвис") ||
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
-      command.includes("джарвис н�� месте") ||
+      command.includes("джарвис на месте") ||
       command.includes("джар��ис ��рисутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
@@ -1332,7 +1327,7 @@ export default function VoiceControl({
           "contact",
         ]);
         if (found) {
-          speak("Пок����ываю контакты");
+          speak("Пок����ываю ко��такты");
           return;
         }
       }
@@ -1373,7 +1368,7 @@ export default function VoiceControl({
           "support",
         ]);
         if (found) {
-          speak("Показыв��ю информацию о ка��естве");
+          speak("Показываю информацию о ка��естве");
           return;
         }
       }
@@ -1464,7 +1459,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("открыть корзину") ||
+      command.includes("открыт�� корзину") ||
       command.includes("показать корзину") ||
       command.includes("что в корзине")
     ) {
@@ -1503,7 +1498,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("добавить макс") ||
+      command.includes("добави��ь макс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
       command.includes("джа��вис пла��") ||
