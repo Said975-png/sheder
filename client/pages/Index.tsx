@@ -454,41 +454,7 @@ export default function Index() {
               </div>
             </div>
 
-            {/* Right Side - 3D Model positioned at header level */}
-            <div className="flex-shrink-0 w-full md:w-96 h-96 md:-mt-4 lg:-mt-8 xl:-mt-12">
-              <div
-                className="relative w-full h-full overflow-visible z-30"
-                style={{ padding: "20px" }}
-              >
-                {/* 3D Model */}
-                <div className="relative w-full h-full flex items-center justify-center">
-                  <div className="w-full h-full relative">
-                    <RobotModel />
 
-                    {/* Glowing effect around 3D model */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-blue-500/30 rounded-full blur-3xl animate-pulse pointer-events-none"></div>
-                    <div className="absolute inset-4 bg-gradient-to-r from-purple-400/20 to-cyan-400/20 rounded-full blur-2xl animate-ping pointer-events-none"></div>
-                  </div>
-                </div>
-
-                {/* Floating Code Elements with Gravity */}
-                <div className="absolute -top-8 -right-12 p-3 bg-black/40 backdrop-blur-sm border border-green-500/30 rounded text-green-400 font-mono text-xs gravity-float z-10">
-                  {'{ AI: "active" }'}
-                </div>
-                <div
-                  className="absolute -bottom-6 -left-12 p-2 bg-black/40 backdrop-blur-sm border border-blue-500/30 rounded text-blue-400 font-mono text-xs gravity-bounce z-10"
-                  style={{ animationDelay: "1s" }}
-                >
-                  neural.connect()
-                </div>
-                <div
-                  className="absolute top-24 -right-16 p-2 bg-black/40 backdrop-blur-sm border border-purple-500/30 rounded text-purple-400 font-mono text-xs gravity-drift z-10"
-                  style={{ animationDelay: "2s" }}
-                >
-                  ML.process()
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </main>
