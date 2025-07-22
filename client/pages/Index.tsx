@@ -132,6 +132,11 @@ export default function Index() {
     setCurrentTranscript("");
   };
 
+  const handleStopListening = () => {
+    setForceStopVoice(true);
+    setTimeout(() => setForceStopVoice(false), 100);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
