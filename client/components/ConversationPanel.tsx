@@ -74,7 +74,11 @@ export default function ConversationPanel({
           <Button
             onClick={() => {
               // При закрытии панели также останавливаем голосовое распознавание
-              onClose();
+              setShouldStopVoice(true);
+              setTimeout(() => {
+                onClose();
+                setShouldStopVoice(false);
+              }, 100);
             }}
             variant="ghost"
             className="w-8 h-8 p-0 rounded-full hover:bg-red-500/20 text-red-400"
