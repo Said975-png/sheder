@@ -126,8 +126,6 @@ export default function Index() {
 
   const handleCloseConversationPanel = () => {
     setIsVoiceActive(false);
-    // Принудительно сбрасываем состояние микрофона
-    setIsVoiceActive(false);
   };
 
   if (loading) {
