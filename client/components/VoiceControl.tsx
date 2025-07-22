@@ -59,7 +59,7 @@ export default function VoiceControl({
           recognitionRef.current.webkitContinuous = true;
           // @ts-ignore
           recognitionRef.current.webkitInterimResults = true;
-          // @ts-ignore - Увеличиваем таймаут для лучшего захвата длинных фраз
+          // @ts-ignore - Увеличиваем тайма��т для лучшего захвата длинных фраз
           recognitionRef.current.webkitGrammars = null;
           // @ts-ignore
           recognitionRef.current.webkitMaxAlternatives = 5;
@@ -91,18 +91,19 @@ export default function VoiceControl({
           let interimTranscript = "";
           let combinedTranscript = "";
 
-          // Собираем все результаты, включая предыдущие
-          for (let i = 0; i < event.results.length; i++) {
-            const transcript = event.results[i][0].transcript.trim();
-            if (event.results[i].isFinal) {
-              finalTranscript += transcript + " ";
+          // Обрабатываем только ПОСЛЕДНИЙ результат, чтобы не накапливать старые
+          const lastResultIndex = event.results.length - 1;
+          if (lastResultIndex >= 0) {
+            const transcript = event.results[lastResultIndex][0].transcript.trim();
+            if (event.results[lastResultIndex].isFinal) {
+              finalTranscript = transcript;
             } else {
-              interimTranscript += transcript + " ";
+              interimTranscript = transcript;
             }
           }
 
-          // Объединяем финальный и промежуточный результаты
-          combinedTranscript = (finalTranscript + interimTranscript).trim();
+          // Используем только новый результат
+          combinedTranscript = (finalTranscript || interimTranscript).trim();
 
           // Показывае�� промежуточный результат только если система свободна и это новый короткий контент
           if (
@@ -277,7 +278,7 @@ export default function VoiceControl({
             }
             // Система автоматически переза��устится через onend
           }
-          // Другие оши��ки - ��ерезапускаем через короткое время
+          // Другие оши��ки - ��ерезапускае�� через короткое время
           else {
             console.warn(
               "⚠️ Неожиданная ошибка распозна����ния:",
@@ -389,7 +390,7 @@ export default function VoiceControl({
 
     audio.onended = () => {
       setIsSpeaking(false);
-      // Сбрасываем состояние через более длительную задержку после аудио
+      // Сбрасываем сост��яние через более длительную задержку после аудио
       resetCommandState(3000);
     };
 
@@ -463,7 +464,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим ауд��о для команды "Джарвис я вернулся"
+    // Создаем и воспроизводим ауд��о для команды "Дж��рвис я вернулся"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -501,7 +502,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и восп��оизводим аудио дл�� благодарности
+    // Создаем и восп��оизво��им аудио дл�� благодарности
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2Fafb1b8a7fc8645a7ab1e8513e8c1faa7?alt=media&token=be057092-6988-45dd-94dc-90427146589d&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -568,7 +569,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка во��произведения аудио утреннего при��етствия");
+      console.error("Ошибка во��произведения аудио утреннего при��етств��я");
     };
 
     audio.play().catch((error) => {
@@ -720,7 +721,7 @@ export default function VoiceControl({
       }
     }
 
-    // Используем ваш оригинальный аудиофайл Джарвиса
+    // Используем ваш оригинальный аудиофайл Джарв��са
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2Fddde4fe5b47946c2a3bbb80e3bca0073%2F54eb93b1452742b6a1cd87cc6104bb59?alt=media&token=fc948eba-bbcd-485c-b129-d5a0c25cfc74&apiKey=ddde4fe5b47946c2a3bbb80e3bca0073",
     );
@@ -759,7 +760,7 @@ export default function VoiceControl({
     audio.play().catch((error) => {
       resetState();
       console.error(
-        "Не удалос�� воспроизвести оригинальное ауд��о Джарвиса:",
+        "Не у��алос�� воспроизвести оригинальное ауд��о Джарвиса:",
         error,
       );
     });
@@ -1060,7 +1061,7 @@ export default function VoiceControl({
     // Команда утреннего приветстви��� "Доброе утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
-      command.includes("джарвис до��рое утро") ||
+      command.includes("джарвис до����рое утро") ||
       command.includes("утро джар��ис") ||
       (command.includes("доброе утро") && command.length < 20) ||
       command.includes("good morning jarvis") ||
@@ -1249,7 +1250,7 @@ export default function VoiceControl({
       "план",
       "джарвис",
       "жарвис", // частые ошибки распозна����ания
-      "ярвис",
+      "ярви��",
       "джаров",
       "базовый",
       "про",
@@ -1506,7 +1507,7 @@ export default function VoiceControl({
         command.includes("технолог") ||
         command.includes("webgl") ||
         command.includes("ии") ||
-        command.includes("ис��усственный")
+        command.includes("ис����усственный")
       ) {
         found = searchAndNavigate([
           "технолог",
@@ -1560,7 +1561,7 @@ export default function VoiceControl({
         }
       }
 
-      // Если ни��его специфичного не найдено, попробуем общий ��оиск
+      // Если ни��его специфичного не най��ено, попробуем общий ��оиск
       if (!found) {
         const searchTerms = command
           .split(" ")
@@ -1643,7 +1644,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды доб�����вления планов в корзину
+    // ��оманды доб�����вления планов в корзину
     if (
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
@@ -1679,7 +1680,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ра��шире��ная навигация ��о секциям стран��ц��
+    // Ра���шире��ная навигация ��о секциям стран��ц��
     if (
       command.includes("к планам") ||
       command.includes("показать планы") ||
