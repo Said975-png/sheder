@@ -81,6 +81,7 @@ export default function JarvisInterface({
           onAddMaxPlan={onAddMaxPlan}
           inNavbar={true}
           onListeningChange={onListeningChange}
+          forceStop={forceStop}
         />
         <div className="text-xs font-mono">
           <div
