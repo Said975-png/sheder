@@ -1,6 +1,7 @@
 import React, { Suspense, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
+import * as THREE from "three";
 
 interface GLBModelProps {
   url: string;
@@ -78,7 +79,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
   position = [0, 0, 0],
   autoRotate = true,
 }) => {
-  // Стабилизируем п��раметры чтобы избежать пересоздания Canvas
+  // Стабилизируем параметры чтобы избежать пересоздания Canvas
   const stableProps = useMemo(
     () => ({
       camera: { position: [0, 0, 5] as [number, number, number], fov: 50 },
