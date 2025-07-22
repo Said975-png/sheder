@@ -24,6 +24,8 @@ interface JarvisInterfaceProps {
   onAddProPlan: () => void;
   onAddMaxPlan: () => void;
   inNavbar?: boolean;
+  onListeningChange?: (isListening: boolean, transcript?: string) => void;
+  forceStop?: boolean;
 }
 
 export default function JarvisInterface({
@@ -31,6 +33,8 @@ export default function JarvisInterface({
   onAddProPlan,
   onAddMaxPlan,
   inNavbar = false,
+  onListeningChange,
+  forceStop = false,
 }: JarvisInterfaceProps) {
   const [isActive, setIsActive] = useState(false);
   const [systemStatus, setSystemStatus] = useState("STANDBY");
@@ -76,6 +80,8 @@ export default function JarvisInterface({
           onAddProPlan={onAddProPlan}
           onAddMaxPlan={onAddMaxPlan}
           inNavbar={true}
+          onListeningChange={onListeningChange}
+          forceStop={forceStop}
         />
         <div className="text-xs font-mono">
           <div
@@ -184,6 +190,8 @@ export default function JarvisInterface({
             onAddProPlan={onAddProPlan}
             onAddMaxPlan={onAddMaxPlan}
             inNavbar={false}
+            onListeningChange={onListeningChange}
+            forceStop={forceStop}
           />
         </div>
 

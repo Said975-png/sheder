@@ -136,16 +136,11 @@ export default function StarkHero({ className }: StarkHeroProps) {
             {/* Заголовок */}
             <div className="space-y-6">
               <h1 className="text-4xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-                <div className="mb-2">
-                  <GlitchText intensity="low">
-                    <span className="text-white">Unleashing the</span>
-                  </GlitchText>
-                </div>
                 <HologramText
                   className="text-4xl lg:text-6xl xl:text-7xl font-bold"
                   glitch
                 >
-                  Power of Blockchain
+                  Jarvis - ваш искусственный интеллект
                 </HologramText>
               </h1>
 
@@ -153,8 +148,8 @@ export default function StarkHero({ className }: StarkHeroProps) {
                 <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-lg font-mono">
                   {targetLocked ? (
                     <span className="text-cyan-400 stark-text-glow">
-                      TARGET ACQUIRED: Transforming industries with secure,
-                      decentralized and transparent technology.
+                      Вы говорите — Джарвис делает. Это не просто сайт. Это —
+                      ваш персональный AI-помощник, встроенный в интерфейс
                     </span>
                   ) : (
                     "Scanning quantum blockchain matrices... Analyzing distributed networks..."

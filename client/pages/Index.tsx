@@ -6,6 +6,7 @@ import VoiceControl from "@/components/VoiceControl";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
+import VoicePanel from "@/components/VoicePanel";
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
 import {
   ArcReactor,
@@ -55,6 +56,9 @@ export default function Index() {
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
   const [navbarScrolled, setNavbarScrolled] = useState(false);
+  const [isVoicePanelActive, setIsVoicePanelActive] = useState(false);
+  const [currentTranscript, setCurrentTranscript] = useState("");
+  const [forceStopVoice, setForceStopVoice] = useState(false);
 
   // Запуск аним��ции при загрузке компонента
   useEffect(() => {
@@ -118,6 +122,21 @@ export default function Index() {
     navigate("/order");
   };
 
+  const handleListeningChange = (isListening: boolean, transcript?: string) => {
+    setIsVoicePanelActive(isListening);
+    setCurrentTranscript(transcript || "");
+  };
+
+  const handleCloseVoicePanel = () => {
+    setIsVoicePanelActive(false);
+    setCurrentTranscript("");
+  };
+
+  const handleStopListening = () => {
+    setForceStopVoice(true);
+    setTimeout(() => setForceStopVoice(false), 100);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
@@ -133,13 +152,27 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      {/* Voice Panel - показывается при активации микрофона */}
+      {isVoicePanelActive && (
+        <VoicePanel
+          onAddBasicPlan={handleAddBeginnerPlan}
+          onAddProPlan={handleAddIntermediatePlan}
+          onAddMaxPlan={handleAddAdvancedPlan}
+          onClose={handleCloseVoicePanel}
+          onStopListening={handleStopListening}
+          isListening={isVoicePanelActive}
+          transcript={currentTranscript}
+        />
+      )}
+
       {/* Navigation - Enhanced with Stark styling */}
       <nav
         className={cn(
-          "fixed top-2 left-1/2 transform -translate-x-1/2 z-50 rounded-full px-2 py-1 transition-all duration-300",
+          "fixed top-2 left-1/2 transform -translate-x-1/2 z-40 rounded-full px-2 py-1 transition-all duration-300",
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
+          isVoicePanelActive && "opacity-20 pointer-events-none",
         )}
       >
         <div className="flex items-center space-x-2">
@@ -158,6 +191,8 @@ export default function Index() {
             onAddProPlan={handleAddIntermediatePlan}
             onAddMaxPlan={handleAddAdvancedPlan}
             inNavbar={true}
+            onListeningChange={handleListeningChange}
+            forceStop={forceStopVoice}
           />
 
           {/* Cart Dropdown */}
@@ -248,6 +283,22 @@ export default function Index() {
               </div>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Тестовая кнопк�� диагностики */}
+          <Button
+            onClick={() => {
+              console.log("🧪 Тестовый запуск диагностики");
+              // Имитируем голосовую команду
+              const event = new CustomEvent("voiceCommand", {
+                detail: { command: "диагностика" },
+              });
+              window.dispatchEvent(event);
+            }}
+            variant="ghost"
+            className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+          >
+            <span className="stark-text-glow">TEST</span>
+          </Button>
 
           <ThemeToggle />
 
