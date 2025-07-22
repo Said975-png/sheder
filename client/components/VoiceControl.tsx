@@ -207,7 +207,7 @@ export default function VoiceControl({
     };
 
     audio.play().catch((error) => {
-      console.error("Не удалось воспроизвести аудио отключения:", error);
+      console.error("Не удалось воспроизвести аудио от��лючения:", error);
       shutdownComplete();
     });
   };
@@ -284,7 +284,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось восп��оизвести аудио благодарности:", error);
+      console.error("Не удалос�� восп��оизвести аудио благодарности:", error);
     });
   };
 
@@ -499,7 +499,7 @@ export default function VoiceControl({
 
 
       {
-        // Fallback: любой доступный голос с оптимизированными нас��ройками
+
         const anyVoice = voices.find(
           (voice) => voice.lang.includes("ru") || voice.lang.includes("en"),
         );
@@ -585,7 +585,7 @@ export default function VoiceControl({
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
-      // Приоритет: голоса, похожие на британский/американский мужской
+      // Приори��ет: голоса, похожие на британский/американский мужской
       const jarvisLikeVoice = voices.find(
         (voice) =>
           voice.lang.includes("en") &&
@@ -712,7 +712,7 @@ export default function VoiceControl({
       command.includes("authentic jarvis") ||
       command.includes("real jarvis") ||
       command.includes("movie jarvis") ||
-      command.includes("джарвис из железного ч��ловека") ||
+      command.includes("джарвис из железного ч���ловека") ||
       command.includes("голос джарвиса") ||
       command.includes("оригинал") ||
       command.includes("как в марвел")
@@ -777,7 +777,7 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнительная проверка, ��тобы избежать повторных срабат��ваний
+      // Дополнительная проверка, ��то��ы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -814,7 +814,7 @@ export default function VoiceControl({
     // Команды благод��рности
     if (
       command.includes("спасибо") ||
-      command.includes("благодарю") ||
+      command.includes("б��агодарю") ||
       command.includes("благодарно��ть") ||
       command.includes("спс") ||
       command.includes("сенк ю") ||
