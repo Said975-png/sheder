@@ -60,8 +60,8 @@ const GLBModel: React.FC<GLBModelProps> = ({
     config: { mass: 2, tension: 500 },
     snap: { mass: 4, tension: 1500 },
     rotation: [0, 0.3, 0] as [number, number, number],
-    polar: [-Math.PI / 3, Math.PI / 3] as [number, number],
-    azimuth: [-Math.PI / 1.4, Math.PI / 2] as [number, number],
+    polar: [-Math.PI / 2, Math.PI / 2] as [number, number],
+    azimuth: [-Math.PI, Math.PI] as [number, number],
   }), []);
 
   return (
