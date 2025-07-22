@@ -129,7 +129,7 @@ export default function VoiceControl({
   }, []);
 
   const speak = (text: string) => {
-    // Предотвращаем повторное воспроизведение
+    // Предотвращаем повторное во��произведение
     if (isSpeaking || commandCooldownRef.current) return;
 
     setIsSpeaking(true);
@@ -536,7 +536,7 @@ export default function VoiceControl({
         }, 1000);
       };
 
-      console.log("Джарвис: Все системы работают ��эр");
+      console.log("Джарвис: Все системы функционируют нормально");
       setTimeout(resetState, 2000);
     }
   };
@@ -832,7 +832,7 @@ export default function VoiceControl({
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
-      command.includes("джарвис присутствуешь") ||
+      command.includes("джа��вис присутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
     ) {
@@ -1183,7 +1183,7 @@ export default function VoiceControl({
     if (
       command.includes("войти") ||
       command.includes("логин") ||
-      command.includes("авторизация")
+      command.includes("автори��ация")
     ) {
       navigate("/login");
       speak("Открываю страницу вх��да");
@@ -1265,13 +1265,13 @@ export default function VoiceControl({
     if (
       command.includes("добавить макс") ||
       command.includes("макс план") ||
-      command.includes("максимальный план") ||
+      command.includes("максим��льный план") ||
       command.includes("джарвис план") ||
       command.includes("макс в ��орзину") ||
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальный план добавлен");
+      speak("Максим��льный план добавлен");
       return;
     }
 
@@ -1306,7 +1306,7 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("перейти к преимуществам") ||
+      command.includes("перейти к преимуще��твам") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
