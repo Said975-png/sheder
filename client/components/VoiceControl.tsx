@@ -105,19 +105,30 @@ export default function VoiceControl({
             console.log("🎯 Распознано:", `"${combinedTranscript}"`);
           }
 
-          if (finalTranscript && !commandCooldownRef.current) {
-            const command = finalTranscript.toLowerCase().trim();
-            // Пр��веряе��, что команда от��ичается от предыдущей и не пустая
+          // Обрабатываем финальные результаты или достаточно длинные промежуточные
+          if ((finalTranscript || combinedTranscript.length > 5) && !commandCooldownRef.current) {
+            const command = (finalTranscript || combinedTranscript).toLowerCase().trim();
+            console.log("🔍 Анализируем команду:", `"${command}"`);
+
+            // Проверяем, что команда отличается от предыдущей и достаточно длинная
             if (
               command &&
               command !== lastCommandRef.current &&
               command.length > 2
             ) {
-              setTranscript(finalTranscript);
-              onListeningChange?.(true, finalTranscript);
+              console.log("✅ Команда принята для обработки:", `"${command}"`);
+              setTranscript(command);
+              onListeningChange?.(true, command);
               lastCommandRef.current = command;
               setNoSpeechCount(0); // Сбрасываем счетчик при успешном распознавании
               processVoiceCommand(command);
+            } else {
+              console.log("❌ Команда отклонена:", {
+                isEmpty: !command,
+                isSame: command === lastCommandRef.current,
+                isTooShort: command.length <= 2,
+                lastCommand: lastCommandRef.current
+              });
             }
           }
         };
@@ -162,7 +173,7 @@ export default function VoiceControl({
 
               // Если сл��шком много no-speech ошибок подряд, делаем небольшую паузу
               if (noSpeechCount >= 3) {
-                console.log("⏸️ Много no-speech ошибок, делаем паузу 2 сек...");
+                console.log("⏸️ Много no-speech ошибок, делаем п��узу 2 сек...");
                 setTimeout(() => {
                   setNoSpeechCount(0);
                   if (isListening && recognitionRef.current) {
@@ -306,7 +317,7 @@ export default function VoiceControl({
     audio.onended = shutdownComplete;
 
     audio.onerror = () => {
-      console.error("Ошибка вос��роизведения аудио отключения");
+      console.error("Ошибка вос��роизведен��я аудио отключения");
       shutdownComplete();
     };
 
@@ -939,7 +950,7 @@ export default function VoiceControl({
       command.includes("jarvis how are you") ||
       command.includes("how are you") ||
       command.includes("как твои дела") ||
-      command.includes("что ново��о джарвис")
+      command.includes("что ново��о джарви��")
     ) {
       // Дополнительная про��ерка, чтобы избежать п��вторных с��абатываний
       if (
@@ -1104,7 +1115,7 @@ export default function VoiceControl({
       "good",
       "тут",
       "присутствуешь",
-      "присутствие",
+      "присутст��ие",
       "месте",
       "there",
       "системы",
@@ -1406,7 +1417,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("открыть корзину") ||
+      command.includes("открыть корз��ну") ||
       command.includes("показать корзину") ||
       command.includes("что в корзине")
     ) {
