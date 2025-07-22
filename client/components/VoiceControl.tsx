@@ -139,7 +139,7 @@ export default function VoiceControl({
               setTranscript(command);
               onListeningChange?.(true, command);
 
-              // Очи��аем п��едыдущий таймер
+              // Очи��аем п��едыдущи�� таймер
               if (commandDelayRef.current) {
                 clearTimeout(commandDelayRef.current);
               }
@@ -327,11 +327,15 @@ export default function VoiceControl({
   };
 
   const speak = (text: string) => {
-    // Предотвращаем повторное воспроиз��е��ение
+    // Пре��отвращаем повторное воспроиз��е��ение
     if (isSpeaking || commandCooldownRef.current) return;
 
     setIsSpeaking(true);
     commandCooldownRef.current = true;
+
+    // Очищаем транскрипт когда начинаем говорить
+    setTranscript("");
+    onListeningChange?.(true, "");
 
     // Созда��м и воспрои��водим ваш новый ау��ио-файл
     const audio = new Audio(
@@ -433,7 +437,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("О��ибка воспроизведен��я ау����о приветств��я");
+      console.error("О��ибка воспроизведен��я ау������о приветств��я");
     };
 
     audio.play().catch((error) => {
@@ -661,7 +665,7 @@ export default function VoiceControl({
     setTranscript("");
     onListeningChange?.(true, "");
 
-    // Временно останавливаем ��аспознавание речи во время воспроизведения
+    // Временн�� останавливаем ��аспознавание речи во время воспроизведения
     if (recognitionRef.current && wasListening) {
       console.log("⏸️ Временно остана��ливаем распознавание на время аудио");
       try {
@@ -685,7 +689,7 @@ export default function VoiceControl({
       // Возобновляем распознавание речи после завершения аудио, используя сохраненное состояние
       setTimeout(() => {
         if (wasListening && recognitionRef.current) {
-          console.log("▶️ Возобновляем распознавание после аудио");
+          console.log("▶️ Возобновляем распозна��ание после аудио");
           try {
             recognitionRef.current.start();
             // НЕ изменяем isListening здесь, так как оно должно остаться true
@@ -868,7 +872,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроиз��едение
+    // Останавливаем любое текущее воспроиз��ед��ние
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -930,7 +934,7 @@ export default function VoiceControl({
       console.error("❌ Ошибка воспроизведения первого аудио диагностик��");
     };
 
-    console.log("▶️ ��апускаем первое ауди��");
+    console.log("▶️ ��апускаем перво�� ауди��");
     firstAudio.play().catch((error) => {
       resetState();
       console.error(
@@ -1081,7 +1085,7 @@ export default function VoiceControl({
       command.includes("ярвис как дела") ||
       (command.includes("джарвис") && command.includes("как дела")) ||
       (command.includes("жарвис") && command.includes("как дела")) ||
-      (command.includes("как дела") && command.length < 20) // если слышно ��олько "как дела"
+      (command.includes("как дела") && command.length < 20) // если с��ышно ��олько "как дела"
     ) {
       // Д����олнительная провер���а, ��тобы избежать повторных срабат��ва��ий
       if (
@@ -1321,7 +1325,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск по id элем��нтов
+      // ��оиск по id элем��нтов
       for (const term of searchTerms) {
         const elementById = document.getElementById(term);
         if (elementById) {
@@ -1488,7 +1492,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск аналитики
+      // ��оиск аналитики
       if (
         command.includes("аналитик") ||
         command.includes("статистик") ||
@@ -1616,7 +1620,7 @@ export default function VoiceControl({
       command.includes("добави��ь макс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
-      command.includes("д��а��вис пла��") ||
+      command.includes("д��а��вис пла����") ||
       command.includes("макс в ��орзину") ||
       command.includes("о��править макс")
     ) {
