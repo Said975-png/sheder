@@ -310,52 +310,7 @@ export default function Index() {
 
 
 
-      {/* Bottom Section - Company Logos */}
-      <section className="ai-hero-container py-16 relative">
-        <div className="container mx-auto px-6">
-          <div className="text-center space-y-8">
-            <h2 className="text-xl font-medium text-white/80 max-w-2xl mx-auto">
-              Guarding The Industry's Top Apps And Games.
-              <br />
-              From Innovative Startups To Renowned Enterprises.
-            </h2>
 
-            <div className="flex items-center justify-center space-x-12 opacity-60">
-              {/* Unity Logo */}
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
-                  <span className="text-black font-bold text-sm">U</span>
-                </div>
-                <span className="text-white font-medium">Unity</span>
-              </div>
-
-              {/* Unreal Logo */}
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                  <span className="text-black font-bold text-sm">U</span>
-                </div>
-                <span className="text-white font-medium">UNREAL</span>
-              </div>
-
-              {/* Apple Logo */}
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-white rounded flex items-center justify-center">
-                  <span className="text-black font-bold text-sm">🍎</span>
-                </div>
-                <span className="text-white font-medium">Apple</span>
-              </div>
-
-              {/* Meta Logo */}
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">M</span>
-                </div>
-                <span className="text-white font-medium">Meta</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Pricing Section */}
       <section
@@ -567,7 +522,7 @@ export default function Index() {
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
                         <CheckCircle className="w-3 h-3 text-cyan-400" />
                       </div>
-                      Поддержка WebGL и AI интерфейса
+                      Поддержка WebGL �� AI интерфейса
                     </li>
                     <li className="flex items-center theme-text-muted group">
                       <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
@@ -651,7 +606,7 @@ export default function Index() {
                   ��оддержка 24/7
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Круглосуточная техническая поддержка и мониторинг вашего
+                  Круглосуточная техническая п��ддержка и мониторинг вашего
                   ��айта. Мы оперативно решаем любые вопросы и следим за
                   стабильной работой.
                 </p>
@@ -669,7 +624,7 @@ export default function Index() {
                   Премиум ка��ество
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Используем только современные технологии и лучшие практики.
+                  Используем только современные ��ехнологии и лучшие практики.
                   Каждый сайт проходит тщательное тестирование и оптимизацию
                   производительности.
                 </p>
@@ -704,7 +659,7 @@ export default function Index() {
                   Инновационные решения
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
-                  Внедряем передовые технологии: WebGL, машинное обучение,
+                  Внедряем передовые технологии: WebGL, машинное об��чение,
                   голосовое управление и AR/VR элементы для максимального
                   wow-эффекта.
                 </p>
