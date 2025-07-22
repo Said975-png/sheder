@@ -56,7 +56,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
         {/* Матричный ��ождь */}
         <MatrixRain density="low" speed="slow" color="cyan" />
 
-        {/* Схемы и паттерны */}
+        {/* Схе��ы и паттерны */}
         <CircuitPattern size="large" className="top-10 left-10 opacity-20" />
         <CircuitPattern
           size="medium"
@@ -138,14 +138,14 @@ export default function StarkHero({ className }: StarkHeroProps) {
               <h1 className="text-4xl lg:text-6xl xl:text-7xl font-bold leading-tight">
                 <div className="mb-2">
                   <GlitchText intensity="low">
-                    <span className="text-white">Unleashing the</span>
+                    <span className="text-white">Jarvis - ваш личный</span>
                   </GlitchText>
                 </div>
                 <HologramText
                   className="text-4xl lg:text-6xl xl:text-7xl font-bold"
                   glitch
                 >
-                  Power of Blockchain
+                  искусственный интеллект
                 </HologramText>
               </h1>
 

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import VoiceControl from "@/components/VoiceControl";
+import ConversationPanel from "@/components/ConversationPanel";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
@@ -55,6 +56,7 @@ export default function Index() {
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
   const [navbarScrolled, setNavbarScrolled] = useState(false);
+  const [isVoiceActive, setIsVoiceActive] = useState(false);
 
   // Запуск аним��ции при загрузке компонента
   useEffect(() => {
@@ -118,6 +120,14 @@ export default function Index() {
     navigate("/order");
   };
 
+  const handleVoiceListeningChange = (isListening: boolean) => {
+    setIsVoiceActive(isListening);
+  };
+
+  const handleCloseConversationPanel = () => {
+    setIsVoiceActive(false);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
@@ -140,6 +150,9 @@ export default function Index() {
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
+          isVoiceActive
+            ? "opacity-0 scale-90 pointer-events-none"
+            : "opacity-100 scale-100",
         )}
       >
         <div className="flex items-center space-x-2">
@@ -158,6 +171,7 @@ export default function Index() {
             onAddProPlan={handleAddIntermediatePlan}
             onAddMaxPlan={handleAddAdvancedPlan}
             inNavbar={true}
+            onVoiceListeningChange={handleVoiceListeningChange}
           />
 
           {/* Cart Dropdown */}
@@ -325,6 +339,15 @@ export default function Index() {
           )}
         </div>
       </nav>
+
+      {/* Conversation Panel */}
+      <ConversationPanel
+        isOpen={isVoiceActive}
+        onClose={handleCloseConversationPanel}
+        onAddBasicPlan={handleAddBeginnerPlan}
+        onAddProPlan={handleAddIntermediatePlan}
+        onAddMaxPlan={handleAddAdvancedPlan}
+      />
 
       {/* Hero Section - Stark Style */}
       <StarkHero />

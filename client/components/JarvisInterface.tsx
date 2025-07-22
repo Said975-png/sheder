@@ -24,6 +24,7 @@ interface JarvisInterfaceProps {
   onAddProPlan: () => void;
   onAddMaxPlan: () => void;
   inNavbar?: boolean;
+  onVoiceListeningChange?: (isListening: boolean) => void;
 }
 
 export default function JarvisInterface({
@@ -31,6 +32,7 @@ export default function JarvisInterface({
   onAddProPlan,
   onAddMaxPlan,
   inNavbar = false,
+  onVoiceListeningChange,
 }: JarvisInterfaceProps) {
   const [isActive, setIsActive] = useState(false);
   const [systemStatus, setSystemStatus] = useState("STANDBY");
@@ -62,7 +64,7 @@ export default function JarvisInterface({
 
   const statusColors = {
     STANDBY: "text-gray-400",
-    INITIALIZING: "text-yellow-400 animate-pulse",
+    INITIALIZING: "text-yellow-400",
     ONLINE: "text-cyan-400",
     ERROR: "text-red-400",
   };
@@ -76,6 +78,7 @@ export default function JarvisInterface({
           onAddProPlan={onAddProPlan}
           onAddMaxPlan={onAddMaxPlan}
           inNavbar={true}
+          onListeningChange={onVoiceListeningChange}
         />
         <div className="text-xs font-mono">
           <div

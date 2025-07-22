@@ -169,20 +169,14 @@ export function HologramText({
   glitch = false,
 }: HologramTextProps) {
   return (
-    <div className={cn("relative", glitch && "hover:animate-pulse", className)}>
+    <div className={cn("relative", className)}>
       <div
         className={cn(
           "bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent",
-          "bg-[length:200%_200%] animate-gradient-shift",
         )}
       >
         {children}
       </div>
-      {glitch && (
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent opacity-0 animate-glitch">
-          {children}
-        </div>
-      )}
     </div>
   );
 }
