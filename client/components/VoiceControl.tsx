@@ -228,7 +228,7 @@ export default function VoiceControl({
     };
 
     audio.play().catch((error) => {
-      console.error("Н�� удалось ��оспроизвести аудио отключения:", error);
+      console.error("Н�� удалось воспроизвести аудио отключения:", error);
       shutdownComplete();
     });
   };
@@ -464,7 +464,7 @@ export default function VoiceControl({
   };
 
   const speakAuthenticJarvis = () => {
-    // Множественная защита от повторного воспр��изведения
+    // Множественная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -581,7 +581,7 @@ export default function VoiceControl({
         utterance.lang = "ru-RU";
         utterance.pitch = 0.6; // Чуть ниже для русского голоса
       } else {
-        // Fallback: люб��й доступный голос с оптимизированными настройками
+        // Fallback: любой доступный голос с оптимизированными настройками
         const anyVoice = voices.find(
           (voice) => voice.lang.includes("en") || voice.lang.includes("ru"),
         );
@@ -652,7 +652,7 @@ export default function VoiceControl({
     audioPlayingRef.current = true;
 
     // Воспроизводим первое аудио
-    console.log("🎵 Создаем первое аудио для диагно��тики");
+    console.log("🎵 Создаем первое аудио для диагностики");
     const firstAudio = new Audio(
       "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76"
     );
@@ -669,8 +669,10 @@ export default function VoiceControl({
     };
 
     firstAudio.onended = () => {
+      console.log("✅ Первое аудио закончилось, ждем 2 секунды...");
       // Через 2 секунды воспроизводим второе аудио
       setTimeout(() => {
+        console.log("🎵 Создаем второе аудио для диагностики");
         const secondAudio = new Audio(
           "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76"
         );
@@ -703,7 +705,7 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("Обрабо��ка ко��анды:", command);
 
-    // Фильтруем пустые или слишком короткие команды
+    // Фильтруем пустые или слишк��м короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -736,7 +738,7 @@ export default function VoiceControl({
     // Команды ��ля оригинального голоса Джарвиса (из фи��ьма)
     if (
       command.includes("оригинальный джарвис") ||
-      command.includes("настоящий джарвис") ||
+      command.includes("настоящий джар��ис") ||
       command.includes("джарвис как в фильме") ||
       command.includes("железный чело��ек") ||
       command.includes("tony stark") ||
@@ -746,7 +748,7 @@ export default function VoiceControl({
       command.includes("movie jarvis") ||
       command.includes("джарвис из железного ч��ловека") ||
       command.includes("голос джарвиса") ||
-      command.includes("о��игинал") ||
+      command.includes("оригинал") ||
       command.includes("как в марвел")
     ) {
       if (
@@ -820,7 +822,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Как де��а" (общая, без имени Джарвис)
+    // Команда "Как дела" (общая, без имени Джарвис)
     if (
       command.includes("как дела") ||
       command.includes("как поживаешь джарвис") ||
@@ -872,7 +874,7 @@ export default function VoiceControl({
       command.includes("диагностика системы") ||
       command.includes("запусти диагностику") ||
       command.includes("джарвис диагностика") ||
-      command.includes("системная диагностика") ||
+      command.includes("сист��мная диагностика") ||
       command.includes("проверь систему") ||
       command.includes("диагностируй систему") ||
       command.includes("диагностика")
@@ -916,7 +918,7 @@ export default function VoiceControl({
     const meaningfulWords = [
       "перейти",
       "войти",
-      "реги��трация",
+      "регистрация",
       "профиль",
       "заказ",
       "��орзина",
@@ -948,7 +950,7 @@ export default function VoiceControl({
       "стоимость",
       "тариф",
       "услуги",
-      "компания",
+      "��омпания",
       "контакты",
       "поддержка",
       "технологи��",
@@ -1080,7 +1082,7 @@ export default function VoiceControl({
       return false;
     };
 
-    // Универсальные команды поиска
+    // Универсальны�� команды поиска
     if (
       command.includes("покажи") ||
       command.includes("найди") ||
@@ -1351,7 +1353,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ра��ширенная навигация по сек��иям страниц��
+    // Ра��ширенная навигация по секциям страниц��
     if (
       command.includes("к планам") ||
       command.includes("показать планы") ||
