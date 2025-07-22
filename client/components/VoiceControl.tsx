@@ -15,6 +15,7 @@ export default function VoiceControl({
   onAddBasicPlan,
   onAddProPlan,
   onAddMaxPlan,
+  inNavbar = false,
 }: VoiceControlProps) {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -87,7 +88,7 @@ export default function VoiceControl({
                 try {
                   recognitionRef.current.start();
                 } catch (error) {
-                  console.log("Распознавание уже ��апущено");
+                  console.log("Распознавание уже запущено");
                 }
               }
             }, 100);
@@ -593,7 +594,7 @@ export default function VoiceControl({
         speechSynthesis.speak(utterance);
       } catch (error) {
         resetState();
-        console.error("Не удалось синтезировать речь:", error);
+        console.error("Не удалось синтезировать ре��ь:", error);
       }
     } else {
       // Fallback если Speech Synthesis недоступен
@@ -659,7 +660,7 @@ export default function VoiceControl({
       command.includes("джарвис из железного ч��ловека") ||
       command.includes("голос джарвиса") ||
       command.includes("оригинал") ||
-      command.includes("как в марвел")
+      command.includes("как в марве��")
     ) {
       if (
         !isSpeaking &&
@@ -721,7 +722,7 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнит��льная провер���а, ��тобы избежать повторных срабат��ваний
+      // Дополнительная провер���а, ��тобы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -795,7 +796,7 @@ export default function VoiceControl({
 
     // Проверяем, содержит л���� команда значимые слова
     const meaningfulWords = [
-      "перейти",
+      "пер��йти",
       "войти",
       "регистрация",
       "профиль",
@@ -845,7 +846,7 @@ export default function VoiceControl({
       "пр��миум",
       "невероятное",
       "готовы",
-      "созда��ь",
+      "создать",
       "бизнес",
       "помощник",
       "персональный",
@@ -854,7 +855,7 @@ export default function VoiceControl({
       "отключи",
       "выключи",
       "стоп",
-      "вернулся",
+      "вернул��я",
       "здесь",
       "снова",
       "спасибо",
@@ -1308,7 +1309,7 @@ export default function VoiceControl({
 
     if (
       command.includes("прокрутить вверх") ||
-      command.includes("скролл вверх") ||
+      command.includes("скролл вве��х") ||
       command.includes("поднятьс�� вверх")
     ) {
       window.scrollBy(0, -500);
