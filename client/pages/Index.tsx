@@ -356,7 +356,7 @@ export default function Index() {
             <div className="flex items-center justify-center">
               <div className="w-full h-96 rounded-2xl overflow-hidden">
                 <GLBModel
-                  url="https://cdn.builder.io/o/assets%2Fe7ee46b6f06b4b02a9803aeda10a012b%2Fc0894c02d77649a3aecc80105a96cd68?alt=media&token=0fe7336c-92c5-4c4c-928f-d3a77338f0e9&apiKey=e7ee46b6f06b4b02a9803aeda10a012b"
+                  url="https://cdn.builder.io/o/assets%2Fe7ee46b6f06b4b02a9803aeda10a012b%2F93318affd42c45f8af917bd3b46dc4da?alt=media&token=e7d9c716-4057-435b-8890-5978b7e06bd2&apiKey=e7ee46b6f06b4b02a9803aeda10a012b"
                   scale={1.5}
                   autoRotate={false}
                 />
