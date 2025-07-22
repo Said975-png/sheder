@@ -95,6 +95,7 @@ export default function ConversationPanel({
             onAddMaxPlan={onAddMaxPlan}
             inNavbar={false}
             onListeningChange={handleVoiceListeningChange}
+            forceStop={shouldStopVoice}
           />
         </div>
 
