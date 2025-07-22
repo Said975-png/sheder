@@ -498,7 +498,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка воспроизведения оригинального аудио Джарвиса");
+      console.error("��шибка воспроизведения оригинального аудио Джарвиса");
     };
 
     audio.play().catch((error) => {
@@ -613,7 +613,7 @@ export default function VoiceControl({
         speechSynthesis.speak(utterance);
       } catch (error) {
         resetState();
-        console.error("Не удалось синтезировать речь:", error);
+        console.error("Не удалось синтезиро��ать речь:", error);
       }
     } else {
       // Fallback если Speech Synthesis недоступен
@@ -651,7 +651,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Воспроизводим первое аудио
+    // Воспро��зводим первое аудио
     console.log("🎵 Создаем первое аудио для диагностики");
     const firstAudio = new Audio(
       "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76"
@@ -697,17 +697,18 @@ export default function VoiceControl({
 
     firstAudio.onerror = () => {
       resetState();
-      console.error("Ошибка воспроизведения первого аудио диагностики");
+      console.error("❌ Ошибка воспроизведения первого аудио диагностики");
     };
 
+    console.log("▶️ Запускаем первое аудио");
     firstAudio.play().catch((error) => {
       resetState();
-      console.error("��е удалось воспро��звести первое аудио диагностики:", error);
+      console.error("❌ Не удалось воспроизвести первое аудио диагностики:", error);
     });
   };
 
   const processVoiceCommand = (command: string) => {
-    console.log("Обрабо��ка ко��анды:", command);
+    console.log("Обрабо��ка ко��ан��ы:", command);
 
     // Фильтруем пустые или слишком короткие команды
     const trimmedCommand = command.trim();
@@ -775,7 +776,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит����льная проверка, ч��обы избе����ть повторных срабатываний
+      // Дополнит����льная проверка, ч��обы избе����ть повто��ных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1162,7 +1163,7 @@ export default function VoiceControl({
       // Поиск контактов
       if (
         command.includes("контакт") ||
-        command.includes("св��зь") ||
+        command.includes("св���зь") ||
         command.includes("телефон") ||
         command.includes("email")
       ) {
@@ -1253,7 +1254,7 @@ export default function VoiceControl({
 
     // Команды навигации по страницам
     if (
-      command.includes("перейти на глав��ую") ||
+      command.includes("пере��ти на глав��ую") ||
       command.includes("на главную страницу") ||
       command.includes("домо��")
     ) {
