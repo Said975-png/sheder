@@ -141,46 +141,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
               </Button>
             </div>
 
-            {/* Статистики системы */}
-            <div className="grid grid-cols-3 gap-6 mt-12">
-              {stats.map((stat, index) => (
-                <StarkHUD
-                  key={stat.label}
-                  className="bg-black/40 backdrop-blur-sm p-4 text-center hover:bg-black/60 transition-all duration-300 group cursor-pointer"
-                  showCorners={false}
-                  showScanlines={false}
-                >
-                  <div className="space-y-3">
-                    <div className={cn(
-                      "w-12 h-12 mx-auto rounded-lg flex items-center justify-center transition-all duration-300",
-                      stat.color === "cyan" ? "bg-cyan-400/10 border border-cyan-400/30 group-hover:bg-cyan-400/20" : "bg-blue-400/10 border border-blue-400/30 group-hover:bg-blue-400/20"
-                    )}>
-                      <stat.icon className={cn(
-                        "w-6 h-6",
-                        stat.color === "cyan" ? "text-cyan-400" : "text-blue-400"
-                      )} />
-                    </div>
-                    
-                    <div className={cn(
-                      "text-2xl font-bold font-mono animate-pulse",
-                      stat.color === "cyan" ? "text-cyan-400" : "text-blue-400"
-                    )}>
-                      {stat.value}
-                    </div>
-                    
-                    <div className="text-xs text-gray-400 uppercase tracking-wider font-mono">
-                      {stat.label}
-                    </div>
-                  </div>
-                  
-                  {/* Индикатор активности */}
-                  <div className={cn(
-                    "absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full animate-pulse",
-                    stat.color === "cyan" ? "bg-cyan-400" : "bg-blue-400"
-                  )}></div>
-                </StarkHUD>
-              ))}
-            </div>
+
           </div>
 
 
