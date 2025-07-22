@@ -48,12 +48,27 @@ export default function VoiceControl({
         // Улучшенные настройки для лучшего распознавания
         recognitionRef.current.maxAlternatives = 5;
 
-        // Дополнительные настройки для Chrome/WebKit
+        // Дополнительные настройки для Chrome/WebKit - улучшаем чувствительность
         if (recognitionRef.current.webkitSpeechRecognition || "webkitSpeechRecognition" in window) {
           // @ts-ignore - WebKit specific properties
           recognitionRef.current.webkitContinuous = true;
           // @ts-ignore
           recognitionRef.current.webkitInterimResults = true;
+          // @ts-ignore - Увеличиваем таймаут для лучшего захвата длинных фраз
+          recognitionRef.current.webkitGrammars = null;
+          // @ts-ignore
+          recognitionRef.current.webkitMaxAlternatives = 5;
+        }
+
+        // Дополнительные настройки для лучшего распознавания длинных фраз
+        try {
+          // @ts-ignore - Эти настройки помогают лучше распознавать речь
+          if (recognitionRef.current.webkitSpeechRecognition) {
+            recognitionRef.current.webkitSpeechRecognition.continuous = true;
+            recognitionRef.current.webkitSpeechRecognition.interimResults = true;
+          }
+        } catch (e) {
+          // Игнорируем ошибки настроек
         }
         // @ts-ignore - эти свойства могут не быть в типах, но р��ботают в браузерах
         if ("webkitSpeechRecognition" in window) {
@@ -113,7 +128,7 @@ export default function VoiceControl({
                   recognitionRef.current.start();
                   console.log("✅ Распознавание перезапущено");
                 } catch (error) {
-                  console.log("ℹ️ Распознавание уже запущено или недоступно:", error);
+                  console.log("ℹ️ Распозн��вание уже запущено или недоступно:", error);
                 }
               }
             }, 100);
@@ -139,7 +154,7 @@ export default function VoiceControl({
               setNoSpeechCount(prev => prev + 1);
               console.log(`ℹ️ No-speech ошибка #${noSpeechCount + 1} - продолжаем слушать`);
 
-              // Если слишком много no-speech ошибок подряд, делаем небольшую паузу
+              // Если сл��шком много no-speech ошибок подряд, делаем небольшую паузу
               if (noSpeechCount >= 3) {
                 console.log("⏸️ Много no-speech ошибок, делаем паузу 2 сек...");
                 setTimeout(() => {
@@ -582,7 +597,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем ��юбое текущее воспрои��ведение
+    // Ос��анавливаем ��юбое те��ущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -605,7 +620,7 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
-      utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
+      utterance.pitch = 0.7; // Средн��-ни��кий тон для автор��тет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболе�� подходящего голоса для имитации Jarvis
@@ -629,7 +644,7 @@ export default function VoiceControl({
         (voice) =>
           voice.lang.includes("ru") &&
           (voice.name.toLowerCase().includes("male") ||
-            voice.name.toLowerCase().includes("муж��кой") ||
+            voice.name.toLowerCase().includes("муж����кой") ||
             voice.name.toLowerCase().includes("антон") ||
             voice.name.toLowerCase().includes("николай")),
       );
