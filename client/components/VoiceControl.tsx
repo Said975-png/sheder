@@ -47,7 +47,7 @@ export default function VoiceControl({
         recognitionRef.current.interimResults = true;
         recognitionRef.current.lang = "ru-RU";
 
-        // Улучшенные настройки для лучшего распознавания
+        // Улучшенные настройк�� для лучшего распознавания
         recognitionRef.current.maxAlternatives = 5;
 
         // Дополнительные настройки для Chrome/WebKit - улучшаем чувствительн��с��ь
@@ -111,7 +111,7 @@ export default function VoiceControl({
             console.log("🎯 Распознано:", `"${combinedTranscript}"`);
           }
 
-          // Обрабатываем финальные результаты или достаточно длинные промежуто��ные
+          // Обрабатываем финальные результаты или достаточно длинные промежуточные
           if (
             (finalTranscript || combinedTranscript.length > 5) &&
             !commandCooldownRef.current &&
@@ -152,7 +152,7 @@ export default function VoiceControl({
                     onListeningChange?.(true, "");
                   }, 200);
 
-                  // Полная очистка состояния команды для приема новых команд
+                  // Полная очистка состоя��ия команды для приема новых команд
                   setTimeout(() => {
                     console.log("🧹 Полная очистка состояния после команды");
                     setTranscript("");
@@ -209,7 +209,7 @@ export default function VoiceControl({
 
           // Критические ошибки - полностью останавливаем
           if (event.error === "network" || event.error === "not-allowed") {
-            console.error("��� Критическая ошибка распознавания:", event.error);
+            console.error("��� Критическая ошибка ра��познавания:", event.error);
             setIsListening(false);
             onListeningChange?.(false, "");
           }
@@ -308,13 +308,13 @@ export default function VoiceControl({
     }
   }, [forceStop, isListening, onListeningChange]);
 
-  // Фу��кция для полного сброса состояния после команды
+  // Фу��кция для полного сброса состояния по��ле команды
   const resetCommandState = (delay: number = 3000) => {
     setTimeout(() => {
       commandCooldownRef.current = false;
       lastCommandRef.current = "";
       setTranscript("");
-      console.log("🧹 Полный сброс состояния команды");
+      console.log("🧹 ��олный сброс состояния команды");
     }, delay);
   };
 
@@ -511,7 +511,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка во��произведе��ия аудио утреннего при��етствия");
+      console.error("Ошибка во��произведения аудио утреннего при��етствия");
     };
 
     audio.play().catch((error) => {
@@ -588,7 +588,7 @@ export default function VoiceControl({
     };
 
     try {
-      // Используем ElevenLabs API для синтеза речи с вашим ��астомны�� голосом
+      // Используем ElevenLabs API для синтеза речи с вашим ��астомным голосом
       const response = await fetch("/api/elevenlabs-tts", {
         method: "POST",
         headers: {
@@ -631,7 +631,7 @@ export default function VoiceControl({
   };
 
   const speakAuthenticJarvis = () => {
-    // Множественная защита от повторного ��оспроизведения
+    // Множественная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -649,7 +649,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Временно останавливаем распознавание речи во время воспроизведения
+    // Временно останавливаем ��аспознавание речи во время воспроизведения
     if (recognitionRef.current && wasListening) {
       console.log("⏸️ Временно останавливаем распознавание на время аудио");
       try {
@@ -709,7 +709,7 @@ export default function VoiceControl({
   };
 
   const speakHowAreYou = () => {
-    // ��ножественная ��ащита от повторног�� восп��оизведения
+    // ��ножественная ��ащита от повторног�� восп��оизве��ения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -761,7 +761,7 @@ export default function VoiceControl({
         (voice) =>
           voice.lang.includes("ru") &&
           (voice.name.toLowerCase().includes("male") ||
-            voice.name.toLowerCase().includes("муж����кой") ||
+            voice.name.toLowerCase().includes("муж�����кой") ||
             voice.name.toLowerCase().includes("антон") ||
             voice.name.toLowerCase().includes("николай")),
       );
@@ -899,7 +899,7 @@ export default function VoiceControl({
         };
         secondAudio.onerror = () => {
           resetState();
-          console.error("❌ Ошибка воспроизведения вто��ого аудио ��иагностики");
+          console.error("❌ Ошибка воспроизведения второго аудио ��иагностики");
         };
 
         console.log("▶️ Запускаем второе аудио");
@@ -915,7 +915,7 @@ export default function VoiceControl({
 
     firstAudio.onerror = () => {
       resetState();
-      console.error("❌ Ошибка воспроизведения первого аудио диагностики");
+      console.error("❌ Ошибка воспроизведения первого аудио диагностик��");
     };
 
     console.log("▶️ ��апускаем первое ауди��");
@@ -971,7 +971,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды ��ля оригинально��о голоса Джарв��са (из фи��ьма)
+    // Команды ��ля оригинально��о голоса Джарвиса (из фи��ьма)
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
@@ -1018,7 +1018,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приветствия "Привет Джарвис" - улучшенное распознавание с защитой от повторов
+    // Команда пр��ветствия "Привет Джарвис" - улучшенное распознавание с защитой от повторов
     if (
       command.includes("привет джарвис") ||
       command.includes("джарвис привет") ||
@@ -1100,7 +1100,7 @@ export default function VoiceControl({
       command.includes("как тв��и дела") ||
       command.includes("что ново��о джарвис")
     ) {
-      // Дополнительная про��ерка, чтобы избежать п��вторных с��абатываний
+      // Дополнительная про���ерка, чтобы избежать п��вторных с��абатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1121,7 +1121,7 @@ export default function VoiceControl({
       command.includes("thank you") ||
       command.includes("thanks") ||
       command.includes("мерси") ||
-      command.includes("��а��мат") ||
+      command.includes("ра��мат") ||
       command.includes("рахмет") ||
       command.includes("хорошо") ||
       command.includes("отлично") ||
@@ -1162,7 +1162,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ком��нда проверки присутствия "��жарвис ты тут?"
+    // Команда проверки присутствия "��жарвис ты тут?"
     if (
       command.includes("джарвис ты тут") ||
       command.includes("ты тут джарвис") ||
@@ -1177,7 +1177,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверяем, со��ержит л����� команда значимые слова
+    // Прове��яем, со��ержит л����� команда значимые слова
     const meaningfulWords = [
       "перейти",
       "войти",
@@ -1477,7 +1477,7 @@ export default function VoiceControl({
           "support",
         ]);
         if (found) {
-          speak("Показываю информацию о ка��естве");
+          speak("По��азываю информацию о ка��естве");
           return;
         }
       }
@@ -1544,7 +1544,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("профил��") ||
+      command.includes("профиль") ||
       command.includes("мой профиль") ||
       command.includes("личн��й к��бинет") ||
       command.includes("открыть профиль")
@@ -1599,7 +1599,7 @@ export default function VoiceControl({
       command.includes("добавить ��ро") ||
       command.includes("про план") ||
       command.includes("про в корзину") ||
-      command.includes("отправить про")
+      command.includes("отправит�� про")
     ) {
       onAddProPlan();
       speak("Про план д��бавлен");
@@ -1651,7 +1651,7 @@ export default function VoiceControl({
       command.includes("наши пре��мущества") ||
       command.includes("спустит��ся к преимуществам") ||
       command.includes("перейти к преимущес��вам") ||
-      command.includes("преим��щес��ва")
+      command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
         "преи��ущества",
@@ -1690,7 +1690,7 @@ export default function VoiceControl({
     if (
       command.includes("прокр��тить вниз") ||
       command.includes("скролл вниз") ||
-      command.includes("спуст��ться вниз")
+      command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
       speak("Прок��учиваю вн��з");
@@ -1740,6 +1740,13 @@ export default function VoiceControl({
         setTranscript("");
         lastCommandRef.current = "";
         commandCooldownRef.current = false;
+
+        // Принудительно очищаем все состояния перед запуском
+        setTimeout(() => {
+          setTranscript("");
+          lastCommandRef.current = "";
+        }, 100);
+
         try {
           recognitionRef.current.start();
           setIsListening(true);
