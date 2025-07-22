@@ -58,7 +58,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
         <DataStream direction="horizontal" speed="fast" color="orange" className="top-1/3 left-0" />
       </div>
 
-      {/* HUD углы экрана */}
+      {/* HUD углы эк��ана */}
       <div className="absolute top-4 left-4 w-20 h-20 border-l-2 border-t-2 border-cyan-400/60 opacity-80">
         <div className="absolute top-2 left-2 w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
       </div>
@@ -188,41 +188,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
             </div>
           </div>
 
-          {/* Правая часть - 3D модель с HUD оверлеем */}
-          <div className="relative">
-            <StarkHUD 
-              className="w-full h-96 lg:h-[500px] bg-black/20 backdrop-blur-sm overflow-hidden"
-              showCorners={true}
-              showScanlines={true}
-              animated={true}
-            >
-              {/* 3D модель */}
-              <div className="w-full h-full">
-                <GLBModel
-                  url="https://cdn.builder.io/o/assets%2Fd1c3ee1ec7be40678f2e6792ec37e2b0%2Fa3ddf442a35840a8ae7950219d9bdb2f?alt=media&token=138b2881-8b51-43df-b3e5-81d9e6d6983f&apiKey=d1c3ee1ec7be40678f2e6792ec37e2b0"
-                  scale={3.5}
-                  autoRotate={true}
-                />
-              </div>
 
-
-
-              {/* Целевые индикаторы */}
-              {targetLocked && (
-                <>
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="relative w-24 h-24 border-2 border-cyan-400 rounded-full animate-pulse">
-                      <div className="absolute inset-2 border border-cyan-300 rounded-full">
-                        <div className="absolute inset-2 border border-cyan-200 rounded-full">
-                          <Target className="w-full h-full text-cyan-400 p-2" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-            </StarkHUD>
-          </div>
         </div>
       </div>
     </section>
