@@ -381,7 +381,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Ошибка воспроизведения аудио ответа");
+      console.error("Ошибка воспроиз��едения аудио ответа");
     };
 
     audio.play().catch((error) => {
@@ -504,7 +504,7 @@ export default function VoiceControl({
     audio.play().catch((error) => {
       resetState();
       console.error(
-        "Не удалос�� воспроизвести оригинальное аудио Джарвиса:",
+        "Не удалос�� воспроизвести оригинальное ауд��о Джарвиса:",
         error,
       );
     });
@@ -537,7 +537,7 @@ export default function VoiceControl({
       );
 
       // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
-      // Stability: 20 (низкая ст��бильность для более естественной речи)
+      // Stability: 20 (низкая ст��бильность для более естестве��ной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
 
@@ -692,7 +692,7 @@ export default function VoiceControl({
 
     firstAudio.play().catch((error) => {
       resetState();
-      console.error("Не удалось воспроизвести первое аудио диагностики:", error);
+      console.error("��е удалось воспроизвести первое аудио диагностики:", error);
     });
   };
 
@@ -864,7 +864,7 @@ export default function VoiceControl({
 
     // Команда диагностики системы
     if (
-      command.includes("проведи диагностику системы") ||
+      command.includes("��роведи диагностику системы") ||
       command.includes("диагностика системы") ||
       command.includes("запусти диагностику") ||
       command.includes("джарвис диагностика") ||
@@ -992,6 +992,10 @@ export default function VoiceControl({
       "дела",
       "пож��ваешь",
       "порядк��",
+      "диагностика",
+      "проведи",
+      "диагностируй",
+      "проверь",
     ];
     const hasValidWords = meaningfulWords.some((word) =>
       trimmedCommand.includes(word),
@@ -1324,7 +1328,7 @@ export default function VoiceControl({
       command.includes("добавить макс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
-      command.includes("джарвис пла��") ||
+      command.includes("джа��вис пла��") ||
       command.includes("макс в ��орзину") ||
       command.includes("о��править макс")
     ) {
@@ -1395,7 +1399,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("Показываю возможности");
+        speak("Показыв��ю возможности");
       }
       return;
     }
