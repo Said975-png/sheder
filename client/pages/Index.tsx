@@ -192,6 +192,7 @@ export default function Index() {
             onAddMaxPlan={handleAddAdvancedPlan}
             inNavbar={true}
             onListeningChange={handleListeningChange}
+            forceStop={forceStopVoice}
           />
 
           {/* Cart Dropdown */}
