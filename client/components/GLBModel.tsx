@@ -23,11 +23,24 @@ function Model({
   position: [number, number, number];
 }) {
   const { scene } = useGLTF(url);
+  const modelRef = useRef<any>();
+  const { pointer } = useThree();
 
   // Клонируем сцену для избежания конфликтов при повторном использовании
   const clonedScene = useMemo(() => scene.clone(), [scene]);
 
-  return <primitive object={clonedScene} scale={scale} position={position} />;
+  useFrame(() => {
+    if (modelRef.current) {
+      // Плавное следование за курсором мыши
+      const targetRotationY = pointer.x * 0.3;
+      const targetRotationX = -pointer.y * 0.2;
+
+      modelRef.current.rotation.y += (targetRotationY - modelRef.current.rotation.y) * 0.05;
+      modelRef.current.rotation.x += (targetRotationX - modelRef.current.rotation.x) * 0.05;
+    }
+  });
+
+  return <primitive ref={modelRef} object={clonedScene} scale={scale} position={position} />;
 }
 
 function LoadingFallback() {
