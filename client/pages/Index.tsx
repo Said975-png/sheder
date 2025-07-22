@@ -114,7 +114,7 @@ export default function Index() {
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Navigation */}
       <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-transparent backdrop-blur-md border border-white/20 rounded-full px-8 py-3 holographic-navbar portal-entrance">
-        <div className="flex items-center justify-between space-x-8 w-full">
+        <div className="flex items-center justify-center space-x-8">
           {/* Logo */}
           <div className="flex items-center space-x-2">
             <div className="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center">
