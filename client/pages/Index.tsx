@@ -66,7 +66,7 @@ export default function Index() {
       name: "Basic сайт",
       price: 2000000,
       description:
-        "Базовая вёрстка, адаптив под все устройства, бесплатный SSL, техподдержка 24/7",
+        "Базовая вёрстка, адаптив под все устройс��ва, бесплатный SSL, техподдержка 24/7",
       category: "website",
     });
   };
@@ -308,52 +308,7 @@ export default function Index() {
 
 
 
-      {/* Features Section */}
-      <section id="features" className="ai-hero-container py-16 relative">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Мощные возможности</h2>
-            <p className="text-white/60 max-w-2xl mx-auto">
-              Все инструменты, необходимые для превращения дизайна в полноценное
-              веб-приложение
-            </p>
-          </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center p-6 bg-white/5 rounded-lg border border-white/10">
-              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-6 h-6 text-purple-600" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">AI Detection</h3>
-              <p className="text-white/60">
-                Передовые алгоритмы для обнаружения ботов и автоматических
-                систем
-              </p>
-            </div>
-
-            <div className="text-center p-6 bg-white/5 rounded-lg border border-white/10">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Settings className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Easy Integration</h3>
-              <p className="text-white/60">
-                Простая интеграция с любыми приложениями и платформами
-              </p>
-            </div>
-
-            <div className="text-center p-6 bg-white/5 rounded-lg border border-white/10">
-              <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <User className="w-6 h-6 text-green-600" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">User Experience</h3>
-              <p className="text-white/60">
-                Максимальное удобство для пользователей без компромиссов в
-                безопасности
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Bottom Section - Company Logos */}
       <section className="ai-hero-container py-16 relative">
@@ -643,7 +598,7 @@ export default function Index() {
               Наши преимущества
             </h2>
             <p className="text-lg theme-text-muted max-w-3xl mx-auto">
-              Мы создаем не просто сайты — мы разрабатываем интеллектуальные
+              Мы создаем не просто сайты — мы разрабатываем интеллектуал��ные
               решения, которые работают как ваш персональный ИИ-помощник
             </p>
           </div>
@@ -697,7 +652,7 @@ export default function Index() {
                 </h3>
                 <p className="theme-text-muted leading-relaxed">
                   Круглосуточная техническая поддержка и мониторинг вашего
-                  сайта. Мы оперативно решаем любые вопросы и следим за
+                  ��айта. Мы оперативно решаем любые вопросы и следим за
                   стабильной работой.
                 </p>
               </div>
