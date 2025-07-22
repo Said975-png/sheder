@@ -113,19 +113,18 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm border-b border-gray-700/50 holographic-navbar portal-entrance">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
+      <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-transparent backdrop-blur-md border border-white/20 rounded-full px-8 py-3 holographic-navbar portal-entrance">
+        <div className="flex items-center justify-center space-x-8">
             {/* Logo */}
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Shield className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-white">JumpBot</span>
+              <div className="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center">
+              <Shield className="w-4 h-4 text-white" />
+            </div>
+            <span className="text-lg font-bold text-white">JumpBot</span>
             </div>
 
             {/* Navigation Links */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="flex items-center space-x-6">
               <a
                 href="#"
                 className="text-cyan-400 hover:text-cyan-300 transition-colors"
@@ -141,8 +140,8 @@ export default function Index() {
               </a>
             </div>
 
-            {/* Right Side */}
-            <div className="flex items-center space-x-4">
+            {/* Actions */}
+            <div className="flex items-center space-x-3">
               {/* Cart Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -295,7 +294,6 @@ export default function Index() {
                 </>
               )}
             </div>
-          </div>
         </div>
       </nav>
 
