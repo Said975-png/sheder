@@ -60,6 +60,10 @@ export default function VoiceControl({
             "wss://www.google.com/speech-api/full-duplex/v1/up";
         }
 
+        recognitionRef.current.onstart = () => {
+          console.log("🎤 Распознавание речи запущено");
+        };
+
         recognitionRef.current.onresult = (event) => {
           let finalTranscript = "";
           let interimTranscript = "";
@@ -436,7 +440,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Останавливаем любое текущее воспр��изведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -556,7 +560,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем ��юбое текущее воспрои���ведение
+    // Ос��анав��иваем ��юбое текущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -696,7 +700,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизве��ение
+    // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -727,7 +731,7 @@ export default function VoiceControl({
       console.log("✅ Первое аудио закончилось, ждем 2 секунды...");
       // Через 2 секунды воспроизводим второе аудио
       setTimeout(() => {
-        console.log("🎵 Создаем второе аудио для диагностики");
+        console.log("🎵 Создаем второе ��удио для диагностики");
         const secondAudio = new Audio(
           "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76"
         );
@@ -795,7 +799,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды ��ля оригинально��о голоса Джарвиса (из фи���ьма)
+    // Команды ��ля оригинально��о голоса Джарвиса (из фи��ьма)
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
@@ -854,7 +858,7 @@ export default function VoiceControl({
       command.includes("hey jarvis") ||
       (command.includes("привет") && command.includes("джарвис"))
     ) {
-      // Дополнительная проверка, чтобы из��ежать повторных срабатываний
+      // Дополнительная проверка, чтобы из��ежать повторных срабатывани��
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -959,7 +963,7 @@ export default function VoiceControl({
     // Команда проверки присутствия "��жарвис ты тут?"
     if (
       command.includes("джарвис ты тут") ||
-      command.includes("ты тут джарвис") ||
+      command.includes("��ы тут джарвис") ||
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
@@ -1095,7 +1099,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск по data-section атри��утам
+      // Поиск по data-section ��три��утам
       const sections = Array.from(document.querySelectorAll("[data-section]"));
       for (const section of sections) {
         const sectionName =
@@ -1268,7 +1272,7 @@ export default function VoiceControl({
           "support",
         ]);
         if (found) {
-          speak("Показываю и��формацию о ка��естве");
+          speak("Показываю информацию о ка��естве");
           return;
         }
       }
