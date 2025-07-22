@@ -639,12 +639,15 @@ export default function VoiceControl({
       currentAudioRef.current.currentTime = 0;
     }
 
+    // Запоминаем состояние прослушивания ДО остановки
+    const wasListening = isListening;
+
     setIsSpeaking(true);
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
     // Временно останавливаем распознавание речи во время воспроизведения
-    if (recognitionRef.current && isListening) {
+    if (recognitionRef.current && wasListening) {
       console.log("⏸️ Временно останавливаем распознавание на время аудио");
       try {
         recognitionRef.current.stop();
@@ -664,7 +667,7 @@ export default function VoiceControl({
       audioPlayingRef.current = false;
       currentAudioRef.current = null;
 
-      // Возобновляем распознавание речи после завершения аудио
+      // В��зобновляем распознавание речи после завершения аудио
       setTimeout(() => {
         if (isListening && recognitionRef.current) {
           console.log("▶️ Возобновляем распознавание после аудио");
@@ -702,12 +705,12 @@ export default function VoiceControl({
   };
 
   const speakHowAreYou = () => {
-    // ��ножественная ��ащита от повторног�� восп��оизведения
+    // ��ножест��енная ��ащита от повторног�� восп��оизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
 
-    // Ос��анавливаем ��юбое те��ущее воспрои��ведение
+    // Ос��анавливаем ����юбое те��ущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -971,7 +974,7 @@ export default function VoiceControl({
       command.includes("authentic jarvis") ||
       command.includes("real jarvis") ||
       command.includes("movie jarvis") ||
-      command.includes("джарвис из железного ч��ловека") ||
+      command.includes("джарвис из ��елезного ч��ловека") ||
       command.includes("голос джарвиса") ||
       command.includes("оригинал") ||
       command.includes("как в марвел")
@@ -1007,7 +1010,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приветствия "Привет Джарвис" - улучшенное распознавание с защитой от повторов
+    // Команд�� приветствия "Привет Джарвис" - улучшенное распознавание с защитой от повторов
     if (
       command.includes("привет джарвис") ||
       command.includes("джарвис привет") ||
@@ -1131,7 +1134,7 @@ export default function VoiceControl({
       command.includes("проверь систему") ||
       command.includes("тест")
     ) {
-      console.log("🎯 Распознана ко��анда диагностики:", command);
+      console.log("🎯 Распознана ко����анда диагностики:", command);
 
       // Дополнительная проверка, чтобы избежать повторных срабатываний
       if (
@@ -1418,7 +1421,7 @@ export default function VoiceControl({
         command.includes("email")
       ) {
         found = searchAndNavigate([
-          "контакт",
+          "��онтакт",
           "связь",
           "телефон",
           "email",
@@ -1613,7 +1616,7 @@ export default function VoiceControl({
       command.includes("к планам") ||
       command.includes("показать планы") ||
       command.includes("пере��ти к планам") ||
-      command.includes("сп��ститься �� планам") ||
+      command.includes("сп���ститься �� планам") ||
       command.includes("тарифы") ||
       command.includes("цены") ||
       command.includes("стоимость")
