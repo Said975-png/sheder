@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Zap, Code, Shield, Target, Cpu, Activity } from "lucide-react";
+import { Zap, Code, Shield, Cpu, Activity } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { StarkHUD, DataStream, CircuitPattern, HologramText } from "@/components/StarkHUD";
 import { ArcReactor, PowerIndicator, GlitchText, MatrixRain } from "@/components/StarkEffects";
