@@ -43,8 +43,17 @@ export default function VoiceControl({
         recognitionRef.current.continuous = true;
         recognitionRef.current.interimResults = true;
         recognitionRef.current.lang = "ru-RU";
-        // Улучшенны�� настройки дл�� лучшего распознавания тихих команд
-        recognitionRef.current.maxAlternatives = 3;
+
+        // Улучшенные настройки для лучшего распознавания
+        recognitionRef.current.maxAlternatives = 5;
+
+        // Дополнительные настройки для Chrome/WebKit
+        if (recognitionRef.current.webkitSpeechRecognition || "webkitSpeechRecognition" in window) {
+          // @ts-ignore - WebKit specific properties
+          recognitionRef.current.webkitContinuous = true;
+          // @ts-ignore
+          recognitionRef.current.webkitInterimResults = true;
+        }
         // @ts-ignore - эти свойства могут не быть в типах, но р��ботают в браузерах
         if ("webkitSpeechRecognition" in window) {
           recognitionRef.current.serviceURI =
@@ -371,7 +380,7 @@ export default function VoiceControl({
     audio.play().catch((error) => {
       resetState();
       console.error(
-        "Не удалось во��произвести аудио утреннего приветствия:",
+        "Не удалось во��произвести аудио утреннего ��риветствия:",
         error,
       );
     });
@@ -411,7 +420,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвести аудио ��твета:", error);
+      console.error("Не удалось воспроизвест�� аудио ��твета:", error);
     });
   };
 
@@ -672,7 +681,7 @@ export default function VoiceControl({
   };
 
   const speakSystemDiagnostics = () => {
-    console.log("🔧 Запуск диагностики системы...");
+    console.log("🔧 Запуск диагностики систем��...");
     testAudioUrls(); // Тестируем URL
 
     // Множественная защита от повторного воспроизведения
@@ -1399,7 +1408,7 @@ export default function VoiceControl({
     if (
       command.includes("к планам") ||
       command.includes("показать планы") ||
-      command.includes("перейти к планам") ||
+      command.includes("пере��ти к планам") ||
       command.includes("спуститься к планам") ||
       command.includes("тарифы") ||
       command.includes("цены") ||
