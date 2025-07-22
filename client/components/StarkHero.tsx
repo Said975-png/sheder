@@ -58,7 +58,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
         <DataStream direction="horizontal" speed="fast" color="orange" className="top-1/3 left-0" />
       </div>
 
-      {/* HUD углы эк��ана */}
+      {/* HUD углы экрана */}
       <div className="absolute top-4 left-4 w-20 h-20 border-l-2 border-t-2 border-cyan-400/60 opacity-80">
         <div className="absolute top-2 left-2 w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
       </div>
@@ -76,8 +76,8 @@ export default function StarkHero({ className }: StarkHeroProps) {
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
       
       <div className="container mx-auto px-6 relative z-10 pt-24">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-          {/* Левая часть - контент */}
+        <div className="flex justify-center items-center min-h-[80vh]">
+          {/* Левая час��ь - контент */}
           <div className="space-y-8">
             {/* Статус хедер */}
             <StarkHUD className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3" showCorners={false}>
