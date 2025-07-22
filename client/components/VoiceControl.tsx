@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Mic, MicOff, Volume2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -313,7 +313,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим ауд��о для утреннего приветствия
+    // Создаем и воспроизводим ауд��о для утреннего приветс��вия
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -388,7 +388,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавлива��м любое текущее воспроизведение
+    // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -438,7 +438,7 @@ export default function VoiceControl({
       audio.onerror = () => {
         URL.revokeObjectURL(audioUrl);
         resetState();
-        console.error("Ошибка в��спроизведения аудио из ElevenLabs");
+        console.error("Ошибка воспроизведения аудио из ElevenLabs");
       };
 
       await audio.play();
@@ -532,7 +532,7 @@ export default function VoiceControl({
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
-      utterance.volume = 0.95; // Четкая, но не резкая громкость
+      utterance.volume = 0.95; // Ч��ткая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
@@ -629,7 +629,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда о��ключения (приоритетная)
+    // Команда о��ключения (приор��тетная)
     if (
       command.includes("отключись") ||
       command.includes("выключись") ||
@@ -689,7 +689,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит����льная проверка, ч��обы избе����ть повторных срабатываний
+      // Дополнит����льная проверка, ч��обы избе����ть повторных срабатыв��ний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -792,7 +792,7 @@ export default function VoiceControl({
       command.includes("ты тут джарвис") ||
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
-      command.includes("джарвис на ме��те") ||
+      command.includes("джарвис на месте") ||
       command.includes("джарвис ��рисутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
@@ -1103,7 +1103,7 @@ export default function VoiceControl({
       if (
         command.includes("аналитик") ||
         command.includes("статистик") ||
-        command.includes("да��н��е")
+        command.includes("да��ные")
       ) {
         found = searchAndNavigate([
           "анал��тик",
@@ -1187,7 +1187,7 @@ export default function VoiceControl({
     if (
       command.includes("открыть корзину") ||
       command.includes("показать корзину") ||
-      command.includes("что в корзине")
+      command.includes("что в кор��ине")
     ) {
       // Находим и нажимаем ��нопку корзины
       const cartButton = document.querySelector(
