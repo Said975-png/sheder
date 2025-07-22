@@ -179,13 +179,16 @@ export default function VoicePanel({
           </div>
 
           {/* Transcript Display */}
-          {transcript && (
+          {transcript && transcript.trim() !== "" && (
             <div className="bg-cyan-400/5 border border-cyan-400/20 rounded-lg p-4">
               <div className="flex items-center space-x-2 mb-2">
                 <Volume2 className="w-4 h-4 text-cyan-400" />
                 <span className="text-xs font-mono text-cyan-300">
                   TRANSCRIPT
                 </span>
+                {!isListening && (
+                  <span className="text-xs text-yellow-400">(PROCESSED)</span>
+                )}
               </div>
               <div className="text-white font-mono text-sm">
                 <GlitchText intensity="low">{transcript}</GlitchText>
@@ -203,7 +206,7 @@ export default function VoicePanel({
               <div>"Добавить про план"</div>
               <div>"Добавить макс план"</div>
               <div>"Проведи диагностику системы"</div>
-              <div>"Откл��чись" / "Выключись"</div>
+              <div>"Отключись" / "Выключись"</div>
               <div>"Привет Джарвис"</div>
               <div>"Как дела?"</div>
               <div>"Спасибо"</div>
