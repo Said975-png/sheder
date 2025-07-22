@@ -710,7 +710,7 @@ export default function VoiceControl({
 
     // Команда о��ключения (приоритетная)
     if (
-      command.includes("отключись") ||
+      command.includes("от��лючись") ||
       command.includes("выключись") ||
       command.includes("отключи микрофон") ||
       command.includes("стоп джарвис") ||
@@ -867,21 +867,31 @@ export default function VoiceControl({
 
     // Команда диагностики системы
     if (
-      command.includes("��роведи диагностику системы") ||
+      command.includes("проведи диагностику системы") ||
       command.includes("диагностика системы") ||
       command.includes("запусти диагностику") ||
       command.includes("джарвис диагностика") ||
       command.includes("системная диагностика") ||
       command.includes("проверь систему") ||
-      command.includes("диагностируй систему")
+      command.includes("диагностируй систему") ||
+      command.includes("диагностика")
     ) {
+      console.log("🎯 Распознана команда диагностики:", command);
+
       // Дополнительная проверка, чтобы избежать повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
         !audioPlayingRef.current
       ) {
+        console.log("✅ Условия выполнены, запускаем диагностику");
         speakSystemDiagnostics();
+      } else {
+        console.log("❌ Диагностика заблокирована:", {
+          isSpeaking,
+          commandCooldown: commandCooldownRef.current,
+          audioPlaying: audioPlayingRef.current
+        });
       }
       return;
     }
@@ -1075,7 +1085,7 @@ export default function VoiceControl({
       command.includes("найди") ||
       command.includes("��де") ||
       command.includes("перейди к") ||
-      command.includes("спустись к")
+      command.includes("спустис�� к")
     ) {
       let found = false;
 
@@ -1293,7 +1303,7 @@ export default function VoiceControl({
       command.includes("показать корзину") ||
       command.includes("что в корзине")
     ) {
-      // Находим и нажимаем ��нопку корзины
+      // Находим и нажимаем ��нопку ко��зины
       const cartButton = document.querySelector(
         '[data-testid="cart-button"]',
       ) as HTMLElement;
@@ -1369,7 +1379,7 @@ export default function VoiceControl({
 
     if (
       command.includes("к пре��муществам") ||
-      command.includes("наши преимущества") ||
+      command.includes("наши пре��мущества") ||
       command.includes("спустит��ся к преимуществам") ||
       command.includes("перейти к преимуществам") ||
       command.includes("преим��щества")
