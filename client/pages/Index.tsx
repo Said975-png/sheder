@@ -115,6 +115,22 @@ export default function Index() {
       {/* Navigation */}
       <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-transparent backdrop-blur-md border border-white/20 rounded-full px-8 py-3">
         <div className="flex items-center space-x-6">
+          {/* Home Button */}
+          <Button
+            variant="ghost"
+            className="text-sm px-4 py-2 rounded-full hover:bg-white/10"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
+            Home
+          </Button>
+
+          {/* Voice Control */}
+          <VoiceControl
+            onAddBasicPlan={handleAddBeginnerPlan}
+            onAddProPlan={handleAddIntermediatePlan}
+            onAddMaxPlan={handleAddAdvancedPlan}
+          />
+
           {/* Cart Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
