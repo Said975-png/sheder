@@ -536,7 +536,7 @@ export default function VoiceControl({
         }, 1000);
       };
 
-      console.log("Джарвис: Все системы работают сэр");
+      console.log("Джарвис: Все системы работают ��эр");
       setTimeout(resetState, 2000);
     }
   };
@@ -566,7 +566,7 @@ export default function VoiceControl({
       // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
       // Stability: 20 (низкая ст��бильность для более естественной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
-      // Style: Assistant/Narration (помощник/повествование)
+      // Style: Assistant/Narration (помощник/повеств��вание)
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
@@ -589,7 +589,7 @@ export default function VoiceControl({
             voice.name.toLowerCase().includes("thomas")),
       );
 
-      // ��сли не нашли подходящий а��глийский, ищем русский мужской
+      // ��сли н�� нашли подходящий а��глийский, ищем русский мужской
       const russianMaleVoice = voices.find(
         (voice) =>
           voice.lang.includes("ru") &&
@@ -722,7 +722,7 @@ export default function VoiceControl({
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис доброе утро") ||
-      command.includes("утро джарвис") ||
+      command.includes("утро джар��ис") ||
       (command.includes("доброе утро") && command.length < 20) ||
       command.includes("good morning jarvis") ||
       (command.includes("good morning") && command.length < 20) ||
@@ -791,7 +791,7 @@ export default function VoiceControl({
       command.includes("как твои дела") ||
       command.includes("что нового джарвис")
     ) {
-      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      // Дополнительная проверка, чтобы избежать повторных с��абатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -929,6 +929,11 @@ export default function VoiceControl({
       "присутствие",
       "месте",
       "there",
+      "системы",
+      "работают",
+      "дела",
+      "поживаешь",
+      "порядке",
     ];
     const hasValidWords = meaningfulWords.some((word) =>
       trimmedCommand.includes(word),
@@ -1128,7 +1133,7 @@ export default function VoiceControl({
           "support",
         ]);
         if (found) {
-          speak("Показываю информацию о качестве");
+          speak("Показываю информацию о ка��естве");
           return;
         }
       }
