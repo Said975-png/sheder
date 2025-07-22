@@ -32,6 +32,7 @@ export default function VoiceControl({
 
   // Уведомляем родительский компонент об изменении состояния прослушивания
   useEffect(() => {
+    console.log('VoiceControl: isListening changed to:', isListening);
     onListeningChange?.(isListening);
   }, [isListening, onListeningChange]);
 
@@ -106,7 +107,7 @@ export default function VoiceControl({
 
         recognitionRef.current.onerror = (event) => {
           console.error("Speech recognition error:", event.error);
-          // Не отключаем полностью при ошибках, кроме критических
+          // ��е отключаем полностью при ошибках, кроме критических
           if (event.error === "network" || event.error === "not-allowed") {
             setIsListening(false);
           } else {
@@ -486,7 +487,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка воспроизведения оригинального аудио Джарвиса");
+      console.error("Ошиб��а воспроизведения оригинального аудио Джарвиса");
     };
 
     audio.play().catch((error) => {
@@ -1028,7 +1029,7 @@ export default function VoiceControl({
       // Поиск инфор��ации о компании
       if (
         command.includes("компан") ||
-        command.includes("о нас") ||
+        command.includes("о ��ас") ||
         command.includes("кто мы")
       ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
@@ -1117,7 +1118,7 @@ export default function VoiceControl({
         }
       }
 
-      // Если ничего специфичного не найдено, попробуем общий ��оиск
+      // Если ничего специфичного не найдено, попроб��ем общий ��оиск
       if (!found) {
         const searchTerms = command
           .split(" ")
@@ -1162,7 +1163,7 @@ export default function VoiceControl({
 
     if (
       command.includes("профиль") ||
-      command.includes("мой профиль") ||
+      command.includes("мой пр��филь") ||
       command.includes("личный к��бинет") ||
       command.includes("открыть профиль")
     ) {
@@ -1283,7 +1284,7 @@ export default function VoiceControl({
 
     if (
       command.includes("к возможностям") ||
-      command.includes("мощные возможности") ||
+      command.includes("мощные возм��жности") ||
       command.includes("спуститься к возможностям") ||
       command.includes("перейти к возможностям") ||
       command.includes("возможности")
