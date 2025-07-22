@@ -115,6 +115,93 @@ export default function Index() {
       {/* Navigation */}
       <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-transparent backdrop-blur-md border border-white/20 rounded-full px-8 py-3">
         <div className="flex items-center space-x-6">
+          {/* Cart Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="relative p-2 rounded-full hover:bg-white/10"
+              >
+                <ShoppingCart className="w-5 h-5" />
+                {getTotalItems() > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center">
+                    {getTotalItems()}
+                  </span>
+                )}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="w-80 bg-black border-gray-700 mt-2"
+            >
+              <div className="px-3 py-2">
+                <h3 className="font-semibold text-white mb-2">Cart</h3>
+                {items.length === 0 ? (
+                  <p className="text-sm text-white/60 text-center py-4">
+                    Cart is empty
+                  </p>
+                ) : (
+                  <>
+                    <div className="space-y-2 max-h-60 overflow-y-auto">
+                      {items.map((item) => (
+                        <div
+                          key={item.id}
+                          className="flex items-start justify-between p-2 bg-gray-800 rounded-lg"
+                        >
+                          <div className="flex-1">
+                            <h4 className="font-medium text-sm text-white">
+                              {item.name}
+                            </h4>
+                            <p className="text-xs text-white/60 mt-1">
+                              {item.description.substring(0, 60)}...
+                            </p>
+                            <p className="text-sm font-semibold text-white mt-1">
+                              ${item.price}
+                            </p>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeItem(item.id)}
+                            className="ml-2 h-6 w-6 p-0 hover:bg-red-500/20"
+                          >
+                            ×
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                    <DropdownMenuSeparator className="bg-gray-700 my-3" />
+                    <div className="flex justify-between items-center mb-3">
+                      <span className="font-semibold text-white">Total:</span>
+                      <span className="font-bold text-white">
+                        ${getTotalPrice()}
+                      </span>
+                    </div>
+                    <div className="flex space-x-2">
+                      <Button
+                        onClick={clearCart}
+                        variant="outline"
+                        size="sm"
+                        className="flex-1"
+                      >
+                        Clear
+                      </Button>
+                      <Button
+                        onClick={handleProceedToOrder}
+                        size="sm"
+                        className="flex-1 bg-blue-600 hover:bg-blue-700"
+                      >
+                        Checkout
+                      </Button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <ThemeToggle />
+
           {isAuthenticated && currentUser ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
