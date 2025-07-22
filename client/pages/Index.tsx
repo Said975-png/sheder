@@ -168,7 +168,7 @@ export default function Index() {
                             </div>
                           ))}
                         </div>
-                        <DropdownMenuSeparator className="bg-slate-700 my-3" />
+                        <DropdownMenuSeparator className="bg-gray-700 my-3" />
                         <div className="flex justify-between items-center mb-3">
                           <span className="font-semibold text-white">Total:</span>
                           <span className="font-bold text-white">${getTotalPrice()}</span>
