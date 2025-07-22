@@ -58,7 +58,7 @@ export default function VoiceControl({
             }
           }
 
-          // Показываем промежуточный результат
+          // Показываем пром��жуточный результат
           if (interimTranscript) {
             setTranscript(interimTranscript);
           }
@@ -275,7 +275,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Ошибка во��произведения аудио благодарности");
+      console.error("Ошибка во��п��оизведения аудио благодарности");
     };
 
     audio.play().catch((error) => {
@@ -499,7 +499,7 @@ export default function VoiceControl({
           utterance.lang = "ru-RU";
         }
         utterance.pitch = 0.45; // Самый низкий тон для компенсации
-        utterance.rate = 0.65; // Самая медленная речь для солидности
+        utterance.rate = 0.65; // Самая м��дленная речь для солидности
       }
 
       const resetState = () => {
@@ -542,7 +542,7 @@ export default function VoiceControl({
   };
 
   const speakHowAreYou = () => {
-    // Множественная защита от повторного воспроизведения
+    // Множественная ��ащита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -617,7 +617,7 @@ export default function VoiceControl({
           utterance.lang = "ru-RU"; // Всегда русский язык
         }
         utterance.pitch = 0.55; // Еще ниже для компенсации
-        utterance.rate = 0.7; // Е��е медленнее для большей солидности
+        utterance.rate = 0.7; // Е����е медленнее для большей солидности
       }
 
       const resetState = () => {
@@ -797,7 +797,7 @@ export default function VoiceControl({
         !commandCooldownRef.current &&
         !audioPlayingRef.current
       ) {
-        speakHowAreYou();
+        speakSystemsOperational();
       }
       return;
     }
@@ -1008,7 +1008,7 @@ export default function VoiceControl({
     if (
       command.includes("покажи") ||
       command.includes("найди") ||
-      command.includes("где") ||
+      command.includes("��де") ||
       command.includes("перейди к") ||
       command.includes("спустись к")
     ) {
