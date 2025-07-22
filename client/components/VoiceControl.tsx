@@ -263,7 +263,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Созда��м и воспроизводим ваш новый ау��ио-файл
+    // Созда��м и воспрои��водим ваш новый ау��ио-файл
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fdb47541068444a9093b406f29a6af3ce?alt=media&token=43fbc024-64ae-479b-8a6c-5b9d12b43294&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -721,7 +721,7 @@ export default function VoiceControl({
         speechSynthesis.speak(utterance);
       } catch (error) {
         resetState();
-        console.error("Не удалось синтезировать речь:", error);
+        console.error("Не удало��ь синтезировать речь:", error);
       }
     } else {
       // Fallback если Speech Synthesis недоступен
@@ -846,7 +846,7 @@ export default function VoiceControl({
     // Команда о��ключения (приоритетная)
     if (
       command.includes("от��лючись") ||
-      command.includes("выключись") ||
+      command.includes("вык��ючись") ||
       command.includes("отключи микрофон") ||
       command.includes("стоп джарвис") ||
       command.includes("выключи")
@@ -942,11 +942,16 @@ export default function VoiceControl({
       return;
     }
 
-    // Команд�� "Джарвис как дела" с ответом "Все системы ф��нкционируют нормально"
+    // Команда "Джарвис как дела" с ответом "Все системы функционируют нормально"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
-      (command.includes("джарвис") && command.includes("как дела"))
+      command.includes("жарвис как дела") || // частые ошибки распознавания
+      command.includes("как дела жарвис") ||
+      command.includes("ярвис как дела") ||
+      (command.includes("джарвис") && command.includes("как дела")) ||
+      (command.includes("жарвис") && command.includes("как дела")) ||
+      (command.includes("как дела") && command.length < 20) // если слышно только "как дела"
     ) {
       // До��олнительная провер���а, ��тобы избежать повторных срабат��ваний
       if (
@@ -1021,7 +1026,7 @@ export default function VoiceControl({
         !commandCooldownRef.current &&
         !audioPlayingRef.current
       ) {
-        console.log("✅ Условия выполнены, запускаем диагностику");
+        console.log("✅ Условия выполнены, запуск��ем диагностику");
         speakSystemDiagnostics();
       } else {
         console.log("❌ Диагностика заблокирована:", {
@@ -1106,7 +1111,7 @@ export default function VoiceControl({
       "персональный",
       "отключись",
       "выключись",
-      "отключи",
+      "от��лючи",
       "выключи",
       "стоп",
       "вернулся",
@@ -1414,7 +1419,7 @@ export default function VoiceControl({
     if (
       command.includes("профиль") ||
       command.includes("мой профиль") ||
-      command.includes("личный к��бинет") ||
+      command.includes("личн��й к��бинет") ||
       command.includes("открыть профиль")
     ) {
       navigate("/profile");
@@ -1523,7 +1528,7 @@ export default function VoiceControl({
     ) {
       const found = searchAndNavigate([
         "преи��ущества",
-        "преимущество",
+        "преимуществ��",
         "advantages",
       ]);
       if (found) {
@@ -1613,7 +1618,7 @@ export default function VoiceControl({
           setIsListening(true);
           onListeningChange?.(true, "");
         } catch (error) {
-          console.log("Распознавание уже зап��щено или недо��ту��но");
+          console.log("Распознавание уже зап��щено или н��до��ту��но");
         }
       }
     }
