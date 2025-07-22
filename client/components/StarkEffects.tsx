@@ -223,38 +223,11 @@ export function GlitchText({
   intensity = "medium",
   className,
 }: GlitchTextProps) {
-  const [isGlitching, setIsGlitching] = useState(false);
-
-  const intensityClasses = {
-    low: "animate-glitch-low",
-    medium: "animate-glitch-medium",
-    high: "animate-glitch-high",
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsGlitching(true);
-      setTimeout(() => setIsGlitching(false), 150);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className={cn("relative inline-block", className)}>
-      <div className={cn(isGlitching && intensityClasses[intensity])}>
+      <div>
         {children}
       </div>
-      {isGlitching && (
-        <>
-          <div className="absolute inset-0 text-cyan-400 opacity-70 transform translate-x-px -translate-y-px">
-            {children}
-          </div>
-          <div className="absolute inset-0 text-red-400 opacity-70 transform -translate-x-px translate-y-px">
-            {children}
-          </div>
-        </>
-      )}
     </div>
   );
 }
