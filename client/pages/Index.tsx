@@ -49,6 +49,7 @@ export default function Index() {
   } = useCart();
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
+  const [navbarScrolled, setNavbarScrolled] = useState(false);
 
   // Запуск анимации при загрузке компонента
   useEffect(() => {
@@ -57,6 +58,17 @@ export default function Index() {
     }, 300);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  // Отслеживание скролла для навбара
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 100;
+      setNavbarScrolled(scrolled);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleLogout = () => {
