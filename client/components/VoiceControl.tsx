@@ -129,7 +129,7 @@ export default function VoiceControl({
   }, []);
 
   const speak = (text: string) => {
-    // Предотвраща��м повторное воспроизведение
+    // Предотвращаем повторное воспроизведение
     if (isSpeaking || commandCooldownRef.current) return;
 
     setIsSpeaking(true);
@@ -164,7 +164,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизве��ти аудио:", error);
+      console.error("Не удалось воспроизвести аудио:", error);
     });
   };
 
@@ -237,7 +237,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("О��ибка воспроизведения аудио приве��ствия");
+      console.error("О��ибка воспроизведения аудио приветствия");
     };
 
     audio.play().catch((error) => {
@@ -369,7 +369,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвести аудио ��твета:", error);
+      console.error("Не удалось воспроизвести ауд��о ��твета:", error);
     });
   };
 
@@ -494,22 +494,9 @@ export default function VoiceControl({
 
 
 
-      // Поиск наиболее подходящего голоса для имитации Jarvis
-      const voices = speechSynthesis.getVoices();
 
-      // Приоритет: русский мужской голос с глубоким тембром
-      const russianMaleVoice = voices.find(
-        (voice) =>
-          voice.lang.includes("ru") &&
-          (voice.name.toLowerCase().includes("male") ||
-            voice.name.toLowerCase().includes("мужской") ||
-            voice.name.toLowerCase().includes("антон") ||
-            voice.name.toLowerCase().includes("николай") ||
-            voice.name.toLowerCase().includes("дмитрий") ||
-            voice.name.toLowerCase().includes("павел")),
-      );
 
-      // Если не нашли ��усский мужской, ищем английский с настройками для русского
+      // Если не нашли ��усский мужской, ищем английский �� настройками для русского
       const englishMaleVoice = voices.find(
         (voice) =>
           voice.lang.includes("en") &&
@@ -606,7 +593,7 @@ export default function VoiceControl({
       );
 
       // Настройки ��аксимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
-      // Stability: 20 (низкая ст��бильность для более естественной речи)
+      // Stability: 20 (низкая ст��бильность д��я более естественной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
 
@@ -791,9 +778,9 @@ export default function VoiceControl({
       command.includes("hello jarvis") ||
       command.includes("hi jarvis") ||
       command.includes("hey jarvis") ||
-      (command.includes("привет") && command.includes("дж��рвис"))
+      (command.includes("привет") && command.includes("джарвис"))
     ) {
-      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      // Дополнительная проверка, чтобы из��ежать повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -904,7 +891,7 @@ export default function VoiceControl({
       "возможности",
       "открыть",
       "личный",
-      "кабинет",
+      "каб��нет",
       "отправить",
       "секция",
       "спуститься",
@@ -948,7 +935,7 @@ export default function VoiceControl({
       "снова",
       "спасибо",
       "благодарю",
-      "благо��арность",
+      "благодарность",
       "спс",
       "thank",
       "thanks",
@@ -1165,7 +1152,7 @@ export default function VoiceControl({
       if (
         command.includes("качество") ||
         command.includes("премиум") ||
-        command.includes("поддержка")
+        command.includes("подде��жка")
       ) {
         found = searchAndNavigate([
           "качество",
@@ -1248,7 +1235,7 @@ export default function VoiceControl({
       command.includes("открыть профиль")
     ) {
       navigate("/profile");
-      speak("Открываю ��ичный кабинет");
+      speak("Открываю личный кабинет");
       return;
     }
 
@@ -1366,11 +1353,11 @@ export default function VoiceControl({
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
-      command.includes("перейти к возможнос��ям") ||
+      command.includes("перейти к возможностям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
-        ["возможности", "мощные", "features"],
+        ["возможности", "��ощные", "features"],
         () => {
           const featuresSection = document.getElementById("features");
           if (featuresSection) {
@@ -1408,7 +1395,7 @@ export default function VoiceControl({
     if (
       command.includes("наверх страницы") ||
       command.includes("в начало") ||
-      command.includes("в са��ый вер��")
+      command.includes("в самый вер��")
     ) {
       window.scrollTo(0, 0);
       speak("Перехожу в нача��о");
