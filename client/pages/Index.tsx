@@ -159,6 +159,7 @@ export default function Index() {
           onAddProPlan={handleAddIntermediatePlan}
           onAddMaxPlan={handleAddAdvancedPlan}
           onClose={handleCloseVoicePanel}
+          onStopListening={handleStopListening}
           isListening={isVoicePanelActive}
           transcript={currentTranscript}
         />
