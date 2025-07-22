@@ -140,7 +140,12 @@ const GLBModel: React.FC<GLBModelProps> = ({
         <directionalLight position={[5, 5, 5]} intensity={0.5} />
 
         <Suspense fallback={<ThreeLoadingFallback />}>
-          <Model url={url} scale={scale} position={position} />
+          <Model
+            url={url}
+            scale={scale}
+            position={position}
+            onLoad={() => setIsLoading(false)}
+          />
         </Suspense>
 
         <OrbitControls
