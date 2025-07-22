@@ -10,6 +10,7 @@ interface VoiceControlProps {
   onAddMaxPlan: () => void;
   inNavbar?: boolean;
   onListeningChange?: (isListening: boolean) => void;
+  forceStop?: boolean;
 }
 
 export default function VoiceControl({
@@ -508,7 +509,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем ��юбое текущее воспрои��ведение
+    // Ос��анавливаем ���юбое текущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -531,7 +532,7 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
-      utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
+      utterance.pitch = 0.7; // ��редне-ни��кий тон для автор��тет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
@@ -752,7 +753,7 @@ export default function VoiceControl({
       command.includes("как твои дела") ||
       command.includes("что нового джарвис")
     ) {
-      // Дополнительная проверка, чтобы избежать повторных с��абатываний
+      // Дополнительная проверка, чтобы избеж��ть повторных с��абатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1101,7 +1102,7 @@ export default function VoiceControl({
 
       // Поиск аналитики
       if (
-        command.includes("аналитик") ||
+        command.includes("анали��ик") ||
         command.includes("статистик") ||
         command.includes("да��ные")
       ) {
@@ -1186,7 +1187,7 @@ export default function VoiceControl({
 
     if (
       command.includes("открыть корзину") ||
-      command.includes("показать корзину") ||
+      command.includes("пока��ать корзину") ||
       command.includes("что в корзине")
     ) {
       // Находим и нажимаем ��нопку корзины
