@@ -407,15 +407,15 @@ export default function Index() {
             </div>
 
             {/* Intermediate Plan */}
-            <div className="bg-slate-800/80 backdrop-blur-sm border-2 border-blue-500 rounded-2xl p-8 relative transform scale-105">
+            <div className="bg-gray-900/80 backdrop-blur-sm border-2 border-blue-500 rounded-2xl p-8 relative transform scale-105">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                 <span className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-full">
                   Most Popular
                 </span>
               </div>
-              
+
               <div className="text-center mb-8">
-                <h3 className="text-xl font-semibold mb-4">Intermediate Plan</h3>
+                <h3 className="text-xl font-semibold mb-4 text-white">Intermediate Plan</h3>
                 <div className="text-4xl font-bold mb-2">
                   $349<span className="text-lg text-white/60">/month</span>
                 </div>
