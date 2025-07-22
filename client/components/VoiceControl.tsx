@@ -148,9 +148,9 @@ export default function VoiceControl({
                   setTimeout(() => {
                     console.log("🧹 Очищаем состояние после команды");
                     setTranscript("");
-                    onListeningChange?.(true, "");
+                    onListeningChange?.(isListening, "");
                     lastCommandRef.current = "";
-                  }, 2000); // Пауза 2 секунды после команды
+                  }, 1500); // Сокращаем паузу до 1.5 секунд
                 },
                 finalTranscript ? 100 : 1000,
               ); // Меньше задержки для финальных результатов
@@ -201,7 +201,7 @@ export default function VoiceControl({
 
           // Критические ошибки - полностью останавливаем
           if (event.error === "network" || event.error === "not-allowed") {
-            console.error("��� Критическая ошибка распознавания:", event.error);
+            console.error("��� Критическая ошибка ра��познавания:", event.error);
             setIsListening(false);
             onListeningChange?.(false, "");
           }
@@ -855,7 +855,7 @@ export default function VoiceControl({
     audioPlayingRef.current = true;
 
     // Воспроизводим первое аудио
-    console.log("��� Создаем первое аудио для диагнос��ики");
+    console.log("��� Создаем первое аудио д��я диагнос��ики");
     const firstAudio = new Audio(
       "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76",
     );
@@ -882,7 +882,7 @@ export default function VoiceControl({
         currentAudioRef.current = secondAudio;
 
         secondAudio.onended = () => {
-          console.log("✅ Второе ауди�� закончилось, диагностика завершена");
+          console.log("��� Второе ауди�� закончилось, диагностика завершена");
           resetState();
         };
         secondAudio.onerror = () => {
@@ -949,7 +949,7 @@ export default function VoiceControl({
       command.includes("джарв��с я вернулся") ||
       command.includes("я вернулся джарвис") ||
       command.includes("джарвис я здесь") ||
-      command.includes("я снова здесь")
+      command.includes("я снова з��есь")
     ) {
       speakWelcomeBack();
       return;
@@ -1523,7 +1523,7 @@ export default function VoiceControl({
       command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
-      speak("Переходим к регистрации");
+      speak("Пере��одим к регистрации");
       return;
     }
 
@@ -1599,14 +1599,14 @@ export default function VoiceControl({
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальный пл��н добавлен");
+      speak("Максимальн��й пл��н добавлен");
       return;
     }
 
     // Ра��ширенная навигация по секциям страниц��
     if (
       command.includes("к планам") ||
-      command.includes("показать планы") ||
+      command.includes("показать план��") ||
       command.includes("пере��ти к планам") ||
       command.includes("спуститься �� планам") ||
       command.includes("тарифы") ||
