@@ -169,7 +169,7 @@ export default function VoiceControl({
   };
 
   const speakShutdown = () => {
-    // Останавливаем любое текущее воспроизведение
+    // Останавливаем люб��е текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -420,7 +420,7 @@ export default function VoiceControl({
     });
   };
 
-  const speakSystemsOperational = () => {
+  const speakSystemsOperational = async () => {
     // Множественная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
@@ -728,7 +728,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит��льная проверка, чтобы избеж��ть повторных срабатываний
+      // Дополнит��льная проверка, чтобы избеж����ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -768,7 +768,7 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнительная проверка, чтобы избежать повторных срабат��ваний
+      // Дополнительная проверка, чтобы избе��ать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1191,7 +1191,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("рег��страция") ||
+      command.includes("рег��с��рация") ||
       command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
@@ -1268,7 +1268,7 @@ export default function VoiceControl({
       command.includes("максимальный план") ||
       command.includes("джарвис план") ||
       command.includes("макс в ��орзину") ||
-      command.includes("отправить макс")
+      command.includes("отправить м��кс")
     ) {
       onAddMaxPlan();
       speak("Максимальный план добавлен");
@@ -1310,7 +1310,7 @@ export default function VoiceControl({
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
-        "преимущества",
+        "пр��имущества",
         "преимущество",
         "advantages",
       ]);
@@ -1349,7 +1349,7 @@ export default function VoiceControl({
       command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
-      speak("Прокручиваю вниз");
+      speak("Прокручиваю вн��з");
       return;
     }
 
