@@ -65,7 +65,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяем, что ко��анда отличается от предыдущей и не пустая
+            // Проверяем, что команда отличается от предыдущей и не пустая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -135,7 +135,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим ваш новый аудио-фай��
+    // Создаем и воспроизводим ваш новый аудио-файл
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fdb47541068444a9093b406f29a6af3ce?alt=media&token=43fbc024-64ae-479b-8a6c-5b9d12b43294&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -207,7 +207,7 @@ export default function VoiceControl({
     };
 
     audio.play().catch((error) => {
-      console.error("Не удалось воспроизвести аудио отключени��:", error);
+      console.error("Не удалось воспроизвести аудио отключения:", error);
       shutdownComplete();
     });
   };
@@ -246,7 +246,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспро��звести аудио приветствия:", error);
+      console.error("Не удалось воспроизвести аудио приветствия:", error);
     });
   };
 
@@ -436,7 +436,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Используем Web Speech API для синтеза фразы "Все системы работают сэр"
+    // Используем Web Speech API для синтеза фразы "Все системы функционируют нормально"
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(
         "Все системы функционируют нормально",
@@ -455,7 +455,7 @@ export default function VoiceControl({
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
-      // Приоритет: русский мужской голос с глубок��м тембром
+      // Приоритет: русский мужской голос с глубоким тембром
       const russianMaleVoice = voices.find(
         (voice) =>
           voice.lang.includes("ru") &&
@@ -570,7 +570,7 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
-      utterance.pitch = 0.7; // Средне-низкий тон для авторитет��ости
+      utterance.pitch = 0.7; // Средне-ни��кий тон для авторитет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
@@ -728,7 +728,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит��льная проверка, чтобы избеж��ть повторных срабатываний
+      // Дополнит��льная проверка, ч��обы избеж��ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -768,7 +768,7 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнительная проверка, чтобы избежать повторных срабат��ваний
+      // Дополнительная проверка, ��тобы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1021,7 +1021,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate([
           "преимущества",
-          "преиму��ество",
+          "преимущество",
           "advantages",
         ]);
         if (found) {
@@ -1145,7 +1145,7 @@ export default function VoiceControl({
         command.includes("да��ные")
       ) {
         found = searchAndNavigate([
-          "аналитик",
+          "анал��тик",
           "статистик",
           "данные",
           "analytics",
@@ -1268,7 +1268,7 @@ export default function VoiceControl({
       command.includes("максимальный план") ||
       command.includes("джарвис план") ||
       command.includes("макс в ��орзину") ||
-      command.includes("отправить макс")
+      command.includes("о��править макс")
     ) {
       onAddMaxPlan();
       speak("Максимальный план добавлен");
@@ -1349,13 +1349,13 @@ export default function VoiceControl({
       command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
-      speak("Прокручиваю вниз");
+      speak("Прок��учиваю вниз");
       return;
     }
 
     if (
       command.includes("прокрутить вверх") ||
-      command.includes("с��ролл вверх") ||
+      command.includes("скролл вверх") ||
       command.includes("поднятьс�� вверх")
     ) {
       window.scrollBy(0, -500);
@@ -1399,7 +1399,7 @@ export default function VoiceControl({
           recognitionRef.current.start();
           setIsListening(true);
         } catch (error) {
-          console.log("Р��спознавание уже зап��щено или недосту��но");
+          console.log("Распознавание уже зап��щено или недосту��но");
         }
       }
     }
@@ -1436,7 +1436,7 @@ export default function VoiceControl({
 
         {/* Status indicator */}
         <div className="text-xs text-white/60 text-center">
-          {isSpeaking ? "Г��ворю..." : isListening ? "Слушаю..." : "ДЖАРВИС"}
+          {isSpeaking ? "Говорю..." : isListening ? "Слушаю..." : "ДЖАРВИС"}
         </div>
       </div>
 
