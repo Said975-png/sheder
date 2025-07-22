@@ -19,24 +19,26 @@ export default function ConversationPanel({
   onAddProPlan,
   onAddMaxPlan,
 }: ConversationPanelProps) {
-  const [animationState, setAnimationState] = useState<'hidden' | 'entering' | 'visible' | 'exiting'>('hidden');
+  const [animationState, setAnimationState] = useState<
+    "hidden" | "entering" | "visible" | "exiting"
+  >("hidden");
   useEffect(() => {
     if (isOpen) {
-      setAnimationState('entering');
+      setAnimationState("entering");
       const timer = setTimeout(() => {
-        setAnimationState('visible');
+        setAnimationState("visible");
       }, 50);
       return () => clearTimeout(timer);
     } else {
-      setAnimationState('exiting');
+      setAnimationState("exiting");
       const timer = setTimeout(() => {
-        setAnimationState('hidden');
+        setAnimationState("hidden");
       }, 300);
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
 
-  if (animationState === 'hidden') {
+  if (animationState === "hidden") {
     return null;
   }
 
@@ -44,9 +46,11 @@ export default function ConversationPanel({
     <div
       className={cn(
         "fixed top-2 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-out",
-        animationState === 'entering' ? "opacity-0 scale-90 translate-y-4" : "",
-        animationState === 'visible' ? "opacity-100 scale-100 translate-y-0" : "",
-        animationState === 'exiting' ? "opacity-0 scale-90 translate-y-4" : ""
+        animationState === "entering" ? "opacity-0 scale-90 translate-y-4" : "",
+        animationState === "visible"
+          ? "opacity-100 scale-100 translate-y-0"
+          : "",
+        animationState === "exiting" ? "opacity-0 scale-90 translate-y-4" : "",
       )}
     >
       <div className="bg-black/90 backdrop-blur-lg border border-cyan-400/50 rounded-2xl p-6 min-w-96 stark-glow">
@@ -63,7 +67,7 @@ export default function ConversationPanel({
               </p>
             </div>
           </div>
-          
+
           <Button
             onClick={onClose}
             variant="ghost"
@@ -91,7 +95,7 @@ export default function ConversationPanel({
               Система прослушивания ��ктивна
             </span>
           </div>
-          
+
           {/* Пульсирующие линии активности */}
           <div className="flex justify-center space-x-1">
             {[...Array(5)].map((_, i) => (
@@ -99,14 +103,14 @@ export default function ConversationPanel({
                 key={i}
                 className="w-1 bg-cyan-400 rounded-full animate-pulse"
                 style={{
-                  height: '20px',
+                  height: "20px",
                   animationDelay: `${i * 0.1}s`,
-                  animationDuration: '1s'
+                  animationDuration: "1s",
                 }}
               />
             ))}
           </div>
-          
+
           {/* Подсказки команд */}
           <div className="text-center space-y-1">
             <p className="text-xs text-white/60 font-mono">

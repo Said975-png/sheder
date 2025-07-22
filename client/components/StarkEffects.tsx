@@ -225,9 +225,7 @@ export function GlitchText({
 }: GlitchTextProps) {
   return (
     <div className={cn("relative inline-block", className)}>
-      <div>
-        {children}
-      </div>
+      <div>{children}</div>
     </div>
   );
 }
