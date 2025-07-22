@@ -113,7 +113,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
 
       <div className="container mx-auto px-6 relative z-10 pt-24">
-        <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[80vh]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[80vh]">
           {/* Левая час��ь - контент */}
           <div className="space-y-8">
             {/* Статус хедер */}
