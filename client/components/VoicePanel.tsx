@@ -34,6 +34,7 @@ export default function VoicePanel({
   onAddProPlan,
   onAddMaxPlan,
   onClose,
+  onStopListening,
   isListening,
   transcript,
 }: VoicePanelProps) {
