@@ -136,16 +136,11 @@ export default function StarkHero({ className }: StarkHeroProps) {
             {/* Заголовок */}
             <div className="space-y-6">
               <h1 className="text-4xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-                <div className="mb-2">
-                  <GlitchText intensity="low">
-                    <span className="text-white">Unleashing the</span>
-                  </GlitchText>
-                </div>
                 <HologramText
                   className="text-4xl lg:text-6xl xl:text-7xl font-bold"
                   glitch
                 >
-                  Power of Blockchain
+                  Jarvis - ваш искусственный интеллект
                 </HologramText>
               </h1>
 
