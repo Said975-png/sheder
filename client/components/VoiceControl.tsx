@@ -401,14 +401,14 @@ export default function VoiceControl({
 
     try {
       // Используем ElevenLabs API для синтеза речи с вашим кастомным голосом
-      const response = await fetch('/api/elevenlabs-tts', {
-        method: 'POST',
+      const response = await fetch("/api/elevenlabs-tts", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           text: text,
-          voice_id: "YyXZ45ZTmrPak6Ecz0mK"
+          voice_id: "YyXZ45ZTmrPak6Ecz0mK",
         }),
       });
 
@@ -491,7 +491,6 @@ export default function VoiceControl({
 
   const speakSystemsOperational = async () => {
     await speakWithElevenLabs("Все системы функционируют нормально");
-
   };
 
   const speakHowAreYou = () => {
