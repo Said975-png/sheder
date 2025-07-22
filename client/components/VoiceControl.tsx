@@ -304,7 +304,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим ауд��о для утреннего приветствия
+    // Создаем и воспроизводим ауд��о для утренне��о приветствия
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -436,7 +436,57 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Используем Web Speech API для синтеза фразы "Все системы функционируют нормально"
+    const resetState = () => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 1000);
+    };
+
+    try {
+      // Используем ElevenLabs API для синтеза речи с вашим кастомным голосом
+      const response = await fetch('/api/elevenlabs-tts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: "Все системы функционируют нормально",
+          voice_id: "YyXZ45ZTmrPak6Ecz0mK"
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      currentAudioRef.current = audio;
+
+      audio.onended = () => {
+        URL.revokeObjectURL(audioUrl);
+        resetState();
+      };
+
+      audio.onerror = () => {
+        URL.revokeObjectURL(audioUrl);
+        resetState();
+        console.error("Ошибка воспроизведения аудио из ElevenLabs");
+      };
+
+      await audio.play();
+    } catch (error) {
+      resetState();
+      console.error("Не удалось получить аудио из ElevenLabs:", error);
+
+      // Fallback: простое текстовое сообщение
+      console.log("Джарвис: Все системы функционируют нормально");
+    }
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(
         "Все системы функционируют нормально",
@@ -452,7 +502,7 @@ export default function VoiceControl({
       utterance.pitch = 0.6; // Глубокий, низкий тон для авторитетности
       utterance.volume = 0.95; // Громкость 90-100%
 
-      // Поиск наиболее подходящего голос�� для имитации Jarvis
+      // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: русский мужской голос с глубоким тембром
@@ -547,7 +597,7 @@ export default function VoiceControl({
       return;
     }
 
-    // ��с��анавливаем любое текущее воспроизведение
+    // Ос��анавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -563,7 +613,7 @@ export default function VoiceControl({
         "у меня все в порядке сэр",
       );
 
-      // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
+      // Настройки ��аксимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
       // Stability: 20 (низкая ст��бильность для более естественной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
@@ -681,7 +731,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приветствия "Джарвис я вернулся"
+    // Команда приве��ствия "Джарвис я вернулся"
     if (
       command.includes("джарвис я вернулся") ||
       command.includes("я вернулся джарвис") ||
@@ -718,7 +768,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда утреннего приветствия "Доброе утр�� Джарвис"
+    // Команда утреннего приветствия "Доброе утр�� Джарв��с"
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис доброе утро") ||
@@ -728,7 +778,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Допо��нит����льная проверка, ч��обы избеж��ть повторных срабатываний
+      // Дополнит����льная проверка, ч��обы избеж��ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -762,7 +812,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис как дела" с ответом "Все сист��мы функционируют нормально"
+    // Команда "Джарвис как дела" с ответом "Все системы функционируют нормально"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
@@ -1119,7 +1169,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск качества и премиум услуг
+      // ��оиск качества и премиум услуг
       if (
         command.includes("качество") ||
         command.includes("премиум") ||
@@ -1171,7 +1221,7 @@ export default function VoiceControl({
 
     // Команды навигации по страницам
     if (
-      command.includes("перейти на главную") ||
+      command.includes("пере��ти на главную") ||
       command.includes("на главную страницу") ||
       command.includes("домо��")
     ) {
@@ -1212,7 +1262,7 @@ export default function VoiceControl({
 
     if (command.includes("заказ") || command.includes("оформить заказ")) {
       navigate("/order");
-      speak("Переходим к оформлению заказа");
+      speak("Переход��м к оформлению заказа");
       return;
     }
 
@@ -1306,7 +1356,7 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("перейти к преимущества��") ||
+      command.includes("перейти к преимуществам") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
@@ -1366,7 +1416,7 @@ export default function VoiceControl({
     if (
       command.includes("наверх страницы") ||
       command.includes("в начало") ||
-      command.includes("в самый верх")
+      command.includes("в самый вер��")
     ) {
       window.scrollTo(0, 0);
       speak("Перехожу в нача��о");
