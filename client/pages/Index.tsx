@@ -653,13 +653,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* JARVIS Interface - Fixed position */}
-      <JarvisInterface
-        onAddBasicPlan={handleAddBeginnerPlan}
-        onAddProPlan={handleAddIntermediatePlan}
-        onAddMaxPlan={handleAddAdvancedPlan}
-        inNavbar={false}
-      />
     </div>
   );
 }
