@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Mic, MicOff, Volume2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -350,7 +350,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим аудио для ответа "Джарвис т�� тут?"
+    // Создаем и воспроизводим аудио для ответа "Джарвис ты тут?"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F5baee2408110417fbab785b0c6ffdde6?alt=media&token=a957a2b4-68ad-46de-bc3e-11943c8fb38b&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -388,7 +388,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Останавлива��м любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -438,7 +438,7 @@ export default function VoiceControl({
       audio.onerror = () => {
         URL.revokeObjectURL(audioUrl);
         resetState();
-        console.error("Ошибка воспроизведения аудио из ElevenLabs");
+        console.error("Ошибка в��спроизведения аудио из ElevenLabs");
       };
 
       await audio.play();
@@ -532,7 +532,7 @@ export default function VoiceControl({
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
-      utterance.volume = 0.95; // Четка��, но не резкая громкость
+      utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
@@ -629,7 +629,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда о��ключения (приоритет��ая)
+    // Команда о��ключения (приоритетная)
     if (
       command.includes("отключись") ||
       command.includes("выключись") ||
@@ -792,7 +792,7 @@ export default function VoiceControl({
       command.includes("ты тут джарвис") ||
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
-      command.includes("джарвис на месте") ||
+      command.includes("джарвис на ме��те") ||
       command.includes("джарвис ��рисутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
@@ -1058,7 +1058,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск технологи���
+      // Поиск технологи��
       if (
         command.includes("технолог") ||
         command.includes("webgl") ||
@@ -1103,7 +1103,7 @@ export default function VoiceControl({
       if (
         command.includes("аналитик") ||
         command.includes("статистик") ||
-        command.includes("да��ные")
+        command.includes("да��н��е")
       ) {
         found = searchAndNavigate([
           "анал��тик",
@@ -1264,7 +1264,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к пре���муществам") ||
+      command.includes("к пре��муществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
       command.includes("перейти к преимуществам") ||
@@ -1298,7 +1298,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("По��азываю возможности");
+        speak("Показываю возможности");
       }
       return;
     }
