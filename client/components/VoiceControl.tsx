@@ -17,6 +17,7 @@ export default function VoiceControl({
   onAddProPlan,
   onAddMaxPlan,
   inNavbar = false,
+  onListeningChange,
 }: VoiceControlProps) {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -145,7 +146,7 @@ export default function VoiceControl({
 
     audio.onended = () => {
       setIsSpeaking(false);
-      // Сбрасываем кулдау�� через небольшую задержку
+      // Сбрасываем кулдаун через небольшую задержку
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
@@ -240,7 +241,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("О��ибка воспроизведения аудио приветствия");
+      console.error("О��ибка воспроизведения ау��ио приветствия");
     };
 
     audio.play().catch((error) => {
@@ -512,7 +513,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Используем Web Speech API для синтеза фразы "у меня все в порядке сэр"
+    // Используем Web Speech API для синтеза фразы "у меня все в п��рядке сэр"
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(
         "у меня все в порядке сэр",
@@ -706,7 +707,7 @@ export default function VoiceControl({
       command.includes("hey jarvis") ||
       (command.includes("привет") && command.includes("джарвис"))
     ) {
-      // Дополнительная проверка, чтобы избежать повторных с��абатываний
+      // Дополнительная проверка, чтобы избежать повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -802,7 +803,7 @@ export default function VoiceControl({
       "регистрация",
       "профиль",
       "заказ",
-      "корзина",
+      "��орзина",
       "добавить",
       "план",
       "д��арвис",
@@ -959,7 +960,7 @@ export default function VoiceControl({
       return false;
     };
 
-    // Универсальные коман��ы поиска
+    // Универсальные команды поиска
     if (
       command.includes("покажи") ||
       command.includes("найди") ||
@@ -980,7 +981,7 @@ export default function VoiceControl({
           "advantages",
         ]);
         if (found) {
-          speak("Показываю преимущества");
+          speak("Показываю ��реимущества");
           return;
         }
       }
@@ -1063,7 +1064,7 @@ export default function VoiceControl({
           "технолог",
           "webgl",
           "ии",
-          "искусственный",
+          "искусственн��й",
           "ai",
           "джарвис",
           "jarvis",
@@ -1111,7 +1112,7 @@ export default function VoiceControl({
         }
       }
 
-      // Если ничего специфичного не найдено, попробуем общий ��оиск
+      // Если ни��его специфичного не найдено, попробуем общий ��оиск
       if (!found) {
         const searchTerms = command
           .split(" ")
@@ -1128,7 +1129,7 @@ export default function VoiceControl({
     if (
       command.includes("перейти на главную") ||
       command.includes("на главную страницу") ||
-      command.includes("домо����")
+      command.includes("домо��")
     ) {
       navigate("/");
       speak("Переходим на главную страницу");
@@ -1194,7 +1195,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды доб��вления планов в корзину
+    // Команды доб����вления планов в корзину
     if (
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
@@ -1210,7 +1211,7 @@ export default function VoiceControl({
       command.includes("добавить про") ||
       command.includes("про план") ||
       command.includes("про в корзину") ||
-      command.includes("отправ��ть про")
+      command.includes("отправить про")
     ) {
       onAddProPlan();
       speak("Про план д��бавлен");
@@ -1265,7 +1266,7 @@ export default function VoiceControl({
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
-        "преимущества",
+        "преи��ущества",
         "преимущество",
         "advantages",
       ]);
@@ -1283,7 +1284,7 @@ export default function VoiceControl({
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
-        ["возмож��ости", "мощные", "features"],
+        ["возможности", "мощные", "features"],
         () => {
           const featuresSection = document.getElementById("features");
           if (featuresSection) {
@@ -1304,14 +1305,14 @@ export default function VoiceControl({
       command.includes("спуститься вниз")
     ) {
       window.scrollBy(0, 500);
-      speak("Прок��учиваю вниз");
+      speak("Прок��учиваю вн��з");
       return;
     }
 
     if (
       command.includes("прокрутить вверх") ||
       command.includes("скролл вверх") ||
-      command.includes("поднятьс�� вверх")
+      command.includes("поднятьс��� вверх")
     ) {
       window.scrollBy(0, -500);
       speak("Прокручиваю вверх");
@@ -1354,7 +1355,7 @@ export default function VoiceControl({
           recognitionRef.current.start();
           setIsListening(true);
         } catch (error) {
-          console.log("Распознавание уже зап��щено или недосту��но");
+          console.log("Распознавание уже зап��щено или недо��ту��но");
         }
       }
     }
