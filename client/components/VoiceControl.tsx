@@ -104,7 +104,7 @@ export default function VoiceControl({
           // Объединяем финальный и промежуточный результаты
           combinedTranscript = (finalTranscript + interimTranscript).trim();
 
-          // Показывае�� промежуточный результат только если не обрабатываем команду и не говорим
+          // Показывае�� промежуточный результат только если не обрабатываем команду и ��е говорим
           if (combinedTranscript && !commandCooldownRef.current && !isSpeaking && !audioPlayingRef.current) {
             setTranscript(combinedTranscript);
             onListeningChange?.(true, combinedTranscript);
@@ -279,7 +279,7 @@ export default function VoiceControl({
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
-      // Останавливаем любое воспроизводящееся аудио при размонтировании
+      // Останавливаем любое воспроизводящ��еся аудио при размонтировании
       if (currentAudioRef.current) {
         currentAudioRef.current.pause();
         currentAudioRef.current.currentTime = 0;
@@ -314,7 +314,7 @@ export default function VoiceControl({
     }
   }, [forceStop, isListening, onListeningChange]);
 
-  // Фу��кция для полного сброса состояния по��ле команды
+  // Фу��кция для полного сброса состояния по��ле ком��нды
   const resetCommandState = (delay: number = 3000) => {
     setTimeout(() => {
       commandCooldownRef.current = false;
@@ -573,7 +573,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Оста��авливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -679,7 +679,7 @@ export default function VoiceControl({
       // Возобновляем распознавание речи после завершения аудио, используя сохраненное состояние
       setTimeout(() => {
         if (wasListening && recognitionRef.current) {
-          console.log("▶️ Возобновляем распознавание после аудио");
+          console.log("▶️ Возобновляем распознаван��е после аудио");
           try {
             recognitionRef.current.start();
             // НЕ изменяем isListening здесь, так как оно должно остаться true
@@ -689,10 +689,15 @@ export default function VoiceControl({
         }
       }, 500);
 
+      // Очень быстрый сброс lastCommandRef для немедленного приема новых команд
+      setTimeout(() => {
+        lastCommandRef.current = "";
+        console.log("🚀 Экстра-быстрый сброс lastCommandRef после аудио");
+      }, 200);
+
       setTimeout(() => {
         commandCooldownRef.current = false;
-        lastCommandRef.current = "";
-      }, 800); // Ещё больше сокращаем время для быстрого отклика
+      }, 600);
     };
 
     audio.onended = resetState;
@@ -953,7 +958,7 @@ export default function VoiceControl({
       onListeningChange?.(true, "");
     }, 200);
 
-    // Фильтруем пустые или ��лишком короткие команды
+    // Фильтруем пустые ��ли ��лишком короткие команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -1078,7 +1083,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис как дела" с ответом "Все системы функционируют нормал��но"
+    // Команда "Джарвис как дел��" с ответом "Все системы функционируют нормал��но"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
@@ -1470,7 +1475,7 @@ export default function VoiceControl({
           "jarvis",
         ]);
         if (found) {
-          speak("Показываю технолог��и");
+          speak("Показыв��ю технолог��и");
           return;
         }
       }
@@ -1558,7 +1563,7 @@ export default function VoiceControl({
     if (
       command.includes("профиль") ||
       command.includes("мой профиль") ||
-      command.includes("личн��й к��бинет") ||
+      command.includes("ли��н��й к��бинет") ||
       command.includes("открыть профиль")
     ) {
       navigate("/profile");
