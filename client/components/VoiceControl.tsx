@@ -533,7 +533,7 @@ export default function VoiceControl({
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
-      utterance.volume = 0.95; // Четкая, но не резкая громкость
+      utterance.volume = 0.95; // Четкая, но не рез��ая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
@@ -1148,7 +1148,7 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Откр��ваю страницу вх��да");
+      speak("Откр��ваю стра��ицу вх��да");
       return;
     }
 
@@ -1347,6 +1347,7 @@ export default function VoiceControl({
   };
 
   const toggleListening = () => {
+    console.log('VoiceControl: toggleListening called, current isListening:', isListening);
     if (isListening) {
       recognitionRef.current?.stop();
       setIsListening(false);
@@ -1360,9 +1361,12 @@ export default function VoiceControl({
         try {
           recognitionRef.current.start();
           setIsListening(true);
+          console.log('VoiceControl: Speech recognition started');
         } catch (error) {
-          console.log("Распознавание уже зап��щено или недосту��но");
+          console.log("Распознавание уже зап��щено или недосту��но", error);
         }
+      } else {
+        console.log('VoiceControl: recognitionRef.current is null');
       }
     }
   };
