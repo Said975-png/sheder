@@ -132,11 +132,15 @@ export default function Index() {
       setCurrentTranscript("");
       setLastProcessedTranscript("");
     } else {
-      // Показываем транскрипт только если он отличается от предыдущего
-      if (transcript !== lastProcessedTranscript) {
+      // Показываем транскрипт только если он отличается от предыдущег�� и не слишком длинный
+      if (transcript !== lastProcessedTranscript && transcript.length < 50) {
         console.log("📱 Устанавливаем новый транскрипт:", transcript);
         setCurrentTranscript(transcript);
         setLastProcessedTranscript(transcript);
+      } else if (transcript.length >= 50) {
+        console.log("📱 Отклоняем слишком длинный транскрипт:", transcript.length, "символов");
+        setCurrentTranscript("");
+        setLastProcessedTranscript("");
       }
     }
   };
