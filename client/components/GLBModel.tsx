@@ -24,19 +24,30 @@ function Model({
 }) {
   const { scene } = useGLTF(url);
   const modelRef = useRef<any>();
-  const { pointer } = useThree();
+  const mouseRef = useRef({ x: 0, y: 0 });
 
   // Клонируем сцену для избежания конфликтов при повторном использовании
   const clonedScene = useMemo(() => scene.clone(), [scene]);
 
+  React.useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      // Нормализуем координаты мыши к диапазону [-1, 1]
+      mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   useFrame(() => {
     if (modelRef.current) {
-      // Плавное следование за курсором мыши
-      const targetRotationY = pointer.x * 0.3;
-      const targetRotationX = -pointer.y * 0.2;
+      // Увеличиваем чувствительность для более заметно��о эффекта
+      const targetRotationY = mouseRef.current.x * 0.5;
+      const targetRotationX = -mouseRef.current.y * 0.3;
 
-      modelRef.current.rotation.y += (targetRotationY - modelRef.current.rotation.y) * 0.05;
-      modelRef.current.rotation.x += (targetRotationX - modelRef.current.rotation.x) * 0.05;
+      modelRef.current.rotation.y += (targetRotationY - modelRef.current.rotation.y) * 0.08;
+      modelRef.current.rotation.x += (targetRotationX - modelRef.current.rotation.x) * 0.08;
     }
   });
 
