@@ -204,17 +204,17 @@ export default function Index() {
                       <div className="font-medium text-white">{currentUser.name}</div>
                       <div className="text-xs">{currentUser.email}</div>
                     </div>
-                    <DropdownMenuSeparator className="bg-slate-700" />
-                    <DropdownMenuItem onClick={() => (window.location.href = "/profile")} className="text-white hover:bg-slate-700 cursor-pointer">
+                    <DropdownMenuSeparator className="bg-gray-700" />
+                    <DropdownMenuItem onClick={() => (window.location.href = "/profile")} className="text-white hover:bg-gray-800 cursor-pointer">
                       <User className="mr-2 h-4 w-4" />
                       <span>Profile</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => (window.location.href = "/profile")} className="text-white hover:bg-slate-700 cursor-pointer">
+                    <DropdownMenuItem onClick={() => (window.location.href = "/profile")} className="text-white hover:bg-gray-800 cursor-pointer">
                       <Settings className="mr-2 h-4 w-4" />
                       <span>Settings</span>
                     </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-slate-700" />
-                    <DropdownMenuItem onClick={handleLogout} className="text-red-400 hover:bg-slate-700 cursor-pointer">
+                    <DropdownMenuSeparator className="bg-gray-700" />
+                    <DropdownMenuItem onClick={handleLogout} className="text-red-400 hover:bg-gray-800 cursor-pointer">
                       <LogOut className="mr-2 h-4 w-4" />
                       <span>Logout</span>
                     </DropdownMenuItem>
