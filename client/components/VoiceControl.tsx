@@ -129,7 +129,7 @@ export default function VoiceControl({
   }, []);
 
   const speak = (text: string) => {
-    // Предотвраща��м повторное воспроизведение
+    // Предотвращаем повторное воспроизведение
     if (isSpeaking || commandCooldownRef.current) return;
 
     setIsSpeaking(true);
@@ -164,7 +164,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизве��ти аудио:", error);
+      console.error("Не удалось воспроизвести аудио:", error);
     });
   };
 
@@ -237,7 +237,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("О��ибка воспроизведения аудио приве��ствия");
+      console.error("О��ибка воспроизведения аудио приветствия");
     };
 
     audio.play().catch((error) => {
@@ -304,7 +304,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим ауд��о для утренне��о приветствия
+    // Создаем и воспроизводим ауд��о для утреннего приветствия
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -420,7 +420,7 @@ export default function VoiceControl({
     });
   };
 
-  const speakSystemsOperational = async () => {
+  const speakSystemsOperational = () => {
     // Множественная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
@@ -436,63 +436,21 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    const resetState = () => {
-      setIsSpeaking(false);
-      audioPlayingRef.current = false;
-      currentAudioRef.current = null;
-      setTimeout(() => {
-        commandCooldownRef.current = false;
-        lastCommandRef.current = "";
-      }, 1000);
-    };
-
-    try {
-      // Используем ElevenLabs API для синтеза речи с вашим кастомным голосом
-      const response = await fetch('/api/elevenlabs-tts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          text: "Все системы функционируют нормально",
-          voice_id: "YyXZ45ZTmrPak6Ecz0mK"
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const audioBlob = await response.blob();
-      const audioUrl = URL.createObjectURL(audioBlob);
-      const audio = new Audio(audioUrl);
-      currentAudioRef.current = audio;
-
-      audio.onended = () => {
-        URL.revokeObjectURL(audioUrl);
-        resetState();
-      };
-
-      audio.onerror = () => {
-        URL.revokeObjectURL(audioUrl);
-        resetState();
-        console.error("Ошибка воспроизведения аудио из ElevenLabs");
-      };
-
-      await audio.play();
-    } catch (error) {
-      resetState();
-      console.error("Не удалось получить аудио из ElevenLabs:", error);
-
-      // Fallback: простое текстовое сообщение
-      console.log("Джарвис: Все системы функционируют нормально");
-    }
+    // Используем Web Speech API для синтеза фразы "Все системы функционируют нормально"
     if ("speechSynthesis" in window) {
+      const utterance = new SpeechSynthesisUtterance(
+        "Все системы функционируют нормально",
+      );
 
+      // Настройки максимально приближенные к ElevenLabs Jarvis
+      // Мужской голос ИИ с глубоким, уверенным тоном, как голос из научной фантастики
+      // Говорит по-русски чётко и без акцента. Подходит для ассистента наподобие Джарвиса
+      // Стиль — вежливый, спокойный, слегка роботизированный, интеллектуальный
 
-
-
-
+      utterance.lang = "ru-RU"; // Русский язык
+      utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса
+      utterance.pitch = 0.6; // Глубокий, низкий тон для авторитетности
+      utterance.volume = 0.95; // Громкость 90-100%
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
@@ -605,7 +563,7 @@ export default function VoiceControl({
         "у меня все в порядке сэр",
       );
 
-      // Настройки ��аксимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
+      // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
       // Stability: 20 (низкая ст��бильность для более естественной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
@@ -723,7 +681,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приве��ствия "Джарвис я вернулся"
+    // Команда приветствия "Джарвис я вернулся"
     if (
       command.includes("джарвис я вернулся") ||
       command.includes("я вернулся джарвис") ||
@@ -760,7 +718,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда утреннего приветствия "Доброе утр�� Джарв��с"
+    // Команда утреннего приветствия "Доброе утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис доброе утро") ||
@@ -791,7 +749,7 @@ export default function VoiceControl({
       command.includes("hello jarvis") ||
       command.includes("hi jarvis") ||
       command.includes("hey jarvis") ||
-      (command.includes("привет") && command.includes("дж��рвис"))
+      (command.includes("привет") && command.includes("джарвис"))
     ) {
       // Дополнительная проверка, чтобы избежать повторных срабатываний
       if (
@@ -948,7 +906,7 @@ export default function VoiceControl({
       "снова",
       "спасибо",
       "благодарю",
-      "благо��арность",
+      "благодарность",
       "спс",
       "thank",
       "thanks",
@@ -1161,7 +1119,7 @@ export default function VoiceControl({
         }
       }
 
-      // ��оиск качества и премиум услуг
+      // Поиск качества и премиум услуг
       if (
         command.includes("качество") ||
         command.includes("премиум") ||
@@ -1213,7 +1171,7 @@ export default function VoiceControl({
 
     // Команды навигации по страницам
     if (
-      command.includes("пере��ти на главную") ||
+      command.includes("перейти на главную") ||
       command.includes("на главную страницу") ||
       command.includes("домо��")
     ) {
@@ -1248,13 +1206,13 @@ export default function VoiceControl({
       command.includes("открыть профиль")
     ) {
       navigate("/profile");
-      speak("Открываю ��ичный кабинет");
+      speak("Открываю личный кабинет");
       return;
     }
 
     if (command.includes("заказ") || command.includes("оформить заказ")) {
       navigate("/order");
-      speak("Переход��м к оформлению заказа");
+      speak("Переходим к оформлению заказа");
       return;
     }
 
@@ -1366,7 +1324,7 @@ export default function VoiceControl({
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
-      command.includes("перейти к возможнос��ям") ||
+      command.includes("перейти к возможностям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
@@ -1408,7 +1366,7 @@ export default function VoiceControl({
     if (
       command.includes("наверх страницы") ||
       command.includes("в начало") ||
-      command.includes("в са��ый вер��")
+      command.includes("в самый верх")
     ) {
       window.scrollTo(0, 0);
       speak("Перехожу в нача��о");
