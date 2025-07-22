@@ -24,6 +24,7 @@ export default function VoiceControl({
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [transcript, setTranscript] = useState("");
+  const [noSpeechCount, setNoSpeechCount] = useState(0);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const lastCommandRef = useRef<string>("");
   const commandCooldownRef = useRef<boolean>(false);
@@ -111,7 +112,7 @@ export default function VoiceControl({
                   recognitionRef.current.start();
                   console.log("✅ Распознавание перезапущено");
                 } catch (error) {
-                  console.log("ℹ️ Распознавание уже запущено или недоступно:", error);
+                  console.log("ℹ️ Распознавание ��же запущено или недоступно:", error);
                 }
               }
             }, 100);
@@ -134,7 +135,7 @@ export default function VoiceControl({
           // Некритические ошибки - игнорируем и продолжаем
           else if (event.error === "no-speech" || event.error === "audio-capture" || event.error === "aborted") {
             console.log("ℹ️ Некритическая ошибка распознавания:", event.error, "- продолжаем слушать");
-            // Не делаем ничего, система автоматически перезапустится через onend
+            // Не делаем ничего, система автоматически перезапу��тится через onend
           }
           // Другие ошибки - перезапускаем через короткое время
           else {
@@ -202,7 +203,7 @@ export default function VoiceControl({
 
     audio.onended = () => {
       setIsSpeaking(false);
-      // Сбрасываем кулдаун через небольшую задержку
+      // Сбрасываем кулдаун через небольшу�� задержку
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
@@ -440,7 +441,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспр��изведение
+    // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -560,7 +561,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анав��иваем ��юбое текущее воспрои��ведение
+    // Ос��анавливаем ��юбое текущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -627,7 +628,7 @@ export default function VoiceControl({
         );
         if (anyVoice) {
           utterance.voice = anyVoice;
-          utterance.lang = "ru-RU"; // Всегда русский язык
+          utterance.lang = "ru-RU"; // Всег��а русский язык
         }
         utterance.pitch = 0.55; // Еще ниже для компенсации
         utterance.rate = 0.7; // Е����е медленнее для большей солидности
@@ -667,7 +668,7 @@ export default function VoiceControl({
         }, 1000);
       };
 
-      console.log("Джарвис: у меня все в порядке сэр");
+      console.log("Джарвис: у меня ��се в порядке сэр");
       setTimeout(resetState, 2000);
     }
   };
@@ -731,7 +732,7 @@ export default function VoiceControl({
       console.log("✅ Первое аудио закончилось, ждем 2 секунды...");
       // Через 2 секунды воспроизводим второе аудио
       setTimeout(() => {
-        console.log("🎵 Создаем второе ��удио для диагностики");
+        console.log("🎵 Создаем второе аудио для диагностики");
         const secondAudio = new Audio(
           "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76"
         );
@@ -825,7 +826,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда утреннего приветствия "Доброе утр�� Джарвис"
+    // Команда утре��него приветствия "Доброе утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис до��рое утро") ||
@@ -858,7 +859,7 @@ export default function VoiceControl({
       command.includes("hey jarvis") ||
       (command.includes("привет") && command.includes("джарвис"))
     ) {
-      // Дополнительная проверка, чтобы из��ежать повторных срабатывани��
+      // Дополнительная проверка, чтобы из��ежать повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -920,7 +921,7 @@ export default function VoiceControl({
       command.includes("thanks") ||
       command.includes("мерси") ||
       command.includes("рахмат") ||
-      command.includes("рахмет") ||
+      command.includes("ра��мет") ||
       command.includes("хорошо") ||
       command.includes("отлично") ||
       command.includes("замечательно") ||
@@ -963,7 +964,7 @@ export default function VoiceControl({
     // Команда проверки присутствия "��жарвис ты тут?"
     if (
       command.includes("джарвис ты тут") ||
-      command.includes("��ы тут джарвис") ||
+      command.includes("ты тут джарвис") ||
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
@@ -1099,7 +1100,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск по data-section ��три��утам
+      // Поиск по data-section атри��утам
       const sections = Array.from(document.querySelectorAll("[data-section]"));
       for (const section of sections) {
         const sectionName =
@@ -1260,7 +1261,7 @@ export default function VoiceControl({
 
       // Поиск качества и премиум услуг
       if (
-        command.includes("качество") ||
+        command.includes("ка��ество") ||
         command.includes("премиум") ||
         command.includes("поддержка")
       ) {
@@ -1383,7 +1384,7 @@ export default function VoiceControl({
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
       command.includes("базовый в корзину") ||
-      command.includes("отправить базовый")
+      command.includes("отправить базов��й")
     ) {
       onAddBasicPlan();
       speak("Базовый план д��бавлен");
@@ -1460,7 +1461,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к возможностям") ||
+      command.includes("к возмо��ностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
       command.includes("перей���и к возмо��ностям") ||
@@ -1540,7 +1541,7 @@ export default function VoiceControl({
           setIsListening(true);
           onListeningChange?.(true, "");
         } catch (error) {
-          console.log("Распознавание уже зап��щено или недо��ту��но");
+          console.log("Распозн��вание уже зап��щено или недо��ту��но");
         }
       }
     }
