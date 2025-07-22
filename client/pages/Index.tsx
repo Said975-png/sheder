@@ -429,47 +429,67 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Decentralization */}
-            <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-300 group">
-              <div className="w-16 h-16 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600/30 transition-colors">
-                <Layers className="w-8 h-8 text-blue-400" />
+            <div className="bg-black/60 backdrop-blur-sm border border-cyan-400/30 rounded-xl p-6 hover:border-cyan-400/60 hover:shadow-lg hover:shadow-cyan-400/20 transition-all duration-500 group relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-50 animate-pulse"></div>
+              <div className="w-16 h-16 bg-cyan-400/10 border border-cyan-400/30 rounded-lg flex items-center justify-center mb-6 group-hover:bg-cyan-400/20 group-hover:border-cyan-400/50 transition-all duration-300 relative">
+                <Layers className="w-8 h-8 text-cyan-400" />
+                <div className="absolute inset-0 bg-cyan-400/5 rounded-lg animate-pulse"></div>
               </div>
-              <h3 className="text-xl font-bold mb-4 text-white">
-                Decentralization
+              <h3 className="text-xl font-bold mb-4 text-cyan-400 uppercase tracking-wider">
+                [ DECENTRALIZATION ]
               </h3>
-              <p className="text-white/70">
-                No single entity controls the system
+              <p className="text-white/70 text-sm">
+                Distributed network architecture • No single point of failure
               </p>
+              <div className="mt-4 text-xs text-cyan-400/60 uppercase tracking-widest">STATUS: ACTIVE</div>
             </div>
 
             {/* Security */}
-            <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 hover:border-green-500/50 transition-all duration-300 group">
-              <div className="w-16 h-16 bg-green-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-600/30 transition-colors">
-                <Lock className="w-8 h-8 text-green-400" />
+            <div className="bg-black/60 backdrop-blur-sm border border-blue-400/30 rounded-xl p-6 hover:border-blue-400/60 hover:shadow-lg hover:shadow-blue-400/20 transition-all duration-500 group relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-50 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              <div className="w-16 h-16 bg-blue-400/10 border border-blue-400/30 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-400/20 group-hover:border-blue-400/50 transition-all duration-300 relative">
+                <Lock className="w-8 h-8 text-blue-400" />
+                <div className="absolute inset-0 bg-blue-400/5 rounded-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
               </div>
-              <h3 className="text-xl font-bold mb-4 text-white">Security</h3>
-              <p className="text-white/70">
-                Encrypted and tamper-proof technology
+              <h3 className="text-xl font-bold mb-4 text-blue-400 uppercase tracking-wider">
+                [ SECURITY ]
+              </h3>
+              <p className="text-white/70 text-sm">
+                Cryptographic protocols • Immutable data structures
               </p>
+              <div className="mt-4 text-xs text-blue-400/60 uppercase tracking-widest">THREAT LEVEL: MINIMAL</div>
             </div>
 
             {/* Transparency */}
-            <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-300 group">
-              <div className="w-16 h-16 bg-cyan-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-600/30 transition-colors">
-                <Search className="w-8 h-8 text-cyan-400" />
+            <div className="bg-black/60 backdrop-blur-sm border border-cyan-400/30 rounded-xl p-6 hover:border-cyan-400/60 hover:shadow-lg hover:shadow-cyan-400/20 transition-all duration-500 group relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-50 animate-pulse" style={{ animationDelay: '1s' }}></div>
+              <div className="w-16 h-16 bg-cyan-400/10 border border-cyan-400/30 rounded-lg flex items-center justify-center mb-6 group-hover:bg-cyan-400/20 group-hover:border-cyan-400/50 transition-all duration-300 relative">
+                <Eye className="w-8 h-8 text-cyan-400" />
+                <div className="absolute inset-0 bg-cyan-400/5 rounded-lg animate-pulse" style={{ animationDelay: '1s' }}></div>
               </div>
-              <h3 className="text-xl font-bold mb-4 text-white">
-                Transparency
+              <h3 className="text-xl font-bold mb-4 text-cyan-400 uppercase tracking-wider">
+                [ TRANSPARENCY ]
               </h3>
-              <p className="text-white/70">Public, accessible transactions</p>
+              <p className="text-white/70 text-sm">
+                Public ledger • Verifiable transactions
+              </p>
+              <div className="mt-4 text-xs text-cyan-400/60 uppercase tracking-widest">VISIBILITY: MAXIMUM</div>
             </div>
 
             {/* Efficiency */}
-            <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-300 group">
-              <div className="w-16 h-16 bg-purple-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-600/30 transition-colors">
-                <TrendingUp className="w-8 h-8 text-purple-400" />
+            <div className="bg-black/60 backdrop-blur-sm border border-blue-400/30 rounded-xl p-6 hover:border-blue-400/60 hover:shadow-lg hover:shadow-blue-400/20 transition-all duration-500 group relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-50 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+              <div className="w-16 h-16 bg-blue-400/10 border border-blue-400/30 rounded-lg flex items-center justify-center mb-6 group-hover:bg-blue-400/20 group-hover:border-blue-400/50 transition-all duration-300 relative">
+                <Cpu className="w-8 h-8 text-blue-400" />
+                <div className="absolute inset-0 bg-blue-400/5 rounded-lg animate-pulse" style={{ animationDelay: '1.5s' }}></div>
               </div>
-              <h3 className="text-xl font-bold mb-4 text-white">Efficiency</h3>
-              <p className="text-white/70">Faster, cost-effective processes</p>
+              <h3 className="text-xl font-bold mb-4 text-blue-400 uppercase tracking-wider">
+                [ EFFICIENCY ]
+              </h3>
+              <p className="text-white/70 text-sm">
+                Optimized algorithms • Reduced overhead
+              </p>
+              <div className="mt-4 text-xs text-blue-400/60 uppercase tracking-widest">PERFORMANCE: OPTIMAL</div>
             </div>
           </div>
         </div>
