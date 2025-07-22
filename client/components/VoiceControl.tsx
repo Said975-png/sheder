@@ -386,7 +386,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Останавливаем любое текущее воспроизведе��ие
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -465,7 +465,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Используем ваш оригинальный аудиофайл Джар��иса
+    // Используем ваш оригинальный аудиофайл Джарвиса
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2Fddde4fe5b47946c2a3bbb80e3bca0073%2F54eb93b1452742b6a1cd87cc6104bb59?alt=media&token=fc948eba-bbcd-485c-b129-d5a0c25cfc74&apiKey=ddde4fe5b47946c2a3bbb80e3bca0073",
     );
@@ -532,7 +532,7 @@ export default function VoiceControl({
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
-      // Поиск наиболее подходящего голоса для имитации Jarvis
+      // Поиск наибол��е подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: голоса, похожие на британский/американский мужской
@@ -576,7 +576,7 @@ export default function VoiceControl({
           utterance.lang = "ru-RU"; // Всегда русский язык
         }
         utterance.pitch = 0.55; // Еще ниже для компенсации
-        utterance.rate = 0.7; // Е����е медленнее для большей с��лидности
+        utterance.rate = 0.7; // Е����е медленнее для большей солидности
       }
 
       const resetState = () => {
@@ -791,7 +791,7 @@ export default function VoiceControl({
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
-      command.includes("джарвис ��рисутствуешь") ||
+      command.includes("джарвис ���рисутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
     ) {
@@ -799,7 +799,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Проверяем, содержит л���� команда значимые слова
+    // Проверяем, содержит л���� команд�� значимые слова
     const meaningfulWords = [
       "перейти",
       "войти",
@@ -885,7 +885,7 @@ export default function VoiceControl({
       "good",
       "тут",
       "присутствуешь",
-      "присутств��е",
+      "присутствие",
       "месте",
       "there",
       "системы",
@@ -1060,7 +1060,7 @@ export default function VoiceControl({
       if (
         command.includes("технолог") ||
         command.includes("webgl") ||
-        command.includes("ии") ||
+        command.includes("и��") ||
         command.includes("искусственный")
       ) {
         found = searchAndNavigate([
@@ -1264,7 +1264,7 @@ export default function VoiceControl({
     if (
       command.includes("к пре��муществам") ||
       command.includes("наши преимущества") ||
-      command.includes("спустит��ся к преимуществам") ||
+      command.includes("спустит����ся к преимуществам") ||
       command.includes("перейти к преимуществам") ||
       command.includes("преим��щества")
     ) {
@@ -1349,7 +1349,7 @@ export default function VoiceControl({
       setIsListening(false);
       lastCommandRef.current = "";
       commandCooldownRef.current = false;
-      onListeningChange?.(false);
+      onListeningChange?.(false, "");
     } else {
       if (recognitionRef.current) {
         setTranscript("");
