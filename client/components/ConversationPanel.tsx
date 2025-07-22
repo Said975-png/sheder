@@ -39,9 +39,7 @@ export default function ConversationPanel({
   }, [isOpen]);
 
   const handleVoiceListeningChange = (isListening: boolean) => {
-    if (!isListening) {
-      onClose();
-    }
+    // Теперь панель закрывается только по крестику, не автоматически при отключении микрофона
   };
 
   if (animationState === 'hidden') {
@@ -64,7 +62,7 @@ export default function ConversationPanel({
             <ArcReactor size="small" pulsing />
             <div>
               <h3 className="text-lg font-bold text-cyan-400 font-mono">
-                <GlitchText intensity="low">ДЖАРВИС АКТИВЕН</GlitchText>
+                <GlitchText intensity="low">ДЖАР��ИС АКТИВЕН</GlitchText>
               </h3>
               <p className="text-xs text-cyan-300/70 font-mono">
                 Голосовое управление включено
