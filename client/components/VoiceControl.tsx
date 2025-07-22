@@ -9,7 +9,7 @@ interface VoiceControlProps {
   onAddProPlan: () => void;
   onAddMaxPlan: () => void;
   inNavbar?: boolean;
-  onListeningChange?: (isListening: boolean) => void;
+  onListeningChange?: (isListening: boolean, transcript?: string) => void;
 }
 
 export default function VoiceControl({
@@ -379,12 +379,12 @@ export default function VoiceControl({
   };
 
   const speakWithElevenLabs = async (text: string) => {
-    // Множественная защи��а о�� повторного восп��оизведения
+    // Множественная защи��а от повторного восп��оизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
 
-    // Останавливаем любое ��екущее воспроизведение
+    // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -653,7 +653,7 @@ export default function VoiceControl({
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
-      command.includes("джар��ис как в фильме") ||
+      command.includes("джарвис как в фильме") ||
       command.includes("железный человек") ||
       command.includes("tony stark") ||
       command.includes("тони старк") ||
@@ -683,7 +683,7 @@ export default function VoiceControl({
       (command.includes("доброе утро") && command.length < 20) ||
       command.includes("good morning jarvis") ||
       (command.includes("good morning") && command.length < 20) ||
-      command.includes("доброго ут��а")
+      command.includes("доброго утра")
     ) {
       // Дополнит����льная проверка, ч��обы избе����ть повторных срабатываний
       if (
@@ -748,7 +748,7 @@ export default function VoiceControl({
       command.includes("как твои дела") ||
       command.includes("что нового джарвис")
     ) {
-      // Дополнительная проверк��, чтобы избежать повторных с��абатываний
+      // Дополнительная проверка, чтобы избежать п��вторных с��абатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -785,11 +785,11 @@ export default function VoiceControl({
     // Команда проверки присутствия "Джарвис ты тут?"
     if (
       command.includes("джарвис ты тут") ||
-      command.includes("ты тут джар��ис") ||
+      command.includes("ты тут джарвис") ||
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
-      command.includes("джарвис присутствуешь") ||
+      command.includes("джарвис ��рисутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
     ) {
@@ -836,7 +836,7 @@ export default function VoiceControl({
       "компания",
       "контакты",
       "поддержка",
-      "технологии",
+      "технологи��",
       "разработка",
       "сайт",
       "интеллект",
@@ -887,7 +887,7 @@ export default function VoiceControl({
       "месте",
       "there",
       "системы",
-      "работают",
+      "раб��тают",
       "дела",
       "пож��ваешь",
       "порядке",
@@ -1049,7 +1049,7 @@ export default function VoiceControl({
           "contact",
         ]);
         if (found) {
-          speak("Пок��зываю контакты");
+          speak("Пок����ываю контакты");
           return;
         }
       }
@@ -1095,7 +1095,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск а��алитики
+      // Поиск аналитики
       if (
         command.includes("аналитик") ||
         command.includes("статистик") ||
@@ -1139,7 +1139,7 @@ export default function VoiceControl({
 
     if (
       command.includes("войти") ||
-      command.includes("логин") ||
+      command.includes("лог��н") ||
       command.includes("авторизация")
     ) {
       navigate("/login");
@@ -1220,7 +1220,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("добавить м��кс") ||
+      command.includes("добавить макс") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
       command.includes("джарвис пла��") ||
@@ -1254,7 +1254,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("Показываю планы");
+        speak("Пока��ываю планы");
       }
       return;
     }
