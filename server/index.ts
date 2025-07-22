@@ -27,5 +27,8 @@ export function createServer() {
   // Orders route
   app.post("/api/orders", handleSendOrder);
 
+  // ElevenLabs TTS route
+  app.post("/api/elevenlabs-tts", handleElevenLabsTTS);
+
   return app;
 }
