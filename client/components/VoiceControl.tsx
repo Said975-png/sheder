@@ -97,7 +97,7 @@ export default function VoiceControl({
 
         recognitionRef.current.onerror = (event) => {
           console.error("Speech recognition error:", event.error);
-          // Не отключаем полностью при ��шибках, кроме критических
+          // Не отключаем полностью при ошибках, кроме критических
           if (event.error === "network" || event.error === "not-allowed") {
             setIsListening(false);
           } else {
@@ -436,14 +436,65 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Исп��льзуем Web Speech API для синтеза фразы "Все системы функционируют нормально"
+    const resetState = () => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 1000);
+    };
+
+    try {
+      // Используем ElevenLabs API для синтеза речи с вашим кастомным голосом
+      const response = await fetch('/api/elevenlabs-tts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: "Все системы функционируют нормально",
+          voice_id: "YyXZ45ZTmrPak6Ecz0mK"
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      currentAudioRef.current = audio;
+
+      audio.onended = () => {
+        URL.revokeObjectURL(audioUrl);
+        resetState();
+      };
+
+      audio.onerror = () => {
+        URL.revokeObjectURL(audioUrl);
+        resetState();
+        console.error("Ошибка воспроизведения аудио из ElevenLabs");
+      };
+
+      await audio.play();
+    } catch (error) {
+      resetState();
+      console.error("Не удалось получить аудио из ElevenLabs:", error);
+
+      // Fallback: простое текстовое сообщение
+      console.log("Джарвис: Все системы функционируют нормально");
+    }
+    return;
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(
         "Все системы функционируют нормально",
       );
 
       // Настройки максимально приближенные к ElevenLabs Jarvis
-      // Мужской голос ИИ с глубоким, уверенным тоном, как голос из научной фантастики
+      // Муж��кой голос ИИ с глубоким, уверенным тоном, как голос из научной фантастики
       // Говорит по-русски чётко и без акцента. Подходит для ассистента наподобие Джарвиса
       // Стиль — вежливый, спокойный, слегка роботизированный, интеллектуальный
 
@@ -487,7 +538,7 @@ export default function VoiceControl({
       } else if (englishMaleVoice) {
         utterance.voice = englishMaleVoice;
         utterance.lang = "ru-RU";
-        utterance.pitch = 0.5; // Еще ниже для английского голоса на русском
+        utterance.pitch = 0.5; // Еще ниже для английск��го голоса на русском
         utterance.rate = 0.7; // Медленнее для лучшего произношения
       } else {
         // Fallback: любой доступный голос с оптимизированными нас��ройками
@@ -576,7 +627,7 @@ export default function VoiceControl({
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
-      // Приоритет: голоса, похожие на британский/американский мужской
+      // Приоритет: голоса, похожие на британский/американский мужск��й
       const jarvisLikeVoice = voices.find(
         (voice) =>
           voice.lang.includes("en") &&
@@ -676,7 +727,7 @@ export default function VoiceControl({
       command.includes("стоп джарвис") ||
       command.includes("выключи")
     ) {
-      // Принудительно выполняем команду отключения независимо от состояния
+      // Принудительно ��ыполняем команду отключения независимо от состояния
       speakShutdown();
       return;
     }
@@ -728,7 +779,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит����льн��я проверка, ч��обы избе����ть повторных срабатываний
+      // Дополнит����льная проверка, ч��обы избе����ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1067,7 +1118,7 @@ export default function VoiceControl({
       // Поиск инфор��ации о компании
       if (
         command.includes("компан") ||
-        command.includes("о нас") ||
+        command.includes("о на��") ||
         command.includes("кто мы")
       ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
@@ -1097,7 +1148,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск технологи���
+      // Поиск технологи��
       if (
         command.includes("технолог") ||
         command.includes("webgl") ||
@@ -1244,7 +1295,7 @@ export default function VoiceControl({
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
       command.includes("базовый в корзину") ||
-      command.includes("отправить базовый")
+      command.includes("отправи��ь базовый")
     ) {
       onAddBasicPlan();
       speak("Базовый план д��бавлен");
@@ -1271,7 +1322,7 @@ export default function VoiceControl({
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максималь��ый пл��н добавлен");
+      speak("Максимальный пл��н добавлен");
       return;
     }
 
@@ -1281,7 +1332,7 @@ export default function VoiceControl({
       command.includes("показать планы") ||
       command.includes("перейти к планам") ||
       command.includes("спуститься к планам") ||
-      command.includes("тарифы") ||
+      command.includes("т��рифы") ||
       command.includes("цены") ||
       command.includes("стоимость")
     ) {
@@ -1306,7 +1357,7 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("перейти к преимущ��ствам") ||
+      command.includes("перейти к преимуществам") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
