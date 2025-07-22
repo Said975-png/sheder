@@ -129,7 +129,7 @@ export default function VoiceControl({
   }, []);
 
   const speak = (text: string) => {
-    // Предотвращаем повторное во��произведение
+    // Предотвращаем повторное воспроизведение
     if (isSpeaking || commandCooldownRef.current) return;
 
     setIsSpeaking(true);
@@ -169,7 +169,7 @@ export default function VoiceControl({
   };
 
   const speakShutdown = () => {
-    // Останавливаем любое текущее воспроизведение
+    // Оста��авливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -547,7 +547,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Ос��анавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -728,7 +728,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит��льная проверка, ч��обы избеж��ть повторных срабатываний
+      // Дополнит����льная проверка, ч��обы избеж��ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -762,7 +762,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис как дела" с ответом "Все системы работают сэр"
+    // Команда "Джарвис как дела" с ответом "Все системы функционируют нормально"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
@@ -802,7 +802,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды благодарности
+    // Команды благод��рности
     if (
       command.includes("спасибо") ||
       command.includes("благодарю") ||
@@ -832,7 +832,7 @@ export default function VoiceControl({
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
-      command.includes("джа��вис присутствуешь") ||
+      command.includes("джарвис присутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
     ) {
@@ -1014,7 +1014,7 @@ export default function VoiceControl({
     ) {
       let found = false;
 
-      // Поис�� преимуществ
+      // Поис�� преимущ��ств
       if (
         command.includes("преимущества") ||
         command.includes("преимущество")
@@ -1097,7 +1097,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск технологий
+      // Поиск технологи��
       if (
         command.includes("технолог") ||
         command.includes("webgl") ||
@@ -1183,10 +1183,10 @@ export default function VoiceControl({
     if (
       command.includes("войти") ||
       command.includes("логин") ||
-      command.includes("автори��ация")
+      command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Открываю страницу вх��да");
+      speak("Откр��ваю страницу вх��да");
       return;
     }
 
@@ -1265,13 +1265,13 @@ export default function VoiceControl({
     if (
       command.includes("добавить макс") ||
       command.includes("макс план") ||
-      command.includes("максим��льный план") ||
-      command.includes("джарвис план") ||
+      command.includes("максимальный план") ||
+      command.includes("джарвис пла��") ||
       command.includes("макс в ��орзину") ||
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максим��льный план добавлен");
+      speak("Максимальный пл��н добавлен");
       return;
     }
 
@@ -1306,7 +1306,7 @@ export default function VoiceControl({
       command.includes("к преимуществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("перейти к преимуще��твам") ||
+      command.includes("перейти к преимуществам") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
