@@ -65,7 +65,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Провер��ем, что команда отличается от предыдущей и не пустая
+            // Проверяем, что команда отличается от пр��дыдущей и не пустая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -284,7 +284,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("��е удалось восп��оизвести аудио благодарности:", error);
+      console.error("Не удалось восп��оизвести аудио благодарности:", error);
     });
   };
 
@@ -371,6 +371,75 @@ export default function VoiceControl({
       }, 1000);
       console.error("Не удалось воспроизвести аудио ��твета:", error);
     });
+  };
+
+  const speakWithElevenLabs = async (text: string) => {
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
+
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
+
+    const resetState = () => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 1000);
+    };
+
+    try {
+      // Используем ElevenLabs API для синтеза речи с вашим кастомным голосом
+      const response = await fetch('/api/elevenlabs-tts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: text,
+          voice_id: "YyXZ45ZTmrPak6Ecz0mK"
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      currentAudioRef.current = audio;
+
+      audio.onended = () => {
+        URL.revokeObjectURL(audioUrl);
+        resetState();
+      };
+
+      audio.onerror = () => {
+        URL.revokeObjectURL(audioUrl);
+        resetState();
+        console.error("Ошибка воспроизведения аудио из ElevenLabs");
+      };
+
+      await audio.play();
+    } catch (error) {
+      resetState();
+      console.error("Не удалось получить аудио из ElevenLabs:", error);
+
+      // Fallback: простое текстовое сообщение
+      console.log("Джарвис:", text);
+    }
   };
 
   const speakAuthenticJarvis = () => {
@@ -570,7 +639,7 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
-      utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��о��ти
+      utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
@@ -768,7 +837,7 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнительная провер���а, ����тобы избежать повторных срабат��ваний
+      // Дополнительная провер���а, ��тобы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -854,7 +923,7 @@ export default function VoiceControl({
       "базовый",
       "про",
       "макс",
-      "прокрутить",
+      "прокрут��ть",
       "скролл",
       "наверх",
       "планам",
@@ -886,7 +955,7 @@ export default function VoiceControl({
       "ии",
       "jarvis",
       "мощный",
-      "��никальный",
+      "уникальный",
       "качество",
       "аналитика",
       "премиум",
@@ -1016,7 +1085,7 @@ export default function VoiceControl({
 
       // Поис�� преимущ��ств
       if (
-        command.includes("преимущ��ства") ||
+        command.includes("преимущества") ||
         command.includes("преимущество")
       ) {
         found = searchAndNavigate([
@@ -1267,7 +1336,7 @@ export default function VoiceControl({
       command.includes("макс план") ||
       command.includes("максимальный план") ||
       command.includes("джарвис пла��") ||
-      command.includes("макс в ���орзину") ||
+      command.includes("макс в ��орзину") ||
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
@@ -1324,7 +1393,7 @@ export default function VoiceControl({
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
-      command.includes("перейти к возможностям") ||
+      command.includes("перейти к в��зможностям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
