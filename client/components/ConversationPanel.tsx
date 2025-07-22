@@ -21,6 +21,7 @@ export default function ConversationPanel({
   onAddMaxPlan,
 }: ConversationPanelProps) {
   const [animationState, setAnimationState] = useState<'hidden' | 'entering' | 'visible' | 'exiting'>('hidden');
+  const [shouldStopVoice, setShouldStopVoice] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
