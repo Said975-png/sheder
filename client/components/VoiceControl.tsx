@@ -65,7 +65,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяем, что команда отличается от предыдущей и не пустая
+            // Провер��ем, что команда отличается от предыдущей и не пустая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -284,7 +284,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось восп��оизвести аудио благодарности:", error);
+      console.error("��е удалось восп��оизвести аудио благодарности:", error);
     });
   };
 
@@ -570,7 +570,7 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
-      utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
+      utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��о��ти
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
@@ -768,13 +768,13 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнительная провер���а, ��тобы избежать повторных срабат��ваний
+      // Дополнительная провер���а, ����тобы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
         !audioPlayingRef.current
       ) {
-        speak("Все системы функционируют нормально");
+        speakSystemsOperational();
       }
       return;
     }
@@ -797,7 +797,7 @@ export default function VoiceControl({
         !commandCooldownRef.current &&
         !audioPlayingRef.current
       ) {
-        speak("Все системы функционируют нормально");
+        speakSystemsOperational();
       }
       return;
     }
@@ -886,7 +886,7 @@ export default function VoiceControl({
       "ии",
       "jarvis",
       "мощный",
-      "уникальный",
+      "��никальный",
       "качество",
       "аналитика",
       "премиум",
@@ -1016,7 +1016,7 @@ export default function VoiceControl({
 
       // Поис�� преимущ��ств
       if (
-        command.includes("преимущества") ||
+        command.includes("преимущ��ства") ||
         command.includes("преимущество")
       ) {
         found = searchAndNavigate([
@@ -1267,7 +1267,7 @@ export default function VoiceControl({
       command.includes("макс план") ||
       command.includes("максимальный план") ||
       command.includes("джарвис пла��") ||
-      command.includes("макс в ��орзину") ||
+      command.includes("макс в ���орзину") ||
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
