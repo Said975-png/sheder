@@ -58,6 +58,7 @@ export default function Index() {
   const [navbarScrolled, setNavbarScrolled] = useState(false);
   const [isVoicePanelActive, setIsVoicePanelActive] = useState(false);
   const [currentTranscript, setCurrentTranscript] = useState("");
+  const [lastProcessedTranscript, setLastProcessedTranscript] = useState("");
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
   // Запуск аним��ции при загрузке компонента
@@ -124,12 +125,34 @@ export default function Index() {
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
     setIsVoicePanelActive(isListening);
-    setCurrentTranscript(transcript || "");
+
+    // Простая логика: если транскрипт пустой - очищаем, если нет - отображаем
+    if (!transcript || transcript.trim() === "") {
+      console.log("📱 Очищаем транскрипт в Index.tsx");
+      setCurrentTranscript("");
+      setLastProcessedTranscript("");
+    } else {
+      // Показываем транскрипт только если он отличается от предыдущег�� и не слишком длинный
+      if (transcript !== lastProcessedTranscript && transcript.length < 50) {
+        console.log("📱 Устанавливаем новый транскрипт:", transcript);
+        setCurrentTranscript(transcript);
+        setLastProcessedTranscript(transcript);
+      } else if (transcript.length >= 50) {
+        console.log(
+          "📱 Отклоняем слишком длинный транскрипт:",
+          transcript.length,
+          "символов",
+        );
+        setCurrentTranscript("");
+        setLastProcessedTranscript("");
+      }
+    }
   };
 
   const handleCloseVoicePanel = () => {
     setIsVoicePanelActive(false);
     setCurrentTranscript("");
+    setLastProcessedTranscript("");
   };
 
   const handleStopListening = () => {

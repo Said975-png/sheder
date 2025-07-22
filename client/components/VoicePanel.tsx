@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
@@ -29,6 +29,35 @@ export default function VoicePanel({
   isListening,
   transcript,
 }: VoicePanelProps) {
+  const lastTranscriptRef = useRef("");
+  const transcriptTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Эффект для автоматической очистки застрявшего транскрипта
+  useEffect(() => {
+    if (transcript && transcript !== lastTranscriptRef.current) {
+      lastTranscriptRef.current = transcript;
+
+      // Очищаем предыдущий таймер
+      if (transcriptTimeoutRef.current) {
+        clearTimeout(transcriptTimeoutRef.current);
+      }
+
+      // Устанавливаем новый таймер для очистки через 3 секунды
+      transcriptTimeoutRef.current = setTimeout(() => {
+        if (lastTranscriptRef.current === transcript) {
+          lastTranscriptRef.current = "";
+          // Здесь мы можем вызвать callback для очистки, но в данном случае
+          // полагаемся на логику в родительском компоненте
+        }
+      }, 3000);
+    }
+
+    return () => {
+      if (transcriptTimeoutRef.current) {
+        clearTimeout(transcriptTimeoutRef.current);
+      }
+    };
+  }, [transcript]);
   return (
     <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-4xl px-4">
       <StarkHUD
@@ -150,13 +179,16 @@ export default function VoicePanel({
           </div>
 
           {/* Transcript Display */}
-          {transcript && (
+          {transcript && transcript.trim() !== "" && (
             <div className="bg-cyan-400/5 border border-cyan-400/20 rounded-lg p-4">
               <div className="flex items-center space-x-2 mb-2">
                 <Volume2 className="w-4 h-4 text-cyan-400" />
                 <span className="text-xs font-mono text-cyan-300">
                   TRANSCRIPT
                 </span>
+                {!isListening && (
+                  <span className="text-xs text-yellow-400">(PROCESSED)</span>
+                )}
               </div>
               <div className="text-white font-mono text-sm">
                 <GlitchText intensity="low">{transcript}</GlitchText>
