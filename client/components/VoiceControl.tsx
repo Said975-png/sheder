@@ -49,7 +49,7 @@ export default function VoiceControl({
         // Улучшенные настройки для лучшего распознавания
         recognitionRef.current.maxAlternatives = 5;
 
-        // Дополнительные настройки для Chrome/WebKit - улучшаем чувствительность
+        // Дополнительные настройки для Chrome/WebKit - улучшаем чувствительнос��ь
         if (recognitionRef.current.webkitSpeechRecognition || "webkitSpeechRecognition" in window) {
           // @ts-ignore - WebKit specific properties
           recognitionRef.current.webkitContinuous = true;
@@ -226,13 +226,17 @@ export default function VoiceControl({
         currentAudioRef.current.pause();
         currentAudioRef.current.currentTime = 0;
       }
+      // Очищаем таймер команд
+      if (commandDelayRef.current) {
+        clearTimeout(commandDelayRef.current);
+      }
     };
   }, []);
 
   // Effect для обработки тестовых команд
   useEffect(() => {
     const handleTestCommand = (event: any) => {
-      console.log("🧪 Получена тестовая ��оманда:", event.detail.command);
+      console.log("🧪 Получена тестовая ��ом��нда:", event.detail.command);
       processVoiceCommand(event.detail.command);
     };
 
@@ -266,7 +270,7 @@ export default function VoiceControl({
 
     audio.onended = () => {
       setIsSpeaking(false);
-      // Сбрасывае�� кулдаун через небольшую задержку
+      // Сбрасыва���� кулдаун через небольшую задержку
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
@@ -792,7 +796,7 @@ export default function VoiceControl({
     };
 
     firstAudio.onended = () => {
-      console.log("✅ Первое аудио закончилось, ждем 2 секунды...");
+      console.log("✅ Первое аудио за��ончилось, ждем 2 секунды...");
       // Через 2 секунды воспроизводим второе аудио
       setTimeout(() => {
         console.log("🎵 Создаем второе аудио для диагностики");
@@ -852,7 +856,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приветствия "Джарвис я вернулся"
+    // Команда п��иветствия "Джарвис я вернулся"
     if (
       command.includes("джарв��с я вернулся") ||
       command.includes("я вернулся джарвис") ||
@@ -1151,7 +1155,7 @@ export default function VoiceControl({
       searchTerms: string[],
       fallbackAction?: () => void,
     ) => {
-      // Поиск по заголовкам
+      // П��иск по заголовкам
       const headings = Array.from(
         document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
       );
@@ -1228,7 +1232,7 @@ export default function VoiceControl({
           "advantages",
         ]);
         if (found) {
-          speak("Показываю ��реимущества");
+          speak("��оказываю ��реимущества");
           return;
         }
       }
@@ -1310,7 +1314,7 @@ export default function VoiceControl({
         found = searchAndNavigate([
           "технолог",
           "webgl",
-          "ии",
+          "��и",
           "искусственн��й",
           "ai",
           "джарвис",
