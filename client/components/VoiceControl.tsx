@@ -207,7 +207,7 @@ export default function VoiceControl({
     };
 
     audio.play().catch((error) => {
-      console.error("Не удалось воспроизвести аудио от��лючения:", error);
+      console.error("Не удалось воспроизвести аудио отключения:", error);
       shutdownComplete();
     });
   };
@@ -284,7 +284,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалос�� восп��оизвести аудио благодарности:", error);
+      console.error("Не удалось восп��оизвести аудио благодарности:", error);
     });
   };
 
@@ -500,9 +500,7 @@ export default function VoiceControl({
 
       {
 
-        const anyVoice = voices.find(
-          (voice) => voice.lang.includes("ru") || voice.lang.includes("en"),
-        );
+
         if (anyVoice) {
           utterance.voice = anyVoice;
           utterance.lang = "ru-RU";
@@ -531,7 +529,7 @@ export default function VoiceControl({
         speechSynthesis.speak(utterance);
       } catch (error) {
         resetState();
-        console.error("Не удалось синтезировать речь:", error);
+        console.error("Не у��алось синтезировать речь:", error);
       }
     } else {
       // Fallback если Speech Synthesis недоступен
@@ -585,7 +583,7 @@ export default function VoiceControl({
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
-      // Приори��ет: голоса, похожие на британский/американский мужской
+      // Приоритет: голоса, похожие на британский/американский мужской
       const jarvisLikeVoice = voices.find(
         (voice) =>
           voice.lang.includes("en") &&
@@ -685,7 +683,7 @@ export default function VoiceControl({
       command.includes("стоп джарвис") ||
       command.includes("выключи")
     ) {
-      // Принудительно выполняем команду отключения независимо от состояния
+      // Принудительно вып��лняем команду отключения независимо от состояния
       speakShutdown();
       return;
     }
@@ -712,7 +710,7 @@ export default function VoiceControl({
       command.includes("authentic jarvis") ||
       command.includes("real jarvis") ||
       command.includes("movie jarvis") ||
-      command.includes("джарвис из железного ч���ловека") ||
+      command.includes("джарвис из железного ч��ловека") ||
       command.includes("голос джарвиса") ||
       command.includes("оригинал") ||
       command.includes("как в марвел")
@@ -777,7 +775,7 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнительная проверка, ��то��ы избежать повторных срабат��ваний
+      // Дополнительная проверка, ��тобы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -814,7 +812,7 @@ export default function VoiceControl({
     // Команды благод��рности
     if (
       command.includes("спасибо") ||
-      command.includes("б��агодарю") ||
+      command.includes("благодарю") ||
       command.includes("благодарно��ть") ||
       command.includes("спс") ||
       command.includes("сенк ю") ||
@@ -1076,7 +1074,7 @@ export default function VoiceControl({
       // Поиск инфор��ации о компании
       if (
         command.includes("компан") ||
-        command.includes("о нас") ||
+        command.includes("о н��с") ||
         command.includes("кто мы")
       ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
@@ -1165,7 +1163,7 @@ export default function VoiceControl({
         }
       }
 
-      // Если ничего специфичного не найдено, попробуем общий ��оиск
+      // Если ничего специфичного не найдено, попро��уем общий ��оиск
       if (!found) {
         const searchTerms = command
           .split(" ")
@@ -1330,7 +1328,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к возможностям") ||
+      command.includes("к возможнос��ям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
       command.includes("перейти к возможностям") ||
