@@ -135,7 +135,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим ваш новый аудио-файл
+    // Созда��м и воспроизводим ваш новый аудио-файл
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fdb47541068444a9093b406f29a6af3ce?alt=media&token=43fbc024-64ae-479b-8a6c-5b9d12b43294&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -207,7 +207,7 @@ export default function VoiceControl({
     };
 
     audio.play().catch((error) => {
-      console.error("Не удалось воспроизвести аудио отключения:", error);
+      console.error("Н�� удалось воспроизвести аудио отключения:", error);
       shutdownComplete();
     });
   };
@@ -420,7 +420,7 @@ export default function VoiceControl({
     });
   };
 
-  const speakSystemsOperational = () => {
+  const speakSystemsOperational = async () => {
     // Множественная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
@@ -547,7 +547,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем любое текущее воспроизведение
+    // Ос��анавливаем любое текущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -768,7 +768,7 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнительная проверка, ��тобы избежать повторных срабат��ваний
+      // Дополнительная провер��а, ��тобы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1275,7 +1275,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Расширенная навигация по секциям страницы
+    // Ра��ширенная навигация по секциям страницы
     if (
       command.includes("к планам") ||
       command.includes("показать планы") ||
