@@ -93,12 +93,12 @@ function ThreeLoadingFallback() {
 // HTML Loading fallback для использования вне Canvas
 function HTMLLoadingFallback() {
   return (
-    <div className="w-full h-full flex items-center justify-center absolute inset-0 bg-black/50 backdrop-blur-sm">
+    <div className="w-full h-full flex items-center justify-center absolute inset-0">
       <div className="text-center">
-        <div className="w-16 h-16 bg-cyan-600 rounded-lg flex items-center justify-center mx-auto mb-4 animate-pulse">
-          <div className="w-8 h-8 bg-white rounded opacity-80"></div>
+        <div className="w-8 h-8 bg-cyan-600 rounded-full flex items-center justify-center mx-auto mb-2 animate-pulse">
+          <div className="w-4 h-4 bg-white rounded-full opacity-80"></div>
         </div>
-        <p className="text-cyan-200 text-sm">Loading 3D Model...</p>
+        <p className="text-cyan-200 text-xs">Loading...</p>
       </div>
     </div>
   );
