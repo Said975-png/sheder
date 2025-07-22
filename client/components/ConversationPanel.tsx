@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Mic, MicOff, Volume2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ArcReactor, GlitchText } from "@/components/StarkEffects";
-import VoiceControl from "@/components/VoiceControl";
 
 interface ConversationPanelProps {
   isOpen: boolean;
