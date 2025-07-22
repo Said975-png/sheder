@@ -30,7 +30,7 @@ export function StarkHUD({
         animated && "transition-all duration-500",
         !initialized && animated && "opacity-0 scale-95",
         initialized && animated && "opacity-100 scale-100",
-        className
+        className,
       )}
     >
       {/* Основной контент */}
@@ -102,7 +102,7 @@ export function DataStream({
       className={cn(
         "absolute pointer-events-none",
         isVertical ? "w-px h-32" : "w-32 h-px",
-        className
+        className,
       )}
     >
       <div
@@ -111,7 +111,7 @@ export function DataStream({
           isVertical
             ? `w-full h-full bg-gradient-to-b ${colors[color]}`
             : `w-full h-full bg-gradient-to-r ${colors[color]}`,
-          "animate-pulse opacity-80"
+          "animate-pulse opacity-80",
         )}
         style={{
           animationDuration: speeds[speed],
@@ -144,7 +144,7 @@ export function CircuitPattern({
         "absolute border border-cyan-400/20 rounded",
         sizes[size],
         animated && "animate-pulse",
-        className
+        className,
       )}
     >
       <div className="absolute top-1/2 left-0 w-full h-px bg-cyan-400/30 transform -translate-y-1/2"></div>
@@ -169,17 +169,11 @@ export function HologramText({
   glitch = false,
 }: HologramTextProps) {
   return (
-    <div
-      className={cn(
-        "relative",
-        glitch && "hover:animate-pulse",
-        className
-      )}
-    >
+    <div className={cn("relative", glitch && "hover:animate-pulse", className)}>
       <div
         className={cn(
           "bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent",
-          "bg-[length:200%_200%] animate-gradient-shift"
+          "bg-[length:200%_200%] animate-gradient-shift",
         )}
       >
         {children}

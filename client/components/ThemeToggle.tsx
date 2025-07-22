@@ -14,7 +14,7 @@ export function ThemeToggle() {
       className={cn(
         "h-9 w-9 relative overflow-hidden transition-all duration-300",
         "hover:bg-cyan-400/10 border border-cyan-400/20 hover:border-cyan-400/40",
-        "group"
+        "group",
       )}
       aria-label="Переключить тему"
     >
@@ -24,15 +24,19 @@ export function ThemeToggle() {
       {/* Иконка */}
       <div className="relative z-10">
         {theme === "light" ? (
-          <Moon className={cn(
-            "h-4 w-4 text-cyan-400 transition-all duration-300",
-            "group-hover:scale-110 group-hover:text-cyan-300"
-          )} />
+          <Moon
+            className={cn(
+              "h-4 w-4 text-cyan-400 transition-all duration-300",
+              "group-hover:scale-110 group-hover:text-cyan-300",
+            )}
+          />
         ) : (
-          <Sun className={cn(
-            "h-4 w-4 text-yellow-400 transition-all duration-300",
-            "group-hover:scale-110 group-hover:text-yellow-300 group-hover:animate-pulse"
-          )} />
+          <Sun
+            className={cn(
+              "h-4 w-4 text-yellow-400 transition-all duration-300",
+              "group-hover:scale-110 group-hover:text-yellow-300 group-hover:animate-pulse",
+            )}
+          />
         )}
       </div>
 

@@ -7,7 +7,11 @@ import GLBModel from "@/components/GLBModel";
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
-import { ArcReactor, PowerIndicator, GlitchText } from "@/components/StarkEffects";
+import {
+  ArcReactor,
+  PowerIndicator,
+  GlitchText,
+} from "@/components/StarkEffects";
 import { cn } from "@/lib/utils";
 import {
   Shield,
@@ -68,8 +72,8 @@ export default function Index() {
       setNavbarScrolled(scrolled);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleLogout = () => {
@@ -130,12 +134,14 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Navigation - Enhanced with Stark styling */}
-      <nav className={cn(
-        "fixed top-2 left-1/2 transform -translate-x-1/2 z-50 rounded-full px-2 py-1 transition-all duration-300",
-        navbarScrolled
-          ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
-          : "bg-transparent border border-cyan-400/20"
-      )}>
+      <nav
+        className={cn(
+          "fixed top-2 left-1/2 transform -translate-x-1/2 z-50 rounded-full px-2 py-1 transition-all duration-300",
+          navbarScrolled
+            ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
+            : "bg-transparent border border-cyan-400/20",
+        )}
+      >
         <div className="flex items-center space-x-2">
           {/* Home Button */}
           <Button
@@ -174,7 +180,9 @@ export default function Index() {
               className="w-80 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
             >
               <div className="px-3 py-2">
-                <h3 className="font-semibold text-cyan-400 mb-2 font-mono">CART MATRIX</h3>
+                <h3 className="font-semibold text-cyan-400 mb-2 font-mono">
+                  CART MATRIX
+                </h3>
                 {items.length === 0 ? (
                   <p className="text-sm text-white/60 text-center py-4 font-mono">
                     Cart is empty
@@ -211,7 +219,9 @@ export default function Index() {
                     </div>
                     <DropdownMenuSeparator className="bg-cyan-400/20 my-3" />
                     <div className="flex justify-between items-center mb-3">
-                      <span className="font-semibold text-cyan-400 font-mono">TOTAL:</span>
+                      <span className="font-semibold text-cyan-400 font-mono">
+                        TOTAL:
+                      </span>
                       <span className="font-bold text-white font-mono">
                         ${getTotalPrice()}
                       </span>
@@ -319,7 +329,6 @@ export default function Index() {
       {/* Hero Section - Stark Style */}
       <StarkHero />
 
-
       {/* Why Blockchain Matters Section */}
       <section className="py-20 bg-black relative overflow-hidden">
         <div className="container mx-auto px-6">
@@ -327,16 +336,15 @@ export default function Index() {
             {/* Left Content */}
             <div className="space-y-8">
               <h2 className="text-4xl lg:text-5xl font-bold">
-                Why Blockchain{" "}
-                <HologramText glitch>Matters</HologramText>
+                Why Blockchain <HologramText glitch>Matters</HologramText>
               </h2>
 
               <p className="text-lg text-white/70 leading-relaxed font-mono">
                 <GlitchText intensity="low">
-                  Blockchain is revolutionizing how we handle data, transactions,
-                  and trust. By eliminating intermediaries and creating secure,
-                  transparent systems, blockchain is laying the foundation for a
-                  more efficient and fair digital future.
+                  Blockchain is revolutionizing how we handle data,
+                  transactions, and trust. By eliminating intermediaries and
+                  creating secure, transparent systems, blockchain is laying the
+                  foundation for a more efficient and fair digital future.
                 </GlitchText>
               </p>
 
@@ -377,7 +385,10 @@ export default function Index() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             {/* JARVIS-style Header */}
-            <StarkHUD className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3 mb-6" showCorners={false}>
+            <StarkHUD
+              className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3 mb-6"
+              showCorners={false}
+            >
               <div className="flex items-center space-x-3">
                 <ArcReactor size="small" pulsing />
                 <span className="text-sm text-cyan-400 uppercase tracking-widest font-mono">
@@ -387,8 +398,7 @@ export default function Index() {
             </StarkHUD>
 
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Access{" "}
-              <HologramText glitch>Protocols</HologramText>
+              Access <HologramText glitch>Protocols</HologramText>
             </h2>
             <p className="text-lg text-white/70 max-w-2xl mx-auto font-mono">
               <GlitchText intensity="low">
@@ -412,11 +422,15 @@ export default function Index() {
                   <HologramText>$199</HologramText>
                   <span className="text-lg text-white/60">/month</span>
                 </div>
-                <p className="text-white/60 font-mono">Individuals new to blockchain</p>
+                <p className="text-white/60 font-mono">
+                  Individuals new to blockchain
+                </p>
               </div>
 
               <div className="space-y-4 mb-8">
-                <h4 className="font-semibold font-mono text-cyan-400">Features:</h4>
+                <h4 className="font-semibold font-mono text-cyan-400">
+                  Features:
+                </h4>
                 <ul className="space-y-3">
                   <li className="flex items-center text-white/70">
                     <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
@@ -463,7 +477,9 @@ export default function Index() {
               </div>
 
               <div className="space-y-4 mb-8">
-                <h4 className="font-semibold font-mono text-cyan-400">Features:</h4>
+                <h4 className="font-semibold font-mono text-cyan-400">
+                  Features:
+                </h4>
                 <ul className="space-y-3">
                   <li className="flex items-center text-white/70">
                     <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
@@ -504,7 +520,9 @@ export default function Index() {
               </div>
 
               <div className="space-y-4 mb-8">
-                <h4 className="font-semibold font-mono text-cyan-400">Features:</h4>
+                <h4 className="font-semibold font-mono text-cyan-400">
+                  Features:
+                </h4>
                 <ul className="space-y-3">
                   <li className="flex items-center text-white/70">
                     <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
@@ -531,7 +549,6 @@ export default function Index() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }

@@ -26,7 +26,7 @@ export function ArcReactor({
         "backdrop-blur-sm",
         sizes[size],
         pulsing && "animate-pulse",
-        className
+        className,
       )}
     >
       {/* Внутренний круг */}
@@ -55,8 +55,9 @@ export function PowerIndicator({
   className,
 }: PowerIndicatorProps) {
   const normalizedLevel = Math.max(0, Math.min(100, level));
-  const color = normalizedLevel > 70 ? "cyan" : normalizedLevel > 30 ? "yellow" : "red";
-  
+  const color =
+    normalizedLevel > 70 ? "cyan" : normalizedLevel > 30 ? "yellow" : "red";
+
   const colorClasses = {
     cyan: "from-cyan-400 to-blue-400",
     yellow: "from-yellow-400 to-orange-400",
@@ -71,7 +72,7 @@ export function PowerIndicator({
           className={cn(
             "absolute left-0 top-0 h-full transition-all duration-500",
             `bg-gradient-to-r ${colorClasses[color]}`,
-            normalizedLevel > 0 && "animate-pulse"
+            normalizedLevel > 0 && "animate-pulse",
           )}
           style={{ width: `${normalizedLevel}%` }}
         ></div>
@@ -85,7 +86,7 @@ export function PowerIndicator({
           ))}
         </div>
       </div>
-      
+
       {/* Текстовый индикатор */}
       <div className="font-mono text-xs text-cyan-400 min-w-max">
         <div className="text-cyan-300">{label}</div>
@@ -131,7 +132,7 @@ export function ScannerLine({
         thicknessClasses[thickness],
         colorClasses[color],
         "opacity-80 animate-scanner",
-        className
+        className,
       )}
       style={{
         animationDuration: `${duration}s`,
@@ -176,8 +177,9 @@ export function MatrixRain({
 
   useEffect(() => {
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");
-    const randomChars = Array.from({ length: densityCount[density] }, () =>
-      chars[Math.floor(Math.random() * chars.length)]
+    const randomChars = Array.from(
+      { length: densityCount[density] },
+      () => chars[Math.floor(Math.random() * chars.length)],
     );
     setCharacters(randomChars);
   }, [density]);
@@ -187,7 +189,7 @@ export function MatrixRain({
       ref={containerRef}
       className={cn(
         "absolute inset-0 pointer-events-none overflow-hidden",
-        className
+        className,
       )}
     >
       {characters.map((char, index) => (
@@ -196,7 +198,7 @@ export function MatrixRain({
           className={cn(
             "absolute font-mono text-xs opacity-60",
             colorClasses[color],
-            speedClasses[speed]
+            speedClasses[speed],
           )}
           style={{
             left: `${(index * 100) / characters.length}%`,
@@ -290,7 +292,7 @@ export function EnergyField({
           "absolute inset-0 bg-gradient-to-br pointer-events-none",
           colorClasses[color],
           intensityClasses[intensity],
-          "animate-pulse"
+          "animate-pulse",
         )}
       ></div>
     </div>

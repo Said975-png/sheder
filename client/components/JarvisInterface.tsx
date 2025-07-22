@@ -1,18 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { 
-  Mic, 
-  MicOff, 
-  Volume2, 
-  Power, 
+import {
+  Mic,
+  MicOff,
+  Volume2,
+  Power,
   Cpu,
   Activity,
   Zap,
-  Eye
+  Eye,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
-import { ArcReactor, PowerIndicator, GlitchText } from "@/components/StarkEffects";
+import {
+  ArcReactor,
+  PowerIndicator,
+  GlitchText,
+} from "@/components/StarkEffects";
 import VoiceControl from "@/components/VoiceControl";
 
 interface JarvisInterfaceProps {
@@ -33,7 +37,7 @@ export default function JarvisInterface({
   const [powerLevel, setPowerLevel] = useState(85);
   const [isInitializing, setIsInitializing] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -45,7 +49,7 @@ export default function JarvisInterface({
     if (isActive) {
       setIsInitializing(true);
       setSystemStatus("INITIALIZING");
-      
+
       setTimeout(() => {
         setSystemStatus("ONLINE");
         setIsInitializing(false);
@@ -74,7 +78,12 @@ export default function JarvisInterface({
           inNavbar={true}
         />
         <div className="text-xs font-mono">
-          <div className={cn("font-bold", statusColors[systemStatus as keyof typeof statusColors])}>
+          <div
+            className={cn(
+              "font-bold",
+              statusColors[systemStatus as keyof typeof statusColors],
+            )}
+          >
             {systemStatus}
           </div>
         </div>
@@ -84,7 +93,7 @@ export default function JarvisInterface({
 
   return (
     <div className="fixed bottom-6 right-6 z-50">
-      <StarkHUD 
+      <StarkHUD
         className="bg-black/90 backdrop-blur-lg border border-cyan-400/30 rounded-lg p-4 min-w-80"
         showCorners={true}
         showScanlines={true}
@@ -103,20 +112,22 @@ export default function JarvisInterface({
               </div>
             </div>
           </div>
-          
+
           <Button
             onClick={() => setIsActive(!isActive)}
             className={cn(
               "w-10 h-10 rounded-full p-0 transition-all duration-300",
-              isActive 
-                ? "bg-cyan-400/20 hover:bg-cyan-400/30 border border-cyan-400/50" 
-                : "bg-gray-800/50 hover:bg-gray-700/50 border border-gray-600/50"
+              isActive
+                ? "bg-cyan-400/20 hover:bg-cyan-400/30 border border-cyan-400/50"
+                : "bg-gray-800/50 hover:bg-gray-700/50 border border-gray-600/50",
             )}
           >
-            <Power className={cn(
-              "w-5 h-5 transition-colors",
-              isActive ? "text-cyan-400" : "text-gray-400"
-            )} />
+            <Power
+              className={cn(
+                "w-5 h-5 transition-colors",
+                isActive ? "text-cyan-400" : "text-gray-400",
+              )}
+            />
           </Button>
         </div>
 
@@ -127,10 +138,12 @@ export default function JarvisInterface({
               <Cpu className="w-4 h-4 text-cyan-400" />
               <span className="text-xs font-mono text-cyan-300">STATUS</span>
             </div>
-            <div className={cn(
-              "text-sm font-bold font-mono",
-              statusColors[systemStatus as keyof typeof statusColors]
-            )}>
+            <div
+              className={cn(
+                "text-sm font-bold font-mono",
+                statusColors[systemStatus as keyof typeof statusColors],
+              )}
+            >
               {isInitializing ? (
                 <GlitchText intensity="medium">{systemStatus}</GlitchText>
               ) : (
@@ -161,9 +174,11 @@ export default function JarvisInterface({
         <div className="border-t border-cyan-400/20 pt-4">
           <div className="flex items-center space-x-2 mb-3">
             <Eye className="w-4 h-4 text-cyan-400" />
-            <span className="text-xs font-mono text-cyan-300">VOICE CONTROL</span>
+            <span className="text-xs font-mono text-cyan-300">
+              VOICE CONTROL
+            </span>
           </div>
-          
+
           <VoiceControl
             onAddBasicPlan={onAddBasicPlan}
             onAddProPlan={onAddProPlan}
@@ -193,7 +208,10 @@ export default function JarvisInterface({
 
         {/* Сканирующие линии */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse" style={{ animationDelay: "1s" }}></div>
+        <div
+          className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"
+          style={{ animationDelay: "1s" }}
+        ></div>
       </StarkHUD>
     </div>
   );
