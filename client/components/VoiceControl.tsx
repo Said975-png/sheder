@@ -96,19 +96,25 @@ export default function VoiceControl({
         };
 
         recognitionRef.current.onend = () => {
-          // Автоматически перезапу����каем распознавание, если мы все еще слушаем
+          console.log("🎤 Распознавание завершилось, isListening:", isListening, "isSpeaking:", isSpeaking);
+
+          // Автоматически перезапускаем распознавание, если мы все еще слушаем
           if (isListening && !isSpeaking) {
+            console.log("🔄 Перезапускаем распознавание...");
             setTimeout(() => {
-              if (recognitionRef.current && isListening) {
+              if (recognitionRef.current && isListening && !isSpeaking) {
                 try {
                   recognitionRef.current.start();
+                  console.log("✅ Распознавание перезапущено");
                 } catch (error) {
-                  console.log("Распознавание уже запущено");
+                  console.log("ℹ️ Распознавание уже запущено или недоступно:", error);
                 }
               }
             }, 100);
           } else {
+            console.log("🛑 Останавливаем распознавание");
             setIsListening(false);
+            onListeningChange?.(false, "");
           }
         };
 
@@ -550,7 +556,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем ��юбое текущее воспрои��ведение
+    // Ос��анавливаем ��юбое текущее воспрои���ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -690,7 +696,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Останавливаем любое текущее воспроизве��ение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -789,7 +795,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды ��ля оригинально��о голоса Джарвиса (из фи��ьма)
+    // Команды ��ля оригинально��о голоса Джарвиса (из фи���ьма)
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
@@ -1262,7 +1268,7 @@ export default function VoiceControl({
           "support",
         ]);
         if (found) {
-          speak("Показываю информацию о ка��естве");
+          speak("Показываю и��формацию о ка��естве");
           return;
         }
       }
