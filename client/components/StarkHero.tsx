@@ -33,11 +33,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
     return () => clearInterval(scanInterval);
   }, []);
 
-  const stats = [
-    { label: "SECURITY", value: "99.9%", icon: Shield, color: "cyan" },
-    { label: "UPTIME", value: "24/7", icon: Activity, color: "blue" },
-    { label: "PERFORMANCE", value: "∞", icon: Cpu, color: "cyan" },
-  ];
+
 
   return (
     <section className={cn("relative min-h-screen bg-black overflow-hidden", className)}>
