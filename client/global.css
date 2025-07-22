@@ -217,30 +217,132 @@
     color: hsl(var(--foreground) / 0.8) !important;
   }
 
-  /* Оптимизированная портальная анимация навбара */
+  /* Sci-Fi портальная анимация навбара */
   .portal-entrance {
-    animation: portalEntry 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation: portalEntry 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation-delay: 400ms;
     transform-origin: center center;
-    will-change: transform, opacity, filter;
+    will-change: transform, opacity, filter, box-shadow;
+    opacity: 0;
+    transform: scale(0);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .portal-entrance::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 255, 255, 0.4) 20%,
+      rgba(255, 0, 255, 0.6) 50%,
+      rgba(0, 255, 255, 0.4) 80%,
+      transparent 100%
+    );
+    animation: scanlineEntry 1.6s ease-out forwards;
+    animation-delay: 600ms;
+    z-index: 1;
+  }
+
+  .portal-entrance::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(255, 0, 255, 0.3) 0%, transparent 50%);
+    opacity: 0;
+    animation: energyField 1.6s ease-out forwards;
+    animation-delay: 800ms;
+    z-index: 0;
   }
 
   @keyframes portalEntry {
     0% {
       opacity: 0;
-      transform: translateX(-50%) scale(0.3) rotateY(45deg);
-      filter: blur(10px) brightness(2);
+      transform: scale(0.1) rotateX(45deg);
+      filter: blur(15px) brightness(3) hue-rotate(180deg);
+      box-shadow:
+        0 0 50px rgba(0, 255, 255, 0.8),
+        0 0 100px rgba(255, 0, 255, 0.6),
+        inset 0 0 30px rgba(0, 255, 255, 0.4);
+    }
+
+    25% {
+      opacity: 0.3;
+      transform: scale(0.4) rotateX(25deg);
+      filter: blur(8px) brightness(2.5) hue-rotate(90deg);
+      box-shadow:
+        0 0 40px rgba(0, 255, 255, 0.9),
+        0 0 80px rgba(255, 0, 255, 0.7),
+        inset 0 0 25px rgba(0, 255, 255, 0.5);
     }
 
     50% {
-      opacity: 0.7;
-      transform: translateX(-50%) scale(0.8) rotateY(10deg);
-      filter: blur(3px) brightness(1.3);
+      opacity: 0.6;
+      transform: scale(0.7) rotateX(15deg);
+      filter: blur(5px) brightness(2) hue-rotate(45deg);
+      box-shadow:
+        0 0 30px rgba(0, 255, 255, 0.7),
+        0 0 60px rgba(255, 0, 255, 0.5),
+        inset 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+
+    75% {
+      opacity: 0.8;
+      transform: scale(0.9) rotateX(5deg);
+      filter: blur(2px) brightness(1.5) hue-rotate(20deg);
+      box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.5),
+        0 0 40px rgba(255, 0, 255, 0.3),
+        inset 0 0 15px rgba(0, 255, 255, 0.2);
     }
 
     100% {
       opacity: 1;
-      transform: translateX(-50%) scale(1) rotateY(0deg);
-      filter: blur(0px) brightness(1);
+      transform: scale(1) rotateX(0deg);
+      filter: blur(0px) brightness(1) hue-rotate(0deg);
+      box-shadow:
+        0 0 10px rgba(0, 255, 255, 0.3),
+        0 0 20px rgba(255, 0, 255, 0.2),
+        inset 0 0 10px rgba(0, 255, 255, 0.1);
+    }
+  }
+
+  @keyframes scanlineEntry {
+    0% {
+      left: -100%;
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      left: 100%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes energyField {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 0.2;
+      transform: scale(1);
     }
   }
 
@@ -369,7 +471,7 @@
     }
   }
 
-  /* Голографическое мерцание */
+  /* Голографи��еское мерцание */
   .holographic {
     position: relative;
     overflow: hidden;
