@@ -148,8 +148,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
                 <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-lg font-mono">
                   {targetLocked ? (
                     <span className="text-cyan-400 stark-text-glow">
-                      TARGET ACQUIRED: Transforming industries with secure,
-                      decentralized and transparent technology.
+                      Вы говорите — Джарвис делает. Это не просто сайт. Это — ваш персональный AI-помощник, встроенный в интерфейс
                     </span>
                   ) : (
                     "Scanning quantum blockchain matrices... Analyzing distributed networks..."
