@@ -95,8 +95,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
           enableZoom={true}
           enablePan={false}
           enableRotate={true}
-          autoRotate={autoRotate}
-          autoRotateSpeed={2}
+          autoRotate={false}
           makeDefault
           maxDistance={10}
           minDistance={2}
