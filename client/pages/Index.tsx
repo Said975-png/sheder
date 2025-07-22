@@ -284,6 +284,22 @@ export default function Index() {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Тестовая кнопк�� диагностики */}
+          <Button
+            onClick={() => {
+              console.log("🧪 Тестовый запуск диагностики");
+              // Имитируем голосовую команду
+              const event = new CustomEvent('voiceCommand', {
+                detail: { command: 'диагностика' }
+              });
+              window.dispatchEvent(event);
+            }}
+            variant="ghost"
+            className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+          >
+            <span className="stark-text-glow">TEST</span>
+          </Button>
+
           <ThemeToggle />
 
           {isAuthenticated && currentUser ? (
