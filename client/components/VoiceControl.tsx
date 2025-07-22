@@ -65,7 +65,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяем, что команда отличается от предыдущей и не пустая
+            // Проверяем, что команда отличается от предыдущей и не ��устая
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -482,7 +482,7 @@ export default function VoiceControl({
       await audio.play();
     } catch (error) {
       resetState();
-      console.error("Не удалось получить аудио из ElevenLabs:", error);
+      console.error("Не удалось пол��чить аудио из ElevenLabs:", error);
 
       // Fallback: простое текстовое сообщение
       console.log("Джарвис: Все системы функционируют нормально");
@@ -501,10 +501,7 @@ export default function VoiceControl({
       {
 
 
-        if (anyVoice) {
-          utterance.voice = anyVoice;
-          utterance.lang = "ru-RU";
-        }
+
         utterance.pitch = 0.45; // Самый низкий тон для компенсации
         utterance.rate = 0.65; // Самая медленная речь для солидности
       }
@@ -529,7 +526,7 @@ export default function VoiceControl({
         speechSynthesis.speak(utterance);
       } catch (error) {
         resetState();
-        console.error("Не у��алось синтезировать речь:", error);
+        console.error("Не удалось синтезировать речь:", error);
       }
     } else {
       // Fallback если Speech Synthesis недоступен
@@ -615,7 +612,7 @@ export default function VoiceControl({
         utterance.lang = "ru-RU";
         utterance.pitch = 0.6; // Чуть ниже для русского голоса
       } else {
-        // Fallback: любой доступный голос с оптимизированными настройками
+        // Fallback: любой доступный гол��с с оптимизированными настройками
         const anyVoice = voices.find(
           (voice) => voice.lang.includes("en") || voice.lang.includes("ru"),
         );
@@ -683,7 +680,7 @@ export default function VoiceControl({
       command.includes("стоп джарвис") ||
       command.includes("выключи")
     ) {
-      // Принудительно вып��лняем команду отключения независимо от состояния
+      // Принудительно выполняем команду отключения независимо от состояния
       speakShutdown();
       return;
     }
@@ -1041,7 +1038,7 @@ export default function VoiceControl({
       if (
         command.includes("возможности") ||
         command.includes("возможность") ||
-        command.includes("м��щные")
+        command.includes("м��щн��е")
       ) {
         found = searchAndNavigate(["возможности", "мощные", "features"]);
         if (found) {
@@ -1074,12 +1071,12 @@ export default function VoiceControl({
       // Поиск инфор��ации о компании
       if (
         command.includes("компан") ||
-        command.includes("о н��с") ||
+        command.includes("о нас") ||
         command.includes("кто мы")
       ) {
         found = searchAndNavigate(["компан", "о нас", "about", "кто мы"]);
         if (found) {
-          speak("Показ��ваю информацию о компании");
+          speak("Пока����ваю информацию о компании");
           return;
         }
       }
@@ -1126,7 +1123,7 @@ export default function VoiceControl({
         }
       }
 
-      // ��оиск качества и премиум услуг
+      // ��оиск качества и премиум усл��г
       if (
         command.includes("качество") ||
         command.includes("премиум") ||
@@ -1163,7 +1160,7 @@ export default function VoiceControl({
         }
       }
 
-      // Если ничего специфичного не найдено, попро��уем общий ��оиск
+      // Если ничего специфичного не найдено, попробуем общий ��оиск
       if (!found) {
         const searchTerms = command
           .split(" ")
@@ -1213,7 +1210,7 @@ export default function VoiceControl({
       command.includes("открыть профиль")
     ) {
       navigate("/profile");
-      speak("Открываю личный кабинет");
+      speak("Открыв��ю личный кабинет");
       return;
     }
 
@@ -1251,7 +1248,7 @@ export default function VoiceControl({
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
       command.includes("базовый в корзину") ||
-      command.includes("отправить базовый")
+      command.includes("о��править базовый")
     ) {
       onAddBasicPlan();
       speak("Базовый план д��бавлен");
@@ -1328,7 +1325,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к возможнос��ям") ||
+      command.includes("к возможностя��") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
       command.includes("перейти к возможностям") ||
