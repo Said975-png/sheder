@@ -129,7 +129,7 @@ export default function VoiceControl({
   }, []);
 
   const speak = (text: string) => {
-    // Предотвращаем повторное воспроизведение
+    // Предотвращ��ем повторное воспроизведение
     if (isSpeaking || commandCooldownRef.current) return;
 
     setIsSpeaking(true);
@@ -164,7 +164,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удалось воспроизвести аудио:", error);
+      console.error("Не удалось воспроизв��сти аудио:", error);
     });
   };
 
@@ -237,7 +237,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("О��ибка воспроизведения аудио приветствия");
+      console.error("О��ибка воспроизведения аудио прив��тствия");
     };
 
     audio.play().catch((error) => {
@@ -498,11 +498,7 @@ export default function VoiceControl({
 
 
 
-      if (russianMaleVoice) {
-        utterance.voice = russianMaleVoice;
-        utterance.pitch = 0.6; // Глубокий тон для русского голоса
-        utterance.rate = 0.75; // Спокойная речь
-      } else if (englishMaleVoice) {
+      if (englishMaleVoice) {
         utterance.voice = englishMaleVoice;
         utterance.lang = "ru-RU";
         utterance.pitch = 0.5; // Еще ниже для английского голоса на русском
@@ -607,7 +603,7 @@ export default function VoiceControl({
             voice.name.toLowerCase().includes("thomas")),
       );
 
-      // ��сли н�� нашли подходящий а��глийский, ищем русский мужской
+      // ���сли н�� нашли подходящий а��глийский, ищем русский мужской
       const russianMaleVoice = voices.find(
         (voice) =>
           voice.lang.includes("ru") &&
@@ -769,7 +765,7 @@ export default function VoiceControl({
       command.includes("hey jarvis") ||
       (command.includes("привет") && command.includes("джарвис"))
     ) {
-      // Дополнительная проверка, чтобы из��ежать повторных срабатываний
+      // Дополнительная проверка, чтобы из��ежа��ь повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -807,7 +803,7 @@ export default function VoiceControl({
       command.includes("jarvis how are you") ||
       command.includes("how are you") ||
       command.includes("как твои дела") ||
-      command.includes("что нового джарвис")
+      command.includes("что нового джарв��с")
     ) {
       // Дополнительная проверка, чтобы избежать повторных с��абатываний
       if (
@@ -845,7 +841,7 @@ export default function VoiceControl({
 
     // Команда проверки присутствия "Джарвис ты тут?"
     if (
-      command.includes("джарвис ты тут") ||
+      command.includes("джарви�� ты тут") ||
       command.includes("ты тут джарвис") ||
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
@@ -936,7 +932,7 @@ export default function VoiceControl({
       "замечательно",
       "круто",
       "прекрасно",
-      "чудесно",
+      "чуде��но",
       "добр��е",
       "утро",
       "утра",
@@ -1146,7 +1142,7 @@ export default function VoiceControl({
         found = searchAndNavigate([
           "качество",
           "премиум",
-          "поддержка",
+          "под��ержка",
           "quality",
           "support",
         ]);
@@ -1190,7 +1186,7 @@ export default function VoiceControl({
     // Команды навигации по страницам
     if (
       command.includes("пере��ти на главную") ||
-      command.includes("на главную страницу") ||
+      command.includes("на главную ��траницу") ||
       command.includes("домо��")
     ) {
       navigate("/");
