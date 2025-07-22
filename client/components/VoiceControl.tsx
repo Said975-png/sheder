@@ -108,7 +108,7 @@ export default function VoiceControl({
           if (combinedTranscript && !commandCooldownRef.current) {
             setTranscript(combinedTranscript);
             onListeningChange?.(true, combinedTranscript);
-            console.log("🎯 Распознано:", `"${combinedTranscript}"`);
+            console.log("��� Распознано:", `"${combinedTranscript}"`);
           }
 
           // Обрабатываем финальные результаты или достаточно длинные промежуточные
@@ -143,20 +143,22 @@ export default function VoiceControl({
                   lastCommandRef.current = command;
                   setNoSpeechCount(0); // Сбрасываем счетчик при успешном распознавании
 
-                  // Немедленно очищаем транскрипт при начале обработки
-                  setTranscript("");
-                  onListeningChange?.(isListening, "");
-
                   processVoiceCommand(command);
 
-                  // После обработки команды очищаем состояние через небольшую паузу
+                  // Немедленно очищаем транскрипт после запуска обработки команды
                   setTimeout(() => {
-                    console.log("🧹 Очищаем состояние после команды");
+                    console.log("🧹 Быстрая очистка транскрипта");
                     setTranscript("");
-                    // Всегда передаем true для isListening, чтобы сохранить активность микрофона
+                    onListeningChange?.(true, "");
+                  }, 200);
+
+                  // Полная очистка состояния команды для приема новых команд
+                  setTimeout(() => {
+                    console.log("🧹 Полная очистка состояния после команды");
+                    setTranscript("");
                     onListeningChange?.(true, "");
                     lastCommandRef.current = "";
-                  }, 1500); // Сокращаем паузу до 1.5 секу��д
+                  }, 1000); // Сокращаем время до 1 секунды
                 },
                 finalTranscript ? 100 : 1000,
               ); // Меньше задержки для финальных результатов
@@ -470,7 +472,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 1000);
-      console.error("Не удал��сь восп��оизвести аудио благо��арности:", error);
+      console.error("Не удал��сь восп��оизвест�� аудио благо��арности:", error);
     });
   };
 
@@ -684,7 +686,7 @@ export default function VoiceControl({
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
-      }, 1500); // Сокращаем время до 1.5 секунд
+      }, 1500); // Сокращаем ��ремя до 1.5 секунд
     };
 
     audio.onended = resetState;
@@ -722,7 +724,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Используем Web Speech API для синтеза фразы "у меня все в п��рядке сэр"
+    // Используем Web Speech API для синтез�� фразы "у меня все в п��рядке сэр"
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(
         "у меня все в порядке сэр",
@@ -805,7 +807,7 @@ export default function VoiceControl({
         speechSynthesis.speak(utterance);
       } catch (error) {
         resetState();
-        console.error("Не удало��ь синтезировать речь:", error);
+        console.error("Не удало��ь синтезировать ��ечь:", error);
       }
     } else {
       // Fallback если Speech Synthesis недоступен
@@ -892,7 +894,7 @@ export default function VoiceControl({
         currentAudioRef.current = secondAudio;
 
         secondAudio.onended = () => {
-          console.log("✅ Второе ауди�� закончилось, диагностика завершена");
+          console.log("✅ Второе ауди�� закончилось, диагностика за��ершена");
           resetState();
         };
         secondAudio.onerror = () => {
@@ -1051,7 +1053,7 @@ export default function VoiceControl({
         lastGreetingTimeRef.current = now;
         speakAuthenticJarvis();
       } else {
-        console.log("❌ Приветствие заблокировано:", {
+        console.log("��� Приветствие заблокировано:", {
           isSpeaking,
           commandCooldown: commandCooldownRef.current,
           audioPlaying: audioPlayingRef.current,
@@ -1234,7 +1236,7 @@ export default function VoiceControl({
       "отключись",
       "в��ключись",
       "от��лючи",
-      "выключи",
+      "в��ключи",
       "ст��п",
       "вернулся",
       "здесь",
@@ -1614,7 +1616,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ра��шире��ная навигация по секциям стран��ц��
+    // Ра��шире��ная навигация по секциям ��тран��ц��
     if (
       command.includes("к планам") ||
       command.includes("показать планы") ||
