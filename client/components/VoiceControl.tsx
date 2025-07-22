@@ -168,7 +168,7 @@ export default function VoiceControl({
                 clearTimeout(commandDelayRef.current);
               }
 
-              // Добавляем небольшую задержку для завершения фразы
+              // Добавляем неболь��ую задержку для завершения фразы
               commandDelayRef.current = setTimeout(
                 () => {
                   lastCommandRef.current = command;
@@ -282,7 +282,7 @@ export default function VoiceControl({
                 `ℹ️ No-speech ошибка #${noSpeechCount + 1} - п��одолжаем слушать`,
               );
 
-              // Если сл��шком много no-speech ошибок подряд, делаем небольшую паузу
+              // Если сл��шком м��ого no-speech ошибок подряд, делаем небольшую паузу
               if (noSpeechCount >= 3) {
                 console.log("⏸️ Много no-speech ошибок, делаем паузу 2 сек...");
                 setTimeout(() => {
@@ -498,7 +498,7 @@ export default function VoiceControl({
     };
 
     audio.play().catch((error) => {
-      console.error("Н���� удалось воспроизвести аудио отключен��я:", error);
+      console.error("Н�� удалось воспроизвести аудио отключен��я:", error);
       shutdownComplete();
     });
   };
@@ -571,7 +571,7 @@ export default function VoiceControl({
         lastCommandRef.current = "";
         restoreListening();
       }, 500);
-      console.error("Ошибка во��п��оизведения ��удио благодар��о��ти");
+      console.error("Ошибка во������оизведения ��удио благодар��о��ти");
     };
 
     audio.play().catch((error) => {
@@ -614,6 +614,7 @@ export default function VoiceControl({
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
+        restoreListening();
       }, 2000); // Увеличен таймаут до 2 секунд
     };
 
@@ -679,7 +680,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Оста��авливаем любое текущее воспроизведение
+    // Оста����авливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -762,11 +763,11 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Немедлен��о очищаем транскрипт когда начин��ем говорить
+    // Немедлен��о очищаем транскрипт когда начинаем говорить
     setTranscript("");
     onListeningChange?.(true, "");
 
-    // Временн�� останавливаем ��аспознавание речи во время воспроизведения
+    // Временн�� останавливаем ��аспознав��ние речи во время воспроизведения
     if (recognitionRef.current && wasListening) {
       console.log("⏸️ Временно остана��ливаем распознавание на время аудио");
       try {
@@ -971,7 +972,7 @@ export default function VoiceControl({
 
     // Множественная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
-      console.log("�� Диагностика заблокирована - система занята");
+      console.log("❌ Диагностика заблокирована - система занята");
       return;
     }
 
@@ -1126,7 +1127,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит����льная проверка, ч��обы избе����ть повторных срабатываний
+      // Дополнит����льная проверка, ч��обы избе������ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1137,7 +1138,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда пр��ветствия "Приве�� Дж��рвис" - улучшенное распознавание с защитой от повторов
+    // Команда пр��ветствия "Приве�� Джарвис" - улучшенное распознавание с защитой от повторов
     if (
       command.includes("привет джарвис") ||
       command.includes("джарвис привет") ||
@@ -1164,7 +1165,7 @@ export default function VoiceControl({
         timeSinceLastGreeting,
       );
 
-      // Доп��лнительная проверка + защита от повторов (минимум 10 секунд между приветствиями)
+      // Дополнительная проверка + защита от повторов (минимум 10 секунд между приветствиями)
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1190,9 +1191,9 @@ export default function VoiceControl({
       command.includes("дж��рвис как дела") ||
       command.includes("как дела джарвис") ||
       command.includes("жарвис как дела") || // частые ошибки рас��ознавания
-      command.includes("как дела жарвис") ||
+      command.includes("как дела жарв��с") ||
       command.includes("ярвис как дела") ||
-      (command.includes("д��арвис") && command.includes("как дела")) ||
+      (command.includes("джарвис") && command.includes("как дела")) ||
       (command.includes("жарвис") && command.includes("как дела")) ||
       (command.includes("как дела") && command.length < 20) // ��сли с��ышно ��олько "как дела"
     ) {
@@ -1219,7 +1220,7 @@ export default function VoiceControl({
       command.includes("как тв��и дела") ||
       command.includes("что ново��о джарвис")
     ) {
-      // Дополнительная п��о���ерка, чтобы избежать п��вторных с��абатываний
+      // Дополнительная про���ерка, чтобы избежать п��вторных с��абатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1256,7 +1257,7 @@ export default function VoiceControl({
     // Команда диа��ностики с��стемы
     if (
       command.includes("диагностик") ||
-      command.includes("прове����и") ||
+      command.includes("прове��и") ||
       command.includes("запусти") ||
       command.includes("проверь систему") ||
       command.includes("тест")
@@ -1324,7 +1325,7 @@ export default function VoiceControl({
       "кабинет",
       "отправить",
       "секция",
-      "спуститься",
+      "спустить��я",
       "перейти",
       "покажи",
       "на��ди",
@@ -1373,10 +1374,10 @@ export default function VoiceControl({
       "��ахмат",
       "рахмет",
       "хорошо",
-      "отлично",
+      "отличн��",
       "замечате��ьно",
       "круто",
-      "пре��расн��",
+      "пре��расно",
       "чудесно",
       "добр��е",
       "утро",
@@ -1497,7 +1498,7 @@ export default function VoiceControl({
       if (
         command.includes("возможности") ||
         command.includes("возможность") ||
-        command.includes("м��щные")
+        command.includes("м��щны��")
       ) {
         found = searchAndNavigate(["возможности", "мощные", "features"]);
         if (found) {
@@ -1535,7 +1536,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate(["компан", "�� нас", "about", "кто мы"]);
         if (found) {
-          speak("Показ��ваю инфор��ацию о ко��пании");
+          speak("П��каз��ваю инфор��ацию о ко��пании");
           return;
         }
       }
@@ -1582,9 +1583,9 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск качества и премиум услуг
+      // Пои��к качества и премиум услуг
       if (
-        command.includes("каче��тво") ||
+        command.includes("качество") ||
         command.includes("премиум") ||
         command.includes("поддержка")
       ) {
@@ -1635,7 +1636,7 @@ export default function VoiceControl({
     // Команды навигации по страницам
     if (
       command.includes("перейти на глав��у��") ||
-      command.includes("на ����лавную страницу") ||
+      command.includes("на ��лавную страницу") ||
       command.includes("домо��")
     ) {
       navigate("/");
@@ -1675,7 +1676,7 @@ export default function VoiceControl({
 
     if (command.includes("заказ") || command.includes("оформить заказ")) {
       navigate("/order");
-      speak("Переходим к оф��рмлен��ю зака���а");
+      speak("Переходим к оф��рмлен��ю зака��а");
       return;
     }
 
@@ -1745,7 +1746,7 @@ export default function VoiceControl({
       command.includes("пере��ти к планам") ||
       command.includes("сп��ститься �� планам") ||
       command.includes("тарифы") ||
-      command.includes("цены") ||
+      command.includes("ц��ны") ||
       command.includes("стоимость")
     ) {
       const found = searchAndNavigate(
@@ -1786,7 +1787,7 @@ export default function VoiceControl({
     if (
       command.includes("к возможностям") ||
       command.includes("мощные возможности") ||
-      command.includes("сп��ститься к возможностям") ||
+      command.includes("спуститься к возможностям") ||
       command.includes("пере�����и к возмо��ностям") ||
       command.includes("возможности")
     ) {
