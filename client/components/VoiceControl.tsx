@@ -1361,7 +1361,13 @@ export default function VoiceControl({
 
   return (
     <div className={inNavbar ? "relative" : "fixed bottom-6 right-6 z-50"}>
-      <div className={inNavbar ? "flex items-center space-x-2" : "flex flex-col items-end space-y-2"}>
+      <div
+        className={
+          inNavbar
+            ? "flex items-center space-x-2"
+            : "flex flex-col items-end space-y-2"
+        }
+      >
         {/* Transcript display */}
         {transcript && !inNavbar && (
           <div className="max-w-xs p-3 bg-black/80 backdrop-blur-lg border border-purple-500/30 rounded-lg text-white text-sm">

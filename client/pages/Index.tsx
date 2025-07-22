@@ -119,7 +119,7 @@ export default function Index() {
           <Button
             variant="ghost"
             className="text-sm px-4 py-2 rounded-full hover:bg-white/10"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             Home
           </Button>
@@ -297,37 +297,102 @@ export default function Index() {
           {/* Neural Network Grid */}
           <div className="absolute inset-0 opacity-20">
             <div className="absolute top-10 left-10 w-32 h-32 border border-cyan-400/30 rounded-lg animate-pulse"></div>
-            <div className="absolute top-20 right-20 w-24 h-24 border border-blue-400/30 rounded-lg animate-pulse" style={{ animationDelay: '1s' }}></div>
-            <div className="absolute bottom-20 left-20 w-28 h-28 border border-cyan-400/30 rounded-lg animate-pulse" style={{ animationDelay: '2s' }}></div>
-            <div className="absolute bottom-10 right-10 w-20 h-20 border border-blue-400/30 rounded-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+            <div
+              className="absolute top-20 right-20 w-24 h-24 border border-blue-400/30 rounded-lg animate-pulse"
+              style={{ animationDelay: "1s" }}
+            ></div>
+            <div
+              className="absolute bottom-20 left-20 w-28 h-28 border border-cyan-400/30 rounded-lg animate-pulse"
+              style={{ animationDelay: "2s" }}
+            ></div>
+            <div
+              className="absolute bottom-10 right-10 w-20 h-20 border border-blue-400/30 rounded-lg animate-pulse"
+              style={{ animationDelay: "0.5s" }}
+            ></div>
           </div>
 
           {/* Connecting Lines */}
-          <svg className="absolute inset-0 w-full h-full opacity-30" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            className="absolute inset-0 w-full h-full opacity-30"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <defs>
-              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.8"/>
-                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.3"/>
+              <linearGradient
+                id="lineGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.3" />
               </linearGradient>
             </defs>
-            <line x1="10%" y1="20%" x2="90%" y2="30%" stroke="url(#lineGradient)" strokeWidth="1" className="animate-pulse"/>
-            <line x1="20%" y1="80%" x2="80%" y2="20%" stroke="url(#lineGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '1s' }}/>
-            <line x1="80%" y1="70%" x2="20%" y2="90%" stroke="url(#lineGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '2s' }}/>
+            <line
+              x1="10%"
+              y1="20%"
+              x2="90%"
+              y2="30%"
+              stroke="url(#lineGradient)"
+              strokeWidth="1"
+              className="animate-pulse"
+            />
+            <line
+              x1="20%"
+              y1="80%"
+              x2="80%"
+              y2="20%"
+              stroke="url(#lineGradient)"
+              strokeWidth="1"
+              className="animate-pulse"
+              style={{ animationDelay: "1s" }}
+            />
+            <line
+              x1="80%"
+              y1="70%"
+              x2="20%"
+              y2="90%"
+              stroke="url(#lineGradient)"
+              strokeWidth="1"
+              className="animate-pulse"
+              style={{ animationDelay: "2s" }}
+            />
           </svg>
 
           {/* Floating Particles */}
           <div className="absolute inset-0">
-            <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-cyan-400 rounded-full opacity-60 animate-bounce" style={{ animationDelay: '0s', animationDuration: '3s' }}></div>
-            <div className="absolute top-1/3 right-1/3 w-1 h-1 bg-blue-400 rounded-full opacity-80 animate-bounce" style={{ animationDelay: '1s', animationDuration: '4s' }}></div>
-            <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-cyan-300 rounded-full opacity-70 animate-bounce" style={{ animationDelay: '2s', animationDuration: '3.5s' }}></div>
-            <div className="absolute bottom-1/3 right-1/4 w-1 h-1 bg-blue-300 rounded-full opacity-60 animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '2.8s' }}></div>
+            <div
+              className="absolute top-1/4 left-1/4 w-2 h-2 bg-cyan-400 rounded-full opacity-60 animate-bounce"
+              style={{ animationDelay: "0s", animationDuration: "3s" }}
+            ></div>
+            <div
+              className="absolute top-1/3 right-1/3 w-1 h-1 bg-blue-400 rounded-full opacity-80 animate-bounce"
+              style={{ animationDelay: "1s", animationDuration: "4s" }}
+            ></div>
+            <div
+              className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-cyan-300 rounded-full opacity-70 animate-bounce"
+              style={{ animationDelay: "2s", animationDuration: "3.5s" }}
+            ></div>
+            <div
+              className="absolute bottom-1/3 right-1/4 w-1 h-1 bg-blue-300 rounded-full opacity-60 animate-bounce"
+              style={{ animationDelay: "0.5s", animationDuration: "2.8s" }}
+            ></div>
           </div>
 
           {/* HUD Corner Elements */}
           <div className="absolute top-4 left-4 w-16 h-16 border-l-2 border-t-2 border-cyan-400/60 animate-pulse"></div>
-          <div className="absolute top-4 right-4 w-16 h-16 border-r-2 border-t-2 border-cyan-400/60 animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-4 left-4 w-16 h-16 border-l-2 border-b-2 border-cyan-400/60 animate-pulse" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute bottom-4 right-4 w-16 h-16 border-r-2 border-b-2 border-cyan-400/60 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          <div
+            className="absolute top-4 right-4 w-16 h-16 border-r-2 border-t-2 border-cyan-400/60 animate-pulse"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className="absolute bottom-4 left-4 w-16 h-16 border-l-2 border-b-2 border-cyan-400/60 animate-pulse"
+            style={{ animationDelay: "2s" }}
+          ></div>
+          <div
+            className="absolute bottom-4 right-4 w-16 h-16 border-r-2 border-b-2 border-cyan-400/60 animate-pulse"
+            style={{ animationDelay: "0.5s" }}
+          ></div>
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
