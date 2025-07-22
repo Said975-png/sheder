@@ -14,10 +14,12 @@ function Model({
   url,
   scale = 1,
   position = [0, 0, 0],
+  onLoad,
 }: {
   url: string;
   scale: number;
   position: [number, number, number];
+  onLoad?: () => void;
 }) {
   const { scene } = useGLTF(url);
   const modelRef = useRef<THREE.Group>(null);
@@ -25,6 +27,13 @@ function Model({
 
   // Клонируем сцену для избежания конфликтов при повторном использовании
   const clonedScene = useMemo(() => scene.clone(), [scene]);
+
+  // Вызываем onLoad после загрузки модели
+  React.useEffect(() => {
+    if (scene && onLoad) {
+      onLoad();
+    }
+  }, [scene, onLoad]);
 
   React.useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -37,16 +46,23 @@ function Model({
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  useFrame(() => {
+  useFrame((state) => {
     if (modelRef.current) {
-      // Увеличиваем чувствительность для более заметно��о эффекта
-      const targetRotationY = mouseRef.current.x * 0.5;
-      const targetRotationX = -mouseRef.current.y * 0.3;
+      // Добавляем эффект гравитации - модель слегка покачивается
+      const time = state.clock.getElapsedTime();
+
+      // Гравитационное покачивание
+      modelRef.current.position.y = Math.sin(time * 0.8) * 0.2;
+      modelRef.current.rotation.z = Math.sin(time * 0.5) * 0.1;
+
+      // Легкое вращение от мыши (уменьшенное)
+      const targetRotationY = mouseRef.current.x * 0.2;
+      const targetRotationX = -mouseRef.current.y * 0.1;
 
       modelRef.current.rotation.y +=
-        (targetRotationY - modelRef.current.rotation.y) * 0.08;
+        (targetRotationY - modelRef.current.rotation.y) * 0.05;
       modelRef.current.rotation.x +=
-        (targetRotationX - modelRef.current.rotation.x) * 0.08;
+        (targetRotationX - modelRef.current.rotation.x) * 0.05;
     }
   });
 
@@ -57,14 +73,39 @@ function Model({
   );
 }
 
-function LoadingFallback() {
+// 3D Loading fallback для использования внутри Canvas
+function ThreeLoadingFallback() {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  useFrame(() => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x += 0.01;
+      meshRef.current.rotation.y += 0.01;
+    }
+  });
+
   return (
-    <div className="w-full h-full flex items-center justify-center">
+    <mesh ref={meshRef}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial
+        color="#8b45ff"
+        emissive="#4c1d95"
+        emissiveIntensity={0.2}
+        wireframe
+      />
+    </mesh>
+  );
+}
+
+// HTML Loading fallback для использования вне Canvas
+function HTMLLoadingFallback() {
+  return (
+    <div className="w-full h-full flex items-center justify-center absolute inset-0">
       <div className="text-center">
-        <div className="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4 animate-pulse">
-          <div className="w-8 h-8 bg-white rounded opacity-80"></div>
+        <div className="w-8 h-8 bg-cyan-600 rounded-full flex items-center justify-center mx-auto mb-2 animate-pulse">
+          <div className="w-4 h-4 bg-white rounded-full opacity-80"></div>
         </div>
-        <p className="text-purple-200 text-sm">Loading 3D Model...</p>
+        <p className="text-cyan-200 text-xs">Loading...</p>
       </div>
     </div>
   );
@@ -76,6 +117,8 @@ const GLBModel: React.FC<GLBModelProps> = ({
   position = [0, 0, 0],
   autoRotate = true,
 }) => {
+  const [isLoading, setIsLoading] = React.useState(true);
+
   // Стабилизируем параметры чтобы избежать пересоздания Canvas
   const stableProps = useMemo(
     () => ({
@@ -86,10 +129,11 @@ const GLBModel: React.FC<GLBModelProps> = ({
   );
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
+      {isLoading && <HTMLLoadingFallback />}
       <Canvas
         camera={stableProps.camera}
-        style={stableProps.style}
+        style={{ ...stableProps.style, background: "transparent" }}
         gl={{
           preserveDrawingBuffer: true,
           antialias: true,
@@ -102,18 +146,21 @@ const GLBModel: React.FC<GLBModelProps> = ({
         <pointLight position={[10, 10, 10]} intensity={1} />
         <directionalLight position={[5, 5, 5]} intensity={0.5} />
 
-        <Suspense fallback={<LoadingFallback />}>
-          <Model url={url} scale={scale} position={position} />
+        <Suspense fallback={<ThreeLoadingFallback />}>
+          <Model
+            url={url}
+            scale={scale}
+            position={position}
+            onLoad={() => setIsLoading(false)}
+          />
         </Suspense>
 
         <OrbitControls
-          enableZoom={true}
+          enableZoom={false}
           enablePan={false}
           enableRotate={true}
-          autoRotate={false}
+          autoRotate={autoRotate}
           makeDefault
-          maxDistance={10}
-          minDistance={2}
         />
       </Canvas>
     </div>
@@ -122,7 +169,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
 
 // Предзагружаем модель чтобы избежать повторных загрузок
 useGLTF.preload(
-  "https://cdn.builder.io/o/assets%2Fd1c3ee1ec7be40678f2e6792ec37e2b0%2Fa3ddf442a35840a8ae7950219d9bdb2f?alt=media&token=138b2881-8b51-43df-b3e5-81d9e6d6983f&apiKey=d1c3ee1ec7be40678f2e6792ec37e2b0",
+  "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
 );
 
 export default GLBModel;
