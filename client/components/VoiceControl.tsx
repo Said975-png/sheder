@@ -10,6 +10,7 @@ interface VoiceControlProps {
   onAddMaxPlan: () => void;
   inNavbar?: boolean;
   onListeningChange?: (isListening: boolean, transcript?: string) => void;
+  onStopListening?: () => void;
 }
 
 export default function VoiceControl({
@@ -225,7 +226,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим аудио для команды "Джарвис я вернулся"
+    // Создаем и воспроизводим аудио для команды "Джарвис я вер��улся"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -497,7 +498,7 @@ export default function VoiceControl({
   };
 
   const speakSystemsOperational = async () => {
-    await speakWithElevenLabs("Все системы функционируют нормально");
+    await speakWithElevenLabs("Все системы функционируют нор��ально");
   };
 
   const speakHowAreYou = () => {
@@ -525,7 +526,7 @@ export default function VoiceControl({
       // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
       // Stability: 20 (низкая ст��бильность для более естественной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
-      // Style: Assistant/Narration (помощник/повеств��вание)
+      // Style: Assistant/Narration (помощник/повеств��вани��)
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
@@ -561,7 +562,7 @@ export default function VoiceControl({
       if (jarvisLikeVoice) {
         utterance.voice = jarvisLikeVoice;
         utterance.lang = "ru-RU";
-        utterance.pitch = 0.6; // ��уть ниже для лучшего звучания русского
+        utterance.pitch = 0.6; // Чуть ниже для лучшего звучания русского
       } else if (russianMaleVoice) {
         utterance.voice = russianMaleVoice;
         utterance.lang = "ru-RU";
@@ -592,7 +593,7 @@ export default function VoiceControl({
       utterance.onend = resetState;
       utterance.onerror = () => {
         resetState();
-        console.error("Ошибка ��интеза речи");
+        console.error("Ошибка синтеза речи");
       };
 
       try {
@@ -651,7 +652,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды ��ля оригинального голоса Джарвиса (из фи��ьма)
+    // Коман��ы ��ля оригинального голоса Джарвиса (из фи��ьма)
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
@@ -710,7 +711,7 @@ export default function VoiceControl({
       command.includes("hey jarvis") ||
       (command.includes("привет") && command.includes("джарвис"))
     ) {
-      // Дополнительная проверка, чтобы избежать повторных срабатываний
+      // Дополнительная проверка, чтобы избежать пов��орных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -727,7 +728,7 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнит��льная провер���а, ��тобы избежать повторных срабат��ваний
+      // Дополнительная провер���а, ��тобы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -778,7 +779,7 @@ export default function VoiceControl({
       command.includes("замечательно") ||
       command.includes("круто") ||
       command.includes("прекрасно") ||
-      command.includes("чудесно")
+      command.includes("ч��десно")
     ) {
       speakThankYou();
       return;
@@ -876,7 +877,7 @@ export default function VoiceControl({
       "отлично",
       "замечательно",
       "круто",
-      "прекрасно",
+      "прек��асно",
       "чудесно",
       "добр��е",
       "утро",
@@ -939,7 +940,7 @@ export default function VoiceControl({
         }
       }
 
-      // Пои��к по тексту элемен��ов
+      // Пои��к по тексту элементов
       const allElements = Array.from(
         document.querySelectorAll("p, div, span, li"),
       );
@@ -980,7 +981,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate([
           "преимущества",
-          "преимущес��во",
+          "преимущество",
           "advantages",
         ]);
         if (found) {
@@ -1230,7 +1231,7 @@ export default function VoiceControl({
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальный пл���н добавлен");
+      speak("Максимальный пл��н добавлен");
       return;
     }
 
@@ -1265,7 +1266,7 @@ export default function VoiceControl({
       command.includes("к пре��муществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
-      command.includes("перейти к преимущест��ам") ||
+      command.includes("перейти к преимуществам") ||
       command.includes("преим��щества")
     ) {
       const found = searchAndNavigate([
