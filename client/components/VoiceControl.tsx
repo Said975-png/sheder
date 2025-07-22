@@ -8,6 +8,7 @@ interface VoiceControlProps {
   onAddBasicPlan: () => void;
   onAddProPlan: () => void;
   onAddMaxPlan: () => void;
+  inNavbar?: boolean;
 }
 
 export default function VoiceControl({
@@ -86,7 +87,7 @@ export default function VoiceControl({
                 try {
                   recognitionRef.current.start();
                 } catch (error) {
-                  console.log("Распознавание уже запущено");
+                  console.log("Распознавание уже ��апущено");
                 }
               }
             }, 100);
@@ -720,7 +721,7 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнительная провер���а, ��тобы избежать повторных срабат��ваний
+      // Дополнит��льная провер���а, ��тобы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -844,7 +845,7 @@ export default function VoiceControl({
       "пр��миум",
       "невероятное",
       "готовы",
-      "создать",
+      "созда��ь",
       "бизнес",
       "помощник",
       "персональный",
