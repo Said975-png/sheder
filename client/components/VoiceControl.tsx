@@ -139,7 +139,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Созда��м и воспроизводим ваш новый аудио-файл
+    // Созда��м и воспроизводим ваш ��овый аудио-файл
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fdb47541068444a9093b406f29a6af3ce?alt=media&token=43fbc024-64ae-479b-8a6c-5b9d12b43294&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -211,7 +211,7 @@ export default function VoiceControl({
     };
 
     audio.play().catch((error) => {
-      console.error("Н�� удалось воспроизвести аудио отключения:", error);
+      console.error("Н�� удалось воспроизве��ти аудио отключения:", error);
       shutdownComplete();
     });
   };
@@ -404,7 +404,7 @@ export default function VoiceControl({
     };
 
     try {
-      // Используем ElevenLabs API для синтеза речи с вашим кастомным голосом
+      // Используем ElevenLabs API для синтеза речи с вашим кастомным гол��сом
       const response = await fetch("/api/elevenlabs-tts", {
         method: "POST",
         headers: {
@@ -519,7 +519,7 @@ export default function VoiceControl({
         "у меня все в порядке сэр",
       );
 
-      // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
+      // Настройки максимально приб��иженные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
       // Stability: 20 (низкая ст��бильность для более естественной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
@@ -564,7 +564,7 @@ export default function VoiceControl({
         utterance.lang = "ru-RU";
         utterance.pitch = 0.6; // Чуть ниже для русского голоса
       } else {
-        // Fallback: любой доступный голос с оптимизированными настройками
+        // Fallback: любой дос��упный голос с оптимизированными настройками
         const anyVoice = voices.find(
           (voice) => voice.lang.includes("en") || voice.lang.includes("ru"),
         );
@@ -637,7 +637,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приветствия "Джарвис я вернулся"
+    // Команда приветствия "Д��арвис я вернулся"
     if (
       command.includes("джарвис я вернулся") ||
       command.includes("я вернулся джарвис") ||
@@ -810,7 +810,7 @@ export default function VoiceControl({
       "базовый",
       "про",
       "макс",
-      "прокрутить",
+      "про��рутить",
       "скролл",
       "наверх",
       "планам",
@@ -1271,7 +1271,7 @@ export default function VoiceControl({
         "advantages",
       ]);
       if (found) {
-        speak("Показываю преим��щества");
+        speak("Показываю преим���щества");
       }
       return;
     }
@@ -1346,6 +1346,7 @@ export default function VoiceControl({
       setIsListening(false);
       lastCommandRef.current = "";
       commandCooldownRef.current = false;
+      onListeningChange?.(false);
     } else {
       if (recognitionRef.current) {
         setTranscript("");
@@ -1354,6 +1355,7 @@ export default function VoiceControl({
         try {
           recognitionRef.current.start();
           setIsListening(true);
+          onListeningChange?.(true);
         } catch (error) {
           console.log("Распознавание уже зап��щено или недо��ту��но");
         }
