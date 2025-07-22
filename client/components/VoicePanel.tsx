@@ -141,14 +141,16 @@ export default function VoicePanel({
             </div>
           </div>
 
-          {/* Voice Control Component */}
+          {/* Voice Control Info */}
           <div className="flex justify-center mb-6">
-            <VoiceControl
-              onAddBasicPlan={onAddBasicPlan}
-              onAddProPlan={onAddProPlan}
-              onAddMaxPlan={onAddMaxPlan}
-              inNavbar={false}
-            />
+            <div className="text-center">
+              <div className="text-lg font-mono text-cyan-400 mb-2">
+                <GlitchText>Микрофон активен</GlitchText>
+              </div>
+              <div className="text-sm text-white/60 font-mono">
+                Говорите команды для управления системой
+              </div>
+            </div>
           </div>
 
           {/* Transcript Display */}
