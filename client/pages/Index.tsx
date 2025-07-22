@@ -126,17 +126,30 @@ export default function Index() {
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
     setIsVoicePanelActive(isListening);
 
-    // Немедленно обновляем транскрипт - если пустой, то очищаем
+    // Если транскрипт пустой, очищаем отображение
     if (!transcript || transcript.trim() === "") {
       setCurrentTranscript("");
-    } else {
-      setCurrentTranscript(transcript);
-
-      // Автоматически очищаем транскрипт через короткое время для предотвращения застревания
-      setTimeout(() => {
-        setCurrentTranscript("");
-      }, 2000);
+      return;
     }
+
+    // Проверяем, что это не тот же транскрипт, который мы уже обработали
+    if (transcript === lastProcessedTranscript) {
+      setCurrentTranscript(""); // Очищаем если это повтор
+      return;
+    }
+
+    // Устанавливаем новый транскрипт
+    setCurrentTranscript(transcript);
+    setLastProcessedTranscript(transcript);
+
+    // Автоматически очищаем транскрипт через короткое время
+    setTimeout(() => {
+      setCurrentTranscript("");
+      // Очищаем и lastProcessedTranscript через большее время для приема новых команд
+      setTimeout(() => {
+        setLastProcessedTranscript("");
+      }, 1000);
+    }, 1500);
   };
 
   const handleCloseVoicePanel = () => {
