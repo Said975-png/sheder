@@ -113,201 +113,183 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm border-b border-gray-700/50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Shield className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-white">JumpBot</span>
+      <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 bg-transparent backdrop-blur-md border border-white/20 rounded-full px-8 py-3 holographic-navbar portal-entrance">
+        <div className="flex items-center justify-center space-x-8">
+          {/* Logo */}
+          <div className="flex items-center space-x-2">
+            <div className="w-6 h-6 bg-blue-600 rounded-lg flex items-center justify-center">
+              <Shield className="w-4 h-4 text-white" />
             </div>
+            <span className="text-lg font-bold text-white">JumpBot</span>
+          </div>
 
-            {/* Navigation Links */}
-            <div className="hidden md:flex items-center space-x-8">
-              <a
-                href="#"
-                className="text-cyan-400 hover:text-cyan-300 transition-colors"
-              >
-                Home
-              </a>
-              <a
-                href="#why-blockchain"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                Why Blockchain
-              </a>
-              <a
-                href="#pricing"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                Pricing
-              </a>
-              <a
-                href="#how-it-works"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                How it Works
-              </a>
-            </div>
+          {/* Navigation Links */}
+          <div className="flex items-center space-x-6">
+            <a
+              href="#"
+              className="text-cyan-400 hover:text-cyan-300 transition-colors"
+            >
+              Home
+            </a>
 
-            {/* Right Side */}
-            <div className="flex items-center space-x-4">
-              {/* Cart Dropdown */}
+            <a
+              href="#how-it-works"
+              className="text-white/70 hover:text-white transition-colors"
+            >
+              How it Works
+            </a>
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center space-x-3">
+            {/* Cart Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="relative p-2 rounded-full hover:bg-white/10"
+                >
+                  <ShoppingCart className="w-5 h-5" />
+                  {getTotalItems() > 0 && (
+                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center">
+                      {getTotalItems()}
+                    </span>
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-80 bg-black border-gray-700 mt-2"
+              >
+                <div className="px-3 py-2">
+                  <h3 className="font-semibold text-white mb-2">Cart</h3>
+                  {items.length === 0 ? (
+                    <p className="text-sm text-white/60 text-center py-4">
+                      Cart is empty
+                    </p>
+                  ) : (
+                    <>
+                      <div className="space-y-2 max-h-60 overflow-y-auto">
+                        {items.map((item) => (
+                          <div
+                            key={item.id}
+                            className="flex items-start justify-between p-2 bg-gray-800 rounded-lg"
+                          >
+                            <div className="flex-1">
+                              <h4 className="font-medium text-sm text-white">
+                                {item.name}
+                              </h4>
+                              <p className="text-xs text-white/60 mt-1">
+                                {item.description.substring(0, 60)}...
+                              </p>
+                              <p className="text-sm font-semibold text-white mt-1">
+                                ${item.price}
+                              </p>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => removeItem(item.id)}
+                              className="ml-2 h-6 w-6 p-0 hover:bg-red-500/20"
+                            >
+                              ×
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                      <DropdownMenuSeparator className="bg-gray-700 my-3" />
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="font-semibold text-white">Total:</span>
+                        <span className="font-bold text-white">
+                          ${getTotalPrice()}
+                        </span>
+                      </div>
+                      <div className="flex space-x-2">
+                        <Button
+                          onClick={clearCart}
+                          variant="outline"
+                          size="sm"
+                          className="flex-1"
+                        >
+                          Clear
+                        </Button>
+                        <Button
+                          onClick={handleProceedToOrder}
+                          size="sm"
+                          className="flex-1 bg-blue-600 hover:bg-blue-700"
+                        >
+                          Checkout
+                        </Button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <ThemeToggle />
+
+            {isAuthenticated && currentUser ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="relative p-2 rounded-full hover:bg-white/10"
+                    className="flex items-center space-x-2 p-2 rounded-full hover:bg-white/10"
                   >
-                    <ShoppingCart className="w-5 h-5" />
-                    {getTotalItems() > 0 && (
-                      <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center">
-                        {getTotalItems()}
-                      </span>
-                    )}
+                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                      <User className="w-4 h-4" />
+                    </div>
+                    <span className="hidden sm:block text-sm">
+                      {currentUser.name}
+                    </span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   align="end"
-                  className="w-80 bg-black border-gray-700 mt-2"
+                  className="w-56 bg-black border-gray-700 mt-2"
                 >
-                  <div className="px-3 py-2">
-                    <h3 className="font-semibold text-white mb-2">Cart</h3>
-                    {items.length === 0 ? (
-                      <p className="text-sm text-white/60 text-center py-4">
-                        Cart is empty
-                      </p>
-                    ) : (
-                      <>
-                        <div className="space-y-2 max-h-60 overflow-y-auto">
-                          {items.map((item) => (
-                            <div
-                              key={item.id}
-                              className="flex items-start justify-between p-2 bg-gray-800 rounded-lg"
-                            >
-                              <div className="flex-1">
-                                <h4 className="font-medium text-sm text-white">
-                                  {item.name}
-                                </h4>
-                                <p className="text-xs text-white/60 mt-1">
-                                  {item.description.substring(0, 60)}...
-                                </p>
-                                <p className="text-sm font-semibold text-white mt-1">
-                                  ${item.price}
-                                </p>
-                              </div>
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => removeItem(item.id)}
-                                className="ml-2 h-6 w-6 p-0 hover:bg-red-500/20"
-                              >
-                                ×
-                              </Button>
-                            </div>
-                          ))}
-                        </div>
-                        <DropdownMenuSeparator className="bg-gray-700 my-3" />
-                        <div className="flex justify-between items-center mb-3">
-                          <span className="font-semibold text-white">
-                            Total:
-                          </span>
-                          <span className="font-bold text-white">
-                            ${getTotalPrice()}
-                          </span>
-                        </div>
-                        <div className="flex space-x-2">
-                          <Button
-                            onClick={clearCart}
-                            variant="outline"
-                            size="sm"
-                            className="flex-1"
-                          >
-                            Clear
-                          </Button>
-                          <Button
-                            onClick={handleProceedToOrder}
-                            size="sm"
-                            className="flex-1 bg-blue-600 hover:bg-blue-700"
-                          >
-                            Checkout
-                          </Button>
-                        </div>
-                      </>
-                    )}
+                  <div className="px-2 py-1.5 text-sm text-white/60">
+                    <div className="font-medium text-white">
+                      {currentUser.name}
+                    </div>
+                    <div className="text-xs">{currentUser.email}</div>
                   </div>
+                  <DropdownMenuSeparator className="bg-gray-700" />
+                  <DropdownMenuItem
+                    onClick={() => (window.location.href = "/profile")}
+                    className="text-white hover:bg-gray-800 cursor-pointer"
+                  >
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => (window.location.href = "/profile")}
+                    className="text-white hover:bg-gray-800 cursor-pointer"
+                  >
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Settings</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-gray-700" />
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="text-red-400 hover:bg-gray-800 cursor-pointer"
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-
-              <ThemeToggle />
-
-              {isAuthenticated && currentUser ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      className="flex items-center space-x-2 p-2 rounded-full hover:bg-white/10"
-                    >
-                      <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                        <User className="w-4 h-4" />
-                      </div>
-                      <span className="hidden sm:block text-sm">
-                        {currentUser.name}
-                      </span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent
-                    align="end"
-                    className="w-56 bg-black border-gray-700 mt-2"
-                  >
-                    <div className="px-2 py-1.5 text-sm text-white/60">
-                      <div className="font-medium text-white">
-                        {currentUser.name}
-                      </div>
-                      <div className="text-xs">{currentUser.email}</div>
-                    </div>
-                    <DropdownMenuSeparator className="bg-gray-700" />
-                    <DropdownMenuItem
-                      onClick={() => (window.location.href = "/profile")}
-                      className="text-white hover:bg-gray-800 cursor-pointer"
-                    >
-                      <User className="mr-2 h-4 w-4" />
-                      <span>Profile</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      onClick={() => (window.location.href = "/profile")}
-                      className="text-white hover:bg-gray-800 cursor-pointer"
-                    >
-                      <Settings className="mr-2 h-4 w-4" />
-                      <span>Settings</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-gray-700" />
-                    <DropdownMenuItem
-                      onClick={handleLogout}
-                      className="text-red-400 hover:bg-gray-800 cursor-pointer"
-                    >
-                      <LogOut className="mr-2 h-4 w-4" />
-                      <span>Logout</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <>
-                  <Button
-                    variant="ghost"
-                    className="text-sm px-4 py-2 rounded-full hover:bg-white/10"
-                    asChild
-                  >
-                    <Link to="/signup">Sign up</Link>
-                  </Button>
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-6 py-2 rounded-full">
-                    Contact US
-                  </Button>
-                </>
-              )}
-            </div>
+            ) : (
+              <>
+                <Button
+                  variant="ghost"
+                  className="text-sm px-4 py-2 rounded-full hover:bg-white/10"
+                  asChild
+                >
+                  <Link to="/signup">Sign up</Link>
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </nav>
@@ -351,8 +333,8 @@ export default function Index() {
             <div className="flex items-center justify-center">
               <div className="w-full h-96 rounded-2xl overflow-hidden">
                 <GLBModel
-                  url="https://cdn.builder.io/o/assets%2Fe7ee46b6f06b4b02a9803aeda10a012b%2F1e64d10a28ff46c082b8fe3e8e25f018?alt=media&token=4049ba85-06b6-4777-9dd8-f3ad1cfdf1b8&apiKey=e7ee46b6f06b4b02a9803aeda10a012b"
-                  scale={2}
+                  url="https://cdn.builder.io/o/assets%2Fd1c3ee1ec7be40678f2e6792ec37e2b0%2Fa3ddf442a35840a8ae7950219d9bdb2f?alt=media&token=138b2881-8b51-43df-b3e5-81d9e6d6983f&apiKey=d1c3ee1ec7be40678f2e6792ec37e2b0"
+                  scale={3}
                   autoRotate={true}
                 />
               </div>
@@ -448,8 +430,8 @@ export default function Index() {
             <div className="flex items-center justify-center">
               <div className="w-full h-96 rounded-2xl overflow-hidden">
                 <GLBModel
-                  url="https://cdn.builder.io/o/assets%2Fe7ee46b6f06b4b02a9803aeda10a012b%2F1e64d10a28ff46c082b8fe3e8e25f018?alt=media&token=4049ba85-06b6-4777-9dd8-f3ad1cfdf1b8&apiKey=e7ee46b6f06b4b02a9803aeda10a012b"
-                  scale={1.5}
+                  url="https://cdn.builder.io/o/assets%2Fd1c3ee1ec7be40678f2e6792ec37e2b0%2Fa3ddf442a35840a8ae7950219d9bdb2f?alt=media&token=138b2881-8b51-43df-b3e5-81d9e6d6983f&apiKey=d1c3ee1ec7be40678f2e6792ec37e2b0"
+                  scale={2.5}
                   autoRotate={false}
                 />
               </div>
