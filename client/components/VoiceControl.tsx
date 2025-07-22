@@ -570,7 +570,7 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
-      utterance.pitch = 0.7; // Средне-ни��кий тон для авторитет��ости
+      utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
@@ -728,7 +728,7 @@ export default function VoiceControl({
       (command.includes("good morning") && command.length < 20) ||
       command.includes("доброго утра")
     ) {
-      // Дополнит����льная проверка, ч��обы избеж��ть повторных срабатываний
+      // Дополнит����льная проверка, ч��обы избе����ть повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -768,13 +768,13 @@ export default function VoiceControl({
       command.includes("как дела джарвис") ||
       (command.includes("джарвис") && command.includes("как дела"))
     ) {
-      // Дополнительная провер��а, ��тобы избежать повторных срабат��ваний
+      // Дополнительная провер���а, ��тобы избежать повторных срабат��ваний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
         !audioPlayingRef.current
       ) {
-        speakSystemsOperational();
+        speak("Все системы функционируют нормально");
       }
       return;
     }
@@ -797,7 +797,7 @@ export default function VoiceControl({
         !commandCooldownRef.current &&
         !audioPlayingRef.current
       ) {
-        speakSystemsOperational();
+        speak("Все системы функционируют нормально");
       }
       return;
     }
@@ -932,7 +932,7 @@ export default function VoiceControl({
       "системы",
       "работают",
       "дела",
-      "поживаешь",
+      "пож��ваешь",
       "порядке",
     ];
     const hasValidWords = meaningfulWords.some((word) =>
@@ -971,7 +971,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск по id элементов
+      // Поиск по id элем��нтов
       for (const term of searchTerms) {
         const elementById = document.getElementById(term);
         if (elementById) {
