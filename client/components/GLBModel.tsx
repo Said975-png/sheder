@@ -14,10 +14,12 @@ function Model({
   url,
   scale = 1,
   position = [0, 0, 0],
+  onLoad,
 }: {
   url: string;
   scale: number;
   position: [number, number, number];
+  onLoad?: () => void;
 }) {
   const { scene } = useGLTF(url);
   const modelRef = useRef<THREE.Group>(null);
@@ -25,6 +27,13 @@ function Model({
 
   // Клонируем сцену для избежания конфликтов при повторном использовании
   const clonedScene = useMemo(() => scene.clone(), [scene]);
+
+  // Вызываем onLoad после загрузки модели
+  React.useEffect(() => {
+    if (scene && onLoad) {
+      onLoad();
+    }
+  }, [scene, onLoad]);
 
   React.useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
