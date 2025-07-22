@@ -45,7 +45,7 @@ export default function Index() {
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
 
-  // Запуск анимации при загрузке компонента
+  // Запуск а��имации при загрузке компонента
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
@@ -449,9 +449,9 @@ export default function Index() {
             </div>
 
             {/* Advanced Plan */}
-            <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
+            <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
               <div className="text-center mb-8">
-                <h3 className="text-xl font-semibold mb-4">Advanced Plan</h3>
+                <h3 className="text-xl font-semibold mb-4 text-white">Advanced Plan</h3>
                 <div className="text-4xl font-bold mb-2">
                   $495<span className="text-lg text-white/60">/month</span>
                 </div>
