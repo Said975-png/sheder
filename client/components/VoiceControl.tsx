@@ -228,7 +228,7 @@ export default function VoiceControl({
     };
 
     audio.play().catch((error) => {
-      console.error("Н�� удалось воспроизвести аудио отключения:", error);
+      console.error("Н�� удалось ��оспроизвести аудио отключения:", error);
       shutdownComplete();
     });
   };
@@ -464,7 +464,7 @@ export default function VoiceControl({
   };
 
   const speakAuthenticJarvis = () => {
-    // Множественная защита от повторного воспроизведения
+    // Множественная защита от повторного воспр��изведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -581,7 +581,7 @@ export default function VoiceControl({
         utterance.lang = "ru-RU";
         utterance.pitch = 0.6; // Чуть ниже для русского голоса
       } else {
-        // Fallback: любой доступный голос с оптимизированными настройками
+        // Fallback: люб��й доступный голос с оптимизированными настройками
         const anyVoice = voices.find(
           (voice) => voice.lang.includes("en") || voice.lang.includes("ru"),
         );
@@ -652,6 +652,7 @@ export default function VoiceControl({
     audioPlayingRef.current = true;
 
     // Воспроизводим первое аудио
+    console.log("🎵 Создаем первое аудио для диагно��тики");
     const firstAudio = new Audio(
       "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76"
     );
@@ -745,7 +746,7 @@ export default function VoiceControl({
       command.includes("movie jarvis") ||
       command.includes("джарвис из железного ч��ловека") ||
       command.includes("голос джарвиса") ||
-      command.includes("оригинал") ||
+      command.includes("о��игинал") ||
       command.includes("как в марвел")
     ) {
       if (
@@ -819,7 +820,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Как дела" (общая, без имени Джарвис)
+    // Команда "Как де��а" (общая, без имени Джарвис)
     if (
       command.includes("как дела") ||
       command.includes("как поживаешь джарвис") ||
@@ -915,7 +916,7 @@ export default function VoiceControl({
     const meaningfulWords = [
       "перейти",
       "войти",
-      "регистрация",
+      "реги��трация",
       "профиль",
       "заказ",
       "��орзина",
@@ -1350,7 +1351,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ра��ширенная навигация по секциям страниц��
+    // Ра��ширенная навигация по сек��иям страниц��
     if (
       command.includes("к планам") ||
       command.includes("показать планы") ||
