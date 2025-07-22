@@ -277,7 +277,7 @@ export default function Index() {
       </section>
 
       {/* Why Blockchain Section */}
-      <section id="why-blockchain" className="py-20 bg-slate-800/50">
+      <section id="why-blockchain" className="py-20 bg-black">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
