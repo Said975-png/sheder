@@ -1,7 +1,7 @@
 import React, { Suspense, useMemo, useRef } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import { Vector2 } from "three";
+import * as THREE from "three";
 
 interface GLBModelProps {
   url: string;
@@ -20,7 +20,7 @@ function Model({
   position: [number, number, number];
 }) {
   const { scene } = useGLTF(url);
-  const modelRef = useRef<any>();
+  const modelRef = useRef<THREE.Group>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
 
   // Клонируем сцену для избежания конфликтов при повторном использовании
@@ -51,12 +51,9 @@ function Model({
   });
 
   return (
-    <primitive
-      ref={modelRef}
-      object={clonedScene}
-      scale={scale}
-      position={position}
-    />
+    <group ref={modelRef} scale={scale} position={position}>
+      <primitive object={clonedScene} />
+    </group>
   );
 }
 

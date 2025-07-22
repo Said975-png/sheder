@@ -1012,6 +1012,333 @@
     }
   }
 
+  /* Stark/JARVIS специальные анимации */
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @keyframes glitch {
+    0%,
+    100% {
+      transform: translate(0);
+      filter: hue-rotate(0deg);
+      opacity: 1;
+    }
+    20% {
+      transform: translate(-2px, 2px);
+      filter: hue-rotate(90deg);
+      opacity: 0.8;
+    }
+    40% {
+      transform: translate(-2px, -2px);
+      filter: hue-rotate(180deg);
+      opacity: 0.9;
+    }
+    60% {
+      transform: translate(2px, 2px);
+      filter: hue-rotate(270deg);
+      opacity: 0.7;
+    }
+    80% {
+      transform: translate(2px, -2px);
+      filter: hue-rotate(360deg);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes glitch-low {
+    0%,
+    95%,
+    100% {
+      transform: translate(0);
+    }
+    97% {
+      transform: translate(-1px, 1px);
+    }
+    98% {
+      transform: translate(1px, -1px);
+    }
+  }
+
+  @keyframes glitch-medium {
+    0%,
+    90%,
+    100% {
+      transform: translate(0);
+    }
+    92% {
+      transform: translate(-2px, 2px);
+    }
+    94% {
+      transform: translate(2px, -2px);
+    }
+    96% {
+      transform: translate(-1px, 1px);
+    }
+  }
+
+  @keyframes glitch-high {
+    0%,
+    85%,
+    100% {
+      transform: translate(0);
+    }
+    87% {
+      transform: translate(-3px, 3px);
+    }
+    89% {
+      transform: translate(3px, -3px);
+    }
+    91% {
+      transform: translate(-2px, 2px);
+    }
+    93% {
+      transform: translate(2px, -2px);
+    }
+    95% {
+      transform: translate(-1px, 1px);
+    }
+  }
+
+  @keyframes scanner {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes matrix-slow {
+    0% {
+      transform: translateY(-100vh);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  @keyframes matrix-medium {
+    0% {
+      transform: translateY(-100vh);
+      opacity: 0;
+    }
+    15% {
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  @keyframes matrix-fast {
+    0% {
+      transform: translateY(-100vh);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  @keyframes arc-reactor-pulse {
+    0%,
+    100% {
+      box-shadow:
+        0 0 20px rgba(6, 182, 212, 0.5),
+        inset 0 0 20px rgba(6, 182, 212, 0.1);
+    }
+    50% {
+      box-shadow:
+        0 0 40px rgba(6, 182, 212, 0.8),
+        inset 0 0 30px rgba(6, 182, 212, 0.2);
+    }
+  }
+
+  @keyframes hud-initialization {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+      filter: blur(10px);
+    }
+    30% {
+      opacity: 0.5;
+      transform: scale(1.05);
+      filter: blur(5px);
+    }
+    60% {
+      opacity: 0.8;
+      transform: scale(0.98);
+      filter: blur(2px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes power-surge {
+    0%,
+    100% {
+      background-position: 0% 50%;
+      filter: brightness(1);
+    }
+    25% {
+      background-position: 25% 75%;
+      filter: brightness(1.2);
+    }
+    50% {
+      background-position: 100% 50%;
+      filter: brightness(1.5);
+    }
+    75% {
+      background-position: 75% 25%;
+      filter: brightness(1.2);
+    }
+  }
+
+  @keyframes energy-flow {
+    0% {
+      transform: translateX(-100%) scaleX(0);
+      opacity: 0;
+    }
+    25% {
+      transform: translateX(-50%) scaleX(0.5);
+      opacity: 0.5;
+    }
+    50% {
+      transform: translateX(0%) scaleX(1);
+      opacity: 1;
+    }
+    75% {
+      transform: translateX(50%) scaleX(0.5);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateX(100%) scaleX(0);
+      opacity: 0;
+    }
+  }
+
+  @keyframes stark-typing {
+    0% {
+      width: 0;
+    }
+    99% {
+      border-right: 2px solid rgba(6, 182, 212, 0.8);
+    }
+    100% {
+      border-right: none;
+      width: 100%;
+    }
+  }
+
+  /* Stark UI утилиты */
+  .stark-glow {
+    box-shadow:
+      0 0 20px rgba(6, 182, 212, 0.3),
+      0 0 40px rgba(6, 182, 212, 0.1),
+      inset 0 0 20px rgba(6, 182, 212, 0.05);
+  }
+
+  .stark-border {
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    position: relative;
+  }
+
+  .stark-border::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(
+      45deg,
+      rgba(6, 182, 212, 0.5) 0%,
+      transparent 25%,
+      transparent 75%,
+      rgba(6, 182, 212, 0.5) 100%
+    );
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .stark-border:hover::before {
+    opacity: 1;
+  }
+
+  .arc-reactor-glow {
+    animation: arc-reactor-pulse 2s ease-in-out infinite;
+  }
+
+  .hud-initialize {
+    animation: hud-initialization 1.5s ease-out forwards;
+  }
+
+  .power-surge {
+    animation: power-surge 3s ease-in-out infinite;
+  }
+
+  .energy-flow {
+    animation: energy-flow 2s ease-in-out infinite;
+  }
+
+  .stark-typing {
+    animation: stark-typing 2s steps(40) forwards;
+  }
+
+  /* Улучшенны�� градиенты для Stark стиля */
+  .stark-gradient {
+    background: linear-gradient(
+      135deg,
+      rgba(6, 182, 212, 0.1) 0%,
+      rgba(59, 130, 246, 0.05) 50%,
+      rgba(6, 182, 212, 0.1) 100%
+    );
+  }
+
+  .stark-text-glow {
+    text-shadow:
+      0 0 10px rgba(6, 182, 212, 0.5),
+      0 0 20px rgba(6, 182, 212, 0.3),
+      0 0 30px rgba(6, 182, 212, 0.1);
+  }
+
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .neural-node {
@@ -1050,6 +1377,12 @@
         transform: translateY(0) rotate(0deg);
         opacity: 0.7;
       }
+    }
+
+    .stark-glow {
+      box-shadow:
+        0 0 10px rgba(6, 182, 212, 0.3),
+        0 0 20px rgba(6, 182, 212, 0.1);
     }
   }
 }

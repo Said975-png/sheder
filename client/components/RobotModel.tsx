@@ -1,13 +1,13 @@
 import React, { useRef, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import { Mesh } from "three";
+import * as THREE from "three";
 
 // Set this to your actual .glb file URL when you have one
 const MODEL_URL = ""; // Leave empty until you have a real URL
 
 function GLBModel({ url }: { url: string }) {
-  const modelRef = useRef<Mesh>(null);
+  const modelRef = useRef<THREE.Group>(null);
   const gltf = useGLTF(url);
 
   useFrame((_state, delta) => {
@@ -17,17 +17,14 @@ function GLBModel({ url }: { url: string }) {
   });
 
   return (
-    <primitive
-      ref={modelRef}
-      object={gltf.scene}
-      scale={[1, 1, 1]}
-      position={[0, 0, 0]}
-    />
+    <group ref={modelRef} scale={[1, 1, 1]} position={[0, 0, 0]}>
+      <primitive object={gltf.scene} />
+    </group>
   );
 }
 
 function FallbackModel() {
-  const meshRef = useRef<Mesh>(null);
+  const meshRef = useRef<THREE.Mesh>(null);
 
   useFrame((_state, delta) => {
     if (meshRef.current) {
