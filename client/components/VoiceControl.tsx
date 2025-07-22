@@ -19,6 +19,7 @@ export default function VoiceControl({
   onAddMaxPlan,
   inNavbar = false,
   onListeningChange,
+  onStopListening,
 }: VoiceControlProps) {
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -226,7 +227,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим аудио для команды "Джарвис я вер��улся"
+    // Создаем и воспроизводим аудио для команды "Джарвис я вернулся"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -349,7 +350,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим аудио для ответа "Джарвис ты тут?"
+    // Создаем и воспроизводим аудио для ответа "Джарвис т�� тут?"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F5baee2408110417fbab785b0c6ffdde6?alt=media&token=a957a2b4-68ad-46de-bc3e-11943c8fb38b&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -498,7 +499,7 @@ export default function VoiceControl({
   };
 
   const speakSystemsOperational = async () => {
-    await speakWithElevenLabs("Все системы функционируют нор��ально");
+    await speakWithElevenLabs("Все системы функционируют нормально");
   };
 
   const speakHowAreYou = () => {
@@ -526,12 +527,12 @@ export default function VoiceControl({
       // Настройки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
       // Stability: 20 (низкая ст��бильность для более естественной речи)
       // Similarity Boost: 90 (высокое сходство с оригинальным голосом)
-      // Style: Assistant/Narration (помощник/повеств��вани��)
+      // Style: Assistant/Narration (помощник/повеств��вание)
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переключим на русский
       utterance.rate = 0.75; // Медленная, размеренная речь как у Джарвиса из фильма
       utterance.pitch = 0.7; // Средне-ни��кий тон для автор��тет��ости
-      utterance.volume = 0.95; // Четкая, но не резкая громкость
+      utterance.volume = 0.95; // Четка��, но не резкая громкость
 
       // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
@@ -628,7 +629,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда о��ключения (приоритетная)
+    // Команда о��ключения (приоритет��ая)
     if (
       command.includes("отключись") ||
       command.includes("выключись") ||
@@ -652,7 +653,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Коман��ы ��ля оригинального голоса Джарвиса (из фи��ьма)
+    // Команды ��ля оригинального голоса Джарвиса (из фи��ьма)
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
@@ -711,7 +712,7 @@ export default function VoiceControl({
       command.includes("hey jarvis") ||
       (command.includes("привет") && command.includes("джарвис"))
     ) {
-      // Дополнительная проверка, чтобы избежать пов��орных срабатываний
+      // Дополнительная проверка, чтобы избежать повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -779,7 +780,7 @@ export default function VoiceControl({
       command.includes("замечательно") ||
       command.includes("круто") ||
       command.includes("прекрасно") ||
-      command.includes("ч��десно")
+      command.includes("чудесно")
     ) {
       speakThankYou();
       return;
@@ -877,7 +878,7 @@ export default function VoiceControl({
       "отлично",
       "замечательно",
       "круто",
-      "прек��асно",
+      "прекрасно",
       "чудесно",
       "добр��е",
       "утро",
@@ -1057,7 +1058,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск технологи��
+      // Поиск технологи���
       if (
         command.includes("технолог") ||
         command.includes("webgl") ||
@@ -1263,7 +1264,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к пре��муществам") ||
+      command.includes("к пре���муществам") ||
       command.includes("наши преимущества") ||
       command.includes("спустит��ся к преимуществам") ||
       command.includes("перейти к преимуществам") ||
@@ -1297,7 +1298,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("Показываю возможности");
+        speak("По��азываю возможности");
       }
       return;
     }
