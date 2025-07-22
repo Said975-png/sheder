@@ -8,16 +8,7 @@ import {
   GlitchText,
 } from "@/components/StarkEffects";
 
-import {
-  Mic,
-  MicOff,
-  Volume2,
-  Activity,
-  Cpu,
-  Eye,
-  Zap,
-  X,
-} from "lucide-react";
+import { Mic, MicOff, Volume2, Activity, Cpu, Eye, Zap, X } from "lucide-react";
 
 interface VoicePanelProps {
   onAddBasicPlan: () => void;
@@ -197,7 +188,7 @@ export default function VoicePanel({
           className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"
           style={{ animationDelay: "1s" }}
         ></div>
-        
+
         {/* Glowing corners */}
         <div className="absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-cyan-400/60"></div>
         <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-cyan-400/60"></div>

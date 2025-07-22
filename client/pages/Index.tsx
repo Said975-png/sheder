@@ -289,8 +289,8 @@ export default function Index() {
             onClick={() => {
               console.log("🧪 Тестовый запуск диагностики");
               // Имитируем голосовую команду
-              const event = new CustomEvent('voiceCommand', {
-                detail: { command: 'диагностика' }
+              const event = new CustomEvent("voiceCommand", {
+                detail: { command: "диагностика" },
               });
               window.dispatchEvent(event);
             }}

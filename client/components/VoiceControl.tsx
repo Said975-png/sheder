@@ -51,7 +51,10 @@ export default function VoiceControl({
         recognitionRef.current.maxAlternatives = 5;
 
         // Дополнительные настройки для Chrome/WebKit - улучшаем чувствительнос��ь
-        if (recognitionRef.current.webkitSpeechRecognition || "webkitSpeechRecognition" in window) {
+        if (
+          recognitionRef.current.webkitSpeechRecognition ||
+          "webkitSpeechRecognition" in window
+        ) {
           // @ts-ignore - WebKit specific properties
           recognitionRef.current.webkitContinuous = true;
           // @ts-ignore
@@ -67,7 +70,8 @@ export default function VoiceControl({
           // @ts-ignore - Эти настройки помогают лучше распознава��ь речь
           if (recognitionRef.current.webkitSpeechRecognition) {
             recognitionRef.current.webkitSpeechRecognition.continuous = true;
-            recognitionRef.current.webkitSpeechRecognition.interimResults = true;
+            recognitionRef.current.webkitSpeechRecognition.interimResults =
+              true;
           }
         } catch (e) {
           // Игнорируем ��шибки настроек
@@ -108,8 +112,14 @@ export default function VoiceControl({
           }
 
           // Обрабатываем финальные результаты или достаточно длинные промежуточные
-          if ((finalTranscript || combinedTranscript.length > 5) && !commandCooldownRef.current && !isSpeaking) {
-            const command = (finalTranscript || combinedTranscript).toLowerCase().trim();
+          if (
+            (finalTranscript || combinedTranscript.length > 5) &&
+            !commandCooldownRef.current &&
+            !isSpeaking
+          ) {
+            const command = (finalTranscript || combinedTranscript)
+              .toLowerCase()
+              .trim();
             console.log("🔍 Анализируем команду:", `"${command}"`);
 
             // Проверяем, что команда отличается от предыдущей и достаточно дли��ная
@@ -128,32 +138,40 @@ export default function VoiceControl({
               }
 
               // Добавляем небольшую задержку для завершения фразы
-              commandDelayRef.current = setTimeout(() => {
-                lastCommandRef.current = command;
-                setNoSpeechCount(0); // Сбрасываем счетчик при успешном распознавании
-                processVoiceCommand(command);
+              commandDelayRef.current = setTimeout(
+                () => {
+                  lastCommandRef.current = command;
+                  setNoSpeechCount(0); // Сбрасываем счетчик при успешном распознавании
+                  processVoiceCommand(command);
 
-                // После обработки команды очищаем состояние через небольшую паузу
-                setTimeout(() => {
-                  console.log("🧹 Очищаем состояние после команды");
-                  setTranscript("");
-                  onListeningChange?.(true, "");
-                  lastCommandRef.current = "";
-                }, 2000); // Пауза 2 секунды после команды
-              }, finalTranscript ? 100 : 1000); // Меньше задержки для финальных результатов
+                  // После обработки команды очищаем состояние через небольшую паузу
+                  setTimeout(() => {
+                    console.log("🧹 Очищаем состояние после команды");
+                    setTranscript("");
+                    onListeningChange?.(true, "");
+                    lastCommandRef.current = "";
+                  }, 2000); // Пауза 2 секунды после команды
+                },
+                finalTranscript ? 100 : 1000,
+              ); // Меньше задержки для финальных результатов
             } else {
               console.log("❌ Команда отклонена:", {
                 isEmpty: !command,
                 isSame: command === lastCommandRef.current,
                 isTooShort: command.length <= 2,
-                lastCommand: lastCommandRef.current
+                lastCommand: lastCommandRef.current,
               });
             }
           }
         };
 
         recognitionRef.current.onend = () => {
-          console.log("🎤 Р���спознавание завершилось, isListening:", isListening, "isSpeaking:", isSpeaking);
+          console.log(
+            "🎤 Р���спознавание завершилось, isListening:",
+            isListening,
+            "isSpeaking:",
+            isSpeaking,
+          );
 
           // Автоматически перезапускаем распознавание, если мы все еще слушаем
           if (isListening && !isSpeaking) {
@@ -164,7 +182,10 @@ export default function VoiceControl({
                   recognitionRef.current.start();
                   console.log("✅ Распознавание п��резапущено");
                 } catch (error) {
-                  console.log("ℹ️ Распозн��вание уже запущено или недоступно:", error);
+                  console.log(
+                    "ℹ️ Распозн��вание уже запущено или недоступно:",
+                    error,
+                  );
                 }
               }
             }, 100);
@@ -185,10 +206,16 @@ export default function VoiceControl({
             onListeningChange?.(false, "");
           }
           // Некритические ошибки - игнорируем и продолжаем
-          else if (event.error === "no-speech" || event.error === "audio-capture" || event.error === "aborted") {
+          else if (
+            event.error === "no-speech" ||
+            event.error === "audio-capture" ||
+            event.error === "aborted"
+          ) {
             if (event.error === "no-speech") {
-              setNoSpeechCount(prev => prev + 1);
-              console.log(`ℹ️ No-speech ошибка #${noSpeechCount + 1} - п��одолжаем слушать`);
+              setNoSpeechCount((prev) => prev + 1);
+              console.log(
+                `ℹ️ No-speech ошибка #${noSpeechCount + 1} - п��одолжаем слушать`,
+              );
 
               // Если сл��шком много no-speech ошибок подряд, делаем небольшую паузу
               if (noSpeechCount >= 3) {
@@ -205,13 +232,21 @@ export default function VoiceControl({
                 }, 2000);
               }
             } else {
-              console.log("ℹ️ Некритическая ошибка распознавания:", event.error, "- продолжаем слушать");
+              console.log(
+                "ℹ️ Некритическая ошибка распознавания:",
+                event.error,
+                "- продолжаем слушать",
+              );
             }
             // Система автоматически перезапустится через onend
           }
           // Другие ошибки - перезапускаем через короткое время
           else {
-            console.warn("⚠️ Неожиданная ошибка распознав��ния:", event.error, "- перезапу��каем");
+            console.warn(
+              "⚠️ Неожиданная ошибка распознав��ния:",
+              event.error,
+              "- перезапу��каем",
+            );
             setTimeout(() => {
               if (isListening && recognitionRef.current) {
                 try {
@@ -249,8 +284,8 @@ export default function VoiceControl({
       processVoiceCommand(event.detail.command);
     };
 
-    window.addEventListener('voiceCommand', handleTestCommand);
-    return () => window.removeEventListener('voiceCommand', handleTestCommand);
+    window.addEventListener("voiceCommand", handleTestCommand);
+    return () => window.removeEventListener("voiceCommand", handleTestCommand);
   }, []);
 
   // Effect для принудите��ьной остановки
@@ -781,20 +816,22 @@ export default function VoiceControl({
 
   // Тестовая функция для проверки аудио
   const testAudioUrls = () => {
-    const url1 = "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76";
-    const url2 = "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76";
+    const url1 =
+      "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76";
+    const url2 =
+      "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76";
 
     console.log("🧪 Т��стируем URL аудиофайлов:");
     console.log("URL1:", url1);
     console.log("URL2:", url2);
 
     fetch(url1)
-      .then(response => console.log("✅ URL1 доступен:", response.status))
-      .catch(error => console.error("❌ URL1 недоступен:", error));
+      .then((response) => console.log("✅ URL1 доступен:", response.status))
+      .catch((error) => console.error("❌ URL1 недоступен:", error));
 
     fetch(url2)
-      .then(response => console.log("✅ URL2 доступен:", response.status))
-      .catch(error => console.error("❌ URL2 недоступен:", error));
+      .then((response) => console.log("✅ URL2 доступен:", response.status))
+      .catch((error) => console.error("❌ URL2 недоступен:", error));
   };
 
   const speakSystemDiagnostics = () => {
@@ -820,7 +857,7 @@ export default function VoiceControl({
     // Воспроизводим первое аудио
     console.log("��� Создаем первое аудио для диагнос��ики");
     const firstAudio = new Audio(
-      "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76"
+      "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76",
     );
     currentAudioRef.current = firstAudio;
 
@@ -840,7 +877,7 @@ export default function VoiceControl({
       setTimeout(() => {
         console.log("🎵 Создаем второе аудио для диагностики");
         const secondAudio = new Audio(
-          "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76"
+          "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76",
         );
         currentAudioRef.current = secondAudio;
 
@@ -856,7 +893,10 @@ export default function VoiceControl({
         console.log("▶️ Запускаем второе аудио");
         secondAudio.play().catch((error) => {
           resetState();
-          console.error("❌ Не удалось воспроизвести второе аудио диагностики:", error);
+          console.error(
+            "❌ Не удалось воспроизвести второе аудио диагностики:",
+            error,
+          );
         });
       }, 2000);
     };
@@ -869,7 +909,10 @@ export default function VoiceControl({
     console.log("▶️ ��апускаем первое ауди��");
     firstAudio.play().catch((error) => {
       resetState();
-      console.error("❌ Не удалось воспроизвести первое аудио диагностики:", error);
+      console.error(
+        "❌ Не удалось воспроизвести первое аудио диагностики:",
+        error,
+      );
     });
   };
 
@@ -973,12 +1016,18 @@ export default function VoiceControl({
       command.includes("привет джаров") ||
       command.includes("привет ярвис") ||
       command.includes("жарвис привет") ||
-      (command.includes("привет") && (command.includes("джарвис") || command.includes("жарвис") || command.includes("ярвис")))
+      (command.includes("привет") &&
+        (command.includes("джарвис") ||
+          command.includes("жарвис") ||
+          command.includes("ярвис")))
     ) {
       const now = Date.now();
       const timeSinceLastGreeting = now - lastGreetingTimeRef.current;
 
-      console.log("🎯 Команда приветствия распознана, времени прошло:", timeSinceLastGreeting);
+      console.log(
+        "🎯 Команда приветствия распознана, времени прошло:",
+        timeSinceLastGreeting,
+      );
 
       // Дополнительная проверка + защита от повторов (минимум 10 секунд между приветствиями)
       if (
@@ -995,7 +1044,7 @@ export default function VoiceControl({
           isSpeaking,
           commandCooldown: commandCooldownRef.current,
           audioPlaying: audioPlayingRef.current,
-          timeSinceLastGreeting
+          timeSinceLastGreeting,
         });
       }
       return;
@@ -1091,7 +1140,7 @@ export default function VoiceControl({
         console.log("❌ Диагностика заблокирована:", {
           isSpeaking,
           commandCooldown: commandCooldownRef.current,
-          audioPlaying: audioPlayingRef.current
+          audioPlaying: audioPlayingRef.current,
         });
       }
       return;
