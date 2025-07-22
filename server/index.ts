@@ -3,6 +3,7 @@ import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleImageUpload, handleGenerateWebsite } from "./routes/upload";
 import { handleSendOrder } from "./routes/orders";
+import { handleElevenLabsTTS } from "./routes/elevenlabs-tts";
 
 export function createServer() {
   const app = express();
