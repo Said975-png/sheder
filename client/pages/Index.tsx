@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import VoiceControl from "@/components/VoiceControl";
-import GLBModel from "@/components/GLBModel";
+
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
@@ -354,15 +354,15 @@ export default function Index() {
               </Button>
             </div>
 
-            {/* Right Side - 3D Model */}
+            {/* Right Side - Content or other elements */}
             <div className="flex items-center justify-center">
-              <StarkHUD className="w-full h-96 overflow-hidden">
-                <GLBModel
-                  url="https://cdn.builder.io/o/assets%2Fd1c3ee1ec7be40678f2e6792ec37e2b0%2Fa3ddf442a35840a8ae7950219d9bdb2f?alt=media&token=138b2881-8b51-43df-b3e5-81d9e6d6983f&apiKey=d1c3ee1ec7be40678f2e6792ec37e2b0"
-                  scale={2.5}
-                  autoRotate={false}
-                />
-              </StarkHUD>
+              <div className="text-center space-y-6">
+                <div className="w-64 h-64 mx-auto bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-cyan-400/30">
+                  <div className="text-6xl text-cyan-400">
+                    <Code className="w-16 h-16" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
