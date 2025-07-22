@@ -351,7 +351,7 @@ export default function Index() {
             <div className="flex items-center justify-center">
               <div className="w-full h-96 rounded-2xl overflow-hidden">
                 <GLBModel
-                  url="https://cdn.builder.io/o/assets%2Fe7ee46b6f06b4b02a9803aeda10a012b%2F1e64d10a28ff46c082b8fe3e8e25f018?alt=media&token=4049ba85-06b6-4777-9dd8-f3ad1cfdf1b8&apiKey=e7ee46b6f06b4b02a9803aeda10a012b"
+                  url="https://cdn.builder.io/o/assets%2Fd1c3ee1ec7be40678f2e6792ec37e2b0%2Fa3ddf442a35840a8ae7950219d9bdb2f?alt=media&token=138b2881-8b51-43df-b3e5-81d9e6d6983f&apiKey=d1c3ee1ec7be40678f2e6792ec37e2b0"
                   scale={2}
                   autoRotate={true}
                 />
@@ -448,7 +448,7 @@ export default function Index() {
             <div className="flex items-center justify-center">
               <div className="w-full h-96 rounded-2xl overflow-hidden">
                 <GLBModel
-                  url="https://cdn.builder.io/o/assets%2Fe7ee46b6f06b4b02a9803aeda10a012b%2F1e64d10a28ff46c082b8fe3e8e25f018?alt=media&token=4049ba85-06b6-4777-9dd8-f3ad1cfdf1b8&apiKey=e7ee46b6f06b4b02a9803aeda10a012b"
+                  url="https://cdn.builder.io/o/assets%2Fd1c3ee1ec7be40678f2e6792ec37e2b0%2Fa3ddf442a35840a8ae7950219d9bdb2f?alt=media&token=138b2881-8b51-43df-b3e5-81d9e6d6983f&apiKey=d1c3ee1ec7be40678f2e6792ec37e2b0"
                   scale={1.5}
                   autoRotate={false}
                 />
