@@ -14,7 +14,12 @@ import {
   Zap,
   CheckCircle,
   ShoppingCart,
-  Bot,
+  Lock,
+  Eye,
+  Layers,
+  TrendingUp,
+  Search,
+  Cog,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
@@ -44,7 +49,7 @@ export default function Index() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
-    }, 300); // Задержка для более драматичного появления
+    }, 300);
 
     return () => clearTimeout(timer);
   }, []);
@@ -54,36 +59,33 @@ export default function Index() {
     window.location.reload();
   };
 
-  const handleAddBasicPlan = () => {
+  const handleAddBeginnerPlan = () => {
     addItem({
-      id: "basic-plan",
-      name: "Basic сайт",
-      price: 2000000,
-      description:
-        "Базовая вёрстка, адаптив под все устройства, бесплатный SSL, техподдержка 24/7",
-      category: "website",
+      id: "beginner-plan",
+      name: "Beginner Plan",
+      price: 199,
+      description: "Access to basic blockchain guides and fundamental knowledge",
+      category: "blockchain-basic",
     });
   };
 
-  const handleAddProPlan = () => {
+  const handleAddIntermediatePlan = () => {
     addItem({
-      id: "pro-plan",
-      name: "Pro сайт с ИИ",
-      price: 3500000,
-      description:
-        "ИИ: чат-бот, автозаполнение, умные блоки, полный адаптив, быстрая загрузка, SEO оптимизация",
-      category: "website-ai",
+      id: "intermediate-plan", 
+      name: "Intermediate Plan",
+      price: 349,
+      description: "Everything in Beginner + Advanced blockchain insights and tools",
+      category: "blockchain-intermediate",
     });
   };
 
-  const handleAddMaxPlan = () => {
+  const handleAddAdvancedPlan = () => {
     addItem({
-      id: "max-plan",
-      name: "Max сайт с Джарвисом",
-      price: 5000000,
-      description:
-        "ИИ-помощник типа Джарвис, интеграция с API, технологии нового поколения, WebGL и AI интерфейс",
-      category: "website-jarvis",
+      id: "advanced-plan",
+      name: "Advanced Plan", 
+      price: 495,
+      description: "Everything in Intermediate + Professional tools and priority support",
+      category: "blockchain-advanced",
     });
   };
 
@@ -93,441 +95,393 @@ export default function Index() {
 
   if (loading) {
     return (
-      <div className="min-h-screen theme-gradient theme-text flex items-center justify-center">
+      <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4 animate-pulse">
+          <div className="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4 animate-pulse">
             <Shield className="w-8 h-8 text-white" />
           </div>
-          <p className="text-white/70">Загрузка...</p>
+          <p className="text-white/70">Loading...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen ai-hero-container theme-text overflow-x-hidden">
-      {/* Header */}
-      {/* Oval Navbar */}
-      <nav
-        className={`fixed top-6 left-1/2 z-50 ${navbarAnimated ? "portal-entrance" : "opacity-0 transform -translate-x-1/2 scale-50"}`}
-      >
-        <div
-          className="relative flex items-center space-x-8 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-purple-500/30 px-6 py-2 neon-glow holographic"
-          style={{ borderRadius: "9999px" }}
-        >
-          {/* Энергетическое поле */}
-          <div className="energy-field rounded-full"></div>
-          {/* Частицы */}
-          <div className="portal-particles">
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-            <div className="particle"></div>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center logo-pulse">
-              <Shield className="w-5 h-5 text-white" />
+    <div className="min-h-screen bg-slate-900 text-white overflow-x-hidden">
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700/50">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <Shield className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xl font-bold text-white">JumpBot</span>
             </div>
-            <span className="text-xl font-semibold theme-text text-flicker">
-              NEURA
-            </span>
-          </div>
 
-          <div className="hidden md:flex items-center space-x-6">
-            <a
-              href="#"
-              className="theme-nav-text transition-colors text-sm font-medium"
-            >
-              Home
-            </a>
-          </div>
+            {/* Navigation Links */}
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#" className="text-cyan-400 hover:text-cyan-300 transition-colors">Home</a>
+              <a href="#why-blockchain" className="text-white/70 hover:text-white transition-colors">Why Blockchain</a>
+              <a href="#pricing" className="text-white/70 hover:text-white transition-colors">Pricing</a>
+              <a href="#how-it-works" className="text-white/70 hover:text-white transition-colors">How it Works</a>
+            </div>
 
-          <div className="flex items-center space-x-3">
-            {/* Cart Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  className="relative theme-button-text p-2 rounded-full hover:bg-white/10"
-                  data-testid="cart-button"
-                >
-                  <ShoppingCart className="w-5 h-5" />
-                  {getTotalItems() > 0 && (
-                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center">
-                      {getTotalItems()}
-                    </span>
-                  )}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                className="w-80 theme-dropdown border mt-2"
-              >
-                <div className="px-3 py-2">
-                  <h3 className="font-semibold theme-text mb-2">Корзина</h3>
-                  {items.length === 0 ? (
-                    <p className="text-sm theme-text-muted text-center py-4">
-                      Корзина пуста
-                    </p>
-                  ) : (
-                    <>
-                      <div className="space-y-2 max-h-60 overflow-y-auto">
-                        {items.map((item) => (
-                          <div
-                            key={item.id}
-                            className="flex items-start justify-between p-2 theme-card-solid rounded-lg"
-                          >
-                            <div className="flex-1">
-                              <h4 className="font-medium text-sm theme-text">
-                                {item.name}
-                              </h4>
-                              <p className="text-xs theme-text-muted mt-1">
-                                {item.description.substring(0, 60)}...
-                              </p>
-                              <p className="text-sm font-semibold theme-text mt-1">
-                                {item.price.toLocaleString()} сум
-                              </p>
-                            </div>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => removeItem(item.id)}
-                              className="ml-2 h-6 w-6 p-0 hover:bg-red-500/20"
-                            >
-                              ×
-                            </Button>
-                          </div>
-                        ))}
-                      </div>
-                      <DropdownMenuSeparator className="bg-border my-3" />
-                      <div className="flex justify-between items-center mb-3">
-                        <span className="font-semibold theme-text">Итого:</span>
-                        <span className="font-bold theme-text">
-                          {getTotalPrice().toLocaleString()} сум
-                        </span>
-                      </div>
-                      <div className="flex space-x-2">
-                        <Button
-                          onClick={clearCart}
-                          variant="outline"
-                          size="sm"
-                          className="flex-1"
-                        >
-                          Очистить
-                        </Button>
-                        <Button
-                          onClick={handleProceedToOrder}
-                          size="sm"
-                          className="flex-1 bg-purple-600 hover:bg-purple-700"
-                        >
-                          Оформить заказ
-                        </Button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <ThemeToggle />
-            {isAuthenticated && currentUser ? (
+            {/* Right Side */}
+            <div className="flex items-center space-x-4">
+              {/* Cart Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    className="flex items-center space-x-2 theme-button-text p-2 rounded-full hover:bg-white/10"
-                  >
-                    <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
-                      <User className="w-4 h-4" />
-                    </div>
-                    <span className="hidden sm:block text-sm">
-                      {currentUser.name}
-                    </span>
+                  <Button variant="ghost" className="relative p-2 rounded-full hover:bg-white/10">
+                    <ShoppingCart className="w-5 h-5" />
+                    {getTotalItems() > 0 && (
+                      <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-xs rounded-full flex items-center justify-center">
+                        {getTotalItems()}
+                      </span>
+                    )}
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  className="w-56 theme-dropdown border mt-2"
-                >
-                  <div className="px-2 py-1.5 text-sm theme-text-muted">
-                    <div className="font-medium theme-text">
-                      {currentUser.name}
-                    </div>
-                    <div className="text-xs">{currentUser.email}</div>
+                <DropdownMenuContent align="end" className="w-80 bg-slate-800 border-slate-700 mt-2">
+                  <div className="px-3 py-2">
+                    <h3 className="font-semibold text-white mb-2">Cart</h3>
+                    {items.length === 0 ? (
+                      <p className="text-sm text-white/60 text-center py-4">Cart is empty</p>
+                    ) : (
+                      <>
+                        <div className="space-y-2 max-h-60 overflow-y-auto">
+                          {items.map((item) => (
+                            <div key={item.id} className="flex items-start justify-between p-2 bg-slate-700 rounded-lg">
+                              <div className="flex-1">
+                                <h4 className="font-medium text-sm text-white">{item.name}</h4>
+                                <p className="text-xs text-white/60 mt-1">{item.description.substring(0, 60)}...</p>
+                                <p className="text-sm font-semibold text-white mt-1">${item.price}</p>
+                              </div>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => removeItem(item.id)}
+                                className="ml-2 h-6 w-6 p-0 hover:bg-red-500/20"
+                              >
+                                ×
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                        <DropdownMenuSeparator className="bg-slate-700 my-3" />
+                        <div className="flex justify-between items-center mb-3">
+                          <span className="font-semibold text-white">Total:</span>
+                          <span className="font-bold text-white">${getTotalPrice()}</span>
+                        </div>
+                        <div className="flex space-x-2">
+                          <Button onClick={clearCart} variant="outline" size="sm" className="flex-1">
+                            Clear
+                          </Button>
+                          <Button onClick={handleProceedToOrder} size="sm" className="flex-1 bg-blue-600 hover:bg-blue-700">
+                            Checkout
+                          </Button>
+                        </div>
+                      </>
+                    )}
                   </div>
-                  <DropdownMenuSeparator className="bg-border" />
-                  <DropdownMenuItem
-                    onClick={() => (window.location.href = "/profile")}
-                    className="theme-dropdown-item cursor-pointer"
-                  >
-                    <User className="mr-2 h-4 w-4" />
-                    <span>Профиль</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onClick={() => (window.location.href = "/profile")}
-                    className="theme-dropdown-item cursor-pointer"
-                  >
-                    <Settings className="mr-2 h-4 w-4" />
-                    <span>Настройки</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-border" />
-                  <DropdownMenuItem
-                    onClick={handleLogout}
-                    className="theme-dropdown-item cursor-pointer text-red-500 hover:text-red-400"
-                  >
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Выйти</span>
-                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            ) : (
-              <>
-                <Button
-                  variant="ghost"
-                  className="theme-button-text text-sm px-4 py-2 rounded-full hover:bg-white/10"
-                  asChild
-                >
-                  <Link to="/signup">Sign up</Link>
-                </Button>
-                <Button
-                  className="bg-purple-600 hover:bg-purple-700 text-white text-sm px-4 py-2 rounded-full"
-                  asChild
-                >
-                  <Link to="/login">Login</Link>
-                </Button>
-              </>
-            )}
+
+              <ThemeToggle />
+
+              {isAuthenticated && currentUser ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="flex items-center space-x-2 p-2 rounded-full hover:bg-white/10">
+                      <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                        <User className="w-4 h-4" />
+                      </div>
+                      <span className="hidden sm:block text-sm">{currentUser.name}</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56 bg-slate-800 border-slate-700 mt-2">
+                    <div className="px-2 py-1.5 text-sm text-white/60">
+                      <div className="font-medium text-white">{currentUser.name}</div>
+                      <div className="text-xs">{currentUser.email}</div>
+                    </div>
+                    <DropdownMenuSeparator className="bg-slate-700" />
+                    <DropdownMenuItem onClick={() => (window.location.href = "/profile")} className="text-white hover:bg-slate-700 cursor-pointer">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => (window.location.href = "/profile")} className="text-white hover:bg-slate-700 cursor-pointer">
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Settings</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-slate-700" />
+                    <DropdownMenuItem onClick={handleLogout} className="text-red-400 hover:bg-slate-700 cursor-pointer">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Logout</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <>
+                  <Button variant="ghost" className="text-sm px-4 py-2 rounded-full hover:bg-white/10" asChild>
+                    <Link to="/signup">Sign up</Link>
+                  </Button>
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-6 py-2 rounded-full">
+                    Contact US
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </nav>
 
-      {/* Pricing Section */}
-      <section
-        data-section="pricing"
-        className="ai-hero-container py-24 relative pt-32"
-      >
+      {/* Hero Section */}
+      <section className="pt-24 pb-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(59,130,246,0.3)_0%,transparent_50%),radial-gradient(circle_at_80%_70%,rgba(16,185,129,0.2)_0%,transparent_50%)]"></div>
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 items-center min-h-[600px]">
+            {/* Left Content */}
+            <div className="space-y-8">
+              <div className="space-y-6">
+                <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
+                  Unleashing the Power of{" "}
+                  <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+                    Blockchain
+                  </span>
+                </h1>
+                
+                <p className="text-xl text-white/70 leading-relaxed max-w-lg">
+                  Transforming industries with secure, decentralized and transparent technology.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg">
+                  Get Started with Blockchain
+                </Button>
+                <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 px-8 py-3 rounded-lg text-lg">
+                  Discover How it Works
+                </Button>
+              </div>
+            </div>
+
+            {/* Right Side - 3D Model Placeholder */}
+            <div className="flex items-center justify-center">
+              <div className="w-full h-96 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl border border-blue-500/30 flex items-center justify-center">
+                <p className="text-white/50 text-lg">3D Model will be placed here</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Blockchain Section */}
+      <section id="why-blockchain" className="py-20 bg-slate-800/50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 theme-text">
-              Выберите подходящий план
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Why <span className="text-blue-400">Blockchain?</span>
             </h2>
-            <p className="text-lg theme-text-muted max-w-2xl mx-auto">
-              Профессиональные решения для создания современных веб-сайтов
+            <p className="text-lg text-white/70 max-w-2xl mx-auto">
+              Blockchain is redefining trust in the digital world. Here's why it matters:
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Decentralization */}
+            <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-300 group">
+              <div className="w-16 h-16 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600/30 transition-colors">
+                <Layers className="w-8 h-8 text-blue-400" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Decentralization</h3>
+              <p className="text-white/70">No single entity controls the system</p>
+            </div>
+
+            {/* Security */}
+            <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:border-green-500/50 transition-all duration-300 group">
+              <div className="w-16 h-16 bg-green-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-600/30 transition-colors">
+                <Lock className="w-8 h-8 text-green-400" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Security</h3>
+              <p className="text-white/70">Encrypted and tamper-proof technology</p>
+            </div>
+
+            {/* Transparency */}
+            <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-300 group">
+              <div className="w-16 h-16 bg-cyan-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-cyan-600/30 transition-colors">
+                <Search className="w-8 h-8 text-cyan-400" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Transparency</h3>
+              <p className="text-white/70">Public, accessible transactions</p>
+            </div>
+
+            {/* Efficiency */}
+            <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-300 group">
+              <div className="w-16 h-16 bg-purple-600/20 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-600/30 transition-colors">
+                <TrendingUp className="w-8 h-8 text-purple-400" />
+              </div>
+              <h3 className="text-xl font-bold mb-4">Efficiency</h3>
+              <p className="text-white/70">Faster, cost-effective processes</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Blockchain Matters Section */}
+      <section className="py-20 bg-slate-900">
+        <div className="container mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            {/* Left Content */}
+            <div className="space-y-8">
+              <h2 className="text-4xl lg:text-5xl font-bold">
+                Why Blockchain <span className="text-blue-400">Matters</span>
+              </h2>
+              
+              <p className="text-lg text-white/70 leading-relaxed">
+                Blockchain is revolutionizing how we handle data, transactions, and trust. By eliminating intermediaries and creating secure, transparent systems, blockchain is laying the foundation for a more efficient and fair digital future.
+              </p>
+
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg">
+                Read More
+              </Button>
+            </div>
+
+            {/* Right Side - 3D Isometric Placeholder */}
+            <div className="flex items-center justify-center">
+              <div className="w-full h-96 bg-gradient-to-br from-slate-800 to-slate-700 rounded-2xl border border-slate-600/50 flex items-center justify-center">
+                <p className="text-white/50 text-lg">3D Isometric Model will be placed here</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 bg-slate-800/50">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Pricing <span className="text-blue-400">Plans</span>
+            </h2>
+            <p className="text-lg text-white/70 max-w-2xl mx-auto">
+              Choose the plan that fits your needs and start exploring the power of blockchain today
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Basic Plan Card */}
-            <div className="group relative pricing-card-enter">
-              <div className="relative p-8 bg-gradient-to-br from-blue-500/20 to-purple-600/20 backdrop-blur-lg border border-blue-500/30 rounded-3xl hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/25">
-                {/* Glowing border effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/40 to-purple-600/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
-
-                <div className="relative z-10">
-                  <div className="text-center mb-6">
-                    <div className="relative mb-4">
-                      <div className="w-16 h-16 mx-auto bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-2xl flex items-center justify-center border border-blue-500/30 relative">
-                        <Code className="w-8 h-8 text-blue-400" />
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-600/10 rounded-2xl animate-pulse"></div>
-                      </div>
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full animate-pulse"></div>
-                      <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-purple-500 rounded-full animate-ping"></div>
-                      <div className="absolute top-0 left-0 w-2 h-2 bg-cyan-500 rounded-full animate-bounce"></div>
-                    </div>
-                    <h3 className="text-xl font-semibold theme-text mb-2">
-                      Basic сайт
-                    </h3>
-                    <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
-                      2 000 000
-                    </div>
-                    <div className="text-sm theme-text-muted">сум</div>
-                  </div>
-
-                  <ul className="space-y-4 mb-8 text-sm">
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
-                        <CheckCircle className="w-3 h-3 text-blue-400" />
-                      </div>
-                      Без искусственного интеллекта
-                    </li>
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
-                        <CheckCircle className="w-3 h-3 text-blue-400" />
-                      </div>
-                      Базовая вёрстка
-                    </li>
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
-                        <CheckCircle className="w-3 h-3 text-blue-400" />
-                      </div>
-                      Адаптив под все устройства
-                    </li>
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
-                        <CheckCircle className="w-3 h-3 text-blue-400" />
-                      </div>
-                      Бесплатный SSL
-                    </li>
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-blue-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-500/30 transition-colors">
-                        <CheckCircle className="w-3 h-3 text-blue-400" />
-                      </div>
-                      Техподдержка 24/7
-                    </li>
-                  </ul>
-
-                  <Button
-                    onClick={handleAddBasicPlan}
-                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 glow-button"
-                  >
-                    Заказать
-                  </Button>
+            {/* Beginner Plan */}
+            <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 hover:border-blue-500/50 transition-all duration-300">
+              <div className="text-center mb-8">
+                <h3 className="text-xl font-semibold mb-4">Beginner Plan</h3>
+                <div className="text-4xl font-bold mb-2">
+                  $199<span className="text-lg text-white/60">/month</span>
                 </div>
+                <p className="text-white/60">Individuals new to blockchain</p>
               </div>
+
+              <div className="space-y-4 mb-8">
+                <h4 className="font-semibold">Features:</h4>
+                <ul className="space-y-3">
+                  <li className="flex items-center text-white/70">
+                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    Access to basic blockchain guides
+                  </li>
+                  <li className="flex items-center text-white/70">
+                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    Fundamental blockchain knowledge
+                  </li>
+                  <li className="flex items-center text-white/70">
+                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    Community support
+                  </li>
+                </ul>
+              </div>
+
+              <Button 
+                onClick={handleAddBeginnerPlan}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-xl"
+              >
+                Choose Plan
+              </Button>
             </div>
 
-            {/* Pro Plan Card */}
-            <div className="group relative transform md:scale-105 pricing-card-enter">
-              <div className="relative p-8 bg-gradient-to-br from-orange-500/20 to-red-600/20 backdrop-blur-lg border border-orange-500/30 rounded-3xl hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/25">
-                {/* Glowing border effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/40 to-red-600/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
-
-                {/* Popular badge */}
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-gradient-to-r from-orange-500 to-red-600 text-white text-xs font-semibold px-4 py-2 rounded-full">
-                    Популярный
-                  </div>
-                </div>
-
-                <div className="relative z-10">
-                  <div className="text-center mb-6">
-                    <div className="relative mb-4">
-                      <div className="w-16 h-16 mx-auto bg-gradient-to-br from-orange-500/20 to-red-600/20 rounded-2xl flex items-center justify-center border border-orange-500/30 relative">
-                        <Cpu className="w-8 h-8 text-orange-400" />
-                        <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-600/10 rounded-2xl animate-pulse"></div>
-                      </div>
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 rounded-full animate-pulse"></div>
-                      <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-red-500 rounded-full animate-ping"></div>
-                      <div className="absolute top-0 left-0 w-2 h-2 bg-yellow-500 rounded-full animate-bounce"></div>
-                    </div>
-                    <h3 className="text-xl font-semibold theme-text mb-2">
-                      Pro сайт с ИИ
-                    </h3>
-                    <div className="text-3xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-1">
-                      3 500 000
-                    </div>
-                    <div className="text-sm theme-text-muted">сум</div>
-                  </div>
-
-                  <ul className="space-y-4 mb-8 text-sm">
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
-                        <Zap className="w-3 h-3 text-orange-400" />
-                      </div>
-                      ИИ: чат-бот, автозаполнение, умные блоки
-                    </li>
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
-                        <CheckCircle className="w-3 h-3 text-orange-400" />
-                      </div>
-                      Полный адаптив
-                    </li>
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
-                        <CheckCircle className="w-3 h-3 text-orange-400" />
-                      </div>
-                      Быстрая загрузка
-                    </li>
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
-                        <CheckCircle className="w-3 h-3 text-orange-400" />
-                      </div>
-                      SEO оптимизация
-                    </li>
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-orange-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-orange-500/30 transition-colors">
-                        <CheckCircle className="w-3 h-3 text-orange-400" />
-                      </div>
-                      Техподдержка 24/7
-                    </li>
-                  </ul>
-
-                  <Button
-                    onClick={handleAddProPlan}
-                    className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/30 glow-button"
-                  >
-                    Заказать
-                  </Button>
-                </div>
+            {/* Intermediate Plan */}
+            <div className="bg-slate-800/80 backdrop-blur-sm border-2 border-blue-500 rounded-2xl p-8 relative transform scale-105">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <span className="bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-full">
+                  Most Popular
+                </span>
               </div>
+              
+              <div className="text-center mb-8">
+                <h3 className="text-xl font-semibold mb-4">Intermediate Plan</h3>
+                <div className="text-4xl font-bold mb-2">
+                  $349<span className="text-lg text-white/60">/month</span>
+                </div>
+                <p className="text-white/60">Users with some blockchain knowledge</p>
+              </div>
+
+              <div className="space-y-4 mb-8">
+                <h4 className="font-semibold">Features:</h4>
+                <ul className="space-y-3">
+                  <li className="flex items-center text-white/70">
+                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    Everything in Beginner
+                  </li>
+                  <li className="flex items-center text-white/70">
+                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    Access to advanced blockchain
+                  </li>
+                  <li className="flex items-center text-white/70">
+                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    Priority email support
+                  </li>
+                </ul>
+              </div>
+
+              <Button 
+                onClick={handleAddIntermediatePlan}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-xl"
+              >
+                Choose Plan
+              </Button>
             </div>
 
-            {/* Max Plan Card */}
-            <div className="group relative pricing-card-enter">
-              <div className="relative p-8 bg-gradient-to-br from-cyan-500/20 to-teal-600/20 backdrop-blur-lg border border-cyan-500/30 rounded-3xl hover:scale-105 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/25">
-                {/* Glowing border effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/40 to-teal-600/40 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
-
-                <div className="relative z-10">
-                  <div className="text-center mb-6">
-                    <div className="relative mb-4">
-                      <div className="w-16 h-16 mx-auto bg-gradient-to-br from-cyan-500/20 to-teal-600/20 rounded-2xl flex items-center justify-center border border-cyan-500/30 relative">
-                        <Brain className="w-8 h-8 text-cyan-400" />
-                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-teal-600/10 rounded-2xl animate-pulse"></div>
-                      </div>
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-cyan-500 rounded-full animate-pulse"></div>
-                      <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-teal-500 rounded-full animate-ping"></div>
-                      <div className="absolute top-0 left-0 w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
-                    </div>
-                    <h3 className="text-xl font-semibold theme-text mb-2">
-                      Max сайт с Джарвисом
-                    </h3>
-                    <div className="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent mb-1">
-                      5 000 000
-                    </div>
-                    <div className="text-sm theme-text-muted">сум</div>
-                  </div>
-
-                  <ul className="space-y-4 mb-8 text-sm">
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
-                        <Brain className="w-3 h-3 text-cyan-400" />
-                      </div>
-                      ИИ-помощник типа Джарвис (голосовой ввод)
-                    </li>
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
-                        <Zap className="w-3 h-3 text-cyan-400" />
-                      </div>
-                      Интеграция с API
-                    </li>
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
-                        <Cpu className="w-3 h-3 text-cyan-400" />
-                      </div>
-                      Технологии нового поколения
-                    </li>
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
-                        <CheckCircle className="w-3 h-3 text-cyan-400" />
-                      </div>
-                      Поддержка WebGL и AI интерфейса
-                    </li>
-                    <li className="flex items-center theme-text-muted group">
-                      <div className="w-5 h-5 bg-cyan-500/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-cyan-500/30 transition-colors">
-                        <CheckCircle className="w-3 h-3 text-cyan-400" />
-                      </div>
-                      Максимальный уровень кастомизации
-                    </li>
-                  </ul>
-
-                  <Button
-                    onClick={handleAddMaxPlan}
-                    className="w-full bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white font-medium py-3 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/30 glow-button"
-                  >
-                    Заказать
-                  </Button>
+            {/* Advanced Plan */}
+            <div className="bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
+              <div className="text-center mb-8">
+                <h3 className="text-xl font-semibold mb-4">Advanced Plan</h3>
+                <div className="text-4xl font-bold mb-2">
+                  $495<span className="text-lg text-white/60">/month</span>
                 </div>
+                <p className="text-white/60">Professionals looking for advanced tools and insights</p>
               </div>
+
+              <div className="space-y-4 mb-8">
+                <h4 className="font-semibold">Features:</h4>
+                <ul className="space-y-3">
+                  <li className="flex items-center text-white/70">
+                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    Everything in Intermediate
+                  </li>
+                  <li className="flex items-center text-white/70">
+                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    Everything in Intermediate
+                  </li>
+                  <li className="flex items-center text-white/70">
+                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
+                    1-on-1 consultations
+                  </li>
+                </ul>
+              </div>
+
+              <Button 
+                onClick={handleAddAdvancedPlan}
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-xl"
+              >
+                Choose Plan
+              </Button>
             </div>
           </div>
         </div>
@@ -535,9 +489,9 @@ export default function Index() {
 
       {/* Voice Control Component */}
       <VoiceControl
-        onAddBasicPlan={handleAddBasicPlan}
-        onAddProPlan={handleAddProPlan}
-        onAddMaxPlan={handleAddMaxPlan}
+        onAddBasicPlan={handleAddBeginnerPlan}
+        onAddProPlan={handleAddIntermediatePlan}
+        onAddMaxPlan={handleAddAdvancedPlan}
       />
     </div>
   );
