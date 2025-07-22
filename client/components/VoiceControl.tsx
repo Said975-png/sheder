@@ -78,7 +78,7 @@ export default function VoiceControl({
         }
 
         recognitionRef.current.onstart = () => {
-          console.log("🎤 Ра��познавание речи запущено");
+          console.log("🎤 Ра��познавани�� речи запущено");
         };
 
         recognitionRef.current.onresult = (event) => {
@@ -263,6 +263,16 @@ export default function VoiceControl({
       onListeningChange?.(false, "");
     }
   }, [forceStop, isListening, onListeningChange]);
+
+  // Функция для полного сброса состояния после команды
+  const resetCommandState = (delay: number = 3000) => {
+    setTimeout(() => {
+      commandCooldownRef.current = false;
+      lastCommandRef.current = "";
+      setTranscript("");
+      console.log("🧹 Полный сброс состояния команды");
+    }, delay);
+  };
 
   const speak = (text: string) => {
     // Предотвращаем повторное воспроизведение
@@ -518,7 +528,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Останавливаем любое текущее воспроизв��дение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -638,7 +648,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем ��юбое те��ущее воспрои��ведение
+    // Ос��анавли��аем ��юбое те��ущее воспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -906,7 +916,7 @@ export default function VoiceControl({
     // Команда утреннего приветствия "Доброе утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
-      command.includes("джарвис до��рое утро") ||
+      command.includes("джарвис д����рое утро") ||
       command.includes("утро джар��ис") ||
       (command.includes("доброе утро") && command.length < 20) ||
       command.includes("good morning jarvis") ||
@@ -1023,7 +1033,7 @@ export default function VoiceControl({
     // Команда диагностики системы
     if (
       command.includes("диагностик") ||
-      command.includes("прове��и") ||
+      command.includes("про��е��и") ||
       command.includes("запусти") ||
       command.includes("проверь систему") ||
       command.includes("тест")
@@ -1054,7 +1064,7 @@ export default function VoiceControl({
       command.includes("ты тут джарвис") ||
       command.includes("джарвис ты здесь") ||
       command.includes("ты здесь джарвис") ||
-      command.includes("джарвис на месте") ||
+      command.includes("джарвис н�� месте") ||
       command.includes("джар��ис ��рисутствуешь") ||
       command.includes("jarvis are you there") ||
       command.includes("are you there jarvis")
@@ -1363,7 +1373,7 @@ export default function VoiceControl({
           "support",
         ]);
         if (found) {
-          speak("Показываю информацию о ка��естве");
+          speak("Показыв��ю информацию о ка��естве");
           return;
         }
       }
