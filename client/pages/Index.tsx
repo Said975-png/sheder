@@ -143,9 +143,9 @@ export default function Index() {
                 variant="ghost"
                 className="relative p-1.5 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
               >
-                <ShoppingCart className="w-5 h-5 text-cyan-400" />
+                <ShoppingCart className="w-4 h-4 text-cyan-400" />
                 {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
                     {getTotalItems()}
                   </span>
                 )}
