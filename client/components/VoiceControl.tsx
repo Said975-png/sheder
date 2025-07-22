@@ -9,6 +9,7 @@ interface VoiceControlProps {
   onAddProPlan: () => void;
   onAddMaxPlan: () => void;
   inNavbar?: boolean;
+  onListeningChange?: (isListening: boolean) => void;
 }
 
 export default function VoiceControl({
@@ -88,7 +89,7 @@ export default function VoiceControl({
                 try {
                   recognitionRef.current.start();
                 } catch (error) {
-                  console.log("Распознавание уже запущено");
+                  console.log("Распознава��ие уже запущено");
                 }
               }
             }, 100);
@@ -897,7 +898,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Умный поиск контента по всему сайту
+    // Умный поиск контента ��о всему сайту
     const searchAndNavigate = (
       searchTerms: string[],
       fallbackAction?: () => void,
@@ -974,7 +975,7 @@ export default function VoiceControl({
         command.includes("преимущество")
       ) {
         found = searchAndNavigate([
-          "преимущества",
+          "пр��имущества",
           "преимущество",
           "advantages",
         ]);
@@ -1056,7 +1057,7 @@ export default function VoiceControl({
         command.includes("технолог") ||
         command.includes("webgl") ||
         command.includes("ии") ||
-        command.includes("искусственный")
+        command.includes("искусственны��")
       ) {
         found = searchAndNavigate([
           "технолог",
