@@ -155,6 +155,7 @@ export default function Index() {
   const handleCloseVoicePanel = () => {
     setIsVoicePanelActive(false);
     setCurrentTranscript("");
+    setLastProcessedTranscript("");
   };
 
   const handleStopListening = () => {
