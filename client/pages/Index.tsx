@@ -121,6 +121,7 @@ export default function Index() {
   };
 
   const handleVoiceListeningChange = (isListening: boolean) => {
+    console.log('Voice listening change:', isListening);
     setIsVoiceActive(isListening);
   };
 
