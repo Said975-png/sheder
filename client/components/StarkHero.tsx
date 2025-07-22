@@ -113,7 +113,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
 
       <div className="container mx-auto px-6 relative z-10 pt-24">
-        <div className="flex justify-center items-center min-h-[80vh]">
+        <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[80vh]">
           {/* Левая час��ь - контент */}
           <div className="space-y-8">
             {/* Статус хедер */}
@@ -135,19 +135,19 @@ export default function StarkHero({ className }: StarkHeroProps) {
 
             {/* Заголовок */}
             <div className="space-y-6">
-              <h1 className="text-6xl lg:text-7xl font-bold leading-tight">
+              <h1 className="text-4xl lg:text-6xl xl:text-7xl font-bold leading-tight">
                 <div className="mb-2">
                   <GlitchText intensity="low">
                     <span className="text-white">Unleashing the</span>
                   </GlitchText>
                 </div>
-                <HologramText className="text-6xl lg:text-7xl font-bold" glitch>
+                <HologramText className="text-4xl lg:text-6xl xl:text-7xl font-bold" glitch>
                   Power of Blockchain
                 </HologramText>
               </h1>
 
               <div className="relative">
-                <p className="text-xl text-gray-300 leading-relaxed max-w-lg font-mono">
+                <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-lg font-mono">
                   {targetLocked ? (
                     <span className="text-cyan-400 stark-text-glow">
                       TARGET ACQUIRED: Transforming industries with secure,
@@ -187,6 +187,17 @@ export default function StarkHero({ className }: StarkHeroProps) {
                 <span className="relative z-10">Analyze Systems</span>
               </Button>
             </div>
+          </div>
+
+          {/* Правая часть - GLB модель */}
+          <div className="flex items-center justify-center lg:justify-end">
+            <StarkHUD className="w-full max-w-lg h-96 lg:h-[500px] overflow-hidden">
+              <GLBModel
+                url="https://cdn.builder.io/o/assets%2Fd1c3ee1ec7be40678f2e6792ec37e2b0%2Fa3ddf442a35840a8ae7950219d9bdb2f?alt=media&token=138b2881-8b51-43df-b3e5-81d9e6d6983f&apiKey=d1c3ee1ec7be40678f2e6792ec37e2b0"
+                scale={2.5}
+                autoRotate={true}
+              />
+            </StarkHUD>
           </div>
         </div>
       </div>
