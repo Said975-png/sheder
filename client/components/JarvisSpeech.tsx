@@ -144,7 +144,7 @@ export class JarvisSpeechEngine {
   }
 
   async speak(options: JarvisSpeechOptions): Promise<void> {
-    // Останавливаем текущую речь с задержкой
+    // Останавливаем текущ��ю речь с задержкой
     this.stop();
 
     // Небольшая задержка для очистки предыдущих операций
@@ -156,12 +156,12 @@ export class JarvisSpeechEngine {
     }
 
     return new Promise((resolve, reject) => {
-      // Настройки голоса Джарвиса
+      // Настройки голоса Джарвиса согласно промпту (мужской 40-45 лет, средне-низкий тембр)
       const jarvisSettings: JarvisVoiceSettings = {
-        rate: 0.85,    // Немного медленнее для авторитетности
-        pitch: 0.7,    // Низкий тон для мужественности
-        volume: 0.9,   // Четкая громкость
-        lang: 'ru-RU', // Русский язык
+        rate: 0.75,    // Размеренная подача, точные формулировки
+        pitch: 0.6,    // Средне-низкий тембр для элитного уровня
+        volume: 0.95,  // Кристально чистая дикция
+        lang: 'ru-RU', // Литературный русский язык
       };
 
       const utterance = this.createJarvisUtterance(options.text, jarvisSettings);
