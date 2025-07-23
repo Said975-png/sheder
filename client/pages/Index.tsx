@@ -114,7 +114,7 @@ export default function Index() {
 
 
   const handleListeningChange = (isListening: boolean, transcript?: string, isSpeaking?: boolean) => {
-    // Простая функция для совместимости с VoiceControl
+    // Простая функция ��ля совместимости с VoiceControl
     console.log("🎤 Voice state:", { isListening, transcript: transcript?.slice(0, 20), isSpeaking });
   };
 
@@ -147,7 +147,7 @@ export default function Index() {
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
-          isVoicePanelActive && "opacity-20 pointer-events-none",
+
         )}
       >
         <div className="flex items-center space-x-4">
