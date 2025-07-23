@@ -275,9 +275,9 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
         setStatus(`Лицо обнаружено! Захват ${capturedImages.length + 1}/${requiredImages}`);
         
         // Countdown
-        for (let i = 3; i > 0; i--) {
+        for (let i = 2; i > 0; i--) {
           setCountdown(i);
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          await new Promise(resolve => setTimeout(resolve, 800));
         }
         setCountdown(0);
 
