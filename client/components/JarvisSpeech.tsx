@@ -133,7 +133,7 @@ export class JarvisSpeechEngine {
     // Останавливаем текущую речь с задержкой
     this.stop();
 
-    // Небольшая задержка для очистки предыдущих операций
+    // Небольшая задержка для очистки пр��дыдущих операций
     await new Promise(resolve => setTimeout(resolve, 100));
 
     // Ждем инициализации голосов
@@ -350,11 +350,24 @@ export function useJarvisSpeech() {
 
   const speak = useCallback(async (text: string, options?: Partial<JarvisSpeechOptions>) => {
     if (!engineRef.current) return;
-    
-    return engineRef.current.speak({
-      text,
-      ...options,
-    });
+
+    try {
+      return await engineRef.current.speak({
+        text,
+        onError: (error) => {
+          console.warn('Jarvis speech error handled:', error);
+          // Не показываем ошибку пользователю для interrupted
+          if (!error.includes('interrupted') && !error.includes('canceled')) {
+            options?.onError?.(error);
+          }
+        },
+        ...options,
+      });
+    } catch (error) {
+      console.warn('Speak method failed:', error);
+      // Принудительно сбрасываем состояние при критических ошибках
+      engineRef.current.forceReset();
+    }
   }, []);
 
   const speakCommand = useCallback(async (text: string) => {
