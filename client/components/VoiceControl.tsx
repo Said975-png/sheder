@@ -83,7 +83,7 @@ export default function VoiceControl({
         }
 
         recognitionRef.current.onstart = () => {
-          console.log("🎤 Ра��познавание речи запущено");
+          console.log("🎤 Ра��познавани�� речи запущено");
         };
 
         recognitionRef.current.onresult = (event) => {
@@ -139,7 +139,7 @@ export default function VoiceControl({
             console.log("🎯 Распознано:", `"${combinedTranscript}"`);
           }
 
-          // Обрабатываем финальные результаты или достаточно длинные промежуточные
+          // Об��абатываем финальные результаты или достаточно длинные промежуточные
           if (
             (finalTranscript || combinedTranscript.length > 5) &&
             !commandCooldownRef.current &&
@@ -168,7 +168,7 @@ export default function VoiceControl({
                 clearTimeout(commandDelayRef.current);
               }
 
-              // Добавляем небольшую задержку для завершения фразы
+              // Добавляем небольшую зад��ржку для завершения фразы
               commandDelayRef.current = setTimeout(
                 () => {
                   lastCommandRef.current = command;
@@ -191,7 +191,7 @@ export default function VoiceControl({
                     lastCommandRef.current = "";
 
                     // НЕ перезапускаем Recognition - пусть работает непрерывно
-                    console.log("✅ Состояние очищено, Recognition продолжает работать");
+                    console.log("✅ Сос��ояние очищено, Recognition продолжает работать");
                   }, 2000);
                 },
                 finalTranscript ? 100 : 1000,
@@ -391,7 +391,7 @@ export default function VoiceControl({
   };
 
   const speak = (text: string) => {
-    // Пре��отвращаем повторное в��спроиз��е��ение
+    // Пре��отвращаем повторное в��спроиз����е��ение
     if (isSpeaking || commandCooldownRef.current) return;
 
     setIsSpeaking(true);
@@ -639,7 +639,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Оста��авливаем любое текущее воспроизведение
+    // Оста��авливаем любое текущее воспр��изведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -721,7 +721,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Немедлен��о очищаем транскрипт когда начинаем говорить
+    // Немедлен��о очищаем транскрипт к��гда начинаем говорить
     setTranscript("");
     onListeningChange?.(true, "");
 
@@ -833,7 +833,7 @@ export default function VoiceControl({
       } else if (russianMaleVoice) {
         utterance.voice = russianMaleVoice;
         utterance.lang = "ru-RU";
-        utterance.pitch = 0.6; // Чуть ниже для русского голоса
+        utterance.pitch = 0.6; // Чуть ниже для русского голос��
       } else {
         // Fallback: любой доступный го��ос с оптимиз��рованными настройками
         const anyVoice = voices.find(
@@ -991,14 +991,12 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("🔧 Обработка команды:", command);
 
-    // Простая очистка транскрипта в начале обработки
+    // Простая очистка транскрипта в начале о��работки
     setTranscript("");
     onListeningChange?.(true, "");
 
-    // Планируем сброс Recognition посл�� обработки команды
-    setTimeout(() => {
-      resetSpeechRecognition();
-    }, 3000);
+    // НЕ сбрасываем Recognition автоматически - пусть работает непрерывно
+    console.log("🎯 Обрабатываем команду без сброса Recognition");
 
     // Фильтруем пустые или ��лишком короткие команды
     const trimmedCommand = command.trim();
@@ -1023,7 +1021,7 @@ export default function VoiceControl({
     if (
       command.includes("джарв���с я вернулся") ||
       command.includes("я вернулся ��жарвис") ||
-      command.includes("джарвис я здесь") ||
+      command.includes("джа��вис я здесь") ||
       command.includes("я снова здесь")
     ) {
       speakWelcomeBack();
@@ -1502,7 +1500,7 @@ export default function VoiceControl({
 
       // ��оиск технологи��
       if (
-        command.includes("технолог") ||
+        command.includes("те��нолог") ||
         command.includes("webgl") ||
         command.includes("ии") ||
         command.includes("ис��усственный")
@@ -1545,7 +1543,7 @@ export default function VoiceControl({
       if (
         command.includes("аналитик") ||
         command.includes("статистик") ||
-        command.includes("да��ные")
+        command.includes("да��н��е")
       ) {
         found = searchAndNavigate([
           "анал��тик",
