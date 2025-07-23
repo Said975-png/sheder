@@ -101,7 +101,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
             skinPixels++;
           }
 
-          // Проверка на яркость (наличие освещенных участков)
+          // Проверка на ярк��сть (наличие освещенных участков)
           if (brightness > 100) {
             brightPixels++;
           }
@@ -169,7 +169,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
         const data = imageData.data;
         const descriptor: number[] = [];
         
-        // Соз��аем дескриптор из RGB значений каждого 4-го пикселя
+        // Создаем дескриптор из RGB значений каждого 4-го пикселя
         for (let i = 0; i < data.length; i += 16) {
           const r = data[i] / 255;
           const g = data[i + 1] / 255;
@@ -476,7 +476,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
               <p>• Расположите лицо в центре рамки</p>
               <p>• Держите устройство на уровне глаз</p>
               <p>• Обеспечьте хорошее освещение</p>
-              <p>• Мы сделаем 5 снимков для лучшего распознавания</p>
+              <p>• Мы сделаем 3 снимка для лучшего распознавания</p>
             </>
           ) : (
             <>
