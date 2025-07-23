@@ -74,6 +74,9 @@ export default function Index() {
   const [lastProcessedTranscript, setLastProcessedTranscript] = useState("");
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
+  // Вычисляем общую стоимость корзины
+  const totalPrice = getTotalPrice();
+
 
 
 
@@ -126,7 +129,7 @@ export default function Index() {
       setCurrentTranscript("");
       setLastProcessedTranscript("");
     } else {
-      // Показываем транскрипт только если он отличается от предыдущего и не слишком длинный
+      // Показываем транскрипт только если он отличается от предыдущего и не слишком длин��ый
       if (transcript !== lastProcessedTranscript && transcript.length < 50) {
         console.log("📱 Устанавливаем новый транскрипт:", transcript);
         setCurrentTranscript(transcript);
