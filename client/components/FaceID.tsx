@@ -33,7 +33,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
   const [capturedImages, setCapturedImages] = useState<string[]>([]);
   const [status, setStatus] = useState<string>("Инициализация камеры...");
 
-  // Инициализация камеры
+  // Инициализация к��меры
   const initializeCamera = useCallback(async () => {
     try {
       setStatus("Запрос доступа к камере...");
@@ -71,7 +71,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0);
 
-    // Улучшенная детекция лица с несколькими методами
+    // Улучшенная дете��ция лица с несколькими методами
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
 
@@ -101,7 +101,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
             skinPixels++;
           }
 
-          // Проверка на яркость (наличие освещенных участков)
+          // П��оверка на яркость (наличие освещенных участков)
           if (brightness > 100) {
             brightPixels++;
           }
@@ -242,7 +242,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
       localStorage.setItem("faceDescriptors", JSON.stringify(updatedFaces));
     }
 
-    return maxSimilarity > 0.75; // 75% схожести для успешной верификации
+    return maxSimilarity > 0.65; // 65% схожести для успешной верификации
   }, [currentUser, compareDescriptors]);
 
   // Основной процесс сканирования
@@ -430,7 +430,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
           )}
         </div>
 
-        {/* Кнопки управле��ия */}
+        {/* Кнопки управления */}
         <div className="flex space-x-2">
           {!isScanning && !isProcessing && !isInitializing && (
             <Button
