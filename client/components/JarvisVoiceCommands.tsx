@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useJarvisSpeech } from "@/components/JarvisSpeech";
 
 export function useJarvisVoiceCommands() {
-  const { speak, speakCommand, speakResponse, speakAlert, stop, isSpeaking } = useJarvisSpeech();
+  const { speak, speakCommand, speakResponse, speakAlert, speakSystemMessage, stop, isSpeaking } = useJarvisSpeech();
 
   // Безопасная обертка для всех речевых функций
   const safeSpeak = useCallback(async (speakFn: () => Promise<void>, fallbackText?: string) => {
@@ -30,7 +30,7 @@ export function useJarvisVoiceCommands() {
   }, [speakResponse, safeSpeak]);
 
   const speakGoodMorning = useCallback(async () => {
-    await safeSpeak(() => speakResponse("Доброе утро, сэр. Надеюсь, у вас будет продукт��вный день"), "Доброе утро");
+    await safeSpeak(() => speakResponse("Доброе утро, сэр. Надеюсь, у вас будет продуктивный день"), "Доброе утро");
   }, [speakResponse, safeSpeak]);
 
   const speakIAmHere = useCallback(async () => {
