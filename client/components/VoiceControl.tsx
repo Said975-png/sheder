@@ -83,7 +83,7 @@ export default function VoiceControl({
         }
 
         recognitionRef.current.onstart = () => {
-          console.log("🎤 Ра��познавани�� речи запущено");
+          console.log("🎤 Ра��познава��и�� речи запущено");
         };
 
         recognitionRef.current.onresult = (event) => {
@@ -252,7 +252,7 @@ export default function VoiceControl({
         recognitionRef.current.onerror = (event) => {
           console.log("Speech recognition event:", event.error);
 
-          // Критические ошибки - полностью останавливаем
+          // Критические о��ибки - полностью останавливаем
           if (event.error === "network" || event.error === "not-allowed") {
             console.error(
               "🚨 Критическая ошибка распознавания:",
@@ -282,7 +282,7 @@ export default function VoiceControl({
                     try {
                       recognitionRef.current.start();
                     } catch (error) {
-                      console.log("Перезапус�� после паузы");
+                      console.log("Перезапу���� после паузы");
                     }
                   }
                 }, 2000);
@@ -386,8 +386,13 @@ export default function VoiceControl({
       commandCooldownRef.current = false;
       lastCommandRef.current = "";
       setTranscript("");
-      onListeningChange?.(true, "");
-      console.log("✅ Cooldown сброшен, можно воспроизводить новые команды");
+      // Только сообщаем о состоянии, если микрофон все еще активен
+      if (isListening) {
+        onListeningChange?.(true, "");
+        console.log("✅ Cooldown сброшен, микрофон активен");
+      } else {
+        console.log("✅ Cooldown сброшен, микрофон отключен - не открываем панель");
+      }
     }, delay);
   };
 
@@ -413,7 +418,7 @@ export default function VoiceControl({
     setTranscript("");
     onListeningChange?.(true, "");
 
-    // Созда��м и воспрои��водим ваш новый ау��ио-файл
+    // Созда��м и вос��рои��водим ваш новый ау��ио-файл
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fdb47541068444a9093b406f29a6af3ce?alt=media&token=43fbc024-64ae-479b-8a6c-5b9d12b43294&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -585,7 +590,7 @@ export default function VoiceControl({
   };
 
   const speakGoodMorning = () => {
-    // Множеств��нная защи��а от п��вторного воспроизве��ения
+    // Множеств��нная защи��а ��т п��вторного воспроизве��ения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -619,7 +624,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка во��произведения ауди�� утреннего при����етствия");
+      console.error("О��ибка во��произведения ауди�� утреннего при����етствия");
     };
 
     audio.play().catch((error) => {
@@ -656,7 +661,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("Ошибка воспроиз��ед��ния аудио о��вета");
+      console.error("Ошибка воспроиз���ед��ния аудио о��вета");
     };
 
     audio.play().catch((error) => {
@@ -696,7 +701,7 @@ export default function VoiceControl({
     };
 
     try {
-      // Используем ElevenLabs API для синте��а речи с вашим ��астомным голосом
+      // Используем ElevenLabs API ��ля синте��а речи с вашим ��астомным голосом
       const response = await fetch("/api/elevenlabs-tts", {
         method: "POST",
         headers: {
@@ -771,7 +776,7 @@ export default function VoiceControl({
     // Пусть микрофон продолжает работать
     console.log("🔊 Воспроизво��им аудио, но оставляем микрофон активным");
 
-    // Используем ваш оригинальный аудиофайл Джарвиса
+    // Используем ваш ��ригинальный аудиофайл Джарвиса
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2Fddde4fe5b47946c2a3bbb80e3bca0073%2F54eb93b1452742b6a1cd87cc6104bb59?alt=media&token=fc948eba-bbcd-485c-b129-d5a0c25cfc74&apiKey=ddde4fe5b47946c2a3bbb80e3bca0073",
     );
@@ -1071,7 +1076,7 @@ export default function VoiceControl({
       command.includes("вернулся") ||
       command.includes("я з��есь")
     ) {
-      console.log("👋 Команда приветствия распознана:", command);
+      console.log("👋 Команда приветств��я распознана:", command);
       speakWelcomeBack();
       return;
     }
@@ -1379,7 +1384,7 @@ export default function VoiceControl({
       "дела",
       "пож��ваешь",
       "порядк��",
-      "диагностика",
+      "ди��гностика",
       "проведи",
       "диагностируй",
       "проверь",
