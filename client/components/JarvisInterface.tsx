@@ -66,6 +66,30 @@ export default function JarvisInterface({
     }
   }, [isActive]);
 
+  // Синхронизация статуса с состоянием голосового управления
+  useEffect(() => {
+    if (isSpeaking) {
+      setSystemStatus("SPEAKING");
+    } else if (isListening && isActive) {
+      setSystemStatus("LISTENING");
+    } else if (isActive) {
+      setSystemStatus("ONLINE");
+    } else {
+      setSystemStatus("STANDBY");
+    }
+  }, [isListening, isSpeaking, isActive]);
+
+  // Обработчик изменений состояния голосового управления
+  const handleVoiceStateChange = (listening: boolean, transcript?: string) => {
+    setIsListening(listening);
+    if (listening && !isActive) {
+      setIsActive(true); // Автоматически активируем JARVIS при включении микрофона
+    }
+
+    // Передаем состояние дальше в родительский компонент
+    onListeningChange?.(listening, transcript);
+  };
+
   const statusColors = {
     STANDBY: "text-gray-400",
     INITIALIZING: "text-yellow-400 animate-pulse",
