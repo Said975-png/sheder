@@ -56,12 +56,10 @@ export default function Index() {
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
   const [navbarScrolled, setNavbarScrolled] = useState(false);
-  const [isVoicePanelActive, setIsVoicePanelActive] = useState(false);
-  const [currentTranscript, setCurrentTranscript] = useState("");
-  const [lastProcessedTranscript, setLastProcessedTranscript] = useState("");
+
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
-  // Запуск аним��ции при загрузке компонента
+  // ��апуск аним��ции при загрузке компонента
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
@@ -139,7 +137,7 @@ export default function Index() {
       setCurrentTranscript("");
       setLastProcessedTranscript("");
     } else {
-      // По��азываем транскрипт только если он отличается от предыдущег�� и не слишком длинный
+      // Показываем транскрипт только если он отличается от предыдущег�� и не слишком длинный
       if (transcript !== lastProcessedTranscript && transcript.length < 50) {
         console.log("📱 Устанавливаем новый транскрипт:", transcript);
         setCurrentTranscript(transcript);
