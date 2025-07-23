@@ -91,7 +91,7 @@ export default function VoiceControl({
           let interimTranscript = "";
           let combinedTranscript = "";
 
-          // Обрабатываем только ПОСЛЕДНИЙ результат, чтобы н�� накапливать старые
+          // Обрабатываем только ПОСЛЕДНИЙ резуль��ат, чтобы н�� накапливать старые
           const lastResultIndex = event.results.length - 1;
           if (lastResultIndex >= 0) {
             const transcript =
@@ -166,7 +166,7 @@ export default function VoiceControl({
               .trim();
             console.log("🔍 Анализируем ��ом��нду:", `"${command}"`);
 
-            // Проверяем, что команда отличае��ся от предыдущей и достаточно дли��ная
+            // Проверяем, что ко��анда отличае��ся от предыдущей и достаточно дли��ная
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -306,7 +306,7 @@ export default function VoiceControl({
               console.log(
                 "ℹ️ Некритическая ошибка распознавания:",
                 event.error,
-                "- ��ро��олжаем слушать",
+                "- ��ро��ол��аем слушать",
               );
             }
             // Система автоматически переза��ус��ится через onend
@@ -341,7 +341,7 @@ export default function VoiceControl({
         currentAudioRef.current.pause();
         currentAudioRef.current.currentTime = 0;
       }
-      // Очищаем т���ймер ко��анд
+      // Очищаем т�����ймер ко��анд
       if (commandDelayRef.current) {
         clearTimeout(commandDelayRef.current);
       }
@@ -410,6 +410,27 @@ export default function VoiceControl({
     return () => clearInterval(interval);
   }, [isListening, isSpeaking]);
 
+  // Глобальная функция для принудительного сброса ВСЕХ блокировок
+  const forceResetAllStates = () => {
+    console.log("🔥 ПРИНУДИТЕЛЬНЫЙ СБРОС ВСЕХ СОСТОЯНИЙ");
+
+    // Останавливаем любое текущее аудио
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+      currentAudioRef.current = null;
+    }
+
+    // Сбрасываем все блокировки
+    commandCooldownRef.current = false;
+    audioPlayingRef.current = false;
+    lastCommandRef.current = "";
+    setIsSpeaking(false);
+    setTranscript("");
+
+    console.log("✅ ВСЕ СОСТОЯНИЯ СБРОШЕНЫ");
+  };
+
   // Фу��кция для пол��ого ��броса состояния по���ле ��оманды
   const resetCommandState = (delay: number = 1000, skipPanelReopen: boolean = false) => {
     console.log(`⏰ П��анируем сброс cooldown через ${delay}мс`);
@@ -443,7 +464,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Если есть cooldown, но не играет аудио, то ��ринудительн�� сбрасываем cooldown
+    // Если есть cooldown, но не играет аудио, то ��рин��дительн�� сбрасываем cooldown
     if (commandCooldownRef.current) {
       console.log("⚠️ Принудительно сбрасываем cooldown для новой коман��ы");
       commandCooldownRef.current = false;
@@ -899,7 +920,7 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переклю��им ���� русский
       utterance.rate = 0.75; // Мед��ен��ая, размеренная р��чь как �� Джарвиса из фильма
-      utterance.pitch = 0.7; // Сред����-ни��кий тон для ��втор��тет��ос��и
+      utterance.pitch = 0.7; // Сред����-ни��кий тон для ��втор��те����ос��и
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболе�� подходящего ��олоса для имит����ции Jarvis
@@ -1212,7 +1233,7 @@ export default function VoiceControl({
       command.includes("отключить")
     ) {
       console.log("🔴 Команда отключения распознана:", command);
-      // Принудительно выполняем команду отключения независимо от сост��яния
+      // Принудительно выполняем команду отключени�� независимо от сост��яния
       speakShutdown();
       return;
     }
@@ -1436,7 +1457,7 @@ export default function VoiceControl({
 
     // Команда диа��ностики с��стемы
     if (
-      command.includes("диагностик") ||
+      command.includes("диа��ностик") ||
       command.includes("прове��и") ||
       command.includes("запусти") ||
       command.includes("проверь сист��му") ||
@@ -1466,7 +1487,7 @@ export default function VoiceControl({
     if (
       command.includes("джарвис ты тут") ||
       command.includes("ты тут джарвис") ||
-      command.includes("джарвис ты здесь") ||
+      command.includes("джарвис ты ��десь") ||
       command.includes("ты здесь джарвис") ||
       command.includes("джарвис на месте") ||
       command.includes("джар��ис ��рису��ствуешь") ||
@@ -1844,7 +1865,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("профиль") ||
+      command.includes("��рофиль") ||
       command.includes("мой профил��") ||
       command.includes("личн��й к��бинет") ||
       command.includes("открыть про��иль")
@@ -1990,7 +2011,7 @@ export default function VoiceControl({
     if (
       command.includes("прок����тить вниз") ||
       command.includes("скролл вниз") ||
-      command.includes("спустит��ся вниз")
+      command.includes("спус��ит��ся вниз")
     ) {
       window.scrollBy(0, 500);
       speak("Прок��учиваю вн����з");
