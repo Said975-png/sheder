@@ -42,7 +42,7 @@ export function useJarvisVoiceCommands() {
   }, [speakResponse]);
 
   const speakShutdown = useCallback(async () => {
-    await speakCommand("Отключаю голосовое ��правление. До свидания, сэр");
+    await speakCommand("Отключаю голосовое управление. До свидания, сэр");
   }, [speakCommand]);
 
   const speakAuthenticJarvis = useCallback(async () => {
@@ -53,15 +53,15 @@ export function useJarvisVoiceCommands() {
     await speakResponse("У меня все в порядке, сэр. Все системы работают стабильно");
   }, [speakResponse]);
 
-  // Диагностика систем
+  // Диагностика систем (формальный системный стиль)
   const speakSystemDiagnostics = useCallback(async () => {
-    await speakCommand("Запускаю полную диагностику всех систем");
-    
-    // Пауза для эффекта
+    await safeSpeak(() => speakSystemMessage("Инициализация полной диагностики всех систем"), "Запуск диагностики");
+
+    // Пауза для эффекта системной проверки
     setTimeout(async () => {
-      await speakResponse("Диагностика завершена. Все системы функционируют в оптимальном режиме");
-    }, 3000);
-  }, [speakCommand, speakResponse]);
+      await safeSpeak(() => speakSystemMessage("Диагностика завершена. Все компоненты функционируют в номинальных параметрах, сэр"), "Диагностика завершена");
+    }, 4000);
+  }, [speakSystemMessage, safeSpeak]);
 
   // Навигационные команды
   const speakContinue = useCallback(async () => {
@@ -87,7 +87,7 @@ export function useJarvisVoiceCommands() {
 
   // Команды для планов и покупок
   const speakPlanAdded = useCallback(async (planName: string) => {
-    await speakResponse(`План "${planName}" добавлен в корзину, сэр`);
+    await speakResponse(`План "${planName}" добавл��н в корзину, сэр`);
   }, [speakResponse]);
 
   const speakCartCleared = useCallback(async () => {
