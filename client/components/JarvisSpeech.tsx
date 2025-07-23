@@ -46,18 +46,18 @@ export class JarvisSpeechEngine {
   private getBestJarvisVoice(lang: string = 'ru-RU'): SpeechSynthesisVoice | null {
     if (!this.isInitialized) return null;
 
-    // Приоритет голосов для русского Джарвиса
+    // Приоритет голосов для русского Джарвиса (мужской 40-45 лет, средне-низкий тембр)
     const russianPriority = [
-      'Microsoft Pavel - Russian (Russia)',
-      'Google русский',
-      'Yandex Russian Male',
-      'Milena',
-      'Pavel',
-      'Microsoft Irina Desktop - Russian',
-      'Alex (Enhanced)', // Fallback to English if no Russian
-      'Daniel (Enhanced)',
-      'Microsoft David Desktop - English (United States)',
-      'Google UK English Male',
+      'Microsoft Pavel - Russian (Russia)',     // Лучший мужской русский
+      'Pavel',                                  // Краткое имя Pavel
+      'Google русский мужской',                // Google мужской русский
+      'Yandex Russian Male',                   // Яндекс мужской
+      'Microsoft Irina Desktop - Russian',     // Fallback русский
+      'Google русский',                        // Общий Google русский
+      'Alex (Enhanced)',                       // Английский fallback с хорошим качеством
+      'Daniel (Enhanced)',                     // Английский мужской enhanced
+      'Microsoft David Desktop - English (United States)', // Качественный английский
+      'Google UK English Male',               // Британский английский
     ];
 
     // Для английского Джарвиса
@@ -81,7 +81,7 @@ export class JarvisSpeechEngine {
       }
     }
 
-    // Ищем любой мужск��й голос для нужного языка
+    // Ищем любой мужской голос для нужного языка
     const maleVoices = this.voices.filter(voice => {
       const name = voice.name.toLowerCase();
       const isTargetLang = voice.lang.startsWith(lang.split('-')[0]);
@@ -114,7 +114,7 @@ export class JarvisSpeechEngine {
   private createJarvisUtterance(text: string, settings: JarvisVoiceSettings): SpeechSynthesisUtterance {
     const utterance = new SpeechSynthesisUtterance(text);
     
-    // Настройки голоса ��ля Джарвиса
+    // Настройки голоса для Джарвиса
     utterance.rate = settings.rate;
     utterance.pitch = settings.pitch;
     utterance.volume = settings.volume;
