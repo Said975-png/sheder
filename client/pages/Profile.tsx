@@ -157,7 +157,7 @@ export default function Profile() {
 
       localStorage.setItem("users", JSON.stringify(users));
 
-      // Обновляем текущего пользователя
+      // Обновляем текущего по��ьзователя
       const updatedCurrentUser = {
         id: currentUser.id,
         name: formData.name,
@@ -196,7 +196,7 @@ export default function Profile() {
 
       // Проверяем текущий пароль
       if (users[userIndex].password !== formData.currentPassword) {
-        setError("Неверный текущий пароль");
+        setError("Неверный текущий парол��");
         return;
       }
 
@@ -258,6 +258,35 @@ export default function Profile() {
       month: "long",
       day: "numeric",
     });
+  };
+
+  // Функции для Face ID
+  const handleFaceIDSetup = () => {
+    setFaceIDMode("register");
+    setShowFaceIDModal(true);
+  };
+
+  const handleFaceIDSuccess = () => {
+    if (faceIDMode === "register") {
+      setHasFaceID(true);
+      setSuccess("Face ID успешно настроен!");
+    }
+    setShowFaceIDModal(false);
+  };
+
+  const handleFaceIDError = (errorMessage: string) => {
+    setError(errorMessage);
+    setShowFaceIDModal(false);
+  };
+
+  const handleRemoveFaceID = () => {
+    if (currentUser && window.confirm("Вы уверены, что хотите отключить Face ID? Это снизит безопасность вашего а��каунта.")) {
+      const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
+      const filteredFaces = faces.filter((face: any) => face.userId !== currentUser.id);
+      localStorage.setItem("faceDescriptors", JSON.stringify(filteredFaces));
+      setHasFaceID(false);
+      setSuccess("Face ID отключен");
+    }
   };
 
   return (
@@ -411,7 +440,7 @@ export default function Profile() {
                           id="name"
                           name="name"
                           type="text"
-                          placeholder="Вве��ите ваше имя"
+                          placeholder="Введите ваше имя"
                           value={formData.name}
                           onChange={handleChange}
                           required
@@ -542,7 +571,7 @@ export default function Profile() {
                           Удалить аккаунт
                         </h5>
                         <p className="text-red-300/70 text-sm mb-4">
-                          Удаление аккаунта приведёт к полному удалению всех
+                          Удаление аккаунта приведёт к полному удалению все��
                           ваших данных. Это дейст��ие нельзя отменить.
                         </p>
                         <Button
