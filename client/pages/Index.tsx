@@ -126,7 +126,7 @@ export default function Index() {
       setCurrentTranscript("");
       setLastProcessedTranscript("");
     } else {
-      // Показываем транскрипт только если он отличается от предыдущего и не слишком дли��ный
+      // Показываем транскрипт только если он отличается от предыдущего и не слишком длинный
       if (transcript !== lastProcessedTranscript && transcript.length < 50) {
         console.log("📱 Устанавливаем новый транскрипт:", transcript);
         setCurrentTranscript(transcript);
@@ -250,7 +250,7 @@ export default function Index() {
                             </p>
                           </div>
                           <Button
-                            onClick={() => removeFromCart(item.id)}
+                            onClick={() => removeItem(item.id)}
                             variant="ghost"
                             size="sm"
                             className="ml-2 h-8 w-8 p-0 hover:bg-red-400/10 text-red-400"
