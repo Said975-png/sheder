@@ -55,7 +55,7 @@ export default function VoiceControl({
   useEffect(() => {
     // Сообщаем родительскому компоненту о состоянии говорения
     onListeningChange?.(isListening, transcript, isSpeaking);
-  }, [isSpeaking]); // Срабатывает при изменении состояния говорения
+  }, [isSpeaking]); // Ср��батывает при изменении состояния говорения
 
   // Инициализация Speech Recognition
   useEffect(() => {
@@ -122,7 +122,7 @@ export default function VoiceControl({
         if (currentText && currentText.length > 1) {
           updateListeningState(true, currentText);
 
-          // Обрабатываем команды как ��инальные, так и достаточно длинные промежуточные
+          // Обрабатываем команды как ��инальные, так и достаточно длинные про��ежуточные
           if ((finalTranscript || (interimTranscript && interimTranscript.length > 3)) &&
               !isProcessingRef.current &&
               currentText !== lastCommandRef.current &&
@@ -549,8 +549,9 @@ export default function VoiceControl({
       return;
     }
 
-    // Неизвестная команда
+    // Неизвестная команда - немедленно разблокируем
     console.log("❓ Unknown command:", cmd);
+    isProcessingRef.current = false; // Критично: разблокируем немедленно
     resetCommandState();
   }, [isListening, updateListeningState, speakShutdown, speakWelcomeBack, speakSystemsOperational, speakAuthenticJarvis, speakThankYou, navigate, resetCommandState, onAddBasicPlan, onAddProPlan, onAddMaxPlan]);
 
