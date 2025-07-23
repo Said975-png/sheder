@@ -124,7 +124,7 @@ export default function VoiceControl({
             combinedTranscript = "";
           }
 
-          // Показывае�� промежуточный результат только если система свободна и это но��ый короткий контент
+          // Показывае�� промежуточный результат только если система свободна и это новый короткий контент
           if (
             combinedTranscript &&
             combinedTranscript.length > 2 &&
@@ -270,7 +270,7 @@ export default function VoiceControl({
           // Критические ошибки - полностью останавливаем
           if (event.error === "network" || event.error === "not-allowed") {
             console.error(
-              "����� Критическая ошибка ра��по��навания:",
+              "��� Критическая ошибка ра��по��навания:",
               event.error,
             );
             setIsListening(false);
@@ -469,13 +469,9 @@ export default function VoiceControl({
       audioPlayingRef.current = false;
       lastCommandRef.current = "";
       currentAudioRef.current = null;
-      // После око��чания аудио отключаем микрофон
-      if (recognitionRef.current) {
-        recognitionRef.current.stop();
-      }
-      setIsListening(false);
+      // НЕ отключаем микрофон автоматически - пусть пользователь сам управляет
       setTranscript("");
-      onListeningChange?.(false, "");
+      onListeningChange?.(true, "");
     };
 
     audio.onended = shutdownComplete;
@@ -516,7 +512,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("О��ибка воспроизведен���я ау������о приветств��я");
+      console.error("О����ибка воспроизведен���я ау������о приветств��я");
     };
 
     audio.play().catch((error) => {
@@ -583,7 +579,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим ауд��о для утреннего приветстви���
+    // Создаем и воспроизводим ауд��о для утреннего приветстви��
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -620,7 +616,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и во��производим аудио для ответа "����ж��рв��с ты тут?"
+    // Создаем и во��производим аудио для ответа "��ж��рв��с ты тут?"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F5baee2408110417fbab785b0c6ffdde6?alt=media&token=a957a2b4-68ad-46de-bc3e-11943c8fb38b&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -744,7 +740,7 @@ export default function VoiceControl({
     setTranscript("");
     onListeningChange?.(true, "");
 
-    // Временн�� остан��вливаем ��аспознавание речи во время воспроизведения
+    // Временн�� останавливаем ��аспознавание речи во время воспроизведения
     if (recognitionRef.current && wasListening) {
       console.log("⏸️ Временно остана��ливаем распознавание на время аудио");
       try {
@@ -771,7 +767,7 @@ export default function VoiceControl({
           console.log("▶️ Возобновляем распозна��ание после аудио");
           try {
             recognitionRef.current.start();
-            // НЕ изменяем isListening здесь, так как оно должно остаться true
+            // НЕ изменяем isListening здесь, так как о��о должно остаться true
           } catch (error) {
             console.log("Распознавание уже активно:", error);
           }
@@ -832,7 +828,7 @@ export default function VoiceControl({
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переклю��им ��а русский
       utterance.rate = 0.75; // Мед��ен��ая, размеренная речь как �� Джарвиса из фильма
-      utterance.pitch = 0.7; // Сред����-ни��кий тон для ��втор��тет��ос��и
+      utterance.pitch = 0.7; // Сред����-н����кий тон для ��втор��тет��ос��и
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
       // Поиск наиболе�� подходящего ��олоса для имитации Jarvis
@@ -856,7 +852,7 @@ export default function VoiceControl({
         (voice) =>
           voice.lang.includes("ru") &&
           (voice.name.toLowerCase().includes("male") ||
-            voice.name.toLowerCase().includes("муж�����кой") ||
+            voice.name.toLowerCase().includes("м��ж�����кой") ||
             voice.name.toLowerCase().includes("антон") ||
             voice.name.toLowerCase().includes("ник��лай")),
       );
@@ -921,7 +917,7 @@ export default function VoiceControl({
     }
   };
 
-  // Тестовая функция для проверки а��дио
+  // Тестовая функция для проверки аудио
   const testAudioUrls = () => {
     const url1 =
       "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76";
@@ -979,7 +975,7 @@ export default function VoiceControl({
     };
 
     firstAudio.onended = () => {
-      console.log("✅ Пер��ое а��дио за��ончилось, ждем 2 секун��ы...");
+      console.log("✅ Пер��ое аудио за��ончилось, ждем 2 секун��ы...");
       // Ч��рез 2 секунды воспроизводим второе аудио
       setTimeout(() => {
         console.log("🎵 ��оздаем второе аудио для диагностики");
@@ -1010,7 +1006,7 @@ export default function VoiceControl({
 
     firstAudio.onerror = () => {
       resetState();
-      console.error("❌ Ошибка воспроизведения первого аудио диагностик��");
+      console.error("❌ Ошибка воспроизведения п��рвого аудио диагностик��");
     };
 
     console.log("▶️ ��апускаем перво�� ауд����");
@@ -1043,7 +1039,7 @@ export default function VoiceControl({
 
     // Команда о��ключения (приоритетная)
     if (
-      command.includes("от���лючись") ||
+      command.includes("от��лючись") ||
       command.includes("вык��ючись") ||
       command.includes("отключи микрофон") ||
       command.includes("стоп джарвис") ||
@@ -1309,7 +1305,7 @@ export default function VoiceControl({
       "цена",
       "стоимость",
       "тариф",
-      "услуги",
+      "усл��ги",
       "компания",
       "контакты",
       "п��ддержка",
@@ -1614,7 +1610,7 @@ export default function VoiceControl({
       command.includes("домо��")
     ) {
       navigate("/");
-      speak("Переходим на главную страницу");
+      speak("Перехо��им на главную страницу");
       return;
     }
 
@@ -1655,7 +1651,7 @@ export default function VoiceControl({
     }
 
     // Команды корзины
-    if (command.includes("корзина") && command.includes("о��истить")) {
+    if (command.includes("корзина") && command.includes("о����истить")) {
       clearCart();
       speak("Корзин�� очищена");
       return;
@@ -1690,7 +1686,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("доба��ить ��ро") ||
+      command.includes("добавить ��ро") ||
       command.includes("про план") ||
       command.includes("про в корзину") ||
       command.includes("отправит�� про")
@@ -1846,7 +1842,7 @@ export default function VoiceControl({
           setIsListening(true);
           onListeningChange?.(true, "");
         } catch (error) {
-          console.log("Распознавание уже зап��щено или н��до��ту��но");
+          console.log("Распознава��ие уже зап��щено или н��до��ту��но");
         }
       }
     }
