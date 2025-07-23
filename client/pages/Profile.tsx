@@ -55,7 +55,7 @@ export default function Profile() {
   const [faceIDMode, setFaceIDMode] = useState<"register" | "verify">("register");
   const [hasFaceID, setHasFaceID] = useState(false);
 
-  // Получаем аватар пользователя при загрузке
+  // Получаем аватар пользователя и проверяем Face ID при загрузке
   useEffect(() => {
     if (currentUser) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -63,6 +63,11 @@ export default function Profile() {
       if (user?.avatar) {
         setAvatar(user.avatar);
       }
+
+      // Проверяем настройки Face ID
+      const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
+      const userFace = faces.find((face: any) => face.userId === currentUser.id);
+      setHasFaceID(!!userFace);
     }
   }, [currentUser]);
 
@@ -406,7 +411,7 @@ export default function Profile() {
                           id="name"
                           name="name"
                           type="text"
-                          placeholder="Введите ваше имя"
+                          placeholder="Вве��ите ваше имя"
                           value={formData.name}
                           onChange={handleChange}
                           required
