@@ -26,6 +26,14 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 
 export default function Index() {
@@ -82,9 +90,9 @@ export default function Index() {
     if (isListening) {
       setIsVoicePanelActive(true);
     }
-    // Не закрываем панель автоматически - пользователь сам решает когда закрыть
+    // Не закрываем панель авт��матически - пользователь сам решает когда закрыть
 
-    // Простая логика: если тран��крипт пустой - очищаем, если нет - отображаем
+    // Простая логика: если транскрипт пустой - очищаем, если нет - отображаем
     if (!transcript || transcript.trim() === "") {
       console.log("📱 Очищаем транскрипт в Index.tsx");
       setCurrentTranscript("");
