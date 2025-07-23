@@ -110,9 +110,9 @@ export class JarvisSpeechEngine {
       return bQuality - aQuality;
     });
 
-    if (maleVoices.length > 0) {
-      console.log(`Selected male voice: ${maleVoices[0].name}`);
-      return maleVoices[0];
+    if (sortedMaleVoices.length > 0) {
+      console.log(`Selected male voice: ${sortedMaleVoices[0].name} (${sortedMaleVoices[0].lang})`);
+      return sortedMaleVoices[0];
     }
 
     // Последний fallback - любой голос для языка
