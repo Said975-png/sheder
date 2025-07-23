@@ -35,8 +35,7 @@ export default function Index() {
     clearCart,
   } = useCart();
   const navigate = useNavigate();
-  const [navbarAnimated, setNavbarAnimated] = useState(false);
-  const [navbarScrolled, setNavbarScrolled] = useState(false);
+
   const [isVoicePanelActive, setIsVoicePanelActive] = useState(false);
   const [currentTranscript, setCurrentTranscript] = useState("");
   const [lastProcessedTranscript, setLastProcessedTranscript] = useState("");
@@ -51,7 +50,7 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Отслеживание ��кролла для навбара
+  // Отслежи��ание ��кролла для навбара
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 100;
