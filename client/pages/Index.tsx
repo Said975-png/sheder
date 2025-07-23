@@ -123,7 +123,7 @@ export default function Index() {
     navigate("/order");
   };
 
-  const handleListeningChange = (isListening: boolean, transcript?: string) => {
+  const handleListeningChange = (isListening: boolean, transcript?: string, isSpeaking?: boolean) => {
     // Панель остается активной, если микрофон включен ИЛИ если был активен ранее
     if (isListening) {
       setIsVoicePanelActive(true);
