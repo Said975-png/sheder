@@ -218,7 +218,7 @@ export default function JarvisInterface({
             onAddProPlan={onAddProPlan}
             onAddMaxPlan={onAddMaxPlan}
             inNavbar={false}
-            onListeningChange={onListeningChange}
+            onListeningChange={handleVoiceStateChange}
             forceStop={forceStop}
           />
         </div>
