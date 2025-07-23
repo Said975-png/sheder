@@ -50,7 +50,7 @@ export default function VoiceControl({
         // Улучшенные настройк�� для лучшего распознавания
         recognitionRef.current.maxAlternatives = 5;
 
-        // Дополнительные настройки для Chrome/WebKit - улучшаем чувствительн��с��ь
+        // Дополнительные настройки для Chrome/WebKit - улучшаем чувстви��ельн��с��ь
         if (
           recognitionRef.current.webkitSpeechRecognition ||
           "webkitSpeechRecognition" in window
@@ -204,7 +204,7 @@ export default function VoiceControl({
                   }, 2000);
                 },
                 finalTranscript ? 100 : 1000,
-              ); // Мень��е задержки для фи��альных результатов
+              ); // Мень��е за��ержки для фи��альных результатов
             } else {
               console.log("❌ Команда отклонена:", {
                 isEmpty: !command,
@@ -267,7 +267,7 @@ export default function VoiceControl({
             setIsListening(false);
             onListeningChange?.(false, "");
           }
-          // Некритические ошибки - игнорируе�� и продолж����ем
+          // Некритические ошибки - игнорируе�� и продолж������ем
           else if (
             event.error === "no-speech" ||
             event.error === "audio-capture" ||
@@ -425,7 +425,7 @@ export default function VoiceControl({
     // Очищаем транскрипт когда начинаем говорить
     setTranscript("");
     // НЕ вызываем onListeningChange во время воспроизведения аудио
-    // Это предотвращает повторное открытие панели после команды отключения
+    // Это предотвращает повторно�� открытие панели после команды отключения
 
     // Созда��м и вос���рои��водим ваш новый ау��ио-файл
     const audio = new Audio(
@@ -477,6 +477,7 @@ export default function VoiceControl({
       console.log("⏹️ Останавливаем т��кущее аудио");
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
+      currentAudioRef.current = null; // Очищаем ссылку
     }
 
     // Останавливаем Recognition сразу
@@ -489,35 +490,40 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим аудио для команды "отключи��ь"
-    const audio = new Audio(
-      "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c",
-    );
-    currentAudioRef.current = audio;
+    // Добавляем небольшую задержку перед созданием нового аудио
+    setTimeout(() => {
+      console.log("🔊 Создаем аудио для отключения");
 
-    const shutdownComplete = () => {
-      setIsSpeaking(false);
-      commandCooldownRef.current = false;
-      audioPlayingRef.current = false;
-      lastCommandRef.current = "";
-      currentAudioRef.current = null;
-      setTranscript("");
-      // НЕ открываем панель обратно после команды отключения
-      console.log("✅ Команда отключения завершена - панель остается закрытой");
-    };
+      // Создаем и воспроизводим аудио для команды "отключи��ь"
+      const audio = new Audio(
+        "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c",
+      );
+      currentAudioRef.current = audio;
 
-    audio.onended = shutdownComplete;
+      const shutdownComplete = () => {
+        setIsSpeaking(false);
+        commandCooldownRef.current = false;
+        audioPlayingRef.current = false;
+        lastCommandRef.current = "";
+        currentAudioRef.current = null;
+        setTranscript("");
+        // НЕ открываем панель обратно после команды отключения
+        console.log("✅ Команда отключения завершена - панель остается закрытой");
+      };
 
-    audio.onerror = () => {
-      console.error("Ошибка вос���роиз��едения а��ди�� отключения");
-      shutdownComplete();
-    };
+      audio.onended = shutdownComplete;
 
-    console.log("▶️ Пытаемся воспроизвести аудио отключения");
-    audio.play().catch((error) => {
-      console.error("❌ Не удалось воспроизвести аудио отключения:", error);
-      shutdownComplete();
-    });
+      audio.onerror = () => {
+        console.error("Ошибка вос���роиз��едения а��ди�� отключения");
+        shutdownComplete();
+      };
+
+      console.log("▶️ Пытаемся воспроизвести аудио отключения");
+      audio.play().catch((error) => {
+        console.error("❌ Не удалось воспроизвести аудио отключения:", error);
+        shutdownComplete();
+      });
+    }, 100); // Задержка 100мс для полной остановки предыдущего аудио
   };
 
   const speakWelcomeBack = () => {
@@ -536,7 +542,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизводим ауд����о для команды "Джарвис я вернулся"
+    // Создаем и воспроизводим ауд����о для команды "Джарвис я вернулс��"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -574,7 +580,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и восп��оизводим аудио дл�� благодарности
+    // Создаем и восп��оизводим аудио дл���� благодарности
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2Fafb1b8a7fc8645a7ab1e8513e8c1faa7?alt=media&token=be057092-6988-45dd-94dc-90427146589d&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -687,7 +693,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("Не удалось воспроизв��ст�� аудио ��тве��а:", error);
+      console.error("Не удалось воспроизв��ст�� ауд��о ��тве��а:", error);
     });
   };
 
@@ -793,7 +799,7 @@ export default function VoiceControl({
     // Пусть микрофон продолжает работать
     console.log("🔊 Воспр��изво���им аудио, но остав��яем микрофон активным");
 
-    // Используем ваш ��ригинальный аудиофайл Джарвиса
+    // Используем ваш ��ригинальны�� аудиофайл Джарвиса
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2Fddde4fe5b47946c2a3bbb80e3bca0073%2F54eb93b1452742b6a1cd87cc6104bb59?alt=media&token=fc948eba-bbcd-485c-b129-d5a0c25cfc74&apiKey=ddde4fe5b47946c2a3bbb80e3bca0073",
     );
@@ -1101,7 +1107,7 @@ export default function VoiceControl({
   };
 
   const speakCorrect = () => {
-    // Множественная защита от повторного воспроизведения
+    // Множестве��ная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       console.log("❌ speakCorrect заблокирован - система занята");
       return;
@@ -1318,7 +1324,7 @@ export default function VoiceControl({
         lastGreetingTimeRef.current = now;
         speakAuthenticJarvis();
       } else {
-        console.log("❌ Приветствие заблокиров��но:", {
+        console.log("❌ При��етствие заблокиров��но:", {
           isSpeaking,
           commandCooldown: commandCooldownRef.current,
           audioPlaying: audioPlayingRef.current,
@@ -1350,7 +1356,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Как дела" (общая, без имени ����а��вис)
+    // Команда "Как дела" (общая, без имени �����а��вис)
     if (
       command.includes("как дела") ||
       command.includes("как поживаешь джарвис") ||
@@ -1415,7 +1421,7 @@ export default function VoiceControl({
         console.log("✅ Услови�� выполнены, ��ап���ск��ем диагностику");
         speakSystemDiagnostics();
       } else {
-        console.log("❌ ����иагн��стика заблокирована:", {
+        console.log("❌ ������иагн��стика заблокирована:", {
           isSpeaking,
           commandCooldown: commandCooldownRef.current,
           audioPlaying: audioPlayingRef.current,
@@ -1622,7 +1628,7 @@ export default function VoiceControl({
 
       // Поис���� преимущ������тв
       if (
-        command.includes("преимущества") ||
+        command.includes("преим��щества") ||
         command.includes("преимущество")
       ) {
         found = searchAndNavigate([
@@ -1703,7 +1709,7 @@ export default function VoiceControl({
         }
       }
 
-      // ��оиск технологи��
+      // ��оиск техноло��и��
       if (
         command.includes("те��нолог") ||
         command.includes("webgl") ||
@@ -1903,7 +1909,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("��о���а����ываю п��аны");
+        speak("��о���а����ываю п��ан��");
       }
       return;
     }
