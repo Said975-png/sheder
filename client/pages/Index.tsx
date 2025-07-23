@@ -43,10 +43,7 @@ export default function Index() {
 
 
 
-  const handleLogout = () => {
-    logout();
-    window.location.reload();
-  };
+
 
   const handleAddBeginnerPlan = () => {
     addItem({
