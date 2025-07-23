@@ -39,7 +39,7 @@ export default function VoiceControl({
 
   // Безопасная функция для обновления состояния прослушивания
   const updateListeningState = useCallback((listening: boolean, transcriptText: string = "") => {
-    console.log("📱 Updating state:", { listening, transcriptText: transcriptText.slice(0, 50) });
+    console.log("📱 Updating state:", { listening, transcriptText: transcriptText.slice(0, 50), isSpeaking });
 
     if (stateUpdateTimeoutRef.current) {
       clearTimeout(stateUpdateTimeoutRef.current);
@@ -47,14 +47,14 @@ export default function VoiceControl({
 
     stateUpdateTimeoutRef.current = setTimeout(() => {
       setTranscript(transcriptText);
-      onListeningChange?.(listening, transcriptText);
+      onListeningChange?.(listening, transcriptText, isSpeaking);
     }, 100);
-  }, [onListeningChange]);
+  }, [onListeningChange, isSpeaking]);
 
   // Эффект для отслеживания состояния говорения
   useEffect(() => {
     // Сообщаем родительскому компоненту о состоянии говорения
-    onListeningChange?.(isListening, transcript);
+    onListeningChange?.(isListening, transcript, isSpeaking);
   }, [isSpeaking]); // Срабатывает при изменении состояния говорения
 
   // Инициализация Speech Recognition
@@ -153,7 +153,7 @@ export default function VoiceControl({
     };
   }, []);
 
-  // Функция для запуска распознавания
+  // Функция для запуска распознаван��я
   const startRecognition = useCallback(() => {
     if (!recognitionRef.current || recognitionState === 'starting' || recognitionState === 'listening') {
       console.log("❌ Cannot start recognition:", { hasRecognition: !!recognitionRef.current, state: recognitionState });
@@ -340,7 +340,7 @@ export default function VoiceControl({
       }
     } catch (error) {
       console.error("ElevenLabs TTS error:", error);
-      console.log("Джарвис: Все системы функционируют нормально");
+      console.log("Джарвис: Все системы функционир��ют нормально");
       resetCommandState();
     }
   }, [playAudio, resetCommandState]);
@@ -374,7 +374,7 @@ export default function VoiceControl({
     }
 
     // Команды приветствия (только специфичные)
-    if ((cmd.includes("привет") && (cmd.includes("джарвис") || cmd.length <= 15)) || 
+    if ((cmd.includes("приве��") && (cmd.includes("джарвис") || cmd.length <= 15)) || 
         (cmd.includes("hello") && (cmd.includes("jarvis") || cmd.length <= 15)) || 
         (cmd.includes("здравствуй") && (cmd.includes("джарвис") || cmd.length <= 20))) {
       speakAuthenticJarvis();
