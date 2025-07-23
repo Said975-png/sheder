@@ -4,13 +4,17 @@ import { useJarvisSpeech } from "@/components/JarvisSpeech";
 export function useJarvisVoiceCommands() {
   const { speak, speakCommand, speakResponse, speakAlert, stop, isSpeaking } = useJarvisSpeech();
 
-  // Системные ответы
+  // Системные ответы с обработкой ошибок
   const speakSystemsOperational = useCallback(async () => {
-    await speakResponse("Все системы функционируют нормально, сэр");
+    try {
+      await speakResponse("Все системы функционируют нормально, сэр");
+    } catch (error) {
+      console.warn('speakSystemsOperational failed:', error);
+    }
   }, [speakResponse]);
 
   const speakWelcomeBack = useCallback(async () => {
-    await speakResponse("Добро пожаловать обратно, сэр. Рад вас виде��ь");
+    await speakResponse("Добро пожаловать обратно, сэр. Рад вас видеть");
   }, [speakResponse]);
 
   const speakGoodMorning = useCallback(async () => {
