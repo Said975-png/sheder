@@ -93,7 +93,7 @@ export default function VoiceControl({
         let finalTranscript = "";
         let interimTranscript = "";
 
-        // Обрабатываем все результаты для лучш��го захвата
+        // Обраба��ываем все результаты для лучш��го захвата
         for (let i = 0; i < event.results.length; i++) {
           const result = event.results[i];
           const text = result[0].transcript.trim();
@@ -383,7 +383,7 @@ export default function VoiceControl({
       setTimeout(() => {
         resetCommandState();
         onComplete?.();
-      }, 300); // Сокращена задержка с 1000ms до 300ms
+      }, 300); // Сокращена задержка �� 1000ms до 300ms
     };
 
     audio.onended = audioCleanup;
@@ -439,7 +439,7 @@ export default function VoiceControl({
         });
       } else {
         console.log("Джарвис: Все системы функционируют нормально");
-        resetCommandState();
+        resetCommandState(false); // Не очищаем транскрипт
       }
     } catch (error) {
       console.error("ElevenLabs TTS error:", error);
