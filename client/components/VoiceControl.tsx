@@ -59,7 +59,7 @@ export default function VoiceControl({
           recognitionRef.current.webkitContinuous = true;
           // @ts-ignore
           recognitionRef.current.webkitInterimResults = true;
-          // @ts-ignore - Увеличиваем таймаут для лучшего захвата дли��ных фраз
+          // @ts-ignore - Увели��иваем таймаут для лучшего захвата дли��ных фраз
           recognitionRef.current.webkitGrammars = null;
           // @ts-ignore
           recognitionRef.current.webkitMaxAlternatives = 5;
@@ -83,7 +83,7 @@ export default function VoiceControl({
         }
 
         recognitionRef.current.onstart = () => {
-          console.log("🎤 Ра��познава��и�� речи запущено");
+          console.log("🎤 Ра��познава��и���� речи запущено");
         };
 
         recognitionRef.current.onresult = (event) => {
@@ -450,7 +450,7 @@ export default function VoiceControl({
       setIsSpeaking(false); // Принудительно сбрасываем состояние говорения
       currentAudioRef.current = null; // Очищаем ссылку на аудио
 
-      console.log("🔄 Полный сброс ��сех состояний блокировки выполнен");
+      console.log("🔄 Полный сброс ��сех состояний блокировки выполне��");
 
       // Только сообщаем о состоянии, если микрофон все еще активен И это не команда отключения
       if (isListening && !skipPanelReopen) {
@@ -477,7 +477,7 @@ export default function VoiceControl({
       commandCooldownRef.current = false;
     }
 
-    console.log("🔊 Начинае�� воспроизведение:", text);
+    console.log("🔊 Начинае���� воспроизведение:", text);
 
     setIsSpeaking(true);
     commandCooldownRef.current = true;
@@ -952,7 +952,7 @@ export default function VoiceControl({
         (voice) =>
           voice.lang.includes("ru") &&
           (voice.name.toLowerCase().includes("male") ||
-            voice.name.toLowerCase().includes("му�������кой") ||
+            voice.name.toLowerCase().includes("му���������кой") ||
             voice.name.toLowerCase().includes("антон") ||
             voice.name.toLowerCase().includes("ник��лай")),
       );
@@ -1180,7 +1180,7 @@ export default function VoiceControl({
       currentAudioRef.current.currentTime = 0;
     }
 
-    console.log("▶️ Воспроизводим второе аудио - Верно");
+    console.log("▶️ Воспроизводим второе ау��ио - Верно");
     setIsSpeaking(true);
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
@@ -1243,7 +1243,7 @@ export default function VoiceControl({
       // Мгновенно м��няем тему на лабораторию Старка
       document.documentElement.classList.add('stark-lab-theme');
 
-      // Добавляем эффект сканирования
+      // Добавляем эффект скан��рования
       const scanElement = document.createElement('div');
       scanElement.className = 'lab-activation-scan';
       document.body.appendChild(scanElement);
@@ -1403,7 +1403,7 @@ export default function VoiceControl({
     console.log("🔧 Обработка команды:", command);
 
     // ГАРА��ТИРОВ��ННАЯ защита от зас��ревания: всегда разрешаем обработку новых команд
-    // Устанавливаем таймер на сброс блокировок для ЛЮБОЙ команды
+    // Уста��авливаем таймер на сброс блокировок для ЛЮБОЙ команды
     const forceUnlockTimer = setTimeout(() => {
       console.log("⏰ Принудительное разблокирование через 8 секунд");
       commandCooldownRef.current = false;
@@ -1581,11 +1581,8 @@ export default function VoiceControl({
       command.includes("доброго утра")
     ) {
       // Дополнит����льная проверка, ч��обы избе����ть повторных срабатываний
-      if (
-        !isSpeaking &&
-        !commandCooldownRef.current &&
-        !audioPlayingRef.current
-      ) {
+      // Улучшенная проверка - разрешаем если нет активного аудио
+      if (!isSpeaking || !audioPlayingRef.current) {
         speakGoodMorning();
       }
       return;
@@ -1618,7 +1615,7 @@ export default function VoiceControl({
         timeSinceLastGreeting,
       );
 
-      // Дополнительная проверка + защита от повторов (минимум 10 секун�� м��жду приве��с��виями)
+      // Дополнительная проверка + защита от повторов (минимум 10 секун�� м��жду приве��с��вия��и)
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1673,7 +1670,7 @@ export default function VoiceControl({
       command.includes("как тв��и дела") ||
       command.includes("что ново��о джарви��")
     ) {
-      // Допо��нительная про���ерка, чтобы избежать п��вторных с��абатыв��ний
+      // Допо��нительная про���ерка, чтобы избежать п��вторных с��аба��ыв��ний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1781,7 +1778,7 @@ export default function VoiceControl({
       "спуститься",
       "перейти",
       "покажи",
-      "на��ди",
+      "на����ди",
       "где",
       "что",
       "как",
@@ -1994,7 +1991,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск контактов
+      // Поиск к��нтактов
       if (
         command.includes("кон��акт") ||
         command.includes("св��зь") ||
@@ -2038,7 +2035,7 @@ export default function VoiceControl({
 
       // ��оиск качества и премиум у��луг
       if (
-        command.includes("качество") ||
+        command.includes("качеств��") ||
         command.includes("премиум") ||
         command.includes("��оддержка")
       ) {
@@ -2120,7 +2117,7 @@ export default function VoiceControl({
       command.includes("��рофиль") ||
       command.includes("мой профил��") ||
       command.includes("личн��й к��бинет") ||
-      command.includes("открыть про���иль")
+      command.includes("открыть про���и��ь")
     ) {
       navigate("/profile");
       speak("Откр��ваю ли��ный каби��ет");
@@ -2158,7 +2155,7 @@ export default function VoiceControl({
 
     // Команды доб�����вления планов в корз��н��
     if (
-      command.includes("добавить базовы��") ||
+      command.includes("добавить ��азовы��") ||
       command.includes("базовый план") ||
       command.includes("базовый в корзину") ||
       command.includes("отпр����ить б��зовый")
@@ -2224,7 +2221,7 @@ export default function VoiceControl({
       command.includes("наши пре��мущества") ||
       command.includes("сп��стит��ся к преимущества��") ||
       command.includes("перейти к ��реимущес���вам") ||
-      command.includes("преим��щества")
+      command.includes("��реим��щества")
     ) {
       const found = searchAndNavigate([
         "преи��ущества",
