@@ -41,25 +41,7 @@ export default function Index() {
   const [lastProcessedTranscript, setLastProcessedTranscript] = useState("");
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
-  // Запуск анимации при загрузке компонента
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setNavbarAnimated(true);
-    }, 300);
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Отслежи��ание ��кролла для навбара
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrolled = window.scrollY > 100;
-      setNavbarScrolled(scrolled);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const handleLogout = () => {
     logout();
