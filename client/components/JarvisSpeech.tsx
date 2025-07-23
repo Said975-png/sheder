@@ -144,7 +144,7 @@ export class JarvisSpeechEngine {
   }
 
   async speak(options: JarvisSpeechOptions): Promise<void> {
-    // Останавливаем текущ��ю речь с задержкой
+    // Останавливаем текущую речь с задержкой
     this.stop();
 
     // Небольшая задержка для очистки предыдущих операций
@@ -310,40 +310,100 @@ export class JarvisSpeechEngine {
     }
   }
 
-  // Специальные методы для разных типов сообщений Джарвиса
+  // Специализированные методы речи согласно промпту Джарвиса
+
+  // Деловой, спокойный тон для команд
   async speakCommand(text: string): Promise<void> {
-    return this.speak({
-      text: text,
-      onStart: () => console.log('Jarvis command:', text),
-    });
+    const settings: JarvisVoiceSettings = {
+      rate: 0.75,    // Размеренная подача
+      pitch: 0.6,    // Средне-низкий тембр
+      volume: 0.95,  // Четкая дикция
+      lang: 'ru-RU'
+    };
+
+    const utterance = this.createJarvisUtterance(text, settings);
+    return this.speakWithCustomSettings(utterance, text, 'command');
   }
 
+  // Элегантно-вежливый тон для ответов
   async speakResponse(text: string): Promise<void> {
-    return this.speak({
-      text: text,
-      onStart: () => console.log('Jarvis response:', text),
-    });
+    const settings: JarvisVoiceSettings = {
+      rate: 0.8,     // Чуть быстрее для дружелюбности
+      pitch: 0.65,   // Слегка выше для теплоты
+      volume: 0.95,  // Кристально чистая дикция
+      lang: 'ru-RU'
+    };
+
+    const utterance = this.createJarvisUtterance(text, settings);
+    return this.speakWithCustomSettings(utterance, text, 'response');
   }
 
+  // Уверенный тон для предупреждений (без эмоциональных всплесков)
   async speakAlert(text: string): Promise<void> {
-    // Для предупреждений используем немного более высокий тон и быструю речь
-    const originalUtterance = new SpeechSynthesisUtterance(text);
-    originalUtterance.rate = 1.0;
-    originalUtterance.pitch = 0.8;
-    originalUtterance.volume = 1.0;
-    originalUtterance.lang = 'ru-RU';
+    const settings: JarvisVoiceSettings = {
+      rate: 0.85,    // Немного быстрее для важности
+      pitch: 0.55,   // Ниже для серьезности
+      volume: 1.0,   // Полная громкость
+      lang: 'ru-RU'
+    };
 
-    const bestVoice = this.getBestJarvisVoice('ru-RU');
-    if (bestVoice) {
-      originalUtterance.voice = bestVoice;
-    }
+    const utterance = this.createJarvisUtterance(text, settings);
+    return this.speakWithCustomSettings(utterance, text, 'alert');
+  }
+
+  // Формальный стиль для системных сообщений
+  async speakSystemMessage(text: string): Promise<void> {
+    const settings: JarvisVoiceSettings = {
+      rate: 0.7,     // Очень размеренно для точности
+      pitch: 0.6,    // Стандартный средне-низкий
+      volume: 0.9,   // Слегка тише для формальности
+      lang: 'ru-RU'
+    };
+
+    const utterance = this.createJarvisUtterance(text, settings);
+    return this.speakWithCustomSettings(utterance, text, 'system');
+  }
+
+  private async speakWithCustomSettings(utterance: SpeechSynthesisUtterance, text: string, type: string): Promise<void> {
+    this.stop();
+    await new Promise(resolve => setTimeout(resolve, 100));
 
     return new Promise((resolve, reject) => {
-      originalUtterance.onend = () => resolve();
-      originalUtterance.onerror = (event) => reject(new Error(event.error));
-      
-      this.stop();
-      this.synth.speak(originalUtterance);
+      let hasResolved = false;
+      const cleanup = () => {
+        this.currentUtterance = null;
+        hasResolved = true;
+      };
+
+      utterance.onstart = () => {
+        console.log(`Jarvis ${type}:`, text);
+      };
+
+      utterance.onend = () => {
+        if (!hasResolved) {
+          cleanup();
+          resolve();
+        }
+      };
+
+      utterance.onerror = (event) => {
+        if (!hasResolved) {
+          cleanup();
+          if (event.error === 'interrupted' || event.error === 'canceled') {
+            resolve();
+          } else {
+            reject(new Error(event.error));
+          }
+        }
+      };
+
+      try {
+        this.currentUtterance = utterance;
+        this.synth.speak(utterance);
+      } catch (error) {
+        cleanup();
+        reject(error);
+      }
     });
   }
 }
