@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Mic, MicOff, Volume2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -24,203 +24,238 @@ export default function VoiceControl({
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [transcript, setTranscript] = useState("");
+  const [recognitionState, setRecognitionState] = useState<'idle' | 'starting' | 'listening' | 'stopping'>('idle');
   
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
   const lastCommandRef = useRef<string>("");
-  const processingCommandRef = useRef<boolean>(false);
+  const isProcessingRef = useRef<boolean>(false);
+  const shouldRestartRef = useRef<boolean>(false);
   const restartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const stateUpdateTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
 
+  // Безопасная функция для обновления состояния прослушивания
+  const updateListeningState = useCallback((listening: boolean, transcriptText: string = "") => {
+    console.log("📱 Updating state:", { listening, transcriptText: transcriptText.slice(0, 50) });
+    
+    if (stateUpdateTimeoutRef.current) {
+      clearTimeout(stateUpdateTimeoutRef.current);
+    }
+    
+    stateUpdateTimeoutRef.current = setTimeout(() => {
+      setTranscript(transcriptText);
+      onListeningChange?.(listening, transcriptText);
+    }, 100);
+  }, [onListeningChange]);
+
   // Инициализация Speech Recognition
   useEffect(() => {
-    if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      recognitionRef.current = new SpeechRecognition();
+    if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) {
+      console.error("Speech Recognition not supported");
+      return;
+    }
 
-      if (recognitionRef.current) {
-        recognitionRef.current.continuous = true;
-        recognitionRef.current.interimResults = true;
-        recognitionRef.current.lang = "ru-RU";
-        recognitionRef.current.maxAlternatives = 3;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognitionRef.current = new SpeechRecognition();
 
-        recognitionRef.current.onstart = () => {
-          console.log("🎤 Recognition started");
-        };
+    if (recognitionRef.current) {
+      recognitionRef.current.continuous = true;
+      recognitionRef.current.interimResults = true;
+      recognitionRef.current.lang = "ru-RU";
+      recognitionRef.current.maxAlternatives = 1;
 
-        recognitionRef.current.onresult = (event) => {
-          let finalTranscript = "";
+      recognitionRef.current.onstart = () => {
+        console.log("🎤 Recognition STARTED");
+        setRecognitionState('listening');
+      };
+
+      recognitionRef.current.onresult = (event) => {
+        if (isProcessingRef.current) {
+          console.log("⏭️ Skipping result - processing command");
+          return;
+        }
+
+        let finalTranscript = "";
+        let interimTranscript = "";
+        
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const result = event.results[i];
+          const text = result[0].transcript.trim();
           
-          // Берем только последний результат
-          const lastResult = event.results[event.results.length - 1];
-          if (lastResult) {
-            const text = lastResult[0].transcript.trim();
-            
-            if (lastResult.isFinal) {
-              finalTranscript = text;
-              console.log("🎯 Final transcript:", finalTranscript);
-              
-              // Обрабатываем команду только если она новая и мы не в процессе обработки
-              if (finalTranscript && 
-                  finalTranscript !== lastCommandRef.current && 
-                  !processingCommandRef.current &&
-                  !isSpeaking) {
-                
-                lastCommandRef.current = finalTranscript;
-                processingCommandRef.current = true;
-                setTranscript(finalTranscript);
-                onListeningChange?.(true, finalTranscript);
-                
-                // Обрабатываем команду с небольшой задержкой
-                setTimeout(() => {
-                  processVoiceCommand(finalTranscript);
-                }, 300);
-              }
-            } else {
-              // Показываем промежуточный результат только если система свободна
-              if (!processingCommandRef.current && !isSpeaking && text.length > 2) {
-                setTranscript(text);
-                onListeningChange?.(true, text);
-              }
-            }
-          }
-        };
-
-        recognitionRef.current.onend = () => {
-          console.log("🎤 Recognition ended, isListening:", isListening, "isSpeaking:", isSpeaking, "processing:", processingCommandRef.current);
-
-          // Перезапускаем только если должны слушать и не говорим
-          if (isListening && !isSpeaking && !processingCommandRef.current) {
-            console.log("🔄 Auto-restarting recognition in 500ms");
-            setTimeout(() => {
-              if (isListening && !isSpeaking && !processingCommandRef.current) {
-                startRecognition();
-              }
-            }, 500);
+          if (result.isFinal) {
+            finalTranscript = text;
           } else {
-            console.log("❌ Not restarting recognition:", {
-              isListening,
-              isSpeaking,
-              processing: processingCommandRef.current
-            });
+            interimTranscript = text;
           }
-        };
+        }
 
-        recognitionRef.current.onerror = (event) => {
-          console.log("❌ Recognition error:", event.error);
+        const currentText = finalTranscript || interimTranscript;
+        
+        if (currentText && currentText.length > 2 && currentText.length < 100) {
+          updateListeningState(true, currentText);
           
-          // Игнорируем некритические ошибки
-          if (event.error === "no-speech" || event.error === "audio-capture") {
-            return;
-          }
-          
-          // Для других ошибок - перезапускаем ��ерез секунду
-          if (isListening && !isSpeaking) {
+          // Обрабатываем только финальные результаты
+          if (finalTranscript && finalTranscript !== lastCommandRef.current) {
+            console.log("🎯 Processing final command:", finalTranscript);
+            lastCommandRef.current = finalTranscript;
+            isProcessingRef.current = true;
+            
+            // Небольшая задержка для завершения фразы
             setTimeout(() => {
-              if (isListening && !isSpeaking) {
-                startRecognition();
-              }
-            }, 1000);
+              processVoiceCommand(finalTranscript);
+            }, 500);
           }
-        };
-      }
+        }
+      };
+
+      recognitionRef.current.onend = () => {
+        console.log("🎤 Recognition ENDED, shouldRestart:", shouldRestartRef.current, "isListening:", isListening);
+        setRecognitionState('idle');
+        
+        // Автоматический переза��уск только если нужно
+        if (shouldRestartRef.current && isListening && !isSpeaking) {
+          console.log("🔄 Auto-restarting recognition");
+          startRecognition();
+        }
+      };
+
+      recognitionRef.current.onerror = (event) => {
+        console.log("❌ Recognition error:", event.error);
+        setRecognitionState('idle');
+        
+        // Игнорируем некритические ошибки
+        if (event.error === "no-speech" || event.error === "audio-capture") {
+          return;
+        }
+        
+        // Для серьезных ошибок - перезапускаем через 2 секунды
+        if (shouldRestartRef.current && isListening) {
+          setTimeout(() => {
+            if (shouldRestartRef.current && isListening && !isSpeaking) {
+              startRecognition();
+            }
+          }, 2000);
+        }
+      };
     }
 
     return () => {
-      stopRecognition();
-      if (currentAudioRef.current) {
-        currentAudioRef.current.pause();
-        currentAudioRef.current = null;
-      }
-      if (restartTimeoutRef.current) {
-        clearTimeout(restartTimeoutRef.current);
-      }
+      cleanup();
     };
   }, []);
 
-  // Принудительная остановка
+  // Функция для запуска распознавания
+  const startRecognition = useCallback(() => {
+    if (!recognitionRef.current || recognitionState === 'starting' || recognitionState === 'listening') {
+      console.log("❌ Cannot start recognition:", { hasRecognition: !!recognitionRef.current, state: recognitionState });
+      return;
+    }
+
+    if (isSpeaking) {
+      console.log("🔊 Cannot start - currently speaking");
+      return;
+    }
+
+    try {
+      console.log("🎤 Starting recognition...");
+      setRecognitionState('starting');
+      shouldRestartRef.current = true;
+      recognitionRef.current.start();
+    } catch (error) {
+      console.log("⚠️ Recognition start failed:", error);
+      setRecognitionState('idle');
+      
+      // Попробуем еще раз через секунду
+      setTimeout(() => {
+        if (shouldRestartRef.current && isListening && !isSpeaking) {
+          startRecognition();
+        }
+      }, 1000);
+    }
+  }, [recognitionState, isSpeaking, isListening]);
+
+  // Функция для остановки распознавания
+  const stopRecognition = useCallback(() => {
+    if (!recognitionRef.current) return;
+
+    try {
+      console.log("🛑 Stopping recognition...");
+      shouldRestartRef.current = false;
+      setRecognitionState('stopping');
+      recognitionRef.current.stop();
+    } catch (error) {
+      console.log("Error stopping recognition:", error);
+      setRecognitionState('idle');
+    }
+  }, []);
+
+  // Полная очистка
+  const cleanup = useCallback(() => {
+    console.log("🧹 Full cleanup");
+    shouldRestartRef.current = false;
+    isProcessingRef.current = false;
+    
+    if (restartTimeoutRef.current) {
+      clearTimeout(restartTimeoutRef.current);
+      restartTimeoutRef.current = null;
+    }
+    
+    if (stateUpdateTimeoutRef.current) {
+      clearTimeout(stateUpdateTimeoutRef.current);
+      stateUpdateTimeoutRef.current = null;
+    }
+    
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current = null;
+    }
+    
+    stopRecognition();
+  }, [stopRecognition]);
+
+  // Эффект для принудительной остановки
   useEffect(() => {
     if (forceStop && isListening) {
-      stopListening();
+      console.log("🛑 Force stop triggered");
+      toggleListening();
     }
   }, [forceStop]);
 
-  // Функция для безопасного запуска распознавания
-  const startRecognition = () => {
-    if (recognitionRef.current && !isSpeaking) {
-      try {
-        console.log("🎤 Starting recognition...");
-        recognitionRef.current.start();
-      } catch (error) {
-        console.log("⚠️ Recognition start failed:", error);
-        // Попробуем перезапустить через небольшую задержку
-        setTimeout(() => {
-          if (isListening && !isSpeaking && recognitionRef.current) {
-            try {
-              recognitionRef.current.start();
-              console.log("✅ Recognition restarted successfully");
-            } catch (e) {
-              console.log("❌ Recognition restart failed:", e);
-            }
-          }
-        }, 1000);
-      }
-    } else {
-      console.log("❌ Cannot start recognition:", {
-        hasRecognition: !!recognitionRef.current,
-        isSpeaking
-      });
-    }
-  };
-
-  // Функция для остановки распознавания
-  const stopRecognition = () => {
-    if (recognitionRef.current) {
-      try {
-        recognitionRef.current.stop();
-      } catch (error) {
-        console.log("Error stopping recognition");
-      }
-    }
-  };
-
-  // Функция для сброса состояния команды
-  const resetCommandState = () => {
-    processingCommandRef.current = false;
+  // Функция сброса состояния после команды
+  const resetCommandState = useCallback(() => {
+    console.log("🔄 Resetting command state");
+    isProcessingRef.current = false;
     lastCommandRef.current = "";
-    setTranscript("");
-    // Сообщаем родительскому компоненту о текущем состоянии
-    if (onListeningChange) {
-      onListeningChange(isListening, "");
-    }
+    updateListeningState(isListening, "");
     
-    // Пере��апускаем прослушивание если нужно
-    if (isListening && !isSpeaking) {
+    // Если должны слушать - перезапускаем через секунду
+    if (shouldRestartRef.current && isListening && !isSpeaking) {
       if (restartTimeoutRef.current) {
         clearTimeout(restartTimeoutRef.current);
       }
       
       restartTimeoutRef.current = setTimeout(() => {
-        if (isListening && !isSpeaking && !processingCommandRef.current) {
-          console.log("🔄 Restarting recognition after command");
+        if (shouldRestartRef.current && isListening && !isSpeaking && recognitionState === 'idle') {
+          console.log("🔄 Delayed restart after command");
           startRecognition();
         }
-      }, 1000);
+      }, 1500);
     }
-  };
+  }, [isListening, isSpeaking, recognitionState, startRecognition, updateListeningState]);
 
   // Функция воспроизведения аудио
-  const playAudio = (url: string, onComplete?: () => void) => {
+  const playAudio = useCallback((url: string, onComplete?: () => void) => {
     if (isSpeaking) {
-      console.log("❌ Already speaking, skipping audio");
+      console.log("🔊 Already speaking, ignoring audio request");
       return;
     }
 
     console.log("🔊 Starting audio playback");
     setIsSpeaking(true);
-    stopRecognition(); // Останавливаем распознавание на время аудио
+    stopRecognition();
 
     // Останавливаем предыдущее аудио
     if (currentAudioRef.current) {
@@ -231,52 +266,52 @@ export default function VoiceControl({
     const audio = new Audio(url);
     currentAudioRef.current = audio;
 
-    const cleanup = () => {
-      console.log("🔊 Audio cleanup starting");
+    const audioCleanup = () => {
+      console.log("🔊 Audio finished");
       setIsSpeaking(false);
       currentAudioRef.current = null;
-
-      // Сбрасываем состояние команды
+      
       setTimeout(() => {
-        console.log("🔄 Resetting command state after audio");
         resetCommandState();
         onComplete?.();
-      }, 500);
+      }, 1000);
     };
 
-    audio.onended = cleanup;
+    audio.onended = audioCleanup;
     audio.onerror = () => {
-      console.error("Audio playback error");
-      cleanup();
+      console.error("🔊 Audio error");
+      audioCleanup();
     };
 
     audio.play().catch((error) => {
-      console.error("Failed to play audio:", error);
-      cleanup();
+      console.error("🔊 Failed to play audio:", error);
+      audioCleanup();
     });
-  };
+  }, [isSpeaking, stopRecognition, resetCommandState]);
 
-  // Основные голосовые функции
-  const speakWelcomeBack = () => {
+  // Аудио функции
+  const speakWelcomeBack = useCallback(() => {
     playAudio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c");
-  };
+  }, [playAudio]);
 
-  const speakThankYou = () => {
+  const speakThankYou = useCallback(() => {
     playAudio("https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2Fafb1b8a7fc8645a7ab1e8513e8c1faa7?alt=media&token=be057092-6988-45dd-94dc-90427146589d&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b");
-  };
+  }, [playAudio]);
 
-  const speakAuthenticJarvis = () => {
+  const speakAuthenticJarvis = useCallback(() => {
     playAudio("https://cdn.builder.io/o/assets%2Fddde4fe5b47946c2a3bbb80e3bca0073%2F54eb93b1452742b6a1cd87cc6104bb59?alt=media&token=fc948eba-bbcd-485c-b129-d5a0c25cfc74&apiKey=ddde4fe5b47946c2a3bbb80e3bca0073");
-  };
+  }, [playAudio]);
 
-  const speakShutdown = () => {
+  const speakShutdown = useCallback(() => {
     playAudio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c", () => {
-      // После команды откл��чения - полностью останавливаем
-      stopListening();
+      // После команды отключения - полностью останавливаем
+      if (isListening) {
+        toggleListening();
+      }
     });
-  };
+  }, [playAudio, isListening]);
 
-  const speakSystemsOperational = async () => {
+  const speakSystemsOperational = useCallback(async () => {
     try {
       const response = await fetch("/api/elevenlabs-tts", {
         method: "POST",
@@ -302,19 +337,16 @@ export default function VoiceControl({
       console.log("Джарвис: Все системы функционируют нормально");
       resetCommandState();
     }
-  };
+  }, [playAudio, resetCommandState]);
 
-  // Обработка голосовых команд
-  const processVoiceCommand = (command: string) => {
+  // Обработка команд
+  const processVoiceCommand = useCallback((command: string) => {
     console.log("🔧 Processing command:", command);
     const cmd = command.toLowerCase().trim();
 
-    // Очищаем отображение транскрипта, но не сбрасываем состояние панели
+    // Очищаем транскрипт через секунду
     setTimeout(() => {
-      setTranscript("");
-      if (onListeningChange) {
-        onListeningChange(isListening, ""); // Передаем текущее состояние без изменений
-      }
+      updateListeningState(isListening, "");
     }, 1000);
 
     // Команды отключения (высший приоритет)
@@ -323,21 +355,21 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "я вернулся" (проверяем перед приветствием)
+    // Команда "я вернулся"
     if (cmd.includes("я вернулся") || cmd.includes("джарвис я здесь") || cmd.includes("джарвис я вернулся")) {
       speakWelcomeBack();
       return;
     }
 
-    // Команды "как дела" (проверяем перед приветствием)
+    // Команды "как дела"
     if (cmd.includes("как дела") || cmd.includes("how are you") || cmd.includes("джарвис как дела")) {
       speakSystemsOperational();
       return;
     }
 
     // Команды приветствия (только специфичные)
-    if ((cmd.includes("пр��вет") && (cmd.includes("джарвис") || cmd.length <= 15)) ||
-        (cmd.includes("hello") && (cmd.includes("jarvis") || cmd.length <= 15)) ||
+    if ((cmd.includes("привет") && (cmd.includes("джарвис") || cmd.length <= 15)) || 
+        (cmd.includes("hello") && (cmd.includes("jarvis") || cmd.length <= 15)) || 
         (cmd.includes("здравствуй") && (cmd.includes("джарвис") || cmd.length <= 20))) {
       speakAuthenticJarvis();
       return;
@@ -374,7 +406,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды планов (более специфичные)
+    // Команды планов
     if (cmd.includes("базовый план") || (cmd.includes("добавить") && cmd.includes("базовый"))) {
       onAddBasicPlan();
       resetCommandState();
@@ -387,7 +419,7 @@ export default function VoiceControl({
       return;
     }
 
-    if (cmd.includes("макс план") || cmd.includes("максимальный план") ||
+    if (cmd.includes("макс план") || cmd.includes("максимальный план") || 
         (cmd.includes("добавить") && cmd.includes("макс"))) {
       onAddMaxPlan();
       resetCommandState();
@@ -413,46 +445,27 @@ export default function VoiceControl({
       return;
     }
 
-    // Если команда не распознана - просто сбрасываем состояние без действий
-    console.log("❓ Unknown command, resetting state:", cmd);
+    // Неизвестная команда
+    console.log("❓ Unknown command:", cmd);
     resetCommandState();
-  };
+  }, [isListening, updateListeningState, speakShutdown, speakWelcomeBack, speakSystemsOperational, speakAuthenticJarvis, speakThankYou, navigate, resetCommandState, onAddBasicPlan, onAddProPlan, onAddMaxPlan]);
 
   // Переключение прослушивания
-  const toggleListening = () => {
+  const toggleListening = useCallback(() => {
     if (isListening) {
-      stopListening();
+      console.log("🛑 Stopping listening");
+      setIsListening(false);
+      cleanup();
+      updateListeningState(false, "");
     } else {
-      startListening();
-    }
-  };
-
-  const startListening = () => {
-    if (!isListening && !isSpeaking) {
+      console.log("🎤 Starting listening");
       setIsListening(true);
-      setTranscript("");
       lastCommandRef.current = "";
-      processingCommandRef.current = false;
-      onListeningChange?.(true, "");
+      isProcessingRef.current = false;
+      updateListeningState(true, "");
       startRecognition();
     }
-  };
-
-  const stopListening = () => {
-    if (isListening) {
-      setIsListening(false);
-      setTranscript("");
-      lastCommandRef.current = "";
-      processingCommandRef.current = false;
-      onListeningChange?.(false, "");
-      stopRecognition();
-      
-      if (restartTimeoutRef.current) {
-        clearTimeout(restartTimeoutRef.current);
-        restartTimeoutRef.current = null;
-      }
-    }
-  };
+  }, [isListening, cleanup, updateListeningState, startRecognition]);
 
   return (
     <div className={inNavbar ? "relative" : "fixed bottom-6 right-6 z-50"}>
