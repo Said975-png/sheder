@@ -148,18 +148,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      {/* Voice Panel - показывается при активации микрофона */}
-      {isVoicePanelActive && (
-        <VoicePanel
-          onAddBasicPlan={handleAddBeginnerPlan}
-          onAddProPlan={handleAddIntermediatePlan}
-          onAddMaxPlan={handleAddAdvancedPlan}
-          onClose={handleCloseVoicePanel}
-          onStopListening={handleStopListening}
-          isListening={isVoicePanelActive}
-          transcript={currentTranscript}
-        />
-      )}
+
 
       {/* Navigation - Enhanced with Stark styling */}
       <nav
