@@ -359,14 +359,19 @@ export default function VoiceControl({
     currentAudioRef.current = audio;
 
     const audioCleanup = () => {
-      console.log("🔊 Audio finished");
+      console.log("🔊 Audio finished - immediately unblocking");
       setIsSpeaking(false);
       currentAudioRef.current = null;
-      
+
+      // КРИТИЧНО: Немедленно разблокируем обработку команд
+      isProcessingRef.current = false;
+      console.log("✅ Command processing immediately unblocked");
+
+      // Быстрый сброс состояния для возобновления прослушивания
       setTimeout(() => {
         resetCommandState();
         onComplete?.();
-      }, 1000);
+      }, 300); // Сокращена задержка с 1000ms до 300ms
     };
 
     audio.onended = audioCleanup;
@@ -481,7 +486,7 @@ export default function VoiceControl({
     }
 
     // Навигацион��ые команды
-    if (cmd.includes("домой") || cmd.includes("главная") || cmd.includes("на главную")) {
+    if (cmd.includes("домой") || cmd.includes("��лавная") || cmd.includes("на главную")) {
       navigate("/");
       resetCommandState();
       return;
