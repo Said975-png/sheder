@@ -261,7 +261,7 @@ export default function VoiceControl({
             setIsListening(false);
             onListeningChange?.(false, "");
           }
-          // Некритические ошибки - игнорируе�� и продолж��ем
+          // Некритические ошибки - игнорируе�� и продолж����ем
           else if (
             event.error === "no-speech" ||
             event.error === "audio-capture" ||
@@ -380,13 +380,14 @@ export default function VoiceControl({
   }, [forceStop, isListening, onListeningChange]);
 
   // Фу��кция для полного сброса состояния по���ле команды
-  const resetCommandState = (delay: number = 3000) => {
+  const resetCommandState = (delay: number = 1000) => {
+    console.log(`⏰ Планируем сброс cooldown через ${delay}мс`);
     setTimeout(() => {
       commandCooldownRef.current = false;
       lastCommandRef.current = "";
       setTranscript("");
       onListeningChange?.(true, "");
-      console.log("🧹 ��олны�� сброс состояния команды");
+      console.log("✅ Cooldown сброшен, можно воспроизводить новые команды");
     }, delay);
   };
 
@@ -466,7 +467,7 @@ export default function VoiceControl({
     audio.onended = shutdownComplete;
 
     audio.onerror = () => {
-      console.error("Ошибка вос���роизведения а��ди�� отключения");
+      console.error("Ошибка вос���роиз��едения а��ди�� отключения");
       shutdownComplete();
     };
 
@@ -539,7 +540,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("Ошибка во��п��оизведения ���удио благодар��о��ти");
+      console.error("Ошибка во��п��оизведения ���удио бл��годар��о��ти");
     };
 
     audio.play().catch((error) => {
@@ -813,7 +814,7 @@ export default function VoiceControl({
       // Поиск наиболе�� подходящего ��олоса для имит��ции Jarvis
       const voices = speechSynthesis.getVoices();
 
-      // Приоритет: голоса, похожие на британский/американский мужской
+      // Приоритет: голоса, похожие на британск��й/американский мужской
       const jarvisLikeVoice = voices.find(
         (voice) =>
           voice.lang.includes("en") &&
@@ -936,7 +937,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Воспроизводим первое аудио
+    // Воспроизводим первое а��дио
     console.log("��� Создаем первое аудио для диагнос��ики");
     const firstAudio = new Audio(
       "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76",
@@ -1027,7 +1028,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда п��иветствия "Д��арвис я вернулся"
+    // Команда п��иветствия "Д��арвис �� вернулся"
     if (
       command.includes("джарв���с я вернулся") ||
       command.includes("я вернулся ��жарвис") ||
@@ -1597,7 +1598,7 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Откр���ваю страницу вх��да");
+      speak("Откр���в��ю страницу вх��да");
       return;
     }
 
@@ -1708,7 +1709,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("По���а���ываю п��аны");
+        speak("По���а����ываю п��аны");
       }
       return;
     }
@@ -1786,7 +1787,7 @@ export default function VoiceControl({
 
     if (
       command.includes("в коне�� страницы") ||
-      command.includes("в сам��й н��з") ||
+      command.includes("в сам���й н��з") ||
       command.includes("вниз страницы")
     ) {
       window.scrollTo(0, document.body.scrollHeight);
