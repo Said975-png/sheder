@@ -37,7 +37,7 @@ export default function VoiceControl({
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
 
-  // Безопасная функция для обновления состояния прослушивания
+  // Без��пасная функция для обновления состояния прослушивания
   const updateListeningState = useCallback((listening: boolean, transcriptText: string = "") => {
     console.log("📱 Updating state:", { listening, transcriptText: transcriptText.slice(0, 50), isSpeaking });
 
@@ -55,7 +55,7 @@ export default function VoiceControl({
   useEffect(() => {
     // Сообщаем родительскому компоненту о состоянии говорения
     onListeningChange?.(isListening, transcript, isSpeaking);
-  }, [isSpeaking]);
+  }, [isSpeaking]); // Срабатывает при изменении состояния говорения
 
   // Инициализация Speech Recognition
   useEffect(() => {
@@ -93,7 +93,7 @@ export default function VoiceControl({
         let finalTranscript = "";
         let interimTranscript = "";
 
-        // Обрабатываем все результаты для лучшего захвата
+        // Обраба��ываем все результаты для лучш��го захвата
         for (let i = 0; i < event.results.length; i++) {
           const result = event.results[i];
           const text = result[0].transcript.trim();
@@ -122,7 +122,7 @@ export default function VoiceControl({
         if (currentText && currentText.length > 1) {
           updateListeningState(true, currentText);
 
-          // Обрабатываем команды как финальные, так и достаточно длинные промежуточные
+          // Обрабатываем команды как ��инальные, так и достаточно длинные промежуточные
           if ((finalTranscript || (interimTranscript && interimTranscript.length > 3)) &&
               !isProcessingRef.current &&
               currentText !== lastCommandRef.current &&
@@ -137,10 +137,6 @@ export default function VoiceControl({
               if (isProcessingRef.current) {
                 console.log("⚠️ Processing timeout - force unblocking");
                 isProcessingRef.current = false;
-                // После принудительной разблокировки - перезапускаем распознавание
-                if (shouldRestartRef.current && isListening && !isSpeaking) {
-                  setTimeout(() => startRecognition(), 500);
-                }
               }
             }, 10000);
 
@@ -153,24 +149,13 @@ export default function VoiceControl({
       };
 
       recognitionRef.current.onend = () => {
-        console.log("🔚 Recognition ENDED", {
-          shouldRestart: shouldRestartRef.current,
-          isListening,
-          isSpeaking,
-          isProcessing: isProcessingRef.current
-        });
+        console.log("���� Recognition ENDED, shouldRestart:", shouldRestartRef.current, "isListening:", isListening);
         setRecognitionState('idle');
         
-        // КРИТИЧНО: перезапускаем только если НЕ обрабатываем команду
-        if (shouldRestartRef.current && isListening && !isSpeaking && !isProcessingRef.current) {
-          console.log("🔄 Auto-restarting recognition (ready for new commands)");
-          setTimeout(() => {
-            if (shouldRestartRef.current && isListening && !isSpeaking && !isProcessingRef.current) {
-              startRecognition();
-            }
-          }, 300);
-        } else if (isProcessingRef.current) {
-          console.log("⏸️ Waiting for command processing to complete before restart");
+        // Автоматический перезапуск только если нужно
+        if (shouldRestartRef.current && isListening && !isSpeaking) {
+          console.log("��� Auto-restarting recognition");
+          startRecognition();
         }
       };
 
@@ -181,14 +166,16 @@ export default function VoiceControl({
         // Быстро восстанавливаемся от большинства ошибок
         if (event.error === "no-speech") {
           console.log("ℹ️ No speech detected, continuing to listen...");
+          // Для no-speech просто продолжаем, не перезапускаем
           return;
         }
 
         if (event.error === "audio-capture") {
           console.log("⚠️ Audio capture issue, retrying...");
-          if (shouldRestartRef.current && isListening && !isProcessingRef.current) {
+          // Быстрый перезапуск для проблем с аудио
+          if (shouldRestartRef.current && isListening) {
             setTimeout(() => {
-              if (shouldRestartRef.current && isListening && !isSpeaking && !isProcessingRef.current) {
+              if (shouldRestartRef.current && isListening && !isSpeaking) {
                 startRecognition();
               }
             }, 500);
@@ -198,9 +185,9 @@ export default function VoiceControl({
 
         if (event.error === "network") {
           console.log("🌐 Network error, retrying in 3 seconds...");
-          if (shouldRestartRef.current && isListening && !isProcessingRef.current) {
+          if (shouldRestartRef.current && isListening) {
             setTimeout(() => {
-              if (shouldRestartRef.current && isListening && !isSpeaking && !isProcessingRef.current) {
+              if (shouldRestartRef.current && isListening && !isSpeaking) {
                 startRecognition();
               }
             }, 3000);
@@ -208,10 +195,10 @@ export default function VoiceControl({
           return;
         }
 
-        // Для других ошибок - быстрый перезапуск если не обрабатываем команду
-        if (shouldRestartRef.current && isListening && !isProcessingRef.current) {
+        // Для други�� ошибок - быстрый перезапуск
+        if (shouldRestartRef.current && isListening) {
           setTimeout(() => {
-            if (shouldRestartRef.current && isListening && !isSpeaking && !isProcessingRef.current) {
+            if (shouldRestartRef.current && isListening && !isSpeaking) {
               console.log("🔄 Restarting after error:", event.error);
               startRecognition();
             }
@@ -225,7 +212,7 @@ export default function VoiceControl({
     };
   }, []);
 
-  // Функция для запуска распознавания
+  // Функция для запуска распо��наван��я
   const startRecognition = useCallback(() => {
     if (!recognitionRef.current) {
       console.log("❌ No recognition available");
@@ -237,12 +224,7 @@ export default function VoiceControl({
       return;
     }
 
-    if (isProcessingRef.current) {
-      console.log("⏸️ Cannot start - processing command");
-      return;
-    }
-
-    // Более агрессивная проверка - принудительно останавливаем если нужно
+    // Более агрессивная проверка - принудительно останавливаем если нуж��о
     if (recognitionState === 'listening') {
       console.log("🔄 Recognition already listening - forcing restart");
       try {
@@ -252,7 +234,7 @@ export default function VoiceControl({
       }
 
       setTimeout(() => {
-        if (shouldRestartRef.current && isListening && !isSpeaking && !isProcessingRef.current) {
+        if (shouldRestartRef.current && isListening && !isSpeaking) {
           startRecognition();
         }
       }, 300);
@@ -270,7 +252,7 @@ export default function VoiceControl({
         if (recognitionState === 'starting') {
           console.log("⏰ Recognition start timeout, retrying...");
           setRecognitionState('idle');
-          if (shouldRestartRef.current && isListening && !isSpeaking && !isProcessingRef.current) {
+          if (shouldRestartRef.current && isListening && !isSpeaking) {
             startRecognition();
           }
         }
@@ -282,7 +264,7 @@ export default function VoiceControl({
 
       // Быстрая повторная попытка
       setTimeout(() => {
-        if (shouldRestartRef.current && isListening && !isSpeaking && !isProcessingRef.current) {
+        if (shouldRestartRef.current && isListening && !isSpeaking) {
           console.log("🔄 Retrying recognition start...");
           startRecognition();
         }
@@ -290,7 +272,7 @@ export default function VoiceControl({
     }
   }, [recognitionState, isSpeaking, isListening]);
 
-  // Функция для остановки распознавания
+  // Функция для ��становки распознавания
   const stopRecognition = useCallback(() => {
     if (!recognitionRef.current) return;
 
@@ -341,10 +323,10 @@ export default function VoiceControl({
   const resetCommandState = useCallback((clearTranscript: boolean = true) => {
     console.log("🔄 Resetting command state", { clearTranscript });
 
-    // КРИТИЧНО: Сразу сбрасываем processing, чтобы разблокировать новые команды
+    // КРИТИЧНО: Сразу сбрасываем processing, чтобы разблоки��овать новые команды
     isProcessingRef.current = false;
     lastCommandRef.current = "";
-    
+
     // Очищаем транскрипт только если нужно
     if (clearTranscript) {
       updateListeningState(isListening, "");
@@ -358,20 +340,20 @@ export default function VoiceControl({
         clearTimeout(restartTimeoutRef.current);
       }
 
-      // Быстрый перезапуск для лучшей отзывчивости
+      // Более быстрый перезапуск для лучшей отзывчивости
       restartTimeoutRef.current = setTimeout(() => {
-        if (shouldRestartRef.current && isListening && !isSpeaking && recognitionState === 'idle' && !isProcessingRef.current) {
+        if (shouldRestartRef.current && isListening && !isSpeaking && recognitionState === 'idle') {
           console.log("🔄 Restarting recognition for new commands");
           startRecognition();
         }
-      }, 500);
+      }, 500); // Окончательно сокращаем до 500ms
     }
   }, [isListening, isSpeaking, recognitionState, startRecognition, updateListeningState]);
 
   // Функция воспроизведения аудио
   const playAudio = useCallback((url: string, onComplete?: () => void) => {
     if (isSpeaking) {
-      console.log("🔊 Already speaking, ignoring audio request");
+      console.log("��� Already speaking, ignoring audio request");
       return;
     }
 
@@ -379,7 +361,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     stopRecognition();
 
-    // Останавливаем предыдущее аудио
+    // Останавливаем предыдущее ауди��
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current = null;
@@ -399,9 +381,9 @@ export default function VoiceControl({
 
       // Быстрый сброс состояния для возобновления прослушивания
       setTimeout(() => {
-        resetCommandState(false); // Не очищаем транскрипт после аудио
+        resetCommandState();
         onComplete?.();
-      }, 300);
+      }, 300); // Сокращена задержка �� 1000ms до 300ms
     };
 
     audio.onended = audioCleanup;
@@ -457,12 +439,12 @@ export default function VoiceControl({
         });
       } else {
         console.log("Джарвис: Все системы функционируют нормально");
-        resetCommandState(false); // Не очищаем т��анскрипт
+        resetCommandState(false); // Не очищаем транскрипт
       }
     } catch (error) {
       console.error("ElevenLabs TTS error:", error);
-      console.log("Джарвис: Все системы функционируют нормально");
-      resetCommandState(false); // Не очищаем транскрипт
+      console.log("Джарвис: Все системы функционир��ют нормально");
+      resetCommandState();
     }
   }, [playAudio, resetCommandState]);
 
@@ -481,12 +463,12 @@ export default function VoiceControl({
     }
 
     // Команды отключения (высший приоритет)
-    if (cmd.includes("отключись") || cmd.includes("выключись") || cmd.includes("стоп джарвис")) {
+    if (cmd.includes("отключись") || cmd.includes("выключись") || cmd.includes("��топ джарвис")) {
       speakShutdown();
       return;
     }
 
-    // Команда "я вернулся"
+    // Ком��нда "я вернулся"
     if (cmd.includes("я вернулся") || cmd.includes("джарвис я здесь") || cmd.includes("джарвис я вернулся")) {
       speakWelcomeBack();
       return;
@@ -498,8 +480,8 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды приветствия (только специфичные)
-    if (cmd.includes("привет") || cmd.includes("hello") || cmd.includes("здравствуй") ||
+    // Команды прив��т��твия (только специфичные)
+    if (cmd.includes("привет") || cmd.includes("hello") || cmd.includes("здравст��уй") ||
         cmd.includes("добро пожаловать") || cmd.includes("хай") || cmd.includes("хэй") ||
         cmd.includes("джарвис") || cmd.includes("жарвис") || cmd.includes("ярвис")) {
       speakAuthenticJarvis();
@@ -512,67 +494,67 @@ export default function VoiceControl({
       return;
     }
 
-    // Навигационные команды
-    if (cmd.includes("домой") || cmd.includes("главная") || cmd.includes("на главную")) {
+    // Навигацион��ые команды
+    if (cmd.includes("домой") || cmd.includes("��лавная") || cmd.includes("на главную")) {
       navigate("/");
-      resetCommandState(false); // Оставляем транскрипт
+      resetCommandState();
       return;
     }
 
     if (cmd.includes("войти") || cmd.includes("логин") || cmd.includes("вход")) {
       navigate("/login");
-      resetCommandState(false);
+      resetCommandState();
       return;
     }
 
     if (cmd.includes("регистрация") || cmd.includes("зарегистрироваться")) {
       navigate("/signup");
-      resetCommandState(false);
+      resetCommandState();
       return;
     }
 
-    if (cmd.includes("профиль") || cmd.includes("личный кабинет")) {
+    if (cmd.includes("п��офиль") || cmd.includes("личный кабинет")) {
       navigate("/profile");
-      resetCommandState(false);
+      resetCommandState();
       return;
     }
 
     // Команды планов
     if (cmd.includes("базовый план") || (cmd.includes("добавить") && cmd.includes("базовый"))) {
       onAddBasicPlan();
-      resetCommandState(false);
+      resetCommandState();
       return;
     }
 
     if (cmd.includes("про план") || (cmd.includes("добавить") && cmd.includes("про"))) {
       onAddProPlan();
-      resetCommandState(false);
+      resetCommandState();
       return;
     }
 
     if (cmd.includes("макс план") || cmd.includes("максимальный план") || 
         (cmd.includes("добавить") && cmd.includes("макс"))) {
       onAddMaxPlan();
-      resetCommandState(false);
+      resetCommandState();
       return;
     }
 
     // Команды прокрутки
     if (cmd.includes("прокрутить вниз") || cmd.includes("скролл вниз") || cmd.includes("вниз")) {
       window.scrollBy(0, 500);
-      resetCommandState(false);
+      resetCommandState();
       return;
     }
 
     if (cmd.includes("прокрутить вверх") || cmd.includes("скролл вверх") || cmd.includes("вверх")) {
       window.scrollBy(0, -500);
-      resetCommandState(false);
+      resetCommandState();
       return;
     }
 
     if (cmd.includes("наверх") || cmd.includes("в начало") || cmd.includes("в самый верх")) {
       window.scrollTo(0, 0);
-      resetCommandState(false);
+      resetCommandState();
       return;
     }
 
@@ -647,7 +629,6 @@ export default function VoiceControl({
             {recognitionState === 'starting' && "⏳ Запуск..."}
             {recognitionState === 'listening' && "✅ Готов"}
             {recognitionState === 'stopping' && "⏹️ Остановка..."}
-            {isProcessingRef.current && "🔄 Обработка..."}
           </div>
         )}
       </div>
