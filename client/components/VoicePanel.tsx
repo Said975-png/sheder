@@ -29,35 +29,7 @@ export default function VoicePanel({
   isListening,
   transcript,
 }: VoicePanelProps) {
-  const lastTranscriptRef = useRef("");
-  const transcriptTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Эффект для автоматической очистки застрявшего транскрипта
-  useEffect(() => {
-    if (transcript && transcript !== lastTranscriptRef.current) {
-      lastTranscriptRef.current = transcript;
-
-      // Очищаем предыдущий таймер
-      if (transcriptTimeoutRef.current) {
-        clearTimeout(transcriptTimeoutRef.current);
-      }
-
-      // Устанавливаем новый таймер для очистки через 3 секунды
-      transcriptTimeoutRef.current = setTimeout(() => {
-        if (lastTranscriptRef.current === transcript) {
-          lastTranscriptRef.current = "";
-          // Здесь мы можем вызвать callback для очистки, но в данном случае
-          // полагаемся на логику в родительском компоненте
-        }
-      }, 3000);
-    }
-
-    return () => {
-      if (transcriptTimeoutRef.current) {
-        clearTimeout(transcriptTimeoutRef.current);
-      }
-    };
-  }, [transcript]);
+  // Упрощенная логика - полагаемся только на родительский компонент для управления транскриптом
   return (
     <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-4xl px-4">
       <StarkHUD
@@ -170,11 +142,32 @@ export default function VoicePanel({
           <div className="flex justify-center mb-6">
             <div className="text-center">
               <div className="text-lg font-mono text-cyan-400 mb-2">
-                <GlitchText>Микрофон активен</GlitchText>
+                <GlitchText>Микро��он активен</GlitchText>
               </div>
-              <div className="text-sm text-white/60 font-mono">
+              <div className="text-sm text-white/60 font-mono mb-4">
                 Говорите команды для управления системой
               </div>
+
+              {/* Audio Level Visualization */}
+              {isListening && (
+                <div className="flex justify-center items-end space-x-1 h-8">
+                  {[...Array(8)].map((_, i) => (
+                    <div
+                      key={i}
+                      className={cn(
+                        "w-2 bg-gradient-to-t from-cyan-500 to-blue-400 rounded-sm transition-all duration-150",
+                        i < 3 ? "h-2" : i < 5 ? "h-4" : i < 7 ? "h-6" : "h-8",
+                        "animate-pulse",
+                      )}
+                      style={{
+                        animationDelay: `${i * 0.1}s`,
+                        opacity:
+                          0.4 + (Math.sin(Date.now() / 200 + i) + 1) * 0.3,
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -198,17 +191,25 @@ export default function VoicePanel({
 
           {/* Command Help */}
           <div className="mt-4 p-4 bg-gray-900/50 border border-gray-600/30 rounded-lg">
+            <div className="text-xs font-mono text-gray-400 mb-3">
+              🎤 ТЕСТИРОВАНИЕ МИКРОФОНА:
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs font-mono text-green-300 mb-4">
+              <div>"Тест" / "Проверка"</div>
+              <div>"Ты меня слышишь?"</div>
+              <div>"Микрофон работает?"</div>
+              <div>"Привет Джарвис"</div>
+            </div>
+
             <div className="text-xs font-mono text-gray-400 mb-2">
-              AVAILABLE COMMANDS:
+              КОМАНДЫ УПРАВЛЕНИЯ:
             </div>
             <div className="grid grid-cols-2 gap-2 text-xs font-mono text-gray-300">
               <div>"Добавить базовый план"</div>
               <div>"Добавить про план"</div>
               <div>"Добавить макс план"</div>
-              <div>"Проведи диагностику системы"</div>
-              <div>"Отключись" / "Выключись"</div>
-              <div>"Привет Джарвис"</div>
               <div>"Как дела?"</div>
+              <div>"Отключись" / "Выключись"</div>
               <div>"Спасибо"</div>
             </div>
           </div>

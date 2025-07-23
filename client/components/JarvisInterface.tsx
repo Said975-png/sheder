@@ -41,6 +41,8 @@ export default function JarvisInterface({
   const [powerLevel, setPowerLevel] = useState(85);
   const [isInitializing, setIsInitializing] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -64,10 +66,42 @@ export default function JarvisInterface({
     }
   }, [isActive]);
 
+  // Синхронизация статуса с состоянием голосового управления
+  useEffect(() => {
+    if (isSpeaking) {
+      setSystemStatus("SPEAKING");
+    } else if (isListening && isActive) {
+      setSystemStatus("LISTENING");
+    } else if (isActive) {
+      setSystemStatus("ONLINE");
+    } else {
+      setSystemStatus("STANDBY");
+    }
+  }, [isListening, isSpeaking, isActive]);
+
+  // Обработчик изменений состояния голосового управления
+  const handleVoiceStateChange = (
+    listening: boolean,
+    transcript?: string,
+    speaking?: boolean,
+  ) => {
+    setIsListening(listening);
+    setIsSpeaking(speaking || false);
+
+    if (listening && !isActive) {
+      setIsActive(true); // Автоматически активируем JARVIS при включении микрофона
+    }
+
+    // Передаем состояние дальше в родительский компонент
+    onListeningChange?.(listening, transcript);
+  };
+
   const statusColors = {
     STANDBY: "text-gray-400",
     INITIALIZING: "text-yellow-400 animate-pulse",
     ONLINE: "text-cyan-400",
+    LISTENING: "text-green-400 animate-pulse",
+    SPEAKING: "text-blue-400 animate-pulse",
     ERROR: "text-red-400",
   };
 
@@ -80,7 +114,7 @@ export default function JarvisInterface({
           onAddProPlan={onAddProPlan}
           onAddMaxPlan={onAddMaxPlan}
           inNavbar={true}
-          onListeningChange={onListeningChange}
+          onListeningChange={handleVoiceStateChange}
           forceStop={forceStop}
         />
         <div className="text-xs font-mono">
@@ -190,7 +224,7 @@ export default function JarvisInterface({
             onAddProPlan={onAddProPlan}
             onAddMaxPlan={onAddMaxPlan}
             inNavbar={false}
-            onListeningChange={onListeningChange}
+            onListeningChange={handleVoiceStateChange}
             forceStop={forceStop}
           />
         </div>
