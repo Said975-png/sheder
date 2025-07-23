@@ -4,6 +4,18 @@ import { useJarvisSpeech } from "@/components/JarvisSpeech";
 export function useJarvisVoiceCommands() {
   const { speak, speakCommand, speakResponse, speakAlert, stop, isSpeaking } = useJarvisSpeech();
 
+  // Безопасная обертка для всех речевых функций
+  const safeSpeak = useCallback(async (speakFn: () => Promise<void>, fallbackText?: string) => {
+    try {
+      await speakFn();
+    } catch (error) {
+      console.warn('Speech command failed:', error);
+      if (fallbackText) {
+        console.log('Fallback:', fallbackText);
+      }
+    }
+  }, []);
+
   // Системные ответы с обработкой ошибок
   const speakSystemsOperational = useCallback(async () => {
     try {
