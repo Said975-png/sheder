@@ -122,7 +122,7 @@ export default function VoiceControl({
         if (currentText && currentText.length > 1) {
           updateListeningState(true, currentText);
 
-          // Обрабатываем команды как финальные, так и достаточно длинные промежуточные
+          // Обрабатываем команды как ��инальные, так и достаточно длинные промежуточные
           if ((finalTranscript || (interimTranscript && interimTranscript.length > 3)) &&
               !isProcessingRef.current &&
               currentText !== lastCommandRef.current &&
@@ -311,7 +311,7 @@ export default function VoiceControl({
     }
   }, [forceStop]);
 
-  // Функция сброса состояния после команды
+  // Функция сброса сос��ояния после команды
   const resetCommandState = useCallback(() => {
     console.log("🔄 Resetting command state");
     isProcessingRef.current = false;
@@ -344,7 +344,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     stopRecognition();
 
-    // Останавливаем предыдущее аудио
+    // Останавливаем предыдущее ауди��
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current = null;
@@ -449,7 +449,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "я вернулся"
+    // Ком��нда "я вернулся"
     if (cmd.includes("я вернулся") || cmd.includes("джарвис я здесь") || cmd.includes("джарвис я вернулся")) {
       speakWelcomeBack();
       return;
@@ -590,14 +590,36 @@ export default function VoiceControl({
         </Button>
 
         {/* Status indicator */}
-        <div className="text-xs text-white/60 text-center">
-          {isSpeaking ? "Говорю..." : isListening ? "Слушаю..." : "ДЖАРВИС"}
+        <div className="text-xs text-white/60 text-center font-mono">
+          {isSpeaking ? (
+            <span className="text-blue-400 animate-pulse">🔊 Говорю...</span>
+          ) : isListening ? (
+            <span className="text-green-400 animate-pulse">🎤 Слушаю...</span>
+          ) : (
+            <span className="text-gray-400">💤 ДЖАРВИС</span>
+          )}
         </div>
+
+        {/* Recognition state indicator */}
+        {isListening && (
+          <div className="text-xs text-cyan-400 text-center font-mono mt-1">
+            {recognitionState === 'starting' && "⏳ Запуск..."}
+            {recognitionState === 'listening' && "✅ Готов"}
+            {recognitionState === 'stopping' && "⏹️ Остановка..."}
+          </div>
+        )}
       </div>
 
-      {/* Pulse effect when listening */}
+      {/* Enhanced pulse effects */}
       {isListening && (
-        <div className="absolute top-0 right-0 w-14 h-14 rounded-full bg-purple-500/30 animate-ping"></div>
+        <>
+          <div className="absolute top-0 right-0 w-14 h-14 rounded-full bg-green-500/20 animate-ping"></div>
+          <div className="absolute top-0 right-0 w-16 h-16 rounded-full bg-green-500/10 animate-ping" style={{ animationDelay: '0.5s' }}></div>
+        </>
+      )}
+
+      {isSpeaking && (
+        <div className="absolute top-0 right-0 w-16 h-16 rounded-full bg-blue-500/20 animate-pulse"></div>
       )}
     </div>
   );
