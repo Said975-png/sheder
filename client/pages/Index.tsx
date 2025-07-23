@@ -129,7 +129,7 @@ export default function Index() {
       setCurrentTranscript("");
       setLastProcessedTranscript("");
     } else {
-      // Показываем транскрипт только если он отличается от предыдущего и не слишком длин��ый
+      // Показываем транскрипт только если он отличается от предыдущего и не слишком длинный
       if (transcript !== lastProcessedTranscript && transcript.length < 50) {
         console.log("📱 Устанавливаем новый транскрипт:", transcript);
         setCurrentTranscript(transcript);
@@ -269,7 +269,7 @@ export default function Index() {
                           Total:
                         </span>
                         <span className="font-bold text-cyan-400 font-mono">
-                          ${getTotalPrice()}
+                          ${totalPrice}
                         </span>
                       </div>
                     </div>
