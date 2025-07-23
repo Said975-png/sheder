@@ -444,8 +444,11 @@ export default function VoiceControl({
   };
 
   const speakShutdown = () => {
-    // Оста����авливаем любое текущее воспроизведение
+    console.log("🔴 Выполняем команду отключения microphone");
+
+    // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
+      console.log("⏹️ Останавливаем текущее аудио");
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
     }
@@ -610,7 +613,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка во��произведения ауди�� утреннего при��етствия");
+      console.error("Ошибка во��произведения ауди�� утреннего при����етствия");
     };
 
     audio.play().catch((error) => {
@@ -940,7 +943,7 @@ export default function VoiceControl({
   };
 
   const speakSystemDiagnostics = () => {
-    console.log("🔧 Запуск диагн��стики систем��...");
+    console.log("🔧 Запуск диагн����стики систем��...");
     testAudioUrls(); // Тестируем URL
 
     // Множественная защита от повторного воспроизведения
@@ -1060,7 +1063,7 @@ export default function VoiceControl({
       command.includes("джарвис я здесь") ||
       command.includes("я снова здесь") ||
       command.includes("вернулся") ||
-      command.includes("я здесь")
+      command.includes("я з��есь")
     ) {
       console.log("👋 Команда приветствия распознана:", command);
       speakWelcomeBack();
@@ -1093,7 +1096,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда утреннего приветстви��� "Доброе утр�� Джарвис"
+    // Команда утреннего приветстви��� "Добро�� утр�� Джарвис"
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис до��рое утро") ||
@@ -1124,7 +1127,7 @@ export default function VoiceControl({
       command.includes("hello jarvis") ||
       command.includes("hi jarvis") ||
       command.includes("hey jarvis") ||
-      command.includes("привет жарвис") || // частые ошибки распознавания
+      command.includes("привет жарвис") || // част��е ошибки распознавания
       command.includes("привет джаров") ||
       command.includes("привет ярвис") ||
       command.includes("жарвис привет") ||
@@ -1246,7 +1249,7 @@ export default function VoiceControl({
         !commandCooldownRef.current &&
         !audioPlayingRef.current
       ) {
-        console.log("✅ Услови�� выполнены, ��ап��ск��ем диагностику");
+        console.log("✅ Услови�� выполнены, ��ап���ск��ем диагностику");
         speakSystemDiagnostics();
       } else {
         console.log("❌ ����иагн��стика заблокирована:", {
@@ -1327,7 +1330,7 @@ export default function VoiceControl({
       "ан��литика",
       "пр��миум",
       "невероятное",
-      "��отовы",
+      "��ото��ы",
       "создать",
       "биз��ес",
       "помощник",
@@ -1587,7 +1590,7 @@ export default function VoiceControl({
         found = searchAndNavigate([
           "анал��тик",
           "ст��тистик",
-          "дан��ые",
+          "дан���ые",
           "analytics",
         ]);
         if (found) {
@@ -1668,7 +1671,7 @@ export default function VoiceControl({
       command.includes("показать корзину") ||
       command.includes("что в корзине")
     ) {
-      // Нахо��им и нажимаем ��нопку ко��зины
+      // Нахо��им и нажимаем ��нопку ко��з��ны
       const cartButton = document.querySelector(
         '[data-testid="cart-button"]',
       ) as HTMLElement;
@@ -1743,7 +1746,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к пре���мущес��вам") ||
+      command.includes("к пр�����мущес��вам") ||
       command.includes("наши пре��мущества") ||
       command.includes("сп��стит��ся к преимуществам") ||
       command.includes("перейти к ��реимущес���вам") ||
