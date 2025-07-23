@@ -47,6 +47,27 @@ export default function Index() {
     clearCart,
   } = useCart();
   const navigate = useNavigate();
+  const [navbarScrolled, setNavbarScrolled] = useState(false);
+
+  // Отслеживание скролла для навбара
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY > 100;
+      setNavbarScrolled(scrolled);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleLogout = () => {
+    logout();
+    window.location.reload();
+  };
+
+  const handleProceedToOrder = () => {
+    navigate("/order");
+  };
 
   const [isVoicePanelActive, setIsVoicePanelActive] = useState(false);
   const [currentTranscript, setCurrentTranscript] = useState("");
