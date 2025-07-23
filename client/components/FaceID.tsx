@@ -57,7 +57,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     }
   }, [onError]);
 
-  // Детекция лица
+  // Строгая детекция лица с мн��жественными проверками
   const detectFace = useCallback(async () => {
     if (!videoRef.current || !canvasRef.current) return false;
 
@@ -71,21 +71,47 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0);
 
-    // Улучшенная детекция лица с несколькими методами
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
 
-    // Анализируем несколько областей
+    // Проверка на минимальную общую яркость (защита от закрытой камеры)
+    let totalBrightness = 0;
+    let validPixels = 0;
+
+    for (let i = 0; i < data.length; i += 16) { // Каждый 4-й пиксель
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      totalBrightness += (r + g + b) / 3;
+      validPixels++;
+    }
+
+    const averageBrightness = totalBrightness / validPixels;
+
+    // Если слишком темно (камера закрыта или очень плохое освещение)
+    if (averageBrightness < 20) {
+      console.log(`Too dark: brightness=${averageBrightness.toFixed(1)}`);
+      return false;
+    }
+
+    // Если слишком яркое (засветка или белый экран)
+    if (averageBrightness > 240) {
+      console.log(`Too bright: brightness=${averageBrightness.toFixed(1)}`);
+      return false;
+    }
+
+    // Анализируем центральную область для поиска лица
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const checkRadius = Math.min(canvas.width, canvas.height) / 5; // Увеличили область
+    const checkRadius = Math.min(canvas.width, canvas.height) / 8; // Уменьшили область для точности
 
     let skinPixels = 0;
-    let brightPixels = 0;
-    let contrastPixels = 0;
+    let eyeRegionDark = 0;
+    let contrastVariations = 0;
+    let faceShapePixels = 0;
     let totalPixels = 0;
 
-    // Проверяем центральную область
+    // Детальный анализ центральной области
     for (let y = centerY - checkRadius; y < centerY + checkRadius; y++) {
       for (let x = centerX - checkRadius; x < centerX + checkRadius; x++) {
         if (x >= 0 && x < canvas.width && y >= 0 && y < canvas.height) {
@@ -95,20 +121,40 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
           const b = data[i + 2];
           const brightness = (r + g + b) / 3;
 
-          // Улучшенная проверка на цвет кожи (более широкий диапазон)
-          if ((r > 80 && g > 30 && b > 15 && r > g && r > b) ||
-              (r > 60 && g > 20 && b > 10 && Math.abs(r - g) < 40 && r >= g)) {
+          // Строгая проверка цвета кожи
+          const isSkinColor = (
+            // Светлая кожа
+            (r > 100 && g > 60 && b > 40 && r > g && g > b && (r - g) > 15) ||
+            // Средняя кожа
+            (r > 80 && g > 50 && b > 30 && r > g && g >= b && (r - b) > 30) ||
+            // Темная кожа
+            (r > 60 && g > 40 && b > 25 && r >= g && g >= b && brightness > 40)
+          );
+
+          if (isSkinColor) {
             skinPixels++;
           }
 
-          // Проверка на ярк��сть (наличие освещенных участков)
-          if (brightness > 100) {
-            brightPixels++;
+          // Поиск темных областей (глаза, ноздри)
+          if (brightness < 50 && y < centerY) {
+            eyeRegionDark++;
           }
 
-          // Проверка на контраст (наличие теней и светов)
-          if (Math.max(r, g, b) - Math.min(r, g, b) > 30) {
-            contrastPixels++;
+          // Проверка на вариации контраста
+          if (i + 16 < data.length) {
+            const nextR = data[i + 16];
+            const nextG = data[i + 17];
+            const nextB = data[i + 18];
+            const diff = Math.abs((r + g + b) - (nextR + nextG + nextB));
+            if (diff > 60) {
+              contrastVariations++;
+            }
+          }
+
+          // Проверка на овальную форму лица
+          const distanceFromCenter = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
+          if (distanceFromCenter < checkRadius * 0.8) {
+            faceShapePixels++;
           }
 
           totalPixels++;
@@ -117,15 +163,27 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     }
 
     const skinRatio = skinPixels / totalPixels;
-    const brightRatio = brightPixels / totalPixels;
-    const contrastRatio = contrastPixels / totalPixels;
+    const eyeRatio = eyeRegionDark / (totalPixels / 4); // Глаза в верхней части
+    const contrastRatio = contrastVariations / totalPixels;
+    const shapeRatio = faceShapePixels / totalPixels;
 
-    // Комбинированная проверка: либо достаточно кожи, либо есть яркость с контрастом
-    const faceDetected = (skinRatio > 0.15) ||
-                        (brightRatio > 0.4 && contrastRatio > 0.2) ||
-                        (skinRatio > 0.08 && brightRatio > 0.3);
+    // Строгие критерии для детекции лица
+    const hasEnoughSkin = skinRatio > 0.25; // Минимум 25% кожи
+    const hasEyeRegions = eyeRatio > 0.05; // Есть темные области в верхней части
+    const hasContrast = contrastRatio > 0.15; // Достаточно контраста
+    const hasShape = shapeRatio > 0.6; // Правильная форма
+    const goodLighting = averageBrightness > 40 && averageBrightness < 200;
 
-    console.log(`Face detection: skin=${skinRatio.toFixed(3)}, bright=${brightRatio.toFixed(3)}, contrast=${contrastRatio.toFixed(3)}, detected=${faceDetected}`);
+    const faceDetected = hasEnoughSkin && hasEyeRegions && hasContrast && hasShape && goodLighting;
+
+    console.log(`Strict face detection:`, {
+      brightness: averageBrightness.toFixed(1),
+      skin: skinRatio.toFixed(3),
+      eyes: eyeRatio.toFixed(3),
+      contrast: contrastRatio.toFixed(3),
+      shape: shapeRatio.toFixed(3),
+      detected: faceDetected
+    });
 
     return faceDetected;
   }, []);
