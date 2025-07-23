@@ -81,19 +81,33 @@ export class JarvisSpeechEngine {
       }
     }
 
-    // Ищем любой мужской голос для нужного языка
+    // Ищем любой мужской голос для нужного языка (средне-низкий тембр предпочтительно)
     const maleVoices = this.voices.filter(voice => {
       const name = voice.name.toLowerCase();
       const isTargetLang = voice.lang.startsWith(lang.split('-')[0]);
-      const isMale = name.includes('male') || 
-                    name.includes('david') || 
-                    name.includes('alex') || 
+      const isMale = name.includes('male') ||
+                    name.includes('мужской') ||
+                    name.includes('david') ||
+                    name.includes('alex') ||
                     name.includes('daniel') ||
                     name.includes('pavel') ||
+                    name.includes('павел') ||
                     name.includes('guy') ||
                     name.includes('mark') ||
-                    !name.includes('female') && !name.includes('woman');
+                    name.includes('антон') ||
+                    name.includes('николай') ||
+                    name.includes('андрей') ||
+                    (!name.includes('female') && !name.includes('woman') && !name.includes('женский'));
       return isTargetLang && isMale;
+    });
+
+    // Сортируем по качеству: Enhanced > Desktop > обычные
+    const sortedMaleVoices = maleVoices.sort((a, b) => {
+      const aQuality = a.name.toLowerCase().includes('enhanced') ? 3 :
+                      a.name.toLowerCase().includes('desktop') ? 2 : 1;
+      const bQuality = b.name.toLowerCase().includes('enhanced') ? 3 :
+                      b.name.toLowerCase().includes('desktop') ? 2 : 1;
+      return bQuality - aQuality;
     });
 
     if (maleVoices.length > 0) {
