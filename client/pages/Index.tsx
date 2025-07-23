@@ -37,8 +37,15 @@ import {
 
 
 export default function Index() {
-  const { loading } = useAuth();
-  const { addItem } = useCart();
+  const { currentUser, logout, isAuthenticated, loading } = useAuth();
+  const {
+    getTotalItems,
+    addItem,
+    items,
+    removeFromCart,
+    getTotalPrice,
+    clearCart,
+  } = useCart();
   const navigate = useNavigate();
 
   const [isVoicePanelActive, setIsVoicePanelActive] = useState(false);
@@ -90,7 +97,7 @@ export default function Index() {
     if (isListening) {
       setIsVoicePanelActive(true);
     }
-    // Не закрываем панель авт��матически - пользователь сам решает когда закрыть
+    // Не закрываем панель автоматически - пользователь сам решает когда закрыть
 
     // Простая логика: если транскрипт пустой - очищаем, если нет - отображаем
     if (!transcript || transcript.trim() === "") {
