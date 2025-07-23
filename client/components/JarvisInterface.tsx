@@ -41,6 +41,8 @@ export default function JarvisInterface({
   const [powerLevel, setPowerLevel] = useState(85);
   const [isInitializing, setIsInitializing] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
