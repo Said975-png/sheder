@@ -146,7 +146,7 @@ export default function VoiceControl({
         
         // Автоматический перезапуск только если нужно
         if (shouldRestartRef.current && isListening && !isSpeaking) {
-          console.log("🔄 Auto-restarting recognition");
+          console.log("��� Auto-restarting recognition");
           startRecognition();
         }
       };
@@ -444,7 +444,7 @@ export default function VoiceControl({
     }
 
     // Команды отключения (высший приоритет)
-    if (cmd.includes("отключись") || cmd.includes("выключись") || cmd.includes("стоп джарвис")) {
+    if (cmd.includes("отключись") || cmd.includes("выключись") || cmd.includes("��топ джарвис")) {
       speakShutdown();
       return;
     }
@@ -462,9 +462,9 @@ export default function VoiceControl({
     }
 
     // Команды приветствия (только специфичные)
-    if ((cmd.includes("приве��") && (cmd.includes("джарвис") || cmd.length <= 15)) || 
-        (cmd.includes("hello") && (cmd.includes("jarvis") || cmd.length <= 15)) || 
-        (cmd.includes("здравствуй") && (cmd.includes("джарвис") || cmd.length <= 20))) {
+    if (cmd.includes("привет") || cmd.includes("hello") || cmd.includes("здравствуй") ||
+        cmd.includes("добро пожаловать") || cmd.includes("хай") || cmd.includes("хэй") ||
+        cmd.includes("джарвис") || cmd.includes("жарвис") || cmd.includes("ярвис")) {
       speakAuthenticJarvis();
       return;
     }
