@@ -42,7 +42,7 @@ export default function Index() {
     getTotalItems,
     addItem,
     items,
-    removeFromCart,
+    removeItem,
     getTotalPrice,
     clearCart,
   } = useCart();
@@ -114,7 +114,7 @@ export default function Index() {
 
 
   const handleListeningChange = (isListening: boolean, transcript?: string, isSpeaking?: boolean) => {
-    // Панель ос��ается активной, если микрофон включен ИЛИ если был активен ранее
+    // Панель остается активной, если микрофон включен ИЛИ если был активен ранее
     if (isListening) {
       setIsVoicePanelActive(true);
     }
@@ -126,7 +126,7 @@ export default function Index() {
       setCurrentTranscript("");
       setLastProcessedTranscript("");
     } else {
-      // Показываем транскрипт только если он отличается от предыдущего и не слишком длинный
+      // Показываем транскрипт только если он отличается от предыдущего и не слишком дли��ный
       if (transcript !== lastProcessedTranscript && transcript.length < 50) {
         console.log("📱 Устанавливаем новый транскрипт:", transcript);
         setCurrentTranscript(transcript);
@@ -135,7 +135,7 @@ export default function Index() {
         console.log(
           "📱 Отклоняем слишком длинный транскрипт:",
           transcript.length,
-          "симв��лов",
+          "символов",
         );
         setCurrentTranscript("");
         setLastProcessedTranscript("");
