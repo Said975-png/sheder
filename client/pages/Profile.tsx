@@ -142,7 +142,7 @@ export default function Profile() {
           (u) => u.email === formData.email && u.id !== currentUser.id,
         );
         if (emailExists) {
-          setError("Пользователь с таким email уже существует");
+          setError("Пол��зователь с таким email уже существует");
           return;
         }
       }
@@ -492,7 +492,7 @@ export default function Profile() {
                         <div className="flex items-center justify-between">
                           <div className="space-y-1">
                             <h5 className="text-white font-medium">
-                              Распозна��ание лица
+                              Распознавание лица
                             </h5>
                             <p className="text-white/70 text-sm">
                               {hasFaceID
@@ -659,6 +659,24 @@ export default function Profile() {
           </div>
         </div>
       </div>
+
+      {/* Face ID Modal */}
+      <FaceIDModal
+        isOpen={showFaceIDModal}
+        onClose={() => setShowFaceIDModal(false)}
+        mode={faceIDMode}
+        onSuccess={handleFaceIDSuccess}
+        onError={handleFaceIDError}
+      />
     </div>
+  );
+}
+
+// Обертка для защиты страницы профиля через Face ID
+export default function ProtectedProfile() {
+  return (
+    <FaceIDProtected requireFaceID={true}>
+      <Profile />
+    </FaceIDProtected>
   );
 }
