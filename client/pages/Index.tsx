@@ -581,22 +581,6 @@ export default function Index() {
           </div>
         </div>
       </section>
-
-      {/* Jarvis Voice Demo Section */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-white mb-4 font-mono">
-            <GlitchText intensity="medium">Голос Джарвиса</GlitchText>
-          </h2>
-          <p className="text-lg text-white/70 mb-12 font-mono">
-            <GlitchText intensity="low">
-              Протестируйте новый синтезированный голос ИИ-ассистента
-            </GlitchText>
-          </p>
-
-          <JarvisDemo />
-        </div>
-      </section>
     </div>
   );
 }
