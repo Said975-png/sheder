@@ -245,10 +245,35 @@ export class JarvisSpeechEngine {
   }
 
   stop(): void {
-    if (this.synth.speaking) {
-      this.synth.cancel();
+    try {
+      if (this.synth.speaking || this.synth.pending) {
+        this.synth.cancel();
+      }
+
+      // Дополнительная очистка
+      if (this.currentUtterance) {
+        this.currentUtterance.onstart = null;
+        this.currentUtterance.onend = null;
+        this.currentUtterance.onerror = null;
+      }
+
+      this.currentUtterance = null;
+
+      // Небольшая задержка для полной очи��тки
+      setTimeout(() => {
+        if (this.synth.speaking) {
+          try {
+            this.synth.cancel();
+          } catch (e) {
+            console.warn('Secondary cancel failed:', e);
+          }
+        }
+      }, 50);
+
+    } catch (error) {
+      console.warn('Error stopping speech:', error);
+      this.currentUtterance = null;
     }
-    this.currentUtterance = null;
   }
 
   isSpeaking(): boolean {
@@ -271,7 +296,7 @@ export class JarvisSpeechEngine {
   }
 
   async speakAlert(text: string): Promise<void> {
-    // Для предупреждений используем немного б��лее высокий тон и быструю речь
+    // Для предупреждений используем немного более высокий тон и быструю речь
     const originalUtterance = new SpeechSynthesisUtterance(text);
     originalUtterance.rate = 1.0;
     originalUtterance.pitch = 0.8;
