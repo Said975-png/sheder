@@ -59,7 +59,7 @@ export default function Index() {
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
-  // ��апуск аним��ции при загрузке компонента
+  // Запуск аним��ции при загрузке компонента
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
@@ -122,36 +122,8 @@ export default function Index() {
   };
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
-    // Открываем панель когда начинается прослушивание
-    if (isListening) {
-      setIsVoicePanelActive(true);
-    } else {
-      // Закрываем панель когда микрофон отключается
-      setIsVoicePanelActive(false);
-      console.log("📱 Панель закрыта - микрофон отключен");
-    }
-
-    // Простая логика: если транскрипт пустой - очищаем, если нет - отображаем
-    if (!transcript || transcript.trim() === "") {
-      console.log("📱 Очищаем транскрипт в Index.tsx");
-      setCurrentTranscript("");
-      setLastProcessedTranscript("");
-    } else {
-      // Показываем транскрипт только если он отличается от предыдущег�� и не слишком длинный
-      if (transcript !== lastProcessedTranscript && transcript.length < 50) {
-        console.log("📱 Устанавливаем новый транскрипт:", transcript);
-        setCurrentTranscript(transcript);
-        setLastProcessedTranscript(transcript);
-      } else if (transcript.length >= 50) {
-        console.log(
-          "📱 Отклоняем слишком длинный транскрипт:",
-          transcript.length,
-          "символов",
-        );
-        setCurrentTranscript("");
-        setLastProcessedTranscript("");
-      }
-    }
+    // Микрофон работает в фоне, панель не показываем
+    console.log("🎤 Микрофон активен:", isListening, "Транскрипт:", transcript);
   };
 
   const handleCloseVoicePanel = () => {
