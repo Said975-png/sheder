@@ -40,16 +40,22 @@ export default function VoiceControl({
   // Безопасная функция для обновления состояния прослушивания
   const updateListeningState = useCallback((listening: boolean, transcriptText: string = "") => {
     console.log("📱 Updating state:", { listening, transcriptText: transcriptText.slice(0, 50) });
-    
+
     if (stateUpdateTimeoutRef.current) {
       clearTimeout(stateUpdateTimeoutRef.current);
     }
-    
+
     stateUpdateTimeoutRef.current = setTimeout(() => {
       setTranscript(transcriptText);
       onListeningChange?.(listening, transcriptText);
     }, 100);
   }, [onListeningChange]);
+
+  // Эффект для отслеживания состояния говорения
+  useEffect(() => {
+    // Сообщаем родительскому компоненту о состоянии говорения
+    onListeningChange?.(isListening, transcript);
+  }, [isSpeaking]); // Срабатывает при изменении состояния говорения
 
   // Инициализация Speech Recognition
   useEffect(() => {
@@ -115,7 +121,7 @@ export default function VoiceControl({
         console.log("🎤 Recognition ENDED, shouldRestart:", shouldRestartRef.current, "isListening:", isListening);
         setRecognitionState('idle');
         
-        // Автоматический переза��уск только если нужно
+        // Автоматический перезапуск только если нужно
         if (shouldRestartRef.current && isListening && !isSpeaking) {
           console.log("🔄 Auto-restarting recognition");
           startRecognition();
@@ -304,7 +310,7 @@ export default function VoiceControl({
 
   const speakShutdown = useCallback(() => {
     playAudio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c", () => {
-      // После команды отключения - полностью останавливаем
+      // После команды отк��ючения - полностью останавливаем
       if (isListening) {
         toggleListening();
       }
