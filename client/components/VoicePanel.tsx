@@ -157,11 +157,12 @@ export default function VoicePanel({
                       className={cn(
                         "w-2 bg-gradient-to-t from-cyan-500 to-blue-400 rounded-sm transition-all duration-150",
                         i < 3 ? "h-2" : i < 5 ? "h-4" : i < 7 ? "h-6" : "h-8",
-                        "animate-pulse"
+                        "animate-pulse",
                       )}
                       style={{
                         animationDelay: `${i * 0.1}s`,
-                        opacity: 0.4 + (Math.sin(Date.now() / 200 + i) + 1) * 0.3
+                        opacity:
+                          0.4 + (Math.sin(Date.now() / 200 + i) + 1) * 0.3,
                       }}
                     />
                   ))}

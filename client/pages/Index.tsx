@@ -35,7 +35,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-
 export default function Index() {
   const { currentUser, logout, isAuthenticated, loading } = useAuth();
   const {
@@ -74,10 +73,6 @@ export default function Index() {
   // Вычисляем общую стоимость корзины
   const totalPrice = getTotalPrice();
 
-
-
-
-
   const handleAddBeginnerPlan = () => {
     addItem({
       id: "beginner-plan",
@@ -111,11 +106,17 @@ export default function Index() {
     });
   };
 
-
-
-  const handleListeningChange = (isListening: boolean, transcript?: string, isSpeaking?: boolean) => {
+  const handleListeningChange = (
+    isListening: boolean,
+    transcript?: string,
+    isSpeaking?: boolean,
+  ) => {
     // Простая функция ��ля совместимости с VoiceControl
-    console.log("🎤 Voice state:", { isListening, transcript: transcript?.slice(0, 20), isSpeaking });
+    console.log("🎤 Voice state:", {
+      isListening,
+      transcript: transcript?.slice(0, 20),
+      isSpeaking,
+    });
   };
 
   const handleStopListening = () => {
@@ -138,8 +139,6 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-
-
       {/* Navigation Bar */}
       <nav
         className={cn(
@@ -147,7 +146,6 @@ export default function Index() {
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
-
         )}
       >
         <div className="flex items-center space-x-4">
@@ -422,9 +420,7 @@ export default function Index() {
                   </div>
                   <div className="flex items-center text-white/80">
                     <CheckCircle className="w-5 h-5 text-cyan-400 mr-3" />
-                    <span className="font-mono text-sm">
-                      Community access
-                    </span>
+                    <span className="font-mono text-sm">Community access</span>
                   </div>
                   <div className="flex items-center text-white/80">
                     <CheckCircle className="w-5 h-5 text-cyan-400 mr-3" />
@@ -480,13 +476,13 @@ export default function Index() {
                   </div>
                   <div className="flex items-center text-white/80">
                     <CheckCircle className="w-5 h-5 text-orange-400 mr-3" />
-                    <span className="font-mono text-sm">Smart contract basics</span>
+                    <span className="font-mono text-sm">
+                      Smart contract basics
+                    </span>
                   </div>
                   <div className="flex items-center text-white/80">
                     <CheckCircle className="w-5 h-5 text-orange-400 mr-3" />
-                    <span className="font-mono text-sm">
-                      Priority support
-                    </span>
+                    <span className="font-mono text-sm">Priority support</span>
                   </div>
                   <div className="flex items-center text-white/80">
                     <CheckCircle className="w-5 h-5 text-orange-400 mr-3" />
@@ -693,7 +689,9 @@ export default function Index() {
 
             {/* Support */}
             <div className="space-y-4">
-              <h4 className="text-lg font-bold text-white font-mono">Support</h4>
+              <h4 className="text-lg font-bold text-white font-mono">
+                Support
+              </h4>
               <div className="space-y-2">
                 <Link
                   to="/help"
@@ -739,7 +737,9 @@ export default function Index() {
           <div className="border-t border-cyan-400/20 pt-8 text-center">
             <p className="text-white/60 font-mono text-sm">
               © 2024 BlockchainAI. All rights reserved.{" "}
-              <GlitchText intensity="low">Powered by STARK Technology</GlitchText>
+              <GlitchText intensity="low">
+                Powered by STARK Technology
+              </GlitchText>
             </p>
           </div>
         </div>
