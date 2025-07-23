@@ -157,7 +157,7 @@ export default function Index() {
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
-          isVoicePanelActive && "opacity-20 pointer-events-none",
+
         )}
       >
         <div className="flex items-center space-x-2">
