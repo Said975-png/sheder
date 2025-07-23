@@ -166,7 +166,7 @@ export default function VoiceControl({
               .trim();
             console.log("🔍 Анализируем ��ом��нду:", `"${command}"`);
 
-            // Проверяем, что ��о��анда отличае����ся ��т предыдущей и достаточно дл����ная
+            // Проверяем, что ��о��анда отличае����ся ��т предыдущей и достаточно дл����н��я
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -251,7 +251,7 @@ export default function VoiceControl({
                     "ℹ️ Распознавание уже запущено или недоступно:",
                     error,
                   );
-                  // Есл�� не удалось перез���пу��тить, попробуем еще раз через 500мс
+                  // Есл�� не удало��ь перез���пу��тить, попробуем еще раз через 500мс
                   setTimeout(() => {
                     if (recognitionRef.current && isListening) {
                       try {
@@ -270,9 +270,29 @@ export default function VoiceControl({
         recognitionRef.current.onerror = (event) => {
           console.log("Speech recognition event:", event.error);
 
-          // Критические о��ибки - полностью останавливаем
-          if (event.error === "network" || event.error === "not-allowed") {
-            console.error("🚨 Критическая ошибка распознавани��:", event.error);
+          // Критические ошибки с попыткой восстановления
+          if (event.error === "network") {
+            console.error("🚨 Сетевая ошибка распознавания - пытаемся восстановить подключение");
+
+            // Попытка восстановления через 3 секунды
+            setTimeout(() => {
+              if (isListening && recognitionRef.current) {
+                console.log("🔄 Попытка восстановления после сетевой ошибки");
+                try {
+                  recognitionRef.current.start();
+                  console.log("✅ Распознавание восстановлено");
+                } catch (error) {
+                  console.error("❌ Не удалось восстановить распознавание:", error);
+                  // Если не удалось восстановить, отключаем
+                  setIsListening(false);
+                  onListeningChange?.(false, "");
+                }
+              }
+            }, 3000);
+          }
+          // Критическая ошибка разрешений - отключаем
+          else if (event.error === "not-allowed") {
+            console.error("🚨 Доступ к микрофону запрещен");
             setIsListening(false);
             onListeningChange?.(false, "");
           }
@@ -574,13 +594,13 @@ export default function VoiceControl({
       audio.onended = shutdownComplete;
 
       audio.onerror = () => {
-        console.error("Ошибка вос���роиз��едения ����ди�� отключени��");
+        console.error("Ошибка вос���роиз��едения ����ди�� отключени����");
         shutdownComplete();
       };
 
       console.log("▶️ Пытаемся воспроизвести ау��ио отключения");
       audio.play().catch((error) => {
-        console.error("❌ Не уд��лось воспроизвести аудио ��тключения:", error);
+        console.error("❌ Не уд��лось воспрои��вести аудио ��тключения:", error);
         shutdownComplete();
       });
     }, 100); // Задержка 100мс для полной остановки пр��дыдущего аудио
@@ -715,7 +735,7 @@ export default function VoiceControl({
     audio.play().catch((error) => {
       resetState();
       console.error(
-        "Не удалось во��произвести аудио утреннего ��рив��тствия:",
+        "Не удалось во��произвести аудио утреннего ��рив��т��твия:",
         error,
       );
     });
@@ -964,7 +984,7 @@ export default function VoiceControl({
       } else if (russianMaleVoice) {
         utterance.voice = russianMaleVoice;
         utterance.lang = "ru-RU";
-        utterance.pitch = 0.6; // Чуть ниже для русского голос��
+        utterance.pitch = 0.6; // Чуть ниже для русского голос���
       } else {
         // Fallback: любой доступный го��ос с оптимиз��рованными настройк��ми
         const anyVoice = voices.find(
@@ -1091,7 +1111,7 @@ export default function VoiceControl({
         secondAudio.onerror = () => {
           resetState();
           console.error(
-            "❌ Оши��ка воспроиз��едения второго аудио ��иагностики",
+            "❌ Оши��ка во��произ��едения второго аудио ��иагностики",
           );
         };
 
@@ -1465,7 +1485,7 @@ export default function VoiceControl({
       command.includes("полная а��тивация джарвис") ||
       command.includes("джарвис активация лаб��ратории") ||
       command.includes("активация лаборатории джарвис") ||
-      command.includes("активиров��ть лабора��орию") ||
+      command.includes("активиров��ть лабо��а��орию") ||
       command.includes("джарвис включи лабораторию") ||
       command.includes("полн��я ак��ивация")
     ) {
@@ -1488,7 +1508,7 @@ export default function VoiceControl({
       command.includes("стандартная тема") ||
       command.includes("верни меня обратно")
     ) {
-      console.log("🔄 Команда возврата к обычной теме распознана:", command);
+      console.log("🔄 Команда возврата к обычной теме р��спознана:", command);
       // Улучшенная проверка - разрешаем если нет активного аудио
       if (!isSpeaking || !audioPlayingRef.current) {
         deactivateStarkLab();
@@ -1655,7 +1675,7 @@ export default function VoiceControl({
     if (
       command.includes("��ак дела") ||
       command.includes("как поживаешь джарвис") ||
-      command.includes("джарвис как поживаешь") ||
+      command.includes("джарвис как ��оживаешь") ||
       command.includes("как ты дж��рви����") ||
       command.includes("how are you jarvis") ||
       command.includes("jarvis how are you") ||
@@ -1760,7 +1780,7 @@ export default function VoiceControl({
       "прокрутить",
       "скролл",
       "нав��р��",
-      "планам",
+      "пл��нам",
       "преимущества",
       "возможности",
       "от��рыть",
@@ -2210,7 +2230,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к пр�����мущес��вам") ||
+      command.includes("к пр�����мущес����ам") ||
       command.includes("наши пре��мущества") ||
       command.includes("сп��стит��ся к преимущества��") ||
       command.includes("перейти к ��реимущес���вам") ||
@@ -2283,7 +2303,7 @@ export default function VoiceControl({
     if (
       command.includes("в коне��� стр��ницы") ||
       command.includes("в сам���й н��з") ||
-      command.includes("вниз страницы")
+      command.includes("вниз ��траницы")
     ) {
       window.scrollTo(0, document.body.scrollHeight);
       speak("��ерехожу в конец");
