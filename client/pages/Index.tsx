@@ -114,7 +114,7 @@ export default function Index() {
 
 
   const handleListeningChange = (isListening: boolean, transcript?: string, isSpeaking?: boolean) => {
-    // Панель остается активной, если микрофон включен ИЛИ если был активен ранее
+    // Панель ос��ается активной, если микрофон включен ИЛИ если был активен ранее
     if (isListening) {
       setIsVoicePanelActive(true);
     }
@@ -135,7 +135,7 @@ export default function Index() {
         console.log(
           "📱 Отклоняем слишком длинный транскрипт:",
           transcript.length,
-          "символов",
+          "симв��лов",
         );
         setCurrentTranscript("");
         setLastProcessedTranscript("");
@@ -181,6 +181,182 @@ export default function Index() {
           transcript={currentTranscript}
         />
       )}
+
+      {/* Navigation Bar */}
+      <nav
+        className={cn(
+          "fixed top-2 left-1/2 transform -translate-x-1/2 z-40 rounded-full px-4 py-2 transition-all duration-300",
+          navbarScrolled
+            ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
+            : "bg-transparent border border-cyan-400/20",
+          isVoicePanelActive && "opacity-20 pointer-events-none",
+        )}
+      >
+        <div className="flex items-center space-x-4">
+          {/* Home Button */}
+          <Button
+            variant="ghost"
+            className="text-xs px-3 py-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <Home className="w-4 h-4 mr-1" />
+            <span className="stark-text-glow">Home</span>
+          </Button>
+
+          {/* Cart Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="relative p-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+              >
+                <ShoppingCart className="w-5 h-5 text-cyan-400" />
+                {getTotalItems() > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
+                    {getTotalItems()}
+                  </span>
+                )}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="w-80 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
+            >
+              <div className="px-3 py-2">
+                <h3 className="font-semibold text-cyan-400 mb-2 font-mono">
+                  CART MATRIX
+                </h3>
+                {items.length === 0 ? (
+                  <p className="text-sm text-white/60 text-center py-4 font-mono">
+                    Cart is empty
+                  </p>
+                ) : (
+                  <>
+                    <div className="space-y-2 max-h-60 overflow-y-auto">
+                      {items.map((item) => (
+                        <div
+                          key={item.id}
+                          className="flex items-start justify-between p-2 bg-gray-800/50 border border-cyan-400/20 rounded-lg"
+                        >
+                          <div className="flex-1">
+                            <h4 className="font-medium text-sm text-white font-mono">
+                              {item.name}
+                            </h4>
+                            <p className="text-xs text-white/60 mt-1">
+                              {item.description.substring(0, 60)}...
+                            </p>
+                            <p className="text-sm font-semibold text-cyan-400 mt-1 font-mono">
+                              ${item.price}
+                            </p>
+                          </div>
+                          <Button
+                            onClick={() => removeFromCart(item.id)}
+                            variant="ghost"
+                            size="sm"
+                            className="ml-2 h-8 w-8 p-0 hover:bg-red-400/10 text-red-400"
+                          >
+                            ×
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="border-t border-cyan-400/20 pt-3 mt-3">
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="font-semibold text-white font-mono">
+                          Total:
+                        </span>
+                        <span className="font-bold text-cyan-400 font-mono">
+                          ${getTotalPrice()}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex space-x-2">
+                      <Button
+                        onClick={clearCart}
+                        variant="outline"
+                        size="sm"
+                        className="flex-1 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10"
+                      >
+                        Clear
+                      </Button>
+                      <Button
+                        onClick={handleProceedToOrder}
+                        size="sm"
+                        className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 stark-glow"
+                      >
+                        Checkout
+                      </Button>
+                    </div>
+                  </>
+                )}
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Theme Toggle */}
+          <ThemeToggle />
+
+          {/* User Menu or Login/Signup */}
+          {isAuthenticated && currentUser ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="flex items-center space-x-2 p-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                >
+                  <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
+                    <User className="w-4 h-4" />
+                  </div>
+                  <span className="text-sm font-medium text-white font-mono">
+                    {currentUser.name}
+                  </span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-56 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
+              >
+                <DropdownMenuItem
+                  onClick={() => navigate("/profile")}
+                  className="cursor-pointer hover:bg-cyan-400/10"
+                >
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Profile</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-cyan-400/20" />
+                <DropdownMenuItem
+                  onClick={handleLogout}
+                  className="text-red-400 hover:bg-red-400/10 cursor-pointer"
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Logout</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                className="text-xs px-3 py-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+                asChild
+              >
+                <Link to="/login">
+                  <span className="stark-text-glow">Login</span>
+                </Link>
+              </Button>
+              <Button
+                variant="ghost"
+                className="text-xs px-3 py-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+                asChild
+              >
+                <Link to="/signup">
+                  <span className="stark-text-glow">Sign up</span>
+                </Link>
+              </Button>
+            </div>
+          )}
+        </div>
+      </nav>
 
       {/* Hero Section - Stark Style */}
       <StarkHero />
