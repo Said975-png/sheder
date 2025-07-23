@@ -93,7 +93,7 @@ export default function VoiceControl({
         let finalTranscript = "";
         let interimTranscript = "";
 
-        // Обрабатываем все результаты для лучшего захвата
+        // Обрабатываем все результаты для лучш��го захвата
         for (let i = 0; i < event.results.length; i++) {
           const result = event.results[i];
           const text = result[0].transcript.trim();
@@ -206,8 +206,8 @@ export default function VoiceControl({
 
   // Функция для запуска распо��наван��я
   const startRecognition = useCallback(() => {
-    if (!recognitionRef.current || recognitionState === 'starting' || recognitionState === 'listening') {
-      console.log("❌ Cannot start recognition:", { hasRecognition: !!recognitionRef.current, state: recognitionState });
+    if (!recognitionRef.current) {
+      console.log("❌ No recognition available");
       return;
     }
 
@@ -216,21 +216,51 @@ export default function VoiceControl({
       return;
     }
 
-    try {
-      console.log("🎤 Starting recognition...");
-      setRecognitionState('starting');
-      shouldRestartRef.current = true;
-      recognitionRef.current.start();
-    } catch (error) {
-      console.log("⚠️ Recognition start failed:", error);
-      setRecognitionState('idle');
-      
-      // Попробуем еще раз через секунду
+    // Более агрессивная проверка - принудительно останавливаем если нужно
+    if (recognitionState === 'listening') {
+      console.log("🔄 Recognition already listening - forcing restart");
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {
+        console.log("Error stopping recognition:", e);
+      }
+
       setTimeout(() => {
         if (shouldRestartRef.current && isListening && !isSpeaking) {
           startRecognition();
         }
-      }, 1000);
+      }, 300);
+      return;
+    }
+
+    try {
+      console.log("🎤 Starting recognition... (attempt)");
+      setRecognitionState('starting');
+      shouldRestartRef.current = true;
+      recognitionRef.current.start();
+
+      // Таймаут безопасности - если не запустился за 3 секунды, пробуем снова
+      setTimeout(() => {
+        if (recognitionState === 'starting') {
+          console.log("⏰ Recognition start timeout, retrying...");
+          setRecognitionState('idle');
+          if (shouldRestartRef.current && isListening && !isSpeaking) {
+            startRecognition();
+          }
+        }
+      }, 3000);
+
+    } catch (error) {
+      console.log("⚠️ Recognition start failed:", error);
+      setRecognitionState('idle');
+
+      // Быстрая повторная попытка
+      setTimeout(() => {
+        if (shouldRestartRef.current && isListening && !isSpeaking) {
+          console.log("🔄 Retrying recognition start...");
+          startRecognition();
+        }
+      }, 500);
     }
   }, [recognitionState, isSpeaking, isListening]);
 
