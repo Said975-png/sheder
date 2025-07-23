@@ -191,7 +191,9 @@ export default function VoiceControl({
                     lastCommandRef.current = "";
 
                     // Н�� перезапускаем Recognition - пусть работает непрерывно
-                    console.log("✅ Сос��ояние очищено, Recognition продолжает работать");
+                    console.log(
+                      "✅ Сос��ояние очищено, Recognition продолжает работать",
+                    );
                   }, 2000);
                 },
                 finalTranscript ? 100 : 1000,
@@ -254,10 +256,7 @@ export default function VoiceControl({
 
           // Критические о��ибки - полностью останавливаем
           if (event.error === "network" || event.error === "not-allowed") {
-            console.error(
-              "🚨 Критическая ошибка распознавания:",
-              event.error,
-            );
+            console.error("🚨 Критическая ошибка распознавания:", event.error);
             setIsListening(false);
             onListeningChange?.(false, "");
           }
@@ -391,7 +390,9 @@ export default function VoiceControl({
         onListeningChange?.(true, "");
         console.log("✅ Cooldown сброшен, микрофон активен");
       } else {
-        console.log("✅ Cooldown сброшен, микрофон отключен - не открываем панель");
+        console.log(
+          "✅ Cooldown сброшен, микрофон отключен - не открываем панель",
+        );
       }
     }, delay);
   };
@@ -752,7 +753,7 @@ export default function VoiceControl({
       console.log("🚫 speakAuthenticJarvis заблокирован:", {
         isSpeaking,
         commandCooldown: commandCooldownRef.current,
-        audioPlaying: audioPlayingRef.current
+        audioPlaying: audioPlayingRef.current,
       });
       return;
     }
@@ -1009,7 +1010,9 @@ export default function VoiceControl({
         };
         secondAudio.onerror = () => {
           resetState();
-          console.error("❌ Оши��ка воспроизведения второго аудио ��иагностики");
+          console.error(
+            "❌ Оши��ка воспроизведения второго аудио ��иагностики",
+          );
         };
 
         console.log("▶️ Запускаем второе аудио");
