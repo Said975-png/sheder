@@ -26,14 +26,7 @@ import { useCart } from "@/contexts/CartContext";
 
 export default function Index() {
   const { loading } = useAuth();
-  const {
-    getTotalItems,
-    addItem,
-    items,
-    removeItem,
-    getTotalPrice,
-    clearCart,
-  } = useCart();
+  const { addItem } = useCart();
   const navigate = useNavigate();
 
   const [isVoicePanelActive, setIsVoicePanelActive] = useState(false);
@@ -91,7 +84,7 @@ export default function Index() {
 
     // Простая логика: если транскрипт пустой - очищаем, если нет - отображаем
     if (!transcript || transcript.trim() === "") {
-      console.log("📱 Очищаем т��анскрипт в Index.tsx");
+      console.log("📱 Очищаем транскрипт в Index.tsx");
       setCurrentTranscript("");
       setLastProcessedTranscript("");
     } else {
