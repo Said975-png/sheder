@@ -29,35 +29,7 @@ export default function VoicePanel({
   isListening,
   transcript,
 }: VoicePanelProps) {
-  const lastTranscriptRef = useRef("");
-  const transcriptTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Эффект для автоматической очистки застрявшего транскрипта
-  useEffect(() => {
-    if (transcript && transcript !== lastTranscriptRef.current) {
-      lastTranscriptRef.current = transcript;
-
-      // Очищаем предыдущий таймер
-      if (transcriptTimeoutRef.current) {
-        clearTimeout(transcriptTimeoutRef.current);
-      }
-
-      // Устанавливаем новый таймер для очистки через 3 секунды
-      transcriptTimeoutRef.current = setTimeout(() => {
-        if (lastTranscriptRef.current === transcript) {
-          lastTranscriptRef.current = "";
-          // Здесь мы можем вызвать callback для очистки, но в данном случае
-          // полагаемся на логику в родительском компоненте
-        }
-      }, 3000);
-    }
-
-    return () => {
-      if (transcriptTimeoutRef.current) {
-        clearTimeout(transcriptTimeoutRef.current);
-      }
-    };
-  }, [transcript]);
+  // Упрощенная логика - полагаемся только на родительский компонент для управления транскриптом
   return (
     <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-4xl px-4">
       <StarkHUD
@@ -170,7 +142,7 @@ export default function VoicePanel({
           <div className="flex justify-center mb-6">
             <div className="text-center">
               <div className="text-lg font-mono text-cyan-400 mb-2">
-                <GlitchText>Микрофон активен</GlitchText>
+                <GlitchText>Микро��он активен</GlitchText>
               </div>
               <div className="text-sm text-white/60 font-mono mb-4">
                 Говорите команды для управления системой
