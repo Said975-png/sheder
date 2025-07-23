@@ -55,7 +55,7 @@ export default function VoiceControl({
   useEffect(() => {
     // Сообщаем родительскому компоненту о состоянии говорения
     onListeningChange?.(isListening, transcript, isSpeaking);
-  }, [isSpeaking]); // Ср��батывает при изменении состояния говорения
+  }, [isSpeaking]); // Срабатывает при изменении состояния говорения
 
   // Инициализация Speech Recognition
   useEffect(() => {
@@ -122,7 +122,7 @@ export default function VoiceControl({
         if (currentText && currentText.length > 1) {
           updateListeningState(true, currentText);
 
-          // Обрабатываем команды как ��инальные, так и достаточно длинные про��ежуточные
+          // Обрабатываем команды как ��инальные, так и достаточно длинные промежуточные
           if ((finalTranscript || (interimTranscript && interimTranscript.length > 3)) &&
               !isProcessingRef.current &&
               currentText !== lastCommandRef.current &&
@@ -131,6 +131,14 @@ export default function VoiceControl({
             console.log("🎯 Processing command:", currentText);
             lastCommandRef.current = currentText;
             isProcessingRef.current = true;
+
+            // Таймаут безопасности - автоматически разблокируем через 10 секунд
+            setTimeout(() => {
+              if (isProcessingRef.current) {
+                console.log("⚠️ Processing timeout - force unblocking");
+                isProcessingRef.current = false;
+              }
+            }, 10000);
 
             // Уменьшенная задержка для более быстрой реакции
             setTimeout(() => {
@@ -264,7 +272,7 @@ export default function VoiceControl({
     }
   }, [recognitionState, isSpeaking, isListening]);
 
-  // Функция для остановки распознавания
+  // Функция для ��становки распознавания
   const stopRecognition = useCallback(() => {
     if (!recognitionRef.current) return;
 
@@ -471,7 +479,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды приветствия (только специфичные)
+    // Команды привет��твия (только специфичные)
     if (cmd.includes("привет") || cmd.includes("hello") || cmd.includes("здравст��уй") ||
         cmd.includes("добро пожаловать") || cmd.includes("хай") || cmd.includes("хэй") ||
         cmd.includes("джарвис") || cmd.includes("жарвис") || cmd.includes("ярвис")) {
@@ -504,7 +512,7 @@ export default function VoiceControl({
       return;
     }
 
-    if (cmd.includes("профиль") || cmd.includes("личный кабинет")) {
+    if (cmd.includes("п��офиль") || cmd.includes("личный кабинет")) {
       navigate("/profile");
       resetCommandState();
       return;
