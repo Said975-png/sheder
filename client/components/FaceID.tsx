@@ -33,7 +33,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
   const [capturedImages, setCapturedImages] = useState<string[]>([]);
   const [status, setStatus] = useState<string>("Инициализация камеры...");
 
-  // Инициализация камеры
+  // Инициализация каме��ы
   const initializeCamera = useCallback(async () => {
     try {
       setStatus("Запрос доступа к камере...");
@@ -100,7 +100,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
       return false;
     }
 
-    // Анал��зируем центральную область для поиска лица
+    // Анализируем центральную область для поиска лица
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
     const checkRadius = Math.min(canvas.width, canvas.height) / 8; // Уменьшили область для точности
@@ -135,7 +135,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
             skinPixels++;
           }
 
-          // Поиск темных областей (глаза, ноздри)
+          // Поиск темных областей (г��аза, ноздри)
           if (brightness < 50 && y < centerY) {
             eyeRegionDark++;
           }
@@ -169,7 +169,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
 
     // Строгие критерии для детекции лица
     const hasEnoughSkin = skinRatio > 0.25; // Минимум 25% кожи
-    const hasEyeRegions = eyeRatio > 0.05; // Есть темные области в верхней части
+    const hasEyeRegions = eyeRatio > 0.05; // Есть темные области �� верхней части
     const hasContrast = contrastRatio > 0.15; // Достаточно контраста
     const hasShape = shapeRatio > 0.6; // Правильная форма
     const goodLighting = averageBrightness > 40 && averageBrightness < 200;
@@ -237,7 +237,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
         faceRegions.forEach(region => {
           const regionDescriptor: number[] = [];
 
-          // Анализируем ��аждую область с высоким разрешением
+          // Анализируем каждую область с высоким разрешением
           for (let y = region.y; y < region.y + region.h; y += 4) {
             for (let x = region.x; x < region.x + region.w; x += 4) {
               if (x < 128 && y < 128) {
@@ -395,7 +395,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     }
     const averageSimilarity = totalSimilarity / totalComparisons;
 
-    // Требуем высокую максимальную схожесть И достаточное количество х��роших совпадений И высокую среднюю схожесть
+    // Требуем высокую максимальную схожесть И достаточное количество хороших совпадений И высокую среднюю схожесть
     const verified = maxSimilarity > SIMILARITY_THRESHOLD &&
                      goodMatches >= MIN_MATCHES &&
                      averageSimilarity > 0.7;
@@ -699,12 +699,12 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
               <p>• Расположите лицо в центре рамки</p>
               <p>• Держите устройство на уровне глаз</p>
               <p>• Обеспечьте хорошее освещение</p>
-              <p>• Мы сделаем 3 снимка для лучшего распознавания</p>
+              <p>• Мы сделаем 5 снимков для максимальной точности</p>
             </>
           ) : (
             <>
               <p>• Посмотрите прямо в камеру</p>
-              <p>• Держите устройство неподвижно</p>
+              <p>��� Держите устройство неподвижно</p>
               <p>• Убедитесь, что лицо хорошо освещено</p>
             </>
           )}
