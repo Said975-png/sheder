@@ -91,7 +91,7 @@ export default function VoiceControl({
           let interimTranscript = "";
           let combinedTranscript = "";
 
-          // Обрабатываем только ПОСЛЕДНИЙ результат, чтобы не накапливать старые
+          // Обрабатываем только ПОСЛЕ��НИЙ результат, чтобы не накапливать старые
           const lastResultIndex = event.results.length - 1;
           if (lastResultIndex >= 0) {
             const transcript =
@@ -172,7 +172,7 @@ export default function VoiceControl({
               commandDelayRef.current = setTimeout(
                 () => {
                   lastCommandRef.current = command;
-                  setNoSpeechCount(0); // Сбрасываем счетчик при успешном ра��познавании
+                  setNoSpeechCount(0); // Сбрасываем счетчик п��и успешном ра��познавании
 
                   processVoiceCommand(command);
 
@@ -490,7 +490,8 @@ export default function VoiceControl({
       lastCommandRef.current = "";
       currentAudioRef.current = null;
       setTranscript("");
-      console.log("✅ Команда отключения завершена");
+      // НЕ открываем панель обратно после команды отключения
+      console.log("✅ Команда отключения завершена - панель остается закрытой");
     };
 
     audio.onended = shutdownComplete;
@@ -705,7 +706,7 @@ export default function VoiceControl({
     };
 
     try {
-      // Используем ElevenLabs API ��ля синте��а речи с вашим ��астомным голосом
+      // И��пользуем ElevenLabs API ��ля синте����а речи с вашим ��астомным голосом
       const response = await fetch("/api/elevenlabs-tts", {
         method: "POST",
         headers: {
@@ -841,7 +842,7 @@ export default function VoiceControl({
         "у меня все в ��орядке сэр",
       );
 
-      // Настр��йки максимально приближенные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
+      // Настр��йки максимально приближе��ные к ElevenLabs Jarvis (wDsJlOXPqcvIUKdLXjDs)
       // Stability: 20 (низкая ст��бильность для более естестве��ной речи)
       // Similarity Boost: 90 (высок��е сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
@@ -884,7 +885,7 @@ export default function VoiceControl({
       } else if (russianMaleVoice) {
         utterance.voice = russianMaleVoice;
         utterance.lang = "ru-RU";
-        utterance.pitch = 0.6; // Чуть ниже для русского голос��
+        utterance.pitch = 0.6; // Чуть ниже для рус��кого голос��
       } else {
         // Fallback: любой доступный го��ос с оптимиз��рованными настройками
         const anyVoice = voices.find(
@@ -1005,7 +1006,7 @@ export default function VoiceControl({
         currentAudioRef.current = secondAudio;
 
         secondAudio.onended = () => {
-          console.log("✅ Второе ауди�� закончилось, диагностика завершена");
+          console.log("✅ Второе ауди�� закончилось, ди��гностика завершена");
           resetState();
         };
         secondAudio.onerror = () => {
@@ -1458,7 +1459,7 @@ export default function VoiceControl({
         }
       }
 
-      // Если ничего не найдено, вы��олняем запасное действие
+      // Е��ли ничего не найдено, вы��олняем запасное действие
       if (fallbackAction) {
         fallbackAction();
         return true;
@@ -1499,7 +1500,7 @@ export default function VoiceControl({
         command.includes("возможность") ||
         command.includes("м��щные")
       ) {
-        found = searchAndNavigate(["возможности", "мощные", "features"]);
+        found = searchAndNavigate(["��озможности", "мощные", "features"]);
         if (found) {
           speak("Показываю возможности");
           return;
@@ -1589,7 +1590,7 @@ export default function VoiceControl({
         command.includes("��оддержка")
       ) {
         found = searchAndNavigate([
-          "к��чест��о",
+          "к��чест����",
           "премиум",
           "поддержка",
           "quality",
@@ -1819,7 +1820,7 @@ export default function VoiceControl({
     if (
       command.includes("прокрутить ввер��") ||
       command.includes("скролл вверх") ||
-      command.includes("поднятьс��� ��верх")
+      command.includes("под��ятьс��� ��верх")
     ) {
       window.scrollBy(0, -500);
       speak("Прокручиваю ��верх");
