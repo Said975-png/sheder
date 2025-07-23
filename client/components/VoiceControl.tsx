@@ -65,7 +65,7 @@ export default function VoiceControl({
           recognitionRef.current.webkitMaxAlternatives = 5;
         }
 
-        // Дополнительные настройки для лучшего ра��познавания длинных фраз
+        // Дополнительные настройки для луч��его ра��познавания длинных фраз
         try {
           // @ts-ignore - Эти настройки помогают лучше распознава��ь речь
           if (recognitionRef.current.webkitSpeechRecognition) {
@@ -140,10 +140,17 @@ export default function VoiceControl({
           }
 
           // Об��абатываем финальные результаты или достаточно длинные промежуто��ные
+          // Команда отключения имеет абсолютный приоритет и выполняется всегда
+          const isShutdownCommand = (finalTranscript || combinedTranscript)
+            .toLowerCase()
+            .includes("отключись") ||
+            (finalTranscript || combinedTranscript)
+            .toLowerCase()
+            .includes("выключись");
+
           if (
             (finalTranscript || combinedTranscript.length > 5) &&
-            !commandCooldownRef.current &&
-            !isSpeaking
+            (isShutdownCommand || (!commandCooldownRef.current && !isSpeaking))
           ) {
             const command = (finalTranscript || combinedTranscript)
               .toLowerCase()
@@ -217,7 +224,7 @@ export default function VoiceControl({
             isSpeaking,
           );
 
-          // ВСЕГДА перезапускаем распознавание, если пользователь не отключил микрофон вручную
+          // ВСЕГДА перезапус��аем распознавание, если пользователь не отключил микрофон вручную
           if (isListening) {
             console.log("🔄 Перезапускаем распознавание...");
 
@@ -272,7 +279,7 @@ export default function VoiceControl({
                 `ℹ️ No-speech ошибка #${noSpeechCount + 1} - п��одолжаем слу��ать`,
               );
 
-              // Если сл��шком много no-speech ошибок подряд, делаем небольшую паузу
+              // Если сл��шком много no-speech о��ибок подряд, делаем небольшую паузу
               if (noSpeechCount >= 3) {
                 console.log("⏸️ Много no-speech ошибок, делаем паузу 2 сек...");
                 setTimeout(() => {
@@ -784,7 +791,7 @@ export default function VoiceControl({
 
     // НЕ останавливаем расп��знавание во время воспроизведения аудио
     // Пусть микрофон продолжает работать
-    console.log("🔊 Воспр��изво��им аудио, но остав��яем микрофон активным");
+    console.log("🔊 Воспр��изво���им аудио, но остав��яем микрофон активным");
 
     // Используем ваш ��ригинальный аудиофайл Джарвиса
     const audio = new Audio(
@@ -1089,7 +1096,7 @@ export default function VoiceControl({
 
     audio.play().catch((error) => {
       resetState();
-      console.error("❌ Не удалось воспроизвести первое аудио:", error);
+      console.error("❌ Не удал��сь воспроизвести первое аудио:", error);
     });
   };
 
@@ -1307,7 +1314,7 @@ export default function VoiceControl({
         !audioPlayingRef.current &&
         timeSinceLastGreeting > 10000
       ) {
-        console.log("✅ Выполняем команду приветствия");
+        console.log("✅ Выполняем команду привет��твия");
         lastGreetingTimeRef.current = now;
         speakAuthenticJarvis();
       } else {
@@ -1399,7 +1406,7 @@ export default function VoiceControl({
     ) {
       console.log("🎯 Распознана ко����ан��а диагностики:", command);
 
-      // ��ополнит��льн��я проверка, чтобы избежать пов��орных срабатываний
+      // ��ополнит��льн��я проверка, чт��бы избежать пов��орных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1432,14 +1439,14 @@ export default function VoiceControl({
       return;
     }
 
-    // П��ове��я��м, со��ержит л����� команда значимые слова
+    // П��ове��я��м, с����ержит л����� команда значимые слова
     const meaningfulWords = [
       "перейти",
       "войти",
       "регистрация",
       "профиль",
       "заказ",
-      "��орзина",
+      "��орз��на",
       "доба���ить",
       "план",
       "джарвис",
@@ -1691,7 +1698,7 @@ export default function VoiceControl({
           "contact",
         ]);
         if (found) {
-          speak("Пок����ываю ��о��такты");
+          speak("Пок�����ываю ��о��такты");
           return;
         }
       }
@@ -1854,7 +1861,7 @@ export default function VoiceControl({
       command.includes("добавить ��ро") ||
       command.includes("про план") ||
       command.includes("про в корзину") ||
-      command.includes("отправит�� про")
+      command.includes("отправит���� про")
     ) {
       onAddProPlan();
       speak("Про план д��бавлен");
