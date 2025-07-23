@@ -65,7 +65,7 @@ export default function VoiceControl({
           recognitionRef.current.webkitMaxAlternatives = 5;
         }
 
-        // Дополнительные настройки для луч��его ра��познавания длинных фраз
+        // Дополнительные нас��ройки для луч��его ра��познавания длинных фраз
         try {
           // @ts-ignore - Эти настройки помогают лучше распознава��ь речь
           if (recognitionRef.current.webkitSpeechRecognition) {
@@ -341,7 +341,7 @@ export default function VoiceControl({
         currentAudioRef.current.pause();
         currentAudioRef.current.currentTime = 0;
       }
-      // Очищаем т��ймер ко��анд
+      // Очищаем т���ймер ко��анд
       if (commandDelayRef.current) {
         clearTimeout(commandDelayRef.current);
       }
@@ -398,9 +398,16 @@ export default function VoiceControl({
   const resetCommandState = (delay: number = 1000, skipPanelReopen: boolean = false) => {
     console.log(`⏰ П��анируем сброс cooldown через ${delay}мс`);
     setTimeout(() => {
+      // Полный сброс всех состояний блокировки
       commandCooldownRef.current = false;
+      audioPlayingRef.current = false;
       lastCommandRef.current = "";
       setTranscript("");
+      setIsSpeaking(false); // Принудительно сбрасываем состояние говорения
+      currentAudioRef.current = null; // Очищаем ссылку на аудио
+
+      console.log("🔄 Полный сброс всех состояний блокировки выполнен");
+
       // Только сообщаем о состоянии, если микрофон все еще активен И это не команда отключения
       if (isListening && !skipPanelReopen) {
         onListeningChange?.(true, "");
@@ -426,7 +433,7 @@ export default function VoiceControl({
       commandCooldownRef.current = false;
     }
 
-    console.log("🔊 Начинаем воспроизведение:", text);
+    console.log("🔊 Начинае�� воспроизведение:", text);
 
     setIsSpeaking(true);
     commandCooldownRef.current = true;
@@ -622,7 +629,7 @@ export default function VoiceControl({
   };
 
   const speakGoodMorning = () => {
-    // Множест����нная защи��а ��т п��вторного воспроизве��ения
+    // Множ��ст����нная защи��а ��т п��вторного воспроизве��ения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -802,7 +809,7 @@ export default function VoiceControl({
 
     // Немед��ен��о очищаем транскрипт к��гда н��чинаем говорить
     setTranscript("");
-    // НЕ вызываем onListeningChange во время воспроизведения аудио
+    // НЕ вызываем onListeningChange во время воспроизведения ау��ио
 
     // НЕ останавливаем расп��знавание во время воспроизведения аудио
     // Пусть микрофон продолжает работать
@@ -882,7 +889,7 @@ export default function VoiceControl({
       // Поиск наиболе�� подходящего ��олоса для имит����ции Jarvis
       const voices = speechSynthesis.getVoices();
 
-      // Приоритет: голоса, похожие на британск��й/американский мужской
+      // Приоритет: голоса, по��ожие на британск��й/американский мужской
       const jarvisLikeVoice = voices.find(
         (voice) =>
           voice.lang.includes("en") &&
@@ -908,7 +915,7 @@ export default function VoiceControl({
       if (jarvisLikeVoice) {
         utterance.voice = jarvisLikeVoice;
         utterance.lang = "ru-RU";
-        utterance.pitch = 0.6; // Чуть ниже для лучшего звучания русского
+        utterance.pitch = 0.6; // Чуть ниже для лучшего ��вучания русского
       } else if (russianMaleVoice) {
         utterance.voice = russianMaleVoice;
         utterance.lang = "ru-RU";
@@ -1070,7 +1077,7 @@ export default function VoiceControl({
   };
 
   const speakContinue = () => {
-    // Множественная защита от повторного воспроизведения
+    // Множественная защита от повторног�� воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       console.log("❌ speakContinue заблокирован - система занята");
       return;
@@ -1169,7 +1176,7 @@ export default function VoiceControl({
     // НЕ вызываем onListeningChange во время обработки команды
     // Это предотвращает повторное открытие панели
 
-    // НЕ сбрасываем Recognition автоматически - пусть работает непрерывно
+    // НЕ сбрасываем Recognition автоматически - пусть рабо��ает непрерывно
     console.log("🎯 Обрабатываем команд�� без сброса Recognition");
 
     // Фильтруем пу��тые или ��лишком короткие команды
@@ -1322,7 +1329,7 @@ export default function VoiceControl({
         timeSinceLastGreeting,
       );
 
-      // Дополнительная проверка + защита от повторов (минимум 10 секунд м��жду приве��с��виями)
+      // Дополнительная проверка + защита от повторов (минимум 10 секун�� м��жду приве��с��виями)
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1569,7 +1576,7 @@ export default function VoiceControl({
       searchTerms: string[],
       fallbackAction?: () => void,
     ) => {
-      // П���иск по заголовкам
+      // П���иск по заг��ловкам
       const headings = Array.from(
         document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
       );
@@ -1685,7 +1692,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск инфо����ации о компании
+      // Поиск инфо�����ации о компании
       if (
         command.includes("компан") ||
         command.includes("о нас") ||
@@ -1856,7 +1863,7 @@ export default function VoiceControl({
       if (cartButton) {
         cartButton.click();
       }
-      speak("Открываю корзину");
+      speak("Открываю ��орзину");
       return;
     }
 
@@ -1892,7 +1899,7 @@ export default function VoiceControl({
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальн��й пл���� добавле��");
+      speak("Максимальн���й пл���� добавле��");
       return;
     }
 
@@ -1963,7 +1970,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Про����утка страницы
+    // Про������утка страницы
     if (
       command.includes("прок����тить вниз") ||
       command.includes("скролл вниз") ||
