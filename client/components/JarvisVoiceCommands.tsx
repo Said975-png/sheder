@@ -26,15 +26,15 @@ export function useJarvisVoiceCommands() {
   }, [speakSystemMessage]);
 
   const speakWelcomeBack = useCallback(async () => {
-    await safeSpeak(() => speakResponse("Добро пожаловать обратно, сэр. Рад вас видеть"), "Добро пожаловать обратно");
+    await safeSpeak(() => speakResponse("Добро пожаловать обратно, сэр. Весьма приятно видеть вас снова"), "Добро пожаловать обратно");
   }, [speakResponse, safeSpeak]);
 
   const speakGoodMorning = useCallback(async () => {
-    await safeSpeak(() => speakResponse("Доброе утро, сэр. Надеюсь, у вас будет продуктивный день"), "Доброе утро");
+    await safeSpeak(() => speakResponse("Доброе утро, сэр. Позвольте пожелать вам продуктивного и успешного дня"), "Доброе утро");
   }, [speakResponse, safeSpeak]);
 
   const speakIAmHere = useCallback(async () => {
-    await safeSpeak(() => speakResponse("Я здесь и готов к работе, сэр"), "Я здесь");
+    await safeSpeak(() => speakResponse("Я нахожусь в полной готовности и к вашим услугам, сэр"), "Я здесь");
   }, [speakResponse, safeSpeak]);
 
   const speakThankYou = useCallback(async () => {
@@ -87,7 +87,7 @@ export function useJarvisVoiceCommands() {
 
   // Команды для планов и покупок
   const speakPlanAdded = useCallback(async (planName: string) => {
-    await speakResponse(`План "${planName}" добавл��н в корзину, сэр`);
+    await speakResponse(`План "${planName}" добавлен в корзину, сэр`);
   }, [speakResponse]);
 
   const speakCartCleared = useCallback(async () => {
