@@ -336,7 +336,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
       }
 
       attempts++;
-      setTimeout(scanLoop, 100);
+      setTimeout(scanLoop, 50); // Уменьшили интервал проверки
     };
 
     scanLoop();
@@ -430,7 +430,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
           )}
         </div>
 
-        {/* Кнопки управления */}
+        {/* Кнопки управле��ия */}
         <div className="flex space-x-2">
           {!isScanning && !isProcessing && !isInitializing && (
             <Button
