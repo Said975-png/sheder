@@ -33,7 +33,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
   const [capturedImages, setCapturedImages] = useState<string[]>([]);
   const [status, setStatus] = useState<string>("Инициализация камеры...");
 
-  // Инициализация к��меры
+  // Инициализация камеры
   const initializeCamera = useCallback(async () => {
     try {
       setStatus("Запрос доступа к камере...");
@@ -71,7 +71,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0);
 
-    // Улучшенная дете��ция лица с несколькими методами
+    // Улучшенная детекция лица с несколькими методами
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
 
@@ -101,7 +101,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
             skinPixels++;
           }
 
-          // П��оверка на яркость (наличие освещенных участков)
+          // Проверка на яркость (наличие освещенных участков)
           if (brightness > 100) {
             brightPixels++;
           }
@@ -169,7 +169,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
         const data = imageData.data;
         const descriptor: number[] = [];
         
-        // Создаем дескриптор из RGB значений каждого 4-го пикселя
+        // Соз��аем дескриптор из RGB значений каждого 4-го пикселя
         for (let i = 0; i < data.length; i += 16) {
           const r = data[i] / 255;
           const g = data[i + 1] / 255;
@@ -418,7 +418,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
           <p className="text-white/90 text-sm">{status}</p>
           {capturedImages.length > 0 && (
             <div className="flex justify-center space-x-1 mt-2">
-              {Array.from({ length: mode === "register" ? 5 : 3 }).map((_, i) => (
+              {Array.from({ length: mode === "register" ? 3 : 2 }).map((_, i) => (
                 <div
                   key={i}
                   className={`w-3 h-3 rounded-full ${
