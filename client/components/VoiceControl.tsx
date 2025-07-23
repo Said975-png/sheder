@@ -34,7 +34,7 @@ export default function VoiceControl({
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
 
-  // Инициализация Speech Recognition
+  // Ини��иализация Speech Recognition
   useEffect(() => {
     if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -89,12 +89,22 @@ export default function VoiceControl({
         };
 
         recognitionRef.current.onend = () => {
-          console.log("🎤 Recognition ended, isListening:", isListening);
-          
-          // Перезапускаем только если должны слушать и не говорим
+          console.log("🎤 Recognition ended, isListening:", isListening, "isSpeaking:", isSpeaking, "processing:", processingCommandRef.current);
+
+          // Перезапускаем только если дол��ны слушать и не говорим
           if (isListening && !isSpeaking && !processingCommandRef.current) {
-            console.log("🔄 Auto-restarting recognition");
-            startRecognition();
+            console.log("🔄 Auto-restarting recognition in 500ms");
+            setTimeout(() => {
+              if (isListening && !isSpeaking && !processingCommandRef.current) {
+                startRecognition();
+              }
+            }, 500);
+          } else {
+            console.log("❌ Not restarting recognition:", {
+              isListening,
+              isSpeaking,
+              processing: processingCommandRef.current
+            });
           }
         };
 
@@ -204,7 +214,7 @@ export default function VoiceControl({
       setIsSpeaking(false);
       currentAudioRef.current = null;
       
-      // Сбрасываем состояние команды
+      // Сбрасыва��м состояние команды
       setTimeout(() => {
         resetCommandState();
         onComplete?.();
@@ -249,7 +259,7 @@ export default function VoiceControl({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          text: "Все систем�� функционируют нормально",
+          text: "Все системы функционируют нормально",
           voice_id: "YyXZ45ZTmrPak6Ecz0mK",
         }),
       });
@@ -385,7 +395,7 @@ export default function VoiceControl({
     resetCommandState();
   };
 
-  // Переключение прослушиван��я
+  // Переключение прослушивания
   const toggleListening = () => {
     if (isListening) {
       stopListening();
