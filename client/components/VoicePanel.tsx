@@ -198,17 +198,25 @@ export default function VoicePanel({
 
           {/* Command Help */}
           <div className="mt-4 p-4 bg-gray-900/50 border border-gray-600/30 rounded-lg">
+            <div className="text-xs font-mono text-gray-400 mb-3">
+              🎤 ТЕСТИРОВАНИЕ МИКРОФОНА:
+            </div>
+            <div className="grid grid-cols-2 gap-2 text-xs font-mono text-green-300 mb-4">
+              <div>"Тест" / "Проверка"</div>
+              <div>"Ты меня слышишь?"</div>
+              <div>"Микрофон работает?"</div>
+              <div>"Привет Джарвис"</div>
+            </div>
+
             <div className="text-xs font-mono text-gray-400 mb-2">
-              AVAILABLE COMMANDS:
+              КОМАНДЫ УПРАВЛЕНИЯ:
             </div>
             <div className="grid grid-cols-2 gap-2 text-xs font-mono text-gray-300">
               <div>"Добавить базовый план"</div>
               <div>"Добавить про план"</div>
               <div>"Добавить макс план"</div>
-              <div>"Проведи диагностику системы"</div>
-              <div>"Отключись" / "Выключись"</div>
-              <div>"Привет Джарвис"</div>
               <div>"Как дела?"</div>
+              <div>"Отключись" / "Выключись"</div>
               <div>"Спасибо"</div>
             </div>
           </div>
