@@ -148,7 +148,7 @@ export default function VoiceControl({
             const command = (finalTranscript || combinedTranscript)
               .toLowerCase()
               .trim();
-            console.log("🔍 Анализируем ком��нду:", `"${command}"`);
+            console.log("🔍 Анализируем ��ом��нду:", `"${command}"`);
 
             // Проверяем, что команда отличается от предыдущей и достаточно дли��ная
             if (
@@ -197,7 +197,7 @@ export default function VoiceControl({
                   }, 2000);
                 },
                 finalTranscript ? 100 : 1000,
-              ); // Меньше задержки для фи��альных результатов
+              ); // Мень��е задержки для фи��альных результатов
             } else {
               console.log("❌ Команда отклонена:", {
                 isEmpty: !command,
@@ -454,6 +454,12 @@ export default function VoiceControl({
   const speakShutdown = () => {
     console.log("🔴 Выполняем команду отключения микр��фона");
 
+    // ПРИНУДИТЕЛЬНО сбрасываем ВСЕ состояния блокировки для команды отключения
+    commandCooldownRef.current = false;
+    audioPlayingRef.current = false;
+    lastCommandRef.current = "";
+    console.log("🔴 Принудительно сбросили все блокировки");
+
     // СНАЧАЛА отключаем состояние listening, чтобы предотвратить автоматический перезапуск
     setIsListening(false);
     onListeningChange?.(false, "");
@@ -609,7 +615,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим ауд��о для утреннего приветстви��
+    // Создаем и воспроизводим ауд����о для утреннего приветстви��
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F501f46b9470c453e8a6730b05b556d76?alt=media&token=7933c53d-1d4b-4bbe-9be8-d74322cb2e84&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -646,7 +652,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и во��производим аудио для ответа "��ж��рв��с ты тут?"
+    // Создае�� и во��производим аудио для ответа "��ж��рв��с ты тут?"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F5baee2408110417fbab785b0c6ffdde6?alt=media&token=a957a2b4-68ad-46de-bc3e-11943c8fb38b&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -679,7 +685,7 @@ export default function VoiceControl({
   };
 
   const speakWithElevenLabs = async (text: string) => {
-    // Множественна�� защи��а от ��овторного восп����оизведения
+    // Множественна�� защи��а от ��овторного восп�����оизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -825,7 +831,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос��анавливаем ��юбое те��ущее воспрои��ведение
+    // Ос��анавливаем ��юбое те��ущее ��оспрои��ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -1059,7 +1065,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Первое аудио для команды "давай продолжим"
+    // Первое ауд��о для команды "давай продолжим"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F6b72a929cd24415c8486df051bbaa5a2%2F35be1bb3c0f84dab8d368ae39c4dde3c?alt=media&token=39b27ede-43e5-43ac-8175-031ef131c2ef&apiKey=6b72a929cd24415c8486df051bbaa5a2",
     );
@@ -1188,7 +1194,7 @@ export default function VoiceControl({
       command.includes("джарвис продолжим") ||
       command.includes("продолжим джарвис")
     ) {
-      console.log("▶️ Команда 'давай продолжим' распознана:", command);
+      console.log("▶️ Команда 'давай продолжим' расп��знана:", command);
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1342,7 +1348,7 @@ export default function VoiceControl({
       command.includes("как дела") ||
       command.includes("как поживаешь джарвис") ||
       command.includes("джарвис как поживаешь") ||
-      command.includes("как ты дж��рви��") ||
+      command.includes("как ты дж��рви����") ||
       command.includes("how are you jarvis") ||
       command.includes("jarvis how are you") ||
       command.includes("how are you") ||
@@ -1445,14 +1451,14 @@ export default function VoiceControl({
       "макс",
       "прокрутить",
       "скролл",
-      "наверх",
+      "нав��рх",
       "планам",
       "преимущества",
       "возможности",
       "от��рыть",
       "личный",
       "кабинет",
-      "отправить",
+      "отпра��ить",
       "секция",
       "спуститься",
       "перейти",
@@ -1749,7 +1755,7 @@ export default function VoiceControl({
         }
       }
 
-      // Если ни��его специфичного не найдено, поп��обуем общий ��оиск
+      // Если ни��его специфичног�� не найдено, поп��обуем общий ��оиск
       if (!found) {
         const searchTerms = command
           .split(" ")
@@ -1864,7 +1870,7 @@ export default function VoiceControl({
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальный пл��н добавле��");
+      speak("Максимальный пл���� добавле��");
       return;
     }
 
@@ -1898,7 +1904,7 @@ export default function VoiceControl({
     if (
       command.includes("к пр�����мущес��вам") ||
       command.includes("наши пре��мущества") ||
-      command.includes("сп��стит��ся к преимуществам") ||
+      command.includes("сп��стит��ся к преимущества��") ||
       command.includes("перейти к ��реимущес���вам") ||
       command.includes("преим��щества")
     ) {
@@ -1967,7 +1973,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("в коне��� страницы") ||
+      command.includes("в коне��� стр��ницы") ||
       command.includes("в сам���й н��з") ||
       command.includes("вниз страницы")
     ) {
