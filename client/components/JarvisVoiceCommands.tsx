@@ -1,0 +1,140 @@
+import { useCallback } from "react";
+import { useJarvisSpeech } from "@/components/JarvisSpeech";
+
+export function useJarvisVoiceCommands() {
+  const { speak, speakCommand, speakResponse, speakAlert, stop, isSpeaking } = useJarvisSpeech();
+
+  // Системные ответы
+  const speakSystemsOperational = useCallback(async () => {
+    await speakResponse("Все системы функционируют нормально, сэр");
+  }, [speakResponse]);
+
+  const speakWelcomeBack = useCallback(async () => {
+    await speakResponse("Добро пожаловать обратно, сэр. Рад вас виде��ь");
+  }, [speakResponse]);
+
+  const speakGoodMorning = useCallback(async () => {
+    await speakResponse("Доброе утро, сэр. Надеюсь, у вас будет продуктивный день");
+  }, [speakResponse]);
+
+  const speakIAmHere = useCallback(async () => {
+    await speakResponse("Я здесь и готов к работе, сэр");
+  }, [speakResponse]);
+
+  const speakThankYou = useCallback(async () => {
+    await speakResponse("Всегда пожалуйста, сэр. Рад быть полезным");
+  }, [speakResponse]);
+
+  const speakShutdown = useCallback(async () => {
+    await speakCommand("Отключаю голосовое управление. До свидания, сэр");
+  }, [speakCommand]);
+
+  const speakAuthenticJarvis = useCallback(async () => {
+    await speakResponse("Джарвис к вашим услугам, сэр. Как дела?");
+  }, [speakResponse]);
+
+  const speakHowAreYou = useCallback(async () => {
+    await speakResponse("У меня все в порядке, сэр. Все системы работают стабильно");
+  }, [speakResponse]);
+
+  // Диагностика систем
+  const speakSystemDiagnostics = useCallback(async () => {
+    await speakCommand("Запускаю полную диагностику всех систем");
+    
+    // Пауза для эффекта
+    setTimeout(async () => {
+      await speakResponse("Диагностика завершена. Все системы функционируют в оптимальном режиме");
+    }, 3000);
+  }, [speakCommand, speakResponse]);
+
+  // Навигационные команды
+  const speakContinue = useCallback(async () => {
+    await speakCommand("Понял, сэр. Давайте продолжим");
+  }, [speakCommand]);
+
+  const speakCorrect = useCallback(async () => {
+    await speakResponse("Верно, сэр");
+  }, [speakResponse]);
+
+  // Команды активации лаборатории
+  const speakLabActivation = useCallback(async () => {
+    await speakCommand("Активирую лабораторию Старка");
+    
+    setTimeout(async () => {
+      await speakResponse("Лаборатория готова к работе, сэр");
+    }, 2000);
+  }, [speakCommand, speakResponse]);
+
+  const speakLabDeactivation = useCallback(async () => {
+    await speakCommand("Возвращаю стандартный режим");
+  }, [speakCommand]);
+
+  // Команды для планов и покупок
+  const speakPlanAdded = useCallback(async (planName: string) => {
+    await speakResponse(`План "${planName}" добавлен в корзину, сэр`);
+  }, [speakResponse]);
+
+  const speakCartCleared = useCallback(async () => {
+    await speakResponse("Корзина очищена, сэр");
+  }, [speakResponse]);
+
+  // Команды навигации
+  const speakNavigating = useCallback(async (destination: string) => {
+    await speakCommand(`Перехожу к разделу "${destination}", сэр`);
+  }, [speakCommand]);
+
+  const speakError = useCallback(async (errorMessage: string) => {
+    await speakAlert(`Внимание, сэр. ${errorMessage}`);
+  }, [speakAlert]);
+
+  // Общая функция для произвольного текста
+  const speakCustom = useCallback(async (text: string, type: 'command' | 'response' | 'alert' = 'response') => {
+    switch (type) {
+      case 'command':
+        await speakCommand(text);
+        break;
+      case 'alert':
+        await speakAlert(text);
+        break;
+      default:
+        await speakResponse(text);
+    }
+  }, [speakCommand, speakResponse, speakAlert]);
+
+  return {
+    // Основные функции
+    speak,
+    speakCustom,
+    stop,
+    isSpeaking,
+
+    // Системные ответы
+    speakSystemsOperational,
+    speakWelcomeBack,
+    speakGoodMorning,
+    speakIAmHere,
+    speakThankYou,
+    speakShutdown,
+    speakAuthenticJarvis,
+    speakHowAreYou,
+    speakSystemDiagnostics,
+
+    // Навигационные команды
+    speakContinue,
+    speakCorrect,
+    speakNavigating,
+
+    // Команды лаборатории
+    speakLabActivation,
+    speakLabDeactivation,
+
+    // Команды покупок
+    speakPlanAdded,
+    speakCartCleared,
+
+    // Ошибки
+    speakError,
+  };
+}
+
+export default useJarvisVoiceCommands;
