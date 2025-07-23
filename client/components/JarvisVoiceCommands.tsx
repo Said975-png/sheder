@@ -16,14 +16,14 @@ export function useJarvisVoiceCommands() {
     }
   }, []);
 
-  // Системные ответы с обработкой ошибок
+  // Системные ответы с обработкой ошибок (формальный стиль)
   const speakSystemsOperational = useCallback(async () => {
     try {
-      await speakResponse("Все системы функционируют нормально, сэр");
+      await speakSystemMessage("Все системы функционируют в оптимальном режиме, сэр");
     } catch (error) {
       console.warn('speakSystemsOperational failed:', error);
     }
-  }, [speakResponse]);
+  }, [speakSystemMessage]);
 
   const speakWelcomeBack = useCallback(async () => {
     await safeSpeak(() => speakResponse("Добро пожаловать обратно, сэр. Рад вас видеть"), "Добро пожаловать обратно");
@@ -42,7 +42,7 @@ export function useJarvisVoiceCommands() {
   }, [speakResponse]);
 
   const speakShutdown = useCallback(async () => {
-    await speakCommand("Отключаю голосовое управление. До свидания, сэр");
+    await speakCommand("Отключаю голосовое ��правление. До свидания, сэр");
   }, [speakCommand]);
 
   const speakAuthenticJarvis = useCallback(async () => {
