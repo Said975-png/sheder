@@ -26,16 +26,16 @@ export function useJarvisVoiceCommands() {
   }, [speakResponse]);
 
   const speakWelcomeBack = useCallback(async () => {
-    await speakResponse("Добро пожаловать обратно, сэр. Рад вас видеть");
-  }, [speakResponse]);
+    await safeSpeak(() => speakResponse("Добро пожаловать обратно, сэр. Рад вас видеть"), "Добро пожаловать обратно");
+  }, [speakResponse, safeSpeak]);
 
   const speakGoodMorning = useCallback(async () => {
-    await speakResponse("Доброе утро, сэр. Надеюсь, у вас будет продуктивный день");
-  }, [speakResponse]);
+    await safeSpeak(() => speakResponse("Доброе утро, сэр. Надеюсь, у вас будет продукт��вный день"), "Доброе утро");
+  }, [speakResponse, safeSpeak]);
 
   const speakIAmHere = useCallback(async () => {
-    await speakResponse("Я здесь и готов к работе, сэр");
-  }, [speakResponse]);
+    await safeSpeak(() => speakResponse("Я здесь и готов к работе, сэр"), "Я здесь");
+  }, [speakResponse, safeSpeak]);
 
   const speakThankYou = useCallback(async () => {
     await speakResponse("Всегда пожалуйста, сэр. Рад быть полезным");
