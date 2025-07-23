@@ -490,6 +490,11 @@ export function useJarvisSpeech() {
     return engineRef.current.speakAlert(text);
   }, []);
 
+  const speakSystemMessage = useCallback(async (text: string) => {
+    if (!engineRef.current) return;
+    return engineRef.current.speakSystemMessage(text);
+  }, []);
+
   const stop = useCallback(() => {
     engineRef.current?.stop();
   }, []);
