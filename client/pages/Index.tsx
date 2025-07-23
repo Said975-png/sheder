@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import VoiceControl from "@/components/VoiceControl";
-import JarvisDemo from "@/components/JarvisDemo";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
