@@ -116,7 +116,7 @@ export default function VoiceControl({
             return;
           }
           
-          // Для других ошибок - перезапускаем через секунду
+          // Для других ошибок - перезапускаем ��ерез секунду
           if (isListening && !isSpeaking) {
             setTimeout(() => {
               if (isListening && !isSpeaking) {
@@ -232,11 +232,13 @@ export default function VoiceControl({
     currentAudioRef.current = audio;
 
     const cleanup = () => {
+      console.log("🔊 Audio cleanup starting");
       setIsSpeaking(false);
       currentAudioRef.current = null;
-      
+
       // Сбрасываем состояние команды
       setTimeout(() => {
+        console.log("🔄 Resetting command state after audio");
         resetCommandState();
         onComplete?.();
       }, 500);
@@ -373,7 +375,7 @@ export default function VoiceControl({
     }
 
     // Команды планов (более специфичные)
-    if (cmd.includes("базов��й план") || (cmd.includes("добавить") && cmd.includes("базовый"))) {
+    if (cmd.includes("базовый план") || (cmd.includes("добавить") && cmd.includes("базовый"))) {
       onAddBasicPlan();
       resetCommandState();
       return;
@@ -411,7 +413,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Если команда ��е распознана - просто сбрасываем состояние без действий
+    // Если команда не распознана - просто сбрасываем состояние без действий
     console.log("❓ Unknown command, resetting state:", cmd);
     resetCommandState();
   };
