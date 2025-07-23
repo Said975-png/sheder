@@ -164,7 +164,10 @@ export default function VoiceControl({
     processingCommandRef.current = false;
     lastCommandRef.current = "";
     setTranscript("");
-    // Не вызываем onListeningChange здесь, чтобы не влиять на панель
+    // Сообщаем родительскому компоненту о текущем состоянии
+    if (onListeningChange) {
+      onListeningChange(isListening, "");
+    }
     
     // Пере��апускаем прослушивание если нужно
     if (isListening && !isSpeaking) {
@@ -246,7 +249,7 @@ export default function VoiceControl({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          text: "Все системы функционируют нормально",
+          text: "Все систем�� функционируют нормально",
           voice_id: "YyXZ45ZTmrPak6Ecz0mK",
         }),
       });
@@ -382,7 +385,7 @@ export default function VoiceControl({
     resetCommandState();
   };
 
-  // Переключение прослушивания
+  // Переключение прослушиван��я
   const toggleListening = () => {
     if (isListening) {
       stopListening();
