@@ -84,10 +84,10 @@ export default function SignUp() {
 
       setSuccess(true);
 
-      // Перенаправляем на главную страницу через 1.5 секунды
+      // Перенаправляем на профиль для настройки Face ID через 2 секунды
       setTimeout(() => {
-        navigate("/");
-      }, 1500);
+        navigate("/profile");
+      }, 2000);
     } catch (error) {
       console.error("Registration error:", error);
       setError("Произошла ошибка при регистрации");
@@ -116,8 +116,11 @@ export default function SignUp() {
             <p className="theme-text-muted mb-4">
               Добро пожаловать, {formData.name}!
             </p>
-            <p className="theme-text-muted text-sm">
-              Перенаправляем на главную страницу...
+            <p className="theme-text-muted text-sm mb-2">
+              Перенаправляем в личный кабинет...
+            </p>
+            <p className="theme-text-muted text-xs">
+              Рекомендуем настроить Face ID для безопасности
             </p>
           </CardContent>
         </Card>
