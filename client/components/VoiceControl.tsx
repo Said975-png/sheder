@@ -59,7 +59,7 @@ export default function VoiceControl({
           recognitionRef.current.webkitContinuous = true;
           // @ts-ignore
           recognitionRef.current.webkitInterimResults = true;
-          // @ts-ignore - Увеличиваем таймаут для лучшего захвата длинных фраз
+          // @ts-ignore - Увеличиваем таймаут для лучшего захвата дли��ных фраз
           recognitionRef.current.webkitGrammars = null;
           // @ts-ignore
           recognitionRef.current.webkitMaxAlternatives = 5;
@@ -116,7 +116,7 @@ export default function VoiceControl({
             combinedTranscript = "";
           }
 
-          // Проверяем на повторяющиеся слова (признак на��опления)
+          // Проверяем на п��вторяющиеся слова (признак на��опления)
           const words = combinedTranscript.split(" ");
           const uniqueWords = [...new Set(words)];
           if (words.length > uniqueWords.length * 2) {
@@ -139,7 +139,7 @@ export default function VoiceControl({
             console.log("🎯 Распознано:", `"${combinedTranscript}"`);
           }
 
-          // Об��абатываем финальные результаты или достаточно длинные промежуто��ные
+          // Об��абатываем финальные рез��льтаты или достаточно длинные промежуто��ные
           // Команда отключения имеет абсолютный приоритет и выполняется всегда
           const isShutdownCommand = (finalTranscript || combinedTranscript)
             .toLowerCase()
@@ -166,7 +166,7 @@ export default function VoiceControl({
               .trim();
             console.log("🔍 Анализируем ��ом��нду:", `"${command}"`);
 
-            // Проверяем, что ко��анда отличае��ся от предыдущей и достаточно дли��ная
+            // Проверяем, что ��о��анда отличае��ся от предыдущей и достаточно дли��ная
             if (
               command &&
               command !== lastCommandRef.current &&
@@ -336,7 +336,7 @@ export default function VoiceControl({
       if (recognitionRef.current) {
         recognitionRef.current.stop();
       }
-      // Останавливаем любое воспроизводящееся аудио при размонтировани��
+      // Останавливаем любое воспроизводящееся ��удио при размонтировани��
       if (currentAudioRef.current) {
         currentAudioRef.current.pause();
         currentAudioRef.current.currentTime = 0;
@@ -488,7 +488,7 @@ export default function VoiceControl({
     audio.onended = () => {
       setIsSpeaking(false);
       // Сбрасываем состояние через короткую задержку после аудио
-      // НЕ открываем панель если микрофон был отключен
+      // НЕ отк��ываем панель если микрофон был отключен
       resetCommandState(1000, !isListening);
     };
 
@@ -520,7 +520,7 @@ export default function VoiceControl({
     lastCommandRef.current = "";
     console.log("🔴 Принудительно сбросили все блокировки");
 
-    // СНАЧАЛА отключаем состояние listening, чтобы предотвратить автоматический перезапуск
+    // СНАЧАЛА отключаем состояние listening, чтобы предотвратить автом��тический перезапуск
     setIsListening(false);
     onListeningChange?.(false, "");
     console.log("🔴 Состояние listening отключено");
@@ -576,7 +576,7 @@ export default function VoiceControl({
         console.error("❌ Не удалось воспроизвести аудио ��тключения:", error);
         shutdownComplete();
       });
-    }, 100); // Задержка 100мс для полной остановки предыдущего аудио
+    }, 100); // Задержка 100мс для полной остановки пр��дыдущего аудио
   };
 
   const speakWelcomeBack = () => {
@@ -1035,7 +1035,7 @@ export default function VoiceControl({
 
     // Множественная защита от ��овторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
-      console.log("❌ Диагностика заблокирована - система занята");
+      console.log("❌ Диагно��тика заблокирована - система занята");
       return;
     }
 
@@ -1205,6 +1205,192 @@ export default function VoiceControl({
     });
   };
 
+  const activateStarkLab = () => {
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      console.log("❌ activateStarkLab заблокирован - система занята");
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
+
+    console.log("🔬 Активация лаборатории Старка - начинаем последовательность");
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
+
+    // ПЕРВОЕ аудио для команды "полная активация"
+    const firstAudio = new Audio(
+      "https://cdn.builder.io/o/assets%2F6b72a929cd24415c8486df051bbaa5a2%2Fbb0dc9d654554f1a9bb9dcc874d5434b?alt=media&token=47d6c26a-18e1-4ffb-9363-adc20856464f&apiKey=6b72a929cd24415c8486df051bbaa5a2",
+    );
+    currentAudioRef.current = firstAudio;
+
+    firstAudio.onended = () => {
+      console.log("✅ Первое аудио завершено, активируем лабораторию");
+
+      // Мгновенно меняем тему на лабораторию Старка
+      document.documentElement.classList.add('stark-lab-theme');
+
+      // Добавляем эффект сканирования
+      const scanElement = document.createElement('div');
+      scanElement.className = 'lab-activation-scan';
+      document.body.appendChild(scanElement);
+
+      // Добавляем активационный оверлей
+      const overlayElement = document.createElement('div');
+      overlayElement.className = 'lab-activation-overlay';
+      document.body.appendChild(overlayElement);
+
+      // Добавляем HUD сетку
+      const hudGrid = document.createElement('div');
+      hudGrid.className = 'stark-lab-hud-grid';
+      document.body.appendChild(hudGrid);
+
+      // Добавляем голографические частицы
+      const particlesContainer = document.createElement('div');
+      particlesContainer.className = 'stark-lab-particles';
+      for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'stark-lab-particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 3 + 's';
+        particlesContainer.appendChild(particle);
+      }
+      document.body.appendChild(particlesContainer);
+
+      // Воспроизводим ВТОРОЕ аудио после смены дизайна
+      setTimeout(() => {
+        console.log("🔊 Воспроизводим второе аудио после активации");
+        const secondAudio = new Audio(
+          "https://cdn.builder.io/o/assets%2F6b72a929cd24415c8486df051bbaa5a2%2F12ceeb1b81974dabb7e1c98c17cbcad2?alt=media&token=c9feb03a-881d-4132-8b87-007ca504f0f2&apiKey=6b72a929cd24415c8486df051bbaa5a2",
+        );
+        currentAudioRef.current = secondAudio;
+
+        secondAudio.onended = () => {
+          setIsSpeaking(false);
+          audioPlayingRef.current = false;
+          currentAudioRef.current = null;
+          setTimeout(() => {
+            commandCooldownRef.current = false;
+            lastCommandRef.current = "";
+          }, 500);
+          console.log("✅ Активация лаборатории завершена");
+        };
+
+        secondAudio.onerror = () => {
+          setIsSpeaking(false);
+          audioPlayingRef.current = false;
+          currentAudioRef.current = null;
+          setTimeout(() => {
+            commandCooldownRef.current = false;
+            lastCommandRef.current = "";
+          }, 500);
+          console.error("❌ Ошибка воспроизведения второго аудио активации");
+        };
+
+        secondAudio.play().catch((error) => {
+          setIsSpeaking(false);
+          audioPlayingRef.current = false;
+          currentAudioRef.current = null;
+          setTimeout(() => {
+            commandCooldownRef.current = false;
+            lastCommandRef.current = "";
+          }, 500);
+          console.error("❌ Не удалось воспроизвести второе аудио активации:", error);
+        });
+      }, 1000); // Задержка 1 секунда для завершения анимации
+    };
+
+    firstAudio.onerror = () => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 500);
+      console.error("❌ Ошибка воспроизведения первого аудио активации");
+    };
+
+    firstAudio.play().catch((error) => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 500);
+      console.error("❌ Не удалось воспроизвести первое аудио активации:", error);
+    });
+  };
+
+  const deactivateStarkLab = () => {
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      console.log("❌ deactivateStarkLab заблокирован - система занята");
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
+
+    console.log("🔄 Возвращаем обычную тему");
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
+
+    // ТРЕТЬЕ аудио для команды "верни меня обратно"
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2F6b72a929cd24415c8486df051bbaa5a2%2F6d0501b67e3846298ea971cf00a9add8?alt=media&token=79cbcd57-2bfb-4b1d-a4c9-594c1f0543ac&apiKey=6b72a929cd24415c8486df051bbaa5a2",
+    );
+    currentAudioRef.current = audio;
+
+    // Сразу возвращаем обычную тему
+    document.documentElement.classList.remove('stark-lab-theme');
+
+    // Удаляем все лабораторные элементы
+    const elementsToRemove = [
+      '.lab-activation-scan',
+      '.lab-activation-overlay',
+      '.stark-lab-hud-grid',
+      '.stark-lab-particles'
+    ];
+
+    elementsToRemove.forEach(selector => {
+      const elements = document.querySelectorAll(selector);
+      elements.forEach(element => element.remove());
+    });
+
+    const resetState = () => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 500);
+      console.log("✅ Возврат к обычной теме завершен");
+    };
+
+    audio.onended = resetState;
+    audio.onerror = () => {
+      resetState();
+      console.error("❌ Ошибка воспроизведения аудио возврата");
+    };
+
+    audio.play().catch((error) => {
+      resetState();
+      console.error("❌ Не удалось воспроизвести аудио возврата:", error);
+    });
+  };
+
   const processVoiceCommand = (command: string) => {
     console.log("🔧 Обработка команды:", command);
 
@@ -1220,7 +1406,7 @@ export default function VoiceControl({
     // Простая очистка транскрипт�� в начале обработки
     setTranscript("");
     // НЕ вызываем onListeningChange во время обработки команды
-    // Это предотвращает повторное открытие панели
+    // Это ��редотвращает повторное открытие панели
 
     // НЕ сбрасываем Recognition автоматически - пусть рабо��ает непрерывно
     console.log("🎯 Обрабатываем команд�� без сброса Recognition");
@@ -1247,7 +1433,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда приветствия "Джарвис я вернулся"
+    // Команда приветствия "Джарвис я верн��лся"
     if (
       command.includes("джарвис я верну��ся") ||
       command.includes("я вернулся джарвис") ||
@@ -1430,7 +1616,7 @@ export default function VoiceControl({
       command.includes("как тв��и дела") ||
       command.includes("что ново��о джарви��")
     ) {
-      // Дополнительная про���ерка, чтобы избежать п��вторных с��абатываний
+      // Дополнительная про���ерка, чтобы избежать п��вторных с��абатыв��ний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1793,7 +1979,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск качества и премиум у��луг
+      // ��оиск качества и премиум у��луг
       if (
         command.includes("качество") ||
         command.includes("премиум") ||
@@ -1913,12 +2099,12 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды доб�����вления планов в корз��ну
+    // Команды доб�����вления планов в корз��н��
     if (
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
       command.includes("базовый в корзину") ||
-      command.includes("отпр��вить базовый")
+      command.includes("отпр����ить базовый")
     ) {
       onAddBasicPlan();
       speak("Базовый план д��б��в��ен");
@@ -1953,7 +2139,7 @@ export default function VoiceControl({
     if (
       command.includes("к планам") ||
       command.includes("показать планы") ||
-      command.includes("пере��ти к планам") ||
+      command.includes("пере��ти к плана��") ||
       command.includes("сп����ститься �� планам") ||
       command.includes("тарифы") ||
       command.includes("цены") ||
