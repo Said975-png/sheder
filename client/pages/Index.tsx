@@ -6,7 +6,7 @@ import VoiceControl from "@/components/VoiceControl";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
-import VoicePanel from "@/components/VoicePanel";
+
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
 import {
   ArcReactor,
@@ -56,12 +56,10 @@ export default function Index() {
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
   const [navbarScrolled, setNavbarScrolled] = useState(false);
-  const [isVoicePanelActive, setIsVoicePanelActive] = useState(false);
-  const [currentTranscript, setCurrentTranscript] = useState("");
-  const [lastProcessedTranscript, setLastProcessedTranscript] = useState("");
+
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
-  // Запуск аним��ции при загрузке компонента
+  // Запуск аним��ции при загрузке ��омпонента
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
@@ -124,42 +122,8 @@ export default function Index() {
   };
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
-    // Открываем панель когда начинается прослушивание
-    if (isListening) {
-      setIsVoicePanelActive(true);
-    } else {
-      // Закрываем панель когда микрофон отключается
-      setIsVoicePanelActive(false);
-      console.log("📱 Панель закрыта - микрофон отключен");
-    }
-
-    // Простая логика: если транскрипт пустой - очищаем, если нет - отображаем
-    if (!transcript || transcript.trim() === "") {
-      console.log("📱 Очищаем транскрипт в Index.tsx");
-      setCurrentTranscript("");
-      setLastProcessedTranscript("");
-    } else {
-      // Показываем транскрипт только если он отличается от предыдущег�� и не слишком длинный
-      if (transcript !== lastProcessedTranscript && transcript.length < 50) {
-        console.log("📱 Устанавливаем новый транскрипт:", transcript);
-        setCurrentTranscript(transcript);
-        setLastProcessedTranscript(transcript);
-      } else if (transcript.length >= 50) {
-        console.log(
-          "📱 Отклоняем слишком длинный транскрипт:",
-          transcript.length,
-          "символов",
-        );
-        setCurrentTranscript("");
-        setLastProcessedTranscript("");
-      }
-    }
-  };
-
-  const handleCloseVoicePanel = () => {
-    setIsVoicePanelActive(false);
-    setCurrentTranscript("");
-    setLastProcessedTranscript("");
+    // Микрофон работает в фоне, панель не показываем
+    console.log("🎤 Микрофон активен:", isListening, "Транскрипт:", transcript);
   };
 
   const handleStopListening = () => {
@@ -182,19 +146,6 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      {/* Voice Panel - показывается при активации микрофона */}
-      {isVoicePanelActive && (
-        <VoicePanel
-          onAddBasicPlan={handleAddBeginnerPlan}
-          onAddProPlan={handleAddIntermediatePlan}
-          onAddMaxPlan={handleAddAdvancedPlan}
-          onClose={handleCloseVoicePanel}
-          onStopListening={handleStopListening}
-          isListening={isVoicePanelActive}
-          transcript={currentTranscript}
-        />
-      )}
-
       {/* Navigation - Enhanced with Stark styling */}
       <nav
         className={cn(
@@ -202,7 +153,6 @@ export default function Index() {
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
-          isVoicePanelActive && "opacity-20 pointer-events-none",
         )}
       >
         <div className="flex items-center space-x-2">
