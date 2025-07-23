@@ -52,7 +52,9 @@ function Profile() {
   const [success, setSuccess] = useState("");
   const [activeTab, setActiveTab] = useState<"profile" | "security">("profile");
   const [showFaceIDModal, setShowFaceIDModal] = useState(false);
-  const [faceIDMode, setFaceIDMode] = useState<"register" | "verify">("register");
+  const [faceIDMode, setFaceIDMode] = useState<"register" | "verify">(
+    "register",
+  );
   const [hasFaceID, setHasFaceID] = useState(false);
 
   // Получаем аватар пользователя и проверяем Face ID при загрузке
@@ -66,7 +68,9 @@ function Profile() {
 
       // Проверяем настройки Face ID
       const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
-      const userFace = faces.find((face: any) => face.userId === currentUser.id);
+      const userFace = faces.find(
+        (face: any) => face.userId === currentUser.id,
+      );
       setHasFaceID(!!userFace);
     }
   }, [currentUser]);
@@ -280,9 +284,16 @@ function Profile() {
   };
 
   const handleRemoveFaceID = () => {
-    if (currentUser && window.confirm("Вы уверены, что хотите отключить Face ID? Это снизит безопасность вашего аккаунта.")) {
+    if (
+      currentUser &&
+      window.confirm(
+        "Вы уверены, что хотите отключить Face ID? Это снизит безопасность вашего аккаунта.",
+      )
+    ) {
       const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
-      const filteredFaces = faces.filter((face: any) => face.userId !== currentUser.id);
+      const filteredFaces = faces.filter(
+        (face: any) => face.userId !== currentUser.id,
+      );
       localStorage.setItem("faceDescriptors", JSON.stringify(filteredFaces));
       setHasFaceID(false);
       setSuccess("Face ID отключен");
@@ -497,17 +508,17 @@ function Profile() {
                             <p className="text-white/70 text-sm">
                               {hasFaceID
                                 ? "Face ID настроен и активен для вашего аккаунта"
-                                : "Настройте Face ID для дополнительной безопасности"
-                              }
+                                : "Настройте Face ID для дополнительной безопасности"}
                             </p>
                           </div>
 
                           <div className="flex items-center space-x-2">
                             <Badge
                               variant={hasFaceID ? "default" : "secondary"}
-                              className={hasFaceID
-                                ? "bg-green-600 text-white"
-                                : "bg-gray-600 text-white"
+                              className={
+                                hasFaceID
+                                  ? "bg-green-600 text-white"
+                                  : "bg-gray-600 text-white"
                               }
                             >
                               {hasFaceID ? "Активен" : "Не настроен"}
@@ -538,9 +549,18 @@ function Profile() {
                         {hasFaceID && (
                           <div className="mt-3 pt-3 border-t border-white/10">
                             <div className="text-xs text-white/50 space-y-1">
-                              <p>✓ Face ID будет запрашиваться при входе в личный кабинет</p>
-                              <p>✓ Биометрические данные хранятся локально и не передаются на сервер</p>
-                              <p>✓ Только ваше лицо может получить доступ к аккаунту</p>
+                              <p>
+                                ✓ Face ID будет запрашиваться при входе в личный
+                                кабинет
+                              </p>
+                              <p>
+                                ✓ Биометрические данные хранятся локально и не
+                                передаются на сервер
+                              </p>
+                              <p>
+                                ✓ Только ваше лицо может получить доступ к
+                                аккаунту
+                              </p>
                             </div>
                           </div>
                         )}

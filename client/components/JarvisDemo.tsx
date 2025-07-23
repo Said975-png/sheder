@@ -43,7 +43,9 @@ export default function JarvisDemo() {
         <CardTitle className="text-white text-center flex items-center justify-center space-x-2">
           <Mic className="w-5 h-5" />
           <span>Тест голоса Джарвиса</span>
-          {isSpeaking() && <Volume2 className="w-5 h-5 text-green-400 animate-pulse" />}
+          {isSpeaking() && (
+            <Volume2 className="w-5 h-5 text-green-400 animate-pulse" />
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -86,7 +88,7 @@ export default function JarvisDemo() {
             <VolumeX className="w-4 h-4 mr-2" />
             Остановить
           </Button>
-          
+
           <div className="flex items-center space-x-2 text-xs text-white/50">
             <span>Статус:</span>
             <span className={isSpeaking() ? "text-green-400" : "text-white/70"}>
@@ -96,7 +98,9 @@ export default function JarvisDemo() {
         </div>
 
         <div className="text-xs text-white/50 space-y-1 pt-4 border-t border-white/20">
-          <p><strong>Реализованные характеристики промпта:</strong></p>
+          <p>
+            <strong>Реализованные характеристики промпта:</strong>
+          </p>
           <ul className="space-y-1 ml-4">
             <li>• Мужской голос 40-45 лет (средне-низкий тембр)</li>
             <li>• Спокойный, уверенный, элегантно-вежливый характер</li>

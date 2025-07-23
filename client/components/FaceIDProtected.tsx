@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Shield, Scan, AlertTriangle, CheckCircle, Settings } from "lucide-react";
+import {
+  Shield,
+  Scan,
+  AlertTriangle,
+  CheckCircle,
+  Settings,
+} from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import FaceIDModal from "./FaceIDModal";
 
@@ -18,7 +24,10 @@ interface FaceDescriptor {
   lastUsed: string;
 }
 
-export default function FaceIDProtected({ children, requireFaceID = true }: FaceIDProtectedProps) {
+export default function FaceIDProtected({
+  children,
+  requireFaceID = true,
+}: FaceIDProtectedProps) {
   const { currentUser } = useAuth();
   const [isVerified, setIsVerified] = useState(false);
   const [hasFaceID, setHasFaceID] = useState(false);
@@ -36,8 +45,10 @@ export default function FaceIDProtected({ children, requireFaceID = true }: Face
     }
 
     const checkFaceID = () => {
-      const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]") as FaceDescriptor[];
-      const userFace = faces.find(face => face.userId === currentUser.id);
+      const faces = JSON.parse(
+        localStorage.getItem("faceDescriptors") || "[]",
+      ) as FaceDescriptor[];
+      const userFace = faces.find((face) => face.userId === currentUser.id);
       setHasFaceID(!!userFace);
       setIsLoading(false);
 
@@ -57,7 +68,9 @@ export default function FaceIDProtected({ children, requireFaceID = true }: Face
   const handleFaceIDSuccess = () => {
     if (faceIDMode === "register") {
       setHasFaceID(true);
-      setSuccess("Face ID успешно настроен! Теперь вы можете использовать его для входа в личный кабинет.");
+      setSuccess(
+        "Face ID успешно настроен! Теперь вы можете использовать его для входа в личный кабинет.",
+      );
       setIsVerified(true);
     } else {
       setIsVerified(true);
@@ -69,7 +82,7 @@ export default function FaceIDProtected({ children, requireFaceID = true }: Face
   const handleFaceIDError = (errorMessage: string) => {
     setError(errorMessage);
     setSuccess("");
-    
+
     if (faceIDMode === "verify") {
       // При ошибке верификации предлагаем повторить попытку
       setTimeout(() => {
@@ -148,8 +161,9 @@ export default function FaceIDProtected({ children, requireFaceID = true }: Face
                 Настройте Face ID
               </h3>
               <p className="text-white/70 text-sm">
-                Для дополнительной защиты личного кабинета рекомендуется настроить распознавание лица.
-                Это обеспечит безопасный доступ только для вас.
+                Для дополнительной защиты личного кабинета рекомендуется
+                настроить распознавание лица. Это обеспечит безопасный доступ
+                только для вас.
               </p>
             </div>
 
@@ -161,7 +175,7 @@ export default function FaceIDProtected({ children, requireFaceID = true }: Face
                 <Scan className="w-4 h-4 mr-2" />
                 Настроить Face ID
               </Button>
-              
+
               <Button
                 onClick={skipFaceID}
                 variant="outline"
@@ -242,7 +256,7 @@ export default function FaceIDProtected({ children, requireFaceID = true }: Face
               <Scan className="w-4 h-4 mr-2" />
               Сканировать лицо
             </Button>
-            
+
             <Button
               onClick={skipFaceID}
               variant="outline"

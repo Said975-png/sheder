@@ -1,5 +1,10 @@
 import React from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import FaceID from "./FaceID";
 
 interface FaceIDModalProps {
@@ -10,7 +15,13 @@ interface FaceIDModalProps {
   onError: (error: string) => void;
 }
 
-export default function FaceIDModal({ isOpen, onClose, mode, onSuccess, onError }: FaceIDModalProps) {
+export default function FaceIDModal({
+  isOpen,
+  onClose,
+  mode,
+  onSuccess,
+  onError,
+}: FaceIDModalProps) {
   const handleSuccess = () => {
     onSuccess();
     setTimeout(() => {

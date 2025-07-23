@@ -36,7 +36,14 @@ export default function VoiceControl({
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
-  const { speak: jarvisSpeak, speakCommand, speakResponse, speakAlert, stop: stopJarvis, isSpeaking: isJarvisSpeaking } = useJarvisSpeech();
+  const {
+    speak: jarvisSpeak,
+    speakCommand,
+    speakResponse,
+    speakAlert,
+    stop: stopJarvis,
+    isSpeaking: isJarvisSpeaking,
+  } = useJarvisSpeech();
 
   useEffect(() => {
     // Проверяем поддер��ку Speech Recognition
@@ -917,7 +924,7 @@ export default function VoiceControl({
         onError: (error) => {
           console.error("❌ Ошибка речи Джарвиса:", error);
           resetState();
-        }
+        },
       });
     } catch (error) {
       resetState();

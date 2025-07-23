@@ -31,50 +31,57 @@ export class JarvisSpeechEngine {
       const loadVoices = () => {
         this.voices = this.synth.getVoices();
         this.isInitialized = true;
-        console.log('Available voices:', this.voices.map(v => `${v.name} (${v.lang})`));
+        console.log(
+          "Available voices:",
+          this.voices.map((v) => `${v.name} (${v.lang})`),
+        );
         resolve();
       };
 
       if (this.synth.getVoices().length > 0) {
         loadVoices();
       } else {
-        this.synth.addEventListener('voiceschanged', loadVoices, { once: true });
+        this.synth.addEventListener("voiceschanged", loadVoices, {
+          once: true,
+        });
       }
     });
   }
 
-  private getBestJarvisVoice(lang: string = 'ru-RU'): SpeechSynthesisVoice | null {
+  private getBestJarvisVoice(
+    lang: string = "ru-RU",
+  ): SpeechSynthesisVoice | null {
     if (!this.isInitialized) return null;
 
     // Приоритет голосов для русского Джарвиса (мужской 40-45 лет, средне-низкий ��ембр)
     const russianPriority = [
-      'Microsoft Pavel - Russian (Russia)',     // Лучший мужской русский
-      'Pavel',                                  // Краткое имя Pavel
-      'Google русский мужской',                // Google мужской русский
-      'Yandex Russian Male',                   // Яндекс мужской
-      'Microsoft Irina Desktop - Russian',     // Fallback русский
-      'Google русский',                        // Общий Google русский
-      'Alex (Enhanced)',                       // Английский fallback с хорошим качеством
-      'Daniel (Enhanced)',                     // Английский мужской enhanced
-      'Microsoft David Desktop - English (United States)', // Качественный английский
-      'Google UK English Male',               // Британский английский
+      "Microsoft Pavel - Russian (Russia)", // Лучший мужской русский
+      "Pavel", // Краткое имя Pavel
+      "Google русский мужской", // Google мужской русский
+      "Yandex Russian Male", // Яндекс мужской
+      "Microsoft Irina Desktop - Russian", // Fallback русский
+      "Google русский", // Общий Google русский
+      "Alex (Enhanced)", // Английский fallback с хорошим качеством
+      "Daniel (Enhanced)", // Английский мужской enhanced
+      "Microsoft David Desktop - English (United States)", // Качественный английский
+      "Google UK English Male", // Британский английский
     ];
 
     // Для английского Джарвиса
     const englishPriority = [
-      'Alex (Enhanced)',
-      'Daniel (Enhanced)', 
-      'Microsoft David Desktop - English (United States)',
-      'Google UK English Male',
-      'Microsoft Mark - English (United States)',
-      'Microsoft Guy24kHz',
+      "Alex (Enhanced)",
+      "Daniel (Enhanced)",
+      "Microsoft David Desktop - English (United States)",
+      "Google UK English Male",
+      "Microsoft Mark - English (United States)",
+      "Microsoft Guy24kHz",
     ];
 
-    const priority = lang.startsWith('ru') ? russianPriority : englishPriority;
-    
+    const priority = lang.startsWith("ru") ? russianPriority : englishPriority;
+
     // Ищем точное совпадение по приоритету
     for (const preferredName of priority) {
-      const voice = this.voices.find(v => v.name.includes(preferredName));
+      const voice = this.voices.find((v) => v.name.includes(preferredName));
       if (voice) {
         console.log(`Selected voice: ${voice.name} (${voice.lang})`);
         return voice;
@@ -82,41 +89,54 @@ export class JarvisSpeechEngine {
     }
 
     // Ищем любой мужской голос для нужного языка (средне-низкий тембр предпочтительно)
-    const maleVoices = this.voices.filter(voice => {
+    const maleVoices = this.voices.filter((voice) => {
       const name = voice.name.toLowerCase();
-      const isTargetLang = voice.lang.startsWith(lang.split('-')[0]);
-      const isMale = name.includes('male') ||
-                    name.includes('мужской') ||
-                    name.includes('david') ||
-                    name.includes('alex') ||
-                    name.includes('daniel') ||
-                    name.includes('pavel') ||
-                    name.includes('павел') ||
-                    name.includes('guy') ||
-                    name.includes('mark') ||
-                    name.includes('антон') ||
-                    name.includes('николай') ||
-                    name.includes('андрей') ||
-                    (!name.includes('female') && !name.includes('woman') && !name.includes('женский'));
+      const isTargetLang = voice.lang.startsWith(lang.split("-")[0]);
+      const isMale =
+        name.includes("male") ||
+        name.includes("мужской") ||
+        name.includes("david") ||
+        name.includes("alex") ||
+        name.includes("daniel") ||
+        name.includes("pavel") ||
+        name.includes("павел") ||
+        name.includes("guy") ||
+        name.includes("mark") ||
+        name.includes("антон") ||
+        name.includes("николай") ||
+        name.includes("андрей") ||
+        (!name.includes("female") &&
+          !name.includes("woman") &&
+          !name.includes("женский"));
       return isTargetLang && isMale;
     });
 
     // Сортируем по качеству: Enhanced > Desktop > обычные
     const sortedMaleVoices = maleVoices.sort((a, b) => {
-      const aQuality = a.name.toLowerCase().includes('enhanced') ? 3 :
-                      a.name.toLowerCase().includes('desktop') ? 2 : 1;
-      const bQuality = b.name.toLowerCase().includes('enhanced') ? 3 :
-                      b.name.toLowerCase().includes('desktop') ? 2 : 1;
+      const aQuality = a.name.toLowerCase().includes("enhanced")
+        ? 3
+        : a.name.toLowerCase().includes("desktop")
+          ? 2
+          : 1;
+      const bQuality = b.name.toLowerCase().includes("enhanced")
+        ? 3
+        : b.name.toLowerCase().includes("desktop")
+          ? 2
+          : 1;
       return bQuality - aQuality;
     });
 
     if (sortedMaleVoices.length > 0) {
-      console.log(`Selected male voice: ${sortedMaleVoices[0].name} (${sortedMaleVoices[0].lang})`);
+      console.log(
+        `Selected male voice: ${sortedMaleVoices[0].name} (${sortedMaleVoices[0].lang})`,
+      );
       return sortedMaleVoices[0];
     }
 
     // Последний fallback - любой голос для языка
-    const anyVoiceForLang = this.voices.find(v => v.lang.startsWith(lang.split('-')[0]));
+    const anyVoiceForLang = this.voices.find((v) =>
+      v.lang.startsWith(lang.split("-")[0]),
+    );
     if (anyVoiceForLang) {
       console.log(`Fallback voice: ${anyVoiceForLang.name}`);
       return anyVoiceForLang;
@@ -125,9 +145,12 @@ export class JarvisSpeechEngine {
     return null;
   }
 
-  private createJarvisUtterance(text: string, settings: JarvisVoiceSettings): SpeechSynthesisUtterance {
+  private createJarvisUtterance(
+    text: string,
+    settings: JarvisVoiceSettings,
+  ): SpeechSynthesisUtterance {
     const utterance = new SpeechSynthesisUtterance(text);
-    
+
     // Настройки голоса для Джарвиса
     utterance.rate = settings.rate;
     utterance.pitch = settings.pitch;
@@ -148,7 +171,7 @@ export class JarvisSpeechEngine {
     this.stop();
 
     // Небольшая задержка для очистки предыдущих операций
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     // Ждем инициализации голосов
     if (!this.isInitialized) {
@@ -158,13 +181,16 @@ export class JarvisSpeechEngine {
     return new Promise((resolve, reject) => {
       // Настройки голоса Джарвиса согласно промпту (мужской 40-45 лет, средне-низкий тембр)
       const jarvisSettings: JarvisVoiceSettings = {
-        rate: 0.75,    // Размеренная подача, точные формулировки
-        pitch: 0.6,    // Средне-низкий тембр для элитного уровня
-        volume: 0.95,  // Кристально чистая дикция
-        lang: 'ru-RU', // Литературный русский язык
+        rate: 0.75, // Размеренная подача, точные формулировки
+        pitch: 0.6, // Средне-низкий тембр для элитного уровня
+        volume: 0.95, // Кристально чистая дикция
+        lang: "ru-RU", // Литературный русский язык
       };
 
-      const utterance = this.createJarvisUtterance(options.text, jarvisSettings);
+      const utterance = this.createJarvisUtterance(
+        options.text,
+        jarvisSettings,
+      );
       this.currentUtterance = utterance;
 
       let hasResolved = false;
@@ -174,13 +200,13 @@ export class JarvisSpeechEngine {
       };
 
       utterance.onstart = () => {
-        console.log('Jarvis started speaking:', options.text);
+        console.log("Jarvis started speaking:", options.text);
         options.onStart?.();
       };
 
       utterance.onend = () => {
         if (!hasResolved) {
-          console.log('Jarvis finished speaking');
+          console.log("Jarvis finished speaking");
           cleanup();
           options.onEnd?.();
           resolve();
@@ -189,12 +215,12 @@ export class JarvisSpeechEngine {
 
       utterance.onerror = (event) => {
         if (!hasResolved) {
-          console.warn('Jarvis speech interrupted or error:', event.error);
+          console.warn("Jarvis speech interrupted or error:", event.error);
           cleanup();
 
           // Для ошибки "interrupted" не считаем это критической ошибкой
-          if (event.error === 'interrupted' || event.error === 'canceled') {
-            console.log('Speech was interrupted, but this is normal behavior');
+          if (event.error === "interrupted" || event.error === "canceled") {
+            console.log("Speech was interrupted, but this is normal behavior");
             options.onEnd?.(); // Вызываем onEnd вместо onError
             resolve(); // Успешно завершаем
           } else {
@@ -208,7 +234,7 @@ export class JarvisSpeechEngine {
       // Таймаут для предотвращения зависания
       const timeout = setTimeout(() => {
         if (!hasResolved) {
-          console.warn('Speech timeout, force completing');
+          console.warn("Speech timeout, force completing");
           cleanup();
           this.stop();
           options.onEnd?.();
@@ -219,7 +245,7 @@ export class JarvisSpeechEngine {
       utterance.onend = () => {
         clearTimeout(timeout);
         if (!hasResolved) {
-          console.log('Jarvis finished speaking');
+          console.log("Jarvis finished speaking");
           cleanup();
           options.onEnd?.();
           resolve();
@@ -237,20 +263,20 @@ export class JarvisSpeechEngine {
         // Дополнительная проверка через 500мс - иногда speak не срабатывает сразу
         setTimeout(() => {
           if (!this.synth.speaking && !hasResolved) {
-            console.warn('Speech did not start, retrying...');
+            console.warn("Speech did not start, retrying...");
             try {
               this.synth.speak(utterance);
             } catch (retryError) {
-              console.error('Retry failed:', retryError);
+              console.error("Retry failed:", retryError);
             }
           }
         }, 500);
-
       } catch (error) {
         clearTimeout(timeout);
         if (!hasResolved) {
           cleanup();
-          const errorMessage = error instanceof Error ? error.message : 'Unknown speech error';
+          const errorMessage =
+            error instanceof Error ? error.message : "Unknown speech error";
           options.onError?.(errorMessage);
           reject(error);
         }
@@ -279,24 +305,27 @@ export class JarvisSpeechEngine {
           try {
             this.synth.cancel();
           } catch (e) {
-            console.warn('Secondary cancel failed:', e);
+            console.warn("Secondary cancel failed:", e);
           }
         }
       }, 50);
-
     } catch (error) {
-      console.warn('Error stopping speech:', error);
+      console.warn("Error stopping speech:", error);
       this.currentUtterance = null;
     }
   }
 
   isSpeaking(): boolean {
-    return this.synth.speaking || this.synth.pending || this.currentUtterance !== null;
+    return (
+      this.synth.speaking ||
+      this.synth.pending ||
+      this.currentUtterance !== null
+    );
   }
 
   // Проверка доступности речевого синтеза
   isAvailable(): boolean {
-    return 'speechSynthesis' in window && this.isInitialized;
+    return "speechSynthesis" in window && this.isInitialized;
   }
 
   // Принудительный сброс состояния
@@ -304,9 +333,9 @@ export class JarvisSpeechEngine {
     try {
       this.synth.cancel();
       this.currentUtterance = null;
-      console.log('Speech synthesis force reset completed');
+      console.log("Speech synthesis force reset completed");
     } catch (error) {
-      console.warn('Force reset error:', error);
+      console.warn("Force reset error:", error);
     }
   }
 
@@ -315,58 +344,62 @@ export class JarvisSpeechEngine {
   // Деловой, спокойный тон для команд
   async speakCommand(text: string): Promise<void> {
     const settings: JarvisVoiceSettings = {
-      rate: 0.75,    // Размеренная подача
-      pitch: 0.6,    // Средне-низкий тембр
-      volume: 0.95,  // Четкая дикция
-      lang: 'ru-RU'
+      rate: 0.75, // Размеренная подача
+      pitch: 0.6, // Средне-низкий тембр
+      volume: 0.95, // Четкая дикция
+      lang: "ru-RU",
     };
 
     const utterance = this.createJarvisUtterance(text, settings);
-    return this.speakWithCustomSettings(utterance, text, 'command');
+    return this.speakWithCustomSettings(utterance, text, "command");
   }
 
   // Элегантно-вежливый тон для ответов
   async speakResponse(text: string): Promise<void> {
     const settings: JarvisVoiceSettings = {
-      rate: 0.8,     // Чуть быстрее для дружелюбности
-      pitch: 0.65,   // Слегка выше для теплоты
-      volume: 0.95,  // Кристально чистая дикция
-      lang: 'ru-RU'
+      rate: 0.8, // Чуть быстрее для дружелюбности
+      pitch: 0.65, // Слегка выше для теплоты
+      volume: 0.95, // Кристально чистая дикция
+      lang: "ru-RU",
     };
 
     const utterance = this.createJarvisUtterance(text, settings);
-    return this.speakWithCustomSettings(utterance, text, 'response');
+    return this.speakWithCustomSettings(utterance, text, "response");
   }
 
   // Уверенный тон для предупреждений (без эмоциональных всплесков)
   async speakAlert(text: string): Promise<void> {
     const settings: JarvisVoiceSettings = {
-      rate: 0.85,    // Немного быстрее для важности
-      pitch: 0.55,   // Ниже для серьезности
-      volume: 1.0,   // Полная громкость
-      lang: 'ru-RU'
+      rate: 0.85, // Немного быстрее для важности
+      pitch: 0.55, // Ниже для серьезности
+      volume: 1.0, // Полная громкость
+      lang: "ru-RU",
     };
 
     const utterance = this.createJarvisUtterance(text, settings);
-    return this.speakWithCustomSettings(utterance, text, 'alert');
+    return this.speakWithCustomSettings(utterance, text, "alert");
   }
 
   // Формальный стиль для системных сообщений
   async speakSystemMessage(text: string): Promise<void> {
     const settings: JarvisVoiceSettings = {
-      rate: 0.7,     // Очень размеренно для точности
-      pitch: 0.6,    // Стандартный средне-низкий
-      volume: 0.9,   // Слегка тише для формальности
-      lang: 'ru-RU'
+      rate: 0.7, // Очень размеренно для точности
+      pitch: 0.6, // Стандартный средне-низкий
+      volume: 0.9, // Слегка тише для формальности
+      lang: "ru-RU",
     };
 
     const utterance = this.createJarvisUtterance(text, settings);
-    return this.speakWithCustomSettings(utterance, text, 'system');
+    return this.speakWithCustomSettings(utterance, text, "system");
   }
 
-  private async speakWithCustomSettings(utterance: SpeechSynthesisUtterance, text: string, type: string): Promise<void> {
+  private async speakWithCustomSettings(
+    utterance: SpeechSynthesisUtterance,
+    text: string,
+    type: string,
+  ): Promise<void> {
     this.stop();
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     return new Promise((resolve, reject) => {
       let hasResolved = false;
@@ -389,7 +422,7 @@ export class JarvisSpeechEngine {
       utterance.onerror = (event) => {
         if (!hasResolved) {
           cleanup();
-          if (event.error === 'interrupted' || event.error === 'canceled') {
+          if (event.error === "interrupted" || event.error === "canceled") {
             resolve();
           } else {
             reject(new Error(event.error));
@@ -420,7 +453,7 @@ export function useJarvisSpeech() {
     // Обработчик потери фокуса страницы
     const handleVisibilityChange = () => {
       if (document.hidden && engineRef.current) {
-        console.log('Page hidden, stopping speech');
+        console.log("Page hidden, stopping speech");
         engineRef.current.stop();
       }
     };
@@ -428,52 +461,55 @@ export function useJarvisSpeech() {
     // Обработчик потери фокуса окна
     const handleBlur = () => {
       if (engineRef.current?.isSpeaking()) {
-        console.log('Window lost focus, stopping speech');
+        console.log("Window lost focus, stopping speech");
         engineRef.current.stop();
       }
     };
 
     // Обработчик ошибок на уровне страницы
     const handleError = (event: ErrorEvent) => {
-      if (event.message?.includes('speech') && engineRef.current) {
-        console.log('Page error related to speech, resetting');
+      if (event.message?.includes("speech") && engineRef.current) {
+        console.log("Page error related to speech, resetting");
         engineRef.current.forceReset();
       }
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('blur', handleBlur);
-    window.addEventListener('error', handleError);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("blur", handleBlur);
+    window.addEventListener("error", handleError);
 
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('blur', handleBlur);
-      window.removeEventListener('error', handleError);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("blur", handleBlur);
+      window.removeEventListener("error", handleError);
       engineRef.current?.stop();
     };
   }, []);
 
-  const speak = useCallback(async (text: string, options?: Partial<JarvisSpeechOptions>) => {
-    if (!engineRef.current) return;
+  const speak = useCallback(
+    async (text: string, options?: Partial<JarvisSpeechOptions>) => {
+      if (!engineRef.current) return;
 
-    try {
-      return await engineRef.current.speak({
-        text,
-        onError: (error) => {
-          console.warn('Jarvis speech error handled:', error);
-          // Не показываем ошибку пользователю для interrupted
-          if (!error.includes('interrupted') && !error.includes('canceled')) {
-            options?.onError?.(error);
-          }
-        },
-        ...options,
-      });
-    } catch (error) {
-      console.warn('Speak method failed:', error);
-      // Принудительно сбрасываем состояние при критических ошибках
-      engineRef.current.forceReset();
-    }
-  }, []);
+      try {
+        return await engineRef.current.speak({
+          text,
+          onError: (error) => {
+            console.warn("Jarvis speech error handled:", error);
+            // Не показываем ошибку пользователю для interrupted
+            if (!error.includes("interrupted") && !error.includes("canceled")) {
+              options?.onError?.(error);
+            }
+          },
+          ...options,
+        });
+      } catch (error) {
+        console.warn("Speak method failed:", error);
+        // Принудительно сбрасываем состояние при критических ошибках
+        engineRef.current.forceReset();
+      }
+    },
+    [],
+  );
 
   const speakCommand = useCallback(async (text: string) => {
     if (!engineRef.current) return;

@@ -19,12 +19,17 @@ interface FaceDescriptor {
   lastUsed: string;
 }
 
-export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDProps) {
+export default function FaceID({
+  mode,
+  onSuccess,
+  onError,
+  onCancel,
+}: FaceIDProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const { currentUser } = useAuth();
-  
+
   const [isInitializing, setIsInitializing] = useState(true);
   const [isScanning, setIsScanning] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -41,8 +46,8 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
         video: {
           width: { ideal: 640 },
           height: { ideal: 480 },
-          facingMode: "user"
-        }
+          facingMode: "user",
+        },
       });
 
       if (videoRef.current) {
@@ -53,7 +58,9 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
       }
     } catch (error) {
       console.error("Camera initialization error:", error);
-      onError("Не удалось получить доступ к камере. Пожалуйста, разрешите доступ к камер��.");
+      onError(
+        "Не удалось получить доступ к камере. Пожалуйста, разрешите доступ к камер��.",
+      );
     }
   }, [onError]);
 
@@ -78,7 +85,8 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     let totalBrightness = 0;
     let validPixels = 0;
 
-    for (let i = 0; i < data.length; i += 16) { // Каждый 4-й пиксель
+    for (let i = 0; i < data.length; i += 16) {
+      // Каждый 4-й пиксель
       const r = data[i];
       const g = data[i + 1];
       const b = data[i + 2];
@@ -122,14 +130,13 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
           const brightness = (r + g + b) / 3;
 
           // Строгая проверка цвета кожи
-          const isSkinColor = (
+          const isSkinColor =
             // Светлая кожа
-            (r > 100 && g > 60 && b > 40 && r > g && g > b && (r - g) > 15) ||
+            (r > 100 && g > 60 && b > 40 && r > g && g > b && r - g > 15) ||
             // Средняя кожа
-            (r > 80 && g > 50 && b > 30 && r > g && g >= b && (r - b) > 30) ||
+            (r > 80 && g > 50 && b > 30 && r > g && g >= b && r - b > 30) ||
             // Темная кожа
-            (r > 60 && g > 40 && b > 25 && r >= g && g >= b && brightness > 40)
-          );
+            (r > 60 && g > 40 && b > 25 && r >= g && g >= b && brightness > 40);
 
           if (isSkinColor) {
             skinPixels++;
@@ -145,14 +152,16 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
             const nextR = data[i + 16];
             const nextG = data[i + 17];
             const nextB = data[i + 18];
-            const diff = Math.abs((r + g + b) - (nextR + nextG + nextB));
+            const diff = Math.abs(r + g + b - (nextR + nextG + nextB));
             if (diff > 60) {
               contrastVariations++;
             }
           }
 
           // Проверка на овальную форму лица
-          const distanceFromCenter = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
+          const distanceFromCenter = Math.sqrt(
+            (x - centerX) ** 2 + (y - centerY) ** 2,
+          );
           if (distanceFromCenter < checkRadius * 0.8) {
             faceShapePixels++;
           }
@@ -174,7 +183,8 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     const hasShape = shapeRatio > 0.6; // Правильная форма
     const goodLighting = averageBrightness > 40 && averageBrightness < 200;
 
-    const faceDetected = hasEnoughSkin && hasEyeRegions && hasContrast && hasShape && goodLighting;
+    const faceDetected =
+      hasEnoughSkin && hasEyeRegions && hasContrast && hasShape && goodLighting;
 
     console.log(`Strict face detection:`, {
       brightness: averageBrightness.toFixed(1),
@@ -182,7 +192,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
       eyes: eyeRatio.toFixed(3),
       contrast: contrastRatio.toFixed(3),
       shape: shapeRatio.toFixed(3),
-      detected: faceDetected
+      detected: faceDetected,
     });
 
     return faceDetected;
@@ -228,13 +238,13 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
 
         // Анализируем ключевые области лица
         const faceRegions = [
-          { x: 32, y: 24, w: 64, h: 20, name: 'eyes' },      // Область глаз
-          { x: 48, y: 56, w: 32, h: 16, name: 'nose' },      // Область н��са
-          { x: 32, y: 80, w: 64, h: 24, name: 'mouth' },     // Область рта
-          { x: 16, y: 40, w: 96, h: 48, name: 'center' },    // Центральная область
+          { x: 32, y: 24, w: 64, h: 20, name: "eyes" }, // Область глаз
+          { x: 48, y: 56, w: 32, h: 16, name: "nose" }, // Область н��са
+          { x: 32, y: 80, w: 64, h: 24, name: "mouth" }, // Область рта
+          { x: 16, y: 40, w: 96, h: 48, name: "center" }, // Центральная область
         ];
 
-        faceRegions.forEach(region => {
+        faceRegions.forEach((region) => {
           const regionDescriptor: number[] = [];
 
           // Анализируем каждую область с высоким разрешением
@@ -253,20 +263,24 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
 
                 // Добавляем производные характеристики
                 regionDescriptor.push((r + g + b) / 3); // Яркость
-                regionDescriptor.push(Math.abs(r - g));  // Контраст R-G
-                regionDescriptor.push(Math.abs(g - b));  // Контраст G-B
-                regionDescriptor.push(Math.abs(r - b));  // Контраст R-B
+                regionDescriptor.push(Math.abs(r - g)); // Контраст R-G
+                regionDescriptor.push(Math.abs(g - b)); // Контраст G-B
+                regionDescriptor.push(Math.abs(r - b)); // Контраст R-B
               }
             }
           }
 
           // Добавляем статистические характеристики региона
           if (regionDescriptor.length > 0) {
-            const avg = regionDescriptor.reduce((a, b) => a + b, 0) / regionDescriptor.length;
-            const variance = regionDescriptor.reduce((acc, val) => acc + (val - avg) ** 2, 0) / regionDescriptor.length;
+            const avg =
+              regionDescriptor.reduce((a, b) => a + b, 0) /
+              regionDescriptor.length;
+            const variance =
+              regionDescriptor.reduce((acc, val) => acc + (val - avg) ** 2, 0) /
+              regionDescriptor.length;
 
             descriptor.push(...regionDescriptor);
-            descriptor.push(avg);      // Среднее значение региона
+            descriptor.push(avg); // Среднее значение региона
             descriptor.push(variance); // Дисперсия региона
             descriptor.push(Math.max(...regionDescriptor)); // Максимум
             descriptor.push(Math.min(...regionDescriptor)); // Минимум
@@ -276,11 +290,18 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
         // Добавляем глобальные характеристики
         const globalBrightness = [];
         for (let i = 0; i < data.length; i += 16) {
-          globalBrightness.push((data[i] + data[i + 1] + data[i + 2]) / (3 * 255));
+          globalBrightness.push(
+            (data[i] + data[i + 1] + data[i + 2]) / (3 * 255),
+          );
         }
 
-        const globalAvg = globalBrightness.reduce((a, b) => a + b, 0) / globalBrightness.length;
-        const globalVar = globalBrightness.reduce((acc, val) => acc + (val - globalAvg) ** 2, 0) / globalBrightness.length;
+        const globalAvg =
+          globalBrightness.reduce((a, b) => a + b, 0) / globalBrightness.length;
+        const globalVar =
+          globalBrightness.reduce(
+            (acc, val) => acc + (val - globalAvg) ** 2,
+            0,
+          ) / globalBrightness.length;
 
         descriptor.push(globalAvg);
         descriptor.push(globalVar);
@@ -295,129 +316,151 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
   }, []);
 
   // Строгое сравнение дескрипторов лица
-  const compareDescriptors = useCallback((desc1: number[], desc2: number[]): number => {
-    if (desc1.length !== desc2.length || desc1.length === 0) return 0;
+  const compareDescriptors = useCallback(
+    (desc1: number[], desc2: number[]): number => {
+      if (desc1.length !== desc2.length || desc1.length === 0) return 0;
 
-    // Нормализуем дескрипторы
-    const normalize = (arr: number[]) => {
-      const mean = arr.reduce((a, b) => a + b, 0) / arr.length;
-      const std = Math.sqrt(arr.reduce((acc, val) => acc + (val - mean) ** 2, 0) / arr.length);
-      return arr.map(val => std > 0 ? (val - mean) / std : 0);
-    };
+      // Нормализуем дескрипторы
+      const normalize = (arr: number[]) => {
+        const mean = arr.reduce((a, b) => a + b, 0) / arr.length;
+        const std = Math.sqrt(
+          arr.reduce((acc, val) => acc + (val - mean) ** 2, 0) / arr.length,
+        );
+        return arr.map((val) => (std > 0 ? (val - mean) / std : 0));
+      };
 
-    const norm1 = normalize(desc1);
-    const norm2 = normalize(desc2);
+      const norm1 = normalize(desc1);
+      const norm2 = normalize(desc2);
 
-    // Вычисляем корреляцию Пирсона (более строгая метрика)
-    const n = norm1.length;
-    let sumXY = 0;
-    let sumX2 = 0;
-    let sumY2 = 0;
+      // Вычисляем корреляцию Пирсона (более строгая метрика)
+      const n = norm1.length;
+      let sumXY = 0;
+      let sumX2 = 0;
+      let sumY2 = 0;
 
-    for (let i = 0; i < n; i++) {
-      sumXY += norm1[i] * norm2[i];
-      sumX2 += norm1[i] * norm1[i];
-      sumY2 += norm2[i] * norm2[i];
-    }
+      for (let i = 0; i < n; i++) {
+        sumXY += norm1[i] * norm2[i];
+        sumX2 += norm1[i] * norm1[i];
+        sumY2 += norm2[i] * norm2[i];
+      }
 
-    const correlation = sumXY / Math.sqrt(sumX2 * sumY2);
+      const correlation = sumXY / Math.sqrt(sumX2 * sumY2);
 
-    // Дополнительно проверяем евклидово расстояние
-    let euclideanDist = 0;
-    for (let i = 0; i < n; i++) {
-      euclideanDist += (norm1[i] - norm2[i]) ** 2;
-    }
-    euclideanDist = Math.sqrt(euclideanDist);
+      // Дополнительно проверяем евклидово расстояние
+      let euclideanDist = 0;
+      for (let i = 0; i < n; i++) {
+        euclideanDist += (norm1[i] - norm2[i]) ** 2;
+      }
+      euclideanDist = Math.sqrt(euclideanDist);
 
-    // Комбинируем метрики для более строгой оценки
-    const similarity = (correlation + (1 / (1 + euclideanDist))) / 2;
+      // Комбинируем метрики для более строгой оценки
+      const similarity = (correlation + 1 / (1 + euclideanDist)) / 2;
 
-    console.log(`Descriptor comparison: correlation=${correlation.toFixed(3)}, euclidean=${euclideanDist.toFixed(3)}, similarity=${similarity.toFixed(3)}`);
+      console.log(
+        `Descriptor comparison: correlation=${correlation.toFixed(3)}, euclidean=${euclideanDist.toFixed(3)}, similarity=${similarity.toFixed(3)}`,
+      );
 
-    return Math.max(0, similarity); // Убираем отрицательные значения
-  }, []);
+      return Math.max(0, similarity); // Убираем отрицательные значения
+    },
+    [],
+  );
 
   // Сохранение данных лица
-  const saveFaceData = useCallback(async (descriptors: number[][]) => {
-    if (!currentUser) return;
+  const saveFaceData = useCallback(
+    async (descriptors: number[][]) => {
+      if (!currentUser) return;
 
-    const faceData: FaceDescriptor = {
-      id: Date.now().toString(),
-      userId: currentUser.id,
-      descriptors,
-      createdAt: new Date().toISOString(),
-      lastUsed: new Date().toISOString()
-    };
+      const faceData: FaceDescriptor = {
+        id: Date.now().toString(),
+        userId: currentUser.id,
+        descriptors,
+        createdAt: new Date().toISOString(),
+        lastUsed: new Date().toISOString(),
+      };
 
-    const existingFaces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
-    // Удаляем старые данные этого пользователя
-    const filteredFaces = existingFaces.filter((face: FaceDescriptor) => face.userId !== currentUser.id);
-    filteredFaces.push(faceData);
-    
-    localStorage.setItem("faceDescriptors", JSON.stringify(filteredFaces));
-  }, [currentUser]);
+      const existingFaces = JSON.parse(
+        localStorage.getItem("faceDescriptors") || "[]",
+      );
+      // Удаляем старые данные этого пользователя
+      const filteredFaces = existingFaces.filter(
+        (face: FaceDescriptor) => face.userId !== currentUser.id,
+      );
+      filteredFaces.push(faceData);
+
+      localStorage.setItem("faceDescriptors", JSON.stringify(filteredFaces));
+    },
+    [currentUser],
+  );
 
   // Проверка лица
-  const verifyFace = useCallback(async (descriptors: number[][]): Promise<boolean> => {
-    if (!currentUser) return false;
+  const verifyFace = useCallback(
+    async (descriptors: number[][]): Promise<boolean> => {
+      if (!currentUser) return false;
 
-    const existingFaces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]") as FaceDescriptor[];
-    const userFace = existingFaces.find(face => face.userId === currentUser.id);
-    
-    if (!userFace) return false;
+      const existingFaces = JSON.parse(
+        localStorage.getItem("faceDescriptors") || "[]",
+      ) as FaceDescriptor[];
+      const userFace = existingFaces.find(
+        (face) => face.userId === currentUser.id,
+      );
 
-    // Строгие критерии верификации
-    const SIMILARITY_THRESHOLD = 0.88; // Повышен до 88%
-    const MIN_MATCHES = Math.ceil(descriptors.length * 0.8); // Минимум 80% дескрипторов должны совпадать
+      if (!userFace) return false;
 
-    let maxSimilarity = 0;
-    let goodMatches = 0;
-    let totalComparisons = 0;
+      // Строгие критерии верификации
+      const SIMILARITY_THRESHOLD = 0.88; // Повышен до 88%
+      const MIN_MATCHES = Math.ceil(descriptors.length * 0.8); // Минимум 80% дескрипторов должны совпадать
 
-    for (const newDesc of descriptors) {
-      for (const savedDesc of userFace.descriptors) {
-        const similarity = compareDescriptors(newDesc, savedDesc);
-        maxSimilarity = Math.max(maxSimilarity, similarity);
-        totalComparisons++;
+      let maxSimilarity = 0;
+      let goodMatches = 0;
+      let totalComparisons = 0;
 
-        if (similarity > SIMILARITY_THRESHOLD) {
-          goodMatches++;
+      for (const newDesc of descriptors) {
+        for (const savedDesc of userFace.descriptors) {
+          const similarity = compareDescriptors(newDesc, savedDesc);
+          maxSimilarity = Math.max(maxSimilarity, similarity);
+          totalComparisons++;
+
+          if (similarity > SIMILARITY_THRESHOLD) {
+            goodMatches++;
+          }
         }
       }
-    }
 
-    // Дополнительная проверка: средняя схожесть всех сравнений
-    let totalSimilarity = 0;
-    for (const newDesc of descriptors) {
-      for (const savedDesc of userFace.descriptors) {
-        totalSimilarity += compareDescriptors(newDesc, savedDesc);
+      // Дополнительная проверка: средняя схожесть всех сравнений
+      let totalSimilarity = 0;
+      for (const newDesc of descriptors) {
+        for (const savedDesc of userFace.descriptors) {
+          totalSimilarity += compareDescriptors(newDesc, savedDesc);
+        }
       }
-    }
-    const averageSimilarity = totalSimilarity / totalComparisons;
+      const averageSimilarity = totalSimilarity / totalComparisons;
 
-    // Требуем высокую максимальную схожесть И достаточное количество хороших совпадений И высокую среднюю схожесть
-    const verified = maxSimilarity > SIMILARITY_THRESHOLD &&
-                     goodMatches >= MIN_MATCHES &&
-                     averageSimilarity > 0.7;
+      // Требуем высокую максимальную схожесть И достаточное количество хороших совпадений И высокую среднюю схожесть
+      const verified =
+        maxSimilarity > SIMILARITY_THRESHOLD &&
+        goodMatches >= MIN_MATCHES &&
+        averageSimilarity > 0.7;
 
-    console.log(`Strict verification:`, {
-      maxSimilarity: maxSimilarity.toFixed(3),
-      avgSimilarity: averageSimilarity.toFixed(3),
-      goodMatches: `${goodMatches}/${MIN_MATCHES}`,
-      verified: verified
-    });
+      console.log(`Strict verification:`, {
+        maxSimilarity: maxSimilarity.toFixed(3),
+        avgSimilarity: averageSimilarity.toFixed(3),
+        goodMatches: `${goodMatches}/${MIN_MATCHES}`,
+        verified: verified,
+      });
 
-    // Обновляем время последнего использования только при успешной верификации
-    if (verified) {
-      userFace.lastUsed = new Date().toISOString();
-      const updatedFaces = existingFaces.map(face =>
-        face.userId === currentUser.id ? userFace : face
-      );
-      localStorage.setItem("faceDescriptors", JSON.stringify(updatedFaces));
-    }
+      // Обновляем время последнего использования только при успешной верификации
+      if (verified) {
+        userFace.lastUsed = new Date().toISOString();
+        const updatedFaces = existingFaces.map((face) =>
+          face.userId === currentUser.id ? userFace : face,
+        );
+        localStorage.setItem("faceDescriptors", JSON.stringify(updatedFaces));
+      }
 
-    return verified;
-  }, [currentUser, compareDescriptors]);
+      return verified;
+    },
+    [currentUser, compareDescriptors],
+  );
 
   // Основной процесс сканирования
   const startScanning = useCallback(async () => {
@@ -446,12 +489,14 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
       setFaceDetected(faceFound);
 
       if (faceFound) {
-        setStatus(`Лицо обнаружено! Захват ${capturedImages.length + 1}/${requiredImages}`);
-        
+        setStatus(
+          `Лицо обнаружено! Захват ${capturedImages.length + 1}/${requiredImages}`,
+        );
+
         // Countdown
         for (let i = 2; i > 0; i--) {
           setCountdown(i);
-          await new Promise(resolve => setTimeout(resolve, 800));
+          await new Promise((resolve) => setTimeout(resolve, 800));
         }
         setCountdown(0);
 
@@ -459,11 +504,11 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
         if (image) {
           capturedImages.push(image);
           setCapturedImages([...capturedImages]);
-          
+
           if (capturedImages.length >= requiredImages) {
             setIsProcessing(true);
             setStatus("Обработка данных...");
-            
+
             try {
               // Генерируем дескрипторы для всех изображений с проверкой качества
               const descriptors: number[][] = [];
@@ -486,7 +531,12 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
                     canvas.height = tempImg.height;
                     ctx.drawImage(tempImg, 0, 0);
 
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const imageData = ctx.getImageData(
+                      0,
+                      0,
+                      canvas.width,
+                      canvas.height,
+                    );
                     const data = imageData.data;
 
                     // Проверяем качество изображения
@@ -505,9 +555,13 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
                     const avgContrast = contrastSum / (data.length / 16);
 
                     // Изображение должно иметь нормальную яркость и достаточный контраст
-                    if (avgBrightness > 30 && avgBrightness < 220 && avgContrast > 20) {
+                    if (
+                      avgBrightness > 30 &&
+                      avgBrightness < 220 &&
+                      avgContrast > 20
+                    ) {
                       const desc = generateFaceDescriptor(img);
-                      Promise.resolve(desc).then(d => {
+                      Promise.resolve(desc).then((d) => {
                         if (d.length > 0) {
                           descriptors.push(d);
                           validImages++;
@@ -515,7 +569,9 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
                         resolve();
                       });
                     } else {
-                      console.log(`Rejecting low quality image: brightness=${avgBrightness.toFixed(1)}, contrast=${avgContrast.toFixed(1)}`);
+                      console.log(
+                        `Rejecting low quality image: brightness=${avgBrightness.toFixed(1)}, contrast=${avgContrast.toFixed(1)}`,
+                      );
                       resolve();
                     }
                   };
@@ -524,7 +580,9 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
               }
 
               if (descriptors.length < requiredImages * 0.6) {
-                throw new Error("Недостаточно качественных изображений лица. Попробуйте при лучшем освещении.");
+                throw new Error(
+                  "Недостаточно качественных изображений лица. Попробуйте при лучшем освещении.",
+                );
               }
 
               if (mode === "register") {
@@ -538,7 +596,9 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
                   onSuccess();
                 } else {
                   setStatus("Лицо не распознано. Доступ запрещен.");
-                  onError("Лицо не распознано. Попробуйте еще раз или войдите другим способом.");
+                  onError(
+                    "Лицо не распознано. Попробуйте еще раз или войдите другим способом.",
+                  );
                 }
               }
             } catch (error) {
@@ -551,9 +611,9 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
             return;
           }
         }
-        
+
         // Пауза между захватами
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise((resolve) => setTimeout(resolve, 1500));
       } else {
         setStatus("Расположите лицо в центре камеры");
       }
@@ -563,12 +623,22 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     };
 
     scanLoop();
-  }, [mode, currentUser, detectFace, captureImage, generateFaceDescriptor, saveFaceData, verifyFace, onSuccess, onError]);
+  }, [
+    mode,
+    currentUser,
+    detectFace,
+    captureImage,
+    generateFaceDescriptor,
+    saveFaceData,
+    verifyFace,
+    onSuccess,
+    onError,
+  ]);
 
   // Остановка камеры
   const stopCamera = useCallback(() => {
     if (streamRef.current) {
-      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current.getTracks().forEach((track) => track.stop());
       streamRef.current = null;
     }
   }, []);
@@ -606,19 +676,22 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
             style={{ aspectRatio: "4/3" }}
           />
           <canvas ref={canvasRef} className="hidden" />
-          
+
           {/* Рамка для лица */}
-          <div className={`absolute inset-4 border-2 rounded-lg transition-colors ${
-            faceDetected ? "border-green-500" : "border-white/50"
-          }`} style={{ 
-            borderStyle: "dashed",
-            aspectRatio: "1/1",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "60%",
-            height: "auto"
-          }}>
+          <div
+            className={`absolute inset-4 border-2 rounded-lg transition-colors ${
+              faceDetected ? "border-green-500" : "border-white/50"
+            }`}
+            style={{
+              borderStyle: "dashed",
+              aspectRatio: "1/1",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "60%",
+              height: "auto",
+            }}
+          >
             {countdown > 0 && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="text-4xl font-bold text-white bg-black/50 rounded-full w-16 h-16 flex items-center justify-center">
@@ -641,14 +714,16 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
           <p className="text-white/90 text-sm">{status}</p>
           {capturedImages.length > 0 && (
             <div className="flex justify-center space-x-1 mt-2">
-              {Array.from({ length: mode === "register" ? 5 : 3 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`w-3 h-3 rounded-full ${
-                    i < capturedImages.length ? "bg-green-500" : "bg-white/30"
-                  }`}
-                />
-              ))}
+              {Array.from({ length: mode === "register" ? 5 : 3 }).map(
+                (_, i) => (
+                  <div
+                    key={i}
+                    className={`w-3 h-3 rounded-full ${
+                      i < capturedImages.length ? "bg-green-500" : "bg-white/30"
+                    }`}
+                  />
+                ),
+              )}
             </div>
           )}
         </div>
@@ -664,7 +739,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
               {mode === "register" ? "Начать настройку" : "Сканировать лицо"}
             </Button>
           )}
-          
+
           {(isScanning || isProcessing) && (
             <Button
               onClick={() => {
@@ -682,11 +757,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
           )}
 
           {onCancel && (
-            <Button
-              onClick={onCancel}
-              variant="outline"
-              className="px-4"
-            >
+            <Button onClick={onCancel} variant="outline" className="px-4">
               <X className="w-4 h-4" />
             </Button>
           )}
