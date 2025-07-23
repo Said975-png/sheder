@@ -363,7 +363,7 @@
       inset 0 0 10px rgba(139, 69, 255, 0.1);
   }
 
-  /* Упрощённые частицы */
+  /* Упрощённые час��ицы */
   .portal-particles {
     position: absolute;
     top: 50%;
@@ -626,7 +626,7 @@
     }
   }
 
-  /* Светящиеся эффекты для кнопок */
+  /* Светящиеся эффекты для ��нопок */
   .glow-button {
     position: relative;
     overflow: hidden;
@@ -1383,6 +1383,244 @@
       box-shadow:
         0 0 10px rgba(6, 182, 212, 0.3),
         0 0 20px rgba(6, 182, 212, 0.1);
+    }
+  }
+
+  /* STARK LABORATORY THEME - Лабораторная тема Старка */
+
+  /* Основные переменные для лабораторной темы */
+  .stark-lab-theme {
+    --background: 195 100% 6%; /* #0f2027 конвертированный в HSL */
+    --foreground: 195 100% 93%; /* #e6f7ff */
+
+    --card: 195 80% 8%;
+    --card-foreground: 195 100% 93%;
+
+    --popover: 195 80% 8%;
+    --popover-foreground: 195 100% 93%;
+
+    --primary: 180 100% 50%; /* #00f7ff неоновый голубой */
+    --primary-foreground: 195 100% 6%;
+
+    --secondary: 195 60% 15%;
+    --secondary-foreground: 195 100% 93%;
+
+    --muted: 195 60% 15%;
+    --muted-foreground: 195 40% 70%;
+
+    --accent: 265 70% 70%; /* #a45deb фиолетовый */
+    --accent-foreground: 195 100% 93%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 195 100% 93%;
+
+    --border: 180 100% 50%;
+    --input: 195 60% 15%;
+    --ring: 180 100% 50%;
+
+    --gradient-from: 195 100% 10%;
+    --gradient-via: 180 80% 15%;
+    --gradient-to: 265 70% 20%;
+  }
+
+  /* Эффект сканирования для переключения темы */
+  .lab-activation-scan {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      #00f7ff 20%,
+      #a45deb 50%,
+      #00f7ff 80%,
+      transparent 100%
+    );
+    transform: translateY(-100vh);
+    animation: labScanActivation 2s ease-out forwards;
+    z-index: 10000;
+    box-shadow: 0 0 20px #00f7ff, 0 0 40px #a45deb;
+  }
+
+  @keyframes labScanActivation {
+    0% {
+      transform: translateY(-4px);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  /* Stark Lab стили для элементов */
+  .stark-lab-theme body {
+    background: linear-gradient(
+      135deg,
+      #0f2027 0%,
+      #203a43 25%,
+      #2c5364 50%,
+      #0f2027 100%
+    );
+    color: #e6f7ff;
+    transition: all 0.8s ease;
+  }
+
+  .stark-lab-theme .stark-lab-button {
+    background: linear-gradient(145deg, #00f7ff20, #a45deb20);
+    border: 1px solid #00f7ff;
+    box-shadow: 0 0 15px #00f7ff;
+    color: #e6f7ff;
+    transition: all 0.3s ease;
+  }
+
+  .stark-lab-theme .stark-lab-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #00f7ff, 0 0 35px #a45deb;
+    animation: repulsorCharge 0.6s ease-in-out;
+  }
+
+  @keyframes repulsorCharge {
+    0%, 100% {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #00f7ff;
+    }
+    50% {
+      transform: scale(1.1);
+      box-shadow: 0 0 35px #00f7ff, 0 0 25px #a45deb;
+    }
+  }
+
+  .stark-lab-theme .stark-lab-form {
+    backdrop-filter: blur(10px);
+    background: rgba(15, 32, 39, 0.3);
+    border: 1px solid rgba(0, 247, 255, 0.3);
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.1);
+  }
+
+  .stark-lab-theme .stark-lab-text-glow {
+    text-shadow:
+      0 0 5px #e6f7ff,
+      0 0 10px #00f7ff,
+      0 0 15px #00f7ff;
+  }
+
+  /* Голографическая сетка HUD */
+  .stark-lab-hud-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.1;
+    background-image:
+      linear-gradient(rgba(0, 247, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 247, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: hudGridPulse 4s ease-in-out infinite;
+  }
+
+  @keyframes hudGridPulse {
+    0%, 100% { opacity: 0.05; }
+    50% { opacity: 0.15; }
+  }
+
+  /* Голографические частицы */
+  .stark-lab-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+  }
+
+  .stark-lab-particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #00f7ff;
+    border-radius: 50%;
+    animation: holographicNoise 3s linear infinite;
+    opacity: 0.6;
+    box-shadow: 0 0 4px #00f7ff;
+  }
+
+  @keyframes holographicNoise {
+    0% {
+      transform: translateY(100vh) translateX(0px);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.6;
+    }
+    90% {
+      opacity: 0.6;
+    }
+    100% {
+      transform: translateY(-10px) translateX(20px);
+      opacity: 0;
+    }
+  }
+
+  /* Анимация активации лаборатории */
+  .lab-activation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle at center,
+      rgba(0, 247, 255, 0.2) 0%,
+      rgba(164, 93, 235, 0.1) 50%,
+      transparent 100%
+    );
+    z-index: 9999;
+    animation: labActivationPulse 3s ease-out forwards;
+    pointer-events: none;
+  }
+
+  @keyframes labActivationPulse {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    30% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+    70% {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1);
+    }
+  }
+
+  /* Адаптивные стили для мобильных устройств */
+  @media (max-width: 768px) {
+    .stark-lab-hud-grid {
+      background-size: 30px 30px;
+    }
+
+    .stark-lab-particle {
+      width: 1px;
+      height: 1px;
     }
   }
 }
