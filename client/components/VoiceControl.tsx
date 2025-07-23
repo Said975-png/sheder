@@ -37,7 +37,7 @@ export default function VoiceControl({
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
 
-  // Безопасная функция для обновления состояния прослушивания
+  // Без��пасная функция для обновления состояния прослушивания
   const updateListeningState = useCallback((listening: boolean, transcriptText: string = "") => {
     console.log("📱 Updating state:", { listening, transcriptText: transcriptText.slice(0, 50), isSpeaking });
 
@@ -435,6 +435,13 @@ export default function VoiceControl({
     setTimeout(() => {
       updateListeningState(isListening, "");
     }, 1000);
+
+    // Команды тестирования микрофона
+    if (cmd.includes("тест") || cmd.includes("проверка") || cmd.includes("слышишь") ||
+        cmd.includes("микрофон работает") || cmd.includes("ты меня слышишь")) {
+      speakAuthenticJarvis();
+      return;
+    }
 
     // Команды отключения (высший приоритет)
     if (cmd.includes("отключись") || cmd.includes("выключись") || cmd.includes("стоп джарвис")) {
