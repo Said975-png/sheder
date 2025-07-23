@@ -164,9 +164,9 @@ export default function VoiceControl({
     processingCommandRef.current = false;
     lastCommandRef.current = "";
     setTranscript("");
-    onListeningChange?.(isListening, "");
+    // Не вызываем onListeningChange здесь, чтобы не влиять на панель
     
-    // Пере��апу��каем прослушивание если нужно
+    // Пере��апускаем прослушивание если нужно
     if (isListening && !isSpeaking) {
       if (restartTimeoutRef.current) {
         clearTimeout(restartTimeoutRef.current);
@@ -235,7 +235,7 @@ export default function VoiceControl({
 
   const speakShutdown = () => {
     playAudio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c", () => {
-      // Посл�� команды отключения - полностью останавливаем
+      // После команды откл��чения - полностью останавливаем
       stopListening();
     });
   };
@@ -300,7 +300,7 @@ export default function VoiceControl({
     }
 
     // Команды приветствия (только специфичные)
-    if ((cmd.includes("привет") && (cmd.includes("джарвис") || cmd.length <= 15)) ||
+    if ((cmd.includes("пр��вет") && (cmd.includes("джарвис") || cmd.length <= 15)) ||
         (cmd.includes("hello") && (cmd.includes("jarvis") || cmd.length <= 15)) ||
         (cmd.includes("здравствуй") && (cmd.includes("джарвис") || cmd.length <= 20))) {
       speakAuthenticJarvis();
