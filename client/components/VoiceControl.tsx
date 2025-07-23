@@ -296,7 +296,7 @@ export default function VoiceControl({
             }
             // Система автоматически переза��устится через onend
           }
-          // Другие оши��ки - ��ерезапускаем через короткое время
+          // Другие оши��ки - ��ерезапускаем через кор��ткое время
           else {
             console.warn(
               "⚠️ Неожиданная ошибка распозна����ния:",
@@ -340,7 +340,7 @@ export default function VoiceControl({
       try {
         recognitionRef.current.stop();
       } catch (error) {
-        console.log("Ошибка остановки при сбросе:", error);
+        console.log("Ошибка оста��овки при сбросе:", error);
       }
 
       setTimeout(() => {
@@ -391,8 +391,12 @@ export default function VoiceControl({
   };
 
   const speak = (text: string) => {
-    // Пре��отвращаем повторное в��спроиз����е��ение
-    if (isSpeaking || commandCooldownRef.current) return;
+    // Предотвращаем повторное воспроизведение
+    if (isSpeaking || commandCooldownRef.current) {
+      console.log("🚫 speak заблокирован:", { isSpeaking, commandCooldown: commandCooldownRef.current });
+      return;
+    }
+    console.log("🔊 Начинаем воспроизведение:", text);
 
     setIsSpeaking(true);
     commandCooldownRef.current = true;
@@ -843,7 +847,7 @@ export default function VoiceControl({
           utterance.voice = anyVoice;
           utterance.lang = "ru-RU"; // Всегда русский язык
         }
-        utterance.pitch = 0.55; // Еще ниже для компенсации
+        utterance.pitch = 0.55; // Еще ниже д��я компенсации
         utterance.rate = 0.7; // Е����е медленнее ��ля большей солидно��ти
       }
 
@@ -910,7 +914,7 @@ export default function VoiceControl({
     console.log("🔧 Запуск диагн��стики систем��...");
     testAudioUrls(); // Тестируем URL
 
-    // Множественная защита от повторного воспроизведения
+    // Множественная защита от по��торного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       console.log("❌ Диагностика заблокирована - система занята");
       return;
@@ -1570,7 +1574,7 @@ export default function VoiceControl({
       }
     }
 
-    // Команды навигации по страницам
+    // Команды навигации по стра��ицам
     if (
       command.includes("перейти на глав��у��") ||
       command.includes("на ��лавную страницу") ||
@@ -1611,7 +1615,7 @@ export default function VoiceControl({
       return;
     }
 
-    if (command.includes("заказ") || command.includes("оформить заказ")) {
+    if (command.includes("заказ") || command.includes("офо��мить заказ")) {
       navigate("/order");
       speak("Переходим �� оф��рмлен��ю зака��а");
       return;
@@ -1648,7 +1652,7 @@ export default function VoiceControl({
       command.includes("отправить базовый")
     ) {
       onAddBasicPlan();
-      speak("Базовый план д��бавлен");
+      speak("Б��зовый план д��бавлен");
       return;
     }
 
@@ -1682,7 +1686,7 @@ export default function VoiceControl({
       command.includes("показать планы") ||
       command.includes("пере��ти к планам") ||
       command.includes("сп��ститься �� планам") ||
-      command.includes("тарифы") ||
+      command.includes("тариф��") ||
       command.includes("цены") ||
       command.includes("стоимость")
     ) {
@@ -1722,7 +1726,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("к возможностям") ||
+      command.includes("�� возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спуститься к возможностям") ||
       command.includes("пере�����и к возмо��ностям") ||
@@ -1757,7 +1761,7 @@ export default function VoiceControl({
     if (
       command.includes("прокрутить вверх") ||
       command.includes("скролл вверх") ||
-      command.includes("поднятьс��� ��верх")
+      command.includes("поднятьс��� ����верх")
     ) {
       window.scrollBy(0, -500);
       speak("Прокручиваю ��верх");
