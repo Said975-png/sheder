@@ -94,6 +94,8 @@ export default function JarvisInterface({
     STANDBY: "text-gray-400",
     INITIALIZING: "text-yellow-400 animate-pulse",
     ONLINE: "text-cyan-400",
+    LISTENING: "text-green-400 animate-pulse",
+    SPEAKING: "text-blue-400 animate-pulse",
     ERROR: "text-red-400",
   };
 
