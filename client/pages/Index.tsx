@@ -124,7 +124,10 @@ export default function Index() {
   };
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
-    setIsVoicePanelActive(isListening);
+    // Открываем панель когда начинается прослушивание
+    if (isListening) {
+      setIsVoicePanelActive(true);
+    }
 
     // Простая логика: если транскрипт пустой - очищаем, если нет - отображаем
     if (!transcript || transcript.trim() === "") {
