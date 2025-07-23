@@ -130,8 +130,11 @@ export class JarvisSpeechEngine {
   }
 
   async speak(options: JarvisSpeechOptions): Promise<void> {
-    // Останавливаем текущую речь
+    // Останавливаем текущую речь с задержкой
     this.stop();
+
+    // Небольшая задержка для очистки предыдущих операций
+    await new Promise(resolve => setTimeout(resolve, 100));
 
     // Ждем инициализации голосов
     if (!this.isInitialized) {
@@ -150,32 +153,93 @@ export class JarvisSpeechEngine {
       const utterance = this.createJarvisUtterance(options.text, jarvisSettings);
       this.currentUtterance = utterance;
 
+      let hasResolved = false;
+      const cleanup = () => {
+        this.currentUtterance = null;
+        hasResolved = true;
+      };
+
       utterance.onstart = () => {
         console.log('Jarvis started speaking:', options.text);
         options.onStart?.();
       };
 
       utterance.onend = () => {
-        console.log('Jarvis finished speaking');
-        this.currentUtterance = null;
-        options.onEnd?.();
-        resolve();
+        if (!hasResolved) {
+          console.log('Jarvis finished speaking');
+          cleanup();
+          options.onEnd?.();
+          resolve();
+        }
       };
 
       utterance.onerror = (event) => {
-        console.error('Jarvis speech error:', event.error);
-        this.currentUtterance = null;
-        const errorMessage = `Speech synthesis error: ${event.error}`;
-        options.onError?.(errorMessage);
-        reject(new Error(errorMessage));
+        if (!hasResolved) {
+          console.warn('Jarvis speech interrupted or error:', event.error);
+          cleanup();
+
+          // Для ошибки "interrupted" не считаем это критической ошибкой
+          if (event.error === 'interrupted' || event.error === 'canceled') {
+            console.log('Speech was interrupted, but this is normal behavior');
+            options.onEnd?.(); // Вызываем onEnd вместо onError
+            resolve(); // Успешно завершаем
+          } else {
+            const errorMessage = `Speech synthesis error: ${event.error}`;
+            options.onError?.(errorMessage);
+            reject(new Error(errorMessage));
+          }
+        }
+      };
+
+      // Таймаут для предотвращения зависания
+      const timeout = setTimeout(() => {
+        if (!hasResolved) {
+          console.warn('Speech timeout, force completing');
+          cleanup();
+          this.stop();
+          options.onEnd?.();
+          resolve();
+        }
+      }, 30000); // 30 секунд максимум
+
+      utterance.onend = () => {
+        clearTimeout(timeout);
+        if (!hasResolved) {
+          console.log('Jarvis finished speaking');
+          cleanup();
+          options.onEnd?.();
+          resolve();
+        }
       };
 
       try {
+        // Проверяем, что синтезатор доступен
+        if (this.synth.paused) {
+          this.synth.resume();
+        }
+
         this.synth.speak(utterance);
+
+        // Дополнительная проверка через 500мс - иногда speak не срабатывает сразу
+        setTimeout(() => {
+          if (!this.synth.speaking && !hasResolved) {
+            console.warn('Speech did not start, retrying...');
+            try {
+              this.synth.speak(utterance);
+            } catch (retryError) {
+              console.error('Retry failed:', retryError);
+            }
+          }
+        }, 500);
+
       } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Unknown speech error';
-        options.onError?.(errorMessage);
-        reject(error);
+        clearTimeout(timeout);
+        if (!hasResolved) {
+          cleanup();
+          const errorMessage = error instanceof Error ? error.message : 'Unknown speech error';
+          options.onError?.(errorMessage);
+          reject(error);
+        }
       }
     });
   }
@@ -207,7 +271,7 @@ export class JarvisSpeechEngine {
   }
 
   async speakAlert(text: string): Promise<void> {
-    // Для предупреждений используем немного более высокий тон и быструю речь
+    // Для предупреждений используем немного б��лее высокий тон и быструю речь
     const originalUtterance = new SpeechSynthesisUtterance(text);
     originalUtterance.rate = 1.0;
     originalUtterance.pitch = 0.8;
