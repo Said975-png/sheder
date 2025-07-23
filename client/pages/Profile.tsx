@@ -18,9 +18,12 @@ import {
   Settings,
   Trash2,
   CheckCircle,
+  Scan,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import FaceIDProtected from "@/components/FaceIDProtected";
+import FaceIDModal from "@/components/FaceIDModal";
 
 interface User {
   id: string;
@@ -71,7 +74,7 @@ export default function Profile() {
               Доступ запрещён
             </h2>
             <p className="text-white/70 mb-4">
-              Для просмотра профиля необходимо войти в аккаунт
+              Для просмотра профиля необход��мо войти в аккаунт
             </p>
             <Button
               onClick={() => navigate("/login")}
@@ -478,7 +481,7 @@ export default function Profile() {
                             id="newPassword"
                             name="newPassword"
                             type="password"
-                            placeholder="Введите новый пароль"
+                            placeholder="Введите н��вый пароль"
                             value={formData.newPassword}
                             onChange={handleChange}
                             required
