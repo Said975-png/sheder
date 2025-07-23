@@ -124,7 +124,11 @@ export default function Index() {
   };
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
-    setIsVoicePanelActive(isListening);
+    // Панель остается активной, если микрофон включен ИЛИ если был активен ранее
+    if (isListening) {
+      setIsVoicePanelActive(true);
+    }
+    // Не закрываем панель автоматически - пользователь сам решает когда зак��ыть
 
     // Простая логика: если транскрипт пустой - очищаем, если нет - отображаем
     if (!transcript || transcript.trim() === "") {
