@@ -379,19 +379,19 @@ export default function VoiceControl({
   }, [forceStop, isListening, onListeningChange]);
 
   // Фу��кция для полного ��броса состояния по���ле ��оманды
-  const resetCommandState = (delay: number = 1000) => {
+  const resetCommandState = (delay: number = 1000, skipPanelReopen: boolean = false) => {
     console.log(`⏰ П��анируем сброс cooldown через ${delay}мс`);
     setTimeout(() => {
       commandCooldownRef.current = false;
       lastCommandRef.current = "";
       setTranscript("");
-      // Только сообщаем о состоянии, если микрофон все еще активен
-      if (isListening) {
+      // Только сообщаем о состоянии, если микрофон все еще активен И это не команда отключения
+      if (isListening && !skipPanelReopen) {
         onListeningChange?.(true, "");
         console.log("✅ Cooldown сброшен, микрофон активен");
       } else {
         console.log(
-          "✅ Cooldown сброшен, микрофон отключен - не открываем панель",
+          "✅ Cooldown сброшен, микрофон отключен или команда отключения - не открываем панель",
         );
       }
     }, delay);
@@ -542,7 +542,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("О��ибка воспроизведен���я ау������о приветств��я");
+      console.error("О��ибка воспроизведен���я ау��������о приветств��я");
     };
 
     audio.play().catch((error) => {
@@ -772,7 +772,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Немед��ен��о очищаем транскрипт к��гда начинаем говорить
+    // Немед��ен��о очищаем транскрипт к��гда н��чинаем говорить
     setTranscript("");
     onListeningChange?.(true, "");
 
@@ -1189,7 +1189,7 @@ export default function VoiceControl({
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
-      command.includes("жарвис как дела") || // частые ошибки рас��ознавания
+      command.includes("жарвис ка�� дела") || // частые ошибки рас��ознавания
       command.includes("как дела жарвис") ||
       command.includes("ярвис как дела") ||
       (command.includes("джарвис") && command.includes("как дела")) ||
@@ -1366,7 +1366,7 @@ export default function VoiceControl({
       "спасибо",
       "благодарю",
       "благодарность",
-      "спс",
+      "��пс",
       "thank",
       "thanks",
       "мерс��",
@@ -1582,7 +1582,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск качества и премиум услуг
+      // Поиск качества и премиум у��луг
       if (
         command.includes("качество") ||
         command.includes("премиум") ||
