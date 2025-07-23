@@ -69,9 +69,6 @@ export default function Index() {
     navigate("/order");
   };
 
-  const [isVoicePanelActive, setIsVoicePanelActive] = useState(false);
-  const [currentTranscript, setCurrentTranscript] = useState("");
-  const [lastProcessedTranscript, setLastProcessedTranscript] = useState("");
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
   // Вычисляем общую стоимость корзины
@@ -131,7 +128,7 @@ export default function Index() {
     } else {
       // Показываем транскрипт только если он отличается от предыдущего и не слишком длинный
       if (transcript !== lastProcessedTranscript && transcript.length < 50) {
-        console.log("📱 Устанав��иваем новый транскрипт:", transcript);
+        console.log("📱 Устанавливаем новый транскрипт:", transcript);
         setCurrentTranscript(transcript);
         setLastProcessedTranscript(transcript);
       } else if (transcript.length >= 50) {
