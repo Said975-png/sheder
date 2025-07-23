@@ -15,21 +15,10 @@ import {
 import { cn } from "@/lib/utils";
 import {
   Shield,
-  User,
-  LogOut,
-  Settings,
   Code,
-  Cpu,
   Brain,
   Zap,
   CheckCircle,
-  ShoppingCart,
-  Lock,
-  Eye,
-  Layers,
-  TrendingUp,
-  Search,
-  Cog,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
