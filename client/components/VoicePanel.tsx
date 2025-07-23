@@ -82,12 +82,11 @@ export default function VoicePanel({
 
           <Button
             onClick={() => {
-              onStopListening();
               onClose();
             }}
-            className="w-10 h-10 rounded-full p-0 bg-red-500/20 hover:bg-red-500/30 border border-red-400/50 transition-all duration-300"
+            className="w-10 h-10 rounded-full p-0 bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/50 transition-all duration-300"
           >
-            <X className="w-5 h-5 text-red-400" />
+            <X className="w-5 h-5 text-cyan-400" />
           </Button>
         </div>
 
