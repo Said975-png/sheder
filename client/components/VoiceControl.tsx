@@ -392,7 +392,7 @@ export default function VoiceControl({
   };
 
   const speak = (text: string) => {
-    // Предотвращаем повторное воспроизве��ение только если уже играет аудио
+    // Предотвращаем повторное воспроизведение только если уже играет аудио
     if (isSpeaking) {
       console.log("🚫 speak заблокирован - уже играет аудио");
       return;
@@ -813,12 +813,12 @@ export default function VoiceControl({
       // Similarity Boost: 90 (высок��е сходство с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
 
-      utterance.lang = "en-US"; // Английский для лучшего кач��ства, потом переклю��им ��а русский
+      utterance.lang = "en-US"; // Английский для лучшего качества, потом переклю��им ��а русский
       utterance.rate = 0.75; // Мед��ен��ая, размеренная речь как �� Джарвиса из фильма
       utterance.pitch = 0.7; // Сред����-ни��кий тон для ��втор��тет��ос��и
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
-      // Поиск наиболе�� подходящего ��олоса для имит��ции Jarvis
+      // Поиск наиболе�� подходящего ��олоса для имит����ции Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: голоса, похожие на британск��й/американский мужской
@@ -1038,25 +1038,28 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда п��иветствия "Д��арвис �� вернулся"
+    // Команда приветствия "Джарвис я вернулся"
     if (
-      command.includes("джарв���с я вернулся") ||
-      command.includes("я вернулся ��жарвис") ||
-      command.includes("джа��вис я здесь") ||
-      command.includes("я снова здесь")
+      command.includes("джарвис я вернулся") ||
+      command.includes("я вернулся джарвис") ||
+      command.includes("джарвис я здесь") ||
+      command.includes("я снова здесь") ||
+      command.includes("вернулся") ||
+      command.includes("я здесь")
     ) {
+      console.log("👋 Команда приветствия распознана:", command);
       speakWelcomeBack();
       return;
     }
 
-    // Команды ��ля оригинально��о голоса Джарвиса (из фи����ьма)
+    // Команды ��ля оригинально��о голоса Джарвиса (из фи��ьма)
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
       command.includes("джарвис как в фильме") ||
       command.includes("железный чело��ек") ||
       command.includes("tony stark") ||
-      command.includes("тони старк") ||
+      command.includes("то��и старк") ||
       command.includes("authentic jarvis") ||
       command.includes("real jarvis") ||
       command.includes("movie jarvis") ||
@@ -1096,7 +1099,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда пр��ветствия "Приве�� Джарвис" - улучшенное распознавание с защитой от повторов
+    // Команд�� пр��ветствия "Приве�� Джарвис" - улучшенное распознавание с защитой от повторов
     if (
       command.includes("привет джарвис") ||
       command.includes("джарвис привет") ||
@@ -1144,7 +1147,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис как дела" с ответом "Все системы функционируют норм��л��но"
+    // Команда "Джарвис как дела" с ответом "Все системы функционируют нормал��но"
     if (
       command.includes("джарвис как дела") ||
       command.includes("как дела джарвис") ||
@@ -1176,7 +1179,7 @@ export default function VoiceControl({
       command.includes("jarvis how are you") ||
       command.includes("how are you") ||
       command.includes("как тв��и дела") ||
-      command.includes("что ново��о джарвис")
+      command.includes("что ново��о джарви��")
     ) {
       // Дополнительная про���ерка, чтобы избежать п��вторных с��абатываний
       if (
@@ -1333,7 +1336,7 @@ export default function VoiceControl({
       "рахмет",
       "хорошо",
       "отлично",
-      "замечате��ьно",
+      "замечате����ьно",
       "круто",
       "пре��расно",
       "чудесно",
@@ -1370,7 +1373,7 @@ export default function VoiceControl({
       searchTerms: string[],
       fallbackAction?: () => void,
     ) => {
-      // ����иск по заголовкам
+      // П��иск по заголовкам
       const headings = Array.from(
         document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
       );
@@ -1494,7 +1497,7 @@ export default function VoiceControl({
       ) {
         found = searchAndNavigate(["компан", "�� нас", "about", "кто мы"]);
         if (found) {
-          speak("Показ��ваю инфор��ацию о ко��пании");
+          speak("Показ��ваю инф��р��ацию о ко��пании");
           return;
         }
       }
@@ -1536,7 +1539,7 @@ export default function VoiceControl({
           "jarvis",
         ]);
         if (found) {
-          speak("Показываю тех��олог��и");
+          speak("Показываю технолог��и");
           return;
         }
       }
@@ -1548,7 +1551,7 @@ export default function VoiceControl({
         command.includes("поддержка")
       ) {
         found = searchAndNavigate([
-          "к��чество",
+          "к��чест��о",
           "премиум",
           "поддержка",
           "quality",
@@ -1661,7 +1664,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды доб�����вления плано�� в корз��ну
+    // Команды доб�����вления планов в корз��ну
     if (
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
@@ -1669,7 +1672,7 @@ export default function VoiceControl({
       command.includes("отправить базовый")
     ) {
       onAddBasicPlan();
-      speak("Базовый план д��бавлен");
+      speak("Базовый план д��бав��ен");
       return;
     }
 
@@ -1697,7 +1700,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ра��шире��ная навигация ��о се��циям стран��ц��
+    // Ра��шире��ная навигация ��о секциям стран��ц��
     if (
       command.includes("к планам") ||
       command.includes("показать планы") ||
