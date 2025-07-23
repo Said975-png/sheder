@@ -166,7 +166,7 @@ export default function VoiceControl({
     setTranscript("");
     onListeningChange?.(isListening, "");
     
-    // Перезапускаем прослушивание если нужно
+    // Пере��апускаем прослушивание если нужно
     if (isListening && !isSpeaking) {
       if (restartTimeoutRef.current) {
         clearTimeout(restartTimeoutRef.current);
@@ -201,7 +201,7 @@ export default function VoiceControl({
       setIsSpeaking(false);
       currentAudioRef.current = null;
       
-      // Сбрасываем состояние команды
+      // С��расываем состояние команды
       setTimeout(() => {
         resetCommandState();
         onComplete?.();
@@ -279,101 +279,104 @@ export default function VoiceControl({
       onListeningChange?.(isListening, "");
     }, 1000);
 
-    // Команды отключения
-    if (cmd.includes("отключись") || cmd.includes("выключись") || cmd.includes("стоп")) {
+    // Команды отключения (высший приоритет)
+    if (cmd.includes("отключись") || cmd.includes("выключись") || cmd.includes("стоп джарвис")) {
       speakShutdown();
       return;
     }
 
-    // Команды приветствия
-    if (cmd.includes("привет") || cmd.includes("hello") || cmd.includes("здравствуй")) {
-      speakAuthenticJarvis();
-      return;
-    }
-
-    // Команда "я вернулся"
-    if (cmd.includes("я вернулся") || cmd.includes("джарвис я здесь")) {
+    // Команда "я вернулся" (проверяем перед приветствием)
+    if (cmd.includes("я вернулся") || cmd.includes("джарвис я здесь") || cmd.includes("джарвис я вернулся")) {
       speakWelcomeBack();
       return;
     }
 
-    // Команды благодарности
-    if (cmd.includes("спасибо") || cmd.includes("благодарю") || cmd.includes("thank")) {
-      speakThankYou();
-      return;
-    }
-
-    // Команды "как дела"
-    if (cmd.includes("как дела") || cmd.includes("how are you")) {
+    // Команды "как дела" (проверяем перед приветствием)
+    if (cmd.includes("как дела") || cmd.includes("how are you") || cmd.includes("джарвис как дела")) {
       speakSystemsOperational();
       return;
     }
 
+    // Команды приветствия (только специфичные)
+    if ((cmd.includes("привет") && (cmd.includes("джарвис") || cmd.length <= 15)) ||
+        (cmd.includes("hello") && (cmd.includes("jarvis") || cmd.length <= 15)) ||
+        (cmd.includes("здравствуй") && (cmd.includes("джарвис") || cmd.length <= 20))) {
+      speakAuthenticJarvis();
+      return;
+    }
+
+    // Команды благодарности
+    if (cmd.includes("спасибо") || cmd.includes("благодарю") || cmd.includes("thank you") || cmd.includes("thanks")) {
+      speakThankYou();
+      return;
+    }
+
     // Навигационные команды
-    if (cmd.includes("домой") || cmd.includes("главная")) {
+    if (cmd.includes("домой") || cmd.includes("главная") || cmd.includes("на главную")) {
       navigate("/");
       resetCommandState();
       return;
     }
 
-    if (cmd.includes("войти") || cmd.includes("логин")) {
+    if (cmd.includes("войти") || cmd.includes("логин") || cmd.includes("вход")) {
       navigate("/login");
       resetCommandState();
       return;
     }
 
-    if (cmd.includes("регистрация")) {
+    if (cmd.includes("регистрация") || cmd.includes("зарегистрироваться")) {
       navigate("/signup");
       resetCommandState();
       return;
     }
 
-    if (cmd.includes("профиль")) {
+    if (cmd.includes("профиль") || cmd.includes("личный кабинет")) {
       navigate("/profile");
       resetCommandState();
       return;
     }
 
-    // Команды планов
-    if (cmd.includes("базовый план") || cmd.includes("добавить базовый")) {
+    // Команды планов (более специфичные)
+    if (cmd.includes("базовый план") || (cmd.includes("добавить") && cmd.includes("базовый"))) {
       onAddBasicPlan();
       resetCommandState();
       return;
     }
 
-    if (cmd.includes("про план") || cmd.includes("добавить про")) {
+    if (cmd.includes("про план") || (cmd.includes("добавить") && cmd.includes("про"))) {
       onAddProPlan();
       resetCommandState();
       return;
     }
 
-    if (cmd.includes("макс план") || cmd.includes("максимальный") || cmd.includes("добавить макс")) {
+    if (cmd.includes("макс план") || cmd.includes("максимальный план") ||
+        (cmd.includes("добавить") && cmd.includes("макс"))) {
       onAddMaxPlan();
       resetCommandState();
       return;
     }
 
     // Команды прокрутки
-    if (cmd.includes("вниз") || cmd.includes("скролл вниз")) {
+    if (cmd.includes("прокрутить вниз") || cmd.includes("скролл вниз") || cmd.includes("вниз")) {
       window.scrollBy(0, 500);
       resetCommandState();
       return;
     }
 
-    if (cmd.includes("вверх") || cmd.includes("скролл вверх")) {
+    if (cmd.includes("прокрутить вверх") || cmd.includes("скролл вверх") || cmd.includes("вверх")) {
       window.scrollBy(0, -500);
       resetCommandState();
       return;
     }
 
-    if (cmd.includes("наверх") || cmd.includes("в начало")) {
+    if (cmd.includes("наверх") || cmd.includes("в начало") || cmd.includes("в самый верх")) {
       window.scrollTo(0, 0);
       resetCommandState();
       return;
     }
 
-    // Если команда не распознана
-    console.log("❓ Unknown command:", cmd);
+    // Если команда не распознана - просто сбрасываем состояние без действий
+    console.log("❓ Unknown command, resetting state:", cmd);
     resetCommandState();
   };
 
