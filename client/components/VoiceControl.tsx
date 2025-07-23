@@ -154,19 +154,47 @@ export default function VoiceControl({
       recognitionRef.current.onerror = (event) => {
         console.log("❌ Recognition error:", event.error);
         setRecognitionState('idle');
-        
-        // Игнорируем некритические ошибки
-        if (event.error === "no-speech" || event.error === "audio-capture") {
+
+        // Быстро восстанавливаемся от большинства ошибок
+        if (event.error === "no-speech") {
+          console.log("ℹ️ No speech detected, continuing to listen...");
+          // Для no-speech просто продолжаем, не перезапускаем
           return;
         }
-        
-        // Для серьезных ошибок - перезапускаем через 2 секунды
+
+        if (event.error === "audio-capture") {
+          console.log("⚠️ Audio capture issue, retrying...");
+          // Быстрый перезапуск для проблем с аудио
+          if (shouldRestartRef.current && isListening) {
+            setTimeout(() => {
+              if (shouldRestartRef.current && isListening && !isSpeaking) {
+                startRecognition();
+              }
+            }, 500);
+          }
+          return;
+        }
+
+        if (event.error === "network") {
+          console.log("🌐 Network error, retrying in 3 seconds...");
+          if (shouldRestartRef.current && isListening) {
+            setTimeout(() => {
+              if (shouldRestartRef.current && isListening && !isSpeaking) {
+                startRecognition();
+              }
+            }, 3000);
+          }
+          return;
+        }
+
+        // Для других ошибок - быстрый перезапуск
         if (shouldRestartRef.current && isListening) {
           setTimeout(() => {
             if (shouldRestartRef.current && isListening && !isSpeaking) {
+              console.log("🔄 Restarting after error:", event.error);
               startRecognition();
             }
-          }, 2000);
+          }, 1000);
         }
       };
     }
@@ -176,7 +204,7 @@ export default function VoiceControl({
     };
   }, []);
 
-  // Функция для запуска распознаван��я
+  // Функция для запуска распо��наван��я
   const startRecognition = useCallback(() => {
     if (!recognitionRef.current || recognitionState === 'starting' || recognitionState === 'listening') {
       console.log("❌ Cannot start recognition:", { hasRecognition: !!recognitionRef.current, state: recognitionState });
