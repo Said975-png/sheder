@@ -118,12 +118,6 @@ export default function Index() {
     console.log("🎤 Voice state:", { isListening, transcript: transcript?.slice(0, 20), isSpeaking });
   };
 
-  const handleCloseVoicePanel = () => {
-    setIsVoicePanelActive(false);
-    setCurrentTranscript("");
-    setLastProcessedTranscript("");
-  };
-
   const handleStopListening = () => {
     setForceStopVoice(true);
     setTimeout(() => setForceStopVoice(false), 100);
