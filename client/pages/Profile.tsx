@@ -34,7 +34,7 @@ interface User {
   avatar?: string;
 }
 
-export default function Profile() {
+function Profile() {
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -142,7 +142,7 @@ export default function Profile() {
           (u) => u.email === formData.email && u.id !== currentUser.id,
         );
         if (emailExists) {
-          setError("Пол��зователь с таким email уже существует");
+          setError("Пользователь с таким email уже существует");
           return;
         }
       }
@@ -312,7 +312,7 @@ export default function Profile() {
             <div>
               <h1 className="text-3xl font-bold">Проф��ль пользователя</h1>
               <p className="text-white/70">
-                Управляйте настройками вашего аккаунта
+                Управляйте настройками вашего ��ккаунта
               </p>
             </div>
           </div>
