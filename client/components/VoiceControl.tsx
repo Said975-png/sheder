@@ -124,7 +124,7 @@ export default function VoiceControl({
             combinedTranscript = "";
           }
 
-          // Показывае�� промежуточный результат только если система свободна и это новый короткий контент
+          // Показывае�� промежуточны�� результат только если система свободна и это новый короткий контент
           if (
             combinedTranscript &&
             combinedTranscript.length > 2 &&
@@ -178,7 +178,7 @@ export default function VoiceControl({
 
                   // Быстрая очистка транскрипта после запуска команды
                   setTimeout(() => {
-                    console.log("🧹 Быстрая очистка транскрипта");
+                    console.log("���� Быстрая очистка транскрипта");
                     setTranscript("");
                     onListeningChange?.(true, "");
                   }, 800);
@@ -190,23 +190,8 @@ export default function VoiceControl({
                     onListeningChange?.(true, "");
                     lastCommandRef.current = "";
 
-                    // Перезапускаем Recognition для очистки накопленной истории
-                    if (recognitionRef.current && isListening) {
-                      console.log(
-                        "🔄 Перезапуск Recognition для очистки истории",
-                      );
-                      try {
-                        recognitionRef.current.stop();
-                        setTimeout(() => {
-                          if (recognitionRef.current && isListening) {
-                            recognitionRef.current.start();
-                            console.log("✅ Recognition перезапущен и очищен");
-                          }
-                        }, 300);
-                      } catch (error) {
-                        console.log("Ошибка перезапуска Recognition:", error);
-                      }
-                    }
+                    // НЕ перезапускаем Recognition - пусть работает непрерывно
+                    console.log("✅ Состояние очищено, Recognition продолжает работать");
                   }, 2000);
                 },
                 finalTranscript ? 100 : 1000,
@@ -248,7 +233,7 @@ export default function VoiceControl({
                     "ℹ️ Распознавание уже запущено или недоступно:",
                     error,
                   );
-                  // Если не удалось перезапустить, попробуем еще раз через 500мс
+                  // Если не удалось перез��пустить, попробуем еще раз через 500мс
                   setTimeout(() => {
                     if (recognitionRef.current && isListening) {
                       try {
@@ -351,7 +336,7 @@ export default function VoiceControl({
   // Функция для полного сброса Speech Recognition
   const resetSpeechRecognition = () => {
     if (recognitionRef.current) {
-      console.log("🔄 Полный сброс Speech Recognition");
+      console.log("�� Полный сброс Speech Recognition");
       try {
         recognitionRef.current.stop();
       } catch (error) {
@@ -457,7 +442,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводи�� аудио для команды "от��лючись"
+    // Создаем и воспроизводи�� аудио для команды "от����лючись"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -564,7 +549,7 @@ export default function VoiceControl({
   };
 
   const speakGoodMorning = () => {
-    // Множеств��нная защита от п��вторного воспроизведения
+    // Множеств��нная защи��а от п��вторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -635,7 +620,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("Ошибка воспроиз��едения аудио о��вета");
+      console.error("Ошибка воспроиз��ед��ния аудио о��вета");
     };
 
     audio.play().catch((error) => {
@@ -675,7 +660,7 @@ export default function VoiceControl({
     };
 
     try {
-      // Используем ElevenLabs API для синтеза речи с вашим ��астомным голосом
+      // Используем ElevenLabs API для синте��а речи с вашим ��астомным голосом
       const response = await fetch("/api/elevenlabs-tts", {
         method: "POST",
         headers: {
@@ -718,7 +703,7 @@ export default function VoiceControl({
   };
 
   const speakAuthenticJarvis = () => {
-    // Множественная защита от повторного воспроизведения
+    // Множестве��ная защита от повторного воспроизведения
     if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
       return;
     }
@@ -959,7 +944,7 @@ export default function VoiceControl({
     };
 
     firstAudio.onended = () => {
-      console.log("✅ Пер��ое аудио за��ончилось, ждем 2 секун��ы...");
+      console.log("✅ Пер��ое аудио за��онч��лось, ждем 2 секун��ы...");
       // Ч��рез 2 секунды воспроизводим второе аудио
       setTimeout(() => {
         console.log("🎵 ��оздаем второе аудио для диагностики");
@@ -1413,7 +1398,7 @@ export default function VoiceControl({
         }
       }
 
-      // Если ничего не найдено, выполняем запасное действие
+      // Если ничего не найдено, вы��олняем запасное действие
       if (fallbackAction) {
         fallbackAction();
         return true;
@@ -1581,7 +1566,7 @@ export default function VoiceControl({
           .filter((word) => word.length > 2);
         found = searchAndNavigate(searchTerms);
         if (found) {
-          speak("Найдено");
+          speak("На��дено");
           return;
         }
       }
@@ -1630,7 +1615,7 @@ export default function VoiceControl({
 
     if (command.includes("заказ") || command.includes("оформить заказ")) {
       navigate("/order");
-      speak("Переходим к оф��рмлен��ю зака��а");
+      speak("Переходим �� оф��рмлен��ю зака��а");
       return;
     }
 
@@ -1777,7 +1762,7 @@ export default function VoiceControl({
       command.includes("поднятьс��� ��верх")
     ) {
       window.scrollBy(0, -500);
-      speak("Прокручиваю вверх");
+      speak("Прокручиваю ��верх");
       return;
     }
 
