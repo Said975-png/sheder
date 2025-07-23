@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import VoiceControl from "@/components/VoiceControl";
 
 import StarkHero from "@/components/StarkHero";
-import VoicePanel from "@/components/VoicePanel";
+
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
 import {
   ArcReactor,
@@ -131,7 +131,7 @@ export default function Index() {
     } else {
       // Показываем транскрипт только если он отличается от предыдущего и не слишком длинный
       if (transcript !== lastProcessedTranscript && transcript.length < 50) {
-        console.log("📱 Устанавливаем новый транскрипт:", transcript);
+        console.log("📱 Устанав��иваем новый транскрипт:", transcript);
         setCurrentTranscript(transcript);
         setLastProcessedTranscript(transcript);
       } else if (transcript.length >= 50) {
