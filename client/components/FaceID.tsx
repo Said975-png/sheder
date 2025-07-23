@@ -71,18 +71,21 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0);
 
-    // Простая детекция лица по пикселям (fallback метод)
+    // Улучшенная детекция лица с несколькими методами
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     const data = imageData.data;
-    
-    // Анализируем центральную область кадра на наличие лица
+
+    // Анализируем несколько областей
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
-    const checkRadius = Math.min(canvas.width, canvas.height) / 6;
-    
+    const checkRadius = Math.min(canvas.width, canvas.height) / 5; // Увеличили область
+
     let skinPixels = 0;
+    let brightPixels = 0;
+    let contrastPixels = 0;
     let totalPixels = 0;
-    
+
+    // Проверяем центральную область
     for (let y = centerY - checkRadius; y < centerY + checkRadius; y++) {
       for (let x = centerX - checkRadius; x < centerX + checkRadius; x++) {
         if (x >= 0 && x < canvas.width && y >= 0 && y < canvas.height) {
@@ -90,20 +93,41 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
-          
-          // Простая проверка на цвет кожи
-          if (r > 95 && g > 40 && b > 20 && 
-              Math.max(r, g, b) - Math.min(r, g, b) > 15 &&
-              Math.abs(r - g) > 15 && r > g && r > b) {
+          const brightness = (r + g + b) / 3;
+
+          // Улучшенная проверка на цвет кожи (более широкий диапазон)
+          if ((r > 80 && g > 30 && b > 15 && r > g && r > b) ||
+              (r > 60 && g > 20 && b > 10 && Math.abs(r - g) < 40 && r >= g)) {
             skinPixels++;
           }
+
+          // Проверка на яркость (наличие освещенных участков)
+          if (brightness > 100) {
+            brightPixels++;
+          }
+
+          // Проверка на контраст (наличие теней и светов)
+          if (Math.max(r, g, b) - Math.min(r, g, b) > 30) {
+            contrastPixels++;
+          }
+
           totalPixels++;
         }
       }
     }
-    
+
     const skinRatio = skinPixels / totalPixels;
-    return skinRatio > 0.3; // Если более 30% пикселей похожи на кожу
+    const brightRatio = brightPixels / totalPixels;
+    const contrastRatio = contrastPixels / totalPixels;
+
+    // Комбинированная проверка: либо достаточно кожи, либо есть яркость с контрастом
+    const faceDetected = (skinRatio > 0.15) ||
+                        (brightRatio > 0.4 && contrastRatio > 0.2) ||
+                        (skinRatio > 0.08 && brightRatio > 0.3);
+
+    console.log(`Face detection: skin=${skinRatio.toFixed(3)}, bright=${brightRatio.toFixed(3)}, contrast=${contrastRatio.toFixed(3)}, detected=${faceDetected}`);
+
+    return faceDetected;
   }, []);
 
   // Захват изображения
@@ -240,7 +264,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     const scanLoop = async () => {
       if (attempts >= maxAttempts) {
         setIsScanning(false);
-        onError("Не удалось обнаружить лицо. Попробуйте еще раз.");
+        onError("Не удал��сь обнаружить лицо. Попробуйте еще раз.");
         return;
       }
 
@@ -414,7 +438,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
               className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
             >
               <Camera className="w-4 h-4 mr-2" />
-              {mode === "register" ? "Начать настройку" : "Сканиро��ать лицо"}
+              {mode === "register" ? "Начать настройку" : "Сканировать лицо"}
             </Button>
           )}
           
