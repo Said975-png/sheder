@@ -34,7 +34,7 @@ export default function VoiceControl({
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
 
-  // Ини��иализация Speech Recognition
+  // Инициализация Speech Recognition
   useEffect(() => {
     if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -91,7 +91,7 @@ export default function VoiceControl({
         recognitionRef.current.onend = () => {
           console.log("🎤 Recognition ended, isListening:", isListening, "isSpeaking:", isSpeaking, "processing:", processingCommandRef.current);
 
-          // Перезапускаем только если дол��ны слушать и не говорим
+          // Перезапускаем только если должны слушать и не говорим
           if (isListening && !isSpeaking && !processingCommandRef.current) {
             console.log("🔄 Auto-restarting recognition in 500ms");
             setTimeout(() => {
@@ -151,10 +151,27 @@ export default function VoiceControl({
   const startRecognition = () => {
     if (recognitionRef.current && !isSpeaking) {
       try {
+        console.log("🎤 Starting recognition...");
         recognitionRef.current.start();
       } catch (error) {
-        console.log("Recognition already running or unavailable");
+        console.log("⚠️ Recognition start failed:", error);
+        // Попробуем перезапустить через небольшую задержку
+        setTimeout(() => {
+          if (isListening && !isSpeaking && recognitionRef.current) {
+            try {
+              recognitionRef.current.start();
+              console.log("✅ Recognition restarted successfully");
+            } catch (e) {
+              console.log("❌ Recognition restart failed:", e);
+            }
+          }
+        }, 1000);
       }
+    } else {
+      console.log("❌ Cannot start recognition:", {
+        hasRecognition: !!recognitionRef.current,
+        isSpeaking
+      });
     }
   };
 
@@ -199,7 +216,7 @@ export default function VoiceControl({
     if (isSpeaking) return;
 
     setIsSpeaking(true);
-    stopRecognition(); // Останавливаем распознавание на время аудио
+    stopRecognition(); // Останавливаем распозна��ание на время аудио
 
     // Останавливаем предыдущее аудио
     if (currentAudioRef.current) {
@@ -214,7 +231,7 @@ export default function VoiceControl({
       setIsSpeaking(false);
       currentAudioRef.current = null;
       
-      // Сбрасыва��м состояние команды
+      // Сбрасываем состояние команды
       setTimeout(() => {
         resetCommandState();
         onComplete?.();
@@ -300,7 +317,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "я вернулся" (проверяем перед приветствием)
+    // Команда "я вернулся" (проверяем пе��ед приветствием)
     if (cmd.includes("я вернулся") || cmd.includes("джарвис я здесь") || cmd.includes("джарвис я вернулся")) {
       speakWelcomeBack();
       return;
