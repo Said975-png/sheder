@@ -53,7 +53,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
       }
     } catch (error) {
       console.error("Camera initialization error:", error);
-      onError("Не удалось получить доступ к камере. Пожалуйста, разрешите доступ к камере.");
+      onError("Не удалось получить доступ к камере. Пожалуйста, разрешите доступ к камер��.");
     }
   }, [onError]);
 
@@ -140,7 +140,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
             eyeRegionDark++;
           }
 
-          // Проверка на вар��ации контраста
+          // Проверка на вариации контраста
           if (i + 16 < data.length) {
             const nextR = data[i + 16];
             const nextG = data[i + 17];
@@ -229,7 +229,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
         // Анализируем ключевые области лица
         const faceRegions = [
           { x: 32, y: 24, w: 64, h: 20, name: 'eyes' },      // Область глаз
-          { x: 48, y: 56, w: 32, h: 16, name: 'nose' },      // Область носа
+          { x: 48, y: 56, w: 32, h: 16, name: 'nose' },      // Область н��са
           { x: 32, y: 80, w: 64, h: 24, name: 'mouth' },     // Область рта
           { x: 16, y: 40, w: 96, h: 48, name: 'center' },    // Центральная область
         ];
@@ -273,7 +273,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
           }
         });
 
-        // Добавляем глобальн��е характеристики
+        // Добавляем глобальные характеристики
         const globalBrightness = [];
         for (let i = 0; i < data.length; i += 16) {
           globalBrightness.push((data[i] + data[i + 1] + data[i + 2]) / (3 * 255));
@@ -294,16 +294,47 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     }) as any;
   }, []);
 
-  // Сравнение дескрипторов
+  // Строгое сравнение дескрипторов лица
   const compareDescriptors = useCallback((desc1: number[], desc2: number[]): number => {
-    if (desc1.length !== desc2.length) return 0;
-    
-    let similarity = 0;
-    for (let i = 0; i < desc1.length; i++) {
-      similarity += 1 - Math.abs(desc1[i] - desc2[i]);
+    if (desc1.length !== desc2.length || desc1.length === 0) return 0;
+
+    // Нормализуем дескрипторы
+    const normalize = (arr: number[]) => {
+      const mean = arr.reduce((a, b) => a + b, 0) / arr.length;
+      const std = Math.sqrt(arr.reduce((acc, val) => acc + (val - mean) ** 2, 0) / arr.length);
+      return arr.map(val => std > 0 ? (val - mean) / std : 0);
+    };
+
+    const norm1 = normalize(desc1);
+    const norm2 = normalize(desc2);
+
+    // Вычисляем корреляцию Пирсона (более строгая метрика)
+    const n = norm1.length;
+    let sumXY = 0;
+    let sumX2 = 0;
+    let sumY2 = 0;
+
+    for (let i = 0; i < n; i++) {
+      sumXY += norm1[i] * norm2[i];
+      sumX2 += norm1[i] * norm1[i];
+      sumY2 += norm2[i] * norm2[i];
     }
-    
-    return similarity / desc1.length;
+
+    const correlation = sumXY / Math.sqrt(sumX2 * sumY2);
+
+    // Дополнительно проверяем евклидово расстояние
+    let euclideanDist = 0;
+    for (let i = 0; i < n; i++) {
+      euclideanDist += (norm1[i] - norm2[i]) ** 2;
+    }
+    euclideanDist = Math.sqrt(euclideanDist);
+
+    // Комбинируем метрики для более строгой оценки
+    const similarity = (correlation + (1 / (1 + euclideanDist))) / 2;
+
+    console.log(`Descriptor comparison: correlation=${correlation.toFixed(3)}, euclidean=${euclideanDist.toFixed(3)}, similarity=${similarity.toFixed(3)}`);
+
+    return Math.max(0, similarity); // Убираем отрицательные значения
   }, []);
 
   // Сохранение данных лица
@@ -587,7 +618,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
               <p>• Расположите лицо в центре рамки</p>
               <p>• Держите устройство на уровне глаз</p>
               <p>• Обеспечьте хорошее освещение</p>
-              <p>• Мы сделаем 3 снимка для лучшего распозна��ания</p>
+              <p>• Мы сделаем 3 снимка для лучшего распознавания</p>
             </>
           ) : (
             <>
