@@ -90,46 +90,58 @@ export default function VoiceControl({
       };
 
       recognitionRef.current.onresult = (event) => {
-        if (isProcessingRef.current) {
-          console.log("⏭️ Skipping result - processing command");
-          return;
-        }
-
         let finalTranscript = "";
         let interimTranscript = "";
-        
-        for (let i = event.resultIndex; i < event.results.length; i++) {
+
+        // Обрабатываем все результаты для лучшего захвата
+        for (let i = 0; i < event.results.length; i++) {
           const result = event.results[i];
           const text = result[0].transcript.trim();
-          
+
           if (result.isFinal) {
-            finalTranscript = text;
+            finalTranscript += text + " ";
           } else {
-            interimTranscript = text;
+            interimTranscript += text + " ";
           }
         }
 
+        // Очищаем лишние пробелы
+        finalTranscript = finalTranscript.trim();
+        interimTranscript = interimTranscript.trim();
+
         const currentText = finalTranscript || interimTranscript;
-        
-        if (currentText && currentText.length > 2 && currentText.length < 100) {
+
+        console.log("🎤 Received:", {
+          final: finalTranscript,
+          interim: interimTranscript,
+          current: currentText,
+          processing: isProcessingRef.current
+        });
+
+        // Показываем любой текст длиннее 1 символа
+        if (currentText && currentText.length > 1) {
           updateListeningState(true, currentText);
-          
-          // Обрабатываем только финальные результаты
-          if (finalTranscript && finalTranscript !== lastCommandRef.current) {
-            console.log("🎯 Processing final command:", finalTranscript);
-            lastCommandRef.current = finalTranscript;
+
+          // Обрабатываем команды как финальные, так и достаточно длинные промежуточные
+          if ((finalTranscript || (interimTranscript && interimTranscript.length > 3)) &&
+              !isProcessingRef.current &&
+              currentText !== lastCommandRef.current &&
+              currentText.length > 2) {
+
+            console.log("🎯 Processing command:", currentText);
+            lastCommandRef.current = currentText;
             isProcessingRef.current = true;
-            
-            // Небольшая задержка для завершения фразы
+
+            // Уменьшенная задержка для более быстрой реакции
             setTimeout(() => {
-              processVoiceCommand(finalTranscript);
-            }, 500);
+              processVoiceCommand(currentText);
+            }, finalTranscript ? 200 : 800); // Быстрее для финальных результатов
           }
         }
       };
 
       recognitionRef.current.onend = () => {
-        console.log("🎤 Recognition ENDED, shouldRestart:", shouldRestartRef.current, "isListening:", isListening);
+        console.log("���� Recognition ENDED, shouldRestart:", shouldRestartRef.current, "isListening:", isListening);
         setRecognitionState('idle');
         
         // Автоматический перезапуск только если нужно
