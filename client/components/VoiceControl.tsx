@@ -185,7 +185,7 @@ export default function VoiceControl({
 
                   // Полная очистка состояния ��оманды и ��ерезапуск Recognition
                   setTimeout(() => {
-                    console.log("🧹 Полная очистка состоя��ия после команды");
+                    console.log("🧹 Полная очистка сос��оя��ия после команды");
                     setTranscript("");
                     onListeningChange?.(true, "");
                     lastCommandRef.current = "";
@@ -381,7 +381,7 @@ export default function VoiceControl({
 
   // Фу��кция для полного ��броса состояния по���ле ��оманды
   const resetCommandState = (delay: number = 1000) => {
-    console.log(`⏰ Планируем сброс cooldown через ${delay}мс`);
+    console.log(`⏰ П��анируем сброс cooldown через ${delay}мс`);
     setTimeout(() => {
       commandCooldownRef.current = false;
       lastCommandRef.current = "";
@@ -416,7 +416,10 @@ export default function VoiceControl({
 
     // Очищаем транскрипт когда начинаем говорить
     setTranscript("");
-    onListeningChange?.(true, "");
+    // Только сообщаем о состоянии, если микрофон все еще активен
+    if (isListening) {
+      onListeningChange?.(true, "");
+    }
 
     // Созда��м и вос��рои��водим ваш новый ау��ио-файл
     const audio = new Audio(
@@ -505,7 +508,7 @@ export default function VoiceControl({
 
   const speakWelcomeBack = () => {
     if (isSpeaking) {
-      console.log("🚫 speakWelcomeBack заблокирован - уже играет аудио");
+      console.log("🚫 speakWelcomeBack забл��кирован - уже играет аудио");
       return;
     }
 
@@ -1363,7 +1366,7 @@ export default function VoiceControl({
       "спс",
       "thank",
       "thanks",
-      "мерси",
+      "мерс��",
       "��ахмат",
       "рахмет",
       "хо��ошо",
@@ -1831,7 +1834,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("в коне�� страницы") ||
+      command.includes("в коне��� страницы") ||
       command.includes("в сам���й н��з") ||
       command.includes("вниз страницы")
     ) {
