@@ -114,33 +114,8 @@ export default function Index() {
 
 
   const handleListeningChange = (isListening: boolean, transcript?: string, isSpeaking?: boolean) => {
-    // Панель остается активной, если микрофон включен ИЛИ если был активен ранее
-    if (isListening) {
-      setIsVoicePanelActive(true);
-    }
-    // Не закрываем панель автоматически - пользователь сам решает когда закрыть
-
-    // Простая логика: если транскрипт пустой - очищаем, если нет - отображаем
-    if (!transcript || transcript.trim() === "") {
-      console.log("📱 Очищаем транскрипт в Index.tsx");
-      setCurrentTranscript("");
-      setLastProcessedTranscript("");
-    } else {
-      // Показываем транскрипт только если он отличается от предыдущего и не слишком длинный
-      if (transcript !== lastProcessedTranscript && transcript.length < 50) {
-        console.log("📱 Устанавливаем новый транскрипт:", transcript);
-        setCurrentTranscript(transcript);
-        setLastProcessedTranscript(transcript);
-      } else if (transcript.length >= 50) {
-        console.log(
-          "📱 Отклоняем слишком длинный транскрипт:",
-          transcript.length,
-          "символов",
-        );
-        setCurrentTranscript("");
-        setLastProcessedTranscript("");
-      }
-    }
+    // Простая функция для совместимости с VoiceControl
+    console.log("🎤 Voice state:", { isListening, transcript: transcript?.slice(0, 20), isSpeaking });
   };
 
   const handleCloseVoicePanel = () => {
