@@ -84,10 +84,10 @@ export default function SignUp() {
 
       setSuccess(true);
 
-      // Перенаправляем на главную страницу через 1.5 секунды
+      // Перенаправляем на профиль для настройки Face ID через 2 секунды
       setTimeout(() => {
-        navigate("/");
-      }, 1500);
+        navigate("/profile");
+      }, 2000);
     } catch (error) {
       console.error("Registration error:", error);
       setError("Произошла ошибка при регистрации");
