@@ -203,7 +203,7 @@ export default function VoiceControl({
                   setTimeout(() => {
                     console.log("🧹 Полная очистка сос��оя��ия после команды");
                     setTranscript("");
-                    // НЕ вызываем onListeningChange, чтобы не открывать панель после отключения
+                    // НЕ вызываем onListeningChange, чтобы не от��рывать панель после отключения
                     lastCommandRef.current = "";
 
                     // Н�� перезапускаем Recognition - пусть работает непрерывно
@@ -233,7 +233,7 @@ export default function VoiceControl({
             isSpeaking,
           );
 
-          // ВСЕГДА перезапус��аем распознавание, если пользователь не отключил микрофон вручную
+          // ВСЕГДА перезапус��аем распознавание, если польз��ватель не отключил микрофон вручную
           if (isListening) {
             console.log("🔄 Перезапускаем распознавание...");
 
@@ -473,7 +473,7 @@ export default function VoiceControl({
 
     // Если есть cooldown, но не играет аудио, то ��рин��дительн�� сбрасываем cooldown
     if (commandCooldownRef.current) {
-      console.log("⚠️ Принудительно сбрасываем cooldown ��ля новой коман��ы");
+      console.log("⚠️ Принудитель��о сбрасываем cooldown ��ля новой коман��ы");
       commandCooldownRef.current = false;
     }
 
@@ -905,7 +905,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ос���анавливаем ��юбое те��ущее ��оспрои���ведение
+    // Ос����анавливаем ��юбое те��ущее ��оспрои���ведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -927,7 +927,7 @@ export default function VoiceControl({
       // Style: Assistant/Narration (помощник/повеств��вание)
 
       utterance.lang = "en-US"; // Английский для лучшего качества, потом переклю��им ���� русский
-      utterance.rate = 0.75; // Мед��ен��ая, размеренная р��чь как �� Джарвиса из фильма
+      utterance.rate = 0.75; // Мед��ен��ая, размеренна�� р��чь как �� Джарвиса из фильма
       utterance.pitch = 0.7; // Сред����-ни��кий тон для ����втор��те����ос��и
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
@@ -1017,7 +1017,7 @@ export default function VoiceControl({
     }
   };
 
-  // Тестовая функция для проверки аудио
+  // Тестовая функция для про��ерки аудио
   const testAudioUrls = () => {
     const url1 =
       "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76";
@@ -1047,7 +1047,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавл��ваем любое текущее воспроиз��ед��ние
+    // Останавл����ваем любое текущее воспроиз��ед��ние
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -1214,9 +1214,9 @@ export default function VoiceControl({
   };
 
   const activateStarkLab = () => {
-    // Множественная защита от повторного во��произведения
-    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
-      console.log("❌ activateStarkLab заблокирован - система занята");
+    // Улучшенн��я защита - разрешаем если нет активного аудио
+    if (isSpeaking && audioPlayingRef.current) {
+      console.log("❌ activateStarkLab заблокирован - играет аудио");
       return;
     }
 
@@ -1297,7 +1297,7 @@ export default function VoiceControl({
             commandCooldownRef.current = false;
             lastCommandRef.current = "";
           }, 500);
-          console.error("❌ Ошибка воспроизведения второго аудио активаци��");
+          console.error("❌ Ошибка воспроизведения вто��ого аудио активаци��");
         };
 
         secondAudio.play().catch((error) => {
@@ -1332,7 +1332,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("❌ Не удалось воспроизвести перво�� аудио активации:", error);
+      console.error("❌ Не удалос�� воспроизвести перво�� аудио активации:", error);
     });
   };
 
@@ -1402,7 +1402,7 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("🔧 Обработка команды:", command);
 
-    // ГАРА��ТИРОВАННАЯ защита от зас��ревания: всегда разрешаем обработку новых команд
+    // ГАРА��ТИРОВ��ННАЯ защита от зас��ревания: всегда разрешаем обработку новых команд
     // Устанавливаем таймер на сброс блокировок для ЛЮБОЙ команды
     const forceUnlockTimer = setTimeout(() => {
       console.log("⏰ Принудительное разблокирование через 8 секунд");
@@ -1465,7 +1465,7 @@ export default function VoiceControl({
       command.includes("полная активация джарвис") ||
       command.includes("джарвис активация лаб��ратории") ||
       command.includes("активация лаборатории джарвис") ||
-      command.includes("активировать лабораторию") ||
+      command.includes("активировать лабора��орию") ||
       command.includes("джарвис включи лабораторию") ||
       command.includes("полн��я ак��ивация")
     ) {
@@ -1524,7 +1524,7 @@ export default function VoiceControl({
       command.includes("джарвис продолжим") ||
       command.includes("продолжим джарвис")
     ) {
-      console.log("▶️ Команда 'давай продолжим' расп��знана:", command);
+      console.log("▶️ Команда 'давай продолжим' р��сп��знана:", command);
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1830,7 +1830,7 @@ export default function VoiceControl({
       "здесь",
       "снова",
       "спасибо",
-      "благодарю",
+      "б��агодарю",
       "благодарность",
       "��пс",
       "thank",
@@ -1954,7 +1954,7 @@ export default function VoiceControl({
           "advantages",
         ]);
         if (found) {
-          speak("��оказываю ��реимущества");
+          speak("����оказываю ��реимущества");
           return;
         }
       }
@@ -1993,7 +1993,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск инфо�����ации о компании
+      // Поиск инфо�����ации �� компании
       if (
         command.includes("компан") ||
         command.includes("о нас") ||
@@ -2120,7 +2120,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("рег��страция") ||
+      command.includes("рег��стр��ция") ||
       command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
@@ -2157,7 +2157,7 @@ export default function VoiceControl({
       command.includes("показать корзину") ||
       command.includes("что в корзине")
     ) {
-      // Нахо��им и нажимаем ��нопку ко��з���ны
+      // Нахо��им и нажимаем ��но��ку ко��з���ны
       const cartButton = document.querySelector(
         '[data-testid="cart-button"]',
       ) as HTMLElement;
@@ -2226,7 +2226,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("��о���а����ываю п��ан��");
+        speak("��о���а����ы��аю п��ан��");
       }
       return;
     }
@@ -2271,7 +2271,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Про������утка страницы
+    // ��ро������утка страницы
     if (
       command.includes("прок����тить вниз") ||
       command.includes("скролл вниз") ||
