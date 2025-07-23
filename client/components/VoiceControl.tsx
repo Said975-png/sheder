@@ -76,7 +76,7 @@ export default function VoiceControl({
         } catch (e) {
           // Игнорируем ������и��ки настроек
         }
-        // @ts-ignore - эти свойства могут не быть в типах, но р��ботают �� браузерах
+        // @ts-ignore - эти с��ойства могут не быть в типах, но р��ботают �� браузерах
         if ("webkitSpeechRecognition" in window) {
           recognitionRef.current.serviceURI =
             "wss://www.google.com/speech-api/full-duplex/v1/up";
@@ -157,7 +157,7 @@ export default function VoiceControl({
               command.length > 2
             ) {
               console.log(
-                "�� К��манда принята дл�� обработ��и:",
+                "�� К��манда принята дл�� обраб��т��и:",
                 `"${command}"`,
               );
               setTranscript(command);
@@ -299,7 +299,7 @@ export default function VoiceControl({
           // Другие оши��ки - ��ерезапускаем через короткое время
           else {
             console.warn(
-              "⚠�� Неожиданная ошибка распозна����ния:",
+              "⚠�� Неожиданн��я ошибка распозна����ния:",
               event.error,
               "- перезапу��каем",
             );
@@ -379,7 +379,7 @@ export default function VoiceControl({
     }
   }, [forceStop, isListening, onListeningChange]);
 
-  // Фу��кция для полного ��броса состояния по���ле команды
+  // Фу��кция для полного ��броса состояния по���ле ��оманды
   const resetCommandState = (delay: number = 1000) => {
     console.log(`⏰ Планируем сброс cooldown через ${delay}мс`);
     setTimeout(() => {
@@ -405,7 +405,7 @@ export default function VoiceControl({
 
     // Если есть cooldown, но не играет аудио, то принудительно сбрасываем cooldown
     if (commandCooldownRef.current) {
-      console.log("⚠️ Принудительно сбрасываем cooldown для новой команды");
+      console.log("⚠️ Принудительно сбрасываем cooldown для новой коман��ы");
       commandCooldownRef.current = false;
     }
 
@@ -473,7 +473,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Создаем и воспроизводим аудио для команды "отключись"
+    // Создаем и воспроизводим аудио для команды "отключи��ь"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -730,7 +730,7 @@ export default function VoiceControl({
       audio.onerror = () => {
         URL.revokeObjectURL(audioUrl);
         resetState();
-        console.error("Ошибка воспроизведения аудио ��з ElevenLabs");
+        console.error("Ошибка в��спроизведения аудио ��з ElevenLabs");
       };
 
       await audio.play();
@@ -1038,9 +1038,12 @@ export default function VoiceControl({
   const processVoiceCommand = (command: string) => {
     console.log("🔧 Обработка команды:", command);
 
-    // Простая очистка транскрипта в начале о��работки
+    // Простая очистка транскрипта в начале обработки
     setTranscript("");
-    onListeningChange?.(true, "");
+    // Только сообщаем о состоянии, если микрофон все еще активен
+    if (isListening) {
+      onListeningChange?.(true, "");
+    }
 
     // НЕ сбрасываем Recognition автоматически - пусть работает непрерывно
     console.log("🎯 Обрабатываем команду без сброса Recognition");
@@ -1092,7 +1095,7 @@ export default function VoiceControl({
       command.includes("authentic jarvis") ||
       command.includes("real jarvis") ||
       command.includes("movie jarvis") ||
-      command.includes("джарвис и�� железного ч��ловека") ||
+      command.includes("джарв��с и�� железного ч��ловека") ||
       command.includes("голос джарвиса") ||
       command.includes("оригинал") ||
       command.includes("как в марвел")
@@ -1151,7 +1154,7 @@ export default function VoiceControl({
       const timeSinceLastGreeting = now - lastGreetingTimeRef.current;
 
       console.log(
-        "🎯 Команда приветствия распознана, времени прошло:",
+        "🎯 Команда приветствия распознана, време��и прошло:",
         timeSinceLastGreeting,
       );
 
@@ -1363,7 +1366,7 @@ export default function VoiceControl({
       "мерси",
       "��ахмат",
       "рахмет",
-      "хорошо",
+      "хо��ошо",
       "отлично",
       "замечате����ьно",
       "круто",
@@ -1533,7 +1536,7 @@ export default function VoiceControl({
 
       // Поиск контактов
       if (
-        command.includes("контакт") ||
+        command.includes("кон��акт") ||
         command.includes("св��зь") ||
         command.includes("телефон") ||
         command.includes("email")
@@ -1577,7 +1580,7 @@ export default function VoiceControl({
       if (
         command.includes("качество") ||
         command.includes("премиум") ||
-        command.includes("поддержка")
+        command.includes("��оддержка")
       ) {
         found = searchAndNavigate([
           "к��чест��о",
@@ -1698,7 +1701,7 @@ export default function VoiceControl({
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
       command.includes("базовый в корзину") ||
-      command.includes("отправить базовый")
+      command.includes("отпр��вить базовый")
     ) {
       onAddBasicPlan();
       speak("Базовый план д��бав��ен");
@@ -1808,7 +1811,7 @@ export default function VoiceControl({
     }
 
     if (
-      command.includes("прокрутить вверх") ||
+      command.includes("прокрутить ввер��") ||
       command.includes("скролл вверх") ||
       command.includes("поднятьс��� ��верх")
     ) {
