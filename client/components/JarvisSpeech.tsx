@@ -259,7 +259,7 @@ export class JarvisSpeechEngine {
 
       this.currentUtterance = null;
 
-      // Небольшая задержка для полной очи��тки
+      // Небольшая задержка для полной очистки
       setTimeout(() => {
         if (this.synth.speaking) {
           try {
@@ -277,7 +277,23 @@ export class JarvisSpeechEngine {
   }
 
   isSpeaking(): boolean {
-    return this.synth.speaking;
+    return this.synth.speaking || this.synth.pending || this.currentUtterance !== null;
+  }
+
+  // Проверка доступности речевого синтеза
+  isAvailable(): boolean {
+    return 'speechSynthesis' in window && this.isInitialized;
+  }
+
+  // Принудительный сброс состояния
+  forceReset(): void {
+    try {
+      this.synth.cancel();
+      this.currentUtterance = null;
+      console.log('Speech synthesis force reset completed');
+    } catch (error) {
+      console.warn('Force reset error:', error);
+    }
   }
 
   // Специальные методы для разных типов сообщений Джарвиса
