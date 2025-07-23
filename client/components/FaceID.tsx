@@ -366,25 +366,57 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     
     if (!userFace) return false;
 
-    // Сравниваем каждый новый дескриптор с каждым сохраненным
+    // Строгие критерии верификации
+    const SIMILARITY_THRESHOLD = 0.88; // Повышен до 88%
+    const MIN_MATCHES = Math.ceil(descriptors.length * 0.8); // Минимум 80% дескрипторов должны совпадать
+
     let maxSimilarity = 0;
+    let goodMatches = 0;
+    let totalComparisons = 0;
+
     for (const newDesc of descriptors) {
       for (const savedDesc of userFace.descriptors) {
         const similarity = compareDescriptors(newDesc, savedDesc);
         maxSimilarity = Math.max(maxSimilarity, similarity);
+        totalComparisons++;
+
+        if (similarity > SIMILARITY_THRESHOLD) {
+          goodMatches++;
+        }
       }
     }
 
-    // Обновляем время последнего использования
-    if (maxSimilarity > 0.75) {
+    // Дополнительная проверка: средняя схожесть всех сравнений
+    let totalSimilarity = 0;
+    for (const newDesc of descriptors) {
+      for (const savedDesc of userFace.descriptors) {
+        totalSimilarity += compareDescriptors(newDesc, savedDesc);
+      }
+    }
+    const averageSimilarity = totalSimilarity / totalComparisons;
+
+    // Требуем высокую максимальную схожесть И достаточное количество хороших совпадений И высокую среднюю схожесть
+    const verified = maxSimilarity > SIMILARITY_THRESHOLD &&
+                     goodMatches >= MIN_MATCHES &&
+                     averageSimilarity > 0.7;
+
+    console.log(`Strict verification:`, {
+      maxSimilarity: maxSimilarity.toFixed(3),
+      avgSimilarity: averageSimilarity.toFixed(3),
+      goodMatches: `${goodMatches}/${MIN_MATCHES}`,
+      verified: verified
+    });
+
+    // Обновляем время последнего использования только при успешной верификации
+    if (verified) {
       userFace.lastUsed = new Date().toISOString();
-      const updatedFaces = existingFaces.map(face => 
+      const updatedFaces = existingFaces.map(face =>
         face.userId === currentUser.id ? userFace : face
       );
       localStorage.setItem("faceDescriptors", JSON.stringify(updatedFaces));
     }
 
-    return maxSimilarity > 0.65; // 65% схожести для успешной верификации
+    return verified;
   }, [currentUser, compareDescriptors]);
 
   // Основной процесс сканирования
@@ -395,7 +427,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     }
 
     setIsScanning(true);
-    setStatus("Поиск лица...");
+    setStatus("Поиск лиц��...");
     setCapturedImages([]);
 
     const requiredImages = mode === "register" ? 3 : 2; // Уменьшили количество снимков
