@@ -71,9 +71,7 @@ export default function Index() {
     });
   };
 
-  const handleProceedToOrder = () => {
-    navigate("/order");
-  };
+
 
   const handleListeningChange = (isListening: boolean, transcript?: string, isSpeaking?: boolean) => {
     // Панель остается активной, если микрофон включен ИЛИ если был активен ранее
