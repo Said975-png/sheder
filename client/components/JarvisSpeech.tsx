@@ -81,7 +81,7 @@ export class JarvisSpeechEngine {
       }
     }
 
-    // Ищем любой мужской голос для нужного языка
+    // Ищем любой мужск��й голос для нужного языка
     const maleVoices = this.voices.filter(voice => {
       const name = voice.name.toLowerCase();
       const isTargetLang = voice.lang.startsWith(lang.split('-')[0]);
@@ -114,7 +114,7 @@ export class JarvisSpeechEngine {
   private createJarvisUtterance(text: string, settings: JarvisVoiceSettings): SpeechSynthesisUtterance {
     const utterance = new SpeechSynthesisUtterance(text);
     
-    // Настройки голоса для Джарвиса
+    // Настройки голоса ��ля Джарвиса
     utterance.rate = settings.rate;
     utterance.pitch = settings.pitch;
     utterance.volume = settings.volume;
@@ -133,7 +133,7 @@ export class JarvisSpeechEngine {
     // Останавливаем текущую речь с задержкой
     this.stop();
 
-    // Небольшая задержка для очистки пр��дыдущих операций
+    // Небольшая задержка для очистки предыдущих операций
     await new Promise(resolve => setTimeout(resolve, 100));
 
     // Ждем инициализации голосов
@@ -343,7 +343,38 @@ export function useJarvisSpeech() {
       engineRef.current = new JarvisSpeechEngine();
     }
 
+    // Обработчик потери фокуса страницы
+    const handleVisibilityChange = () => {
+      if (document.hidden && engineRef.current) {
+        console.log('Page hidden, stopping speech');
+        engineRef.current.stop();
+      }
+    };
+
+    // Обработчик потери фокуса окна
+    const handleBlur = () => {
+      if (engineRef.current?.isSpeaking()) {
+        console.log('Window lost focus, stopping speech');
+        engineRef.current.stop();
+      }
+    };
+
+    // Обработчик ошибок на уровне страницы
+    const handleError = (event: ErrorEvent) => {
+      if (event.message?.includes('speech') && engineRef.current) {
+        console.log('Page error related to speech, resetting');
+        engineRef.current.forceReset();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('blur', handleBlur);
+    window.addEventListener('error', handleError);
+
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('blur', handleBlur);
+      window.removeEventListener('error', handleError);
       engineRef.current?.stop();
     };
   }, []);
