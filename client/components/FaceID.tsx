@@ -395,7 +395,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     }
     const averageSimilarity = totalSimilarity / totalComparisons;
 
-    // Требуем высокую максимальную схожесть И достаточное количество хороших совпадений И высокую среднюю схожесть
+    // Требуем высокую максимальную схожесть И достаточн��е количество хороших совпадений И высокую среднюю схожесть
     const verified = maxSimilarity > SIMILARITY_THRESHOLD &&
                      goodMatches >= MIN_MATCHES &&
                      averageSimilarity > 0.7;
@@ -427,10 +427,10 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     }
 
     setIsScanning(true);
-    setStatus("Поиск лиц��...");
+    setStatus("Поиск лица...");
     setCapturedImages([]);
 
-    const requiredImages = mode === "register" ? 3 : 2; // Уменьшили количество снимков
+    const requiredImages = mode === "register" ? 5 : 3; // Увеличиваем для точности
     const capturedImages: string[] = [];
     let attempts = 0;
     const maxAttempts = 50; // Увеличили количество попыток
