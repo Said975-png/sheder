@@ -172,9 +172,29 @@ export default function VoicePanel({
               <div className="text-lg font-mono text-cyan-400 mb-2">
                 <GlitchText>Микрофон активен</GlitchText>
               </div>
-              <div className="text-sm text-white/60 font-mono">
+              <div className="text-sm text-white/60 font-mono mb-4">
                 Говорите команды для управления системой
               </div>
+
+              {/* Audio Level Visualization */}
+              {isListening && (
+                <div className="flex justify-center items-end space-x-1 h-8">
+                  {[...Array(8)].map((_, i) => (
+                    <div
+                      key={i}
+                      className={cn(
+                        "w-2 bg-gradient-to-t from-cyan-500 to-blue-400 rounded-sm transition-all duration-150",
+                        i < 3 ? "h-2" : i < 5 ? "h-4" : i < 7 ? "h-6" : "h-8",
+                        "animate-pulse"
+                      )}
+                      style={{
+                        animationDelay: `${i * 0.1}s`,
+                        opacity: 0.4 + (Math.sin(Date.now() / 200 + i) + 1) * 0.3
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
