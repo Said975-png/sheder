@@ -269,7 +269,7 @@ export default function VoiceControl({
             if (event.error === "no-speech") {
               setNoSpeechCount((prev) => prev + 1);
               console.log(
-                `ℹ️ No-speech ошибка #${noSpeechCount + 1} - п��одолжаем слушать`,
+                `ℹ️ No-speech ошибка #${noSpeechCount + 1} - п��одолжаем слу��ать`,
               );
 
               // Если сл��шком много no-speech ошибок подряд, делаем небольшую паузу
@@ -404,7 +404,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Если есть cooldown, но не играет аудио, то принудительн�� сбрасываем cooldown
+    // Если есть cooldown, но не играет аудио, то ��ринудительн�� сбрасываем cooldown
     if (commandCooldownRef.current) {
       console.log("⚠️ Принудительно сбрасываем cooldown для новой коман��ы");
       commandCooldownRef.current = false;
@@ -461,7 +461,7 @@ export default function VoiceControl({
 
     // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
-      console.log("⏹️ Останавливаем текущее аудио");
+      console.log("⏹️ Останавливаем т��кущее аудио");
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
     }
@@ -757,7 +757,7 @@ export default function VoiceControl({
       });
       return;
     }
-    console.log("🔊 Начинаем воспроизведение Jarvis аудио");
+    console.log("🔊 Нач��наем воспроизведение Jarvis аудио");
 
     // О���танавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
@@ -1124,7 +1124,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("❌ Ошибка воспроизведения второго аудио");
+      console.error("❌ Ошибка воспроизведения втор��го аудио");
     };
 
     audio.play().catch((error) => {
@@ -1177,6 +1177,46 @@ export default function VoiceControl({
     ) {
       console.log("👋 Команда приветств��я распознана:", command);
       speakWelcomeBack();
+      return;
+    }
+
+    // Команда "Джарвис давай продолжим" - воспроизводит первое аудио
+    if (
+      command.includes("джарвис давай продолжим") ||
+      command.includes("да��ай продолжим джарвис") ||
+      command.includes("давай продолжим") ||
+      command.includes("джарвис продолжим") ||
+      command.includes("продолжим джарвис")
+    ) {
+      console.log("▶️ Команда 'давай продолжим' распознана:", command);
+      if (
+        !isSpeaking &&
+        !commandCooldownRef.current &&
+        !audioPlayingRef.current
+      ) {
+        speakContinue();
+      }
+      return;
+    }
+
+    // Команда "Верно" - воспроизводит второе аудио
+    if (
+      command.includes("верно") ||
+      command.includes("правильно") ||
+      command.includes("точно") ||
+      command.includes("именно") ||
+      command.includes("так и есть") ||
+      command.includes("correct") ||
+      command.includes("right")
+    ) {
+      console.log("✅ Команда 'верно' распознана:", command);
+      if (
+        !isSpeaking &&
+        !commandCooldownRef.current &&
+        !audioPlayingRef.current
+      ) {
+        speakCorrect();
+      }
       return;
     }
 
@@ -1533,7 +1573,7 @@ export default function VoiceControl({
         }
       }
 
-      // Пои��к по тексту элементов
+      // По����к по тексту элементов
       const allElements = Array.from(
         document.querySelectorAll("p, div, span, li"),
       );
@@ -1739,7 +1779,7 @@ export default function VoiceControl({
       command.includes("авторизация")
     ) {
       navigate("/login");
-      speak("Откр���в��ю страницу вх��да");
+      speak("Откр���в��ю страниц�� вх��да");
       return;
     }
 
@@ -1850,7 +1890,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("По���а����ываю п��аны");
+        speak("��о���а����ываю п��аны");
       }
       return;
     }
