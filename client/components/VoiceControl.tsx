@@ -216,7 +216,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Более агрессивная проверка - принудительно останавливаем если нужно
+    // Более агрессивная проверка - принудительно останавливаем если нуж��о
     if (recognitionState === 'listening') {
       console.log("🔄 Recognition already listening - forcing restart");
       try {
@@ -311,25 +311,30 @@ export default function VoiceControl({
     }
   }, [forceStop]);
 
-  // Функция сброса сос��ояния после команды
+  // Функция сброса состояния после команды
   const resetCommandState = useCallback(() => {
     console.log("🔄 Resetting command state");
+
+    // КРИТИЧНО: Сразу сбрасываем processing, чтобы разблокировать новые команды
     isProcessingRef.current = false;
     lastCommandRef.current = "";
     updateListeningState(isListening, "");
-    
-    // Если должны слушать - перезапускаем через секунду
+
+    console.log("✅ Processing unblocked - ready for new commands");
+
+    // Если должны слушать - перезапускаем Recognition
     if (shouldRestartRef.current && isListening && !isSpeaking) {
       if (restartTimeoutRef.current) {
         clearTimeout(restartTimeoutRef.current);
       }
-      
+
+      // Более быстрый перезапуск для лучшей отзывчивости
       restartTimeoutRef.current = setTimeout(() => {
         if (shouldRestartRef.current && isListening && !isSpeaking && recognitionState === 'idle') {
-          console.log("🔄 Delayed restart after command");
+          console.log("🔄 Restarting recognition for new commands");
           startRecognition();
         }
-      }, 1500);
+      }, 800); // Уменьшена задержка с 1500 до 800ms
     }
   }, [isListening, isSpeaking, recognitionState, startRecognition, updateListeningState]);
 
@@ -462,7 +467,7 @@ export default function VoiceControl({
     }
 
     // Команды приветствия (только специфичные)
-    if (cmd.includes("привет") || cmd.includes("hello") || cmd.includes("здравствуй") ||
+    if (cmd.includes("привет") || cmd.includes("hello") || cmd.includes("здравст��уй") ||
         cmd.includes("добро пожаловать") || cmd.includes("хай") || cmd.includes("хэй") ||
         cmd.includes("джарвис") || cmd.includes("жарвис") || cmd.includes("ярвис")) {
       speakAuthenticJarvis();
