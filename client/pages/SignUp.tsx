@@ -116,8 +116,11 @@ export default function SignUp() {
             <p className="theme-text-muted mb-4">
               Добро пожаловать, {formData.name}!
             </p>
-            <p className="theme-text-muted text-sm">
-              Перенаправляем на главную страницу...
+            <p className="theme-text-muted text-sm mb-2">
+              Перенаправляем в личный кабинет...
+            </p>
+            <p className="theme-text-muted text-xs">
+              Рекомендуем настроить Face ID для безопасности
             </p>
           </CardContent>
         </Card>
