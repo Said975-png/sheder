@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import VoiceControl from "@/components/VoiceControl";
 
 import StarkHero from "@/components/StarkHero";
-import JarvisInterface from "@/components/JarvisInterface";
+
 import VoicePanel from "@/components/VoicePanel";
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
 import {
