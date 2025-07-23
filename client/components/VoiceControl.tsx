@@ -124,7 +124,7 @@ export default function VoiceControl({
             combinedTranscript = "";
           }
 
-          // Показывае�� промежуточны�� результат только если сис��ема свободна и это новый короткий контент
+          // Показывае�� промежуточны�� результат только если с��с��ема свободна и это новый короткий контент
           if (
             combinedTranscript &&
             combinedTranscript.length > 2 &&
@@ -178,7 +178,7 @@ export default function VoiceControl({
 
                   // Быстрая очистка транскрипта после запуска команды
                   setTimeout(() => {
-                    console.log("���� Быстр��я очистка транскрипта");
+                    console.log("���� Б��стр��я очистка транскрипта");
                     setTranscript("");
                     // НЕ вызываем onListeningChange, чтобы не открывать панель после отключения
                   }, 800);
@@ -235,7 +235,7 @@ export default function VoiceControl({
                     "ℹ️ Распознавание уже запущено или недоступно:",
                     error,
                   );
-                  // Если не удалось перез���пустить, попробуем еще раз через 500мс
+                  // Есл�� не удалось перез���пустить, попробуем еще раз через 500мс
                   setTimeout(() => {
                     if (recognitionRef.current && isListening) {
                       try {
@@ -420,7 +420,7 @@ export default function VoiceControl({
     // НЕ вызываем onListeningChange во время воспроизведения аудио
     // Это предотвращает повторное открытие панели после команды отключения
 
-    // Созда��м и вос��рои��водим ваш новый ау��ио-файл
+    // Созда��м и вос���рои��водим ваш новый ау��ио-файл
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fdb47541068444a9093b406f29a6af3ce?alt=media&token=43fbc024-64ae-479b-8a6c-5b9d12b43294&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -452,7 +452,7 @@ export default function VoiceControl({
   };
 
   const speakShutdown = () => {
-    console.log("🔴 Выполняем команду отключения микрофона");
+    console.log("🔴 Выполняем команду отключения микр��фона");
 
     // СНАЧАЛА отключаем состояние listening, чтобы предотвратить автоматический перезапуск
     setIsListening(false);
@@ -803,7 +803,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("Ошибка воспроизведения оригина���ьного аудио Джарвиса");
+      console.error("Ошибка воспроизв��дения оригина���ьного аудио Джарвиса");
     };
 
     audio.play().catch((error) => {
@@ -977,7 +977,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Воспроизводим первое а��дио
+    // Воспроизводим первое а��ди��
     console.log("��� Создаем пе��вое аудио для диагнос��ики");
     const firstAudio = new Audio(
       "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76",
@@ -1041,6 +1041,98 @@ export default function VoiceControl({
     });
   };
 
+  const speakContinue = () => {
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      console.log("❌ speakContinue заблокирован - система занята");
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
+
+    console.log("▶️ Воспроизводим первое аудио - Давай продолжим");
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
+
+    // Первое аудио для команды "давай продолжим"
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2F6b72a929cd24415c8486df051bbaa5a2%2F35be1bb3c0f84dab8d368ae39c4dde3c?alt=media&token=39b27ede-43e5-43ac-8175-031ef131c2ef&apiKey=6b72a929cd24415c8486df051bbaa5a2",
+    );
+    currentAudioRef.current = audio;
+
+    const resetState = () => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 500);
+    };
+
+    audio.onended = resetState;
+    audio.onerror = () => {
+      resetState();
+      console.error("❌ Ошибка воспроизведения первого аудио");
+    };
+
+    audio.play().catch((error) => {
+      resetState();
+      console.error("❌ Не удалось воспроизвести первое аудио:", error);
+    });
+  };
+
+  const speakCorrect = () => {
+    // Множественная защита от повторного воспроизведения
+    if (isSpeaking || commandCooldownRef.current || audioPlayingRef.current) {
+      console.log("❌ speakCorrect заблокирован - система занята");
+      return;
+    }
+
+    // Останавливаем любое текущее воспроизведение
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+    }
+
+    console.log("▶️ Воспроизводим второе аудио - Верно");
+    setIsSpeaking(true);
+    commandCooldownRef.current = true;
+    audioPlayingRef.current = true;
+
+    // Второе аудио для команды "верно"
+    const audio = new Audio(
+      "https://cdn.builder.io/o/assets%2F6b72a929cd24415c8486df051bbaa5a2%2F3f0d27eed6164908bd9b24c2c5bc67e1?alt=media&token=5fa73b0b-df79-4f5a-b12c-4d182e8ed23f&apiKey=6b72a929cd24415c8486df051bbaa5a2",
+    );
+    currentAudioRef.current = audio;
+
+    const resetState = () => {
+      setIsSpeaking(false);
+      audioPlayingRef.current = false;
+      currentAudioRef.current = null;
+      setTimeout(() => {
+        commandCooldownRef.current = false;
+        lastCommandRef.current = "";
+      }, 500);
+    };
+
+    audio.onended = resetState;
+    audio.onerror = () => {
+      resetState();
+      console.error("❌ Ошибка воспроизведения второго аудио");
+    };
+
+    audio.play().catch((error) => {
+      resetState();
+      console.error("❌ Не удалось воспроизвести второе аудио:", error);
+    });
+  };
+
   const processVoiceCommand = (command: string) => {
     console.log("🔧 Обработка команды:", command);
 
@@ -1050,7 +1142,7 @@ export default function VoiceControl({
     // Это предотвращает повторное открытие панели
 
     // НЕ сбрасываем Recognition автоматически - пусть работает непрерывно
-    console.log("🎯 Обрабатываем команду без сброса Recognition");
+    console.log("🎯 Обрабатываем команд�� без сброса Recognition");
 
     // Фильтруем пу��тые или ��лишком короткие команды
     const trimmedCommand = command.trim();
@@ -1261,7 +1353,7 @@ export default function VoiceControl({
     ) {
       console.log("🎯 Распознана ко����ан��а диагностики:", command);
 
-      // Дополнит��льн��я проверка, чтобы избежать пов��орных срабатываний
+      // ��ополнит��льн��я проверка, чтобы избежать пов��орных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -1471,7 +1563,7 @@ export default function VoiceControl({
       command.includes("найди") ||
       command.includes("��де") ||
       command.includes("перейди к") ||
-      command.includes("спустис�� к")
+      command.includes("спуст��с�� к")
     ) {
       let found = false;
 
@@ -1785,7 +1877,7 @@ export default function VoiceControl({
       command.includes("�� возможностям") ||
       command.includes("мощные возможности") ||
       command.includes("спу��титься к возможностям") ||
-      command.includes("пере�����и к возмо��ностям") ||
+      command.includes("пере�������и к возмо��ностям") ||
       command.includes("возможности")
     ) {
       const found = searchAndNavigate(
