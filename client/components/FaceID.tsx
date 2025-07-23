@@ -151,7 +151,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
             }
           }
 
-          // Проверка на овальную форму лица
+          // Проверка на овальную форм�� лица
           const distanceFromCenter = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
           if (distanceFromCenter < checkRadius * 0.8) {
             faceShapePixels++;
@@ -226,7 +226,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
         const data = imageData.data;
         const descriptor: number[] = [];
 
-        // Анализируем ключевые области лица
+        // Анализируем ключевые об��асти лица
         const faceRegions = [
           { x: 32, y: 24, w: 64, h: 20, name: 'eyes' },      // Область глаз
           { x: 48, y: 56, w: 32, h: 16, name: 'nose' },      // Область н��са
@@ -350,7 +350,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     };
 
     const existingFaces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
-    // Удаляем старые данные этого пользователя
+    // Удаляем старые данные этого пол��зователя
     const filteredFaces = existingFaces.filter((face: FaceDescriptor) => face.userId !== currentUser.id);
     filteredFaces.push(faceData);
     
@@ -395,7 +395,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     }
     const averageSimilarity = totalSimilarity / totalComparisons;
 
-    // Требуем высокую максимальную схожесть И достаточн��е количество хороших совпадений И высокую среднюю схожесть
+    // Требуем высокую максимальную схожесть И достаточное количество хороших совпадений И высокую среднюю схожесть
     const verified = maxSimilarity > SIMILARITY_THRESHOLD &&
                      goodMatches >= MIN_MATCHES &&
                      averageSimilarity > 0.7;
@@ -465,17 +465,66 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
             setStatus("Обработка данных...");
             
             try {
-              // Генерируем дескрипторы для всех изображений
+              // Генерируем дескрипторы для всех изображений с проверкой качества
               const descriptors: number[][] = [];
+              let validImages = 0;
+
               for (const img of capturedImages) {
-                const desc = await generateFaceDescriptor(img);
-                if (desc.length > 0) {
-                  descriptors.push(desc);
-                }
+                // Дополнительная проверка качества изображения
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                const tempImg = new Image();
+
+                await new Promise<void>((resolve) => {
+                  tempImg.onload = () => {
+                    if (!ctx) {
+                      resolve();
+                      return;
+                    }
+
+                    canvas.width = tempImg.width;
+                    canvas.height = tempImg.height;
+                    ctx.drawImage(tempImg, 0, 0);
+
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const data = imageData.data;
+
+                    // Проверяем качество изображения
+                    let totalBrightness = 0;
+                    let contrastSum = 0;
+
+                    for (let i = 0; i < data.length; i += 16) {
+                      const r = data[i];
+                      const g = data[i + 1];
+                      const b = data[i + 2];
+                      totalBrightness += (r + g + b) / 3;
+                      contrastSum += Math.max(r, g, b) - Math.min(r, g, b);
+                    }
+
+                    const avgBrightness = totalBrightness / (data.length / 16);
+                    const avgContrast = contrastSum / (data.length / 16);
+
+                    // Изображение должно иметь нормальную яркость и достаточный контраст
+                    if (avgBrightness > 30 && avgBrightness < 220 && avgContrast > 20) {
+                      const desc = generateFaceDescriptor(img);
+                      Promise.resolve(desc).then(d => {
+                        if (d.length > 0) {
+                          descriptors.push(d);
+                          validImages++;
+                        }
+                        resolve();
+                      });
+                    } else {
+                      console.log(`Rejecting low quality image: brightness=${avgBrightness.toFixed(1)}, contrast=${avgContrast.toFixed(1)}`);
+                      resolve();
+                    }
+                  };
+                  tempImg.src = img;
+                });
               }
 
-              if (descriptors.length === 0) {
-                throw new Error("Не удалось обработать изображения лица");
+              if (descriptors.length < requiredImages * 0.6) {
+                throw new Error("Недостаточно качественных изображений лица. Попробуйте при лучшем освещении.");
               }
 
               if (mode === "register") {
@@ -489,7 +538,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
                   onSuccess();
                 } else {
                   setStatus("Лицо не распознано. Доступ запрещен.");
-                  onError("Лицо не распознано. Попробуйте еще раз или войдите другим способом.");
+                  onError("Л��цо не распознано. Попробуйте еще раз или войдите другим способом.");
                 }
               }
             } catch (error) {
