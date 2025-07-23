@@ -336,7 +336,7 @@ export default function VoiceControl({
         clearTimeout(restartTimeoutRef.current);
       }
 
-      // Более быстрый перезапуск для лучшей отзывчивости
+      // Более быстрый перезапуск для лучше�� отзывчивости
       restartTimeoutRef.current = setTimeout(() => {
         if (shouldRestartRef.current && isListening && !isSpeaking && recognitionState === 'idle') {
           console.log("🔄 Restarting recognition for new commands");
@@ -371,7 +371,7 @@ export default function VoiceControl({
       setIsSpeaking(false);
       currentAudioRef.current = null;
 
-      // КРИТИЧНО: Немедленно разблокируем обработку команд
+      // КРИТИЧНО: Немедленно разбл��кируем обработку команд
       isProcessingRef.current = false;
       console.log("✅ Command processing immediately unblocked");
 
@@ -449,10 +449,7 @@ export default function VoiceControl({
     console.log("🔧 Processing command:", command);
     const cmd = command.toLowerCase().trim();
 
-    // Очищаем транскрипт через секунду
-    setTimeout(() => {
-      updateListeningState(isListening, "");
-    }, 1000);
+    // НЕ очищаем транскрипт автоматически - дадим пользователю увидеть его
 
     // Команды тестирования микрофона
     if (cmd.includes("тест") || cmd.includes("проверка") || cmd.includes("слышишь") ||
@@ -531,7 +528,7 @@ export default function VoiceControl({
       return;
     }
 
-    if (cmd.includes("макс план") || cmd.includes("максимальный план") || 
+    if (cmd.includes("макс план") || cmd.includes("максимальны�� план") || 
         (cmd.includes("добавить") && cmd.includes("макс"))) {
       onAddMaxPlan();
       resetCommandState();
@@ -560,7 +557,10 @@ export default function VoiceControl({
     // Неизвестная команда - немедленно разблокируем
     console.log("❓ Unknown command:", cmd);
     isProcessingRef.current = false; // Критично: разблокируем немедленно
-    resetCommandState();
+    // Для неизвестных команд тоже не очищаем транскрипт сразу
+    setTimeout(() => {
+      resetCommandState();
+    }, 2000); // Даем время увидеть команду
   }, [isListening, updateListeningState, speakShutdown, speakWelcomeBack, speakSystemsOperational, speakAuthenticJarvis, speakThankYou, navigate, resetCommandState, onAddBasicPlan, onAddProPlan, onAddMaxPlan]);
 
   // Переключение прослушивания
