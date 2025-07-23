@@ -213,10 +213,14 @@ export default function VoiceControl({
 
   // Функция воспроизведения аудио
   const playAudio = (url: string, onComplete?: () => void) => {
-    if (isSpeaking) return;
+    if (isSpeaking) {
+      console.log("❌ Already speaking, skipping audio");
+      return;
+    }
 
+    console.log("🔊 Starting audio playback");
     setIsSpeaking(true);
-    stopRecognition(); // Останавливаем распозна��ание на время аудио
+    stopRecognition(); // Останавливаем распознавание на время аудио
 
     // Останавливаем предыдущее аудио
     if (currentAudioRef.current) {
@@ -317,7 +321,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "я вернулся" (проверяем пе��ед приветствием)
+    // Команда "я вернулся" (проверяем перед приветствием)
     if (cmd.includes("я вернулся") || cmd.includes("джарвис я здесь") || cmd.includes("джарвис я вернулся")) {
       speakWelcomeBack();
       return;
@@ -369,7 +373,7 @@ export default function VoiceControl({
     }
 
     // Команды планов (более специфичные)
-    if (cmd.includes("базовый план") || (cmd.includes("добавить") && cmd.includes("базовый"))) {
+    if (cmd.includes("базов��й план") || (cmd.includes("добавить") && cmd.includes("базовый"))) {
       onAddBasicPlan();
       resetCommandState();
       return;
@@ -407,7 +411,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Если команда не распознана - просто сбрасываем состояние без действий
+    // Если команда ��е распознана - просто сбрасываем состояние без действий
     console.log("❓ Unknown command, resetting state:", cmd);
     resetCommandState();
   };
