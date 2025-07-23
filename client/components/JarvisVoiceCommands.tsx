@@ -38,20 +38,20 @@ export function useJarvisVoiceCommands() {
   }, [speakResponse, safeSpeak]);
 
   const speakThankYou = useCallback(async () => {
-    await speakResponse("Всегда пожалуйста, сэр. Рад быть полезным");
-  }, [speakResponse]);
+    await safeSpeak(() => speakResponse("Всегда к вашим услугам, сэр. Весьма приятно быть полезным"), "Пожалуйста");
+  }, [speakResponse, safeSpeak]);
 
   const speakShutdown = useCallback(async () => {
-    await speakCommand("Отключаю голосовое управление. До свидания, сэр");
-  }, [speakCommand]);
+    await safeSpeak(() => speakCommand("Завершаю работу голосового интерфейса. Всего доброго, сэр"), "До с��идания");
+  }, [speakCommand, safeSpeak]);
 
   const speakAuthenticJarvis = useCallback(async () => {
-    await speakResponse("Джарвис к вашим услугам, сэр. Как дела?");
-  }, [speakResponse]);
+    await safeSpeak(() => speakResponse("Джарвис к вашим услугам, сэр. Чем могу быть полезен?"), "Джарвис готов");
+  }, [speakResponse, safeSpeak]);
 
   const speakHowAreYou = useCallback(async () => {
-    await speakResponse("У меня все в порядке, сэр. Все системы работают стабильно");
-  }, [speakResponse]);
+    await safeSpeak(() => speakSystemMessage("Все мои системы функционируют в пределах нормальных параметров, сэр"), "Все работает нормально");
+  }, [speakSystemMessage, safeSpeak]);
 
   // Диагностика систем (формальный системный стиль)
   const speakSystemDiagnostics = useCallback(async () => {
@@ -94,7 +94,7 @@ export function useJarvisVoiceCommands() {
     await speakResponse("Корзина очищена, сэр");
   }, [speakResponse]);
 
-  // Команды навигации
+  // ��оманды навигации
   const speakNavigating = useCallback(async (destination: string) => {
     await speakCommand(`Перехожу к разделу "${destination}", сэр`);
   }, [speakCommand]);
@@ -140,7 +140,7 @@ export function useJarvisVoiceCommands() {
     speakCorrect,
     speakNavigating,
 
-    // Команды лаборатории
+    // Коман��ы лаборатории
     speakLabActivation,
     speakLabDeactivation,
 
