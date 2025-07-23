@@ -481,6 +481,74 @@ export default function Profile() {
 
                 {activeTab === "security" && (
                   <div className="space-y-6">
+                    {/* Face ID Section */}
+                    <div className="space-y-4">
+                      <h4 className="text-lg font-semibold text-white mb-4 flex items-center space-x-2">
+                        <Scan className="w-5 h-5" />
+                        <span>Face ID</span>
+                      </h4>
+
+                      <div className="p-4 border border-white/20 bg-white/5 rounded-lg">
+                        <div className="flex items-center justify-between">
+                          <div className="space-y-1">
+                            <h5 className="text-white font-medium">
+                              Распозна��ание лица
+                            </h5>
+                            <p className="text-white/70 text-sm">
+                              {hasFaceID
+                                ? "Face ID настроен и активен для вашего аккаунта"
+                                : "Настройте Face ID для дополнительной безопасности"
+                              }
+                            </p>
+                          </div>
+
+                          <div className="flex items-center space-x-2">
+                            <Badge
+                              variant={hasFaceID ? "default" : "secondary"}
+                              className={hasFaceID
+                                ? "bg-green-600 text-white"
+                                : "bg-gray-600 text-white"
+                              }
+                            >
+                              {hasFaceID ? "Активен" : "Не настроен"}
+                            </Badge>
+
+                            {hasFaceID ? (
+                              <Button
+                                onClick={handleRemoveFaceID}
+                                variant="outline"
+                                size="sm"
+                                className="border-red-500/20 text-red-300 hover:bg-red-500/10"
+                              >
+                                Отключить
+                              </Button>
+                            ) : (
+                              <Button
+                                onClick={handleFaceIDSetup}
+                                size="sm"
+                                className="bg-purple-600 hover:bg-purple-700 text-white"
+                              >
+                                <Scan className="w-4 h-4 mr-2" />
+                                Настроить
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+
+                        {hasFaceID && (
+                          <div className="mt-3 pt-3 border-t border-white/10">
+                            <div className="text-xs text-white/50 space-y-1">
+                              <p>✓ Face ID будет запрашиваться при входе в личный кабинет</p>
+                              <p>✓ Биометрические данные хранятся локально и не передаются на сервер</p>
+                              <p>✓ Только ваше лицо может получить доступ к аккаунту</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <Separator className="bg-white/20" />
+
                     <form onSubmit={handlePasswordChange} className="space-y-4">
                       <h4 className="text-lg font-semibold text-white mb-4">
                         Смена пароля
