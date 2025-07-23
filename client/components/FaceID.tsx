@@ -256,15 +256,15 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     setStatus("Поиск лица...");
     setCapturedImages([]);
 
-    const requiredImages = mode === "register" ? 5 : 3;
+    const requiredImages = mode === "register" ? 3 : 2; // Уменьшили количество снимков
     const capturedImages: string[] = [];
     let attempts = 0;
-    const maxAttempts = 30;
+    const maxAttempts = 50; // Увеличили количество попыток
 
     const scanLoop = async () => {
       if (attempts >= maxAttempts) {
         setIsScanning(false);
-        onError("Не удал��сь обнаружить лицо. Попробуйте еще раз.");
+        onError("Не удалось обнаружить лицо. Попробуйте еще раз.");
         return;
       }
 
