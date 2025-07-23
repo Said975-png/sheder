@@ -9,7 +9,7 @@ interface VoiceControlProps {
   onAddProPlan: () => void;
   onAddMaxPlan: () => void;
   inNavbar?: boolean;
-  onListeningChange?: (isListening: boolean, transcript?: string) => void;
+  onListeningChange?: (isListening: boolean, transcript?: string, isSpeaking?: boolean) => void;
   forceStop?: boolean;
 }
 
@@ -310,7 +310,7 @@ export default function VoiceControl({
 
   const speakShutdown = useCallback(() => {
     playAudio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c", () => {
-      // После команды отк��ючения - полностью останавливаем
+      // После команды отключения - полностью останавливаем
       if (isListening) {
         toggleListening();
       }
