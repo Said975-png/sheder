@@ -57,7 +57,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     }
   }, [onError]);
 
-  // Строгая детекция лица с мн��жественными проверками
+  // Строгая детекция лица с множественными проверками
   const detectFace = useCallback(async () => {
     if (!videoRef.current || !canvasRef.current) return false;
 
@@ -140,7 +140,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
             eyeRegionDark++;
           }
 
-          // Проверка на вариации контраста
+          // Проверка на вар��ации контраста
           if (i + 16 < data.length) {
             const nextR = data[i + 16];
             const nextG = data[i + 17];
@@ -205,13 +205,12 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
     return canvas.toDataURL("image/jpeg", 0.8);
   }, []);
 
-  // Генерация дескриптора лица (упрощенная версия)
+  // Генерация уникального дескриптора лица
   const generateFaceDescriptor = useCallback((imageData: string): number[] => {
-    // Простой алгоритм генерации дескриптора на основе пикселей изображения
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     const img = new Image();
-    
+
     return new Promise<number[]>((resolve) => {
       img.onload = () => {
         if (!ctx) {
@@ -219,22 +218,76 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
           return;
         }
 
-        canvas.width = 64;
-        canvas.height = 64;
-        ctx.drawImage(img, 0, 0, 64, 64);
-        
-        const imageData = ctx.getImageData(0, 0, 64, 64);
+        canvas.width = 128;
+        canvas.height = 128;
+        ctx.drawImage(img, 0, 0, 128, 128);
+
+        const imageData = ctx.getImageData(0, 0, 128, 128);
         const data = imageData.data;
         const descriptor: number[] = [];
-        
-        // Создаем дескриптор из RGB значений каждого 4-го пикселя
+
+        // Анализируем ключевые области лица
+        const faceRegions = [
+          { x: 32, y: 24, w: 64, h: 20, name: 'eyes' },      // Область глаз
+          { x: 48, y: 56, w: 32, h: 16, name: 'nose' },      // Область носа
+          { x: 32, y: 80, w: 64, h: 24, name: 'mouth' },     // Область рта
+          { x: 16, y: 40, w: 96, h: 48, name: 'center' },    // Центральная область
+        ];
+
+        faceRegions.forEach(region => {
+          const regionDescriptor: number[] = [];
+
+          // Анализируем каждую область с высоким разрешением
+          for (let y = region.y; y < region.y + region.h; y += 4) {
+            for (let x = region.x; x < region.x + region.w; x += 4) {
+              if (x < 128 && y < 128) {
+                const i = (y * 128 + x) * 4;
+                const r = data[i] / 255;
+                const g = data[i + 1] / 255;
+                const b = data[i + 2] / 255;
+
+                // Добавляем RGB значения
+                regionDescriptor.push(r);
+                regionDescriptor.push(g);
+                regionDescriptor.push(b);
+
+                // Добавляем производные характеристики
+                regionDescriptor.push((r + g + b) / 3); // Яркость
+                regionDescriptor.push(Math.abs(r - g));  // Контраст R-G
+                regionDescriptor.push(Math.abs(g - b));  // Контраст G-B
+                regionDescriptor.push(Math.abs(r - b));  // Контраст R-B
+              }
+            }
+          }
+
+          // Добавляем статистические характеристики региона
+          if (regionDescriptor.length > 0) {
+            const avg = regionDescriptor.reduce((a, b) => a + b, 0) / regionDescriptor.length;
+            const variance = regionDescriptor.reduce((acc, val) => acc + (val - avg) ** 2, 0) / regionDescriptor.length;
+
+            descriptor.push(...regionDescriptor);
+            descriptor.push(avg);      // Среднее значение региона
+            descriptor.push(variance); // Дисперсия региона
+            descriptor.push(Math.max(...regionDescriptor)); // Максимум
+            descriptor.push(Math.min(...regionDescriptor)); // Минимум
+          }
+        });
+
+        // Добавляем глобальн��е характеристики
+        const globalBrightness = [];
         for (let i = 0; i < data.length; i += 16) {
-          const r = data[i] / 255;
-          const g = data[i + 1] / 255;
-          const b = data[i + 2] / 255;
-          descriptor.push((r + g + b) / 3);
+          globalBrightness.push((data[i] + data[i + 1] + data[i + 2]) / (3 * 255));
         }
-        
+
+        const globalAvg = globalBrightness.reduce((a, b) => a + b, 0) / globalBrightness.length;
+        const globalVar = globalBrightness.reduce((acc, val) => acc + (val - globalAvg) ** 2, 0) / globalBrightness.length;
+
+        descriptor.push(globalAvg);
+        descriptor.push(globalVar);
+        descriptor.push(Math.max(...globalBrightness));
+        descriptor.push(Math.min(...globalBrightness));
+
+        console.log(`Generated descriptor with ${descriptor.length} features`);
         resolve(descriptor);
       };
       img.src = imageData;
@@ -534,7 +587,7 @@ export default function FaceID({ mode, onSuccess, onError, onCancel }: FaceIDPro
               <p>• Расположите лицо в центре рамки</p>
               <p>• Держите устройство на уровне глаз</p>
               <p>• Обеспечьте хорошее освещение</p>
-              <p>• Мы сделаем 3 снимка для лучшего распознавания</p>
+              <p>• Мы сделаем 3 снимка для лучшего распозна��ания</p>
             </>
           ) : (
             <>
