@@ -142,17 +142,23 @@ export default function VoiceControl({
 
           // Об��абатываем финальные рез��льтаты или достаточно длинные промежуто��ные
           // Команда отключения имеет абсолютный приоритет и выполняется всегда
-          const isShutdownCommand = (finalTranscript || combinedTranscript)
-            .toLowerCase()
-            .includes("отключись") ||
+          const isShutdownCommand =
             (finalTranscript || combinedTranscript)
-            .toLowerCase()
-            .includes("выключись");
+              .toLowerCase()
+              .includes("отключись") ||
+            (finalTranscript || combinedTranscript)
+              .toLowerCase()
+              .includes("выключись");
 
           // Прину��ительно сбрасываем застрявшие блокировки если система молчит дольше 5 секунд
           const now = Date.now();
-          const timeSinceLastCommand = now - (lastCommandRef.current ? Date.now() : 0);
-          if (commandCooldownRef.current && !isSpeaking && !audioPlayingRef.current) {
+          const timeSinceLastCommand =
+            now - (lastCommandRef.current ? Date.now() : 0);
+          if (
+            commandCooldownRef.current &&
+            !isSpeaking &&
+            !audioPlayingRef.current
+          ) {
             console.log("🔄 Принудительно сбрасываем застрявшие блокировки");
             commandCooldownRef.current = false;
             lastCommandRef.current = "";
@@ -273,12 +279,16 @@ export default function VoiceControl({
 
           // Критические ошибки с умным восстановлением
           if (event.error === "network") {
-            setNetworkErrorCount(prev => prev + 1);
-            console.error(`🚨 Сетевая ошибка распознавания #${networkErrorCount + 1}`);
+            setNetworkErrorCount((prev) => prev + 1);
+            console.error(
+              `🚨 Сетевая ошибка распознавания #${networkErrorCount + 1}`,
+            );
 
             // Если слишком много сетевых ошибок подряд - отключаем
             if (networkErrorCount >= 3) {
-              console.error("��� Слишком много сетевых ошибок - отключаем распознавание");
+              console.error(
+                "��� Слишком много сетевых ошибок - отключаем распознавание",
+              );
               setIsListening(false);
               onListeningChange?.(false, "");
               setNetworkErrorCount(0);
@@ -291,13 +301,18 @@ export default function VoiceControl({
 
             setTimeout(() => {
               if (isListening && recognitionRef.current) {
-                console.log("🔄 Восстанавливаем распознавание после сетевой ошибки");
+                console.log(
+                  "🔄 Восстанавливаем распознавание после сетевой ошибки",
+                );
                 try {
                   recognitionRef.current.start();
                   console.log("✅ Распознавание восстановлено");
                   setNetworkErrorCount(0); // Сбрасываем счетчик при успехе
                 } catch (error) {
-                  console.error("❌ Не удалось восстановить распознавание:", error);
+                  console.error(
+                    "❌ Не удалось восстановить распознавание:",
+                    error,
+                  );
                 }
               }
             }, retryDelay);
@@ -322,7 +337,9 @@ export default function VoiceControl({
 
               // Если сл��шком много no-speech о��ибок ��одряд, делаем небольшую паузу
               if (noSpeechCount >= 3) {
-                console.log("⏸️ М��ого no-speech ошибок, делаем паузу 2 сек...");
+                console.log(
+                  "⏸️ М��ого no-speech ошибок, делаем паузу 2 сек...",
+                );
                 setTimeout(() => {
                   setNoSpeechCount(0);
                   if (isListening && recognitionRef.current) {
@@ -430,7 +447,12 @@ export default function VoiceControl({
   useEffect(() => {
     const interval = setInterval(() => {
       // Если система заблокирована, но не говорит и не вос��роизводит аудио
-      if (commandCooldownRef.current && !isSpeaking && !audioPlayingRef.current && isListening) {
+      if (
+        commandCooldownRef.current &&
+        !isSpeaking &&
+        !audioPlayingRef.current &&
+        isListening
+      ) {
         console.log("🧹 Автоматическая очистка застрявших блокировок");
         commandCooldownRef.current = false;
         audioPlayingRef.current = false;
@@ -440,7 +462,9 @@ export default function VoiceControl({
 
       // Допо��нительная защита: если система молчит более 5 секунд, принудительно с��расываем
       if (isSpeaking && !audioPlayingRef.current && !currentAudioRef.current) {
-        console.log("🔄 Принудительный ��брос 'говорящего' состояния без аудио");
+        console.log(
+          "🔄 Принудительный ��брос 'говорящего' состояния без аудио",
+        );
         setIsSpeaking(false);
         commandCooldownRef.current = false;
       }
@@ -459,16 +483,18 @@ export default function VoiceControl({
     const handleOffline = () => {
       console.log("📵 Потеряно интернет соединение");
       if (isListening) {
-        console.log("⚠️ Распознавание речи может работать некорректно без интернета");
+        console.log(
+          "⚠️ Распознавание речи может работать некорректно без интернета",
+        );
       }
     };
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, [isListening]);
 
@@ -516,7 +542,10 @@ export default function VoiceControl({
   };
 
   // Фу��кция для пол��ого ��броса состояния по���ле ��оманды
-  const resetCommandState = (delay: number = 1000, skipPanelReopen: boolean = false) => {
+  const resetCommandState = (
+    delay: number = 1000,
+    skipPanelReopen: boolean = false,
+  ) => {
     console.log(`⏰ П��анируем сброс cooldown через ${delay}мс`);
     setTimeout(() => {
       // Полный сброс всех состояний блокировки
@@ -645,7 +674,9 @@ export default function VoiceControl({
         currentAudioRef.current = null;
         setTranscript("");
         // НЕ открываем панель обратно после команды отключения
-        console.log("✅ Ко��анда отключения завершена - панель остается закрытой");
+        console.log(
+          "✅ Ко��анда отключения завершена - панель остается закрытой",
+        );
       };
 
       audio.onended = shutdownComplete;
@@ -657,7 +688,10 @@ export default function VoiceControl({
 
       console.log("▶️ Пытаемся воспроизвести ау��ио отключения");
       audio.play().catch((error) => {
-        console.error("❌ Не уд��лось воспрои��вести аудио ��тключения:", error);
+        console.error(
+          "❌ Не уд��лось воспрои��вести аудио ��тключения:",
+          error,
+        );
         shutdownComplete();
       });
     }, 100); // Задержка 100мс для полной ост��новки пр��дыдущего аудио
@@ -786,7 +820,9 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error("О��ибка во����произведения ауди�� утреннего при����етствия");
+      console.error(
+        "О��ибка во����произведения ауди�� утреннего при����етствия",
+      );
     };
 
     audio.play().catch((error) => {
@@ -1303,7 +1339,9 @@ export default function VoiceControl({
       currentAudioRef.current.currentTime = 0;
     }
 
-    console.log("🔬 Активация лаборатории Старка - начинаем последовательность");
+    console.log(
+      "🔬 Активация лаборатории Старка - начинаем последовательность",
+    );
     setIsSpeaking(true);
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
@@ -1318,31 +1356,31 @@ export default function VoiceControl({
       console.log("✅ Первое аудио завершено, активируем лабораторию");
 
       // Мгновенно м��няем тему на лабораторию Старка
-      document.documentElement.classList.add('stark-lab-theme');
+      document.documentElement.classList.add("stark-lab-theme");
 
       // Добавляем эффект скан��рования
-      const scanElement = document.createElement('div');
-      scanElement.className = 'lab-activation-scan';
+      const scanElement = document.createElement("div");
+      scanElement.className = "lab-activation-scan";
       document.body.appendChild(scanElement);
 
       // Доба��ляем активационный оверлей
-      const overlayElement = document.createElement('div');
-      overlayElement.className = 'lab-activation-overlay';
+      const overlayElement = document.createElement("div");
+      overlayElement.className = "lab-activation-overlay";
       document.body.appendChild(overlayElement);
 
       // Добавляем HUD сетку
-      const hudGrid = document.createElement('div');
-      hudGrid.className = 'stark-lab-hud-grid';
+      const hudGrid = document.createElement("div");
+      hudGrid.className = "stark-lab-hud-grid";
       document.body.appendChild(hudGrid);
 
       // Добавляем голографичес��ие частицы
-      const particlesContainer = document.createElement('div');
-      particlesContainer.className = 'stark-lab-particles';
+      const particlesContainer = document.createElement("div");
+      particlesContainer.className = "stark-lab-particles";
       for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'stark-lab-particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 3 + 's';
+        const particle = document.createElement("div");
+        particle.className = "stark-lab-particle";
+        particle.style.left = Math.random() * 100 + "%";
+        particle.style.animationDelay = Math.random() * 3 + "s";
         particlesContainer.appendChild(particle);
       }
       document.body.appendChild(particlesContainer);
@@ -1385,7 +1423,10 @@ export default function VoiceControl({
             commandCooldownRef.current = false;
             lastCommandRef.current = "";
           }, 500);
-          console.error("❌ Не удалось воспроизвести второе аудио активации:", error);
+          console.error(
+            "❌ Не удалось воспроизвести второе аудио активации:",
+            error,
+          );
         });
       }, 1000); // Задержка 1 секунда для завершения анимации
     };
@@ -1409,7 +1450,10 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("❌ Не удалос�� воспроизвести перво�� аудио активации:", error);
+      console.error(
+        "❌ Не удалос�� воспроизвести перво�� аудио активации:",
+        error,
+      );
     });
   };
 
@@ -1438,19 +1482,19 @@ export default function VoiceControl({
     currentAudioRef.current = audio;
 
     // Сразу возвращаем обычную тему
-    document.documentElement.classList.remove('stark-lab-theme');
+    document.documentElement.classList.remove("stark-lab-theme");
 
     // Удаляем все лабораторные элементы
     const elementsToRemove = [
-      '.lab-activation-scan',
-      '.lab-activation-overlay',
-      '.stark-lab-hud-grid',
-      '.stark-lab-particles'
+      ".lab-activation-scan",
+      ".lab-activation-overlay",
+      ".stark-lab-hud-grid",
+      ".stark-lab-particles",
     ];
 
-    elementsToRemove.forEach(selector => {
+    elementsToRemove.forEach((selector) => {
       const elements = document.querySelectorAll(selector);
-      elements.forEach(element => element.remove());
+      elements.forEach((element) => element.remove());
     });
 
     const resetState = () => {
@@ -1493,7 +1537,9 @@ export default function VoiceControl({
     // КРОМЕ команды отключения, которая обрабатывается отдельно
     if (!command.includes("отключись") && !command.includes("выключись")) {
       if (commandCooldownRef.current || audioPlayingRef.current) {
-        console.log("🔄 Принудит��льно сбрасываем блокировки перед обработкой команды");
+        console.log(
+          "🔄 Принудит��льно сбрасываем блокировки перед обработкой команды",
+        );
         forceResetAllStates();
       }
     }
@@ -1701,7 +1747,9 @@ export default function VoiceControl({
         lastGreetingTimeRef.current = now;
         speakAuthenticJarvis();
       } else {
-        console.log("❌ Приветствие заблокировано (��ало времени прошло или играет аудио)");
+        console.log(
+          "❌ Приветствие заблокировано (��ало времени прошло или играет аудио)",
+        );
       }
       return;
     }

@@ -126,8 +126,6 @@ export default function Index() {
     console.log("🎤 Микрофон активен:", isListening, "Транскрипт:", transcript);
   };
 
-
-
   const handleStopListening = () => {
     setForceStopVoice(true);
     setTimeout(() => setForceStopVoice(false), 100);
@@ -148,8 +146,6 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-
-
       {/* Navigation - Enhanced with Stark styling */}
       <nav
         className={cn(
@@ -157,7 +153,6 @@ export default function Index() {
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
-
         )}
       >
         <div className="flex items-center space-x-2">
