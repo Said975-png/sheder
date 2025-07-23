@@ -166,7 +166,7 @@ export default function VoiceControl({
     setTranscript("");
     onListeningChange?.(isListening, "");
     
-    // Пере��апускаем прослушивание если нужно
+    // Пере��апу��каем прослушивание если нужно
     if (isListening && !isSpeaking) {
       if (restartTimeoutRef.current) {
         clearTimeout(restartTimeoutRef.current);
@@ -201,7 +201,7 @@ export default function VoiceControl({
       setIsSpeaking(false);
       currentAudioRef.current = null;
       
-      // С��расываем состояние команды
+      // Сбрасываем состояние команды
       setTimeout(() => {
         resetCommandState();
         onComplete?.();
@@ -235,7 +235,7 @@ export default function VoiceControl({
 
   const speakShutdown = () => {
     playAudio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c", () => {
-      // После команды отключения - полностью останавливаем
+      // Посл�� команды отключения - полностью останавливаем
       stopListening();
     });
   };
@@ -273,10 +273,12 @@ export default function VoiceControl({
     console.log("🔧 Processing command:", command);
     const cmd = command.toLowerCase().trim();
 
-    // Очищаем отображение транскрипта
+    // Очищаем отображение транскрипта, но не сбрасываем состояние панели
     setTimeout(() => {
       setTranscript("");
-      onListeningChange?.(isListening, "");
+      if (onListeningChange) {
+        onListeningChange(isListening, ""); // Передаем текущее состояние без изменений
+      }
     }, 1000);
 
     // Команды отключения (высший приоритет)
