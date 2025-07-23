@@ -19,6 +19,10 @@ import {
   Brain,
   Zap,
   CheckCircle,
+  ShoppingCart,
+  User,
+  LogOut,
+  Home,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
@@ -80,7 +84,7 @@ export default function Index() {
     }
     // Не закрываем панель автоматически - пользователь сам решает когда закрыть
 
-    // Простая логика: если транскрипт пустой - очищаем, если нет - отображаем
+    // Простая логика: если тран��крипт пустой - очищаем, если нет - отображаем
     if (!transcript || transcript.trim() === "") {
       console.log("📱 Очищаем транскрипт в Index.tsx");
       setCurrentTranscript("");
