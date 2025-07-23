@@ -51,6 +51,9 @@ export default function Profile() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [activeTab, setActiveTab] = useState<"profile" | "security">("profile");
+  const [showFaceIDModal, setShowFaceIDModal] = useState(false);
+  const [faceIDMode, setFaceIDMode] = useState<"register" | "verify">("register");
+  const [hasFaceID, setHasFaceID] = useState(false);
 
   // Получаем аватар пользователя при загрузке
   useEffect(() => {
@@ -74,7 +77,7 @@ export default function Profile() {
               Доступ запрещён
             </h2>
             <p className="text-white/70 mb-4">
-              Для просмотра профиля необход��мо войти в аккаунт
+              Для просмотра профиля необходимо войти в аккаунт
             </p>
             <Button
               onClick={() => navigate("/login")}
@@ -481,7 +484,7 @@ export default function Profile() {
                             id="newPassword"
                             name="newPassword"
                             type="password"
-                            placeholder="Введите н��вый пароль"
+                            placeholder="Введите новый пароль"
                             value={formData.newPassword}
                             onChange={handleChange}
                             required
