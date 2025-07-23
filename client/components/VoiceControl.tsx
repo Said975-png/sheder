@@ -71,7 +71,18 @@ export default function VoiceControl({
       recognitionRef.current.continuous = true;
       recognitionRef.current.interimResults = true;
       recognitionRef.current.lang = "ru-RU";
-      recognitionRef.current.maxAlternatives = 1;
+      recognitionRef.current.maxAlternatives = 3;
+
+      // Улучшенные настройки для лучшего распознавания
+      try {
+        // @ts-ignore - WebKit specific properties for better sensitivity
+        if (recognitionRef.current.webkitSpeechRecognition) {
+          recognitionRef.current.webkitContinuous = true;
+          recognitionRef.current.webkitInterimResults = true;
+        }
+      } catch (e) {
+        console.log("WebKit properties not available");
+      }
 
       recognitionRef.current.onstart = () => {
         console.log("🎤 Recognition STARTED");
@@ -387,7 +398,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Навигационные команды
+    // Навигацион��ые команды
     if (cmd.includes("домой") || cmd.includes("главная") || cmd.includes("на главную")) {
       navigate("/");
       resetCommandState();
