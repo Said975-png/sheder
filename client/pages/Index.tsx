@@ -33,14 +33,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
 
 export default function Index() {
   const { currentUser, logout, isAuthenticated, loading } = useAuth();
