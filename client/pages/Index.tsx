@@ -59,7 +59,7 @@ export default function Index() {
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
-  // Запуск аним��ции при загрузке компонента
+  // Запуск аним��ции при загрузке ��омпонента
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
@@ -126,11 +126,7 @@ export default function Index() {
     console.log("🎤 Микрофон активен:", isListening, "Транскрипт:", transcript);
   };
 
-  const handleCloseVoicePanel = () => {
-    setIsVoicePanelActive(false);
-    setCurrentTranscript("");
-    setLastProcessedTranscript("");
-  };
+
 
   const handleStopListening = () => {
     setForceStopVoice(true);
