@@ -6,7 +6,7 @@ import VoiceControl from "@/components/VoiceControl";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
-import VoicePanel from "@/components/VoicePanel";
+
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
 import {
   ArcReactor,
@@ -139,7 +139,7 @@ export default function Index() {
       setCurrentTranscript("");
       setLastProcessedTranscript("");
     } else {
-      // Показываем транскрипт только если он отличается от предыдущег�� и не слишком длинный
+      // По��азываем транскрипт только если он отличается от предыдущег�� и не слишком длинный
       if (transcript !== lastProcessedTranscript && transcript.length < 50) {
         console.log("📱 Устанавливаем новый транскрипт:", transcript);
         setCurrentTranscript(transcript);
