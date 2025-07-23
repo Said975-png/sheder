@@ -172,7 +172,7 @@ export default function VoiceControl({
               commandDelayRef.current = setTimeout(
                 () => {
                   lastCommandRef.current = command;
-                  setNoSpeechCount(0); // Сбрасываем счетчик при успешном распознавании
+                  setNoSpeechCount(0); // Сбрасываем счетчик при успешном ра��познавании
 
                   processVoiceCommand(command);
 
@@ -291,7 +291,7 @@ export default function VoiceControl({
               console.log(
                 "ℹ️ Некритическая ошибка распознавания:",
                 event.error,
-                "- ��родолжаем слушать",
+                "- ��ро��олжаем слушать",
               );
             }
             // Система автоматически переза��устится через onend
@@ -326,7 +326,7 @@ export default function VoiceControl({
         currentAudioRef.current.pause();
         currentAudioRef.current.currentTime = 0;
       }
-      // Очищаем таймер ко��анд
+      // Очищаем т��ймер ко��анд
       if (commandDelayRef.current) {
         clearTimeout(commandDelayRef.current);
       }
@@ -466,9 +466,14 @@ export default function VoiceControl({
       audioPlayingRef.current = false;
       lastCommandRef.current = "";
       currentAudioRef.current = null;
-      // НЕ отключаем микрофон автоматически - пусть пользователь сам управляет
+      // Отключаем микрофон после команды "отключить"
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
       setTranscript("");
-      onListeningChange?.(true, "");
+      onListeningChange?.(false, "");
+      console.log("🔴 Микрофон отключен по команде");
     };
 
     audio.onended = shutdownComplete;
@@ -834,7 +839,7 @@ export default function VoiceControl({
             voice.name.toLowerCase().includes("thomas")),
       );
 
-      // ��сли н�� нашли подходящий а��глийский, ищем русский мужской
+      // ��сли н�� нашли подходящий а����лийский, ищем русский мужской
       const russianMaleVoice = voices.find(
         (voice) =>
           voice.lang.includes("ru") &&
@@ -1269,7 +1274,7 @@ export default function VoiceControl({
       "доба���ить",
       "план",
       "джарвис",
-      "жарвис", // частые ошибки распозна����ания
+      "жарвис", // част��е ошибки распозна����ания
       "ярвис",
       "джаров",
       "базовый",
@@ -1316,7 +1321,7 @@ export default function VoiceControl({
       "создать",
       "биз��ес",
       "помощник",
-      "персональный",
+      "персональны��",
       "откл��чись",
       "в��ключись",
       "от��лючи",
@@ -1368,7 +1373,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Умный поиск контента по всему сайту
+    // Умн��й поиск контента по всему сайту
     const searchAndNavigate = (
       searchTerms: string[],
       fallbackAction?: () => void,
@@ -1620,7 +1625,7 @@ export default function VoiceControl({
       command.includes("зарегистрироваться")
     ) {
       navigate("/signup");
-      speak("Переходим к регистрации");
+      speak("П��реходим к регистрации");
       return;
     }
 
@@ -1730,7 +1735,7 @@ export default function VoiceControl({
     if (
       command.includes("к пре���мущес��вам") ||
       command.includes("наши пре��мущества") ||
-      command.includes("спустит��ся к преимуществам") ||
+      command.includes("сп��стит��ся к преимуществам") ||
       command.includes("перейти к ��реимущес��вам") ||
       command.includes("преим��щества")
     ) {
@@ -1767,7 +1772,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Прокрутка страницы
+    // Прок��утка страницы
     if (
       command.includes("прок����тить вниз") ||
       command.includes("скролл вниз") ||
