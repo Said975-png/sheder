@@ -80,8 +80,10 @@ export default function JarvisInterface({
   }, [isListening, isSpeaking, isActive]);
 
   // Обработчик изменений состояния голосового управления
-  const handleVoiceStateChange = (listening: boolean, transcript?: string) => {
+  const handleVoiceStateChange = (listening: boolean, transcript?: string, speaking?: boolean) => {
     setIsListening(listening);
+    setIsSpeaking(speaking || false);
+
     if (listening && !isActive) {
       setIsActive(true); // Автоматически активируем JARVIS при включении микрофона
     }
