@@ -64,7 +64,7 @@ const pricingPlans: PricingPlan[] = [
     price: "3.500.000",
     originalPrice: "4.000.000",
     description:
-      "Насыщенный функционал с встроенным ИИ и многими возможностями",
+      "Насыщенный функционал с встроенны�� ИИ и многими возможностями",
     features: [
       "Все из пакета Basic",
       "ИИ-чат бот поддержки",
@@ -117,7 +117,11 @@ function PricingSection() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { addItem } = useCart();
 
-  const nextSlide = React.useCallback(() => {
+  const nextSlide = React.useCallback((e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     if (isTransitioning) return;
     setIsTransitioning(true);
     setTimeout(() => {
@@ -126,7 +130,11 @@ function PricingSection() {
     }, 300);
   }, [isTransitioning]);
 
-  const prevSlide = React.useCallback(() => {
+  const prevSlide = React.useCallback((e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     if (isTransitioning) return;
     setIsTransitioning(true);
     setTimeout(() => {
@@ -137,7 +145,11 @@ function PricingSection() {
     }, 300);
   }, [isTransitioning]);
 
-  const goToSlide = React.useCallback((index: number) => {
+  const goToSlide = React.useCallback((index: number, e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     if (isTransitioning || index === currentSlide) return;
     setIsTransitioning(true);
     setTimeout(() => {
