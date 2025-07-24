@@ -15,6 +15,7 @@ import {
   MatrixRain,
 } from "@/components/StarkEffects";
 import GLBModel from "@/components/GLBModel";
+import { TypewriterText } from "@/components/TypewriterText";
 
 interface StarkHeroProps {
   className?: string;
@@ -24,6 +25,8 @@ export default function StarkHero({ className }: StarkHeroProps) {
   const [scanProgress, setScanProgress] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [targetLocked, setTargetLocked] = useState(false);
+  const [titleComplete, setTitleComplete] = useState(false);
+  const [descriptionComplete, setDescriptionComplete] = useState(false);
 
   useEffect(() => {
     // Симуляция сканирования
@@ -124,11 +127,18 @@ export default function StarkHero({ className }: StarkHeroProps) {
               <div className="flex items-center space-x-3">
                 <ArcReactor size="small" pulsing />
                 <div className="font-mono text-sm">
-                  <span className="text-cyan-400">STARK INDUSTRIES</span>
+                  <TypewriterText
+                    text="STARK INDUSTRIES"
+                    speed={80}
+                    className="text-cyan-400"
+                  />
                   <span className="text-gray-400 ml-2">|</span>
-                  <span className="text-blue-400 ml-2">
-                    BLOCKCHAIN DIVISION
-                  </span>
+                  <TypewriterText
+                    text="BLOCKCHAIN DIVISION"
+                    speed={80}
+                    delay={1000}
+                    className="text-blue-400 ml-2"
+                  />
                 </div>
               </div>
             </StarkHUD>
@@ -140,7 +150,12 @@ export default function StarkHero({ className }: StarkHeroProps) {
                   className="text-4xl lg:text-6xl xl:text-7xl font-bold"
                   glitch
                 >
-                  Jarvis - ваш искусственный интеллект
+                  <TypewriterText
+                    text="Jarvis - ваш искусственный интеллект"
+                    speed={100}
+                    delay={500}
+                    onComplete={() => setTitleComplete(true)}
+                  />
                 </HologramText>
               </h1>
 
@@ -148,8 +163,14 @@ export default function StarkHero({ className }: StarkHeroProps) {
                 <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-lg font-mono">
                   {targetLocked ? (
                     <span className="text-cyan-400 stark-text-glow">
-                      Вы говорите — Джарвис делает. Это не просто сайт. Это —
-                      ваш персональный AI-помощник, встроенный в интерфейс
+                      {titleComplete && (
+                        <TypewriterText
+                          text="Вы говорите — Джарвис делает. Это не просто сайт. Это — ваш персональный AI-помощник, встроенный в интерфейс"
+                          speed={30}
+                          delay={300}
+                          onComplete={() => setDescriptionComplete(true)}
+                        />
+                      )}
                     </span>
                   ) : (
                     "Scanning quantum blockchain matrices... Analyzing distributed networks..."
