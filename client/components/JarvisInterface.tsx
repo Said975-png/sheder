@@ -28,7 +28,6 @@ interface JarvisInterfaceProps {
   forceStop?: boolean;
   onModelRotateStart?: () => void;
   onModelRotateStop?: () => void;
-  onShowAdvantages?: () => void;
 }
 
 export default function JarvisInterface({
