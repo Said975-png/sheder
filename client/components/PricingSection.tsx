@@ -97,7 +97,7 @@ const pricingPlans: PricingPlan[] = [
       "3D элементы и анимации",
       "VR/AR интеграция",
       "Блокчейн функции",
-      "Расширенная аналитика",
+      "Расшир��нная аналитика",
       "Кастомные модули",
       "Безлимитные изменения",
       "Приоритетная поддержка 12 месяцев",
@@ -408,7 +408,7 @@ function PricingSection() {
             {pricingPlans.map((plan, index) => (
               <button
                 key={plan.id}
-                onClick={() => goToSlide(index)}
+                onClick={(e) => goToSlide(index, e)}
                 className={cn(
                   "flex-1 p-6 rounded-xl border transition-all duration-300 group",
                   index === currentSlide
