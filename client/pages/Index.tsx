@@ -1,12 +1,13 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import VoiceControl from "@/components/VoiceControl";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
 import AdvantagesSection from "@/components/AdvantagesSection";
+import JarvisDemo from "@/components/JarvisDemo";
 import PricingSection from "@/components/PricingSection";
 
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
@@ -182,7 +183,7 @@ function TypewriterCode() {
         setCurrentCharIndex(0);
         setDisplayedCode("");
         setCurrentCodeIndex((prev) => (prev + 1) % codeSnippets.length);
-      }, 3000); // Пауза 3 секунды перед следующим кодом
+      }, 3000); // Пауза 3 секунды перед следующ��м кодом
     }
 
     return () => {
@@ -230,7 +231,7 @@ function TypewriterCode() {
 
       <div className="space-y-1 text-white/90 h-full overflow-hidden">
         {renderCodeWithSyntaxHighlight(displayedCode)}
-        {/* Мигающий курсор */}
+        {/* Миг��ющий курсор */}
         <span className="inline-block w-2 h-5 bg-cyan-400 animate-pulse ml-1"></span>
       </div>
     </div>
@@ -250,7 +251,6 @@ export default function Index() {
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
   const [navbarScrolled, setNavbarScrolled] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
   const [isModelRotating, setIsModelRotating] = useState(false);
@@ -264,41 +264,25 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Отслеживание скролла для навбара с эффектом "брови"
+  // Отслеживание скролла для навбара (без эффекта "брови")
   useEffect(() => {
-    let timeoutRef: NodeJS.Timeout | null = null;
-
     const handleScroll = () => {
       const scrolled = window.scrollY > 100;
       setNavbarScrolled(scrolled);
-      setIsScrolling(true);
-
-      // Очищаем предыдущий таймаут
-      if (timeoutRef) {
-        clearTimeout(timeoutRef);
-      }
-
-      // Устанавливаем новый таймаут для остановки скролла
-      timeoutRef = setTimeout(() => {
-        setIsScrolling(false);
-      }, 3000); // 3 секунды после остановки скролла
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (timeoutRef) {
-        clearTimeout(timeoutRef);
-      }
     };
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = React.useCallback(() => {
     logout();
     window.location.reload();
-  };
+  }, [logout]);
 
-  const handleAddBeginnerPlan = () => {
+  const handleAddBeginnerPlan = React.useCallback(() => {
     addItem({
       id: "beginner-plan",
       name: "Beginner Plan",
@@ -307,9 +291,9 @@ export default function Index() {
         "Access to basic blockchain guides and fundamental knowledge",
       category: "blockchain-basic",
     });
-  };
+  }, [addItem]);
 
-  const handleAddIntermediatePlan = () => {
+  const handleAddIntermediatePlan = React.useCallback(() => {
     addItem({
       id: "intermediate-plan",
       name: "Intermediate Plan",
@@ -318,9 +302,9 @@ export default function Index() {
         "Everything in Beginner + Advanced blockchain insights and tools",
       category: "blockchain-intermediate",
     });
-  };
+  }, [addItem]);
 
-  const handleAddAdvancedPlan = () => {
+  const handleAddAdvancedPlan = React.useCallback(() => {
     addItem({
       id: "advanced-plan",
       name: "Advanced Plan",
@@ -329,31 +313,39 @@ export default function Index() {
         "Everything in Intermediate + Professional tools and priority support",
       category: "blockchain-advanced",
     });
-  };
+  }, [addItem]);
 
-  const handleProceedToOrder = () => {
+  const handleProceedToOrder = React.useCallback(() => {
     navigate("/order");
-  };
+  }, [navigate]);
 
-  const handleListeningChange = (isListening: boolean, transcript?: string) => {
-    // Микрофон работает в фоне, панель не показываем
-    console.log("🎤 Микрофон активен:", isListening, "Транскрипт:", transcript);
-  };
+  const handleListeningChange = React.useCallback(
+    (isListening: boolean, transcript?: string) => {
+      // Микрофон работает в ф��не, панель не показываем
+      console.log(
+        "🎤 Микрофон активен:",
+        isListening,
+        "Транскрипт:",
+        transcript,
+      );
+    },
+    [],
+  );
 
-  const handleStopListening = () => {
+  const handleStopListening = React.useCallback(() => {
     setForceStopVoice(true);
     setTimeout(() => setForceStopVoice(false), 100);
-  };
+  }, []);
 
-  const handleModelRotateStart = () => {
+  const handleModelRotateStart = React.useCallback(() => {
     console.log("🔄 Запуск вращения модели");
     setIsModelRotating(true);
-  };
+  }, []);
 
-  const handleModelRotateStop = () => {
+  const handleModelRotateStop = React.useCallback(() => {
     console.log("⏹️ Остановка вращения модели");
     setIsModelRotating(false);
-  };
+  }, []);
 
   if (loading) {
     return (
@@ -403,18 +395,14 @@ export default function Index() {
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
-          // Эффект "брови" при скролле
-          isScrolling
-            ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
-            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный нав��ар
+
+          "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный нав��ар
         )}
       >
         <div
           className={cn(
             "flex items-center transition-all duration-500 overflow-hidden",
-            isScrolling
-              ? "space-x-1 opacity-100 scale-100"
-              : "space-x-2 opacity-100 scale-100",
+            "space-x-2 opacity-100 scale-100",
           )}
         >
           {/* Home Button */}
@@ -422,9 +410,7 @@ export default function Index() {
             variant="ghost"
             className={cn(
               "text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-500 font-mono transform",
-              isScrolling
-                ? "scale-0 opacity-0 w-0 overflow-hidden"
-                : "scale-100 opacity-100 w-auto",
+              "scale-100 opacity-100 w-auto",
             )}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
@@ -435,9 +421,7 @@ export default function Index() {
           <div
             className={cn(
               "transition-all duration-500 transform",
-              isScrolling
-                ? "scale-0 opacity-0 w-0 overflow-hidden"
-                : "scale-100 opacity-100 w-auto",
+              "scale-100 opacity-100 w-auto",
             )}
           >
             <JarvisInterface
@@ -456,9 +440,7 @@ export default function Index() {
           <div
             className={cn(
               "flex items-center space-x-1 transition-all duration-500 transform",
-              isScrolling
-                ? "scale-100 opacity-100 w-auto"
-                : "scale-0 opacity-0 w-0 overflow-hidden",
+              "scale-0 opacity-0 w-0 overflow-hidden",
             )}
           >
             <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"></div>
@@ -476,9 +458,7 @@ export default function Index() {
           <div
             className={cn(
               "transition-all duration-500 transform",
-              isScrolling
-                ? "scale-0 opacity-0 w-0 overflow-hidden"
-                : "scale-100 opacity-100 w-auto",
+              "scale-100 opacity-100 w-auto",
             )}
           >
             <DropdownMenu>
@@ -574,9 +554,7 @@ export default function Index() {
           <div
             className={cn(
               "transition-all duration-500 transform",
-              isScrolling
-                ? "scale-0 opacity-0 w-0 overflow-hidden"
-                : "scale-100 opacity-100 w-auto",
+              "scale-100 opacity-100 w-auto",
             )}
           >
             <ThemeToggle />
@@ -586,9 +564,7 @@ export default function Index() {
             <div
               className={cn(
                 "transition-all duration-500 transform",
-                isScrolling
-                  ? "scale-0 opacity-0 w-0 overflow-hidden"
-                  : "scale-100 opacity-100 w-auto",
+                "scale-100 opacity-100 w-auto",
               )}
             >
               <DropdownMenu>
@@ -645,9 +621,7 @@ export default function Index() {
             <div
               className={cn(
                 "flex items-center space-x-1 transition-all duration-500 transform",
-                isScrolling
-                  ? "scale-0 opacity-0 w-0 overflow-hidden"
-                  : "scale-100 opacity-100 w-auto",
+                "scale-100 opacity-100 w-auto",
               )}
             >
               <Button
@@ -685,6 +659,9 @@ export default function Index() {
 
       {/* Pricing Section */}
       <PricingSection />
+
+      {/* Jarvis Demo Section */}
+      <JarvisDemo />
     </div>
   );
 }

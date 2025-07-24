@@ -50,7 +50,7 @@ const pricingPlans: PricingPlan[] = [
       "Контактные формы",
       "Галерея изображений",
       "Социальные сети",
-      "Техническая поддержка 3 месяца",
+      "Техническая поддержк�� 3 месяца",
     ],
     highlight: false,
     icon: <Palette className="w-8 h-8" />,
@@ -71,7 +71,7 @@ const pricingPlans: PricingPlan[] = [
       "Персонализация контента",
       "Панель управления",
       "Интеграция с CRM",
-      "Аналитика и метрики",
+      "Аналитика и ��етрики",
       "Многоязычность",
       "API интеграции",
       "Онлайн платежи",
@@ -97,7 +97,7 @@ const pricingPlans: PricingPlan[] = [
       "3D элементы и анимации",
       "VR/AR интеграция",
       "Блокчейн функции",
-      "Расширенная аналитика",
+      "Расшир��нная аналитика",
       "Кастомные модули",
       "Безлимитные изменения",
       "Приоритетная поддержка 12 месяцев",
@@ -112,55 +112,60 @@ const pricingPlans: PricingPlan[] = [
   },
 ];
 
-export default function PricingSection() {
+function PricingSection() {
   const [currentSlide, setCurrentSlide] = useState(1); // Start with Pro plan (highlighted)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { addItem } = useCart();
 
-  // Auto-scroll functionality
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-
-    const interval = setInterval(() => {
+  const nextSlide = React.useCallback(
+    (e?: React.MouseEvent) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (isTransitioning) return;
       setIsTransitioning(true);
       setTimeout(() => {
         setCurrentSlide((prev) => (prev + 1) % pricingPlans.length);
         setIsTransitioning(false);
       }, 300);
-    }, 5000);
+    },
+    [isTransitioning],
+  );
 
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  const prevSlide = React.useCallback(
+    (e?: React.MouseEvent) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (isTransitioning) return;
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentSlide(
+          (prev) => (prev - 1 + pricingPlans.length) % pricingPlans.length,
+        );
+        setIsTransitioning(false);
+      }, 300);
+    },
+    [isTransitioning],
+  );
 
-  const nextSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentSlide((prev) => (prev + 1) % pricingPlans.length);
-      setIsTransitioning(false);
-    }, 300);
-  };
-
-  const prevSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentSlide(
-        (prev) => (prev - 1 + pricingPlans.length) % pricingPlans.length,
-      );
-      setIsTransitioning(false);
-    }, 300);
-  };
-
-  const goToSlide = (index: number) => {
-    if (isTransitioning || index === currentSlide) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentSlide(index);
-      setIsTransitioning(false);
-    }, 300);
-  };
+  const goToSlide = React.useCallback(
+    (index: number, e?: React.MouseEvent) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (isTransitioning || index === currentSlide) return;
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentSlide(index);
+        setIsTransitioning(false);
+      }, 300);
+    },
+    [isTransitioning, currentSlide],
+  );
 
   const currentPlan = pricingPlans[currentSlide];
 
@@ -217,7 +222,7 @@ export default function PricingSection() {
 
           <p className="text-xl text-white/80 max-w-4xl mx-auto leading-relaxed">
             Выберите тариф, который идеально подходит для ваших целей. От
-            стильного базового сайта до премиального решения с Джарвисом
+            стильного базового с��йта до премиального решения с Джарвисом
           </p>
         </div>
 
@@ -225,7 +230,7 @@ export default function PricingSection() {
         <div className="relative">
           {/* Navigation Buttons */}
           <Button
-            onClick={prevSlide}
+            onClick={(e) => prevSlide(e)}
             className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/60 border border-cyan-400/40 hover:bg-cyan-400/10 hover:border-cyan-400/80 transition-all duration-300 backdrop-blur-sm"
             disabled={isTransitioning}
           >
@@ -233,7 +238,7 @@ export default function PricingSection() {
           </Button>
 
           <Button
-            onClick={nextSlide}
+            onClick={(e) => nextSlide(e)}
             className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/60 border border-cyan-400/40 hover:bg-cyan-400/10 hover:border-cyan-400/80 transition-all duration-300 backdrop-blur-sm"
             disabled={isTransitioning}
           >
@@ -249,8 +254,6 @@ export default function PricingSection() {
                   ? "scale-90 opacity-70"
                   : "scale-100 opacity-100",
               )}
-              onMouseEnter={() => setIsAutoPlaying(false)}
-              onMouseLeave={() => setIsAutoPlaying(true)}
             >
               <div
                 className={cn(
@@ -336,7 +339,7 @@ export default function PricingSection() {
                   <div className="mb-6">
                     <h4 className="text-cyan-400 font-semibold mb-4 text-sm font-mono flex items-center justify-center">
                       <Zap className="w-4 h-4 mr-2" />
-                      Что включено:
+                      Ч��о включено:
                     </h4>
 
                     <div className="space-y-2 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-400/30 scrollbar-track-transparent">
@@ -378,7 +381,7 @@ export default function PricingSection() {
             {pricingPlans.map((plan, index) => (
               <button
                 key={plan.id}
-                onClick={() => goToSlide(index)}
+                onClick={(e) => goToSlide(index, e)}
                 className={cn(
                   "relative transition-all duration-300",
                   index === currentSlide
@@ -413,7 +416,7 @@ export default function PricingSection() {
             {pricingPlans.map((plan, index) => (
               <button
                 key={plan.id}
-                onClick={() => goToSlide(index)}
+                onClick={(e) => goToSlide(index, e)}
                 className={cn(
                   "flex-1 p-6 rounded-xl border transition-all duration-300 group",
                   index === currentSlide
@@ -468,3 +471,5 @@ export default function PricingSection() {
     </section>
   );
 }
+
+export default React.memo(PricingSection);
