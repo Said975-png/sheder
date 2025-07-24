@@ -411,7 +411,10 @@ export default function Index() {
           </div>
 
           {/* Cart Dropdown */}
-          {!isScrolling && (
+          <div className={cn(
+            "transition-all duration-500 transform",
+            isScrolling ? "scale-0 opacity-0 w-0 overflow-hidden" : "scale-100 opacity-100 w-auto"
+          )}>
             <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -499,7 +502,7 @@ export default function Index() {
               </div>
             </DropdownMenuContent>
           </DropdownMenu>
-          )}
+          </div>
 
 
           {!isScrolling && <ThemeToggle />}
@@ -709,7 +712,7 @@ export default function Index() {
 
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Используем самые современные технологии для максимальной
+                  Ис��ользуем самые современные технологии для максимальной
                   производительности
                 </p>
                 <div className="flex items-center text-purple-400 text-sm">
