@@ -62,7 +62,7 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяем, что команда отличается от предыдущей и не пустая
+            // Проверяем, что команда отличается от пред��дущей и не пустая
             if (command && command !== lastCommandRef.current && command.length > 2) {
               setTranscript(finalTranscript);
               lastCommandRef.current = command;
@@ -274,7 +274,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда п��иветствия "Джарвис я вернулся"
+    // Команда приветствия "Джарвис я вернулся"
     if (
       command.includes("джарвис я вернулся") ||
       command.includes("я вернулся джарвис") ||
@@ -358,7 +358,7 @@ export default function VoiceControl({
       "стоимость",
       "тариф",
       "услуги",
-      "компания",
+      "компан��я",
       "контакты",
       "поддержка",
       "технологии",
@@ -711,7 +711,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды добавления планов в корзину
+    // Команды доб��вления планов в корзину
     if (
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
@@ -783,7 +783,7 @@ export default function VoiceControl({
     ) {
       const found = searchAndNavigate([
         "преимущества",
-        "преимущество",
+        "преимущ��ство",
         "advantages",
       ]);
       if (found) {
