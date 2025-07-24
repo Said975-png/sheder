@@ -332,7 +332,7 @@ export default function Index() {
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
     // Микрофон работает в фоне, панель не показываем
-    console.log("🎤 М��крофон акт��вен:", isListening, "Транскри��т:", transcript);
+    console.log("🎤 М��крофон активен:", isListening, "Транскри��т:", transcript);
   };
 
   const handleStopListening = () => {
@@ -386,7 +386,10 @@ export default function Index() {
           </Button>
 
           {/* JARVIS Interface in Navbar */}
-          {!isScrolling && (
+          <div className={cn(
+            "transition-all duration-500 transform",
+            isScrolling ? "scale-0 opacity-0 w-0 overflow-hidden" : "scale-100 opacity-100 w-auto"
+          )}>
             <JarvisInterface
               onAddBasicPlan={handleAddBeginnerPlan}
               onAddProPlan={handleAddIntermediatePlan}
@@ -395,7 +398,7 @@ export default function Index() {
               onListeningChange={handleListeningChange}
               forceStop={forceStopVoice}
             />
-          )}
+          </div>
 
           {/* Dynamic Island indicator during scroll */}
           {isScrolling && (
@@ -725,7 +728,7 @@ export default function Index() {
             <div className="inline-block">
               <PowerIndicator className="mb-4" />
               <p className="text-cyan-400 font-mono text-sm mb-4">
-                <GlitchText intensity="low">ГОТОВЫ К БУД��ЩЕМУ?</GlitchText>
+                <GlitchText intensity="low">ГОТОВЫ К БУДУЩЕМУ?</GlitchText>
               </p>
               <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg stark-glow group">
                 <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
@@ -757,7 +760,7 @@ export default function Index() {
             </h2>
             <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
               <GlitchText intensity="low">
-                Наблюдайте, как строки кода превращаются в живой интерфейс в
+                Набл��дайте, как строки кода превращаются в живой интерфейс в
                 реальном времени
               </GlitchText>
             </p>
