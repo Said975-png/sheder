@@ -51,6 +51,7 @@ export interface OrderFormData {
   fullName: string;
   phone: string;
   description: string;
+  referenceUrl?: string;
 }
 
 export interface OrderRequest {
