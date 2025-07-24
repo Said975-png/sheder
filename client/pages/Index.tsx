@@ -445,6 +445,8 @@ export default function Index() {
               inNavbar={true}
               onListeningChange={handleListeningChange}
               forceStop={forceStopVoice}
+              onModelRotateStart={handleModelRotateStart}
+              onModelRotateStop={handleModelRotateStop}
             />
           </div>
 
