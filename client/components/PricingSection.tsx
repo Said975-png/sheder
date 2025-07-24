@@ -112,7 +112,7 @@ const pricingPlans: PricingPlan[] = [
   },
 ];
 
-export default function PricingSection() {
+function PricingSection() {
   const [currentSlide, setCurrentSlide] = useState(1); // Start with Pro plan (highlighted)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -337,7 +337,7 @@ export default function PricingSection() {
                   <div className="mb-6">
                     <h4 className="text-cyan-400 font-semibold mb-4 text-sm font-mono flex items-center justify-center">
                       <Zap className="w-4 h-4 mr-2" />
-                      Что включено:
+                      Что вк��ючено:
                     </h4>
 
                     <div className="space-y-2 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-400/30 scrollbar-track-transparent">
@@ -457,7 +457,7 @@ export default function PricingSection() {
             </h3>
             <p className="text-white/70 mb-6 leading-relaxed">
               Свяжитесь с нами для бесплатной консультации. Мы поможем выбрать
-              идеальный пакет для ваших потребностей.
+              идеаль��ый пакет для ваших потребностей.
             </p>
             <Button className="px-8 py-3 text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 transform hover:scale-105 font-mono">
               <Heart className="w-5 h-5 mr-2" />
