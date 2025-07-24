@@ -1719,10 +1719,12 @@
   }
 
   @keyframes cursor-blink {
-    0%, 50% {
+    0%,
+    50% {
       opacity: 1;
     }
-    51%, 100% {
+    51%,
+    100% {
       opacity: 0;
     }
   }
@@ -1748,7 +1750,7 @@
   /* Holographic corners */
   .holographic-corners::before,
   .holographic-corners::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 15px;
     height: 15px;
@@ -1771,7 +1773,8 @@
   }
 
   @keyframes corner-pulse {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0.6;
       transform: scale(1);
     }

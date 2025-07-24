@@ -56,124 +56,127 @@ function TypewriterCode() {
       lines: [
         'import React from "react";',
         'import { Button, Card } from "@/components";',
-        '',
-        'export function StarkInterface() {',
-        '  return (',
+        "",
+        "export function StarkInterface() {",
+        "  return (",
         '    <div className="stark-container">',
         '      <h1 className="glow-text">',
-        '        STARK INDUSTRIES',
-        '      </h1>',
+        "        STARK INDUSTRIES",
+        "      </h1>",
         '      <Button variant="stark">',
-        '        Активировать',
-        '      </Button>',
-        '    </div>',
-        '  );',
-        '}'
-      ]
+        "        Активировать",
+        "      </Button>",
+        "    </div>",
+        "  );",
+        "}",
+      ],
     },
     {
       title: "ai-assistant.tsx",
       lines: [
         'import { useState } from "react";',
         'import { Brain, Zap } from "lucide-react";',
-        '',
-        'export function AIAssistant() {',
-        '  const [isActive, setIsActive] = useState(false);',
-        '',
-        '  const handleVoiceCommand = () => {',
-        '    setIsActive(!isActive);',
-        '    processNeuralNetwork();',
-        '  };',
-        '',
-        '  return (',
+        "",
+        "export function AIAssistant() {",
+        "  const [isActive, setIsActive] = useState(false);",
+        "",
+        "  const handleVoiceCommand = () => {",
+        "    setIsActive(!isActive);",
+        "    processNeuralNetwork();",
+        "  };",
+        "",
+        "  return (",
         '    <div className="ai-interface">',
         '      <Brain className="neural-icon" />',
-        '      <button onClick={handleVoiceCommand}>',
+        "      <button onClick={handleVoiceCommand}>",
         '        {isActive ? "Деактивировать" : "Активировать"}',
-        '      </button>',
-        '    </div>',
-        '  );',
-        '}'
-      ]
+        "      </button>",
+        "    </div>",
+        "  );",
+        "}",
+      ],
     },
     {
       title: "blockchain-wallet.tsx",
       lines: [
         'import { ethers } from "ethers";',
         'import { Shield, Lock } from "lucide-react";',
-        '',
-        'export function BlockchainWallet() {',
-        '  const [wallet, setWallet] = useState(null);',
+        "",
+        "export function BlockchainWallet() {",
+        "  const [wallet, setWallet] = useState(null);",
         '  const [balance, setBalance] = useState("0");',
-        '',
-        '  const connectWallet = async () => {',
-        '    const provider = new ethers.BrowserProvider(window.ethereum);',
-        '    const signer = await provider.getSigner();',
-        '    setWallet(signer);',
-        '    const bal = await provider.getBalance(signer.address);',
-        '    setBalance(ethers.formatEther(bal));',
-        '  };',
-        '',
-        '  return (',
+        "",
+        "  const connectWallet = async () => {",
+        "    const provider = new ethers.BrowserProvider(window.ethereum);",
+        "    const signer = await provider.getSigner();",
+        "    setWallet(signer);",
+        "    const bal = await provider.getBalance(signer.address);",
+        "    setBalance(ethers.formatEther(bal));",
+        "  };",
+        "",
+        "  return (",
         '    <div className="wallet-interface">',
         '      <Shield className="security-icon" />',
-        '      <p>Баланс: {balance} ETH</p>',
-        '      <button onClick={connectWallet}>',
-        '        Подключить кошелек',
-        '      </button>',
-        '    </div>',
-        '  );',
-        '}'
-      ]
+        "      <p>Баланс: {balance} ETH</p>",
+        "      <button onClick={connectWallet}>",
+        "        Подключить кошелек",
+        "      </button>",
+        "    </div>",
+        "  );",
+        "}",
+      ],
     },
     {
       title: "neural-network.py",
       lines: [
-        'import tensorflow as tf',
-        'import numpy as np',
-        'from sklearn.model_selection import train_test_split',
-        '',
-        'class StarkAI:',
-        '    def __init__(self):',
-        '        self.model = tf.keras.Sequential([',
+        "import tensorflow as tf",
+        "import numpy as np",
+        "from sklearn.model_selection import train_test_split",
+        "",
+        "class StarkAI:",
+        "    def __init__(self):",
+        "        self.model = tf.keras.Sequential([",
         '            tf.keras.layers.Dense(128, activation="relu"),',
-        '            tf.keras.layers.Dropout(0.2),',
+        "            tf.keras.layers.Dropout(0.2),",
         '            tf.keras.layers.Dense(64, activation="relu"),',
         '            tf.keras.layers.Dense(10, activation="softmax")',
-        '        ])',
-        '',
-        '    def train(self, X, y):',
-        '        self.model.compile(',
+        "        ])",
+        "",
+        "    def train(self, X, y):",
+        "        self.model.compile(",
         '            optimizer="adam",',
         '            loss="categorical_crossentropy",',
         '            metrics=["accuracy"]',
-        '        )',
-        '        return self.model.fit(X, y, epochs=100)',
-        '',
-        '    def predict(self, data):',
-        '        return self.model.predict(data)'
-      ]
-    }
+        "        )",
+        "        return self.model.fit(X, y, epochs=100)",
+        "",
+        "    def predict(self, data):",
+        "        return self.model.predict(data)",
+      ],
+    },
   ];
 
   useEffect(() => {
     const currentSnippet = codeSnippets[currentCodeIndex];
-    const fullCode = currentSnippet.lines.join('\n');
+    const fullCode = currentSnippet.lines.join("\n");
 
     let typingTimer: NodeJS.Timeout;
     let pauseTimer: NodeJS.Timeout;
 
     if (isTyping && currentCharIndex < fullCode.length) {
-      typingTimer = setTimeout(() => {
-        setDisplayedCode(fullCode.substring(0, currentCharIndex + 1));
-        setCurrentCharIndex(prev => prev + 1);
-      }, 50 + Math.random() * 50); // Варьируем скорость печати
+      typingTimer = setTimeout(
+        () => {
+          setDisplayedCode(fullCode.substring(0, currentCharIndex + 1));
+          setCurrentCharIndex((prev) => prev + 1);
+        },
+        50 + Math.random() * 50,
+      ); // Варьируем скорость печати
     } else if (currentCharIndex >= fullCode.length) {
       // Пауза после завершения печати
       pauseTimer = setTimeout(() => {
         setCurrentCharIndex(0);
         setDisplayedCode("");
-        setCurrentCodeIndex(prev => (prev + 1) % codeSnippets.length);
+        setCurrentCodeIndex((prev) => (prev + 1) % codeSnippets.length);
       }, 3000); // Пауза 3 секунды перед следующим кодом
     }
 
@@ -186,19 +189,25 @@ function TypewriterCode() {
   const currentSnippet = codeSnippets[currentCodeIndex];
 
   const renderCodeWithSyntaxHighlight = (code: string) => {
-    const lines = code.split('\n');
+    const lines = code.split("\n");
     return lines.map((line, index) => {
       if (!line.trim()) return <div key={index} className="h-5"></div>;
 
       // Simple syntax highlighting
       let highlightedLine = line
-        .replace(/(import|export|from|const|let|var|function|return|if|else|class|def|async|await)/g, '<span class="text-purple-400">$1</span>')
+        .replace(
+          /(import|export|from|const|let|var|function|return|if|else|class|def|async|await)/g,
+          '<span class="text-purple-400">$1</span>',
+        )
         .replace(/(\{|\}|\(|\)|;)/g, '<span class="text-cyan-400">$1</span>')
         .replace(/(["'].*?["'])/g, '<span class="text-green-400">$1</span>')
         .replace(/(\d+)/g, '<span class="text-orange-400">$1</span>')
         .replace(/(\/\/.*$)/g, '<span class="text-gray-500">$1</span>')
         .replace(/(<[^>]*>)/g, '<span class="text-red-400">$1</span>')
-        .replace(/(className|onClick|useState|useEffect|href|src)/g, '<span class="text-blue-400">$1</span>');
+        .replace(
+          /(className|onClick|useState|useEffect|href|src)/g,
+          '<span class="text-blue-400">$1</span>',
+        );
 
       return (
         <div
@@ -561,7 +570,10 @@ export default function Index() {
         {/* Glitch overlay */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
-          <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-60 animate-pulse" style={{ animationDelay: "1s" }}></div>
+          <div
+            className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-60 animate-pulse"
+            style={{ animationDelay: "1s" }}
+          ></div>
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -584,7 +596,8 @@ export default function Index() {
             </h2>
             <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
               <GlitchText intensity="low">
-                Мы создаем не просто веб-сайты — мы создаем интеллектуальные цифровые экосистемы с встроенным искусственным интеллектом
+                Мы создаем не просто веб-сайты — мы создаем интеллектуальные
+                цифровые экосистемы с встроенным искусственным интеллектом
               </GlitchText>
             </p>
 
@@ -600,13 +613,16 @@ export default function Index() {
                   <Brain className="w-8 h-8 text-cyan-400 group-hover:animate-pulse" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-white font-mono">
-                  <GlitchText intensity="low">Искусственный Интеллект</GlitchText>
+                  <GlitchText intensity="low">
+                    Искусственный Интеллект
+                  </GlitchText>
                 </h3>
               </div>
 
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Интеграция передовых AI-технологий для создания умных интерфейсов
+                  Интеграция передовых AI-технологий для создания умных
+                  интерфейсов
                 </p>
                 <div className="flex items-center text-cyan-400 text-sm">
                   <Zap className="w-4 h-4 mr-2" />
@@ -626,7 +642,9 @@ export default function Index() {
                   <Layers className="w-8 h-8 text-blue-400 group-hover:animate-pulse" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-white font-mono">
-                  <GlitchText intensity="medium">Динамичные Интерфейсы</GlitchText>
+                  <GlitchText intensity="medium">
+                    Динамичные Интерфейсы
+                  </GlitchText>
                 </h3>
               </div>
 
@@ -658,7 +676,8 @@ export default function Index() {
 
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Используем самые современные технологии для максимальной производительности
+                  Используем самые современные технологии для максимальной
+                  производительности
                 </p>
                 <div className="flex items-center text-purple-400 text-sm">
                   <Lock className="w-4 h-4 mr-2" />
@@ -709,7 +728,8 @@ export default function Index() {
             </h2>
             <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
               <GlitchText intensity="low">
-                Наблюдайте, как строки кода превращаются в живой интерфейс в реальном времени
+                Наблюдайте, как строки кода превращаются в живой интерфейс в
+                реальном времени
               </GlitchText>
             </p>
           </div>
@@ -728,7 +748,9 @@ export default function Index() {
                     <GlitchText intensity="low">dynamic-typing.tsx</GlitchText>
                   </span>
                 </div>
-                <div className="text-xs text-white/60 font-mono">LIVE CODING...</div>
+                <div className="text-xs text-white/60 font-mono">
+                  LIVE CODING...
+                </div>
               </div>
 
               <TypewriterCode />
@@ -750,7 +772,9 @@ export default function Index() {
                 <div className="relative z-10 text-center space-y-6">
                   <div className="animate-fade-in-up">
                     <h1 className="text-2xl lg:text-3xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text">
-                      <GlitchText intensity="medium">STARK INDUSTRIES</GlitchText>
+                      <GlitchText intensity="medium">
+                        STARK INDUSTRIES
+                      </GlitchText>
                     </h1>
                   </div>
 
@@ -790,7 +814,9 @@ export default function Index() {
           <div className="text-center mt-16">
             <div className="inline-block">
               <p className="text-cyan-400 font-mono text-sm mb-4">
-                <GlitchText intensity="low">ГОТОВЫ УВИДЕТЬ СВОЙ ПРОЕКТ В ДЕЙСТВИИ?</GlitchText>
+                <GlitchText intensity="low">
+                  ГОТОВЫ УВИДЕТЬ СВОЙ ПРОЕКТ В ДЕЙСТВИИ?
+                </GlitchText>
               </p>
               <div className="flex justify-center space-x-4">
                 <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-3 rounded-lg stark-glow">
