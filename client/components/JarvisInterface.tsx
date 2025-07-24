@@ -26,6 +26,8 @@ interface JarvisInterfaceProps {
   inNavbar?: boolean;
   onListeningChange?: (isListening: boolean, transcript?: string) => void;
   forceStop?: boolean;
+  onModelRotateStart?: () => void;
+  onModelRotateStop?: () => void;
 }
 
 export default function JarvisInterface({
@@ -35,6 +37,8 @@ export default function JarvisInterface({
   inNavbar = false,
   onListeningChange,
   forceStop = false,
+  onModelRotateStart,
+  onModelRotateStop,
 }: JarvisInterfaceProps) {
   const [isActive, setIsActive] = useState(false);
   const [systemStatus, setSystemStatus] = useState("STANDBY");
