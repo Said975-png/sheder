@@ -64,7 +64,7 @@ function TypewriterCode() {
         "        STARK INDUSTRIES",
         "      </h1>",
         '      <Button variant="stark">',
-        "        А��тивировать",
+        "        Активировать",
         "      </Button>",
         "    </div>",
         "  );",
@@ -274,7 +274,7 @@ export default function Index() {
       // Устанавливаем новый таймаут для остановки скролла
       const newTimeout = setTimeout(() => {
         setIsScrolling(false);
-      }, 150); // 150мс после остановки скролла
+      }, 3000); // 3 секунды после остановки скролла
 
       setScrollTimeout(newTimeout);
     };
@@ -642,7 +642,7 @@ export default function Index() {
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-white font-mono">
                   <GlitchText intensity="low">
-                    Искусственный Интеллект
+                    Искусст��енный Интеллект
                   </GlitchText>
                 </h3>
               </div>
