@@ -386,7 +386,7 @@ export default function Index() {
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
-          // Эффект "брови" при скролле
+
           "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный нав��ар
         )}
       >
