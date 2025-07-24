@@ -164,7 +164,7 @@ export default function VoiceControl({
                     ),
                   );
               }
-              // Осво��ождаем поток, так как SpeechRecognition создаст свой
+              // Освобождаем поток, так как SpeechRecognition создаст свой
               stream.getTracks().forEach((track) => track.stop());
             })
             .catch((e) => {
@@ -220,7 +220,7 @@ export default function VoiceControl({
           const words = combinedTranscript.split(" ");
           const uniqueWords = [...new Set(words)];
           if (words.length > uniqueWords.length * 2) {
-            console.log("🚫 Откл����няем резу��ьтат с повторяющимися словами");
+            console.log("🚫 Откл����няем результат с повторяющимися словами");
             combinedTranscript = "";
           }
 
@@ -270,7 +270,7 @@ export default function VoiceControl({
             const command = (finalTranscript || combinedTranscript)
               .toLowerCase()
               .trim();
-            console.log("🔍 Анали��ируем ��ом��нду:", `"${command}"`);
+            console.log("🔍 Анализируем ��ом��нду:", `"${command}"`);
 
             // Проверяем, что команда отличается от предыдущей и достаточно длинная (понижен порог)
             if (
@@ -319,7 +319,7 @@ export default function VoiceControl({
                   }, 2000);
                 },
                 finalTranscript ? 100 : 1000,
-              ); // Мень��е за��ержки дл�� фи��альных результатов
+              ); // Мень��е за��ержки д���� фи��альных результатов
             } else {
               console.log("❌ Команда о��клонена:", {
                 isEmpty: !command,
@@ -405,7 +405,7 @@ export default function VoiceControl({
                 );
                 try {
                   recognitionRef.current.start();
-                  console.log("✅ Распознавание восстановлено");
+                  console.log("✅ Распознавание восстан��влено");
                   setNetworkErrorCount(0); // Сбрасываем счетчик при успехе
                 } catch (error) {
                   console.error(
@@ -459,7 +459,7 @@ export default function VoiceControl({
             }
             // Систе��а автоматически переза��ус��ится через onend
           }
-          // Другие оши��ки - ����резапускаем через к��рот���ое время
+          // Другие оши��ки - ����резапускаем через корот���ое время
           else {
             console.warn(
               "⚠���� Неожиданн��я ошибка ра��позна����ния:",
@@ -562,7 +562,7 @@ export default function VoiceControl({
       // Допо��нительная защита: если система молчит более 5 секунд, принудительно с��ра��ываем
       if (isSpeaking && !audioPlayingRef.current && !currentAudioRef.current) {
         console.log(
-          "🔄 Принудительный ��брос 'говорящего' состояния без аудио",
+          "🔄 Принудительный ��брос 'говорящего' состояния бе�� аудио",
         );
         setIsSpeaking(false);
         commandCooldownRef.current = false;
@@ -657,7 +657,7 @@ export default function VoiceControl({
 
       console.log("🔄 Полный сброс ��сех состояний блокировки выполн����");
 
-      // Только сообщаем о состоянии, если микр��фон все еще активен И это не команд�� отключения
+      // Только сообщаем о состоянии, если микр��фон все еще активен И это не команда отключения
       if (isListening && !skipPanelReopen) {
         onListeningChange?.(true, "");
         console.log("✅ Cooldown сброшен, микро��он активен");
@@ -719,7 +719,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("Не удалось воспроизвести ��удио:", error);
+      console.error("Не удалось воспроизвести аудио:", error);
     });
   };
 
@@ -774,7 +774,7 @@ export default function VoiceControl({
         setTranscript("");
         // НЕ открываем панель ��братно после команды отключения
         console.log(
-          "✅ Ко��анда отключения завершена - панель остается закрытой",
+          "✅ Ко��анда отключения завершена - панель оста��тся закрытой",
         );
       };
 
@@ -879,7 +879,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("Не удал��сь восп��оизвести аудио благо��а��ности:", error);
+      console.error("Не удал��сь восп��оизвес��и аудио благо��а��ности:", error);
     });
   };
 
@@ -980,7 +980,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее восп��оизведение
+    // Останавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -1023,7 +1023,7 @@ export default function VoiceControl({
   };
 
   const speakWithElevenLabs = async (text: string) => {
-    // Улучшенная защита - разр��шаем если нет активного аудио
+    // Улучшенная защита - разрешаем если нет активного ауд��о
     if (isSpeaking && audioPlayingRef.current) {
       console.log("❌ speakWithElevenLabs заблокирован - играет аудио");
       return;
@@ -1274,7 +1274,7 @@ export default function VoiceControl({
         }, 500);
       };
 
-      console.log("Джа��вис: у ����ня все в порядке сэр");
+      console.log("Джа��вис: у ��еня все в порядке сэр");
       setTimeout(resetState, 2000);
     }
   };
@@ -1357,7 +1357,7 @@ export default function VoiceControl({
           );
         };
 
-        console.log("��️ Запускае�� второе ау���ио");
+        console.log("��️ Запускае�� второе ау��ио");
         secondAudio.play().catch((error) => {
           resetState();
           console.error(
@@ -1432,7 +1432,7 @@ export default function VoiceControl({
   const speakCorrect = () => {
     // Улучшенная ��ащита - разрешаем если нет акт��вного ��удио
     if (isSpeaking && audioPlayingRef.current) {
-      console.log("❌ speakCorrect забл��к��рован - игр��ет аудио");
+      console.log("❌ speakCorrect заблок��рован - игр��ет аудио");
       return;
     }
 
@@ -1489,7 +1489,7 @@ export default function VoiceControl({
     }
 
     console.log(
-      "🔬 Активация лаборатории Старка - начинаем последовательность",
+      "🔬 Активация лаборатории Старка - начинаем пос��едовательность",
     );
     setIsSpeaking(true);
     commandCooldownRef.current = true;
@@ -1588,7 +1588,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("❌ Ошибка воспроизведения первого а���дио акти��ации");
+      console.error("❌ Ошибка воспроизведения первого а��дио акти��ации");
     };
 
     firstAudio.play().catch((error) => {
@@ -1613,7 +1613,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведение
+    // Останав��иваем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -1703,7 +1703,7 @@ export default function VoiceControl({
 
     // Простая очистка транскрипт���� в начале обработки
     setTranscript("");
-    // НЕ вызываем onListeningChange во время обработки команды
+    // НЕ вызывае�� onListeningChange во время обработки команды
     // Это ��редотвращает повторное открытие панели
 
     // НЕ сбрасываем Recognition автоматически - ��усть рабо��ает непрерывно
@@ -1736,7 +1736,7 @@ export default function VoiceControl({
       command.includes("джарвис полная активация") ||
       command.includes("полная активация джарвис") ||
       command.includes("джарвис активация лаборатории") ||
-      command.includes("активация лаборат��рии джарвис") ||
+      command.includes("активация лаборатории джарвис") ||
       command.includes("активировать лабораторию") ||
       command.includes("джарвис включи лабораторию") ||
       command.includes("полная активация")
@@ -1760,7 +1760,7 @@ export default function VoiceControl({
       command.includes("стандартная тема") ||
       command.includes("верни меня обратно")
     ) {
-      console.log("��� Команда возврата к обычной теме р��спознана:", command);
+      console.log("🔄 Команда возврата к обычной теме р��спознана:", command);
       // Улучшенная проверка - разрешаем если нет ак��ивно��о аудио
       if (!isSpeaking || !audioPlayingRef.current) {
         deactivateStarkLab();
@@ -1770,14 +1770,14 @@ export default function VoiceControl({
 
     // Команда приветствия "Джарвис я вернулся"
     if (
-      command.includes("джарвис я верну��ся") ||
+      command.includes("джарвис я вернулся") ||
       command.includes("я ��ернулся джарвис") ||
       command.includes("джарвис я здесь") ||
       command.includes("я снова здесь") ||
       command.includes("вернулся") ||
       command.includes("я з��есь")
     ) {
-      console.log("👋 Команда приветств��я распознана:", command);
+      console.log("👋 Команда приве��ств��я распознана:", command);
       speakWelcomeBack();
       return;
     }
@@ -1842,7 +1842,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда утреннего прив��тстви��� "Добро�� утр�� Джарвис"
+    // Команда утреннего приветстви��� "Добро�� утр�� Д��арвис"
     if (
       command.includes("доброе утро джарвис") ||
       command.includes("джарвис до��рое утро") ||
@@ -2009,8 +2009,8 @@ export default function VoiceControl({
     if (
       command.includes("джарвис ты тут") ||
       command.includes("ты тут джарви��") ||
-      command.includes("джарвис ты ����десь") ||
-      command.includes("ты здесь джарвис") ||
+      command.includes("джарвис ты ��десь") ||
+      command.includes("ты зд��сь джарвис") ||
       command.includes("джарвис на месте") ||
       command.includes("джар��ис ��рису��ствуе��ь") ||
       command.includes("jarvis are you there") ||
@@ -2046,9 +2046,9 @@ export default function VoiceControl({
       "от��рыть",
       "личный",
       "кабинет",
-      "отпра��ит��",
+      "отпра��ить",
       "секция",
-      "спуститься",
+      "спустить��я",
       "перейти",
       "покажи",
       "на����ди",
@@ -2093,9 +2093,9 @@ export default function VoiceControl({
       "��пс",
       "thank",
       "thanks",
-      "мерс���",
+      "мерс��",
       "��ахмат",
-      "рах��ет",
+      "рах����ет",
       "хо��ошо",
       "отлично",
       "замечате����ьно",
@@ -2182,7 +2182,7 @@ export default function VoiceControl({
         }
       }
 
-      // Если ничего не найдено, вы��о��няем запасное действие
+      // Если ничего не н��йдено, вы��о��няем запасное действие
       if (fallbackAction) {
         fallbackAction();
         return true;
@@ -2458,7 +2458,7 @@ export default function VoiceControl({
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальн���й пл������ добавле��");
+      speak("Максимальн����й пл������ добавле��");
       return;
     }
 
@@ -2491,8 +2491,8 @@ export default function VoiceControl({
 
     if (
       command.includes("к пр�����мущес����ам") ||
-      command.includes("наши пре����ущества") ||
-      command.includes("сп��стит��ся к преимущества��") ||
+      command.includes("наши пре��мущества") ||
+      command.includes("сп����стит��ся к преимущества��") ||
       command.includes("перейти к ��реимущес���вам") ||
       command.includes("��реим��щества")
     ) {
@@ -2524,7 +2524,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("П��казыв��ю возможности");
+        speak("Показыв��ю возможности");
       }
       return;
     }
