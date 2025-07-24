@@ -410,7 +410,7 @@ export default function Index() {
       <nav
         className={cn(
           "fixed left-1/2 transform -translate-x-1/2 z-40 transition-all duration-300",
-          // Базовые стили в зависимости от состояния скролл��
+          // Базовые стили в зависимости от состояния скролла
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
@@ -685,12 +685,201 @@ export default function Index() {
         </div>
       </nav>
 
-      {/* Hero Section - Stark Style */}
-      <StarkHero
-        isModelRotating={isModelRotating}
-        onModelRotationStart={handleModelRotateStart}
-        onModelRotationStop={handleModelRotateStop}
-      />
+      {/* Главная секция с условным рендерингом */}
+      <div className="relative">
+        {/* Эффект перехода */}
+        {isTransitioning && (
+          <div className="absolute inset-0 z-50 bg-black">
+            {/* Глитч эффект */}
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 via-blue-600/30 to-purple-600/20 animate-pulse"></div>
+            <div className="absolute inset-0 bg-black/50">
+              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-pulse"></div>
+              <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent animate-pulse" style={{ animationDelay: "0.2s" }}></div>
+              <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-400 to-transparent animate-pulse" style={{ animationDelay: "0.4s" }}></div>
+              <div className="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-pink-400 to-transparent animate-pulse" style={{ animationDelay: "0.6s" }}></div>
+              <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent animate-pulse" style={{ animationDelay: "0.8s" }}></div>
+            </div>
+            <div className="flex items-center justify-center h-screen">
+              <div className="text-center">
+                <ArcReactor size="large" pulsing />
+                <p className="text-cyan-400 mt-4 font-mono text-xl">
+                  <GlitchText intensity="high">SYSTEM TRANSFORMATION...</GlitchText>
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Hero секция */}
+        {!showAdvantages && !isTransitioning && (
+          <StarkHero
+            isModelRotating={isModelRotating}
+            onModelRotationStart={handleModelRotateStart}
+            onModelRotationStop={handleModelRotateStop}
+          />
+        )}
+
+        {/* Секция преимуществ */}
+        {showAdvantages && !isTransitioning && (
+          <section className="min-h-screen bg-black relative overflow-hidden py-20">
+            {/* Анимированные фоновые элементы */}
+            <div className="absolute inset-0 opacity-10">
+              <div
+                className="absolute top-10 left-10 w-32 h-32 border border-cyan-400 rounded-full animate-spin"
+                style={{ animationDuration: "25s" }}
+              ></div>
+              <div
+                className="absolute bottom-20 right-20 w-24 h-24 border border-blue-400 rounded-full animate-spin"
+                style={{ animationDuration: "18s", animationDirection: "reverse" }}
+              ></div>
+              <div
+                className="absolute top-1/2 left-1/3 w-16 h-16 border border-orange-400 rounded-full animate-spin"
+                style={{ animationDuration: "12s" }}
+              ></div>
+            </div>
+
+            {/* Глитч оверлей */}
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
+              <div
+                className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-60 animate-pulse"
+                style={{ animationDelay: "1s" }}
+              ></div>
+            </div>
+
+            <div className="container mx-auto px-6 relative z-10">
+              <div className="text-center mb-16">
+                {/* JARVIS-style Header */}
+                <StarkHUD
+                  className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3 mb-6"
+                  showCorners={false}
+                >
+                  <div className="flex items-center space-x-3">
+                    <ArcReactor size="small" pulsing />
+                    <span className="text-sm text-cyan-400 uppercase tracking-widest font-mono">
+                      [ НАШИ ПРЕИМУЩЕСТВА ]
+                    </span>
+                  </div>
+                </StarkHUD>
+
+                <h2 className="text-4xl lg:text-6xl font-bold mb-6">
+                  Создаем <HologramText glitch>3D Сайты</HologramText> Будущего
+                </h2>
+                <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
+                  <GlitchText intensity="low">
+                    Мы создаем уникальные 3D сайты с крутым дизайном, интегрированным ИИ
+                    и всем, что клиент захочет видеть на своем сайте
+                  </GlitchText>
+                </p>
+
+                {/* Scanning Line */}
+                <div className="mt-4 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                {/* 3D Технологии */}
+                <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer">
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-cyan-400/30">
+                      <Layers className="w-8 h-8 text-cyan-400 group-hover:animate-pulse" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-4 text-white font-mono">
+                      <GlitchText intensity="low">3D Технологии</GlitchText>
+                    </h3>
+                  </div>
+
+                  <div className="space-y-3">
+                    <p className="text-white/70 text-sm leading-relaxed font-mono">
+                      Интерактивные 3D модели, анимации и иммерсивный опыт
+                    </p>
+                    <div className="flex items-center text-cyan-400 text-sm">
+                      <Zap className="w-4 h-4 mr-2" />
+                      <span className="font-mono">Three.js & WebGL</span>
+                    </div>
+                    <div className="flex items-center text-cyan-400 text-sm">
+                      <Cpu className="w-4 h-4 mr-2" />
+                      <span className="font-mono">Real-time Rendering</span>
+                    </div>
+                  </div>
+                </StarkHUD>
+
+                {/* ИИ Интеграция */}
+                <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer">
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-blue-400/30">
+                      <Brain className="w-8 h-8 text-blue-400 group-hover:animate-pulse" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-4 text-white font-mono">
+                      <GlitchText intensity="medium">ИИ Интеграция</GlitchText>
+                    </h3>
+                  </div>
+
+                  <div className="space-y-3">
+                    <p className="text-white/70 text-sm leading-relaxed font-mono">
+                      Умные чат-боты, голосовое управление и машинное обучение
+                    </p>
+                    <div className="flex items-center text-blue-400 text-sm">
+                      <Eye className="w-4 h-4 mr-2" />
+                      <span className="font-mono">Computer Vision</span>
+                    </div>
+                    <div className="flex items-center text-blue-400 text-sm">
+                      <TrendingUp className="w-4 h-4 mr-2" />
+                      <span className="font-mono">Neural Networks</span>
+                    </div>
+                  </div>
+                </StarkHUD>
+
+                {/* Кастомные Решения */}
+                <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer md:col-span-2 lg:col-span-1">
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500/20 to-pink-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-purple-400/30">
+                      <Cog className="w-8 h-8 text-purple-400 group-hover:animate-spin" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-4 text-white font-mono">
+                      <GlitchText intensity="low">Любые Пожелания</GlitchText>
+                    </h3>
+                  </div>
+
+                  <div className="space-y-3">
+                    <p className="text-white/70 text-sm leading-relaxed font-mono">
+                      Реализуем любые идеи клиента - от простых до самых сложных
+                    </p>
+                    <div className="flex items-center text-purple-400 text-sm">
+                      <Lock className="w-4 h-4 mr-2" />
+                      <span className="font-mono">Custom Features</span>
+                    </div>
+                    <div className="flex items-center text-purple-400 text-sm">
+                      <Search className="w-4 h-4 mr-2" />
+                      <span className="font-mono">Unlimited Possibilities</span>
+                    </div>
+                  </div>
+                </StarkHUD>
+              </div>
+
+              {/* Call to Action */}
+              <div className="text-center mt-16">
+                <div className="inline-block">
+                  <PowerIndicator className="mb-4" />
+                  <p className="text-cyan-400 font-mono text-sm mb-4">
+                    <GlitchText intensity="low">ГОТОВЫ СОЗДАТЬ УНИКАЛЬНЫЙ САЙТ?</GlitchText>
+                  </p>
+                  <Button
+                    className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg stark-glow group"
+                    onClick={() => {
+                      setShowAdvantages(false);
+                      setIsTransitioning(true);
+                      setTimeout(() => setIsTransitioning(false), 1500);
+                    }}
+                  >
+                    <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+                    <span className="font-mono">ВЕРНУТЬСЯ К ГЛАВНОЙ</span>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   );
 }
