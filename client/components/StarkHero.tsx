@@ -16,6 +16,7 @@ import {
 } from "@/components/StarkEffects";
 import GLBModel from "@/components/GLBModel";
 import { TypewriterText } from "@/components/TypewriterText";
+import { SiteSearch } from "@/components/SiteSearch";
 
 interface StarkHeroProps {
   className?: string;
