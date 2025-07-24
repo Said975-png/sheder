@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Search, X, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -35,7 +35,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
     {
       id: "voice-commands",
       title: "Голосовые команды",
-      description: "Управление сайтом с помощью голоса",
+      description: "Управление сайтом с ��омощью голоса",
       type: "feature",
     },
     {
@@ -237,7 +237,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
         <span className="relative z-10">Поиск по сайту</span>
       </Button>
 
-      {/* Модальное окно п��иска */}
+      {/* Модальное окно поиска */}
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-black/50 backdrop-blur-sm">
           <div className="relative w-full max-w-2xl mx-4">
