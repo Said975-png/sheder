@@ -43,6 +43,195 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+// Компонент для анимации печати кода
+function TypewriterCode() {
+  const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
+  const [displayedCode, setDisplayedCode] = useState("");
+  const [currentCharIndex, setCurrentCharIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+
+  const codeSnippets = [
+    {
+      title: "stark-interface.tsx",
+      lines: [
+        'import React from "react";',
+        'import { Button, Card } from "@/components";',
+        "",
+        "export function StarkInterface() {",
+        "  return (",
+        '    <div className="stark-container">',
+        '      <h1 className="glow-text">',
+        "        STARK INDUSTRIES",
+        "      </h1>",
+        '      <Button variant="stark">',
+        "        Активировать",
+        "      </Button>",
+        "    </div>",
+        "  );",
+        "}",
+      ],
+    },
+    {
+      title: "ai-assistant.tsx",
+      lines: [
+        'import { useState } from "react";',
+        'import { Brain, Zap } from "lucide-react";',
+        "",
+        "export function AIAssistant() {",
+        "  const [isActive, setIsActive] = useState(false);",
+        "",
+        "  const handleVoiceCommand = () => {",
+        "    setIsActive(!isActive);",
+        "    processNeuralNetwork();",
+        "  };",
+        "",
+        "  return (",
+        '    <div className="ai-interface">',
+        '      <Brain className="neural-icon" />',
+        "      <button onClick={handleVoiceCommand}>",
+        '        {isActive ? "Деактивировать" : "Активировать"}',
+        "      </button>",
+        "    </div>",
+        "  );",
+        "}",
+      ],
+    },
+    {
+      title: "blockchain-wallet.tsx",
+      lines: [
+        'import { ethers } from "ethers";',
+        'import { Shield, Lock } from "lucide-react";',
+        "",
+        "export function BlockchainWallet() {",
+        "  const [wallet, setWallet] = useState(null);",
+        '  const [balance, setBalance] = useState("0");',
+        "",
+        "  const connectWallet = async () => {",
+        "    const provider = new ethers.BrowserProvider(window.ethereum);",
+        "    const signer = await provider.getSigner();",
+        "    setWallet(signer);",
+        "    const bal = await provider.getBalance(signer.address);",
+        "    setBalance(ethers.formatEther(bal));",
+        "  };",
+        "",
+        "  return (",
+        '    <div className="wallet-interface">',
+        '      <Shield className="security-icon" />',
+        "      <p>Баланс: {balance} ETH</p>",
+        "      <button onClick={connectWallet}>",
+        "        Подключить кошелек",
+        "      </button>",
+        "    </div>",
+        "  );",
+        "}",
+      ],
+    },
+    {
+      title: "neural-network.py",
+      lines: [
+        "import tensorflow as tf",
+        "import numpy as np",
+        "from sklearn.model_selection import train_test_split",
+        "",
+        "class StarkAI:",
+        "    def __init__(self):",
+        "        self.model = tf.keras.Sequential([",
+        '            tf.keras.layers.Dense(128, activation="relu"),',
+        "            tf.keras.layers.Dropout(0.2),",
+        '            tf.keras.layers.Dense(64, activation="relu"),',
+        '            tf.keras.layers.Dense(10, activation="softmax")',
+        "        ])",
+        "",
+        "    def train(self, X, y):",
+        "        self.model.compile(",
+        '            optimizer="adam",',
+        '            loss="categorical_crossentropy",',
+        '            metrics=["accuracy"]',
+        "        )",
+        "        return self.model.fit(X, y, epochs=100)",
+        "",
+        "    def predict(self, data):",
+        "        return self.model.predict(data)",
+      ],
+    },
+  ];
+
+  useEffect(() => {
+    const currentSnippet = codeSnippets[currentCodeIndex];
+    const fullCode = currentSnippet.lines.join("\n");
+
+    let typingTimer: NodeJS.Timeout;
+    let pauseTimer: NodeJS.Timeout;
+
+    if (isTyping && currentCharIndex < fullCode.length) {
+      typingTimer = setTimeout(
+        () => {
+          setDisplayedCode(fullCode.substring(0, currentCharIndex + 1));
+          setCurrentCharIndex((prev) => prev + 1);
+        },
+        50 + Math.random() * 50,
+      ); // Варьируем скорость печати
+    } else if (currentCharIndex >= fullCode.length) {
+      // Пауза после завершения печати
+      pauseTimer = setTimeout(() => {
+        setCurrentCharIndex(0);
+        setDisplayedCode("");
+        setCurrentCodeIndex((prev) => (prev + 1) % codeSnippets.length);
+      }, 3000); // Пауза 3 секунды перед следующим кодом
+    }
+
+    return () => {
+      clearTimeout(typingTimer);
+      clearTimeout(pauseTimer);
+    };
+  }, [currentCharIndex, currentCodeIndex, isTyping, codeSnippets]);
+
+  const currentSnippet = codeSnippets[currentCodeIndex];
+
+  const renderCodeWithSyntaxHighlight = (code: string) => {
+    const lines = code.split("\n");
+    return lines.map((line, index) => {
+      if (!line.trim()) return <div key={index} className="h-5"></div>;
+
+      // Simple syntax highlighting
+      let highlightedLine = line
+        .replace(
+          /(import|export|from|const|let|var|function|return|if|else|class|def|async|await)/g,
+          '<span class="text-purple-400">$1</span>',
+        )
+        .replace(/(\{|\}|\(|\)|;)/g, '<span class="text-cyan-400">$1</span>')
+        .replace(/(["'].*?["'])/g, '<span class="text-green-400">$1</span>')
+        .replace(/(\d+)/g, '<span class="text-orange-400">$1</span>')
+        .replace(/(\/\/.*$)/g, '<span class="text-gray-500">$1</span>')
+        .replace(/(<[^>]*>)/g, '<span class="text-red-400">$1</span>')
+        .replace(
+          /(className|onClick|useState|useEffect|href|src)/g,
+          '<span class="text-blue-400">$1</span>',
+        );
+
+      return (
+        <div
+          key={index}
+          className="font-mono text-sm leading-relaxed"
+          dangerouslySetInnerHTML={{ __html: highlightedLine }}
+        />
+      );
+    });
+  };
+
+  return (
+    <div className="font-mono text-sm h-[400px] overflow-hidden relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/50 pointer-events-none z-10"></div>
+
+      <div className="space-y-1 text-white/90 h-full overflow-hidden">
+        {renderCodeWithSyntaxHighlight(displayedCode)}
+        {/* Мигающий курсор */}
+        <span className="inline-block w-2 h-5 bg-cyan-400 animate-pulse ml-1"></span>
+      </div>
+    </div>
+  );
+}
+
 export default function Index() {
   const { currentUser, logout, isAuthenticated, loading } = useAuth();
   const {
@@ -360,56 +549,30 @@ export default function Index() {
       {/* Hero Section - Stark Style */}
       <StarkHero />
 
-      {/* Why Blockchain Matters Section */}
+      {/* Our Advantages Section - AI & Modern Websites */}
       <section className="py-20 bg-black relative overflow-hidden">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            {/* Left Content */}
-            <div className="space-y-8">
-              <h2 className="text-4xl lg:text-5xl font-bold">
-                Why Blockchain <HologramText glitch>Matters</HologramText>
-              </h2>
-
-              <p className="text-lg text-white/70 leading-relaxed font-mono">
-                <GlitchText intensity="low">
-                  Blockchain is revolutionizing how we handle data,
-                  transactions, and trust. By eliminating intermediaries and
-                  creating secure, transparent systems, blockchain is laying the
-                  foundation for a more efficient and fair digital future.
-                </GlitchText>
-              </p>
-
-              <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg stark-glow">
-                <Code className="w-5 h-5 mr-2" />
-                Read More
-              </Button>
-            </div>
-
-            {/* Right Side - Content or other elements */}
-            <div className="flex items-center justify-center">
-              <div className="text-center space-y-6">
-                <div className="w-64 h-64 mx-auto bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-cyan-400/30">
-                  <div className="text-6xl text-cyan-400">
-                    <Code className="w-16 h-16" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section - Enhanced */}
-      <section id="pricing" className="py-20 bg-black relative overflow-hidden">
-        {/* JARVIS Tech Background */}
-        <div className="absolute inset-0 opacity-5">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 opacity-10">
           <div
-            className="absolute top-1/4 left-10 w-40 h-40 border border-cyan-400 rounded-full animate-spin"
-            style={{ animationDuration: "20s" }}
+            className="absolute top-10 left-10 w-32 h-32 border border-cyan-400 rounded-full animate-spin"
+            style={{ animationDuration: "25s" }}
           ></div>
           <div
-            className="absolute bottom-1/4 right-10 w-32 h-32 border border-blue-400 rounded-full animate-spin"
-            style={{ animationDuration: "15s", animationDirection: "reverse" }}
+            className="absolute bottom-20 right-20 w-24 h-24 border border-blue-400 rounded-full animate-spin"
+            style={{ animationDuration: "18s", animationDirection: "reverse" }}
+          ></div>
+          <div
+            className="absolute top-1/2 left-1/3 w-16 h-16 border border-orange-400 rounded-full animate-spin"
+            style={{ animationDuration: "12s" }}
+          ></div>
+        </div>
+
+        {/* Glitch overlay */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
+          <div
+            className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-60 animate-pulse"
+            style={{ animationDelay: "1s" }}
           ></div>
         </div>
 
@@ -423,18 +586,18 @@ export default function Index() {
               <div className="flex items-center space-x-3">
                 <ArcReactor size="small" pulsing />
                 <span className="text-sm text-cyan-400 uppercase tracking-widest font-mono">
-                  [ SUBSCRIPTION MATRIX ]
+                  [ НАШИ ПРЕИМУЩЕСТВА ]
                 </span>
               </div>
             </StarkHUD>
 
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Access <HologramText glitch>Protocols</HologramText>
+              Современные <HologramText glitch>Динамичные</HologramText> Сайты
             </h2>
-            <p className="text-lg text-white/70 max-w-2xl mx-auto font-mono">
+            <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
               <GlitchText intensity="low">
-                Select your clearance level and initialize blockchain protocol
-                access
+                Мы создаем не просто веб-сайты — мы создаем интеллектуальные
+                цифровые экосистемы с встроенным искусственным интеллектом
               </GlitchText>
             </p>
 
@@ -442,141 +605,233 @@ export default function Index() {
             <div className="mt-4 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Beginner Plan */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* AI Integration */}
             <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer">
-              <div className="text-center mb-8">
-                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
-                  <GlitchText intensity="low">Beginner Plan</GlitchText>
-                </h3>
-                <div className="text-4xl font-bold mb-2 font-mono">
-                  <HologramText>$199</HologramText>
-                  <span className="text-lg text-white/60">/month</span>
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-cyan-400/30">
+                  <Brain className="w-8 h-8 text-cyan-400 group-hover:animate-pulse" />
                 </div>
-                <p className="text-white/60 font-mono">
-                  Individuals new to blockchain
+                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
+                  <GlitchText intensity="low">
+                    Искусственный Интеллект
+                  </GlitchText>
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-white/70 text-sm leading-relaxed font-mono">
+                  Интеграция передовых AI-технологий для создания умных
+                  интерфейсов
                 </p>
+                <div className="flex items-center text-cyan-400 text-sm">
+                  <Zap className="w-4 h-4 mr-2" />
+                  <span className="font-mono">JARVIS Protocol</span>
+                </div>
+                <div className="flex items-center text-cyan-400 text-sm">
+                  <Cpu className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Neural Networks</span>
+                </div>
               </div>
-
-              <div className="space-y-4 mb-8">
-                <h4 className="font-semibold font-mono text-cyan-400">
-                  Features:
-                </h4>
-                <ul className="space-y-3">
-                  <li className="flex items-center text-white/70">
-                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    Access to basic blockchain guides
-                  </li>
-                  <li className="flex items-center text-white/70">
-                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    Fundamental blockchain knowledge
-                  </li>
-                  <li className="flex items-center text-white/70">
-                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    Community support
-                  </li>
-                </ul>
-              </div>
-
-              <Button
-                onClick={handleAddBeginnerPlan}
-                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-medium py-3 rounded-xl stark-glow"
-              >
-                Choose Plan
-              </Button>
             </StarkHUD>
 
-            {/* Intermediate Plan */}
-            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm border-2 border-cyan-400 p-8 relative transform scale-105 group cursor-pointer">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <span className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-full font-mono">
-                  Most Popular
+            {/* Dynamic Interfaces */}
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-blue-400/30">
+                  <Layers className="w-8 h-8 text-blue-400 group-hover:animate-pulse" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
+                  <GlitchText intensity="medium">
+                    Динамичные Интерфейсы
+                  </GlitchText>
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-white/70 text-sm leading-relaxed font-mono">
+                  Адаптивные интерфейсы с анимациями и интерактивными элементами
+                </p>
+                <div className="flex items-center text-blue-400 text-sm">
+                  <Eye className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Real-time Rendering</span>
+                </div>
+                <div className="flex items-center text-blue-400 text-sm">
+                  <TrendingUp className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Performance Optimized</span>
+                </div>
+              </div>
+            </StarkHUD>
+
+            {/* Advanced Features */}
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer md:col-span-2 lg:col-span-1">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500/20 to-pink-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-purple-400/30">
+                  <Cog className="w-8 h-8 text-purple-400 group-hover:animate-spin" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
+                  <GlitchText intensity="low">Передовые Технологии</GlitchText>
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-white/70 text-sm leading-relaxed font-mono">
+                  Используем самые современные технологии для максимальной
+                  производительности
+                </p>
+                <div className="flex items-center text-purple-400 text-sm">
+                  <Lock className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Blockchain Security</span>
+                </div>
+                <div className="flex items-center text-purple-400 text-sm">
+                  <Search className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Voice Recognition</span>
+                </div>
+              </div>
+            </StarkHUD>
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center mt-16">
+            <div className="inline-block">
+              <PowerIndicator className="mb-4" />
+              <p className="text-cyan-400 font-mono text-sm mb-4">
+                <GlitchText intensity="low">ГОТОВЫ К БУДУЩЕМУ?</GlitchText>
+              </p>
+              <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg stark-glow group">
+                <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+                <span className="font-mono">ЗАПУСТИТЬ ПРОЕКТ</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Code to Website Demo Section */}
+      <section className="py-20 bg-black relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <StarkHUD
+              className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3 mb-6"
+              showCorners={false}
+            >
+              <div className="flex items-center space-x-3">
+                <ArcReactor size="small" pulsing />
+                <span className="text-sm text-cyan-400 uppercase tracking-widest font-mono">
+                  [ ПРОЦЕСС СОЗДАНИЯ ]
                 </span>
               </div>
-
-              <div className="text-center mb-8">
-                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
-                  <GlitchText intensity="medium">Intermediate Plan</GlitchText>
-                </h3>
-                <div className="text-4xl font-bold mb-2 font-mono">
-                  <HologramText glitch>$349</HologramText>
-                  <span className="text-lg text-white/60">/month</span>
-                </div>
-                <p className="text-white/60 font-mono">
-                  Users with some blockchain knowledge
-                </p>
-              </div>
-
-              <div className="space-y-4 mb-8">
-                <h4 className="font-semibold font-mono text-cyan-400">
-                  Features:
-                </h4>
-                <ul className="space-y-3">
-                  <li className="flex items-center text-white/70">
-                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    Everything in Beginner
-                  </li>
-                  <li className="flex items-center text-white/70">
-                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    Access to advanced blockchain
-                  </li>
-                  <li className="flex items-center text-white/70">
-                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    Priority email support
-                  </li>
-                </ul>
-              </div>
-
-              <Button
-                onClick={handleAddIntermediatePlan}
-                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-medium py-3 rounded-xl stark-glow"
-              >
-                Choose Plan
-              </Button>
             </StarkHUD>
 
-            {/* Advanced Plan */}
-            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer">
-              <div className="text-center mb-8">
-                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
-                  <GlitchText intensity="low">Advanced Plan</GlitchText>
-                </h3>
-                <div className="text-4xl font-bold mb-2 font-mono">
-                  <HologramText>$495</HologramText>
-                  <span className="text-lg text-white/60">/month</span>
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              От <HologramText glitch>Кода</HologramText> к Реальности
+            </h2>
+            <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
+              <GlitchText intensity="low">
+                Наблюдайте, как строки кода превращаются в живой интерфейс в
+                реальном времени
+              </GlitchText>
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+            {/* Code Editor Box */}
+            <StarkHUD className="bg-gray-900/90 backdrop-blur-sm p-6 h-[500px] relative overflow-hidden">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-2">
+                  <div className="flex space-x-1">
+                    <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse"></div>
+                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  </div>
+                  <span className="text-sm text-cyan-400 font-mono ml-4">
+                    <GlitchText intensity="low">dynamic-typing.tsx</GlitchText>
+                  </span>
                 </div>
-                <p className="text-white/60 font-mono">
-                  Professionals looking for advanced tools and insights
-                </p>
+                <div className="text-xs text-white/60 font-mono">
+                  LIVE CODING...
+                </div>
               </div>
 
-              <div className="space-y-4 mb-8">
-                <h4 className="font-semibold font-mono text-cyan-400">
-                  Features:
-                </h4>
-                <ul className="space-y-3">
-                  <li className="flex items-center text-white/70">
-                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    Everything in Intermediate
-                  </li>
-                  <li className="flex items-center text-white/70">
-                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    Professional tools
-                  </li>
-                  <li className="flex items-center text-white/70">
-                    <CheckCircle className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                    1-on-1 consultations
-                  </li>
-                </ul>
-              </div>
-
-              <Button
-                onClick={handleAddAdvancedPlan}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-medium py-3 rounded-xl stark-glow"
-              >
-                Choose Plan
-              </Button>
+              <TypewriterCode />
             </StarkHUD>
+
+            {/* Website Preview Box */}
+            <StarkHUD className="bg-gray-900/90 backdrop-blur-sm p-6 h-[500px] relative overflow-hidden">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-2">
+                  <div className="w-4 h-4 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full animate-pulse"></div>
+                  <span className="text-sm text-cyan-400 font-mono">
+                    <GlitchText intensity="low">Live Preview</GlitchText>
+                  </span>
+                </div>
+                <PowerIndicator />
+              </div>
+
+              <div className="h-[400px] bg-black/50 rounded-lg border border-cyan-400/30 relative overflow-hidden flex items-center justify-center">
+                <div className="relative z-10 text-center space-y-6">
+                  <div className="animate-fade-in-up">
+                    <h1 className="text-2xl lg:text-3xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text">
+                      <GlitchText intensity="medium">
+                        STARK INDUSTRIES
+                      </GlitchText>
+                    </h1>
+                  </div>
+
+                  <div className="animate-fade-in">
+                    <div className="w-48 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto animate-pulse"></div>
+                  </div>
+
+                  <div className="animate-fade-in-up">
+                    <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg stark-glow">
+                      <GlitchText intensity="low">Активировать</GlitchText>
+                    </Button>
+                  </div>
+
+                  <div className="animate-fade-in">
+                    <div className="flex justify-center space-x-4 mt-6">
+                      <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
+                      <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+                      <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
+                    </div>
+                  </div>
+
+                  <div className="animate-fade-in">
+                    <div className="text-xs text-cyan-400 font-mono mt-4">
+                      <GlitchText intensity="low">STATUS: ONLINE</GlitchText>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-cyan-400 opacity-60"></div>
+                <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-cyan-400 opacity-60"></div>
+                <div className="absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-cyan-400 opacity-60"></div>
+                <div className="absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-cyan-400 opacity-60"></div>
+              </div>
+            </StarkHUD>
+          </div>
+
+          <div className="text-center mt-16">
+            <div className="inline-block">
+              <p className="text-cyan-400 font-mono text-sm mb-4">
+                <GlitchText intensity="low">
+                  ГОТОВЫ УВИДЕТЬ СВОЙ ПРОЕКТ В ДЕЙСТВИИ?
+                </GlitchText>
+              </p>
+              <div className="flex justify-center space-x-4">
+                <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-3 rounded-lg stark-glow">
+                  <Code className="w-5 h-5 mr-2" />
+                  <span className="font-mono">ЗАКАЗАТЬ ДЕМО</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 px-6 py-3 rounded-lg backdrop-blur-sm"
+                >
+                  <Eye className="w-5 h-5 mr-2" />
+                  <span className="font-mono">ПОСМОТРЕТЬ ПОРТФОЛИО</span>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </section>

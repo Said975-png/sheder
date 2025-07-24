@@ -212,7 +212,7 @@
     color: hsl(var(--foreground)) !important;
   }
 
-  /* Адаптивные цвета для лейблов форм */
+  /* Адаптив��ые цвета для лейблов форм */
   .theme-label {
     color: hsl(var(--foreground) / 0.8) !important;
   }
@@ -1633,6 +1633,154 @@
     .stark-lab-particle {
       width: 1px;
       height: 1px;
+    }
+  }
+
+  /* Code to Website Demo Animations */
+  @keyframes scan {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  .animate-scan {
+    animation: scan 3s ease-in-out infinite;
+  }
+
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out forwards;
+  }
+
+  /* Code typing effect */
+  .typing-animation {
+    overflow: hidden;
+    border-right: 2px solid transparent;
+  }
+
+  .animate-type-in {
+    animation: type-in 1s ease-out forwards;
+  }
+
+  @keyframes type-in {
+    0% {
+      opacity: 0;
+      max-width: 0;
+    }
+    1% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      max-width: 100%;
+    }
+  }
+
+  /* Preview elements animation */
+  .preview-element {
+    transition: all 0.3s ease;
+  }
+
+  /* Cursor blinking */
+  .typing-cursor {
+    opacity: 0;
+    animation: cursor-blink 1s infinite step-end;
+  }
+
+  @keyframes cursor-blink {
+    0%,
+    50% {
+      opacity: 1;
+    }
+    51%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* Matrix grid effect */
+  .matrix-grid {
+    background-image:
+      linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    animation: matrix-scroll 20s linear infinite;
+  }
+
+  @keyframes matrix-scroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 20px 20px;
+    }
+  }
+
+  /* Holographic corners */
+  .holographic-corners::before,
+  .holographic-corners::after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 2px solid rgba(6, 182, 212, 0.6);
+    animation: corner-pulse 2s ease-in-out infinite;
+  }
+
+  .holographic-corners::before {
+    top: 5px;
+    left: 5px;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .holographic-corners::after {
+    bottom: 5px;
+    right: 5px;
+    border-left: none;
+    border-top: none;
+  }
+
+  @keyframes corner-pulse {
+    0%,
+    100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.1);
     }
   }
 }
