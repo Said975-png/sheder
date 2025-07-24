@@ -92,7 +92,7 @@ function TypewriterCode() {
           '    <div className="ai-interface">',
           '      <Brain className="neural-icon" />',
           "      <button onClick={handleVoiceCommand}>",
-          '        {isActive ? "Деакти��ировать" : "Активировать"}',
+          '        {isActive ? "Деактивировать" : "Активировать"}',
           "      </button>",
           "    </div>",
           "  );",
@@ -230,7 +230,7 @@ function TypewriterCode() {
 
       <div className="space-y-1 text-white/90 h-full overflow-hidden">
         {renderCodeWithSyntaxHighlight(displayedCode)}
-        {/* Мигающий курсор */}
+        {/* Миг��ющий курсор */}
         <span className="inline-block w-2 h-5 bg-cyan-400 animate-pulse ml-1"></span>
       </div>
     </div>
@@ -250,13 +250,9 @@ export default function Index() {
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
   const [navbarScrolled, setNavbarScrolled] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
   const [isModelRotating, setIsModelRotating] = useState(false);
-
-  // Используем useRef для стабильного хранения таймаута
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Запуск анимации при загрузке компонента
   useEffect(() => {
@@ -267,30 +263,16 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Отслеживание скролла для навбара с эффектом "брови"
+  // Отслеживание скролла для навбара (без эффекта "брови")
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 100;
       setNavbarScrolled(scrolled);
-      setIsScrolling(true);
-
-      // Очищаем предыдущий таймаут
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-
-      // Устанавливаем новый таймаут для остановки скролла
-      scrollTimeoutRef.current = setTimeout(() => {
-        setIsScrolling(false);
-      }, 3000); // 3 секунды после остановки скролла
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
     };
   }, []);
 
@@ -337,7 +319,7 @@ export default function Index() {
   }, [navigate]);
 
   const handleListeningChange = React.useCallback((isListening: boolean, transcript?: string) => {
-    // Микрофон работает в фоне, панель не показываем
+    // Микрофон работает в ф��не, панель не показываем
     console.log("🎤 Микрофон активен:", isListening, "Транскрипт:", transcript);
   }, []);
 
