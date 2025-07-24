@@ -353,7 +353,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      {/* Н��оновый фиолетовый фон */}
+      {/* Неоновый фиолетовый фон */}
       <div className="neon-purple-background"></div>
 
       {/* Неоновые углы */}
@@ -401,9 +401,7 @@ export default function Index() {
             variant="ghost"
             className={cn(
               "text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-500 font-mono transform",
-              false
-                ? "scale-0 opacity-0 w-0 overflow-hidden"
-                : "scale-100 opacity-100 w-auto",
+              "scale-100 opacity-100 w-auto",
             )}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
@@ -414,9 +412,7 @@ export default function Index() {
           <div
             className={cn(
               "transition-all duration-500 transform",
-              false
-                ? "scale-0 opacity-0 w-0 overflow-hidden"
-                : "scale-100 opacity-100 w-auto",
+              "scale-100 opacity-100 w-auto",
             )}
           >
             <JarvisInterface
@@ -455,9 +451,7 @@ export default function Index() {
           <div
             className={cn(
               "transition-all duration-500 transform",
-              false
-                ? "scale-0 opacity-0 w-0 overflow-hidden"
-                : "scale-100 opacity-100 w-auto",
+              "scale-100 opacity-100 w-auto",
             )}
           >
             <DropdownMenu>
@@ -553,9 +547,7 @@ export default function Index() {
           <div
             className={cn(
               "transition-all duration-500 transform",
-              false
-                ? "scale-0 opacity-0 w-0 overflow-hidden"
-                : "scale-100 opacity-100 w-auto",
+              "scale-100 opacity-100 w-auto",
             )}
           >
             <ThemeToggle />
@@ -565,9 +557,7 @@ export default function Index() {
             <div
               className={cn(
                 "transition-all duration-500 transform",
-                false
-                  ? "scale-0 opacity-0 w-0 overflow-hidden"
-                  : "scale-100 opacity-100 w-auto",
+                "scale-100 opacity-100 w-auto",
               )}
             >
               <DropdownMenu>
@@ -624,9 +614,7 @@ export default function Index() {
             <div
               className={cn(
                 "flex items-center space-x-1 transition-all duration-500 transform",
-                false
-                  ? "scale-0 opacity-0 w-0 overflow-hidden"
-                  : "scale-100 opacity-100 w-auto",
+                "scale-100 opacity-100 w-auto",
               )}
             >
               <Button
