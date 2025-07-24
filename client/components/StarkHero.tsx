@@ -190,21 +190,24 @@ export default function StarkHero({ className }: StarkHeroProps) {
               </div>
             </div>
 
-            {/* Кнопки действий */}
+            {/* Поиск по сайту */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="group relative bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-4 rounded-lg text-lg font-bold stark-glow transition-all duration-300 hover:shadow-cyan-500/40 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                <Zap className="w-6 h-6 mr-3 group-hover:animate-pulse" />
-                <span className="relative z-10">Initialize Protocol</span>
-              </Button>
+              <SiteSearch />
 
               <Button
                 variant="outline"
                 className="group relative border-2 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400 px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 backdrop-blur-sm overflow-hidden"
+                onClick={() => {
+                  // Активируем голосового помощника
+                  const voiceButton = document.querySelector('[data-testid="voice-control"]') as HTMLElement;
+                  if (voiceButton) {
+                    voiceButton.click();
+                  }
+                }}
               >
                 <div className="absolute inset-0 bg-cyan-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <Code className="w-6 h-6 mr-3 group-hover:animate-spin" />
-                <span className="relative z-10">Analyze Systems</span>
+                <span className="relative z-10">Активировать ДЖАРВИС</span>
               </Button>
             </div>
           </div>
