@@ -88,7 +88,7 @@ export default function VoiceControl({
           // @ts-ignore - Увеличиваем количество альтернатив
           recognitionRef.current.webkitMaxAlternatives = 10;
 
-          // @ts-ignore - Настройки для дальнего распознавания
+          // @ts-ignore - Настройки для дальнего р��спознавания
           try {
             recognitionRef.current.webkitNoiseReduction = true;
             recognitionRef.current.webkitEchoCancellation = true;
@@ -298,7 +298,7 @@ export default function VoiceControl({
 
                   processVoiceCommand(command);
 
-                  // Быстрая о��истка транскрипта после запуска ко����анды
+                  // Быстр��я о��истка транскрипта после запуска ко����анды
                   setTimeout(() => {
                     console.log("����� Б��с��р��������я очистка транскрипт��");
                     setTranscript("");
@@ -376,7 +376,7 @@ export default function VoiceControl({
         recognitionRef.current.onerror = (event) => {
           console.log("Speech recognition event:", event.error);
 
-          // Критические ошибки с умным восстановлением
+          // Критические ошибки с умным восстановлени��м
           if (event.error === "network") {
             setNetworkErrorCount((prev) => prev + 1);
             console.error(
@@ -457,7 +457,7 @@ export default function VoiceControl({
                 "- ��ро��ол��аем слушать",
               );
             }
-            // Систе��а автоматически переза��ус��ится через onend
+            // Систе��а автоматически переза��ус����ится через onend
           }
           // Другие оши��ки - ����резапускаем через корот���ое время
           else {
@@ -803,7 +803,7 @@ export default function VoiceControl({
     }
 
     if (commandCooldownRef.current) {
-      console.log("⚠️ Принудительно сбрасываем cooldown для speakWelcomeBack");
+      console.log("⚠️ Принудительно с��расываем cooldown для speakWelcomeBack");
       commandCooldownRef.current = false;
     }
 
@@ -1100,7 +1100,7 @@ export default function VoiceControl({
     }
     console.log("���� Нач��наем воспроизведение Jarvis аудио");
 
-    // О���танавливаем любое текущее воспроизведение
+    // О�����танавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -1193,7 +1193,7 @@ export default function VoiceControl({
       utterance.pitch = 0.7; // Сред����-ни��кий тон для ����втор��те����ос��и
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
-      // Поиск н��иболе�� подходящего ��олоса для имит����ции Jarvis
+      // Поиск наиболее подходящего голоса для имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Приоритет: голоса, по��ожие на британск��й/американский мужской
@@ -1430,7 +1430,7 @@ export default function VoiceControl({
   };
 
   const speakCorrect = () => {
-    // Улучшенная ����щита - разрешаем если нет акт��вного ��удио
+    // Улучшенная �����щита - разрешаем если нет акт��вного ��удио
     if (isSpeaking && audioPlayingRef.current) {
       console.log("❌ speakCorrect заблок��рован - иг����ет аудио");
       return;
@@ -1654,7 +1654,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.log("✅ Возврат к обычной теме завершен");
+      console.log("✅ Возврат к обычно�� теме завершен");
     };
 
     audio.onended = resetState;
@@ -1903,7 +1903,7 @@ export default function VoiceControl({
       return;
     }
 
-    // ��оманда "Джарвис как дела" с ответом "Все системы функ��ионируют нормал��но"
+    // ��оманда "Джарвис как дела" с ответом "Все системы функ��ионируют нормал���но"
     if (
       command.includes("джарвис как ��ела") ||
       command.includes("��ак дела джарвис") ||
@@ -2272,7 +2272,7 @@ export default function VoiceControl({
         command.includes("email")
       ) {
         found = searchAndNavigate([
-          "контакт",
+          "к��нтакт",
           "связь",
           "телефон",
           "email",
@@ -2536,7 +2536,7 @@ export default function VoiceControl({
       command.includes("спус����ит��ся вниз")
     ) {
       window.scrollBy(0, 500);
-      speak("Прок��учиваю вн����з");
+      speak("Прок��учиваю вн������з");
       return;
     }
 
