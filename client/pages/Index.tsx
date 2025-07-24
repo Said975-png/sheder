@@ -50,7 +50,7 @@ function TypewriterCode() {
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
 
-  const codeSnippets = [
+  const codeSnippets = useMemo(() => [
     {
       title: "stark-interface.tsx",
       lines: [
@@ -154,7 +154,7 @@ function TypewriterCode() {
         "        return self.model.predict(data)",
       ],
     },
-  ];
+  ], []);
 
   useEffect(() => {
     const currentSnippet = codeSnippets[currentCodeIndex];
