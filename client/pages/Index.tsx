@@ -273,7 +273,7 @@ export default function Index() {
         clearTimeout(scrollTimeout);
       }
 
-      // Устанавливаем новый тайма��т для остановки скролла
+      // Устанавливаем новый таймаут для остановки скролла
       const newTimeout = setTimeout(() => {
         setIsScrolling(false);
       }, 3000); // 3 секунды после остановки скролла
@@ -373,7 +373,7 @@ export default function Index() {
           // Эффект "брови" при скролле
           isScrolling
             ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
-            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный ��авбар
+            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный навбар
         )}
       >
         <div
