@@ -89,7 +89,7 @@ function TypewriterCode() {
         '    <div className="ai-interface">',
         '      <Brain className="neural-icon" />',
         "      <button onClick={handleVoiceCommand}>",
-        '        {isActive ? "Деактивировать" : "Активировать"}',
+        '        {isActive ? "Деактивировать" : "Активирова��ь"}',
         "      </button>",
         "    </div>",
         "  );",
@@ -505,7 +505,12 @@ export default function Index() {
           </div>
 
 
-          {!isScrolling && <ThemeToggle />}
+          <div className={cn(
+            "transition-all duration-500 transform",
+            isScrolling ? "scale-0 opacity-0 w-0 overflow-hidden" : "scale-100 opacity-100 w-auto"
+          )}>
+            <ThemeToggle />
+          </div>
 
           {!isScrolling && isAuthenticated && currentUser ? (
             <DropdownMenu>
@@ -712,7 +717,7 @@ export default function Index() {
 
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Ис��ользуем самые современные технологии для максимальной
+                  Используем самые современные технологии для максимальной
                   производительности
                 </p>
                 <div className="flex items-center text-purple-400 text-sm">
