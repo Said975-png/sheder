@@ -88,7 +88,6 @@ export default function JarvisInterface({
           forceStop={forceStop}
           onModelRotateStart={onModelRotateStart}
           onModelRotateStop={onModelRotateStop}
-          onShowAdvantages={onShowAdvantages}
         />
       </div>
     );
