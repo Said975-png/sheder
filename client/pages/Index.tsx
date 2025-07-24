@@ -255,7 +255,7 @@ export default function Index() {
   const [showAdvantages, setShowAdvantages] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Запуск анимации при загрузке комп��нента
+  // Запуск анимации при загрузке компонента
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
@@ -346,13 +346,24 @@ export default function Index() {
   };
 
   const handleModelRotateStart = () => {
-    console.log("🔄 Запуск вра��ения модели");
+    console.log("🔄 Запуск вращения модели");
     setIsModelRotating(true);
   };
 
   const handleModelRotateStop = () => {
     console.log("⏹️ Остановка вращения модели");
     setIsModelRotating(false);
+  };
+
+  const handleShowAdvantages = () => {
+    console.log("🎯 Переключение на секцию преимуществ");
+    setIsTransitioning(true);
+
+    // Глитч эффект
+    setTimeout(() => {
+      setShowAdvantages(true);
+      setIsTransitioning(false);
+    }, 1500);
   };
 
   if (loading) {
