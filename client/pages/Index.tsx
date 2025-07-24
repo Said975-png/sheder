@@ -387,9 +387,7 @@ export default function Index() {
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
           // Эффект "брови" при скролле
-          false
-            ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
-            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный нав��ар
+          "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный нав��ар
         )}
       >
         <div
@@ -507,7 +505,7 @@ export default function Index() {
                                 {item.description.substring(0, 60)}...
                               </p>
                               <p className="text-sm font-semibold text-cyan-400 mt-1 font-mono">
-                                {item.price.toLocaleString()} сум
+                                {item.price.toLocaleString()} с��м
                               </p>
                             </div>
                             <Button
