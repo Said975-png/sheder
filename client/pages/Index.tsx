@@ -363,7 +363,7 @@ export default function Index() {
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
-          // Эффе��т "брови" при скролле
+          // Эффект "брови" при скролле
           isScrolling
             ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
             : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный навбар
@@ -497,7 +497,7 @@ export default function Index() {
 
           {!isScrolling && <ThemeToggle />}
 
-          {isAuthenticated && currentUser ? (
+          {!isScrolling && isAuthenticated && currentUser ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -754,7 +754,7 @@ export default function Index() {
             </h2>
             <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
               <GlitchText intensity="low">
-                Наблюдайте, ка�� строки кода превращаются в живой интерфейс в
+                Наблюдайте, как строки кода превращаются в живой интерфейс в
                 реальном времени
               </GlitchText>
             </p>
