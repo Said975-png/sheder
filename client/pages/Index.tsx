@@ -255,6 +255,9 @@ export default function Index() {
   const [forceStopVoice, setForceStopVoice] = useState(false);
   const [isModelRotating, setIsModelRotating] = useState(false);
 
+  // Используем useRef для стабильного хранения таймаута
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   // Запуск анимации при загрузке компонента
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -266,20 +269,18 @@ export default function Index() {
 
   // Отслеживание скролла для навбара с эффектом "брови"
   useEffect(() => {
-    let timeoutRef: NodeJS.Timeout | null = null;
-
     const handleScroll = () => {
       const scrolled = window.scrollY > 100;
       setNavbarScrolled(scrolled);
       setIsScrolling(true);
 
       // Очищаем предыдущий таймаут
-      if (timeoutRef) {
-        clearTimeout(timeoutRef);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
       }
 
       // Устанавливаем новый таймаут для остановки скролла
-      timeoutRef = setTimeout(() => {
+      scrollTimeoutRef.current = setTimeout(() => {
         setIsScrolling(false);
       }, 3000); // 3 секунды после остановки скролла
     };
@@ -287,8 +288,8 @@ export default function Index() {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (timeoutRef) {
-        clearTimeout(timeoutRef);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
       }
     };
   }, []);
