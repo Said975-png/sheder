@@ -118,7 +118,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
 
       <div className="container mx-auto px-6 relative z-10 pt-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[80vh]">
-          {/* Левая час��ь - контент */}
+          {/* Левая часть - контент */}
           <div className="space-y-8">
             {/* Статус хедер */}
             <StarkHUD
