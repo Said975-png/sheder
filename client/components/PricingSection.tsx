@@ -73,7 +73,7 @@ const pricingPlans: PricingPlan[] = [
       "Многоязычность",
       "API интеграции",
       "Онлайн платежи",
-      "Техническая по��держка 6 месяцев"
+      "Техническая поддержка 6 месяцев"
     ],
     highlight: true,
     icon: <Brain className="w-8 h-8" />,
@@ -217,16 +217,16 @@ export default function PricingSection() {
 
           {/* Main Pricing Card */}
           <div className="flex justify-center">
-            <div 
+            <div
               className={cn(
-                "relative w-full max-w-lg transition-all duration-500",
+                "relative w-full max-w-md transition-all duration-500",
                 isTransitioning ? "scale-90 opacity-70" : "scale-100 opacity-100"
               )}
               onMouseEnter={() => setIsAutoPlaying(false)}
               onMouseLeave={() => setIsAutoPlaying(true)}
             >
               <div className={cn(
-                "relative p-8 rounded-3xl border-2 backdrop-blur-lg transition-all duration-500 transform hover:scale-105",
+                "relative p-6 rounded-2xl border-2 backdrop-blur-lg transition-all duration-500 transform hover:scale-105",
                 `bg-gradient-to-br ${currentPlan.gradient}/10`,
                 currentPlan.highlight 
                   ? "border-purple-400/60 shadow-2xl shadow-purple-400/30 scale-110" 
