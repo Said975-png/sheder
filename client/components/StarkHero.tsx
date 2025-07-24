@@ -29,7 +29,7 @@ export default function StarkHero({
   className,
   isModelRotating = false,
   onModelRotationStart,
-  onModelRotationStop
+  onModelRotationStop,
 }: StarkHeroProps) {
   const [scanProgress, setScanProgress] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(false);

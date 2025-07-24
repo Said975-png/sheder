@@ -224,7 +224,9 @@ export default function VoiceControl({
           const words = combinedTranscript.split(" ");
           const uniqueWords = [...new Set(words)];
           if (words.length > uniqueWords.length * 2) {
-            console.log("🚫 О��кл����няем результат с ��овторяющим��ся словами");
+            console.log(
+              "🚫 О��кл����няем результат с ��овторяющим��ся словами",
+            );
             combinedTranscript = "";
           }
 
@@ -1265,7 +1267,10 @@ export default function VoiceControl({
 
     audio.play().catch((error) => {
       resetState();
-      console.error("❌ Не удалось воспроизвести аудио для вращения модели:", error);
+      console.error(
+        "❌ Не удалось воспроизвести аудио для вращения модели:",
+        error,
+      );
     });
   };
 
@@ -1316,7 +1321,10 @@ export default function VoiceControl({
 
     audio.play().catch((error) => {
       resetState();
-      console.error("❌ Не удалось воспроизвести аудио для остановки модели:", error);
+      console.error(
+        "❌ Не удалось воспроизвести аудио для остановки модели:",
+        error,
+      );
     });
   };
 

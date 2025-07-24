@@ -178,7 +178,7 @@
 
   .stark-corners::before,
   .stark-corners::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 20px;
     height: 20px;
@@ -208,7 +208,7 @@
 
   .stark-card-corners::before,
   .stark-card-corners::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 25px;
     height: 25px;
@@ -234,7 +234,7 @@
   /* Дополнительные внутренние углы для карточек */
   .stark-card-corners .relative::before,
   .stark-card-corners .relative::after {
-    content: '';
+    content: "";
     position: absolute;
     width: 15px;
     height: 15px;
