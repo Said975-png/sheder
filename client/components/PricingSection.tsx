@@ -17,7 +17,7 @@ import {
   Shield,
   Rocket,
   Heart,
-  ArrowRight
+  ArrowRight,
 } from "lucide-react";
 
 interface PricingPlan {
@@ -49,20 +49,21 @@ const pricingPlans: PricingPlan[] = [
       "Контактные формы",
       "Галерея изображений",
       "Социальные сети",
-      "Техническая поддержка 3 месяца"
+      "Техническая поддержка 3 месяца",
     ],
     highlight: false,
     icon: <Palette className="w-8 h-8" />,
     gradient: "from-blue-500 via-cyan-500 to-teal-500",
     glowColor: "shadow-blue-400/30",
-    ctaText: "Выбрать Basic"
+    ctaText: "Выбрать Basic",
   },
   {
     id: "pro",
     name: "PRO",
     price: "3.500.000",
     originalPrice: "4.000.000",
-    description: "Насыщенный функционал с встроенным ИИ и многими возможностями",
+    description:
+      "Насыщенный функционал с встроенным ИИ и многими возможностями",
     features: [
       "Все из пакета Basic",
       "ИИ-чат бот поддержки",
@@ -73,20 +74,21 @@ const pricingPlans: PricingPlan[] = [
       "Многоязычность",
       "API интеграции",
       "Онлайн платежи",
-      "Техническая поддержка 6 месяцев"
+      "Техническая поддержка 6 месяцев",
     ],
     highlight: true,
     icon: <Brain className="w-8 h-8" />,
     gradient: "from-purple-500 via-pink-500 to-red-500",
     glowColor: "shadow-purple-400/40",
     badge: "ПОПУЛЯРНЫЙ",
-    ctaText: "Выбрать Pro"
+    ctaText: "Выбрать Pro",
   },
   {
     id: "max",
     name: "MAX",
     price: "5.500.000",
-    description: "Безграничные возможности с Джарвисом и инновационными функциями",
+    description:
+      "Безграничные возможности с Джарвисом и инновационными функциями",
     features: [
       "Все из пакета Pro",
       "Встроенный Джарвис с голосовыми ответами",
@@ -98,15 +100,15 @@ const pricingPlans: PricingPlan[] = [
       "Кастомные модули",
       "Безлимитные изменения",
       "Приоритетная поддержка 12 месяцев",
-      "Персональный менеджер проекта"
+      "Персональный менеджер проекта",
     ],
     highlight: false,
     icon: <Crown className="w-8 h-8" />,
     gradient: "from-yellow-400 via-orange-500 to-red-600",
     glowColor: "shadow-yellow-400/40",
     badge: "ПРЕМИУМ",
-    ctaText: "Выбрать Max"
-  }
+    ctaText: "Выбрать Max",
+  },
 ];
 
 export default function PricingSection() {
@@ -142,7 +144,9 @@ export default function PricingSection() {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setTimeout(() => {
-      setCurrentSlide((prev) => (prev - 1 + pricingPlans.length) % pricingPlans.length);
+      setCurrentSlide(
+        (prev) => (prev - 1 + pricingPlans.length) % pricingPlans.length,
+      );
       setIsTransitioning(false);
     }, 300);
   };
@@ -163,16 +167,22 @@ export default function PricingSection() {
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-10 left-20 w-80 h-80 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-10 right-20 w-96 h-96 bg-gradient-to-r from-blue-500/15 to-cyan-500/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div
+          className="absolute bottom-10 right-20 w-96 h-96 bg-gradient-to-r from-blue-500/15 to-cyan-500/15 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "2s" }}
+        ></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-r from-yellow-500/5 to-orange-500/5 rounded-full blur-3xl"></div>
       </div>
 
       {/* Grid Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="w-full h-full" style={{
-          backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)`,
-          backgroundSize: '60px 60px'
-        }}></div>
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)`,
+            backgroundSize: "60px 60px",
+          }}
+        ></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -180,19 +190,22 @@ export default function PricingSection() {
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-6">
             <div className="w-12 h-1 bg-gradient-to-r from-transparent to-cyan-400 mr-4"></div>
-            <Star className="w-8 h-8 text-yellow-400 animate-spin" style={{ animationDuration: '3s' }} />
+            <Star
+              className="w-8 h-8 text-yellow-400 animate-spin"
+              style={{ animationDuration: "3s" }}
+            />
             <div className="w-12 h-1 bg-gradient-to-l from-transparent to-cyan-400 ml-4"></div>
           </div>
-          
+
           <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent mb-6 font-mono">
             НАШИ ЦЕНЫ
           </h2>
-          
+
           <div className="w-40 h-1 bg-gradient-to-r from-yellow-400 to-red-500 mx-auto mb-8 rounded-full"></div>
-          
+
           <p className="text-xl text-white/80 max-w-4xl mx-auto leading-relaxed">
-            Выберите тариф, который идеально подходит для ваших целей. 
-            От стильного базового сайта до премиального решения с Джарвисом
+            Выберите тариф, который идеально подходит для ваших целей. От
+            стильного базового сайта до премиального решения с Джарвисом
           </p>
         </div>
 
@@ -220,33 +233,41 @@ export default function PricingSection() {
             <div
               className={cn(
                 "relative w-full max-w-md transition-all duration-500",
-                isTransitioning ? "scale-90 opacity-70" : "scale-100 opacity-100"
+                isTransitioning
+                  ? "scale-90 opacity-70"
+                  : "scale-100 opacity-100",
               )}
               onMouseEnter={() => setIsAutoPlaying(false)}
               onMouseLeave={() => setIsAutoPlaying(true)}
             >
-              <div className={cn(
-                "relative p-6 rounded-2xl border-2 backdrop-blur-lg transition-all duration-500 transform hover:scale-105",
-                `bg-gradient-to-br ${currentPlan.gradient}/10`,
-                currentPlan.highlight 
-                  ? "border-purple-400/60 shadow-2xl shadow-purple-400/30 scale-110" 
-                  : "border-cyan-400/30 hover:border-cyan-400/60",
-                `hover:${currentPlan.glowColor} hover:shadow-2xl`
-              )}>
+              <div
+                className={cn(
+                  "relative p-6 rounded-2xl border-2 backdrop-blur-lg transition-all duration-500 transform hover:scale-105",
+                  `bg-gradient-to-br ${currentPlan.gradient}/10`,
+                  currentPlan.highlight
+                    ? "border-purple-400/60 shadow-2xl shadow-purple-400/30 scale-110"
+                    : "border-cyan-400/30 hover:border-cyan-400/60",
+                  `hover:${currentPlan.glowColor} hover:shadow-2xl`,
+                )}
+              >
                 {/* Glowing Border Effect */}
-                <div className={cn(
-                  "absolute inset-0 rounded-3xl opacity-30 blur-sm transition-all duration-500 -z-10",
-                  `bg-gradient-to-br ${currentPlan.gradient}`
-                )}></div>
+                <div
+                  className={cn(
+                    "absolute inset-0 rounded-3xl opacity-30 blur-sm transition-all duration-500 -z-10",
+                    `bg-gradient-to-br ${currentPlan.gradient}`,
+                  )}
+                ></div>
 
                 {/* Badge */}
                 {currentPlan.badge && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <div className={cn(
-                      "px-6 py-2 rounded-full text-sm font-bold text-white",
-                      `bg-gradient-to-r ${currentPlan.gradient}`,
-                      "shadow-lg animate-pulse"
-                    )}>
+                    <div
+                      className={cn(
+                        "px-6 py-2 rounded-full text-sm font-bold text-white",
+                        `bg-gradient-to-r ${currentPlan.gradient}`,
+                        "shadow-lg animate-pulse",
+                      )}
+                    >
                       <div className="flex items-center space-x-2">
                         <Star className="w-4 h-4" />
                         <span>{currentPlan.badge}</span>
@@ -260,14 +281,19 @@ export default function PricingSection() {
                 <div className="relative z-10">
                   {/* Header */}
                   <div className="text-center mb-6">
-                    <div className={cn(
-                      "w-16 h-16 rounded-full bg-gradient-to-br flex items-center justify-center mb-4 mx-auto transition-all duration-500",
-                      currentPlan.gradient,
-                      currentPlan.glowColor,
-                      "hover:scale-110"
-                    )}>
+                    <div
+                      className={cn(
+                        "w-16 h-16 rounded-full bg-gradient-to-br flex items-center justify-center mb-4 mx-auto transition-all duration-500",
+                        currentPlan.gradient,
+                        currentPlan.glowColor,
+                        "hover:scale-110",
+                      )}
+                    >
                       <div className="text-white">
-                        {React.cloneElement(currentPlan.icon as React.ReactElement, { className: "w-6 h-6" })}
+                        {React.cloneElement(
+                          currentPlan.icon as React.ReactElement,
+                          { className: "w-6 h-6" },
+                        )}
                       </div>
                     </div>
 
@@ -277,7 +303,9 @@ export default function PricingSection() {
 
                     <div className="mb-3">
                       <div className="flex items-baseline justify-center space-x-2">
-                        <span className="text-3xl font-bold text-white">{currentPlan.price}</span>
+                        <span className="text-3xl font-bold text-white">
+                          {currentPlan.price}
+                        </span>
                         <span className="text-sm text-white/70">сум</span>
                       </div>
                       {currentPlan.originalPrice && (
@@ -306,7 +334,9 @@ export default function PricingSection() {
                           className="flex items-start text-white/90 p-2 rounded-lg bg-white/5 border border-cyan-400/10 hover:border-cyan-400/30 transition-all duration-300 group"
                         >
                           <CheckCircle className="w-4 h-4 text-green-400 mr-2 mt-0.5 flex-shrink-0 group-hover:text-green-300 transition-colors duration-300" />
-                          <span className="text-xs leading-relaxed">{feature}</span>
+                          <span className="text-xs leading-relaxed">
+                            {feature}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -318,7 +348,7 @@ export default function PricingSection() {
                       "w-full py-3 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 font-mono group",
                       `bg-gradient-to-r ${currentPlan.gradient}`,
                       "text-white shadow-lg hover:shadow-xl",
-                      `hover:${currentPlan.glowColor}`
+                      `hover:${currentPlan.glowColor}`,
                     )}
                   >
                     <Sparkles className="w-4 h-4 mr-2 group-hover:animate-spin" />
@@ -340,21 +370,25 @@ export default function PricingSection() {
                   "relative transition-all duration-300",
                   index === currentSlide
                     ? "scale-110"
-                    : "scale-100 hover:scale-105"
+                    : "scale-100 hover:scale-105",
                 )}
                 disabled={isTransitioning}
               >
-                <div className={cn(
-                  "w-4 h-4 rounded-full border-2 transition-all duration-300",
-                  index === currentSlide
-                    ? `bg-gradient-to-r ${plan.gradient} border-transparent shadow-lg`
-                    : "bg-transparent border-cyan-400/40 hover:border-cyan-400/80"
-                )}>
+                <div
+                  className={cn(
+                    "w-4 h-4 rounded-full border-2 transition-all duration-300",
+                    index === currentSlide
+                      ? `bg-gradient-to-r ${plan.gradient} border-transparent shadow-lg`
+                      : "bg-transparent border-cyan-400/40 hover:border-cyan-400/80",
+                  )}
+                >
                   {index === currentSlide && (
-                    <div className={cn(
-                      "absolute inset-0 rounded-full opacity-50 blur-sm",
-                      `bg-gradient-to-r ${plan.gradient}`
-                    )}></div>
+                    <div
+                      className={cn(
+                        "absolute inset-0 rounded-full opacity-50 blur-sm",
+                        `bg-gradient-to-r ${plan.gradient}`,
+                      )}
+                    ></div>
                   )}
                 </div>
               </button>
@@ -371,25 +405,27 @@ export default function PricingSection() {
                   "flex-1 p-6 rounded-xl border transition-all duration-300 group",
                   index === currentSlide
                     ? `border-cyan-400/60 bg-gradient-to-br ${plan.gradient}/10 scale-105`
-                    : "border-cyan-400/20 bg-black/20 hover:border-cyan-400/40 hover:bg-cyan-400/5"
+                    : "border-cyan-400/20 bg-black/20 hover:border-cyan-400/40 hover:bg-cyan-400/5",
                 )}
                 disabled={isTransitioning}
               >
                 <div className="text-center">
-                  <div className={cn(
-                    "w-12 h-12 rounded-full bg-gradient-to-br flex items-center justify-center mx-auto mb-3 transition-all duration-300",
-                    index === currentSlide ? plan.gradient : "from-gray-600 to-gray-700",
-                    "group-hover:" + plan.gradient
-                  )}>
-                    <div className="text-white scale-75">
-                      {plan.icon}
-                    </div>
+                  <div
+                    className={cn(
+                      "w-12 h-12 rounded-full bg-gradient-to-br flex items-center justify-center mx-auto mb-3 transition-all duration-300",
+                      index === currentSlide
+                        ? plan.gradient
+                        : "from-gray-600 to-gray-700",
+                      "group-hover:" + plan.gradient,
+                    )}
+                  >
+                    <div className="text-white scale-75">{plan.icon}</div>
                   </div>
-                  
+
                   <h4 className="text-lg font-bold text-white mb-2 font-mono">
                     {plan.name}
                   </h4>
-                  
+
                   <div className="text-cyan-400 font-semibold text-sm">
                     {plan.price} сум
                   </div>
@@ -406,12 +442,10 @@ export default function PricingSection() {
               Не можете определиться?
             </h3>
             <p className="text-white/70 mb-6 leading-relaxed">
-              Свяжитесь с нами для бесплатной консультации. 
-              Мы поможем выбрать идеальный пакет для ваших потребностей.
+              Свяжитесь с нами для бесплатной консультации. Мы поможем выбрать
+              идеальный пакет для ваших потребностей.
             </p>
-            <Button
-              className="px-8 py-3 text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 transform hover:scale-105 font-mono"
-            >
+            <Button className="px-8 py-3 text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 transform hover:scale-105 font-mono">
               <Heart className="w-5 h-5 mr-2" />
               Бесплатная Консультация
             </Button>
