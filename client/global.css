@@ -1783,4 +1783,352 @@
       transform: scale(1.1);
     }
   }
+
+  /* НЕОНОВЫЙ ФИОЛЕТОВЫЙ ФОН */
+  .neon-purple-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    z-index: -10;
+    overflow: hidden;
+  }
+
+  .neon-purple-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      radial-gradient(circle at 10% 10%, rgba(147, 51, 234, 0.4) 0%, transparent 25%),
+      radial-gradient(circle at 90% 10%, rgba(139, 69, 255, 0.3) 0%, transparent 25%),
+      radial-gradient(circle at 10% 90%, rgba(168, 85, 247, 0.3) 0%, transparent 25%),
+      radial-gradient(circle at 90% 90%, rgba(147, 51, 234, 0.4) 0%, transparent 25%),
+      radial-gradient(circle at 50% 0%, rgba(139, 69, 255, 0.2) 0%, transparent 20%),
+      radial-gradient(circle at 50% 100%, rgba(168, 85, 247, 0.2) 0%, transparent 20%),
+      radial-gradient(circle at 0% 50%, rgba(147, 51, 234, 0.2) 0%, transparent 20%),
+      radial-gradient(circle at 100% 50%, rgba(139, 69, 255, 0.2) 0%, transparent 20%);
+    animation: neonPulse 8s ease-in-out infinite;
+  }
+
+  .neon-purple-background::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+      linear-gradient(45deg, transparent 0%, rgba(139, 69, 255, 0.05) 20%, transparent 40%),
+      linear-gradient(-45deg, transparent 0%, rgba(147, 51, 234, 0.05) 20%, transparent 40%),
+      linear-gradient(90deg, transparent 0%, rgba(168, 85, 247, 0.03) 50%, transparent 100%),
+      linear-gradient(0deg, transparent 0%, rgba(139, 69, 255, 0.03) 50%, transparent 100%);
+    animation: neonShift 12s linear infinite;
+  }
+
+  @keyframes neonPulse {
+    0%, 100% {
+      opacity: 0.6;
+      filter: blur(20px);
+    }
+    25% {
+      opacity: 0.8;
+      filter: blur(25px);
+    }
+    50% {
+      opacity: 1;
+      filter: blur(30px);
+    }
+    75% {
+      opacity: 0.7;
+      filter: blur(22px);
+    }
+  }
+
+  @keyframes neonShift {
+    0% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    25% {
+      transform: translateX(10px) translateY(-5px) rotate(1deg);
+    }
+    50% {
+      transform: translateX(-5px) translateY(10px) rotate(-1deg);
+    }
+    75% {
+      transform: translateX(5px) translateY(-10px) rotate(0.5deg);
+    }
+    100% {
+      transform: translateX(0) translateY(0) rotate(0deg);
+    }
+  }
+
+  /* НЕОНОВЫЕ УГЛЫ */
+  .neon-corners {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -5;
+  }
+
+  .neon-corner {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border: 2px solid rgba(139, 69, 255, 0.4);
+    animation: cornerGlow 6s ease-in-out infinite;
+  }
+
+  .neon-corner-tl {
+    top: 20px;
+    left: 20px;
+    border-right: none;
+    border-bottom: none;
+    box-shadow:
+      -10px -10px 30px rgba(139, 69, 255, 0.3),
+      -20px -20px 60px rgba(147, 51, 234, 0.2);
+    animation-delay: 0s;
+  }
+
+  .neon-corner-tr {
+    top: 20px;
+    right: 20px;
+    border-left: none;
+    border-bottom: none;
+    box-shadow:
+      10px -10px 30px rgba(139, 69, 255, 0.3),
+      20px -20px 60px rgba(147, 51, 234, 0.2);
+    animation-delay: 1.5s;
+  }
+
+  .neon-corner-bl {
+    bottom: 20px;
+    left: 20px;
+    border-right: none;
+    border-top: none;
+    box-shadow:
+      -10px 10px 30px rgba(139, 69, 255, 0.3),
+      -20px 20px 60px rgba(147, 51, 234, 0.2);
+    animation-delay: 3s;
+  }
+
+  .neon-corner-br {
+    bottom: 20px;
+    right: 20px;
+    border-left: none;
+    border-top: none;
+    box-shadow:
+      10px 10px 30px rgba(139, 69, 255, 0.3),
+      20px 20px 60px rgba(147, 51, 234, 0.2);
+    animation-delay: 4.5s;
+  }
+
+  @keyframes cornerGlow {
+    0%, 100% {
+      opacity: 0.4;
+      border-color: rgba(139, 69, 255, 0.4);
+      filter: blur(1px);
+    }
+    50% {
+      opacity: 0.8;
+      border-color: rgba(168, 85, 247, 0.8);
+      filter: blur(2px);
+    }
+  }
+
+  /* НЕОНОВЫЕ КРАЕВЫЕ СВЕЧЕНИЯ */
+  .neon-edges {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -8;
+  }
+
+  .neon-edges::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(139, 69, 255, 0.6) 20%,
+      rgba(168, 85, 247, 0.8) 50%,
+      rgba(139, 69, 255, 0.6) 80%,
+      transparent 100%
+    );
+    animation: edgeFlow 4s ease-in-out infinite;
+  }
+
+  .neon-edges::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(139, 69, 255, 0.6) 20%,
+      rgba(168, 85, 247, 0.8) 50%,
+      rgba(139, 69, 255, 0.6) 80%,
+      transparent 100%
+    );
+    animation: edgeFlow 4s ease-in-out infinite reverse;
+  }
+
+  @keyframes edgeFlow {
+    0%, 100% {
+      opacity: 0.3;
+      filter: blur(1px);
+    }
+    50% {
+      opacity: 0.9;
+      filter: blur(3px);
+    }
+  }
+
+  /* НЕОНОВЫЕ ЧАСТИЦЫ */
+  .neon-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -7;
+    overflow: hidden;
+  }
+
+  .neon-particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(139, 69, 255, 0.8);
+    border-radius: 50%;
+    box-shadow:
+      0 0 6px rgba(139, 69, 255, 0.8),
+      0 0 12px rgba(168, 85, 247, 0.4);
+    animation: particleDrift 8s linear infinite;
+  }
+
+  .neon-particle:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 8s;
+  }
+  .neon-particle:nth-child(2) {
+    left: 30%;
+    animation-delay: 2s;
+    animation-duration: 10s;
+  }
+  .neon-particle:nth-child(3) {
+    left: 50%;
+    animation-delay: 4s;
+    animation-duration: 9s;
+  }
+  .neon-particle:nth-child(4) {
+    left: 70%;
+    animation-delay: 6s;
+    animation-duration: 11s;
+  }
+  .neon-particle:nth-child(5) {
+    left: 90%;
+    animation-delay: 1s;
+    animation-duration: 7s;
+  }
+
+  @keyframes particleDrift {
+    0% {
+      transform: translateY(110vh) translateX(0px);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-10vh) translateX(30px);
+      opacity: 0;
+    }
+  }
+
+  /* ЦЕНТРАЛЬНОЕ НЕОНОВОЕ СВЕЧЕНИЕ */
+  .neon-center-glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(
+      circle,
+      rgba(139, 69, 255, 0.1) 0%,
+      rgba(168, 85, 247, 0.05) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: -9;
+    animation: centerPulse 10s ease-in-out infinite;
+  }
+
+  @keyframes centerPulse {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 0.3;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.5);
+      opacity: 0.7;
+    }
+  }
+
+  /* МОБИЛЬНАЯ АДАПТАЦИЯ */
+  @media (max-width: 768px) {
+    .neon-corner {
+      width: 80px;
+      height: 80px;
+    }
+
+    .neon-corner-tl, .neon-corner-tr {
+      top: 10px;
+    }
+
+    .neon-corner-bl, .neon-corner-br {
+      bottom: 10px;
+    }
+
+    .neon-corner-tl, .neon-corner-bl {
+      left: 10px;
+    }
+
+    .neon-corner-tr, .neon-corner-br {
+      right: 10px;
+    }
+
+    .neon-center-glow {
+      width: 150px;
+      height: 150px;
+    }
+
+    .neon-particle {
+      width: 2px;
+      height: 2px;
+    }
+  }
 }
