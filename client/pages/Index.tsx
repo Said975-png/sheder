@@ -7,6 +7,7 @@ import VoiceControl from "@/components/VoiceControl";
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
 import AdvantagesSection from "@/components/AdvantagesSection";
+import PricingSection from "@/components/PricingSection";
 
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
 import {
@@ -44,7 +45,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Компонент для анимации печа��и кода
+// Компонент для анима��ии печати кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -350,7 +351,7 @@ export default function Index() {
   };
 
   const handleModelRotateStop = () => {
-    console.log("⏹️ Остановка вращения модели");
+    console.log("⏹️ Остановка ��ращения модели");
     setIsModelRotating(false);
   };
 
