@@ -137,7 +137,7 @@
     --sidebar-border: 214.3 31.8% 91.4%;
     --sidebar-ring: 260 100% 60%;
 
-    /* Кастомные переменные ��ля светлых гр��д��ентов */
+    /* Кастомные переменные для светлых гр��д��ентов */
     --gradient-from: 267 100% 92%;
     --gradient-via: 220 20% 95%;
     --gradient-to: 0 0% 98%;
@@ -2008,7 +2008,7 @@
     width: 100vw !important;
     height: 100vh !important;
     pointer-events: none !important;
-    z-index: 8 !important;
+    z-index: -700 !important;
     overflow: hidden !important;
   }
 
