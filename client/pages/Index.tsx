@@ -332,7 +332,7 @@ export default function Index() {
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
     // Микрофон работает в фоне, панель не показываем
-    console.log("🎤 М��крофон активен:", isListening, "Транскри��т:", transcript);
+    console.log("🎤 М��крофон акт��вен:", isListening, "Транскри��т:", transcript);
   };
 
   const handleStopListening = () => {
@@ -374,15 +374,16 @@ export default function Index() {
           isScrolling ? "space-x-1 opacity-60 scale-75" : "space-x-2 opacity-100 scale-100"
         )}>
           {/* Home Button */}
-          {!isScrolling && (
-            <Button
-              variant="ghost"
-              className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
-              <span className="stark-text-glow">Home</span>
-            </Button>
-          )}
+          <Button
+            variant="ghost"
+            className={cn(
+              "text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-500 font-mono transform",
+              isScrolling ? "scale-0 opacity-0 w-0 overflow-hidden" : "scale-100 opacity-100 w-auto"
+            )}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <span className="stark-text-glow">Home</span>
+          </Button>
 
           {/* JARVIS Interface in Navbar */}
           {!isScrolling && (
@@ -642,7 +643,7 @@ export default function Index() {
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-white font-mono">
                   <GlitchText intensity="low">
-                    Искусст��енный Интеллект
+                    Искусственный Интеллект
                   </GlitchText>
                 </h3>
               </div>
@@ -724,7 +725,7 @@ export default function Index() {
             <div className="inline-block">
               <PowerIndicator className="mb-4" />
               <p className="text-cyan-400 font-mono text-sm mb-4">
-                <GlitchText intensity="low">ГОТОВЫ К БУДУЩЕМУ?</GlitchText>
+                <GlitchText intensity="low">ГОТОВЫ К БУД��ЩЕМУ?</GlitchText>
               </p>
               <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg stark-glow group">
                 <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
