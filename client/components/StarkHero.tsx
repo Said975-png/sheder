@@ -193,22 +193,6 @@ export default function StarkHero({ className }: StarkHeroProps) {
             {/* Поиск по сайту */}
             <div className="flex flex-col sm:flex-row gap-4">
               <SiteSearch />
-
-              <Button
-                variant="outline"
-                className="group relative border-2 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400 px-8 py-4 rounded-lg text-lg font-bold transition-all duration-300 backdrop-blur-sm overflow-hidden"
-                onClick={() => {
-                  // Активируем голосового помощника
-                  const voiceButton = document.querySelector('[data-testid="voice-control"]') as HTMLElement;
-                  if (voiceButton) {
-                    voiceButton.click();
-                  }
-                }}
-              >
-                <div className="absolute inset-0 bg-cyan-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <Code className="w-6 h-6 mr-3 group-hover:animate-spin" />
-                <span className="relative z-10">Активировать ДЖАРВИС</span>
-              </Button>
             </div>
           </div>
 
