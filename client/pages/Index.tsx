@@ -6,6 +6,7 @@ import VoiceControl from "@/components/VoiceControl";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
+import AdvantagesSection from "@/components/AdvantagesSection";
 
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
 import {
