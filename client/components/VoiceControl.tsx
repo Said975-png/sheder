@@ -88,7 +88,7 @@ export default function VoiceControl({
           // @ts-ignore - Увеличиваем количество альтернатив
           recognitionRef.current.webkitMaxAlternatives = 10;
 
-          // @ts-ignore - Настройки для дальнего распознавания
+          // @ts-ignore - Настройки для дальнего рас��ознавания
           try {
             recognitionRef.current.webkitNoiseReduction = true;
             recognitionRef.current.webkitEchoCancellation = true;
@@ -657,7 +657,7 @@ export default function VoiceControl({
 
       console.log("🔄 Полный сброс ��сех состояний блокировки выполн����");
 
-      // Только сообщаем о состоянии, если микр��фон все еще активен �� это не ��оманда отключения
+      // Только сообщаем о с��стоянии, если микр��фон все еще активен �� это не ��оманда отключения
       if (isListening && !skipPanelReopen) {
         onListeningChange?.(true, "");
         console.log("✅ Cooldown сброшен, микро���он активен");
@@ -1100,7 +1100,7 @@ export default function VoiceControl({
     }
     console.log("���� Нач��наем воспроизведение Jarvis аудио");
 
-    // О���танавливаем любое текущее воспроизведение
+    // О���танавливаем любое текущее воспроизведени��
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -1161,7 +1161,7 @@ export default function VoiceControl({
   };
 
   const speakHowAreYou = () => {
-    // Улучшенная защита - разрешаем если нет активного аудио
+    // Улучшенная защита - разрешаем если нет ��ктивного аудио
     if (isSpeaking && audioPlayingRef.current) {
       console.log("❌ speakHowAreYou заблокирован - играет аудио");
       return;
@@ -1512,7 +1512,7 @@ export default function VoiceControl({
       scanElement.className = "lab-activation-scan";
       document.body.appendChild(scanElement);
 
-      // Доба��ляем активационный оверлей
+      // Доба��ляем ��ктивационный оверлей
       const overlayElement = document.createElement("div");
       overlayElement.className = "lab-activation-overlay";
       document.body.appendChild(overlayElement);
@@ -1673,7 +1673,7 @@ export default function VoiceControl({
     console.log("🔧 Обработка команды:", command);
 
     // ГАРА��ТИРОВ��ННАЯ защита от зас��ревания: всегда разрешаем обработку новых команд
-    // Уста��авливаем таймер на сброс блокировок для ЛЮБОЙ команды
+    // Уста��авливаем таймер на сброс блокировок для ��ЮБОЙ команды
     const forceUnlockTimer = setTimeout(() => {
       console.log("⏰ Принудительное разблокирование через 8 секунд");
       commandCooldownRef.current = false;
@@ -1749,7 +1749,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис верни меня обратно" - возврат к обычной теме
+    // Ко��анда "Джарвис верни меня обратно" - возврат к обычной теме
     if (
       command.includes("джарвис верни меня обратно") ||
       command.includes("верни меня обратно джарвис") ||
@@ -1772,12 +1772,12 @@ export default function VoiceControl({
     if (
       command.includes("джарвис я вернулся") ||
       command.includes("я вернулся джарвис") ||
-      command.includes("джарвис я здесь") ||
+      command.includes("джарвис я зд��сь") ||
       command.includes("я снова здесь") ||
       command.includes("вернулся") ||
       command.includes("я здесь")
     ) {
-      console.log("👋 Команда приветствия распознана:", command);
+      console.log("👋 Команд�� приветствия распознана:", command);
       speakWelcomeBack();
       return;
     }
@@ -1816,7 +1816,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды ��ля о��игинально��о голоса Джарвиса (из фи��ьма)
+    // Команды для оригинального голоса Джарвиса (из фильма)
     if (
       command.includes("оригинальный джарвис") ||
       command.includes("настоящий джарвис") ||
@@ -2041,7 +2041,7 @@ export default function VoiceControl({
       "скролл",
       "нав��р��",
       "пл��нам",
-      "преимущества",
+      "преимущест��а",
       "возможности",
       "от��рыть",
       "личный",
@@ -2135,7 +2135,7 @@ export default function VoiceControl({
       searchTerms: string[],
       fallbackAction?: () => void,
     ) => {
-      // П���иск по заг��ловкам
+      // П���иск по заг����ловкам
       const headings = Array.from(
         document.querySelectorAll("h1, h2, h3, h4, h5, h6"),
       );
@@ -2217,7 +2217,7 @@ export default function VoiceControl({
         }
       }
 
-      // Поиск возмож��о��тей
+      // Поиск возмож��о����тей
       if (
         command.includes("воз��ожности") ||
         command.includes("возможность") ||
@@ -2453,7 +2453,7 @@ export default function VoiceControl({
       command.includes("добави��ь мак��") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
-      command.includes("д��а����вис пла�����") ||
+      command.includes("д��а����вис пла�������") ||
       command.includes("��акс в ��орзину") ||
       command.includes("о��править макс")
     ) {
