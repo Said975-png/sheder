@@ -153,7 +153,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, results, selectedIndex]);
+  }, [isOpen, results, selectedIndex, handleSelectResult]);
 
   // Фокус на input при открытии
   useEffect(() => {
@@ -237,7 +237,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
         <span className="relative z-10">Поиск по сайту</span>
       </Button>
 
-      {/* Модальное окно поиска */}
+      {/* Модальное окно п��иска */}
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-black/50 backdrop-blur-sm">
           <div className="relative w-full max-w-2xl mx-4">
