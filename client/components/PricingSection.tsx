@@ -56,7 +56,7 @@ const pricingPlans: PricingPlan[] = [
     icon: <Palette className="w-8 h-8" />,
     gradient: "from-blue-500 via-cyan-500 to-teal-500",
     glowColor: "shadow-blue-400/30",
-    ctaText: "Выбрать Basic",
+    ctaText: "Выбрат�� Basic",
   },
   {
     id: "pro",
@@ -92,8 +92,8 @@ const pricingPlans: PricingPlan[] = [
       "Безграничные возможности с Джарвисом и инновационными функциями",
     features: [
       "Все из пакета Pro",
-      "Встроенный Джарвис с голосовыми ответами",
-      "Персон��льная настройка ИИ",
+      "Встроенный Джарвис с ��олосовыми ответами",
+      "Персональная настройка ИИ",
       "3D элементы и анимации",
       "VR/AR интеграция",
       "Блокчейн функции",
@@ -114,25 +114,8 @@ const pricingPlans: PricingPlan[] = [
 
 function PricingSection() {
   const [currentSlide, setCurrentSlide] = useState(1); // Start with Pro plan (highlighted)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { addItem } = useCart();
-
-  // Auto-scroll functionality
-  const autoSlide = React.useCallback(() => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentSlide((prev) => (prev + 1) % pricingPlans.length);
-      setIsTransitioning(false);
-    }, 300);
-  }, []);
-
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-
-    const interval = setInterval(autoSlide, 5000);
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, autoSlide]);
 
   const nextSlide = React.useCallback(() => {
     if (isTransitioning) return;
