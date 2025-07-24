@@ -119,19 +119,20 @@ export default function PricingSection() {
   const { addItem } = useCart();
 
   // Auto-scroll functionality
+  const autoSlide = React.useCallback(() => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentSlide((prev) => (prev + 1) % pricingPlans.length);
+      setIsTransitioning(false);
+    }, 300);
+  }, []);
+
   useEffect(() => {
     if (!isAutoPlaying) return;
 
-    const interval = setInterval(() => {
-      setIsTransitioning(true);
-      setTimeout(() => {
-        setCurrentSlide((prev) => (prev + 1) % pricingPlans.length);
-        setIsTransitioning(false);
-      }, 300);
-    }, 5000);
-
+    const interval = setInterval(autoSlide, 5000);
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, autoSlide]);
 
   const nextSlide = React.useCallback(() => {
     if (isTransitioning) return;
