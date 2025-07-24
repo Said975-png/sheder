@@ -15,6 +15,7 @@ interface OrderData {
     fullName: string;
     phone: string;
     description: string;
+    referenceUrl?: string;
   };
   total: number;
 }
@@ -70,6 +71,13 @@ const createOrderEmailTemplate = (orderData: OrderData): string => {
           <div class="customer-info">
             <p>${formData.description}</p>
           </div>
+
+          ${formData.referenceUrl ? `
+          <h2>🌐 Ссылка на образец сайта</h2>
+          <div class="customer-info">
+            <p><a href="${formData.referenceUrl}" target="_blank" style="color: #667eea; text-decoration: none;">${formData.referenceUrl}</a></p>
+          </div>
+          ` : ''}
           
           <h2>🛒 Заказанные услуги</h2>
           ${items
@@ -111,11 +119,11 @@ export const handleSendOrder: RequestHandler = async (req, res) => {
       });
     }
 
-    const { fullName, phone, description } = orderData.formData;
+    const { fullName, phone, description, referenceUrl } = orderData.formData;
     if (!fullName || !phone || !description) {
       return res.status(400).json({
         success: false,
-        message: "Необходимо заполнить все поля",
+        message: "Необходимо заполнить все обязательные поля",
       });
     }
 
@@ -152,6 +160,7 @@ export const handleSendOrder: RequestHandler = async (req, res) => {
 Новый заказ от ${fullName}
 Телефон: ${phone}
 Описание: ${description}
+${referenceUrl ? `Ссылка на образец: ${referenceUrl}` : ''}
 Общая стоимость: ${orderData.total.toLocaleString()} сум
 
 Заказанные услуги:
