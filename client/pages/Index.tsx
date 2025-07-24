@@ -43,7 +43,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Компонент для анимации печати кода
+// Компонент для ан��мации печати кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -312,7 +312,7 @@ export default function Index() {
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
     // Микрофон работает в фоне, панель не показываем
-    console.log("🎤 Микрофон активен:", isListening, "Транскрипт:", transcript);
+    console.log("🎤 Микрофон активен:", isListening, "Транскри��т:", transcript);
   };
 
   const handleStopListening = () => {
@@ -454,20 +454,7 @@ export default function Index() {
           </DropdownMenu>
 
           {/* Тестовая кнопк�� диагностики */}
-          <Button
-            onClick={() => {
-              console.log("🧪 Тестовый запуск диагностики");
-              // Имитируем голосовую команду
-              const event = new CustomEvent("voiceCommand", {
-                detail: { command: "диагностика" },
-              });
-              window.dispatchEvent(event);
-            }}
-            variant="ghost"
-            className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
-          >
-            <span className="stark-text-glow">TEST</span>
-          </Button>
+
 
           <ThemeToggle />
 
