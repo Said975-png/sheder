@@ -120,7 +120,7 @@ function TypewriterCode() {
           '      <Shield className="security-icon" />',
           "      <p>Баланс: {balance} ETH</p>",
           "      <button onClick={connectWallet}>",
-          "        Под��лючить кошелек",
+          "        Подключить кошелек",
           "      </button>",
           "    </div>",
           "  );",
@@ -270,7 +270,7 @@ export default function Index() {
       setNavbarScrolled(scrolled);
       setIsScrolling(true);
 
-      // Очищаем п��едыдущий таймаут
+      // Очищаем предыдущий таймаут
       if (timeoutRef) {
         clearTimeout(timeoutRef);
       }
@@ -719,7 +719,7 @@ export default function Index() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* AI Integration */}
-            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer card-3d neon-3d-border holographic-3d floating-card">
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer card-3d neon-3d-border holographic-3d floating-card ultra-3d-glow neon-pulse-border sci-fi-depth">
               <div className="text-center mb-6">
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-cyan-400/30">
                   <Brain className="w-8 h-8 text-cyan-400 group-hover:animate-pulse" />
@@ -748,7 +748,7 @@ export default function Index() {
             </StarkHUD>
 
             {/* Dynamic Interfaces */}
-            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer card-3d neon-3d-border holographic-3d floating-card">
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer card-3d neon-3d-border holographic-3d floating-card ultra-3d-glow neon-pulse-border sci-fi-depth">
               <div className="text-center mb-6">
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-blue-400/30">
                   <Layers className="w-8 h-8 text-blue-400 group-hover:animate-pulse" />
@@ -777,7 +777,7 @@ export default function Index() {
             </StarkHUD>
 
             {/* Advanced Features */}
-            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer md:col-span-2 lg:col-span-1 card-3d neon-3d-border holographic-3d floating-card">
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer md:col-span-2 lg:col-span-1 card-3d neon-3d-border holographic-3d floating-card ultra-3d-glow neon-pulse-border sci-fi-depth">
               <div className="text-center mb-6">
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500/20 to-pink-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-purple-400/30">
                   <Cog className="w-8 h-8 text-purple-400 group-hover:animate-spin" />
@@ -790,7 +790,7 @@ export default function Index() {
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
                   Используем самые современные технологии для максимальной
-                  производи��ельности
+                  производительности
                 </p>
                 <div className="flex items-center text-purple-400 text-sm">
                   <Lock className="w-4 h-4 mr-2" />
@@ -849,7 +849,7 @@ export default function Index() {
 
           <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
             {/* Code Editor Box */}
-            <StarkHUD className="bg-gray-900/90 backdrop-blur-sm p-6 h-[500px] relative overflow-hidden card-3d neon-3d-border holographic-3d">
+            <StarkHUD className="bg-gray-900/90 backdrop-blur-sm p-6 h-[500px] relative overflow-hidden card-3d neon-3d-border holographic-3d ultra-3d-glow neon-pulse-border sci-fi-depth">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
                   <div className="flex space-x-1">
@@ -870,7 +870,7 @@ export default function Index() {
             </StarkHUD>
 
             {/* Website Preview Box */}
-            <StarkHUD className="bg-gray-900/90 backdrop-blur-sm p-6 h-[500px] relative overflow-hidden card-3d neon-3d-border holographic-3d">
+            <StarkHUD className="bg-gray-900/90 backdrop-blur-sm p-6 h-[500px] relative overflow-hidden card-3d neon-3d-border holographic-3d ultra-3d-glow neon-pulse-border sci-fi-depth">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-2">
                   <div className="w-4 h-4 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full animate-pulse"></div>
