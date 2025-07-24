@@ -198,11 +198,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
 
           {/* Правая часть - GLB модель */}
           <div className="flex items-center justify-center lg:justify-end order-first lg:order-last">
-            <div className="w-full max-w-md lg:max-w-xl h-96 lg:h-[500px] relative">
-              {/* Фиолетовое неоновое свечение за моделью */}
-              <div className="absolute inset-0 glb-purple-glow -z-10"></div>
-              <div className="absolute inset-0 glb-purple-particles -z-20"></div>
-
+            <div className="w-full max-w-md lg:max-w-xl h-96 lg:h-[500px]">
               <GLBModel
                 url="https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f"
                 scale={3.0}
