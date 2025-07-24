@@ -64,7 +64,7 @@ const pricingPlans: PricingPlan[] = [
     price: "3.500.000",
     originalPrice: "4.000.000",
     description:
-      "Насыщенный функционал с встроенны�� ИИ и многими возможностями",
+      "Насыщенный функционал с встроенным ИИ и многими возможностями",
     features: [
       "Все из пакета Basic",
       "ИИ-чат бот поддержки",
@@ -213,7 +213,7 @@ function PricingSection() {
 
           <p className="text-xl text-white/80 max-w-4xl mx-auto leading-relaxed">
             Выберите тариф, который идеально подходит для ваших целей. От
-            стильного базового сайта до премиального решения с Джарвисом
+            стильного базового с��йта до премиального решения с Джарвисом
           </p>
         </div>
 
@@ -221,7 +221,7 @@ function PricingSection() {
         <div className="relative">
           {/* Navigation Buttons */}
           <Button
-            onClick={prevSlide}
+            onClick={(e) => prevSlide(e)}
             className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/60 border border-cyan-400/40 hover:bg-cyan-400/10 hover:border-cyan-400/80 transition-all duration-300 backdrop-blur-sm"
             disabled={isTransitioning}
           >
@@ -229,7 +229,7 @@ function PricingSection() {
           </Button>
 
           <Button
-            onClick={nextSlide}
+            onClick={(e) => nextSlide(e)}
             className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 w-14 h-14 rounded-full bg-black/60 border border-cyan-400/40 hover:bg-cyan-400/10 hover:border-cyan-400/80 transition-all duration-300 backdrop-blur-sm"
             disabled={isTransitioning}
           >
@@ -331,7 +331,7 @@ function PricingSection() {
                   <div className="mb-6">
                     <h4 className="text-cyan-400 font-semibold mb-4 text-sm font-mono flex items-center justify-center">
                       <Zap className="w-4 h-4 mr-2" />
-                      Что включено:
+                      Ч��о включено:
                     </h4>
 
                     <div className="space-y-2 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-400/30 scrollbar-track-transparent">
