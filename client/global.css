@@ -354,7 +354,7 @@
     }
   }
 
-  /* Неоновое свечение для активного навбара */
+  /* Неон��вое свечение для активного навбара */
   .neon-glow {
     position: relative;
     box-shadow:
@@ -1423,7 +1423,7 @@
     --gradient-to: 265 70% 20%;
   }
 
-  /* Эффект сканирования для переключения темы */
+  /* Эффект сканирования для переключ��ния темы */
   .lab-activation-scan {
     position: fixed;
     top: 0;
@@ -1792,7 +1792,7 @@
     width: 100vw !important;
     height: 100vh !important;
     background: #000000 !important;
-    z-index: 1 !important;
+    z-index: -1000 !important;
     pointer-events: none !important;
     overflow: hidden !important;
   }
