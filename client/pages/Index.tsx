@@ -431,9 +431,7 @@ export default function Index() {
           <div
             className={cn(
               "flex items-center space-x-1 transition-all duration-500 transform",
-              false
-                ? "scale-100 opacity-100 w-auto"
-                : "scale-0 opacity-0 w-0 overflow-hidden",
+              "scale-0 opacity-0 w-0 overflow-hidden",
             )}
           >
             <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"></div>
