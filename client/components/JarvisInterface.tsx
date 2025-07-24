@@ -39,7 +39,6 @@ export default function JarvisInterface({
   forceStop = false,
   onModelRotateStart,
   onModelRotateStop,
-  onShowAdvantages,
 }: JarvisInterfaceProps) {
   const [isActive, setIsActive] = useState(false);
   const [systemStatus, setSystemStatus] = useState("STANDBY");
