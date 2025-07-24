@@ -252,8 +252,6 @@ export default function Index() {
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
   const [isModelRotating, setIsModelRotating] = useState(false);
-  const [showAdvantages, setShowAdvantages] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Запуск анимации при загрузке компонента
   useEffect(() => {
