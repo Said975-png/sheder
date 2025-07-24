@@ -735,7 +735,7 @@ export default function Index() {
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-white font-mono">
                   <GlitchText intensity="medium">
-                    Динам��чные ��нтерфейсы
+                    Динамичные интерфейсы
                   </GlitchText>
                 </h3>
               </div>
@@ -921,7 +921,7 @@ export default function Index() {
                   className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 px-6 py-3 rounded-lg backdrop-blur-sm"
                 >
                   <Eye className="w-5 h-5 mr-2" />
-                  <span className="font-mono">ПОСМОТРЕТЬ ПОРТФОЛИО</span>
+                  <span className="font-mono">ПОСМ��ТРЕТЬ ПОРТФОЛИО</span>
                 </Button>
               </div>
             </div>
