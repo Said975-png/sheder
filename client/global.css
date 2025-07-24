@@ -1012,7 +1012,7 @@
     }
   }
 
-  /* Stark/JARVIS специальные анимации */
+  /* Stark/JARVIS специ��льные анимации */
   @keyframes gradient-shift {
     0% {
       background-position: 0% 50%;
@@ -2141,81 +2141,5 @@
     }
   }
 
-  /* ФИОЛЕТОВОЕ СВЕЧЕНИЕ ЗА GLB МОДЕЛЬЮ */
-  .glb-purple-glow {
-    background: radial-gradient(
-      ellipse at center,
-      rgba(139, 69, 255, 0.6) 0%,
-      rgba(168, 85, 247, 0.4) 30%,
-      rgba(147, 51, 234, 0.3) 50%,
-      transparent 80%
-    ) !important;
-    filter: blur(15px) !important;
-    animation: glbGlowPulse 3s ease-in-out infinite !important;
-    opacity: 0.8 !important;
-  }
 
-  .glb-purple-particles {
-    background-image:
-      radial-gradient(circle at 20% 80%, rgba(139, 69, 255, 0.4) 1px, transparent 1px),
-      radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.3) 1px, transparent 1px),
-      radial-gradient(circle at 40% 40%, rgba(147, 51, 234, 0.4) 1px, transparent 1px),
-      radial-gradient(circle at 60% 60%, rgba(139, 69, 255, 0.3) 1px, transparent 1px),
-      radial-gradient(circle at 90% 10%, rgba(168, 85, 247, 0.4) 1px, transparent 1px),
-      radial-gradient(circle at 10% 90%, rgba(147, 51, 234, 0.3) 1px, transparent 1px) !important;
-    background-size: 20px 20px, 30px 30px, 25px 25px, 35px 35px, 40px 40px, 15px 15px !important;
-    animation: particlesRise 4s linear infinite !important;
-    opacity: 0.6 !important;
-  }
-
-  @keyframes glbGlowPulse {
-    0%, 100% {
-      opacity: 0.6;
-      transform: scale(1);
-      filter: blur(15px);
-    }
-    25% {
-      opacity: 0.8;
-      transform: scale(1.1);
-      filter: blur(20px);
-    }
-    50% {
-      opacity: 1;
-      transform: scale(1.2);
-      filter: blur(25px);
-    }
-    75% {
-      opacity: 0.7;
-      transform: scale(1.05);
-      filter: blur(18px);
-    }
-  }
-
-  @keyframes particlesRise {
-    0% {
-      background-position: 0 100%, 0 100%, 0 100%, 0 100%, 0 100%, 0 100%;
-      opacity: 0.3;
-    }
-    25% {
-      opacity: 0.6;
-    }
-    75% {
-      opacity: 0.8;
-    }
-    100% {
-      background-position: 0 -100%, 0 -100%, 0 -100%, 0 -100%, 0 -100%, 0 -100%;
-      opacity: 0.3;
-    }
-  }
-
-  /* АДАПТАЦИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
-  @media (max-width: 768px) {
-    .glb-purple-glow {
-      filter: blur(10px) !important;
-    }
-
-    .glb-purple-particles {
-      background-size: 15px 15px, 20px 20px, 18px 18px, 25px 25px, 30px 30px, 12px 12px !important;
-    }
-  }
 }
