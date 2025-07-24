@@ -111,7 +111,7 @@ function Profile() {
 
       // Проверяем тип файла
       if (!file.type.startsWith("image/")) {
-        setError("Пожалуйста, выберите изображ��ние");
+        setError("Пожалуйста, выберите изображение");
         return;
       }
 
@@ -323,7 +323,7 @@ function Profile() {
             <div>
               <h1 className="text-3xl font-bold">Профиль пользователя</h1>
               <p className="text-white/70">
-                Управляйте настройками вашего ��ккаунта
+                Управляйте настройками вашего аккаунта
               </p>
             </div>
           </div>
@@ -629,7 +629,7 @@ function Profile() {
                             id="confirmPassword"
                             name="confirmPassword"
                             type="password"
-                            placeholder="Повтори��е новый пароль"
+                            placeholder="Повторите новый пароль"
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             required
@@ -659,7 +659,7 @@ function Profile() {
                           Удалить аккаунт
                         </h5>
                         <p className="text-red-300/70 text-sm mb-4">
-                          Удаление аккаунта приведёт к полному удалению всех
+                          Удаление аккаунта приведёт к пол��ому удалению всех
                           ваших данных. Это дейст��ие нельзя отменить.
                         </p>
                         <Button
