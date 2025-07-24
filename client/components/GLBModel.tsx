@@ -20,7 +20,7 @@ function RisingParticles() {
       positions[i3 + 1] = (Math.random() - 0.5) * 6 - 3; // y (начинаем снизу)
       positions[i3 + 2] = -2 - Math.random() * 3; // z (за моделью)
 
-      // Скорости подъёма
+      // Скорос��и подъёма
       velocities[i3] = (Math.random() - 0.5) * 0.02; // небольшое горизонтальное движение
       velocities[i3 + 1] = 0.01 + Math.random() * 0.02; // подъём вверх
       velocities[i3 + 2] = (Math.random() - 0.5) * 0.01; // небольшое движение по z
@@ -148,7 +148,7 @@ function Model({
 
   useFrame((state) => {
     if (modelRef.current) {
-      // Добавляем эффект гравитации - модель слегка покачивается
+      // Добавляем эффект гравитации - модель слегка п��качивается
       const time = state.clock.getElapsedTime();
 
       // Гравитационное покачивание
@@ -251,9 +251,6 @@ const GLBModel: React.FC<GLBModelProps> = ({
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} />
         <directionalLight position={[5, 5, 5]} intensity={0.5} />
-
-        {/* Фиолетовое неоновое свечение за моделью */}
-        <PurpleGlow />
 
         {/* Поднимающиеся частицы */}
         <RisingParticles />
