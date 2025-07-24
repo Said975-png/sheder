@@ -152,7 +152,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
                 >
                   <TypewriterText
                     text="Jarvis - ваш искусственный интеллект"
-                    speed={100}
+                    speed={30}
                     delay={500}
                     onComplete={() => setTitleComplete(true)}
                   />
