@@ -171,6 +171,161 @@
     transform-style: preserve-3d;
   }
 
+  /* Enhanced 3D Card Effects */
+  .card-3d {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .card-3d:hover {
+    transform: rotateX(10deg) rotateY(15deg) translateZ(20px);
+    box-shadow:
+      0 25px 50px rgba(139, 69, 255, 0.4),
+      0 15px 30px rgba(6, 182, 212, 0.3),
+      0 5px 15px rgba(168, 85, 247, 0.2),
+      inset 0 0 20px rgba(6, 182, 212, 0.1);
+  }
+
+  .card-3d::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+      rgba(6, 182, 212, 0.1) 0%,
+      rgba(139, 69, 255, 0.05) 25%,
+      rgba(168, 85, 247, 0.1) 50%,
+      rgba(6, 182, 212, 0.05) 75%,
+      rgba(139, 69, 255, 0.1) 100%);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+  }
+
+  .card-3d:hover::before {
+    opacity: 1;
+  }
+
+  .card-3d::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .card-3d:hover::after {
+    opacity: 1;
+    animation: shimmer 0.8s ease-out;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%) rotateZ(45deg); }
+    100% { transform: translateX(100%) rotateZ(45deg); }
+  }
+
+  /* Neon 3D Border Effect */
+  .neon-3d-border {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 69, 255, 0.1)) padding-box,
+                linear-gradient(135deg, #06b6d4, #8b45ff, #a855f7, #06b6d4) border-box;
+    border-radius: 12px;
+    transition: all 0.5s ease;
+  }
+
+  .neon-3d-border:hover {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(139, 69, 255, 0.2)) padding-box,
+                linear-gradient(135deg, #06b6d4, #8b45ff, #a855f7, #06b6d4) border-box;
+    box-shadow:
+      0 0 30px rgba(6, 182, 212, 0.6),
+      0 0 60px rgba(139, 69, 255, 0.4),
+      inset 0 0 20px rgba(168, 85, 247, 0.2);
+  }
+
+  /* Holographic 3D Effect */
+  .holographic-3d {
+    position: relative;
+    background: linear-gradient(135deg,
+      rgba(6, 182, 212, 0.1) 0%,
+      rgba(139, 69, 255, 0.05) 25%,
+      rgba(168, 85, 247, 0.1) 50%,
+      rgba(6, 182, 212, 0.05) 75%,
+      rgba(139, 69, 255, 0.1) 100%);
+    overflow: hidden;
+  }
+
+  .holographic-3d::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg,
+      transparent 0deg,
+      rgba(6, 182, 212, 0.3) 60deg,
+      rgba(139, 69, 255, 0.3) 120deg,
+      rgba(168, 85, 247, 0.3) 180deg,
+      rgba(6, 182, 212, 0.3) 240deg,
+      rgba(139, 69, 255, 0.3) 300deg,
+      transparent 360deg);
+    animation: holographic-rotate 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .holographic-3d:hover::before {
+    opacity: 0.8;
+  }
+
+  @keyframes holographic-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Floating Card Animation */
+  .floating-card {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .floating-card:nth-child(2n) {
+    animation-delay: -2s;
+  }
+
+  .floating-card:nth-child(3n) {
+    animation-delay: -4s;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+    }
+    25% {
+      transform: translateY(-10px) rotateX(2deg) rotateY(-1deg);
+    }
+    50% {
+      transform: translateY(-20px) rotateX(0deg) rotateY(2deg);
+    }
+    75% {
+      transform: translateY(-10px) rotateX(-2deg) rotateY(-1deg);
+    }
+  }
+
   .glow-cyan {
     box-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
   }
