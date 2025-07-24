@@ -26,11 +26,7 @@ export function StarkHUD({
   return (
     <div
       className={cn(
-        "relative overflow-hidden",
-        "perspective-1000 transform-3d transition-all duration-500 group cursor-pointer",
-        "hover:scale-105 hover:rotateX-12 hover:rotateY-12",
-        "hover:shadow-[0_25px_50px_rgba(6,182,212,0.4),0_15px_30px_rgba(139,69,255,0.3)]",
-        "before:absolute before:inset-0 before:bg-gradient-to-br before:from-cyan-500/5 before:via-transparent before:to-purple-500/5 before:opacity-0 before:transition-opacity before:duration-500 group-hover:before:opacity-100",
+        "relative overflow-hidden stark-card-corners",
         animated && "transition-all duration-500",
         !initialized && animated && "opacity-0 scale-95",
         initialized && animated && "opacity-100 scale-100",
