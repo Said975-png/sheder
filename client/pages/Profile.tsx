@@ -204,7 +204,7 @@ function Profile() {
         return;
       }
 
-      // Пров��ряем совпадение новых паролей
+      // Проверяем совпадение новых паролей
       if (formData.newPassword !== formData.confirmPassword) {
         setError("Новые пароли не совпадают");
         return;
@@ -321,9 +321,9 @@ function Profile() {
               <Settings className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold">Проф��ль пользователя</h1>
+              <h1 className="text-3xl font-bold">Профиль пользователя</h1>
               <p className="text-white/70">
-                Управляйте настройками вашего ��ккаунта
+                Управляйте настройками вашего аккаунта
               </p>
             </div>
           </div>
@@ -660,7 +660,7 @@ function Profile() {
                         </h5>
                         <p className="text-red-300/70 text-sm mb-4">
                           Удаление аккаунта приведёт к полному удалению всех
-                          ваших данных. Это дейст��ие нельзя отменить.
+                          ваших данных. Это действие нельзя отменить.
                         </p>
                         <Button
                           onClick={handleDeleteAccount}

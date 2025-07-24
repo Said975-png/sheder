@@ -38,8 +38,9 @@ export default function VoiceControl({
         // Улучшенные настройки для лучшего распознавания тихих команд
         recognitionRef.current.maxAlternatives = 3;
         // @ts-ignore - эти свойства могут не быть в типах, но работают в браузерах
-        if ('webkitSpeechRecognition' in window) {
-          recognitionRef.current.serviceURI = 'wss://www.google.com/speech-api/full-duplex/v1/up';
+        if ("webkitSpeechRecognition" in window) {
+          recognitionRef.current.serviceURI =
+            "wss://www.google.com/speech-api/full-duplex/v1/up";
         }
 
         recognitionRef.current.onresult = (event) => {
@@ -62,8 +63,12 @@ export default function VoiceControl({
 
           if (finalTranscript && !commandCooldownRef.current) {
             const command = finalTranscript.toLowerCase().trim();
-            // Проверяем, что команда отличается от предыдущей и не пустая
-            if (command && command !== lastCommandRef.current && command.length > 2) {
+            // Проверяем, что команда отличается от пред��дущей и не пустая
+            if (
+              command &&
+              command !== lastCommandRef.current &&
+              command.length > 2
+            ) {
               setTranscript(finalTranscript);
               lastCommandRef.current = command;
               processVoiceCommand(command);
@@ -91,7 +96,7 @@ export default function VoiceControl({
         recognitionRef.current.onerror = (event) => {
           console.error("Speech recognition error:", event.error);
           // Не отключаем полностью при ошибках, кроме критических
-          if (event.error === 'network' || event.error === 'not-allowed') {
+          if (event.error === "network" || event.error === "not-allowed") {
             setIsListening(false);
           } else {
             // Перезапускаем через короткое время для других ошибок
@@ -249,7 +254,10 @@ export default function VoiceControl({
 
     audio.play().catch((error) => {
       setIsSpeaking(false);
-      console.error("Не удалось воспроизвести аудио утреннего приветствия:", error);
+      console.error(
+        "Не удалось воспроизвести аудио утреннего приветствия:",
+        error,
+      );
     });
   };
 
@@ -274,7 +282,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда п��иветствия "Джарвис я вернулся"
+    // Команда приветствия "Джарвис я вернулся"
     if (
       command.includes("джарвис я вернулся") ||
       command.includes("я вернулся джарвис") ||
@@ -358,7 +366,7 @@ export default function VoiceControl({
       "стоимость",
       "тариф",
       "услуги",
-      "компания",
+      "компан��я",
       "контакты",
       "поддержка",
       "технологии",
@@ -711,7 +719,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды добавления планов в корзину
+    // Команды доб��вления планов в корзину
     if (
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
@@ -783,7 +791,7 @@ export default function VoiceControl({
     ) {
       const found = searchAndNavigate([
         "преимущества",
-        "преимущество",
+        "преимущ��ство",
         "advantages",
       ]);
       if (found) {

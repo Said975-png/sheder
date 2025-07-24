@@ -142,7 +142,7 @@ export default function FaceID({
             skinPixels++;
           }
 
-          // Поиск темных областей (г��аза, ноздри)
+          // Поиск темных областей (глаза, ноздри)
           if (brightness < 50 && y < centerY) {
             eyeRegionDark++;
           }
@@ -353,7 +353,7 @@ export default function FaceID({
       }
       euclideanDist = Math.sqrt(euclideanDist);
 
-      // Комбинируем метрики для более строгой оценки
+      // Комбинируем метрики дл�� более строгой оценки
       const similarity = (correlation + 1 / (1 + euclideanDist)) / 2;
 
       console.log(
@@ -539,7 +539,7 @@ export default function FaceID({
                     );
                     const data = imageData.data;
 
-                    // Проверяем качество изображения
+                    // Проверяем качество и��ображения
                     let totalBrightness = 0;
                     let contrastSum = 0;
 
@@ -597,7 +597,7 @@ export default function FaceID({
                 } else {
                   setStatus("Лицо не распознано. Доступ запрещен.");
                   onError(
-                    "Лицо не распознано. Попробуйте еще раз или войдите другим способом.",
+                    "Лицо не распознано. Попробуйте еще ра�� или войдите другим способом.",
                   );
                 }
               }

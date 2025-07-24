@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 interface TypewriterTextProps {
@@ -19,6 +19,12 @@ export function TypewriterText({
   const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
+  const onCompleteRef = useRef(onComplete);
+
+  // Обновляем ref при изменении onComplete
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     if (delay > 0) {
@@ -41,10 +47,10 @@ export function TypewriterText({
       }, speed);
 
       return () => clearTimeout(timer);
-    } else if (onComplete) {
-      onComplete();
+    } else if (onCompleteRef.current) {
+      onCompleteRef.current();
     }
-  }, [currentIndex, text, speed, isTyping, onComplete]);
+  }, [currentIndex, text, speed, isTyping]);
 
   return (
     <span className={cn(className)}>

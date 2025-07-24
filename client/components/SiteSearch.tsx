@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Search, X, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -35,7 +35,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
     {
       id: "voice-commands",
       title: "Голосовые команды",
-      description: "Управление сайтом с помощью голоса",
+      description: "Управление сайтом с ��омощью голоса",
       type: "feature",
     },
     {
@@ -78,7 +78,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
     },
     {
       id: "profile",
-      title: "Профиль пользователя",
+      title: "Профиль пол��зователя",
       description: "Настройки и информация о пользователе",
       type: "page",
       url: "/profile",
@@ -109,6 +109,45 @@ export function SiteSearch({ className }: SiteSearchProps) {
     },
   ];
 
+  const handleSelectResult = useCallback((result: SearchResult) => {
+    if (result.url) {
+      window.location.href = result.url;
+    } else if (result.action) {
+      result.action();
+    } else {
+      // Скролл к соответствующей секции или выполнение специального действия
+      switch (result.id) {
+        case "voice-commands":
+          // Активировать голосового помощника
+          (
+            document.querySelector(
+              '[data-testid="voice-control"]',
+            ) as HTMLElement
+          )?.click();
+          break;
+        case "plans-basic":
+        case "plans-pro":
+        case "plans-max":
+          // Скролл к секции с планами
+          document
+            .querySelector('[data-section="plans"]')
+            ?.scrollIntoView({ behavior: "smooth" });
+          break;
+        case "cart":
+          // Открыть корзину
+          (
+            document.querySelector('[data-testid="cart-button"]') as HTMLElement
+          )?.click();
+          break;
+        default:
+          // Скролл наверх для остальных случаев
+          window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+    setIsOpen(false);
+    setQuery("");
+  }, []);
+
   // Поиск по данным
   useEffect(() => {
     if (!query.trim()) {
@@ -122,7 +161,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
         item.description.toLowerCase().includes(query.toLowerCase()),
     );
 
-    setResults(filtered.slice(0, 6)); // Ограничиваем до 6 результатов
+    setResults(filtered.slice(0, 6)); // Ограничивае�� до 6 результатов
     setSelectedIndex(0);
   }, [query]);
 
@@ -153,7 +192,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, results, selectedIndex]);
+  }, [isOpen, results, selectedIndex, handleSelectResult]);
 
   // Фокус на input при открытии
   useEffect(() => {
@@ -161,39 +200,6 @@ export function SiteSearch({ className }: SiteSearchProps) {
       inputRef.current.focus();
     }
   }, [isOpen]);
-
-  const handleSelectResult = (result: SearchResult) => {
-    if (result.url) {
-      window.location.href = result.url;
-    } else if (result.action) {
-      result.action();
-    } else {
-      // Скролл к соответствующей секции или выполнение специального действия
-      switch (result.id) {
-        case "voice-commands":
-          // Активировать голосового помощника
-          document.querySelector('[data-testid="voice-control"]')?.click();
-          break;
-        case "plans-basic":
-        case "plans-pro":
-        case "plans-max":
-          // Скролл к секции с планами
-          document
-            .querySelector('[data-section="plans"]')
-            ?.scrollIntoView({ behavior: "smooth" });
-          break;
-        case "cart":
-          // Открыть корзину
-          document.querySelector('[data-testid="cart-button"]')?.click();
-          break;
-        default:
-          // Скролл наверх для остальных случаев
-          window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    }
-    setIsOpen(false);
-    setQuery("");
-  };
 
   const getTypeColor = (type: string) => {
     switch (type) {

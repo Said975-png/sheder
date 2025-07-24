@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import VoiceControl from "@/components/VoiceControl";
 
@@ -43,118 +43,121 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// К��мпонент для ан��мации печати кода
+// Компонент дл�� анимации печати кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
 
-  const codeSnippets = [
-    {
-      title: "stark-interface.tsx",
-      lines: [
-        'import React from "react";',
-        'import { Button, Card } from "@/components";',
-        "",
-        "export function StarkInterface() {",
-        "  return (",
-        '    <div className="stark-container">',
-        '      <h1 className="glow-text">',
-        "        STARK INDUSTRIES",
-        "      </h1>",
-        '      <Button variant="stark">',
-        "        Активировать",
-        "      </Button>",
-        "    </div>",
-        "  );",
-        "}",
-      ],
-    },
-    {
-      title: "ai-assistant.tsx",
-      lines: [
-        'import { useState } from "react";',
-        'import { Brain, Zap } from "lucide-react";',
-        "",
-        "export function AIAssistant() {",
-        "  const [isActive, setIsActive] = useState(false);",
-        "",
-        "  const handleVoiceCommand = () => {",
-        "    setIsActive(!isActive);",
-        "    processNeuralNetwork();",
-        "  };",
-        "",
-        "  return (",
-        '    <div className="ai-interface">',
-        '      <Brain className="neural-icon" />',
-        "      <button onClick={handleVoiceCommand}>",
-        '        {isActive ? "Деактивировать" : "Активирова��ь"}',
-        "      </button>",
-        "    </div>",
-        "  );",
-        "}",
-      ],
-    },
-    {
-      title: "blockchain-wallet.tsx",
-      lines: [
-        'import { ethers } from "ethers";',
-        'import { Shield, Lock } from "lucide-react";',
-        "",
-        "export function BlockchainWallet() {",
-        "  const [wallet, setWallet] = useState(null);",
-        '  const [balance, setBalance] = useState("0");',
-        "",
-        "  const connectWallet = async () => {",
-        "    const provider = new ethers.BrowserProvider(window.ethereum);",
-        "    const signer = await provider.getSigner();",
-        "    setWallet(signer);",
-        "    const bal = await provider.getBalance(signer.address);",
-        "    setBalance(ethers.formatEther(bal));",
-        "  };",
-        "",
-        "  return (",
-        '    <div className="wallet-interface">',
-        '      <Shield className="security-icon" />',
-        "      <p>Баланс: {balance} ETH</p>",
-        "      <button onClick={connectWallet}>",
-        "        Подключить кошелек",
-        "      </button>",
-        "    </div>",
-        "  );",
-        "}",
-      ],
-    },
-    {
-      title: "neural-network.py",
-      lines: [
-        "import tensorflow as tf",
-        "import numpy as np",
-        "from sklearn.model_selection import train_test_split",
-        "",
-        "class StarkAI:",
-        "    def __init__(self):",
-        "        self.model = tf.keras.Sequential([",
-        '            tf.keras.layers.Dense(128, activation="relu"),',
-        "            tf.keras.layers.Dropout(0.2),",
-        '            tf.keras.layers.Dense(64, activation="relu"),',
-        '            tf.keras.layers.Dense(10, activation="softmax")',
-        "        ])",
-        "",
-        "    def train(self, X, y):",
-        "        self.model.compile(",
-        '            optimizer="adam",',
-        '            loss="categorical_crossentropy",',
-        '            metrics=["accuracy"]',
-        "        )",
-        "        return self.model.fit(X, y, epochs=100)",
-        "",
-        "    def predict(self, data):",
-        "        return self.model.predict(data)",
-      ],
-    },
-  ];
+  const codeSnippets = useMemo(
+    () => [
+      {
+        title: "stark-interface.tsx",
+        lines: [
+          'import React from "react";',
+          'import { Button, Card } from "@/components";',
+          "",
+          "export function StarkInterface() {",
+          "  return (",
+          '    <div className="stark-container">',
+          '      <h1 className="glow-text">',
+          "        STARK INDUSTRIES",
+          "      </h1>",
+          '      <Button variant="stark">',
+          "        Активировать",
+          "      </Button>",
+          "    </div>",
+          "  );",
+          "}",
+        ],
+      },
+      {
+        title: "ai-assistant.tsx",
+        lines: [
+          'import { useState } from "react";',
+          'import { Brain, Zap } from "lucide-react";',
+          "",
+          "export function AIAssistant() {",
+          "  const [isActive, setIsActive] = useState(false);",
+          "",
+          "  const handleVoiceCommand = () => {",
+          "    setIsActive(!isActive);",
+          "    processNeuralNetwork();",
+          "  };",
+          "",
+          "  return (",
+          '    <div className="ai-interface">',
+          '      <Brain className="neural-icon" />',
+          "      <button onClick={handleVoiceCommand}>",
+          '        {isActive ? "Деактивировать" : "Активировать"}',
+          "      </button>",
+          "    </div>",
+          "  );",
+          "}",
+        ],
+      },
+      {
+        title: "blockchain-wallet.tsx",
+        lines: [
+          'import { ethers } from "ethers";',
+          'import { Shield, Lock } from "lucide-react";',
+          "",
+          "export function BlockchainWallet() {",
+          "  const [wallet, setWallet] = useState(null);",
+          '  const [balance, setBalance] = useState("0");',
+          "",
+          "  const connectWallet = async () => {",
+          "    const provider = new ethers.BrowserProvider(window.ethereum);",
+          "    const signer = await provider.getSigner();",
+          "    setWallet(signer);",
+          "    const bal = await provider.getBalance(signer.address);",
+          "    setBalance(ethers.formatEther(bal));",
+          "  };",
+          "",
+          "  return (",
+          '    <div className="wallet-interface">',
+          '      <Shield className="security-icon" />',
+          "      <p>Баланс: {balance} ETH</p>",
+          "      <button onClick={connectWallet}>",
+          "        Подключить кошелек",
+          "      </button>",
+          "    </div>",
+          "  );",
+          "}",
+        ],
+      },
+      {
+        title: "neural-network.py",
+        lines: [
+          "import tensorflow as tf",
+          "import numpy as np",
+          "from sklearn.model_selection import train_test_split",
+          "",
+          "class StarkAI:",
+          "    def __init__(self):",
+          "        self.model = tf.keras.Sequential([",
+          '            tf.keras.layers.Dense(128, activation="relu"),',
+          "            tf.keras.layers.Dropout(0.2),",
+          '            tf.keras.layers.Dense(64, activation="relu"),',
+          '            tf.keras.layers.Dense(10, activation="softmax")',
+          "        ])",
+          "",
+          "    def train(self, X, y):",
+          "        self.model.compile(",
+          '            optimizer="adam",',
+          '            loss="categorical_crossentropy",',
+          '            metrics=["accuracy"]',
+          "        )",
+          "        return self.model.fit(X, y, epochs=100)",
+          "",
+          "    def predict(self, data):",
+          "        return self.model.predict(data)",
+        ],
+      },
+    ],
+    [],
+  );
 
   useEffect(() => {
     const currentSnippet = codeSnippets[currentCodeIndex];
@@ -246,13 +249,10 @@ export default function Index() {
   const [navbarAnimated, setNavbarAnimated] = useState(false);
   const [navbarScrolled, setNavbarScrolled] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
-  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(
-    null,
-  );
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
-  // Запуск аним��ции при загрузке ��омпонента
+  // Запуск анимации при загрузке компонента
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
@@ -263,32 +263,32 @@ export default function Index() {
 
   // Отслеживание скролла для навбара с эффектом "брови"
   useEffect(() => {
+    let timeoutRef: NodeJS.Timeout | null = null;
+
     const handleScroll = () => {
       const scrolled = window.scrollY > 100;
       setNavbarScrolled(scrolled);
       setIsScrolling(true);
 
       // Очищаем предыдущий таймаут
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
+      if (timeoutRef) {
+        clearTimeout(timeoutRef);
       }
 
       // Устанавливаем новый таймаут для остановки скролла
-      const newTimeout = setTimeout(() => {
+      timeoutRef = setTimeout(() => {
         setIsScrolling(false);
-      }, 3000); // 3 секунды после остановки скролла
-
-      setScrollTimeout(newTimeout);
+      }, 3000); // 3 секунды после остановки скро��ла
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
+      if (timeoutRef) {
+        clearTimeout(timeoutRef);
       }
     };
-  }, [scrollTimeout]);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -334,12 +334,7 @@ export default function Index() {
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
     // Микрофон работает в фоне, панель не показываем
-    console.log(
-      "🎤 М��крофон активен:",
-      isListening,
-      "Транскри��т:",
-      transcript,
-    );
+    console.log("🎤 Микрофон активен:", isListening, "Транскрипт:", transcript);
   };
 
   const handleStopListening = () => {
@@ -362,6 +357,31 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      {/* Неоновый фиолетовый фон */}
+      <div className="neon-purple-background"></div>
+
+      {/* Неоновые углы */}
+      <div className="neon-corners">
+        <div className="neon-corner neon-corner-tl"></div>
+        <div className="neon-corner neon-corner-tr"></div>
+        <div className="neon-corner neon-corner-bl"></div>
+        <div className="neon-corner neon-corner-br"></div>
+      </div>
+
+      {/* Неоновые краевые свечения */}
+      <div className="neon-edges"></div>
+
+      {/* Центральное неоновое свечение */}
+      <div className="neon-center-glow"></div>
+
+      {/* Неоновые частицы */}
+      <div className="neon-particles">
+        <div className="neon-particle"></div>
+        <div className="neon-particle"></div>
+        <div className="neon-particle"></div>
+        <div className="neon-particle"></div>
+        <div className="neon-particle"></div>
+      </div>
       {/* Navigation - Enhanced with Stark styling */}
       <nav
         className={cn(
@@ -373,7 +393,7 @@ export default function Index() {
           // Эффект "брови" при скролле
           isScrolling
             ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
-            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный ��авбар
+            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный навбар
         )}
       >
         <div
@@ -706,7 +726,7 @@ export default function Index() {
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-white font-mono">
                   <GlitchText intensity="low">
-                    Искусственный Интеллект
+                    Иску��ственный Интеллект
                   </GlitchText>
                 </h3>
               </div>
@@ -735,15 +755,15 @@ export default function Index() {
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-white font-mono">
                   <GlitchText intensity="medium">
-                    Динам��чные ��нтерфейсы
+                    Динамичные интерфейсы
                   </GlitchText>
                 </h3>
               </div>
 
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Адаптивные интерфейсы с анимациями и интерактивными
-                  эле��ентами
+                  Адаптивные и��терфейсы с анимациями и интерактивными
+                  элементами
                 </p>
                 <div className="flex items-center text-blue-400 text-sm">
                   <Eye className="w-4 h-4 mr-2" />
@@ -789,7 +809,7 @@ export default function Index() {
             <div className="inline-block">
               <PowerIndicator className="mb-4" />
               <p className="text-cyan-400 font-mono text-sm mb-4">
-                <GlitchText intensity="low">ГОТО��Ы К БУДУЩЕМУ?</GlitchText>
+                <GlitchText intensity="low">ГОТОВЫ К БУДУЩЕМУ?</GlitchText>
               </p>
               <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg stark-glow group">
                 <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
@@ -908,7 +928,7 @@ export default function Index() {
             <div className="inline-block">
               <p className="text-cyan-400 font-mono text-sm mb-4">
                 <GlitchText intensity="low">
-                  ГОТОВЫ УВИДЕТЬ СВОЙ ПРОЕКТ В ДЕЙСТВИИ?
+                  ГОТОВЫ УВИДЕТЬ СВОЙ ПРОЕКТ В ��ЕЙСТВИИ?
                 </GlitchText>
               </p>
               <div className="flex justify-center space-x-4">
