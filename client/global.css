@@ -171,6 +171,10 @@
     transform-style: preserve-3d;
   }
 
+  .bg-gradient-radial {
+    background: radial-gradient(var(--tw-gradient-stops));
+  }
+
   /* Простые угловые рамки в стиле Старка */
   .stark-corners {
     position: relative;
@@ -1710,7 +1714,7 @@
     }
   }
 
-  /* Адаптивные стили для мобильных устройств */
+  /* Адапти��ные стили для мобильных устройств */
   @media (max-width: 768px) {
     .stark-lab-hud-grid {
       background-size: 30px 30px;

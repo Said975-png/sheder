@@ -6,6 +6,8 @@ import VoiceControl from "@/components/VoiceControl";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
+import AdvantagesSection from "@/components/AdvantagesSection";
+import PricingSection from "@/components/PricingSection";
 
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
 import {
@@ -43,7 +45,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// К����по��ент дл�� анимации печати кода
+// Компонент для анимации печати кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -180,7 +182,7 @@ function TypewriterCode() {
         setCurrentCharIndex(0);
         setDisplayedCode("");
         setCurrentCodeIndex((prev) => (prev + 1) % codeSnippets.length);
-      }, 3000); // Пауза 3 секунды перед след��ющим кодом
+      }, 3000); // Пауза 3 секунды перед следующим кодом
     }
 
     return () => {
@@ -279,7 +281,7 @@ export default function Index() {
       // Устанавливаем новый таймаут для остановки скролла
       timeoutRef = setTimeout(() => {
         setIsScrolling(false);
-      }, 3000); // 3 секунды после остановки скро��ла
+      }, 3000); // 3 секунды после остановки скролла
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -334,7 +336,7 @@ export default function Index() {
   };
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
-    // Микрофон работает в фоне, панель не по��азываем
+    // Микрофон работает в фоне, панель не показываем
     console.log("🎤 Микрофон активен:", isListening, "Транскрипт:", transcript);
   };
 
@@ -401,7 +403,7 @@ export default function Index() {
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
-          // Эффект "брови" при скролл��
+          // Эффект "брови" при скролле
           isScrolling
             ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
             : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный навбар
@@ -678,293 +680,11 @@ export default function Index() {
         onModelRotationStop={handleModelRotateStop}
       />
 
-      {/* Our Advantages Section - AI & Modern Websites */}
-      <section className="py-20 bg-black relative overflow-hidden">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute top-10 left-10 w-32 h-32 border border-cyan-400 rounded-full animate-spin"
-            style={{ animationDuration: "25s" }}
-          ></div>
-          <div
-            className="absolute bottom-20 right-20 w-24 h-24 border border-blue-400 rounded-full animate-spin"
-            style={{ animationDuration: "18s", animationDirection: "reverse" }}
-          ></div>
-          <div
-            className="absolute top-1/2 left-1/3 w-16 h-16 border border-orange-400 rounded-full animate-spin"
-            style={{ animationDuration: "12s" }}
-          ></div>
-        </div>
+      {/* Advantages Section */}
+      <AdvantagesSection />
 
-        {/* Glitch overlay */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
-          <div
-            className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-60 animate-pulse"
-            style={{ animationDelay: "1s" }}
-          ></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
-            {/* JARVIS-style Header */}
-            <StarkHUD
-              className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3 mb-6"
-              showCorners={false}
-            >
-              <div className="flex items-center space-x-3">
-                <ArcReactor size="small" pulsing />
-                <span className="text-sm text-cyan-400 uppercase tracking-widest font-mono">
-                  [ НАШИ ПРЕИМУЩЕСТВА ]
-                </span>
-              </div>
-            </StarkHUD>
-
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Современные <HologramText glitch>Динамичные</HologramText> Сайты
-            </h2>
-            <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
-              <GlitchText intensity="low">
-                Мы создаем не просто веб-сайты — мы создаем интеллектуальные
-                цифровые экосистемы с встроенным искусственным интеллектом
-              </GlitchText>
-            </p>
-
-            {/* Scanning Line */}
-            <div className="mt-4 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* AI Integration */}
-            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-cyan-400/30">
-                  <Brain className="w-8 h-8 text-cyan-400 group-hover:animate-pulse" />
-                </div>
-                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
-                  <GlitchText intensity="low">
-                    Иску��ственный Интеллект
-                  </GlitchText>
-                </h3>
-              </div>
-
-              <div className="space-y-3">
-                <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Интеграция передовых AI-технологий для создания умных
-                  интерфейсов
-                </p>
-                <div className="flex items-center text-cyan-400 text-sm">
-                  <Zap className="w-4 h-4 mr-2" />
-                  <span className="font-mono">JARVIS Protocol</span>
-                </div>
-                <div className="flex items-center text-cyan-400 text-sm">
-                  <Cpu className="w-4 h-4 mr-2" />
-                  <span className="font-mono">Neural Networks</span>
-                </div>
-              </div>
-            </StarkHUD>
-
-            {/* Dynamic Interfaces */}
-            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-blue-400/30">
-                  <Layers className="w-8 h-8 text-blue-400 group-hover:animate-pulse" />
-                </div>
-                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
-                  <GlitchText intensity="medium">
-                    Динамичные интерфейсы
-                  </GlitchText>
-                </h3>
-              </div>
-
-              <div className="space-y-3">
-                <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Адаптивные и��терфейсы с анимациями и интерактивными
-                  элементами
-                </p>
-                <div className="flex items-center text-blue-400 text-sm">
-                  <Eye className="w-4 h-4 mr-2" />
-                  <span className="font-mono">Real-time Rendering</span>
-                </div>
-                <div className="flex items-center text-blue-400 text-sm">
-                  <TrendingUp className="w-4 h-4 mr-2" />
-                  <span className="font-mono">Performance Optimized</span>
-                </div>
-              </div>
-            </StarkHUD>
-
-            {/* Advanced Features */}
-            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer md:col-span-2 lg:col-span-1">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500/20 to-pink-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-purple-400/30">
-                  <Cog className="w-8 h-8 text-purple-400 group-hover:animate-spin" />
-                </div>
-                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
-                  <GlitchText intensity="low">Передовые Технологии</GlitchText>
-                </h3>
-              </div>
-
-              <div className="space-y-3">
-                <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Используем самые современные технологии для максимальной
-                  произво��ительности
-                </p>
-                <div className="flex items-center text-purple-400 text-sm">
-                  <Lock className="w-4 h-4 mr-2" />
-                  <span className="font-mono">Blockchain Security</span>
-                </div>
-                <div className="flex items-center text-purple-400 text-sm">
-                  <Search className="w-4 h-4 mr-2" />
-                  <span className="font-mono">Voice Recognition</span>
-                </div>
-              </div>
-            </StarkHUD>
-          </div>
-
-          {/* Call to Action */}
-          <div className="text-center mt-16">
-            <div className="inline-block">
-              <PowerIndicator className="mb-4" />
-              <p className="text-cyan-400 font-mono text-sm mb-4">
-                <GlitchText intensity="low">ГОТОВЫ К БУДУЩЕМУ?</GlitchText>
-              </p>
-              <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg stark-glow group">
-                <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
-                <span className="font-mono">ЗАПУСТИТЬ ПРОЕКТ</span>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Code to Website Demo Section */}
-      <section className="py-20 bg-black relative overflow-hidden">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
-            <StarkHUD
-              className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3 mb-6"
-              showCorners={false}
-            >
-              <div className="flex items-center space-x-3">
-                <ArcReactor size="small" pulsing />
-                <span className="text-sm text-cyan-400 uppercase tracking-widest font-mono">
-                  [ ПРОЦЕСС СОЗДАНИЯ ]
-                </span>
-              </div>
-            </StarkHUD>
-
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              От <HologramText glitch>Кода</HologramText> к Реальности
-            </h2>
-            <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
-              <GlitchText intensity="low">
-                Наблюдайте, как строки кода превращаются в живой интерфейс в
-                реальном времени
-              </GlitchText>
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
-            {/* Code Editor Box */}
-            <StarkHUD className="bg-gray-900/90 backdrop-blur-sm p-6 h-[500px] relative overflow-hidden">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-2">
-                  <div className="flex space-x-1">
-                    <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                    <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse"></div>
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  </div>
-                  <span className="text-sm text-cyan-400 font-mono ml-4">
-                    <GlitchText intensity="low">dynamic-typing.tsx</GlitchText>
-                  </span>
-                </div>
-                <div className="text-xs text-white/60 font-mono">
-                  LIVE CODING...
-                </div>
-              </div>
-
-              <TypewriterCode />
-            </StarkHUD>
-
-            {/* Website Preview Box */}
-            <StarkHUD className="bg-gray-900/90 backdrop-blur-sm p-6 h-[500px] relative overflow-hidden">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full animate-pulse"></div>
-                  <span className="text-sm text-cyan-400 font-mono">
-                    <GlitchText intensity="low">Live Preview</GlitchText>
-                  </span>
-                </div>
-                <PowerIndicator />
-              </div>
-
-              <div className="h-[400px] bg-black/50 rounded-lg border border-cyan-400/30 relative overflow-hidden flex items-center justify-center">
-                <div className="relative z-10 text-center space-y-6">
-                  <div className="animate-fade-in-up">
-                    <h1 className="text-2xl lg:text-3xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text">
-                      <GlitchText intensity="medium">
-                        STARK INDUSTRIES
-                      </GlitchText>
-                    </h1>
-                  </div>
-
-                  <div className="animate-fade-in">
-                    <div className="w-48 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto animate-pulse"></div>
-                  </div>
-
-                  <div className="animate-fade-in-up">
-                    <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg stark-glow">
-                      <GlitchText intensity="low">Активировать</GlitchText>
-                    </Button>
-                  </div>
-
-                  <div className="animate-fade-in">
-                    <div className="flex justify-center space-x-4 mt-6">
-                      <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
-                      <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-                      <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
-                    </div>
-                  </div>
-
-                  <div className="animate-fade-in">
-                    <div className="text-xs text-cyan-400 font-mono mt-4">
-                      <GlitchText intensity="low">STATUS: ONLINE</GlitchText>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-cyan-400 opacity-60"></div>
-                <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-cyan-400 opacity-60"></div>
-                <div className="absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-cyan-400 opacity-60"></div>
-                <div className="absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-cyan-400 opacity-60"></div>
-              </div>
-            </StarkHUD>
-          </div>
-
-          <div className="text-center mt-16">
-            <div className="inline-block">
-              <p className="text-cyan-400 font-mono text-sm mb-4">
-                <GlitchText intensity="low">
-                  ГОТОВЫ УВИДЕТЬ СВОЙ ПРОЕКТ В ��ЕЙСТВИИ?
-                </GlitchText>
-              </p>
-              <div className="flex justify-center space-x-4">
-                <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-3 rounded-lg stark-glow">
-                  <Code className="w-5 h-5 mr-2" />
-                  <span className="font-mono">ЗАКАЗАТЬ ДЕМО</span>
-                </Button>
-                <Button
-                  variant="outline"
-                  className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 px-6 py-3 rounded-lg backdrop-blur-sm"
-                >
-                  <Eye className="w-5 h-5 mr-2" />
-                  <span className="font-mono">ПОСМОТРЕТЬ ПОРТФОЛИО</span>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Pricing Section */}
+      <PricingSection />
     </div>
   );
 }
