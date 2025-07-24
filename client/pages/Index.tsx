@@ -332,7 +332,7 @@ export default function Index() {
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
     // Микрофон работает в фоне, панель не показываем
-    console.log("🎤 Микрофон активен:", isListening, "Транскри��т:", transcript);
+    console.log("🎤 М��крофон активен:", isListening, "Транскри��т:", transcript);
   };
 
   const handleStopListening = () => {
@@ -393,6 +393,15 @@ export default function Index() {
             onListeningChange={handleListeningChange}
             forceStop={forceStopVoice}
           />
+
+          {/* Dynamic Island indicator during scroll */}
+          {isScrolling && (
+            <div className="flex items-center space-x-1">
+              <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"></div>
+              <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: "0.2s"}}></div>
+              <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: "0.4s"}}></div>
+            </div>
+          )}
 
           {/* Cart Dropdown */}
           <DropdownMenu>
@@ -667,7 +676,7 @@ export default function Index() {
 
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Адаптивные интерфейсы с анимациями и интерактивными элементами
+                  Адаптивные интерфейсы с анимациями и интерактивными эле��ентами
                 </p>
                 <div className="flex items-center text-blue-400 text-sm">
                   <Eye className="w-4 h-4 mr-2" />
