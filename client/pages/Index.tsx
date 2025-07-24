@@ -252,7 +252,7 @@ export default function Index() {
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
-  // Запуск аним��ции при загрузке ��омпонента
+  // Запуск анимации при загрузке компонента
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
@@ -769,7 +769,7 @@ export default function Index() {
 
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Используем ��амые современные технологии для максимальной
+                  Используем самые современные технологии для максимальной
                   производительности
                 </p>
                 <div className="flex items-center text-purple-400 text-sm">
