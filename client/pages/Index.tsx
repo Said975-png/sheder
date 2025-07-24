@@ -404,7 +404,7 @@ export default function Index() {
             </h2>
             <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
               <GlitchText intensity="low">
-                Мы создаем не просто веб-сайты — мы создаем интеллектуальные цифровые экосистемы с встроенным искусственным интеллектом
+                Мы создаем не просто веб-сайты — мы создаем интеллектуальные цифровые экосистемы с встрое��ным искусственным интеллектом
               </GlitchText>
             </p>
 
@@ -426,7 +426,7 @@ export default function Index() {
 
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Интеграция передовых AI-технологий для создания умных интерфейсов
+                  Интеграция пе��едовых AI-технологий для создания умных интерфейсов
                 </p>
                 <div className="flex items-center text-cyan-400 text-sm">
                   <Zap className="w-4 h-4 mr-2" />
@@ -446,7 +446,7 @@ export default function Index() {
                   <Layers className="w-8 h-8 text-blue-400 group-hover:animate-pulse" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-white font-mono">
-                  <GlitchText intensity="medium">Динамичные Интерфейсы</GlitchText>
+                  <GlitchText intensity="medium">Динамичные Интерфе��сы</GlitchText>
                 </h3>
               </div>
 
