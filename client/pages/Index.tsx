@@ -353,7 +353,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      {/* Неоновый фиолетовый фон */}
+      {/* Н��оновый фиолетовый фон */}
       <div className="neon-purple-background"></div>
 
       {/* Неоновые углы */}
@@ -393,9 +393,7 @@ export default function Index() {
         <div
           className={cn(
             "flex items-center transition-all duration-500 overflow-hidden",
-            false
-              ? "space-x-1 opacity-100 scale-100"
-              : "space-x-2 opacity-100 scale-100",
+            "space-x-2 opacity-100 scale-100",
           )}
         >
           {/* Home Button */}
@@ -505,7 +503,7 @@ export default function Index() {
                                 {item.description.substring(0, 60)}...
                               </p>
                               <p className="text-sm font-semibold text-cyan-400 mt-1 font-mono">
-                                {item.price.toLocaleString()} с��м
+                                {item.price.toLocaleString()} сум
                               </p>
                             </div>
                             <Button
