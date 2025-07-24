@@ -789,7 +789,7 @@ export default function Index() {
             <div className="inline-block">
               <PowerIndicator className="mb-4" />
               <p className="text-cyan-400 font-mono text-sm mb-4">
-                <GlitchText intensity="low">ГОТО��Ы К БУДУЩЕМУ?</GlitchText>
+                <GlitchText intensity="low">ГОТОВЫ К БУДУЩЕМУ?</GlitchText>
               </p>
               <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg stark-glow group">
                 <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
