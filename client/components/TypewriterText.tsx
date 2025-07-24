@@ -47,10 +47,10 @@ export function TypewriterText({
       }, speed);
 
       return () => clearTimeout(timer);
-    } else if (onComplete) {
-      onComplete();
+    } else if (onCompleteRef.current) {
+      onCompleteRef.current();
     }
-  }, [currentIndex, text, speed, isTyping, onComplete]);
+  }, [currentIndex, text, speed, isTyping]);
 
   return (
     <span className={cn(className)}>
