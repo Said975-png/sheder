@@ -92,7 +92,7 @@ function TypewriterCode() {
           '    <div className="ai-interface">',
           '      <Brain className="neural-icon" />',
           "      <button onClick={handleVoiceCommand}>",
-          '        {isActive ? "Деактивировать" : "Активировать"}',
+          '        {isActive ? "Деакти��ировать" : "Активировать"}',
           "      </button>",
           "    </div>",
           "  );",
@@ -294,12 +294,12 @@ export default function Index() {
     };
   }, []);
 
-  const handleLogout = () => {
+  const handleLogout = React.useCallback(() => {
     logout();
     window.location.reload();
-  };
+  }, [logout]);
 
-  const handleAddBeginnerPlan = () => {
+  const handleAddBeginnerPlan = React.useCallback(() => {
     addItem({
       id: "beginner-plan",
       name: "Beginner Plan",
@@ -308,9 +308,9 @@ export default function Index() {
         "Access to basic blockchain guides and fundamental knowledge",
       category: "blockchain-basic",
     });
-  };
+  }, [addItem]);
 
-  const handleAddIntermediatePlan = () => {
+  const handleAddIntermediatePlan = React.useCallback(() => {
     addItem({
       id: "intermediate-plan",
       name: "Intermediate Plan",
@@ -319,9 +319,9 @@ export default function Index() {
         "Everything in Beginner + Advanced blockchain insights and tools",
       category: "blockchain-intermediate",
     });
-  };
+  }, [addItem]);
 
-  const handleAddAdvancedPlan = () => {
+  const handleAddAdvancedPlan = React.useCallback(() => {
     addItem({
       id: "advanced-plan",
       name: "Advanced Plan",
@@ -330,31 +330,31 @@ export default function Index() {
         "Everything in Intermediate + Professional tools and priority support",
       category: "blockchain-advanced",
     });
-  };
+  }, [addItem]);
 
-  const handleProceedToOrder = () => {
+  const handleProceedToOrder = React.useCallback(() => {
     navigate("/order");
-  };
+  }, [navigate]);
 
-  const handleListeningChange = (isListening: boolean, transcript?: string) => {
+  const handleListeningChange = React.useCallback((isListening: boolean, transcript?: string) => {
     // Микрофон работает в фоне, панель не показываем
     console.log("🎤 Микрофон активен:", isListening, "Транскрипт:", transcript);
-  };
+  }, []);
 
-  const handleStopListening = () => {
+  const handleStopListening = React.useCallback(() => {
     setForceStopVoice(true);
     setTimeout(() => setForceStopVoice(false), 100);
-  };
+  }, []);
 
-  const handleModelRotateStart = () => {
+  const handleModelRotateStart = React.useCallback(() => {
     console.log("🔄 Запуск вращения модели");
     setIsModelRotating(true);
-  };
+  }, []);
 
-  const handleModelRotateStop = () => {
+  const handleModelRotateStop = React.useCallback(() => {
     console.log("⏹️ Остановка вращения модели");
     setIsModelRotating(false);
-  };
+  }, []);
 
   if (loading) {
     return (
