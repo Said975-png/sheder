@@ -419,6 +419,7 @@ export default function Index() {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
+                data-testid="cart-button"
                 className="relative p-1.5 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
               >
                 <ShoppingCart className="w-4 h-4 text-cyan-400" />
