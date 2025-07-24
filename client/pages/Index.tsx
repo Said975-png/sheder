@@ -43,7 +43,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Компонент для ан��мации печати кода
+// К��мпонент для ан��мации печати кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -370,8 +370,8 @@ export default function Index() {
         )}
       >
         <div className={cn(
-          "flex items-center transition-all duration-300 overflow-hidden",
-          isScrolling ? "space-x-1 opacity-60 scale-75" : "space-x-2 opacity-100 scale-100"
+          "flex items-center transition-all duration-500 overflow-hidden",
+          isScrolling ? "space-x-1 opacity-100 scale-100" : "space-x-2 opacity-100 scale-100"
         )}>
           {/* Home Button */}
           <Button
