@@ -41,7 +41,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
     {
       id: "jarvis-interface",
       title: "Интерфейс ДЖАРВИС",
-      description: "AI-помощник с голосовым упр��влением",
+      description: "AI-помощник с голосовым управлением",
       type: "component",
     },
     {
@@ -108,6 +108,39 @@ export function SiteSearch({ className }: SiteSearchProps) {
       type: "feature",
     },
   ];
+
+  const handleSelectResult = useCallback((result: SearchResult) => {
+    if (result.url) {
+      window.location.href = result.url;
+    } else if (result.action) {
+      result.action();
+    } else {
+      // Скролл к соответствующей секции или выполнение специального действия
+      switch (result.id) {
+        case "voice-commands":
+          // Активировать голосового помощника
+          document.querySelector('[data-testid="voice-control"]')?.click();
+          break;
+        case "plans-basic":
+        case "plans-pro":
+        case "plans-max":
+          // Скролл к секции с планами
+          document
+            .querySelector('[data-section="plans"]')
+            ?.scrollIntoView({ behavior: "smooth" });
+          break;
+        case "cart":
+          // Открыть корзину
+          document.querySelector('[data-testid="cart-button"]')?.click();
+          break;
+        default:
+          // Скролл наверх для остальных случаев
+          window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+    setIsOpen(false);
+    setQuery("");
+  }, []);
 
   // Поиск по данным
   useEffect(() => {
