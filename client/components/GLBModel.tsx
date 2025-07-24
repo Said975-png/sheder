@@ -8,6 +8,9 @@ interface GLBModelProps {
   scale?: number;
   position?: [number, number, number];
   autoRotate?: boolean;
+  isRotating?: boolean;
+  onRotationStart?: () => void;
+  onRotationStop?: () => void;
 }
 
 function Model({
@@ -15,11 +18,13 @@ function Model({
   scale = 1,
   position = [0, 0, 0],
   onLoad,
+  isRotating = false,
 }: {
   url: string;
   scale: number;
   position: [number, number, number];
   onLoad?: () => void;
+  isRotating?: boolean;
 }) {
   const { scene } = useGLTF(url);
   const modelRef = useRef<THREE.Group>(null);
@@ -48,21 +53,29 @@ function Model({
 
   useFrame((state) => {
     if (modelRef.current) {
-      // Добавляем эффект гравитации - модель слегка покачивается
       const time = state.clock.getElapsedTime();
 
-      // Гравитационное покачивание
-      modelRef.current.position.y = Math.sin(time * 0.8) * 0.2;
-      modelRef.current.rotation.z = Math.sin(time * 0.5) * 0.1;
+      if (isRotating) {
+        // Быстрое вращение когда активирована команда
+        modelRef.current.rotation.y += 0.05;
+        modelRef.current.rotation.x = Math.sin(time * 2) * 0.1;
+        modelRef.current.rotation.z = Math.cos(time * 1.5) * 0.05;
+        // Небольшое покачивание при вращении
+        modelRef.current.position.y = Math.sin(time * 3) * 0.1;
+      } else {
+        // Обычное поведение - легкое покачивание
+        modelRef.current.position.y = Math.sin(time * 0.8) * 0.2;
+        modelRef.current.rotation.z = Math.sin(time * 0.5) * 0.1;
 
-      // Легкое вращение от мыши (уменьшенное)
-      const targetRotationY = mouseRef.current.x * 0.2;
-      const targetRotationX = -mouseRef.current.y * 0.1;
+        // Легкое вращение от мыши (уменьшенное)
+        const targetRotationY = mouseRef.current.x * 0.2;
+        const targetRotationX = -mouseRef.current.y * 0.1;
 
-      modelRef.current.rotation.y +=
-        (targetRotationY - modelRef.current.rotation.y) * 0.05;
-      modelRef.current.rotation.x +=
-        (targetRotationX - modelRef.current.rotation.x) * 0.05;
+        modelRef.current.rotation.y +=
+          (targetRotationY - modelRef.current.rotation.y) * 0.05;
+        modelRef.current.rotation.x +=
+          (targetRotationX - modelRef.current.rotation.x) * 0.05;
+      }
     }
   });
 
@@ -116,6 +129,9 @@ const GLBModel: React.FC<GLBModelProps> = ({
   scale = 1,
   position = [0, 0, 0],
   autoRotate = true,
+  isRotating = false,
+  onRotationStart,
+  onRotationStop,
 }) => {
   const [isLoading, setIsLoading] = React.useState(true);
 
@@ -152,6 +168,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
             scale={scale}
             position={position}
             onLoad={() => setIsLoading(false)}
+            isRotating={isRotating}
           />
         </Suspense>
 
