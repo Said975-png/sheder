@@ -133,16 +133,16 @@ export default function PricingSection() {
     return () => clearInterval(interval);
   }, [isAutoPlaying]);
 
-  const nextSlide = () => {
+  const nextSlide = React.useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentSlide((prev) => (prev + 1) % pricingPlans.length);
       setIsTransitioning(false);
     }, 300);
-  };
+  }, [isTransitioning]);
 
-  const prevSlide = () => {
+  const prevSlide = React.useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setTimeout(() => {
@@ -151,16 +151,16 @@ export default function PricingSection() {
       );
       setIsTransitioning(false);
     }, 300);
-  };
+  }, [isTransitioning]);
 
-  const goToSlide = (index: number) => {
+  const goToSlide = React.useCallback((index: number) => {
     if (isTransitioning || index === currentSlide) return;
     setIsTransitioning(true);
     setTimeout(() => {
       setCurrentSlide(index);
       setIsTransitioning(false);
     }, 300);
-  };
+  }, [isTransitioning, currentSlide]);
 
   const currentPlan = pricingPlans[currentSlide];
 
