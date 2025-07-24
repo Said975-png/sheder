@@ -252,8 +252,10 @@ export default function Index() {
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
   const [isModelRotating, setIsModelRotating] = useState(false);
+  const [showAdvantages, setShowAdvantages] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  // Запуск анимации при загрузке компонента
+  // Запуск анимации при загрузке комп��нента
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarAnimated(true);
@@ -344,7 +346,7 @@ export default function Index() {
   };
 
   const handleModelRotateStart = () => {
-    console.log("🔄 Запуск вращения модели");
+    console.log("🔄 Запуск вра��ения модели");
     setIsModelRotating(true);
   };
 
@@ -403,7 +405,7 @@ export default function Index() {
             : "bg-transparent border border-cyan-400/20",
           // Эффект "брови" при скролле
           isScrolling
-            ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Ком��актная "бровь"
+            ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
             : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный навбар
         )}
       >
