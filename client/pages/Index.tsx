@@ -319,10 +319,18 @@ export default function Index() {
     navigate("/order");
   }, [navigate]);
 
-  const handleListeningChange = React.useCallback((isListening: boolean, transcript?: string) => {
-    // Микрофон работает в ф��не, панель не показываем
-    console.log("🎤 Микрофон активен:", isListening, "Транскрипт:", transcript);
-  }, []);
+  const handleListeningChange = React.useCallback(
+    (isListening: boolean, transcript?: string) => {
+      // Микрофон работает в ф��не, панель не показываем
+      console.log(
+        "🎤 Микрофон активен:",
+        isListening,
+        "Транскрипт:",
+        transcript,
+      );
+    },
+    [],
+  );
 
   const handleStopListening = React.useCallback(() => {
     setForceStopVoice(true);

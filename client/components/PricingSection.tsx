@@ -117,46 +117,55 @@ function PricingSection() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const { addItem } = useCart();
 
-  const nextSlide = React.useCallback((e?: React.MouseEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentSlide((prev) => (prev + 1) % pricingPlans.length);
-      setIsTransitioning(false);
-    }, 300);
-  }, [isTransitioning]);
+  const nextSlide = React.useCallback(
+    (e?: React.MouseEvent) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (isTransitioning) return;
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentSlide((prev) => (prev + 1) % pricingPlans.length);
+        setIsTransitioning(false);
+      }, 300);
+    },
+    [isTransitioning],
+  );
 
-  const prevSlide = React.useCallback((e?: React.MouseEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentSlide(
-        (prev) => (prev - 1 + pricingPlans.length) % pricingPlans.length,
-      );
-      setIsTransitioning(false);
-    }, 300);
-  }, [isTransitioning]);
+  const prevSlide = React.useCallback(
+    (e?: React.MouseEvent) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (isTransitioning) return;
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentSlide(
+          (prev) => (prev - 1 + pricingPlans.length) % pricingPlans.length,
+        );
+        setIsTransitioning(false);
+      }, 300);
+    },
+    [isTransitioning],
+  );
 
-  const goToSlide = React.useCallback((index: number, e?: React.MouseEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    if (isTransitioning || index === currentSlide) return;
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentSlide(index);
-      setIsTransitioning(false);
-    }, 300);
-  }, [isTransitioning, currentSlide]);
+  const goToSlide = React.useCallback(
+    (index: number, e?: React.MouseEvent) => {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if (isTransitioning || index === currentSlide) return;
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentSlide(index);
+        setIsTransitioning(false);
+      }, 300);
+    },
+    [isTransitioning, currentSlide],
+  );
 
   const currentPlan = pricingPlans[currentSlide];
 
@@ -245,7 +254,6 @@ function PricingSection() {
                   ? "scale-90 opacity-70"
                   : "scale-100 opacity-100",
               )}
-
             >
               <div
                 className={cn(

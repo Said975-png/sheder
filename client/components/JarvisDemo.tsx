@@ -23,19 +23,23 @@ interface Message {
 const demoConversations = [
   {
     user: "Джарвис, расскажи о блокчейне простыми словами",
-    jarvis: "Блокчейн - это цифровая книга записей, которая хранится од��овременно на множестве компьютеров. Каждая новая запись связана с предыдущей криптографически, что делает данные неизменными и прозрачными. Это как цифровой нотариус, который никогда не спит.",
+    jarvis:
+      "Блокчейн - это цифровая книга записей, которая хранится од��овременно на множестве компьютеров. Каждая новая запись связана с предыдущей криптографически, что делает данные неизменными и прозрачными. Это как цифровой нотариус, который никогда не спит.",
   },
   {
     user: "Как создать смарт-контракт?",
-    jarvis: "Смарт-контракт - это программа на блокчейне, которая автоматически выполняет условия соглашения. Я могу помочь вам написать код на Solidity, протестировать его в тестовой сети и развернуть в основной сети Ethereum. Начнем с простого примера?",
+    jarvis:
+      "Смарт-контракт - это программа на блокчейне, которая автоматически выполняет условия соглашения. Я могу помочь вам написать код на Solidity, протестировать его в тестовой сети и развернуть в основной сети Ethereum. Начнем с простого примера?",
   },
   {
     user: "Какие криптовалюты сейчас перспективны?",
-    jarvis: "Анализируя текущие тренды и технологические разработки, обратите внимание на Ethereum 2.0 с переходом на Proof-of-Stake, развитие Layer 2 решений как Polygon, и экосистему DeFi. Однако помните - это не финансовый совет, всегда проводите собственное исследование.",
+    jarvis:
+      "Анализируя текущие тренды и технологические разработки, обратите внимание на Ethereum 2.0 с переходом на Proof-of-Stake, развитие Layer 2 решений как Polygon, и экосистему DeFi. Однако помните - это не финансовый совет, всегда проводите собственное исследование.",
   },
   {
     user: "Помоги оптимизировать мой код",
-    jarvis: "Конечно! Загрузите ваш код, и я проанализирую его на предмет газ-эффективности, безопасности и лучших практик. Могу предложить рефакторинг, найти потенциальные уязвимости и оптимизировать производительность.",
+    jarvis:
+      "Конечно! Загрузите ваш код, и я проанализирую его на предмет газ-эффективности, безопасности и лучших практик. Могу предложить рефакторинг, найти потенциальные уязвимости и оптимизировать производительность.",
   },
 ];
 
@@ -63,7 +67,7 @@ export default function JarvisDemo() {
   useEffect(() => {
     const startConversation = () => {
       const conversation = demoConversations[currentConversation];
-      
+
       // Добавляем сообщение пользователя
       const userMessage: Message = {
         id: `user-${Date.now()}`,
@@ -71,9 +75,9 @@ export default function JarvisDemo() {
         content: conversation.user,
         timestamp: new Date(),
       };
-      
+
       setMessages([userMessage]);
-      
+
       // Начинаем печатать ответ Джарвиса через 1 секунду
       setTimeout(() => {
         setIsTyping(true);
@@ -96,20 +100,25 @@ export default function JarvisDemo() {
           content: currentTypingText,
           timestamp: new Date(),
         };
-        setMessages(prev => [...prev, jarvisMessage]);
+        setMessages((prev) => [...prev, jarvisMessage]);
         setIsTyping(false);
-        
+
         // Переходим к следующему диалогу через 4 секунды
         setTimeout(() => {
-          setCurrentConversation(prev => (prev + 1) % demoConversations.length);
+          setCurrentConversation(
+            (prev) => (prev + 1) % demoConversations.length,
+          );
         }, 4000);
       }
       return;
     }
 
-    const timeout = setTimeout(() => {
-      setCurrentCharIndex(prev => prev + 1);
-    }, 50 + Math.random() * 50);
+    const timeout = setTimeout(
+      () => {
+        setCurrentCharIndex((prev) => prev + 1);
+      },
+      50 + Math.random() * 50,
+    );
 
     return () => clearTimeout(timeout);
   }, [isTyping, currentCharIndex, currentTypingText]);
@@ -121,7 +130,10 @@ export default function JarvisDemo() {
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }}></div>
+        <div
+          className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "2s" }}
+        ></div>
       </div>
 
       {/* Neural Network Grid */}
@@ -151,7 +163,8 @@ export default function JarvisDemo() {
           <div className="w-40 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mb-8 rounded-full"></div>
 
           <p className="text-xl text-white/80 max-w-4xl mx-auto leading-relaxed">
-            Посмотрите, как наш ИИ-ассистент Джарвис помогает решать сложные задачи в области блокчейна и криптовалют
+            Посмотрите, как наш ИИ-ассистент Джарвис помогает решать сложные
+            задачи в области блокчейна и криптовалют
           </p>
         </div>
 
@@ -168,20 +181,22 @@ export default function JarvisDemo() {
                     <div className="absolute inset-0 bg-cyan-400/20 blur-md rounded-full animate-pulse"></div>
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white font-mono">ДЖАРВИС</h3>
+                    <h3 className="text-lg font-bold text-white font-mono">
+                      ДЖАРВИС
+                    </h3>
                     <p className="text-xs text-cyan-400">AI Assistant</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center space-x-2">
                   <div className="flex items-center space-x-1">
                     {audioWaves.map((height, index) => (
                       <div
                         key={index}
                         className="bg-gradient-to-t from-cyan-400 to-blue-400 rounded-full w-1 transition-all duration-150"
-                        style={{ 
+                        style={{
                           height: `${height}px`,
-                          animationDelay: `${index * 50}ms`
+                          animationDelay: `${index * 50}ms`,
                         }}
                       ></div>
                     ))}
@@ -197,7 +212,7 @@ export default function JarvisDemo() {
                     key={message.id}
                     className={cn(
                       "flex items-start space-x-3 animate-fadeIn",
-                      message.type === "user" ? "justify-end" : "justify-start"
+                      message.type === "user" ? "justify-end" : "justify-start",
                     )}
                   >
                     {message.type === "jarvis" && (
@@ -206,13 +221,13 @@ export default function JarvisDemo() {
                         <div className="absolute inset-0 bg-cyan-400/20 blur-sm rounded-full animate-pulse"></div>
                       </div>
                     )}
-                    
+
                     <div
                       className={cn(
                         "max-w-xs lg:max-w-sm xl:max-w-md px-4 py-3 rounded-2xl relative",
                         message.type === "user"
                           ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white ml-auto"
-                          : "bg-gray-800/60 border border-cyan-400/20 text-white"
+                          : "bg-gray-800/60 border border-cyan-400/20 text-white",
                       )}
                     >
                       {message.type === "jarvis" && (
@@ -236,7 +251,7 @@ export default function JarvisDemo() {
                       <Bot className="w-6 h-6 text-cyan-400" />
                       <div className="absolute inset-0 bg-cyan-400/20 blur-sm rounded-full animate-pulse"></div>
                     </div>
-                    
+
                     <div className="max-w-xs lg:max-w-sm xl:max-w-md px-4 py-3 rounded-2xl bg-gray-800/60 border border-cyan-400/20 text-white relative">
                       <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-blue-400/5 rounded-2xl"></div>
                       <p className="text-sm leading-relaxed relative z-10 font-mono">
@@ -274,22 +289,26 @@ export default function JarvisDemo() {
                   {
                     icon: <Brain className="w-6 h-6" />,
                     title: "Анализ блокчейн данных",
-                    description: "Глубокий анализ транзакций, смарт-контрактов и DeFi протоколов",
+                    description:
+                      "Глубокий анализ транзакций, смарт-контрактов и DeFi протоколов",
                   },
                   {
                     icon: <Zap className="w-6 h-6" />,
                     title: "Мгновенные ответы",
-                    description: "Получайте точные ответы на сложные технические вопросы",
+                    description:
+                      "Получайте точные ответы на сложные технические вопросы",
                   },
                   {
                     icon: <Sparkles className="w-6 h-6" />,
                     title: "Помощь в разработке",
-                    description: "Написание и оптимизация смарт-контрактов на Solidity",
+                    description:
+                      "Написание и оптимизация смарт-контрактов на Solidity",
                   },
                   {
                     icon: <Waves className="w-6 h-6" />,
                     title: "Голосовое управление",
-                    description: "Взаимодействуйте с ИИ через голосовые команды",
+                    description:
+                      "Взаимодействуйте с ИИ через голосовые команды",
                   },
                 ].map((feature, index) => (
                   <div
@@ -327,8 +346,12 @@ export default function JarvisDemo() {
                 ].map((stat, index) => (
                   <div key={index} className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-white/80 font-mono">{stat.label}</span>
-                      <span className="text-cyan-400 font-mono">{stat.value}%</span>
+                      <span className="text-white/80 font-mono">
+                        {stat.label}
+                      </span>
+                      <span className="text-cyan-400 font-mono">
+                        {stat.value}%
+                      </span>
                     </div>
                     <div className="w-full bg-gray-700/50 rounded-full h-2">
                       <div
@@ -348,7 +371,7 @@ export default function JarvisDemo() {
           <h3 className="text-2xl font-bold text-center text-white mb-8 font-mono">
             О чем можно спросить <span className="text-cyan-400">Джарвиса</span>
           </h3>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {demoConversations.map((conv, index) => (
               <button
@@ -358,7 +381,7 @@ export default function JarvisDemo() {
                   "p-4 rounded-xl border transition-all duration-300 text-left",
                   index === currentConversation
                     ? "border-cyan-400/60 bg-cyan-400/10 scale-105"
-                    : "border-cyan-400/20 bg-gray-800/40 hover:border-cyan-400/40 hover:bg-cyan-400/5"
+                    : "border-cyan-400/20 bg-gray-800/40 hover:border-cyan-400/40 hover:bg-cyan-400/5",
                 )}
               >
                 <p className="text-sm text-white/80 font-mono line-clamp-2">
