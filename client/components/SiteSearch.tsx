@@ -119,7 +119,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
       switch (result.id) {
         case "voice-commands":
           // Активировать голосового помощника
-          document.querySelector('[data-testid="voice-control"]')?.click();
+          (document.querySelector('[data-testid="voice-control"]') as HTMLElement)?.click();
           break;
         case "plans-basic":
         case "plans-pro":
