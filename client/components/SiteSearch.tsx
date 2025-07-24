@@ -162,7 +162,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
     }
   }, [isOpen]);
 
-  const handleSelectResult = (result: SearchResult) => {
+  const handleSelectResult = useCallback((result: SearchResult) => {
     if (result.url) {
       window.location.href = result.url;
     } else if (result.action) {
@@ -193,7 +193,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
     }
     setIsOpen(false);
     setQuery("");
-  };
+  }, []);
 
   const getTypeColor = (type: string) => {
     switch (type) {
