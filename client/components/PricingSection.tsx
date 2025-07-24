@@ -98,7 +98,7 @@ const pricingPlans: PricingPlan[] = [
       "Кастомные модули",
       "Безлимитные изменения",
       "Приоритетная поддержка 12 месяцев",
-      "Персональный менеджер проекта"
+      "Персональ��ый менеджер проекта"
     ],
     highlight: false,
     icon: <Crown className="w-8 h-8" />,
@@ -192,7 +192,7 @@ export default function PricingSection() {
           
           <p className="text-xl text-white/80 max-w-4xl mx-auto leading-relaxed">
             Выберите тариф, который идеально подходит для ваших целей. 
-            От стильного базового сайта до премиального решения с Джарвисом
+            От стил��ного базового сайта до премиального решения с Джарвисом
           </p>
         </div>
 
@@ -293,20 +293,20 @@ export default function PricingSection() {
                   </div>
 
                   {/* Features */}
-                  <div className="mb-8">
-                    <h4 className="text-cyan-400 font-semibold mb-6 text-lg font-mono flex items-center justify-center">
-                      <Zap className="w-5 h-5 mr-2" />
+                  <div className="mb-6">
+                    <h4 className="text-cyan-400 font-semibold mb-4 text-sm font-mono flex items-center justify-center">
+                      <Zap className="w-4 h-4 mr-2" />
                       Что включено:
                     </h4>
-                    
-                    <div className="space-y-3 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-400/30 scrollbar-track-transparent">
+
+                    <div className="space-y-2 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-400/30 scrollbar-track-transparent">
                       {currentPlan.features.map((feature, index) => (
                         <div
                           key={index}
-                          className="flex items-start text-white/90 p-3 rounded-lg bg-white/5 border border-cyan-400/10 hover:border-cyan-400/30 transition-all duration-300 group"
+                          className="flex items-start text-white/90 p-2 rounded-lg bg-white/5 border border-cyan-400/10 hover:border-cyan-400/30 transition-all duration-300 group"
                         >
-                          <CheckCircle className="w-5 h-5 text-green-400 mr-3 mt-0.5 flex-shrink-0 group-hover:text-green-300 transition-colors duration-300" />
-                          <span className="text-sm leading-relaxed">{feature}</span>
+                          <CheckCircle className="w-4 h-4 text-green-400 mr-2 mt-0.5 flex-shrink-0 group-hover:text-green-300 transition-colors duration-300" />
+                          <span className="text-xs leading-relaxed">{feature}</span>
                         </div>
                       ))}
                     </div>
@@ -403,7 +403,7 @@ export default function PricingSection() {
         <div className="text-center mt-16">
           <div className="bg-gradient-to-r from-black/50 to-gray-900/50 backdrop-blur-lg border border-cyan-400/20 rounded-2xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-white mb-4 font-mono">
-              Не мож��те определиться?
+              Не можете определиться?
             </h3>
             <p className="text-white/70 mb-6 leading-relaxed">
               Свяжитесь с нами для бесплатной консультации. 
@@ -413,7 +413,7 @@ export default function PricingSection() {
               className="px-8 py-3 text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 transform hover:scale-105 font-mono"
             >
               <Heart className="w-5 h-5 mr-2" />
-              Бесплатная Консультация
+              Бесплатная Консульт��ция
             </Button>
           </div>
         </div>
