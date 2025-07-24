@@ -91,12 +91,12 @@ function PurpleGlow() {
   });
 
   return (
-    <mesh ref={glowRef} position={[0, 0, -1]}>
-      <sphereGeometry args={[4, 32, 32]} />
+    <mesh ref={glowRef} position={[0, 0, -3]}>
+      <sphereGeometry args={[8, 16, 16]} />
       <meshBasicMaterial
         color="#a855f7"
         transparent
-        opacity={0.3}
+        opacity={0.1}
         blending={THREE.AdditiveBlending}
       />
     </mesh>
