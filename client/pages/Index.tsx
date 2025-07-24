@@ -275,7 +275,7 @@ export default function Index() {
       // Устанавливаем новый таймаут для остановки скролла
       timeoutRef = setTimeout(() => {
         setIsScrolling(false);
-      }, 3000); // 3 секунды после остановки скролла
+      }, 3000); // 3 секунды после остановки скро��ла
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -359,6 +359,31 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      {/* Неоновый фиолетовый фон */}
+      <div className="neon-purple-background"></div>
+
+      {/* Неоновые углы */}
+      <div className="neon-corners">
+        <div className="neon-corner neon-corner-tl"></div>
+        <div className="neon-corner neon-corner-tr"></div>
+        <div className="neon-corner neon-corner-bl"></div>
+        <div className="neon-corner neon-corner-br"></div>
+      </div>
+
+      {/* Неоновые краевые свечения */}
+      <div className="neon-edges"></div>
+
+      {/* Центральное неоновое свечение */}
+      <div className="neon-center-glow"></div>
+
+      {/* Неоновые частицы */}
+      <div className="neon-particles">
+        <div className="neon-particle"></div>
+        <div className="neon-particle"></div>
+        <div className="neon-particle"></div>
+        <div className="neon-particle"></div>
+        <div className="neon-particle"></div>
+      </div>
       {/* Navigation - Enhanced with Stark styling */}
       <nav
         className={cn(
@@ -703,7 +728,7 @@ export default function Index() {
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-white font-mono">
                   <GlitchText intensity="low">
-                    Искусственный Интеллект
+                    Иску��ственный Интеллект
                   </GlitchText>
                 </h3>
               </div>
