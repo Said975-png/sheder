@@ -743,7 +743,7 @@ export default function Index() {
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
                   Адаптивные интерфейсы с анимациями и интерактивными
-                  эле��ентами
+                  элементами
                 </p>
                 <div className="flex items-center text-blue-400 text-sm">
                   <Eye className="w-4 h-4 mr-2" />
@@ -921,7 +921,7 @@ export default function Index() {
                   className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 px-6 py-3 rounded-lg backdrop-blur-sm"
                 >
                   <Eye className="w-5 h-5 mr-2" />
-                  <span className="font-mono">ПОСМ��ТРЕТЬ ПОРТФОЛИО</span>
+                  <span className="font-mono">ПОСМОТРЕТЬ ПОРТФОЛИО</span>
                 </Button>
               </div>
             </div>
