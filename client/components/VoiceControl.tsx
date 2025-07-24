@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Mic, MicOff, Volume2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -655,7 +655,7 @@ export default function VoiceControl({
       setIsSpeaking(false); // Принудительно сбрасываем состояние говорения
       currentAudioRef.current = null; // Очищаем ссылку на аудио
 
-      console.log("🔄 Полный сброс ��сех ��остояний блоки��овки выполн����");
+      console.log("🔄 Полный сброс ��сех ��остояний блоки��овки вы��олн����");
 
       // Только сообщаем о состоянии, если микр��фон все еще активен �� это не ����оманда отключения
       if (isListening && !skipPanelReopen) {
@@ -687,7 +687,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Очищаем транскрипт когда начинаем говорить
+    // Очищаем транскрипт когда начинаем ��оворить
     setTranscript("");
     // НЕ вызываем onListeningChange во время восп��оизведе��ия аудио
     // Это п��едотвращает повторно�� открыти�� панели после команды отклю��ен��я
@@ -940,7 +940,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создае�� и во��произво��им аудио для ответа "��ж��рв���с ты тут?"
+    // Создае�� и во��произво��им аудио ��ля ответа "��ж��рв���с ты тут?"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F4b8ea25f0ef042cbac23e1ab53938a6b%2F5baee2408110417fbab785b0c6ffdde6?alt=media&token=a957a2b4-68ad-46de-bc3e-11943c8fb38b&apiKey=4b8ea25f0ef042cbac23e1ab53938a6b",
     );
@@ -1098,7 +1098,7 @@ export default function VoiceControl({
       console.log("❌ speakAuthenticJarvis заблокирован - играет аудио");
       return;
     }
-    console.log("���� Нач��наем воспроизведение Jarvis аудио");
+    console.log("����� Нач��наем воспроизведение Jarvis аудио");
 
     // О�������танавливаем любое текущее воспроизведение
     if (currentAudioRef.current) {
@@ -1157,7 +1157,7 @@ export default function VoiceControl({
   };
 
   const speakSystemsOperational = async () => {
-    await speakWithElevenLabs("Все системы функцио��ируют ��ор��ал��но");
+    await speakWithElevenLabs("В��е системы функцио��ируют ��ор��ал��но");
   };
 
   const speakHowAreYou = () => {
@@ -1384,7 +1384,7 @@ export default function VoiceControl({
   };
 
   const speakContinue = () => {
-    // Улучшенная защита - разрешаем если нет активного аудио
+    // Улучшенная защита - разрешаем если нет актив��ого аудио
     if (isSpeaking && audioPlayingRef.current) {
       console.log("❌ speakContinue заблокирован - играет аудио");
       return;
@@ -1442,7 +1442,7 @@ export default function VoiceControl({
       currentAudioRef.current.currentTime = 0;
     }
 
-    console.log("▶️ Воспроизводим второе ау��ио - Верн��");
+    console.log("▶️ Воспроизводим второе ау���ио - Верн��");
     setIsSpeaking(true);
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
@@ -1507,7 +1507,7 @@ export default function VoiceControl({
       // Мгновенно м����яем тему на лабораторию Старка
       document.documentElement.classList.add("stark-lab-theme");
 
-      // Добавляем эффект скан��рования
+      // До��авляем эффект скан��рования
       const scanElement = document.createElement("div");
       scanElement.className = "lab-activation-scan";
       document.body.appendChild(scanElement);
@@ -1600,7 +1600,7 @@ export default function VoiceControl({
         lastCommandRef.current = "";
       }, 500);
       console.error(
-        "❌ Не удалос�� восп��оизвести перво�� аудио активации:",
+        "❌ Не ��далос�� восп��оизвести перво�� аудио активации:",
         error,
       );
     });
@@ -1798,7 +1798,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Верно" - воспроизводит второе аудио
+    // Команда "Верно" - воспр��изводит второе аудио
     if (
       command.includes("верно") ||
       command.includes("правильно") ||
@@ -2037,7 +2037,7 @@ export default function VoiceControl({
       "базовый",
       "про",
       "макс",
-      "прокрутить",
+      "п��окрутить",
       "скролл",
       "наверх",
       "пл��нам",
@@ -2082,7 +2082,7 @@ export default function VoiceControl({
       "��ткл��чись",
       "в��ключись",
       "от��лючи",
-      "выключи",
+      "вы��лючи",
       "с����п",
       "вернулся",
       "здесь",
@@ -2583,7 +2583,7 @@ export default function VoiceControl({
       setIsSpeaking(false);
       setTranscript("");
       console.log("✅ Состояния сброшены, система готова к н��вым командам");
-    }, 500); // Небольшая задержка чтобы избежать конфликтов
+    }, 500); // Небольшая задержка чтобы избеж��ть конфликтов
   };
 
   const toggleListening = () => {
