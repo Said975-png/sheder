@@ -507,6 +507,172 @@ export default function Index() {
           </div>
         </div>
       </section>
+
+      {/* Code to Website Demo Section */}
+      <section className="py-20 bg-black relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <StarkHUD
+              className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3 mb-6"
+              showCorners={false}
+            >
+              <div className="flex items-center space-x-3">
+                <ArcReactor size="small" pulsing />
+                <span className="text-sm text-cyan-400 uppercase tracking-widest font-mono">
+                  [ ПРОЦЕСС СОЗДАНИЯ ]
+                </span>
+              </div>
+            </StarkHUD>
+
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              От <HologramText glitch>Кода</HologramText> к Реальности
+            </h2>
+            <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
+              <GlitchText intensity="low">
+                Наблюдайте, как строки кода превращаются в живой интерфейс в реальном времени
+              </GlitchText>
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+            {/* Code Editor Box */}
+            <StarkHUD className="bg-gray-900/90 backdrop-blur-sm p-6 h-[500px] relative overflow-hidden">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-2">
+                  <div className="flex space-x-1">
+                    <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse"></div>
+                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  </div>
+                  <span className="text-sm text-cyan-400 font-mono ml-4">
+                    <GlitchText intensity="low">stark-interface.tsx</GlitchText>
+                  </span>
+                </div>
+                <div className="text-xs text-white/60 font-mono">COMPILING...</div>
+              </div>
+
+              <div className="font-mono text-sm space-y-1 text-white/90">
+                <div className="animate-pulse">
+                  <span className="text-purple-400">import</span> <span className="text-blue-400">React</span> <span className="text-purple-400">from</span> <span className="text-green-400">'react'</span>
+                </div>
+                <div className="animate-pulse">
+                  <span className="text-purple-400">import</span> <span className="text-yellow-400">{'{ Button }'}</span> <span className="text-purple-400">from</span> <span className="text-green-400">'@/components'</span>
+                </div>
+                <div></div>
+                <div className="animate-pulse">
+                  <span className="text-purple-400">export</span> <span className="text-blue-400">function</span> <span className="text-yellow-400">StarkInterface</span>() {'{'}
+                </div>
+                <div className="animate-pulse">
+                  &nbsp;&nbsp;<span className="text-purple-400">return</span> (
+                </div>
+                <div className="animate-pulse">
+                  &nbsp;&nbsp;&nbsp;&nbsp;{'<'}<span className="text-red-400">div</span> <span className="text-blue-400">className</span>=<span className="text-green-400">"stark-container"</span>{'>'}
+                </div>
+                <div className="animate-pulse">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'<'}<span className="text-red-400">h1</span> <span className="text-blue-400">className</span>=<span className="text-green-400">"glow-text"</span>{'>'}
+                </div>
+                <div className="animate-pulse">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-white">STARK INDUSTRIES</span>
+                </div>
+                <div className="animate-pulse">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'</'}<span className="text-red-400">h1</span>{'>'}
+                </div>
+                <div className="animate-pulse">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'<'}<span className="text-red-400">Button</span> <span className="text-blue-400">variant</span>=<span className="text-green-400">"stark"</span>{'>'}
+                </div>
+                <div className="animate-pulse">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-white">Активировать</span>
+                </div>
+                <div className="animate-pulse">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'</'}<span className="text-red-400">Button</span>{'>'}
+                </div>
+                <div className="animate-pulse">
+                  &nbsp;&nbsp;&nbsp;&nbsp;{'</'}<span className="text-red-400">div</span>{'>'}
+                </div>
+                <div className="animate-pulse">
+                  &nbsp;&nbsp;);
+                </div>
+                <div className="animate-pulse">
+                  {'}'}
+                </div>
+              </div>
+            </StarkHUD>
+
+            {/* Website Preview Box */}
+            <StarkHUD className="bg-gray-900/90 backdrop-blur-sm p-6 h-[500px] relative overflow-hidden">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-2">
+                  <div className="w-4 h-4 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full animate-pulse"></div>
+                  <span className="text-sm text-cyan-400 font-mono">
+                    <GlitchText intensity="low">Live Preview</GlitchText>
+                  </span>
+                </div>
+                <PowerIndicator />
+              </div>
+
+              <div className="h-[400px] bg-black/50 rounded-lg border border-cyan-400/30 relative overflow-hidden flex items-center justify-center">
+                <div className="relative z-10 text-center space-y-6">
+                  <div className="animate-fade-in-up">
+                    <h1 className="text-2xl lg:text-3xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text">
+                      <GlitchText intensity="medium">STARK INDUSTRIES</GlitchText>
+                    </h1>
+                  </div>
+
+                  <div className="animate-fade-in">
+                    <div className="w-48 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto animate-pulse"></div>
+                  </div>
+
+                  <div className="animate-fade-in-up">
+                    <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-2 rounded-lg stark-glow">
+                      <GlitchText intensity="low">Активировать</GlitchText>
+                    </Button>
+                  </div>
+
+                  <div className="animate-fade-in">
+                    <div className="flex justify-center space-x-4 mt-6">
+                      <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
+                      <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+                      <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
+                    </div>
+                  </div>
+
+                  <div className="animate-fade-in">
+                    <div className="text-xs text-cyan-400 font-mono mt-4">
+                      <GlitchText intensity="low">STATUS: ONLINE</GlitchText>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-cyan-400 opacity-60"></div>
+                <div className="absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-cyan-400 opacity-60"></div>
+                <div className="absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-cyan-400 opacity-60"></div>
+                <div className="absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-cyan-400 opacity-60"></div>
+              </div>
+            </StarkHUD>
+          </div>
+
+          <div className="text-center mt-16">
+            <div className="inline-block">
+              <p className="text-cyan-400 font-mono text-sm mb-4">
+                <GlitchText intensity="low">ГОТОВЫ УВИДЕТЬ СВОЙ ПРОЕКТ В ДЕЙСТВИИ?</GlitchText>
+              </p>
+              <div className="flex justify-center space-x-4">
+                <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-6 py-3 rounded-lg stark-glow">
+                  <Code className="w-5 h-5 mr-2" />
+                  <span className="font-mono">ЗАКАЗАТЬ ДЕМО</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 px-6 py-3 rounded-lg backdrop-blur-sm"
+                >
+                  <Eye className="w-5 h-5 mr-2" />
+                  <span className="font-mono">ПОСМОТРЕТЬ ПОРТФОЛИО</span>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
