@@ -245,6 +245,8 @@ export default function Index() {
   const navigate = useNavigate();
   const [navbarAnimated, setNavbarAnimated] = useState(false);
   const [navbarScrolled, setNavbarScrolled] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
@@ -584,7 +586,7 @@ export default function Index() {
             <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
               <GlitchText intensity="low">
                 Мы создаем не просто веб-сайты — мы создаем интеллектуальные
-                цифровые экосистемы с встроенным искусственным интеллектом
+                цифровые экосистемы с встроенным иск��сственным интеллектом
               </GlitchText>
             </p>
 
