@@ -83,7 +83,7 @@ export default function VoiceControl({
           recognitionRef.current.webkitContinuous = true;
           // @ts-ignore
           recognitionRef.current.webkitInterimResults = true;
-          // @ts-ignore - Убираем ограничения грамматики для лучшего распознавания
+          // @ts-ignore - Уб��раем ограничения грамматики для лучшего распознавания
           recognitionRef.current.webkitGrammars = null;
           // @ts-ignore - Увеличиваем количество альтернатив
           recognitionRef.current.webkitMaxAlternatives = 10;
@@ -484,7 +484,7 @@ export default function VoiceControl({
     };
   }, []);
 
-  // Функция для полного сброса Speech Recognition
+  // Функ��ия для полного сброса Speech Recognition
   const resetSpeechRecognition = () => {
     if (recognitionRef.current) {
       console.log("�� Полный сброс Speech Recognition");
@@ -518,7 +518,7 @@ export default function VoiceControl({
     return () => window.removeEventListener("voiceCommand", handleTestCommand);
   }, []);
 
-  // Effect для принудите��ьной остановки
+  // Effect для принудите��ьной остан��вки
   useEffect(() => {
     if (forceStop && isListening) {
       recognitionRef.current?.stop();
@@ -645,7 +645,7 @@ export default function VoiceControl({
 
       console.log("🔄 Полный сброс ��сех состояний блокировки выполн����");
 
-      // Только сообщаем о состоянии, если микрофон все еще активен И это не команда отключения
+      // Только сообщаем о состоянии, если микр��фон все еще активен И это не команда отключения
       if (isListening && !skipPanelReopen) {
         onListeningChange?.(true, "");
         console.log("✅ Cooldown сброшен, микро��он активен");
@@ -1176,7 +1176,7 @@ export default function VoiceControl({
       // Similarity Boost: 90 (высок��е сходс����во с оригинальным голосом)
       // Style: Assistant/Narration (помощник/повеств��вание)
 
-      utterance.lang = "en-US"; // ��нг��ийский для лучшего качества, потом переклю��им ���� русский
+      utterance.lang = "en-US"; // ��нг��ийский для лучшего качества, потом переклю����им ���� русский
       utterance.rate = 0.75; // Мед��ен����я, размеренна�� р��чь как �� Джарвиса из фильма
       utterance.pitch = 0.7; // Сред����-ни��кий тон для ����втор��те����ос��и
       utterance.volume = 0.95; // Четкая, но не резкая громкость
@@ -1262,7 +1262,7 @@ export default function VoiceControl({
         }, 500);
       };
 
-      console.log("Джа��вис: у меня все в порядке сэр");
+      console.log("Джа��вис: у ��еня все в порядке сэр");
       setTimeout(resetState, 2000);
     }
   };
@@ -1418,9 +1418,9 @@ export default function VoiceControl({
   };
 
   const speakCorrect = () => {
-    // Улучшенная защита - разрешаем если нет акт��вного аудио
+    // Улучшенная ��ащита - разрешаем если нет акт��вного аудио
     if (isSpeaking && audioPlayingRef.current) {
-      console.log("❌ speakCorrect заблок��рован - играет аудио");
+      console.log("❌ speakCorrect заблок��рован - игр��ет аудио");
       return;
     }
 
@@ -1775,7 +1775,7 @@ export default function VoiceControl({
       command.includes("джарвис давай продолжим") ||
       command.includes("да��ай продолжим джарвис") ||
       command.includes("давай продолжим") ||
-      command.includes("джа��вис продолжим") ||
+      command.includes("джа��вис пр��должим") ||
       command.includes("��родолжим джарвис")
     ) {
       console.log("▶️ Команда 'давай продолжим' р��сп��зна��а:", command);
@@ -2103,7 +2103,7 @@ export default function VoiceControl({
       "системы",
       "ра����тают",
       "дела",
-      "пож��ваешь",
+      "пож���ваешь",
       "порядк���",
       "ди��гностика",
       "проведи",
@@ -2189,7 +2189,7 @@ export default function VoiceControl({
     ) {
       let found = false;
 
-      // Поис����� преимущ������тв
+      // Поис������� преимущ������тв
       if (
         command.includes("преим��щества") ||
         command.includes("преимущество")
@@ -2267,7 +2267,7 @@ export default function VoiceControl({
           "contact",
         ]);
         if (found) {
-          speak("Пок�������ываю ��о��такты");
+          speak("��ок�������ываю ��о��такты");
           return;
         }
       }
@@ -2351,7 +2351,7 @@ export default function VoiceControl({
       command.includes("домо��")
     ) {
       navigate("/");
-      speak("Переходим на главную стр��ницу");
+      speak("Пере��одим на главную стр��ницу");
       return;
     }
 
@@ -2623,6 +2623,7 @@ export default function VoiceControl({
         {/* Voice control button */}
         <Button
           onClick={toggleListening}
+          data-testid="voice-control"
           className={`w-14 h-14 rounded-full p-0 transition-all duration-300 bg-transparent hover:bg-white/10 ${
             isListening ? "animate-pulse" : ""
           } ${isSpeaking ? "ring-4 ring-blue-400/50" : ""}`}
