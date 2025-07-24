@@ -246,9 +246,6 @@ export default function Index() {
   const [navbarAnimated, setNavbarAnimated] = useState(false);
   const [navbarScrolled, setNavbarScrolled] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
-  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(
-    null,
-  );
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
