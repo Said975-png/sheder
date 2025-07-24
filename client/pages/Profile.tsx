@@ -111,7 +111,7 @@ function Profile() {
 
       // Проверяем тип файла
       if (!file.type.startsWith("image/")) {
-        setError("Пожалуйста, выберите изображение");
+        setError("Пожалуйста, выберите изображ��ние");
         return;
       }
 
@@ -321,7 +321,7 @@ function Profile() {
               <Settings className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold">Проф��ль пользователя</h1>
+              <h1 className="text-3xl font-bold">Профиль пользователя</h1>
               <p className="text-white/70">
                 Управляйте настройками вашего ��ккаунта
               </p>
@@ -629,7 +629,7 @@ function Profile() {
                             id="confirmPassword"
                             name="confirmPassword"
                             type="password"
-                            placeholder="Повторите новый пароль"
+                            placeholder="Повтори��е новый пароль"
                             value={formData.confirmPassword}
                             onChange={handleChange}
                             required
