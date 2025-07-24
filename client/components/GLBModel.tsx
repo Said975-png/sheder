@@ -18,7 +18,7 @@ function RisingParticles() {
       // Случайные позиции в области за моделью
       positions[i3] = (Math.random() - 0.5) * 8; // x
       positions[i3 + 1] = (Math.random() - 0.5) * 6 - 3; // y (начинаем снизу)
-      positions[i3 + 2] = -2 - Math.random() * 3; // z (за моделью)
+      positions[i3 + 2] = -2 - Math.random() * 3; // z (за м��делью)
 
       // Скорости подъёма
       velocities[i3] = (Math.random() - 0.5) * 0.02; // небольшое горизонтальное движение
@@ -227,9 +227,6 @@ const GLBModel: React.FC<GLBModelProps> = ({
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} intensity={1} />
         <directionalLight position={[5, 5, 5]} intensity={0.5} />
-
-        {/* Поднимающиеся частицы */}
-        <RisingParticles />
 
         <Suspense fallback={<ThreeLoadingFallback />}>
           <Model
