@@ -7,6 +7,7 @@ import VoiceControl from "@/components/VoiceControl";
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
 import AdvantagesSection from "@/components/AdvantagesSection";
+import JarvisDemo from "@/components/JarvisDemo";
 import PricingSection from "@/components/PricingSection";
 
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
@@ -334,7 +335,7 @@ export default function Index() {
   }, []);
 
   const handleModelRotateStop = React.useCallback(() => {
-    console.log("⏹️ Остановка вращения модели");
+    console.log("⏹️ Остановка вращения моде��и");
     setIsModelRotating(false);
   }, []);
 
