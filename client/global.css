@@ -137,7 +137,7 @@
     --sidebar-border: 214.3 31.8% 91.4%;
     --sidebar-ring: 260 100% 60%;
 
-    /* Кастомные переменные для светлых гр��д��ентов */
+    /* Кастомные ��еременные для светлых гр��д��ентов */
     --gradient-from: 267 100% 92%;
     --gradient-via: 220 20% 95%;
     --gradient-to: 0 0% 98%;
@@ -155,6 +155,28 @@
 }
 
 @layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
   .perspective-1000 {
     perspective: 1000px;
   }
@@ -545,7 +567,7 @@
     }
   }
 
-  /* Упрощённое энергетическое поле */
+  /* Упрощённое энергетическо�� поле */
   .energy-field {
     position: absolute;
     top: -1px;
