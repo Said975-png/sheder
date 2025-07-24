@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Zap, Code } from "lucide-react";
