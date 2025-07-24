@@ -319,7 +319,7 @@ export default function VoiceControl({
                   }, 2000);
                 },
                 finalTranscript ? 100 : 1000,
-              ); // Мень��е за��ержки для фи��альных результатов
+              ); // Мень��е за��ержки дл�� фи��альных результатов
             } else {
               console.log("❌ Команда о��клонена:", {
                 isEmpty: !command,
@@ -351,7 +351,7 @@ export default function VoiceControl({
               if (recognitionRef.current && isListening) {
                 try {
                   recognitionRef.current.start();
-                  console.log("✅ Распо��навание перезапущено");
+                  console.log("✅ ��аспо��навание перезапущено");
                 } catch (error) {
                   console.log(
                     "ℹ️ Распознавание уже запущено или недоступно:",
@@ -380,7 +380,7 @@ export default function VoiceControl({
           if (event.error === "network") {
             setNetworkErrorCount((prev) => prev + 1);
             console.error(
-              `🚨 Сетевая ошибка распознавания #${networkErrorCount + 1}`,
+              `🚨 Сетевая ошибка ра��познавания #${networkErrorCount + 1}`,
             );
 
             // Если слишком много сетевых ошибок подряд - отключаем
@@ -434,7 +434,7 @@ export default function VoiceControl({
                 `ℹ️ No-speech о��ибка #${noSpeechCount + 1} - п��одолжаем ��лу��ать`,
               );
 
-              // Если сл��шком много no-speech о��ибок ��одряд, делаем небольшую паузу
+              // Есл�� сл��шком много no-speech о��ибок ��одряд, делаем небольшую паузу
               if (noSpeechCount >= 3) {
                 console.log(
                   "⏸️ М��ого no-speech ошибок, делаем паузу 2 сек...",
@@ -597,7 +597,7 @@ export default function VoiceControl({
     };
   }, [isListening]);
 
-  // Функция для проверки доступности речевого сервиса
+  // Функция для проверки доступнос��и речевого сервиса
   const checkSpeechServiceAvailability = async () => {
     try {
       // Проверяем онлайн статус
@@ -690,7 +690,7 @@ export default function VoiceControl({
     // Очищаем транскрипт когда начинаем говорить
     setTranscript("");
     // НЕ вызываем onListeningChange во время воспроизведе��ия аудио
-    // Это предотвращает повторно�� открыти�� панели после команды отключения
+    // Это предотвращает повторно�� открыти�� панели после команды отключен��я
 
     // ��озда��м и вос���рои����водим ваш новый ау��ио-файл
     const audio = new Audio(
@@ -724,7 +724,7 @@ export default function VoiceControl({
   };
 
   const speakShutdown = () => {
-    console.log("🔴 Выполняем команду отключения микр��фона");
+    console.log("���� Выполняем команду отключения микр��фона");
 
     // ПРИНУДИТЕЛЬНО сбрасываем ВСЕ ��остоян��я блокировки для команды отключения
     commandCooldownRef.current = false;
@@ -1279,7 +1279,7 @@ export default function VoiceControl({
     }
   };
 
-  // Тестовая функция для про��ерки аудио
+  // Тестовая ф��нкция для про��ерки аудио
   const testAudioUrls = () => {
     const url1 =
       "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76";
@@ -1704,7 +1704,7 @@ export default function VoiceControl({
     // Простая очистка транскрипт���� в начале обработки
     setTranscript("");
     // НЕ вызываем onListeningChange во время обработки команды
-    // Это ��редотвращает повторное открытие панели
+    // Это ���редотвращает повторное открытие панели
 
     // НЕ сбрасываем Recognition автоматически - ��усть рабо��ает непрерывно
     console.log("🎯 Обрабатываем команд�� без сброса Recognition");
@@ -1734,7 +1734,7 @@ export default function VoiceControl({
     // Команда "Джарвис, полная активация" - активация лаборатории Старка
     if (
       command.includes("джарвис полная активация") ||
-      command.includes("полная а��тивация джарвис") ||
+      command.includes("полная активация джарвис") ||
       command.includes("джарвис активация лаб��ратории") ||
       command.includes("активация лаборатории джарвис") ||
       command.includes("активиров��ть лабо��а��орию") ||
@@ -1752,7 +1752,7 @@ export default function VoiceControl({
     // Команда "Джарвис верни меня обратн��" - возврат к обыч��ой теме
     if (
       command.includes("джарвис верни мен�� обратно") ||
-      command.includes("верни меня обратно джарвис") ||
+      command.includes("верни меня обратно джарви��") ||
       command.includes("верни обычную тему") ||
       command.includes("отключи лабораторию") ||
       command.includes("джарвис выключи лабораторию") ||
@@ -2096,7 +2096,7 @@ export default function VoiceControl({
       "мерс��",
       "��ахмат",
       "рах��ет",
-      "хо��ошо",
+      "хо��ош��",
       "отлично",
       "замечате����ьно",
       "круто",
@@ -2390,7 +2390,7 @@ export default function VoiceControl({
       command.includes("��рофиль") ||
       command.includes("мой профил��") ||
       command.includes("личн��й к��бинет") ||
-      command.includes("открыть про���и��ь")
+      command.includes("о��крыть про���и��ь")
     ) {
       navigate("/profile");
       speak("Откр��ваю ли��ный каби��ет");
@@ -2462,7 +2462,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ра��шире��ная нави��ация ��о секциям стран��ц��
+    // Ра��шире��ная на��и��ация ��о секциям стран��ц��
     if (
       command.includes("к планам") ||
       command.includes("показать пл��ны") ||
@@ -2493,7 +2493,7 @@ export default function VoiceControl({
       command.includes("к пр�����мущес����ам") ||
       command.includes("наши пре��мущества") ||
       command.includes("сп��стит��ся к преимущества��") ||
-      command.includes("перейти к ��реимущес���вам") ||
+      command.includes("перейти к ��реим��щес���вам") ||
       command.includes("��реим��щества")
     ) {
       const found = searchAndNavigate([
@@ -2570,7 +2570,7 @@ export default function VoiceControl({
       return;
     }
 
-    // ВАЖНО: Обработка нераспознанных команд
+    // ВАЖНО: Обработка нераспознанн��х команд
     // Если дошли до этого места - команда не была распознана
     console.log("�� Кома��да не распознана:", command);
     console.log("🔄 Сбрасываем состояния для следующей команды");
