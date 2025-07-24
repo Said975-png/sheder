@@ -300,7 +300,9 @@ export default function VoiceControl({
 
                   // Быстр������я о��истка транскрипт�� после запуска ко����анды
                   setTimeout(() => {
-                    console.log("����� Б��с��р������������я очистка транскрипт��");
+                    console.log(
+                      "����� Б��с��р������������я очистка транскрипт��",
+                    );
                     setTranscript("");
                     // НЕ вызываем onListeningChange, ��тобы н�� открывать панель после отключения
                   }, 800);
@@ -928,7 +930,10 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("Не удал��сь вос����о��звести аудио благо��а��ности:", error);
+      console.error(
+        "Не удал��сь вос����о��звести аудио благо��а��ности:",
+        error,
+      );
     });
   };
 

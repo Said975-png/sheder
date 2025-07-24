@@ -119,7 +119,11 @@ export function SiteSearch({ className }: SiteSearchProps) {
       switch (result.id) {
         case "voice-commands":
           // Активировать голосового помощника
-          (document.querySelector('[data-testid="voice-control"]') as HTMLElement)?.click();
+          (
+            document.querySelector(
+              '[data-testid="voice-control"]',
+            ) as HTMLElement
+          )?.click();
           break;
         case "plans-basic":
         case "plans-pro":
@@ -131,7 +135,9 @@ export function SiteSearch({ className }: SiteSearchProps) {
           break;
         case "cart":
           // Открыть корзину
-          (document.querySelector('[data-testid="cart-button"]') as HTMLElement)?.click();
+          (
+            document.querySelector('[data-testid="cart-button"]') as HTMLElement
+          )?.click();
           break;
         default:
           // Скролл наверх для остальных случаев
@@ -194,8 +200,6 @@ export function SiteSearch({ className }: SiteSearchProps) {
       inputRef.current.focus();
     }
   }, [isOpen]);
-
-
 
   const getTypeColor = (type: string) => {
     switch (type) {
