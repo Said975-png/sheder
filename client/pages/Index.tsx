@@ -183,7 +183,7 @@ function TypewriterCode() {
         setCurrentCharIndex(0);
         setDisplayedCode("");
         setCurrentCodeIndex((prev) => (prev + 1) % codeSnippets.length);
-      }, 3000); // Пауза 3 секунды перед следующим кодом
+      }, 3000); // Пауза 3 секунды перед следующ��м кодом
     }
 
     return () => {
@@ -649,11 +649,11 @@ export default function Index() {
       {/* Advantages Section */}
       <AdvantagesSection />
 
-      {/* Jarvis Demo Section */}
-      <JarvisDemo />
-
       {/* Pricing Section */}
       <PricingSection />
+
+      {/* Jarvis Demo Section */}
+      <JarvisDemo />
     </div>
   );
 }
