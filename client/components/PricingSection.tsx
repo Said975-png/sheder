@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useCart } from "@/contexts/CartContext";
 import {
   CheckCircle,
   ChevronLeft,
@@ -106,7 +107,7 @@ const pricingPlans: PricingPlan[] = [
     icon: <Crown className="w-8 h-8" />,
     gradient: "from-yellow-400 via-orange-500 to-red-600",
     glowColor: "shadow-yellow-400/40",
-    badge: "ПРЕМИУМ",
+    badge: "ПРЕМИ��М",
     ctaText: "Выбрать Max",
   },
 ];
@@ -115,6 +116,7 @@ export default function PricingSection() {
   const [currentSlide, setCurrentSlide] = useState(1); // Start with Pro plan (highlighted)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const { addItem } = useCart();
 
   // Auto-scroll functionality
   useEffect(() => {
@@ -161,6 +163,16 @@ export default function PricingSection() {
   };
 
   const currentPlan = pricingPlans[currentSlide];
+
+  const handleAddToCart = (plan: PricingPlan) => {
+    addItem({
+      id: plan.id,
+      name: plan.name,
+      price: parseInt(plan.price.replace(/\./g, '')),
+      description: plan.description,
+      category: 'website-package'
+    });
+  };
 
   return (
     <section className="relative py-20 px-4 overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
@@ -344,6 +356,7 @@ export default function PricingSection() {
 
                   {/* CTA Button */}
                   <Button
+                    onClick={() => handleAddToCart(currentPlan)}
                     className={cn(
                       "w-full py-3 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 font-mono group",
                       `bg-gradient-to-r ${currentPlan.gradient}`,
