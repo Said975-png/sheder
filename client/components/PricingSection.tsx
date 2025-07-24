@@ -71,7 +71,7 @@ const pricingPlans: PricingPlan[] = [
       "Персонализация контента",
       "Панель управления",
       "Интеграция с CRM",
-      "Аналитика и метрики",
+      "Аналитика и ��етрики",
       "Многоязычность",
       "API интеграции",
       "Онлайн платежи",
@@ -373,7 +373,7 @@ function PricingSection() {
             {pricingPlans.map((plan, index) => (
               <button
                 key={plan.id}
-                onClick={() => goToSlide(index)}
+                onClick={(e) => goToSlide(index, e)}
                 className={cn(
                   "relative transition-all duration-300",
                   index === currentSlide
