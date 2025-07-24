@@ -512,8 +512,12 @@ export default function Index() {
             <ThemeToggle />
           </div>
 
-          {!isScrolling && isAuthenticated && currentUser ? (
-            <DropdownMenu>
+          {isAuthenticated && currentUser ? (
+            <div className={cn(
+              "transition-all duration-500 transform",
+              isScrolling ? "scale-0 opacity-0 w-0 overflow-hidden" : "scale-100 opacity-100 w-auto"
+            )}>
+              <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
@@ -562,8 +566,12 @@ export default function Index() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : !isScrolling ? (
-            <div className="flex items-center space-x-1">
+            </div>
+          ) : (
+            <div className={cn(
+              "flex items-center space-x-1 transition-all duration-500 transform",
+              isScrolling ? "scale-0 opacity-0 w-0 overflow-hidden" : "scale-100 opacity-100 w-auto"
+            )}>
               <Button
                 variant="ghost"
                 className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
@@ -583,7 +591,7 @@ export default function Index() {
                 </Link>
               </Button>
             </div>
-          ) : null}
+          )}
         </div>
       </nav>
 
