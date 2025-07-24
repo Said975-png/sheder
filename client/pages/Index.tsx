@@ -410,7 +410,7 @@ export default function Index() {
       <nav
         className={cn(
           "fixed left-1/2 transform -translate-x-1/2 z-40 transition-all duration-300",
-          // Базовые стили в зависимости от состояния скролла
+          // Базовые стили в зависимости от состояния скролл��
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
@@ -460,6 +460,7 @@ export default function Index() {
               forceStop={forceStopVoice}
               onModelRotateStart={handleModelRotateStart}
               onModelRotateStop={handleModelRotateStop}
+              onShowAdvantages={handleShowAdvantages}
             />
           </div>
 
