@@ -406,7 +406,7 @@ export default function Index() {
           // Эффект "брови" при скролле
           isScrolling
             ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
-            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный навбар
+            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный нав��ар
         )}
       >
         <div
@@ -524,7 +524,7 @@ export default function Index() {
                                 {item.description.substring(0, 60)}...
                               </p>
                               <p className="text-sm font-semibold text-cyan-400 mt-1 font-mono">
-                                ${item.price}
+                                {item.price.toLocaleString()} сум
                               </p>
                             </div>
                             <Button
@@ -544,7 +544,7 @@ export default function Index() {
                           TOTAL:
                         </span>
                         <span className="font-bold text-white font-mono">
-                          ${getTotalPrice()}
+                          {getTotalPrice().toLocaleString()} сум
                         </span>
                       </div>
                       <div className="flex space-x-2">

@@ -13,6 +13,7 @@ import {
   FileText,
   CheckCircle,
   AlertCircle,
+  Globe,
 } from "lucide-react";
 import { OrderRequest, OrderResponse } from "@shared/api";
 
@@ -23,6 +24,7 @@ export default function OrderForm() {
     fullName: "",
     phone: "",
     description: "",
+    referenceUrl: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +43,7 @@ export default function OrderForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.fullName || !formData.phone || !formData.description) {
-      setError("Пожалуйста, заполните все поля");
+      setError("Пожалуйста, заполните все обязательные поля");
       return;
     }
 
@@ -247,6 +249,25 @@ export default function OrderForm() {
                     required
                     rows={6}
                     className="theme-input resize-none"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label
+                    htmlFor="referenceUrl"
+                    className="theme-label flex items-center"
+                  >
+                    <Globe className="w-4 h-4 mr-2" />
+                    Ссылка на понравившийся сайт (опционально)
+                  </Label>
+                  <Input
+                    id="referenceUrl"
+                    name="referenceUrl"
+                    type="url"
+                    placeholder="https://example.com - если есть сайт, который вам нравится"
+                    value={formData.referenceUrl}
+                    onChange={handleInputChange}
+                    className="theme-input"
                   />
                 </div>
 
