@@ -343,6 +343,16 @@ export default function Index() {
     setTimeout(() => setForceStopVoice(false), 100);
   };
 
+  const handleModelRotateStart = () => {
+    console.log("🔄 Запуск вращения модели");
+    setIsModelRotating(true);
+  };
+
+  const handleModelRotateStop = () => {
+    console.log("⏹️ Остановка вращения модели");
+    setIsModelRotating(false);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
