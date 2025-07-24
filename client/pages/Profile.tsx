@@ -161,7 +161,7 @@ function Profile() {
 
       localStorage.setItem("users", JSON.stringify(users));
 
-      // Обновл��ем текущего пользователя
+      // Обновляем текущего пользователя
       const updatedCurrentUser = {
         id: currentUser.id,
         name: formData.name,
@@ -200,7 +200,7 @@ function Profile() {
 
       // Проверяем текущий пароль
       if (users[userIndex].password !== formData.currentPassword) {
-        setError("Неверны�� текущий пароль");
+        setError("Неверный текущий пароль");
         return;
       }
 
@@ -287,7 +287,7 @@ function Profile() {
     if (
       currentUser &&
       window.confirm(
-        "Вы уверены, что хотите отключить Face ID? Это сн��зит безопасность вашего аккаунта.",
+        "Вы уверены, что хотите отключить Face ID? Это снизит безопасность вашего аккаунта.",
       )
     ) {
       const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
@@ -321,7 +321,7 @@ function Profile() {
               <Settings className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold">Профи��ь пользователя</h1>
+              <h1 className="text-3xl font-bold">Профиль пользователя</h1>
               <p className="text-white/70">
                 Управляйте настройками вашего аккаунта
               </p>
@@ -659,8 +659,8 @@ function Profile() {
                           Удалить аккаунт
                         </h5>
                         <p className="text-red-300/70 text-sm mb-4">
-                          Удаление аккаунта приведёт к полному удалению вс��х
-                          ваших данных. Это дейст��ие нельзя отменить.
+                          Удаление аккаунта приведёт к полному удалению всех
+                          ваших данных. Это действие нельзя отменить.
                         </p>
                         <Button
                           onClick={handleDeleteAccount}
