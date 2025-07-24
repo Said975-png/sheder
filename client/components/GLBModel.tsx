@@ -20,7 +20,7 @@ function RisingParticles() {
       positions[i3 + 1] = (Math.random() - 0.5) * 6 - 3; // y (начинаем снизу)
       positions[i3 + 2] = -2 - Math.random() * 3; // z (за моделью)
 
-      // Скорос��и подъёма
+      // Скорости подъёма
       velocities[i3] = (Math.random() - 0.5) * 0.02; // небольшое горизонтальное движение
       velocities[i3 + 1] = 0.01 + Math.random() * 0.02; // подъём вверх
       velocities[i3 + 2] = (Math.random() - 0.5) * 0.01; // небольшое движение по z
@@ -77,31 +77,7 @@ function RisingParticles() {
   );
 }
 
-// Компонент для фиолетового неонового свечения
-function PurpleGlow() {
-  const glowRef = useRef<THREE.Mesh>(null);
 
-  useFrame((state) => {
-    if (glowRef.current) {
-      const time = state.clock.getElapsedTime();
-      // Пульсирующее свечение
-      const intensity = 0.3 + Math.sin(time * 2) * 0.1;
-      (glowRef.current.material as THREE.MeshBasicMaterial).opacity = intensity;
-    }
-  });
-
-  return (
-    <mesh ref={glowRef} position={[0, 0, -3]}>
-      <sphereGeometry args={[8, 16, 16]} />
-      <meshBasicMaterial
-        color="#a855f7"
-        transparent
-        opacity={0.1}
-        blending={THREE.AdditiveBlending}
-      />
-    </mesh>
-  );
-}
 
 interface GLBModelProps {
   url: string;
@@ -148,7 +124,7 @@ function Model({
 
   useFrame((state) => {
     if (modelRef.current) {
-      // Добавляем эффект гравитации - модель слегка п��качивается
+      // Добавляем эффект гравитации - модель слегка покачивается
       const time = state.clock.getElapsedTime();
 
       // Гравитационное покачивание
