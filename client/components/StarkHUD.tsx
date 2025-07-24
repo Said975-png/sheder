@@ -26,7 +26,7 @@ export function StarkHUD({
   return (
     <div
       className={cn(
-        "relative overflow-hidden",
+        "relative overflow-hidden stark-card-corners",
         animated && "transition-all duration-500",
         !initialized && animated && "opacity-0 scale-95",
         initialized && animated && "opacity-100 scale-100",

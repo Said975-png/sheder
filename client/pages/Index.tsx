@@ -43,7 +43,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Компонент дл�� анимации печати кода
+// К����по��ент дл�� анимации печати кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -180,7 +180,7 @@ function TypewriterCode() {
         setCurrentCharIndex(0);
         setDisplayedCode("");
         setCurrentCodeIndex((prev) => (prev + 1) % codeSnippets.length);
-      }, 3000); // Пауза 3 секунды перед следующим кодом
+      }, 3000); // Пауза 3 секунды перед след��ющим кодом
     }
 
     return () => {
@@ -251,6 +251,7 @@ export default function Index() {
   const [isScrolling, setIsScrolling] = useState(false);
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
+  const [isModelRotating, setIsModelRotating] = useState(false);
 
   // Запуск анимации при загрузке компонента
   useEffect(() => {
@@ -333,13 +334,23 @@ export default function Index() {
   };
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
-    // Микрофон работает в фоне, панель не показываем
+    // Микрофон работает в фоне, панель не по��азываем
     console.log("🎤 Микрофон активен:", isListening, "Транскрипт:", transcript);
   };
 
   const handleStopListening = () => {
     setForceStopVoice(true);
     setTimeout(() => setForceStopVoice(false), 100);
+  };
+
+  const handleModelRotateStart = () => {
+    console.log("🔄 Запуск вращения модели");
+    setIsModelRotating(true);
+  };
+
+  const handleModelRotateStop = () => {
+    console.log("⏹️ Остановка вращения модели");
+    setIsModelRotating(false);
   };
 
   if (loading) {
@@ -390,7 +401,7 @@ export default function Index() {
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
-          // Эффект "брови" при скролле
+          // Эффект "брови" при скролл��
           isScrolling
             ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
             : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный навбар
@@ -434,6 +445,8 @@ export default function Index() {
               inNavbar={true}
               onListeningChange={handleListeningChange}
               forceStop={forceStopVoice}
+              onModelRotateStart={handleModelRotateStart}
+              onModelRotateStop={handleModelRotateStop}
             />
           </div>
 
@@ -499,7 +512,7 @@ export default function Index() {
                         {items.map((item) => (
                           <div
                             key={item.id}
-                            className="flex items-start justify-between p-2 bg-gray-800/50 border border-cyan-400/20 rounded-lg"
+                            className="flex items-start justify-between p-2 bg-gray-800/50 border border-cyan-400/20 rounded-lg stark-corners"
                           >
                             <div className="flex-1">
                               <h4 className="font-medium text-sm text-white font-mono">
@@ -659,7 +672,11 @@ export default function Index() {
       </nav>
 
       {/* Hero Section - Stark Style */}
-      <StarkHero />
+      <StarkHero
+        isModelRotating={isModelRotating}
+        onModelRotationStart={handleModelRotateStart}
+        onModelRotationStop={handleModelRotateStop}
+      />
 
       {/* Our Advantages Section - AI & Modern Websites */}
       <section className="py-20 bg-black relative overflow-hidden">
@@ -790,7 +807,7 @@ export default function Index() {
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
                   Используем самые современные технологии для максимальной
-                  производительности
+                  произво��ительности
                 </p>
                 <div className="flex items-center text-purple-400 text-sm">
                   <Lock className="w-4 h-4 mr-2" />

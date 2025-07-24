@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Zap, Code } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -20,9 +20,17 @@ import { SiteSearch } from "@/components/SiteSearch";
 
 interface StarkHeroProps {
   className?: string;
+  isModelRotating?: boolean;
+  onModelRotationStart?: () => void;
+  onModelRotationStop?: () => void;
 }
 
-export default function StarkHero({ className }: StarkHeroProps) {
+export default function StarkHero({
+  className,
+  isModelRotating = false,
+  onModelRotationStart,
+  onModelRotationStop,
+}: StarkHeroProps) {
   const [scanProgress, setScanProgress] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [targetLocked, setTargetLocked] = useState(false);
@@ -203,6 +211,9 @@ export default function StarkHero({ className }: StarkHeroProps) {
                 url="https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f"
                 scale={3.0}
                 autoRotate={true}
+                isRotating={isModelRotating}
+                onRotationStart={onModelRotationStart}
+                onRotationStop={onModelRotationStop}
               />
             </div>
           </div>
