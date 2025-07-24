@@ -45,7 +45,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Компонент для анима��ии печати кода
+// Компонент для анимации печати кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -351,7 +351,7 @@ export default function Index() {
   };
 
   const handleModelRotateStop = () => {
-    console.log("⏹️ Остановка ��ращения модели");
+    console.log("⏹️ Остановка вращения модели");
     setIsModelRotating(false);
   };
 
@@ -682,6 +682,9 @@ export default function Index() {
 
       {/* Advantages Section */}
       <AdvantagesSection />
+
+      {/* Pricing Section */}
+      <PricingSection />
     </div>
   );
 }
