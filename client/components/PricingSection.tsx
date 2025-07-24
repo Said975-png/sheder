@@ -259,35 +259,35 @@ export default function PricingSection() {
                 {/* Card Content */}
                 <div className="relative z-10">
                   {/* Header */}
-                  <div className="text-center mb-8">
+                  <div className="text-center mb-6">
                     <div className={cn(
-                      "w-20 h-20 rounded-full bg-gradient-to-br flex items-center justify-center mb-6 mx-auto transition-all duration-500",
+                      "w-16 h-16 rounded-full bg-gradient-to-br flex items-center justify-center mb-4 mx-auto transition-all duration-500",
                       currentPlan.gradient,
                       currentPlan.glowColor,
                       "hover:scale-110"
                     )}>
                       <div className="text-white">
-                        {currentPlan.icon}
+                        {React.cloneElement(currentPlan.icon as React.ReactElement, { className: "w-6 h-6" })}
                       </div>
                     </div>
 
-                    <h3 className="text-3xl font-bold text-white mb-2 font-mono">
+                    <h3 className="text-2xl font-bold text-white mb-2 font-mono">
                       {currentPlan.name}
                     </h3>
 
-                    <div className="mb-4">
+                    <div className="mb-3">
                       <div className="flex items-baseline justify-center space-x-2">
-                        <span className="text-4xl font-bold text-white">{currentPlan.price}</span>
-                        <span className="text-lg text-white/70">сум</span>
+                        <span className="text-3xl font-bold text-white">{currentPlan.price}</span>
+                        <span className="text-sm text-white/70">сум</span>
                       </div>
                       {currentPlan.originalPrice && (
-                        <div className="text-white/50 line-through text-lg">
+                        <div className="text-white/50 line-through text-sm">
                           {currentPlan.originalPrice} сум
                         </div>
                       )}
                     </div>
 
-                    <p className="text-white/80 text-lg leading-relaxed">
+                    <p className="text-white/80 text-sm leading-relaxed">
                       {currentPlan.description}
                     </p>
                   </div>
@@ -403,7 +403,7 @@ export default function PricingSection() {
         <div className="text-center mt-16">
           <div className="bg-gradient-to-r from-black/50 to-gray-900/50 backdrop-blur-lg border border-cyan-400/20 rounded-2xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-white mb-4 font-mono">
-              Не можете определиться?
+              Не мож��те определиться?
             </h3>
             <p className="text-white/70 mb-6 leading-relaxed">
               Свяжитесь с нами для бесплатной консультации. 
