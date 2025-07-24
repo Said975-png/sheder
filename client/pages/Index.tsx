@@ -64,7 +64,7 @@ function TypewriterCode() {
         "        STARK INDUSTRIES",
         "      </h1>",
         '      <Button variant="stark">',
-        "        Активировать",
+        "        А��тивировать",
         "      </Button>",
         "    </div>",
         "  );",
@@ -385,14 +385,16 @@ export default function Index() {
           )}
 
           {/* JARVIS Interface in Navbar */}
-          <JarvisInterface
-            onAddBasicPlan={handleAddBeginnerPlan}
-            onAddProPlan={handleAddIntermediatePlan}
-            onAddMaxPlan={handleAddAdvancedPlan}
-            inNavbar={true}
-            onListeningChange={handleListeningChange}
-            forceStop={forceStopVoice}
-          />
+          {!isScrolling && (
+            <JarvisInterface
+              onAddBasicPlan={handleAddBeginnerPlan}
+              onAddProPlan={handleAddIntermediatePlan}
+              onAddMaxPlan={handleAddAdvancedPlan}
+              inNavbar={true}
+              onListeningChange={handleListeningChange}
+              forceStop={forceStopVoice}
+            />
+          )}
 
           {/* Dynamic Island indicator during scroll */}
           {isScrolling && (
@@ -618,7 +620,7 @@ export default function Index() {
             </StarkHUD>
 
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Современные <HologramText glitch>Динамичные</HologramText> Са��ты
+              Современные <HologramText glitch>Динамичные</HologramText> Сайты
             </h2>
             <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
               <GlitchText intensity="low">
