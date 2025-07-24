@@ -83,16 +83,6 @@ export default function JarvisInterface({
           onListeningChange={onListeningChange}
           forceStop={forceStop}
         />
-        <div className="text-xs font-mono">
-          <div
-            className={cn(
-              "font-bold",
-              statusColors[systemStatus as keyof typeof statusColors],
-            )}
-          >
-            {systemStatus}
-          </div>
-        </div>
       </div>
     );
   }
