@@ -168,9 +168,9 @@ export default function PricingSection() {
     addItem({
       id: plan.id,
       name: plan.name,
-      price: parseInt(plan.price.replace(/\./g, '')),
+      price: parseInt(plan.price.replace(/\./g, "")),
       description: plan.description,
-      category: 'website-package'
+      category: "website-package",
     });
   };
 

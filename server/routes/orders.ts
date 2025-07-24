@@ -72,12 +72,16 @@ const createOrderEmailTemplate = (orderData: OrderData): string => {
             <p>${formData.description}</p>
           </div>
 
-          ${formData.referenceUrl ? `
+          ${
+            formData.referenceUrl
+              ? `
           <h2>🌐 Ссылка на образец сайта</h2>
           <div class="customer-info">
             <p><a href="${formData.referenceUrl}" target="_blank" style="color: #667eea; text-decoration: none;">${formData.referenceUrl}</a></p>
           </div>
-          ` : ''}
+          `
+              : ""
+          }
           
           <h2>🛒 Заказанные услуги</h2>
           ${items
@@ -160,7 +164,7 @@ export const handleSendOrder: RequestHandler = async (req, res) => {
 Новый заказ от ${fullName}
 Телефон: ${phone}
 Описание: ${description}
-${referenceUrl ? `Ссылка на образец: ${referenceUrl}` : ''}
+${referenceUrl ? `Ссылка на образец: ${referenceUrl}` : ""}
 Общая стоимость: ${orderData.total.toLocaleString()} сум
 
 Заказанные услуги:
