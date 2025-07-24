@@ -387,7 +387,7 @@ export default function Index() {
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
           // Эффект "брови" при скролле
-          isScrolling
+          false
             ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
             : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный нав��ар
         )}
@@ -395,7 +395,7 @@ export default function Index() {
         <div
           className={cn(
             "flex items-center transition-all duration-500 overflow-hidden",
-            isScrolling
+            false
               ? "space-x-1 opacity-100 scale-100"
               : "space-x-2 opacity-100 scale-100",
           )}
@@ -405,7 +405,7 @@ export default function Index() {
             variant="ghost"
             className={cn(
               "text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-500 font-mono transform",
-              isScrolling
+              false
                 ? "scale-0 opacity-0 w-0 overflow-hidden"
                 : "scale-100 opacity-100 w-auto",
             )}
@@ -418,7 +418,7 @@ export default function Index() {
           <div
             className={cn(
               "transition-all duration-500 transform",
-              isScrolling
+              false
                 ? "scale-0 opacity-0 w-0 overflow-hidden"
                 : "scale-100 opacity-100 w-auto",
             )}
@@ -439,7 +439,7 @@ export default function Index() {
           <div
             className={cn(
               "flex items-center space-x-1 transition-all duration-500 transform",
-              isScrolling
+              false
                 ? "scale-100 opacity-100 w-auto"
                 : "scale-0 opacity-0 w-0 overflow-hidden",
             )}
@@ -459,7 +459,7 @@ export default function Index() {
           <div
             className={cn(
               "transition-all duration-500 transform",
-              isScrolling
+              false
                 ? "scale-0 opacity-0 w-0 overflow-hidden"
                 : "scale-100 opacity-100 w-auto",
             )}
@@ -557,7 +557,7 @@ export default function Index() {
           <div
             className={cn(
               "transition-all duration-500 transform",
-              isScrolling
+              false
                 ? "scale-0 opacity-0 w-0 overflow-hidden"
                 : "scale-100 opacity-100 w-auto",
             )}
@@ -569,7 +569,7 @@ export default function Index() {
             <div
               className={cn(
                 "transition-all duration-500 transform",
-                isScrolling
+                false
                   ? "scale-0 opacity-0 w-0 overflow-hidden"
                   : "scale-100 opacity-100 w-auto",
               )}
@@ -628,7 +628,7 @@ export default function Index() {
             <div
               className={cn(
                 "flex items-center space-x-1 transition-all duration-500 transform",
-                isScrolling
+                false
                   ? "scale-0 opacity-0 w-0 overflow-hidden"
                   : "scale-100 opacity-100 w-auto",
               )}
