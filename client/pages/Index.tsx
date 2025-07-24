@@ -276,8 +276,6 @@ export default function Index() {
       timeoutRef = setTimeout(() => {
         setIsScrolling(false);
       }, 3000); // 3 секунды после остановки скролла
-
-      setScrollTimeout(timeoutRef);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -741,7 +739,7 @@ export default function Index() {
 
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Адаптивные интерфейсы с анимациями и интерактивными
+                  Адаптивные и��терфейсы с анимациями и интерактивными
                   элементами
                 </p>
                 <div className="flex items-center text-blue-400 text-sm">
