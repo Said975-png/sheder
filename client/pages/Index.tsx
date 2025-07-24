@@ -670,7 +670,11 @@ export default function Index() {
       </nav>
 
       {/* Hero Section - Stark Style */}
-      <StarkHero />
+      <StarkHero
+        isModelRotating={isModelRotating}
+        onModelRotationStart={handleModelRotateStart}
+        onModelRotationStop={handleModelRotateStop}
+      />
 
       {/* Our Advantages Section - AI & Modern Websites */}
       <section className="py-20 bg-black relative overflow-hidden">
