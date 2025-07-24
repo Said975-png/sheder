@@ -50,13 +50,13 @@ const pricingPlans: PricingPlan[] = [
       "Контактные формы",
       "Галерея изображений",
       "Социальные сети",
-      "Техническая поддержка 3 месяца",
+      "Техническая поддержк�� 3 месяца",
     ],
     highlight: false,
     icon: <Palette className="w-8 h-8" />,
     gradient: "from-blue-500 via-cyan-500 to-teal-500",
     glowColor: "shadow-blue-400/30",
-    ctaText: "Выбрат�� Basic",
+    ctaText: "Выбрать Basic",
   },
   {
     id: "pro",
@@ -92,7 +92,7 @@ const pricingPlans: PricingPlan[] = [
       "Безграничные возможности с Джарвисом и инновационными функциями",
     features: [
       "Все из пакета Pro",
-      "Встроенный Джарвис с ��олосовыми ответами",
+      "Встроенный Джарвис с голосовыми ответами",
       "Персональная настройка ИИ",
       "3D элементы и анимации",
       "VR/AR интеграция",
@@ -233,8 +233,7 @@ function PricingSection() {
                   ? "scale-90 opacity-70"
                   : "scale-100 opacity-100",
               )}
-              onMouseEnter={() => setIsAutoPlaying(false)}
-              onMouseLeave={() => setIsAutoPlaying(true)}
+
             >
               <div
                 className={cn(
