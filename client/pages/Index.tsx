@@ -547,7 +547,7 @@ export default function Index() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : (
+          ) : !isScrolling ? (
             <div className="flex items-center space-x-1">
               <Button
                 variant="ghost"
@@ -568,7 +568,7 @@ export default function Index() {
                 </Link>
               </Button>
             </div>
-          )}
+          ) : null}
         </div>
       </nav>
 
@@ -618,7 +618,7 @@ export default function Index() {
             </StarkHUD>
 
             <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Современные <HologramText glitch>Динамичные</HologramText> Сайты
+              Современные <HologramText glitch>Динамичные</HologramText> Са��ты
             </h2>
             <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
               <GlitchText intensity="low">
