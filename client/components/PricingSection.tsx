@@ -98,7 +98,7 @@ const pricingPlans: PricingPlan[] = [
       "Кастомные модули",
       "Безлимитные изменения",
       "Приоритетная поддержка 12 месяцев",
-      "Персональ��ый менеджер проекта"
+      "Персональный менеджер проекта"
     ],
     highlight: false,
     icon: <Crown className="w-8 h-8" />,
@@ -192,7 +192,7 @@ export default function PricingSection() {
           
           <p className="text-xl text-white/80 max-w-4xl mx-auto leading-relaxed">
             Выберите тариф, который идеально подходит для ваших целей. 
-            От стил��ного базового сайта до премиального решения с Джарвисом
+            От стильного базового сайта до премиального решения с Джарвисом
           </p>
         </div>
 
@@ -315,15 +315,15 @@ export default function PricingSection() {
                   {/* CTA Button */}
                   <Button
                     className={cn(
-                      "w-full py-4 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 font-mono group",
+                      "w-full py-3 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 font-mono group",
                       `bg-gradient-to-r ${currentPlan.gradient}`,
                       "text-white shadow-lg hover:shadow-xl",
                       `hover:${currentPlan.glowColor}`
                     )}
                   >
-                    <Sparkles className="w-5 h-5 mr-2 group-hover:animate-spin" />
+                    <Sparkles className="w-4 h-4 mr-2 group-hover:animate-spin" />
                     {currentPlan.ctaText}
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                   </Button>
                 </div>
               </div>
@@ -413,7 +413,7 @@ export default function PricingSection() {
               className="px-8 py-3 text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 transform hover:scale-105 font-mono"
             >
               <Heart className="w-5 h-5 mr-2" />
-              Бесплатная Консульт��ция
+              Бесплатная Консультация
             </Button>
           </div>
         </div>
