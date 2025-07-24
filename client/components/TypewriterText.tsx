@@ -19,6 +19,12 @@ export function TypewriterText({
   const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
+  const onCompleteRef = useRef(onComplete);
+
+  // Обновляем ref при изменении onComplete
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     if (delay > 0) {
