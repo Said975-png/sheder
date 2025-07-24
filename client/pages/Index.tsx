@@ -263,32 +263,34 @@ export default function Index() {
 
   // Отслеживание скролла для навбара с эффектом "брови"
   useEffect(() => {
+    let timeoutRef: NodeJS.Timeout | null = null;
+
     const handleScroll = () => {
       const scrolled = window.scrollY > 100;
       setNavbarScrolled(scrolled);
       setIsScrolling(true);
 
       // Очищаем предыдущий таймаут
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
+      if (timeoutRef) {
+        clearTimeout(timeoutRef);
       }
 
       // Устанавливаем новый таймаут для остановки скролла
-      const newTimeout = setTimeout(() => {
+      timeoutRef = setTimeout(() => {
         setIsScrolling(false);
       }, 3000); // 3 секунды после остановки скролла
 
-      setScrollTimeout(newTimeout);
+      setScrollTimeout(timeoutRef);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
+      if (timeoutRef) {
+        clearTimeout(timeoutRef);
       }
     };
-  }, [scrollTimeout]);
+  }, []);
 
   const handleLogout = () => {
     logout();
@@ -908,7 +910,7 @@ export default function Index() {
             <div className="inline-block">
               <p className="text-cyan-400 font-mono text-sm mb-4">
                 <GlitchText intensity="low">
-                  ГОТОВЫ УВИДЕТЬ СВОЙ ПРОЕКТ В ДЕЙСТВИИ?
+                  ГОТОВЫ УВИДЕТЬ СВОЙ ПРОЕКТ В ��ЕЙСТВИИ?
                 </GlitchText>
               </p>
               <div className="flex justify-center space-x-4">
