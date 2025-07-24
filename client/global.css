@@ -2069,21 +2069,21 @@
 
   /* ЦЕНТРАЛЬНОЕ НЕОНОВОЕ СВЕЧЕНИЕ */
   .neon-center-glow {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: 200px;
-    height: 200px;
-    transform: translate(-50%, -50%);
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 400px !important;
+    height: 400px !important;
+    transform: translate(-50%, -50%) !important;
     background: radial-gradient(
       circle,
-      rgba(139, 69, 255, 0.1) 0%,
-      rgba(168, 85, 247, 0.05) 40%,
+      rgba(139, 69, 255, 0.3) 0%,
+      rgba(168, 85, 247, 0.15) 40%,
       transparent 70%
-    );
-    pointer-events: none;
-    z-index: -9;
-    animation: centerPulse 10s ease-in-out infinite;
+    ) !important;
+    pointer-events: none !important;
+    z-index: 3 !important;
+    animation: centerPulse 5s ease-in-out infinite !important;
   }
 
   @keyframes centerPulse {
