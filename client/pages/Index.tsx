@@ -349,19 +349,8 @@ export default function Index() {
   };
 
   const handleModelRotateStop = () => {
-    console.log("⏹️ Остановка вращения модели");
+    console.log("��️ Остановка вращения модели");
     setIsModelRotating(false);
-  };
-
-  const handleShowAdvantages = () => {
-    console.log("🎯 Переключение на секцию преимуществ");
-    setIsTransitioning(true);
-
-    // Глитч эффект
-    setTimeout(() => {
-      setShowAdvantages(true);
-      setIsTransitioning(false);
-    }, 1500);
   };
 
   if (loading) {
@@ -814,7 +803,7 @@ export default function Index() {
 
                   <div className="space-y-3">
                     <p className="text-white/70 text-sm leading-relaxed font-mono">
-                      Умные чат-боты, голосовое управление и машинное обучение
+                      Умные чат-боты, голосовое управление и маш��нное обучение
                     </p>
                     <div className="flex items-center text-blue-400 text-sm">
                       <Eye className="w-4 h-4 mr-2" />
