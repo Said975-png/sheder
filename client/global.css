@@ -354,7 +354,7 @@
     }
   }
 
-  /* Неон��вое свечение для активного навбара */
+  /* Неоновое свечение для активного навбара */
   .neon-glow {
     position: relative;
     box-shadow:
@@ -1423,7 +1423,7 @@
     --gradient-to: 265 70% 20%;
   }
 
-  /* Эффект сканирования для переключ��ния темы */
+  /* Эффект сканирования для переключения темы */
   .lab-activation-scan {
     position: fixed;
     top: 0;
@@ -1520,7 +1520,7 @@
       0 0 15px #00f7ff;
   }
 
-  /* Голографическая сетка HUD */
+  /* Г��лографическая сетка HUD */
   .stark-lab-hud-grid {
     position: fixed;
     top: 0;
@@ -1872,7 +1872,7 @@
     width: 100vw !important;
     height: 100vh !important;
     pointer-events: none !important;
-    z-index: 10 !important;
+    z-index: -900 !important;
   }
 
   .neon-corner {
