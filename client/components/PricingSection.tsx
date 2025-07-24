@@ -93,7 +93,7 @@ const pricingPlans: PricingPlan[] = [
     features: [
       "Все из пакета Pro",
       "Встроенный Джарвис с голосовыми ответами",
-      "Персональная настройка ИИ",
+      "Персон��льная настройка ИИ",
       "3D элементы и анимации",
       "VR/AR интеграция",
       "Блокчейн функции",
@@ -337,7 +337,7 @@ function PricingSection() {
                   <div className="mb-6">
                     <h4 className="text-cyan-400 font-semibold mb-4 text-sm font-mono flex items-center justify-center">
                       <Zap className="w-4 h-4 mr-2" />
-                      Что вк��ючено:
+                      Что включено:
                     </h4>
 
                     <div className="space-y-2 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-400/30 scrollbar-track-transparent">
@@ -457,7 +457,7 @@ function PricingSection() {
             </h3>
             <p className="text-white/70 mb-6 leading-relaxed">
               Свяжитесь с нами для бесплатной консультации. Мы поможем выбрать
-              идеаль��ый пакет для ваших потребностей.
+              идеальный пакет для ваших потребностей.
             </p>
             <Button className="px-8 py-3 text-lg font-semibold bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white rounded-xl shadow-lg hover:shadow-cyan-400/25 transition-all duration-300 transform hover:scale-105 font-mono">
               <Heart className="w-5 h-5 mr-2" />
@@ -469,3 +469,5 @@ function PricingSection() {
     </section>
   );
 }
+
+export default React.memo(PricingSection);
