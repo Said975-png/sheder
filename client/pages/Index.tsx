@@ -89,7 +89,7 @@ function TypewriterCode() {
         '    <div className="ai-interface">',
         '      <Brain className="neural-icon" />',
         "      <button onClick={handleVoiceCommand}>",
-        '        {isActive ? "Деактивировать" : "Активирова��ь"}',
+        '        {isActive ? "Деактивировать" : "Активировать"}',
         "      </button>",
         "    </div>",
         "  );",
@@ -366,7 +366,7 @@ export default function Index() {
       <nav
         className={cn(
           "fixed left-1/2 transform -translate-x-1/2 z-40 transition-all duration-300",
-          // Базовые стили в зависимости от состояни�� скролла
+          // Базовые стили в зависимости от состояния скролла
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
@@ -769,7 +769,7 @@ export default function Index() {
 
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Используем самые современные технологии для максимальной
+                  Используем ��амые современные технологии для максимальной
                   производительности
                 </p>
                 <div className="flex items-center text-purple-400 text-sm">
