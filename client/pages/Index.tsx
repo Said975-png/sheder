@@ -251,6 +251,7 @@ export default function Index() {
   const [isScrolling, setIsScrolling] = useState(false);
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
+  const [isModelRotating, setIsModelRotating] = useState(false);
 
   // Запуск анимации при загрузке компонента
   useEffect(() => {
