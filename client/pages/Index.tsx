@@ -259,16 +259,34 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Отслеживание скролла для навбара
+  // Отслеживание скролла для навбара с эффектом "брови"
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 100;
       setNavbarScrolled(scrolled);
+      setIsScrolling(true);
+
+      // Очищаем предыдущий таймаут
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
+      // Устанавливаем новый таймаут для остановки скролла
+      const newTimeout = setTimeout(() => {
+        setIsScrolling(false);
+      }, 150); // 150мс после остановки скролла
+
+      setScrollTimeout(newTimeout);
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+    };
+  }, [scrollTimeout]);
 
   const handleLogout = () => {
     logout();
@@ -586,7 +604,7 @@ export default function Index() {
             <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
               <GlitchText intensity="low">
                 Мы создаем не просто веб-сайты — мы создаем интеллектуальные
-                цифровые экосистемы с встроенным иск��сственным интеллектом
+                цифровые экосистемы с встроенным искусственным интеллектом
               </GlitchText>
             </p>
 
@@ -611,7 +629,7 @@ export default function Index() {
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
                   Интеграция передовых AI-технологий для создания умных
-                  интерфейсов
+                  интерфей��ов
                 </p>
                 <div className="flex items-center text-cyan-400 text-sm">
                   <Zap className="w-4 h-4 mr-2" />
