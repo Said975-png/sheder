@@ -89,7 +89,7 @@ function TypewriterCode() {
         '    <div className="ai-interface">',
         '      <Brain className="neural-icon" />',
         '      <button onClick={handleVoiceCommand}>',
-        '        {isActive ? "Деактивировать" : "Активиро��ать"}',
+        '        {isActive ? "Деактивировать" : "Активировать"}',
         '      </button>',
         '    </div>',
         '  );',
@@ -725,57 +725,13 @@ export default function Index() {
                     <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                   </div>
                   <span className="text-sm text-cyan-400 font-mono ml-4">
-                    <GlitchText intensity="low">stark-interface.tsx</GlitchText>
+                    <GlitchText intensity="low">dynamic-typing.tsx</GlitchText>
                   </span>
                 </div>
-                <div className="text-xs text-white/60 font-mono">COMPILING...</div>
+                <div className="text-xs text-white/60 font-mono">LIVE CODING...</div>
               </div>
 
-              <div className="font-mono text-sm space-y-1 text-white/90">
-                <div className="animate-pulse">
-                  <span className="text-purple-400">import</span> <span className="text-blue-400">React</span> <span className="text-purple-400">from</span> <span className="text-green-400">'react'</span>
-                </div>
-                <div className="animate-pulse">
-                  <span className="text-purple-400">import</span> <span className="text-yellow-400">{'{ Button }'}</span> <span className="text-purple-400">from</span> <span className="text-green-400">'@/components'</span>
-                </div>
-                <div></div>
-                <div className="animate-pulse">
-                  <span className="text-purple-400">export</span> <span className="text-blue-400">function</span> <span className="text-yellow-400">StarkInterface</span>() {'{'}
-                </div>
-                <div className="animate-pulse">
-                  &nbsp;&nbsp;<span className="text-purple-400">return</span> (
-                </div>
-                <div className="animate-pulse">
-                  &nbsp;&nbsp;&nbsp;&nbsp;{'<'}<span className="text-red-400">div</span> <span className="text-blue-400">className</span>=<span className="text-green-400">"stark-container"</span>{'>'}
-                </div>
-                <div className="animate-pulse">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'<'}<span className="text-red-400">h1</span> <span className="text-blue-400">className</span>=<span className="text-green-400">"glow-text"</span>{'>'}
-                </div>
-                <div className="animate-pulse">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-white">STARK INDUSTRIES</span>
-                </div>
-                <div className="animate-pulse">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'</'}<span className="text-red-400">h1</span>{'>'}
-                </div>
-                <div className="animate-pulse">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'<'}<span className="text-red-400">Button</span> <span className="text-blue-400">variant</span>=<span className="text-green-400">"stark"</span>{'>'}
-                </div>
-                <div className="animate-pulse">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span className="text-white">Активировать</span>
-                </div>
-                <div className="animate-pulse">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{'</'}<span className="text-red-400">Button</span>{'>'}
-                </div>
-                <div className="animate-pulse">
-                  &nbsp;&nbsp;&nbsp;&nbsp;{'</'}<span className="text-red-400">div</span>{'>'}
-                </div>
-                <div className="animate-pulse">
-                  &nbsp;&nbsp;);
-                </div>
-                <div className="animate-pulse">
-                  {'}'}
-                </div>
-              </div>
+              <TypewriterCode />
             </StarkHUD>
 
             {/* Website Preview Box */}
