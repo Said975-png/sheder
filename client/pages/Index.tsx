@@ -806,7 +806,7 @@ export default function Index() {
 
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Используем самые современные технологии для максимальной
+                  Используем самые современные т��хнологии для максимальной
                   произво��ительности
                 </p>
                 <div className="flex items-center text-purple-400 text-sm">
@@ -830,7 +830,7 @@ export default function Index() {
               </p>
               <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg stark-glow group">
                 <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
-                <span className="font-mono">ЗАПУСТИТЬ ПРОЕКТ</span>
+                <span className="font-mono">ЗАПУСТИТЬ ��РОЕКТ</span>
               </Button>
             </div>
           </div>
@@ -962,6 +962,422 @@ export default function Index() {
                 </Button>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Секция услуг по созданию сайтов */}
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900 relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <StarkHUD
+              className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3 mb-6"
+              showCorners={false}
+            >
+              <div className="flex items-center space-x-3">
+                <ArcReactor size="small" pulsing />
+                <span className="text-sm text-cyan-400 uppercase tracking-widest font-mono">
+                  [ УСЛУГИ ПО СОЗДАНИЮ САЙТОВ ]
+                </span>
+              </div>
+            </StarkHUD>
+
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Полный Спектр <HologramText glitch>Веб-Решений</HologramText>
+            </h2>
+            <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
+              <GlitchText intensity="low">
+                От лендингов до сложных веб-приложений — создаем сайты нового поколения
+              </GlitchText>
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Корпоративные сайты */}
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500/20 to-cyan-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-blue-400/30">
+                  <Layers className="w-8 h-8 text-blue-400 group-hover:animate-pulse" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
+                  <GlitchText intensity="low">Корпоративные Сайты</GlitchText>
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-white/70 text-sm leading-relaxed font-mono">
+                  Престижные корпоративные сайты с современным дизайном и функциональностью
+                </p>
+                <div className="flex items-center text-blue-400 text-sm">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Адаптивный дизайн</span>
+                </div>
+                <div className="flex items-center text-blue-400 text-sm">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  <span className="font-mono">SEO оптимизация</span>
+                </div>
+                <div className="flex items-center text-blue-400 text-sm">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  <span className="font-mono">CMS интеграция</span>
+                </div>
+              </div>
+
+              <Button className="w-full mt-6 bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white stark-glow">
+                <span className="font-mono">ЗАКАЗАТЬ ОТ $2,500</span>
+              </Button>
+            </StarkHUD>
+
+            {/* Интернет-магазины */}
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-500/20 to-emerald-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-green-400/30">
+                  <ShoppingCart className="w-8 h-8 text-green-400 group-hover:animate-pulse" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
+                  <GlitchText intensity="medium">Интернет-Магазины</GlitchText>
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-white/70 text-sm leading-relaxed font-mono">
+                  E-commerce решения с продвинутой системой управления товарами
+                </p>
+                <div className="flex items-center text-green-400 text-sm">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Каталог товаров</span>
+                </div>
+                <div className="flex items-center text-green-400 text-sm">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Платежные системы</span>
+                </div>
+                <div className="flex items-center text-green-400 text-sm">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  <span className="font-mono">��налитика продаж</span>
+                </div>
+              </div>
+
+              <Button className="w-full mt-6 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white stark-glow">
+                <span className="font-mono">ЗАКАЗАТЬ ОТ $3,500</span>
+              </Button>
+            </StarkHUD>
+
+            {/* Лендинг страницы */}
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500/20 to-pink-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-purple-400/30">
+                  <TrendingUp className="w-8 h-8 text-purple-400 group-hover:animate-pulse" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
+                  <GlitchText intensity="low">Лендинг Страницы</GlitchText>
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-white/70 text-sm leading-relaxed font-mono">
+                  Высококонверсионные лендинги для максимального привлечения клиентов
+                </p>
+                <div className="flex items-center text-purple-400 text-sm">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Высокая конверсия</span>
+                </div>
+                <div className="flex items-center text-purple-400 text-sm">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  <span className="font-mono">A/B тестирование</span>
+                </div>
+                <div className="flex items-center text-purple-400 text-sm">
+                  <CheckCircle className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Интеграция с CRM</span>
+                </div>
+              </div>
+
+              <Button className="w-full mt-6 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white stark-glow">
+                <span className="font-mono">ЗАКАЗАТЬ ОТ $1,200</span>
+              </Button>
+            </StarkHUD>
+          </div>
+        </div>
+      </section>
+
+      {/* Процесс разработки */}
+      <section className="py-20 bg-black relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <StarkHUD
+              className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3 mb-6"
+              showCorners={false}
+            >
+              <div className="flex items-center space-x-3">
+                <ArcReactor size="small" pulsing />
+                <span className="text-sm text-cyan-400 uppercase tracking-widest font-mono">
+                  [ ПРОЦЕСС РАЗРАБОТКИ ]
+                </span>
+              </div>
+            </StarkHUD>
+
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Как Мы <HologramText glitch>Создаем</HologramText> Ваш Сайт
+            </h2>
+            <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
+              <GlitchText intensity="low">
+                Прозрачный процесс от идеи до запуска с постоянной обратной связью
+              </GlitchText>
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-8">
+              {/* Этап 1 */}
+              <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-6 hover:bg-gray-800/80 transition-all duration-300">
+                <div className="flex items-start space-x-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold font-mono">01</span>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold mb-3 text-white font-mono">
+                      <GlitchText intensity="low">Анализ и Планирование</GlitchText>
+                    </h3>
+                    <p className="text-white/70 mb-4 font-mono">
+                      Изучаем ваш бизнес, целевую аудиторию и конкурентов. Создаем техническое задание и планируем архитектуру.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-3 py-1 bg-cyan-500/20 text-cyan-400 rounded-full text-xs font-mono">Исследование</span>
+                      <span className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-mono">Техзадание</span>
+                      <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs font-mono">UX/UI дизайн</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-cyan-400 font-mono text-sm">3-5 дней</div>
+                  </div>
+                </div>
+              </StarkHUD>
+
+              {/* Этап 2 */}
+              <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-6 hover:bg-gray-800/80 transition-all duration-300">
+                <div className="flex items-start space-x-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold font-mono">02</span>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold mb-3 text-white font-mono">
+                      <GlitchText intensity="medium">Дизайн и Прототипирование</GlitchText>
+                    </h3>
+                    <p className="text-white/70 mb-4 font-mono">
+                      Создаем wireframes, макеты и интерактивные прототипы. Согласовываем каждую деталь перед разработкой.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-mono">Wireframes</span>
+                      <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-xs font-mono">Прототипы</span>
+                      <span className="px-3 py-1 bg-teal-500/20 text-teal-400 rounded-full text-xs font-mono">Согласование</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-green-400 font-mono text-sm">5-7 дней</div>
+                  </div>
+                </div>
+              </StarkHUD>
+
+              {/* Этап 3 */}
+              <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-6 hover:bg-gray-800/80 transition-all duration-300">
+                <div className="flex items-start space-x-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold font-mono">03</span>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold mb-3 text-white font-mono">
+                      <GlitchText intensity="low">Разработка и Интеграция</GlitchText>
+                    </h3>
+                    <p className="text-white/70 mb-4 font-mono">
+                      Программируем функционал, интегрируем с внешними сервисами, настраиваем CMS и проводим тестирование.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs font-mono">Frontend</span>
+                      <span className="px-3 py-1 bg-pink-500/20 text-pink-400 rounded-full text-xs font-mono">Backend</span>
+                      <span className="px-3 py-1 bg-indigo-500/20 text-indigo-400 rounded-full text-xs font-mono">Тестирование</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-purple-400 font-mono text-sm">10-15 дней</div>
+                  </div>
+                </div>
+              </StarkHUD>
+
+              {/* Этап 4 */}
+              <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-6 hover:bg-gray-800/80 transition-all duration-300">
+                <div className="flex items-start space-x-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold font-mono">04</span>
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold mb-3 text-white font-mono">
+                      <GlitchText intensity="medium">Запуск и Поддержка</GlitchText>
+                    </h3>
+                    <p className="text-white/70 mb-4 font-mono">
+                      Размещаем сайт на хостинге, настраиваем аналитику, проводим обучение и предоставляем техподдержку.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-3 py-1 bg-orange-500/20 text-orange-400 rounded-full text-xs font-mono">Хостинг</span>
+                      <span className="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-xs font-mono">Аналитика</span>
+                      <span className="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs font-mono">Поддержка</span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-orange-400 font-mono text-sm">1-2 дня</div>
+                  </div>
+                </div>
+              </StarkHUD>
+            </div>
+
+            <div className="text-center mt-12">
+              <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg stark-glow">
+                <Zap className="w-5 h-5 mr-2" />
+                <span className="font-mono">НАЧАТЬ ПРОЕКТ</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Технологии */}
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            <StarkHUD
+              className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3 mb-6"
+              showCorners={false}
+            >
+              <div className="flex items-center space-x-3">
+                <ArcReactor size="small" pulsing />
+                <span className="text-sm text-cyan-400 uppercase tracking-widest font-mono">
+                  [ ТЕХНОЛОГИЧЕСКИЙ СТЕК ]
+                </span>
+              </div>
+            </StarkHUD>
+
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Современные <HologramText glitch>Технологии</HologramText>
+            </h2>
+            <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
+              <GlitchText intensity="low">
+                Используем только проверенные и передовые технологии для создания надежных решений
+              </GlitchText>
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {/* Frontend */}
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-6 hover:bg-gray-800/80 transition-all duration-300 text-center">
+              <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-blue-500/20 to-cyan-600/20 rounded-full flex items-center justify-center">
+                <Code className="w-6 h-6 text-blue-400" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3 text-white font-mono">Frontend</h3>
+              <div className="space-y-2">
+                <div className="text-sm text-blue-400 font-mono">React / Next.js</div>
+                <div className="text-sm text-blue-400 font-mono">TypeScript</div>
+                <div className="text-sm text-blue-400 font-mono">Tailwind CSS</div>
+                <div className="text-sm text-blue-400 font-mono">Framer Motion</div>
+              </div>
+            </StarkHUD>
+
+            {/* Backend */}
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-6 hover:bg-gray-800/80 transition-all duration-300 text-center">
+              <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-green-500/20 to-emerald-600/20 rounded-full flex items-center justify-center">
+                <Cpu className="w-6 h-6 text-green-400" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3 text-white font-mono">Backend</h3>
+              <div className="space-y-2">
+                <div className="text-sm text-green-400 font-mono">Node.js</div>
+                <div className="text-sm text-green-400 font-mono">Express</div>
+                <div className="text-sm text-green-400 font-mono">PostgreSQL</div>
+                <div className="text-sm text-green-400 font-mono">MongoDB</div>
+              </div>
+            </StarkHUD>
+
+            {/* DevOps */}
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-6 hover:bg-gray-800/80 transition-all duration-300 text-center">
+              <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-purple-500/20 to-pink-600/20 rounded-full flex items-center justify-center">
+                <Cog className="w-6 h-6 text-purple-400" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3 text-white font-mono">DevOps</h3>
+              <div className="space-y-2">
+                <div className="text-sm text-purple-400 font-mono">Docker</div>
+                <div className="text-sm text-purple-400 font-mono">AWS / Vercel</div>
+                <div className="text-sm text-purple-400 font-mono">CI/CD</div>
+                <div className="text-sm text-purple-400 font-mono">Monitoring</div>
+              </div>
+            </StarkHUD>
+
+            {/* AI & Integrations */}
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-6 hover:bg-gray-800/80 transition-all duration-300 text-center">
+              <div className="w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-orange-500/20 to-red-600/20 rounded-full flex items-center justify-center">
+                <Brain className="w-6 h-6 text-orange-400" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3 text-white font-mono">AI & Интеграции</h3>
+              <div className="space-y-2">
+                <div className="text-sm text-orange-400 font-mono">OpenAI API</div>
+                <div className="text-sm text-orange-400 font-mono">Stripe</div>
+                <div className="text-sm text-orange-400 font-mono">SendGrid</div>
+                <div className="text-sm text-orange-400 font-mono">Analytics</div>
+              </div>
+            </StarkHUD>
+          </div>
+        </div>
+      </section>
+
+      {/* Финальный призыв к действию */}
+      <section className="py-20 bg-black relative overflow-hidden">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-12">
+              <ArcReactor size="large" pulsing className="mb-8" />
+
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+                Готов�� Создать Сайт <HologramText glitch>Будущего</HologramText>?
+              </h2>
+
+              <p className="text-lg text-white/70 mb-8 font-mono">
+                <GlitchText intensity="low">
+                  Свяжитесь с нами сегодня и получите бесплатную консультацию по вашему проекту
+                </GlitchText>
+              </p>
+
+              <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-8">
+                <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-4 rounded-lg stark-glow text-lg">
+                  <Zap className="w-6 h-6 mr-2" />
+                  <span className="font-mono">БЕСПЛАТНАЯ КОНСУЛЬТАЦИЯ</span>
+                </Button>
+
+                <Button
+                  variant="outline"
+                  className="border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10 px-8 py-4 rounded-lg backdrop-blur-sm text-lg"
+                >
+                  <Eye className="w-6 h-6 mr-2" />
+                  <span className="font-mono">ПОСМОТРЕТЬ РАБОТЫ</span>
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div>
+                  <div className="text-2xl font-bold text-cyan-400 font-mono mb-2">24/7</div>
+                  <div className="text-white/70 font-mono">Поддержка</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-cyan-400 font-mono mb-2">100+</div>
+                  <div className="text-white/70 font-mono">Проектов</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-cyan-400 font-mono mb-2">7 дней</div>
+                  <div className="text-white/70 font-mono">Гарантия возврата</div>
+                </div>
+              </div>
+            </StarkHUD>
           </div>
         </div>
       </section>
