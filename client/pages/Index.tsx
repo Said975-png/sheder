@@ -366,7 +366,7 @@ export default function Index() {
           // Эффект "брови" при скролле
           isScrolling
             ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
-            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный навбар
+            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный ��авбар
         )}
       >
         <div className={cn(
@@ -401,13 +401,14 @@ export default function Index() {
           </div>
 
           {/* Dynamic Island indicator during scroll */}
-          {isScrolling && (
-            <div className="flex items-center space-x-1">
-              <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"></div>
-              <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: "0.2s"}}></div>
-              <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: "0.4s"}}></div>
-            </div>
-          )}
+          <div className={cn(
+            "flex items-center space-x-1 transition-all duration-500 transform",
+            isScrolling ? "scale-100 opacity-100 w-auto" : "scale-0 opacity-0 w-0 overflow-hidden"
+          )}>
+            <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"></div>
+            <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: "0.2s"}}></div>
+            <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: "0.4s"}}></div>
+          </div>
 
           {/* Cart Dropdown */}
           {!isScrolling && (
@@ -675,7 +676,7 @@ export default function Index() {
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-white font-mono">
                   <GlitchText intensity="medium">
-                    Динам��чные Интерфейсы
+                    Динам��чные ��нтерфейсы
                   </GlitchText>
                 </h3>
               </div>
@@ -728,7 +729,7 @@ export default function Index() {
             <div className="inline-block">
               <PowerIndicator className="mb-4" />
               <p className="text-cyan-400 font-mono text-sm mb-4">
-                <GlitchText intensity="low">ГОТОВЫ К БУДУЩЕМУ?</GlitchText>
+                <GlitchText intensity="low">ГОТО��Ы К БУДУЩЕМУ?</GlitchText>
               </p>
               <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg stark-glow group">
                 <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
@@ -760,7 +761,7 @@ export default function Index() {
             </h2>
             <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
               <GlitchText intensity="low">
-                Набл��дайте, как строки кода превращаются в живой интерфейс в
+                Наблюдайте, как строки кода превращаются в живой интерфейс в
                 реальном времени
               </GlitchText>
             </p>
