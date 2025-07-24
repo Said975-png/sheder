@@ -349,7 +349,7 @@ export default function Index() {
   };
 
   const handleModelRotateStop = () => {
-    console.log("��️ Остановка вращения модели");
+    console.log("⏹️ Остановка вращения модели");
     setIsModelRotating(false);
   };
 
@@ -404,7 +404,7 @@ export default function Index() {
           // Эффект "брови" при скролле
           isScrolling
             ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
-            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный навбар
+            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычны�� навбар
         )}
       >
         <div
@@ -447,7 +447,6 @@ export default function Index() {
               forceStop={forceStopVoice}
               onModelRotateStart={handleModelRotateStart}
               onModelRotateStop={handleModelRotateStop}
-              onShowAdvantages={handleShowAdvantages}
             />
           </div>
 
@@ -706,7 +705,7 @@ export default function Index() {
           />
         )}
 
-        {/* Секция преимуществ */}
+        {/* Секция преимущес��в */}
         {showAdvantages && !isTransitioning && (
           <section className="min-h-screen bg-black relative overflow-hidden py-20">
             {/* Анимированные фоновые элементы */}
@@ -754,7 +753,7 @@ export default function Index() {
                 </h2>
                 <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
                   <GlitchText intensity="low">
-                    Мы создаем уникальные 3D сайты с крутым дизайном, интегрированным ИИ
+                    Мы создаем уникальные 3D сайты с крутым дизайн��м, интегрированным ИИ
                     и всем, что клиент захочет видеть на своем сайте
                   </GlitchText>
                 </p>
@@ -803,7 +802,7 @@ export default function Index() {
 
                   <div className="space-y-3">
                     <p className="text-white/70 text-sm leading-relaxed font-mono">
-                      Умные чат-боты, голосовое управление и маш��нное обучение
+                      Умные чат-боты, голосовое управление и машинное обучение
                     </p>
                     <div className="flex items-center text-blue-400 text-sm">
                       <Eye className="w-4 h-4 mr-2" />
