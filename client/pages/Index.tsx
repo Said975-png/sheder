@@ -359,6 +359,154 @@ export default function Index() {
 
       {/* Hero Section - Stark Style */}
       <StarkHero />
+
+      {/* Our Advantages Section - AI & Modern Websites */}
+      <section className="py-20 bg-black relative overflow-hidden">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div
+            className="absolute top-10 left-10 w-32 h-32 border border-cyan-400 rounded-full animate-spin"
+            style={{ animationDuration: "25s" }}
+          ></div>
+          <div
+            className="absolute bottom-20 right-20 w-24 h-24 border border-blue-400 rounded-full animate-spin"
+            style={{ animationDuration: "18s", animationDirection: "reverse" }}
+          ></div>
+          <div
+            className="absolute top-1/2 left-1/3 w-16 h-16 border border-orange-400 rounded-full animate-spin"
+            style={{ animationDuration: "12s" }}
+          ></div>
+        </div>
+
+        {/* Glitch overlay */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
+          <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-60 animate-pulse" style={{ animationDelay: "1s" }}></div>
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center mb-16">
+            {/* JARVIS-style Header */}
+            <StarkHUD
+              className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3 mb-6"
+              showCorners={false}
+            >
+              <div className="flex items-center space-x-3">
+                <ArcReactor size="small" pulsing />
+                <span className="text-sm text-cyan-400 uppercase tracking-widest font-mono">
+                  [ НАШИ ПРЕИМУЩЕСТВА ]
+                </span>
+              </div>
+            </StarkHUD>
+
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              Современные <HologramText glitch>Динамичные</HologramText> Сайты
+            </h2>
+            <p className="text-lg text-white/70 max-w-3xl mx-auto font-mono">
+              <GlitchText intensity="low">
+                Мы создаем не просто веб-сайты — мы создаем интеллектуальные цифровые экосистемы с встроенным искусственным интеллектом
+              </GlitchText>
+            </p>
+
+            {/* Scanning Line */}
+            <div className="mt-4 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* AI Integration */}
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-cyan-400/30">
+                  <Brain className="w-8 h-8 text-cyan-400 group-hover:animate-pulse" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
+                  <GlitchText intensity="low">Искусственный Интеллект</GlitchText>
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-white/70 text-sm leading-relaxed font-mono">
+                  Интеграция передовых AI-технологий для создания умных интерфейсов
+                </p>
+                <div className="flex items-center text-cyan-400 text-sm">
+                  <Zap className="w-4 h-4 mr-2" />
+                  <span className="font-mono">JARVIS Protocol</span>
+                </div>
+                <div className="flex items-center text-cyan-400 text-sm">
+                  <Cpu className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Neural Networks</span>
+                </div>
+              </div>
+            </StarkHUD>
+
+            {/* Dynamic Interfaces */}
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-blue-400/30">
+                  <Layers className="w-8 h-8 text-blue-400 group-hover:animate-pulse" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
+                  <GlitchText intensity="medium">Динамичные Интерфейсы</GlitchText>
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-white/70 text-sm leading-relaxed font-mono">
+                  Адаптивные интерфейсы с анимациями и интерактивными элементами
+                </p>
+                <div className="flex items-center text-blue-400 text-sm">
+                  <Eye className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Real-time Rendering</span>
+                </div>
+                <div className="flex items-center text-blue-400 text-sm">
+                  <TrendingUp className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Performance Optimized</span>
+                </div>
+              </div>
+            </StarkHUD>
+
+            {/* Advanced Features */}
+            <StarkHUD className="bg-gray-900/80 backdrop-blur-sm p-8 hover:bg-gray-800/80 transition-all duration-300 group cursor-pointer md:col-span-2 lg:col-span-1">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500/20 to-pink-600/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-purple-400/30">
+                  <Cog className="w-8 h-8 text-purple-400 group-hover:animate-spin" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-white font-mono">
+                  <GlitchText intensity="low">Передовые Технологии</GlitchText>
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-white/70 text-sm leading-relaxed font-mono">
+                  Используем самые современные технологии для максимальной производительности
+                </p>
+                <div className="flex items-center text-purple-400 text-sm">
+                  <Lock className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Blockchain Security</span>
+                </div>
+                <div className="flex items-center text-purple-400 text-sm">
+                  <Search className="w-4 h-4 mr-2" />
+                  <span className="font-mono">Voice Recognition</span>
+                </div>
+              </div>
+            </StarkHUD>
+          </div>
+
+          {/* Call to Action */}
+          <div className="text-center mt-16">
+            <div className="inline-block">
+              <PowerIndicator className="mb-4" />
+              <p className="text-cyan-400 font-mono text-sm mb-4">
+                <GlitchText intensity="low">ГОТОВЫ К БУДУЩЕМУ?</GlitchText>
+              </p>
+              <Button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg stark-glow group">
+                <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
+                <span className="font-mono">ЗАПУСТИТЬ ПРОЕКТ</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
