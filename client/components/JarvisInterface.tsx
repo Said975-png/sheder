@@ -86,6 +86,8 @@ export default function JarvisInterface({
           inNavbar={true}
           onListeningChange={onListeningChange}
           forceStop={forceStop}
+          onModelRotateStart={onModelRotateStart}
+          onModelRotateStop={onModelRotateStop}
         />
       </div>
     );
@@ -186,6 +188,8 @@ export default function JarvisInterface({
             inNavbar={false}
             onListeningChange={onListeningChange}
             forceStop={forceStop}
+            onModelRotateStart={onModelRotateStart}
+            onModelRotateStop={onModelRotateStop}
           />
         </div>
 
