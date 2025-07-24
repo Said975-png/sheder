@@ -57,7 +57,7 @@ export default function StarkHero({ className }: StarkHeroProps) {
     >
       {/* Фоновые эффекты */}
       <div className="absolute inset-0">
-        {/* Матричный ��ождь */}
+        {/* Матричный дождь */}
         <MatrixRain density="low" speed="slow" color="cyan" />
 
         {/* Схемы и паттерны */}
