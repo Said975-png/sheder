@@ -374,13 +374,15 @@ export default function Index() {
           isScrolling ? "space-x-1 opacity-60 scale-75" : "space-x-2 opacity-100 scale-100"
         )}>
           {/* Home Button */}
-          <Button
-            variant="ghost"
-            className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            <span className="stark-text-glow">Home</span>
-          </Button>
+          {!isScrolling && (
+            <Button
+              variant="ghost"
+              className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              <span className="stark-text-glow">Home</span>
+            </Button>
+          )}
 
           {/* JARVIS Interface in Navbar */}
           <JarvisInterface
