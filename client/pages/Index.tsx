@@ -335,7 +335,7 @@ export default function Index() {
   }, []);
 
   const handleModelRotateStop = React.useCallback(() => {
-    console.log("⏹️ Остановка вращения моде��и");
+    console.log("⏹️ Остановка вращения модели");
     setIsModelRotating(false);
   }, []);
 
@@ -648,6 +648,9 @@ export default function Index() {
 
       {/* Advantages Section */}
       <AdvantagesSection />
+
+      {/* Jarvis Demo Section */}
+      <JarvisDemo />
 
       {/* Pricing Section */}
       <PricingSection />
