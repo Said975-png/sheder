@@ -78,7 +78,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
     },
     {
       id: "profile",
-      title: "Профиль пользователя",
+      title: "Профиль пол��зователя",
       description: "Настройки и информация о пользователе",
       type: "page",
       url: "/profile",
@@ -131,7 +131,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
           break;
         case "cart":
           // Открыть корзину
-          document.querySelector('[data-testid="cart-button"]')?.click();
+          (document.querySelector('[data-testid="cart-button"]') as HTMLElement)?.click();
           break;
         default:
           // Скролл наверх для остальных случаев
@@ -155,7 +155,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
         item.description.toLowerCase().includes(query.toLowerCase()),
     );
 
-    setResults(filtered.slice(0, 6)); // Ограничиваем до 6 результатов
+    setResults(filtered.slice(0, 6)); // Ограничивае�� до 6 результатов
     setSelectedIndex(0);
   }, [query]);
 
