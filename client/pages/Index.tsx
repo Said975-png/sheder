@@ -358,10 +358,15 @@ export default function Index() {
       {/* Navigation - Enhanced with Stark styling */}
       <nav
         className={cn(
-          "fixed top-2 left-1/2 transform -translate-x-1/2 z-40 rounded-full px-2 py-1 transition-all duration-300",
+          "fixed left-1/2 transform -translate-x-1/2 z-40 transition-all duration-300",
+          // Базовые стили в зависимости от состояния скролла
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
             : "bg-transparent border border-cyan-400/20",
+          // Эффект "брови" при скролле
+          isScrolling
+            ? "top-1 rounded-full px-1 py-0.5 w-32 h-6" // Компактная "бровь"
+            : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный навбар
         )}
       >
         <div className="flex items-center space-x-2">
@@ -629,7 +634,7 @@ export default function Index() {
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
                   Интеграция передовых AI-технологий для создания умных
-                  интерфей��ов
+                  интерфейсов
                 </p>
                 <div className="flex items-center text-cyan-400 text-sm">
                   <Zap className="w-4 h-4 mr-2" />
@@ -650,7 +655,7 @@ export default function Index() {
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-white font-mono">
                   <GlitchText intensity="medium">
-                    Динамичные Интерфейсы
+                    Динам��чные Интерфейсы
                   </GlitchText>
                 </h3>
               </div>
