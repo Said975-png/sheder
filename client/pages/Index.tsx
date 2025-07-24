@@ -404,7 +404,8 @@ export default function Index() {
           )}
 
           {/* Cart Dropdown */}
-          <DropdownMenu>
+          {!isScrolling && (
+            <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
@@ -491,8 +492,7 @@ export default function Index() {
               </div>
             </DropdownMenuContent>
           </DropdownMenu>
-
-          {/* Тестовая кнопк�� диагностики */}
+          )}
 
 
           <ThemeToggle />
