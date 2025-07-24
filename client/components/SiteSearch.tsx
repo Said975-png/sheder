@@ -30,83 +30,83 @@ export function SiteSearch({ className }: SiteSearchProps) {
       title: "Главная страница",
       description: "Домашняя страница с информацией о ДЖАРВИС AI",
       type: "page",
-      url: "/"
+      url: "/",
     },
     {
       id: "voice-commands",
       title: "Голосовые команды",
       description: "Управление сайтом с помощью голоса",
-      type: "feature"
+      type: "feature",
     },
     {
       id: "jarvis-interface",
       title: "Интерфейс ДЖАРВИС",
       description: "AI-помощник с голосовым управлением",
-      type: "component"
+      type: "component",
     },
     {
       id: "plans-basic",
       title: "Базовый план",
       description: "Начальный тарифный план с основными функциями",
-      type: "plan"
+      type: "plan",
     },
     {
       id: "plans-pro",
-      title: "PRO план", 
+      title: "PRO план",
       description: "Профессиональный план с расширенными возможностями",
-      type: "plan"
+      type: "plan",
     },
     {
       id: "plans-max",
       title: "MAX план",
       description: "Максимальный план с полным набором функций",
-      type: "plan"
+      type: "plan",
     },
     {
       id: "login",
       title: "Вход в систему",
       description: "Авторизация пользователя",
       type: "page",
-      url: "/login"
+      url: "/login",
     },
     {
       id: "signup",
       title: "Регистрация",
       description: "Создание нового аккаунта",
       type: "page",
-      url: "/signup"
+      url: "/signup",
     },
     {
       id: "profile",
       title: "Профиль пользователя",
       description: "Настройки и информация о пользователе",
       type: "page",
-      url: "/profile"
+      url: "/profile",
     },
     {
       id: "cart",
       title: "Корзина",
       description: "Выбранные тарифные планы",
-      type: "feature"
+      type: "feature",
     },
     {
       id: "ai-features",
       title: "AI возможности",
       description: "Искусственный интеллект и автоматизация",
-      type: "feature"
+      type: "feature",
     },
     {
       id: "blockchain",
       title: "Blockchain интеграция",
       description: "Технологии блокчейн и криптографии",
-      type: "feature"
+      type: "feature",
     },
     {
       id: "stark-tech",
       title: "Stark Industries Technology",
       description: "Продвинутые технологии Stark Industries",
-      type: "feature"
-    }
+      type: "feature",
+    },
   ];
 
   // Поиск по данным
@@ -116,9 +116,10 @@ export function SiteSearch({ className }: SiteSearchProps) {
       return;
     }
 
-    const filtered = searchData.filter(item =>
-      item.title.toLowerCase().includes(query.toLowerCase()) ||
-      item.description.toLowerCase().includes(query.toLowerCase())
+    const filtered = searchData.filter(
+      (item) =>
+        item.title.toLowerCase().includes(query.toLowerCase()) ||
+        item.description.toLowerCase().includes(query.toLowerCase()),
     );
 
     setResults(filtered.slice(0, 6)); // Ограничиваем до 6 результатов
@@ -133,11 +134,11 @@ export function SiteSearch({ className }: SiteSearchProps) {
       switch (e.key) {
         case "ArrowDown":
           e.preventDefault();
-          setSelectedIndex(prev => Math.min(prev + 1, results.length - 1));
+          setSelectedIndex((prev) => Math.min(prev + 1, results.length - 1));
           break;
         case "ArrowUp":
           e.preventDefault();
-          setSelectedIndex(prev => Math.max(prev - 1, 0));
+          setSelectedIndex((prev) => Math.max(prev - 1, 0));
           break;
         case "Enter":
           e.preventDefault();
@@ -174,10 +175,12 @@ export function SiteSearch({ className }: SiteSearchProps) {
           document.querySelector('[data-testid="voice-control"]')?.click();
           break;
         case "plans-basic":
-        case "plans-pro": 
+        case "plans-pro":
         case "plans-max":
           // Скролл к секции с планами
-          document.querySelector('[data-section="plans"]')?.scrollIntoView({ behavior: "smooth" });
+          document
+            .querySelector('[data-section="plans"]')
+            ?.scrollIntoView({ behavior: "smooth" });
           break;
         case "cart":
           // Открыть корзину
@@ -194,21 +197,31 @@ export function SiteSearch({ className }: SiteSearchProps) {
 
   const getTypeColor = (type: string) => {
     switch (type) {
-      case "page": return "text-cyan-400";
-      case "feature": return "text-blue-400";
-      case "plan": return "text-orange-400";
-      case "component": return "text-purple-400";
-      default: return "text-gray-400";
+      case "page":
+        return "text-cyan-400";
+      case "feature":
+        return "text-blue-400";
+      case "plan":
+        return "text-orange-400";
+      case "component":
+        return "text-purple-400";
+      default:
+        return "text-gray-400";
     }
   };
 
   const getTypeLabel = (type: string) => {
     switch (type) {
-      case "page": return "Страница";
-      case "feature": return "Функция";
-      case "plan": return "Тариф";
-      case "component": return "Компонент";
-      default: return type;
+      case "page":
+        return "Страница";
+      case "feature":
+        return "Функция";
+      case "plan":
+        return "Тариф";
+      case "component":
+        return "Компонент";
+      default:
+        return type;
     }
   };
 
@@ -258,9 +271,9 @@ export function SiteSearch({ className }: SiteSearchProps) {
                     onClick={() => handleSelectResult(result)}
                     className={cn(
                       "w-full text-left px-4 py-3 border-b border-cyan-400/10 last:border-b-0 transition-colors duration-200",
-                      index === selectedIndex 
-                        ? "bg-cyan-400/20" 
-                        : "hover:bg-cyan-400/10"
+                      index === selectedIndex
+                        ? "bg-cyan-400/20"
+                        : "hover:bg-cyan-400/10",
                     )}
                   >
                     <div className="flex items-center justify-between">
@@ -273,10 +286,17 @@ export function SiteSearch({ className }: SiteSearchProps) {
                         </div>
                       </div>
                       <div className="flex items-center space-x-2 ml-4">
-                        <span className={cn("text-xs font-mono px-2 py-1 rounded", getTypeColor(result.type))}>
+                        <span
+                          className={cn(
+                            "text-xs font-mono px-2 py-1 rounded",
+                            getTypeColor(result.type),
+                          )}
+                        >
                           {getTypeLabel(result.type)}
                         </span>
-                        {result.url && <ExternalLink className="w-4 h-4 text-gray-400" />}
+                        {result.url && (
+                          <ExternalLink className="w-4 h-4 text-gray-400" />
+                        )}
                       </div>
                     </div>
                   </button>

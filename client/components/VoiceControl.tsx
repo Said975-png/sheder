@@ -118,48 +118,60 @@ export default function VoiceControl({
         // Настройка прямого доступа к микрофону для лучшего качества
         try {
           // Запрашиваем доступ к микрофону с оптимальными настройками
-          navigator.mediaDevices.getUserMedia({
-            audio: {
-              echoCancellation: true,
-              noiseSuppression: true,
-              autoGainControl: true,
-              // @ts-ignore - Продвинутые настройки для лучшего захвата звука
-              googEchoCancellation: true,
-              googAutoGainControl: true,
-              googNoiseSuppression: true,
-              googHighpassFilter: false,
-              googTypingNoiseDetection: false,
-              googAudioMirroring: false,
-              // Настройки чувствительност��
-              volume: 1.0,
-              sampleRate: 48000, // Высокое качество записи
-              sampleSize: 16,
-              channelCount: 1
-            }
-          }).then(stream => {
-            console.log("🎤 Получен доступ к микрофону с улучшенными настройками");
-            // Применяем настройки к потоку
-            const audioTracks = stream.getAudioTracks();
-            if (audioTracks.length > 0) {
-              const track = audioTracks[0];
-              const capabilities = track.getCapabilities();
-              console.log("🔧 Возможности микрофона:", capabilities);
-
-              // Применяем оптимальные настройки если поддерживаются
-              const constraints = {
+          navigator.mediaDevices
+            .getUserMedia({
+              audio: {
                 echoCancellation: true,
                 noiseSuppression: true,
-                autoGainControl: true
-              };
-              track.applyConstraints(constraints).catch(e =>
-                console.log("Не удалось применить дополнительные ограничения:", e)
+                autoGainControl: true,
+                // @ts-ignore - Продвинутые настройки для лучшего захвата звука
+                googEchoCancellation: true,
+                googAutoGainControl: true,
+                googNoiseSuppression: true,
+                googHighpassFilter: false,
+                googTypingNoiseDetection: false,
+                googAudioMirroring: false,
+                // Настройки чувствительност��
+                volume: 1.0,
+                sampleRate: 48000, // Высокое качество записи
+                sampleSize: 16,
+                channelCount: 1,
+              },
+            })
+            .then((stream) => {
+              console.log(
+                "🎤 Получен доступ к микрофону с улучшенными настройками",
               );
-            }
-            // Освобождаем поток, так как SpeechRecognition создаст свой
-            stream.getTracks().forEach(track => track.stop());
-          }).catch(e => {
-            console.log("Стандартный доступ к микрофону, расширенные настройки недоступны");
-          });
+              // Применяем настройки к потоку
+              const audioTracks = stream.getAudioTracks();
+              if (audioTracks.length > 0) {
+                const track = audioTracks[0];
+                const capabilities = track.getCapabilities();
+                console.log("🔧 Возможности микрофона:", capabilities);
+
+                // Применяем оптимальные настройки если поддерживаются
+                const constraints = {
+                  echoCancellation: true,
+                  noiseSuppression: true,
+                  autoGainControl: true,
+                };
+                track
+                  .applyConstraints(constraints)
+                  .catch((e) =>
+                    console.log(
+                      "Не удалось применить дополнительные ограничения:",
+                      e,
+                    ),
+                  );
+              }
+              // Освобождаем поток, так как SpeechRecognition создаст свой
+              stream.getTracks().forEach((track) => track.stop());
+            })
+            .catch((e) => {
+              console.log(
+                "Стандартный доступ к микрофону, расширенные настройки недоступны",
+              );
+            });
         } catch (e) {
           console.log("MediaDevices API недоступен");
         }

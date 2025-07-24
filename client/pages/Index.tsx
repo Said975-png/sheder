@@ -246,7 +246,9 @@ export default function Index() {
   const [navbarAnimated, setNavbarAnimated] = useState(false);
   const [navbarScrolled, setNavbarScrolled] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
-  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null);
+  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(
+    null,
+  );
 
   const [forceStopVoice, setForceStopVoice] = useState(false);
 
@@ -332,7 +334,12 @@ export default function Index() {
 
   const handleListeningChange = (isListening: boolean, transcript?: string) => {
     // Микрофон работает в фоне, панель не показываем
-    console.log("🎤 М��крофон активен:", isListening, "Транскри��т:", transcript);
+    console.log(
+      "🎤 М��крофон активен:",
+      isListening,
+      "Транскри��т:",
+      transcript,
+    );
   };
 
   const handleStopListening = () => {
@@ -369,16 +376,22 @@ export default function Index() {
             : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный ��авбар
         )}
       >
-        <div className={cn(
-          "flex items-center transition-all duration-500 overflow-hidden",
-          isScrolling ? "space-x-1 opacity-100 scale-100" : "space-x-2 opacity-100 scale-100"
-        )}>
+        <div
+          className={cn(
+            "flex items-center transition-all duration-500 overflow-hidden",
+            isScrolling
+              ? "space-x-1 opacity-100 scale-100"
+              : "space-x-2 opacity-100 scale-100",
+          )}
+        >
           {/* Home Button */}
           <Button
             variant="ghost"
             className={cn(
               "text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-500 font-mono transform",
-              isScrolling ? "scale-0 opacity-0 w-0 overflow-hidden" : "scale-100 opacity-100 w-auto"
+              isScrolling
+                ? "scale-0 opacity-0 w-0 overflow-hidden"
+                : "scale-100 opacity-100 w-auto",
             )}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
@@ -386,10 +399,14 @@ export default function Index() {
           </Button>
 
           {/* JARVIS Interface in Navbar */}
-          <div className={cn(
-            "transition-all duration-500 transform",
-            isScrolling ? "scale-0 opacity-0 w-0 overflow-hidden" : "scale-100 opacity-100 w-auto"
-          )}>
+          <div
+            className={cn(
+              "transition-all duration-500 transform",
+              isScrolling
+                ? "scale-0 opacity-0 w-0 overflow-hidden"
+                : "scale-100 opacity-100 w-auto",
+            )}
+          >
             <JarvisInterface
               onAddBasicPlan={handleAddBeginnerPlan}
               onAddProPlan={handleAddIntermediatePlan}
@@ -401,178 +418,203 @@ export default function Index() {
           </div>
 
           {/* Dynamic Island indicator during scroll */}
-          <div className={cn(
-            "flex items-center space-x-1 transition-all duration-500 transform",
-            isScrolling ? "scale-100 opacity-100 w-auto" : "scale-0 opacity-0 w-0 overflow-hidden"
-          )}>
+          <div
+            className={cn(
+              "flex items-center space-x-1 transition-all duration-500 transform",
+              isScrolling
+                ? "scale-100 opacity-100 w-auto"
+                : "scale-0 opacity-0 w-0 overflow-hidden",
+            )}
+          >
             <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"></div>
-            <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: "0.2s"}}></div>
-            <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: "0.4s"}}></div>
+            <div
+              className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"
+              style={{ animationDelay: "0.2s" }}
+            ></div>
+            <div
+              className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"
+              style={{ animationDelay: "0.4s" }}
+            ></div>
           </div>
 
           {/* Cart Dropdown */}
-          <div className={cn(
-            "transition-all duration-500 transform",
-            isScrolling ? "scale-0 opacity-0 w-0 overflow-hidden" : "scale-100 opacity-100 w-auto"
-          )}>
-            <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                data-testid="cart-button"
-                className="relative p-1.5 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
-              >
-                <ShoppingCart className="w-4 h-4 text-cyan-400" />
-                {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
-                    {getTotalItems()}
-                  </span>
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="w-80 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
-            >
-              <div className="px-3 py-2">
-                <h3 className="font-semibold text-cyan-400 mb-2 font-mono">
-                  CART MATRIX
-                </h3>
-                {items.length === 0 ? (
-                  <p className="text-sm text-white/60 text-center py-4 font-mono">
-                    Cart is empty
-                  </p>
-                ) : (
-                  <>
-                    <div className="space-y-2 max-h-60 overflow-y-auto">
-                      {items.map((item) => (
-                        <div
-                          key={item.id}
-                          className="flex items-start justify-between p-2 bg-gray-800/50 border border-cyan-400/20 rounded-lg"
-                        >
-                          <div className="flex-1">
-                            <h4 className="font-medium text-sm text-white font-mono">
-                              {item.name}
-                            </h4>
-                            <p className="text-xs text-white/60 mt-1">
-                              {item.description.substring(0, 60)}...
-                            </p>
-                            <p className="text-sm font-semibold text-cyan-400 mt-1 font-mono">
-                              ${item.price}
-                            </p>
-                          </div>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => removeItem(item.id)}
-                            className="ml-2 h-6 w-6 p-0 hover:bg-red-500/20 text-red-400"
-                          >
-                            ×
-                          </Button>
-                        </div>
-                      ))}
-                    </div>
-                    <DropdownMenuSeparator className="bg-cyan-400/20 my-3" />
-                    <div className="flex justify-between items-center mb-3">
-                      <span className="font-semibold text-cyan-400 font-mono">
-                        TOTAL:
-                      </span>
-                      <span className="font-bold text-white font-mono">
-                        ${getTotalPrice()}
-                      </span>
-                    </div>
-                    <div className="flex space-x-2">
-                      <Button
-                        onClick={clearCart}
-                        variant="outline"
-                        size="sm"
-                        className="flex-1 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10"
-                      >
-                        Clear
-                      </Button>
-                      <Button
-                        onClick={handleProceedToOrder}
-                        size="sm"
-                        className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 stark-glow"
-                      >
-                        Checkout
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </div>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          </div>
-
-
-          <div className={cn(
-            "transition-all duration-500 transform",
-            isScrolling ? "scale-0 opacity-0 w-0 overflow-hidden" : "scale-100 opacity-100 w-auto"
-          )}>
-            <ThemeToggle />
-          </div>
-
-          {isAuthenticated && currentUser ? (
-            <div className={cn(
+          <div
+            className={cn(
               "transition-all duration-500 transform",
-              isScrolling ? "scale-0 opacity-0 w-0 overflow-hidden" : "scale-100 opacity-100 w-auto"
-            )}>
-              <DropdownMenu>
+              isScrolling
+                ? "scale-0 opacity-0 w-0 overflow-hidden"
+                : "scale-100 opacity-100 w-auto",
+            )}
+          >
+            <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="flex items-center space-x-2 p-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                  data-testid="cart-button"
+                  className="relative p-1.5 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
                 >
-                  <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
-                    <User className="w-4 h-4" />
-                  </div>
-                  <span className="hidden sm:block text-sm font-mono">
-                    {currentUser.name}
-                  </span>
+                  <ShoppingCart className="w-4 h-4 text-cyan-400" />
+                  {getTotalItems() > 0 && (
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
+                      {getTotalItems()}
+                    </span>
+                  )}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="w-56 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
+                className="w-80 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
               >
-                <div className="px-2 py-1.5 text-sm text-white/60">
-                  <div className="font-medium text-cyan-400 font-mono">
-                    {currentUser.name}
-                  </div>
-                  <div className="text-xs">{currentUser.email}</div>
+                <div className="px-3 py-2">
+                  <h3 className="font-semibold text-cyan-400 mb-2 font-mono">
+                    CART MATRIX
+                  </h3>
+                  {items.length === 0 ? (
+                    <p className="text-sm text-white/60 text-center py-4 font-mono">
+                      Cart is empty
+                    </p>
+                  ) : (
+                    <>
+                      <div className="space-y-2 max-h-60 overflow-y-auto">
+                        {items.map((item) => (
+                          <div
+                            key={item.id}
+                            className="flex items-start justify-between p-2 bg-gray-800/50 border border-cyan-400/20 rounded-lg"
+                          >
+                            <div className="flex-1">
+                              <h4 className="font-medium text-sm text-white font-mono">
+                                {item.name}
+                              </h4>
+                              <p className="text-xs text-white/60 mt-1">
+                                {item.description.substring(0, 60)}...
+                              </p>
+                              <p className="text-sm font-semibold text-cyan-400 mt-1 font-mono">
+                                ${item.price}
+                              </p>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => removeItem(item.id)}
+                              className="ml-2 h-6 w-6 p-0 hover:bg-red-500/20 text-red-400"
+                            >
+                              ×
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                      <DropdownMenuSeparator className="bg-cyan-400/20 my-3" />
+                      <div className="flex justify-between items-center mb-3">
+                        <span className="font-semibold text-cyan-400 font-mono">
+                          TOTAL:
+                        </span>
+                        <span className="font-bold text-white font-mono">
+                          ${getTotalPrice()}
+                        </span>
+                      </div>
+                      <div className="flex space-x-2">
+                        <Button
+                          onClick={clearCart}
+                          variant="outline"
+                          size="sm"
+                          className="flex-1 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10"
+                        >
+                          Clear
+                        </Button>
+                        <Button
+                          onClick={handleProceedToOrder}
+                          size="sm"
+                          className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 stark-glow"
+                        >
+                          Checkout
+                        </Button>
+                      </div>
+                    </>
+                  )}
                 </div>
-                <DropdownMenuSeparator className="bg-cyan-400/20" />
-                <DropdownMenuItem
-                  onClick={() => (window.location.href = "/profile")}
-                  className="text-white hover:bg-cyan-400/10 cursor-pointer"
-                >
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => (window.location.href = "/profile")}
-                  className="text-white hover:bg-cyan-400/10 cursor-pointer"
-                >
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-cyan-400/20" />
-                <DropdownMenuItem
-                  onClick={handleLogout}
-                  className="text-red-400 hover:bg-red-400/10 cursor-pointer"
-                >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Logout</span>
-                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+          </div>
+
+          <div
+            className={cn(
+              "transition-all duration-500 transform",
+              isScrolling
+                ? "scale-0 opacity-0 w-0 overflow-hidden"
+                : "scale-100 opacity-100 w-auto",
+            )}
+          >
+            <ThemeToggle />
+          </div>
+
+          {isAuthenticated && currentUser ? (
+            <div
+              className={cn(
+                "transition-all duration-500 transform",
+                isScrolling
+                  ? "scale-0 opacity-0 w-0 overflow-hidden"
+                  : "scale-100 opacity-100 w-auto",
+              )}
+            >
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="flex items-center space-x-2 p-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                  >
+                    <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
+                      <User className="w-4 h-4" />
+                    </div>
+                    <span className="hidden sm:block text-sm font-mono">
+                      {currentUser.name}
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  className="w-56 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
+                >
+                  <div className="px-2 py-1.5 text-sm text-white/60">
+                    <div className="font-medium text-cyan-400 font-mono">
+                      {currentUser.name}
+                    </div>
+                    <div className="text-xs">{currentUser.email}</div>
+                  </div>
+                  <DropdownMenuSeparator className="bg-cyan-400/20" />
+                  <DropdownMenuItem
+                    onClick={() => (window.location.href = "/profile")}
+                    className="text-white hover:bg-cyan-400/10 cursor-pointer"
+                  >
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => (window.location.href = "/profile")}
+                    className="text-white hover:bg-cyan-400/10 cursor-pointer"
+                  >
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Settings</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-cyan-400/20" />
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="text-red-400 hover:bg-red-400/10 cursor-pointer"
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           ) : (
-            <div className={cn(
-              "flex items-center space-x-1 transition-all duration-500 transform",
-              isScrolling ? "scale-0 opacity-0 w-0 overflow-hidden" : "scale-100 opacity-100 w-auto"
-            )}>
+            <div
+              className={cn(
+                "flex items-center space-x-1 transition-all duration-500 transform",
+                isScrolling
+                  ? "scale-0 opacity-0 w-0 overflow-hidden"
+                  : "scale-100 opacity-100 w-auto",
+              )}
+            >
               <Button
                 variant="ghost"
                 className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
@@ -700,7 +742,8 @@ export default function Index() {
 
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
-                  Адаптивные интерфейсы с анимациями и интерактивными эле��ентами
+                  Адаптивные интерфейсы с анимациями и интерактивными
+                  эле��ентами
                 </p>
                 <div className="flex items-center text-blue-400 text-sm">
                   <Eye className="w-4 h-4 mr-2" />
