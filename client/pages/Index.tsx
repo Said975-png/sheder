@@ -369,7 +369,10 @@ export default function Index() {
             : "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный навбар
         )}
       >
-        <div className="flex items-center space-x-2">
+        <div className={cn(
+          "flex items-center transition-all duration-300 overflow-hidden",
+          isScrolling ? "space-x-1 opacity-60 scale-75" : "space-x-2 opacity-100 scale-100"
+        )}>
           {/* Home Button */}
           <Button
             variant="ghost"
