@@ -120,7 +120,7 @@ function TypewriterCode() {
           '      <Shield className="security-icon" />',
           "      <p>Баланс: {balance} ETH</p>",
           "      <button onClick={connectWallet}>",
-          "        Подключить кошелек",
+          "        Под��лючить кошелек",
           "      </button>",
           "    </div>",
           "  );",
@@ -270,7 +270,7 @@ export default function Index() {
       setNavbarScrolled(scrolled);
       setIsScrolling(true);
 
-      // Очищаем предыдущий таймаут
+      // Очищаем п��едыдущий таймаут
       if (timeoutRef) {
         clearTimeout(timeoutRef);
       }
@@ -499,7 +499,7 @@ export default function Index() {
                         {items.map((item) => (
                           <div
                             key={item.id}
-                            className="flex items-start justify-between p-2 bg-gray-800/50 border border-cyan-400/20 rounded-lg"
+                            className="flex items-start justify-between p-2 bg-gray-800/50 border border-cyan-400/20 rounded-lg card-3d neon-3d-border transition-all duration-300 hover:transform hover:scale-105"
                           >
                             <div className="flex-1">
                               <h4 className="font-medium text-sm text-white font-mono">
@@ -790,7 +790,7 @@ export default function Index() {
               <div className="space-y-3">
                 <p className="text-white/70 text-sm leading-relaxed font-mono">
                   Используем самые современные технологии для максимальной
-                  производительности
+                  производи��ельности
                 </p>
                 <div className="flex items-center text-purple-400 text-sm">
                   <Lock className="w-4 h-4 mr-2" />
