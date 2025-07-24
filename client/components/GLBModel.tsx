@@ -3,82 +3,6 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
-// Компонент для частиц, поднимающихся вверх
-function RisingParticles() {
-  const particlesRef = useRef<THREE.Points>(null);
-  const particleCount = 100;
-
-  const particlesData = useMemo(() => {
-    const positions = new Float32Array(particleCount * 3);
-    const velocities = new Float32Array(particleCount * 3);
-    const scales = new Float32Array(particleCount);
-
-    for (let i = 0; i < particleCount; i++) {
-      const i3 = i * 3;
-      // Случайные позиции в области за моделью
-      positions[i3] = (Math.random() - 0.5) * 8; // x
-      positions[i3 + 1] = (Math.random() - 0.5) * 6 - 3; // y (начинаем снизу)
-      positions[i3 + 2] = -2 - Math.random() * 3; // z (за м��делью)
-
-      // Скорости подъёма
-      velocities[i3] = (Math.random() - 0.5) * 0.02; // небольшое горизонтальное движение
-      velocities[i3 + 1] = 0.01 + Math.random() * 0.02; // подъём вверх
-      velocities[i3 + 2] = (Math.random() - 0.5) * 0.01; // небольшое движение по z
-
-      scales[i] = 0.5 + Math.random() * 1.5;
-    }
-
-    return { positions, velocities, scales };
-  }, []);
-
-  useFrame(() => {
-    if (particlesRef.current) {
-      const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
-      const { velocities } = particlesData;
-
-      for (let i = 0; i < particleCount; i++) {
-        const i3 = i * 3;
-
-        // Обновляем позиции
-        positions[i3] += velocities[i3]; // x
-        positions[i3 + 1] += velocities[i3 + 1]; // y
-        positions[i3 + 2] += velocities[i3 + 2]; // z
-
-        // Если частица подняла��ь слишком высоко, возвращаем её вниз
-        if (positions[i3 + 1] > 4) {
-          positions[i3] = (Math.random() - 0.5) * 8;
-          positions[i3 + 1] = -3 - Math.random() * 2;
-          positions[i3 + 2] = -2 - Math.random() * 3;
-        }
-      }
-
-      particlesRef.current.geometry.attributes.position.needsUpdate = true;
-    }
-  });
-
-  return (
-    <points ref={particlesRef}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          count={particleCount}
-          array={particlesData.positions}
-          itemSize={3}
-        />
-      </bufferGeometry>
-      <pointsMaterial
-        size={0.1}
-        color="#a855f7"
-        transparent
-        opacity={0.8}
-        blending={THREE.AdditiveBlending}
-      />
-    </points>
-  );
-}
-
-
-
 interface GLBModelProps {
   url: string;
   scale?: number;
@@ -209,13 +133,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
       {isLoading && <HTMLLoadingFallback />}
       <Canvas
         camera={stableProps.camera}
-        style={{
-          ...stableProps.style,
-          background: "transparent",
-          border: "none",
-          outline: "none",
-          boxShadow: "none"
-        }}
+        style={{ ...stableProps.style, background: "transparent" }}
         gl={{
           preserveDrawingBuffer: true,
           antialias: true,
