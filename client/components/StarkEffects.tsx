@@ -88,8 +88,8 @@ export function PowerIndicator({
       </div>
 
       {/* Текстовый индикатор */}
-      <div className="text-xs text-cyan-400 min-w-max">
-        <div className="text-cyan-300">{label}</div>
+      <div className="text-xs text-white min-w-max">
+        <div className="text-white">{label}</div>
         <div className="text-white font-bold">{normalizedLevel}%</div>
       </div>
     </div>
