@@ -218,6 +218,21 @@
     box-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
   }
 
+  /* Subtle Stark glow effect for navbar */
+  .stark-glow-subtle {
+    box-shadow:
+      0 0 15px rgba(6, 182, 212, 0.2),
+      inset 0 0 10px rgba(6, 182, 212, 0.1);
+  }
+
+  /* Enhanced text glow effect */
+  .stark-text-glow {
+    text-shadow:
+      0 0 5px rgba(6, 182, 212, 0.8),
+      0 0 10px rgba(6, 182, 212, 0.6),
+      0 0 15px rgba(6, 182, 212, 0.4);
+  }
+
   /* Адаптивные градиенты для тем */
   .theme-gradient {
     background: linear-gradient(
