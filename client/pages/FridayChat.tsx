@@ -203,7 +203,7 @@ export default function FridayChat() {
                         : "bg-muted"
                     }`}
                   >
-                    <div className="text-sm leading-relaxed whitespace-pre-wrap">
+                    <div className="text-sm leading-relaxed whitespace-pre-wrap break-words word-break-break-word overflow-wrap-break-word">
                       {message.content}
                     </div>
                     <div className="text-xs opacity-70 mt-1">
