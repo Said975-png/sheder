@@ -220,12 +220,12 @@ export default function StarkHero({
           </div>
         </div>
 
-        {/* Bottom section with stats */}
+        {/* Bottom section with stats - moved outside model area */}
         <div className={cn(
-          "absolute bottom-8 left-6 right-6 transition-all duration-1000 delay-500",
+          "mt-16 pb-12 transition-all duration-1000 delay-500",
           showCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         )}>
-          <div className="flex flex-wrap justify-center lg:justify-between items-center gap-8 text-center lg:text-left">
+          <div className="flex flex-wrap justify-center items-center gap-8 text-center">
             {[
               { number: "99.9%", label: "Точность ответов" },
               { number: "24/7", label: "Доступность" },
