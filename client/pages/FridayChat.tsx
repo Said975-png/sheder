@@ -82,7 +82,7 @@ export default function FridayChat() {
       const errorMessage: ChatMessage = {
         role: "assistant",
         content:
-          "Извините, не удалось отправить сообщение. Проверьте подключение к интернету.",
+          "Извините, не удалось отправить сообщ��ние. Проверьте подключение к интернету.",
         timestamp: Date.now(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -112,7 +112,7 @@ export default function FridayChat() {
           <CardHeader className="border-b">
             <CardTitle className="flex items-center gap-2">
               <Bot className="w-6 h-6 text-primary" />
-              Чат с Пятнице��
+              Чат с Пятницей
               <span className="text-sm font-normal text-muted-foreground ml-2">
                 (Powered by Groq AI - llama-3.1-8b-instant)
               </span>
