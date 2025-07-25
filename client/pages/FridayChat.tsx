@@ -56,6 +56,10 @@ export default function FridayChat() {
         body: JSON.stringify(request),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data: ChatResponse = await response.json();
 
       if (data.success && data.message) {
