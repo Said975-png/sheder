@@ -58,7 +58,7 @@ export const useVoiceChat = ({
       setIsListening(false);
       if (event.error === "not-allowed") {
         alert(
-          "Доступ к микрофону запрещен. Разрешите доступ к микрофону для использования голосового ввода.",
+          "Доступ к микрофону запрещен. Разрешите доступ к микрофону для исполь��ования голосового ввода.",
         );
       }
     };
@@ -100,7 +100,7 @@ export const useVoiceChat = ({
         currentAudioRef.current = null;
       }
 
-      // Очищаем текст от эмодзи, звездочек и специальных символов
+      // Очищаем т��кст от эмодзи, звездочек и специальных символов
       const cleanText = text
         .replace(/[\*_~`]/g, "") // убираем markdown символы
         .replace(
@@ -135,12 +135,49 @@ export const useVoiceChat = ({
             throw new Error(`API error: ${response.status}`);
           }
         } catch (elevenLabsError) {
-          console.warn("ElevenLabs API failed, falling back to browser TTS:", elevenLabsError);
+          console.warn("ElevenLabs API failed, using browser TTS temporarily:", elevenLabsError);
           useElevenLabs = false;
         }
 
         if (!useElevenLabs || !response?.ok) {
-          throw new Error("ElevenLabs API failed - only custom voice allowed");
+          // Временный fallback пока ElevenLabs недоступен
+          if (!("speechSynthesis" in window)) {
+            throw new Error("Speech synthesis not supported");
+          }
+
+          const utterance = new SpeechSynthesisUtterance(cleanText);
+          utterance.lang = "ru-RU";
+          utterance.rate = 0.9;
+          utterance.pitch = 1;
+          utterance.volume = 1;
+
+          // Попробуем найти мужской русский голос
+          const voices = speechSynthesis.getVoices();
+          const maleRussianVoice = voices.find(voice =>
+            (voice.lang.includes("ru") || voice.name.toLowerCase().includes("russian")) &&
+            (voice.name.toLowerCase().includes("male") || voice.name.toLowerCase().includes("мужской"))
+          );
+          const russianVoice = voices.find(voice =>
+            voice.lang.includes("ru") || voice.name.toLowerCase().includes("russian")
+          );
+
+          if (maleRussianVoice) {
+            utterance.voice = maleRussianVoice;
+          } else if (russianVoice) {
+            utterance.voice = russianVoice;
+          }
+
+          utterance.onend = () => {
+            setIsSpeaking(false);
+          };
+
+          utterance.onerror = () => {
+            setIsSpeaking(false);
+          };
+
+          speechSynthesis.speak(utterance);
+          onTextToSpeech(cleanText);
+          return;
         }
 
         // Используем только ElevenLabs с кастомным голосом
