@@ -47,6 +47,16 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
             "Voice not found. The specified voice ID may not exist or may not be available.",
         });
       } else if (response.status === 401) {
+        try {
+          const errorData = JSON.parse(errorText);
+          if (errorData.detail?.status === "missing_permissions") {
+            return res.status(401).json({
+              error: "API key does not have text_to_speech permission. Please check your ElevenLabs subscription.",
+            });
+          }
+        } catch (e) {
+          // Ignore JSON parse errors
+        }
         return res.status(401).json({
           error: "API key is invalid or expired.",
         });
