@@ -19,7 +19,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
       const lastMessage = messages[messages.length - 1];
       const mockResponses = [
         "Привет! Я работаю в демо-режиме. Для полной функциональности нужен настоящий API ключ Groq.",
-        "Это демонстрацион��ый ответ. Я понимаю ваше сообщение, но использую заготовленные ответы.",
+        "Это демонстрационный ответ. Я понимаю ваше сообщение, но использую заготовленные ответы.",
         "Спасибо за ваше сообщение! В демо-режиме я могу только показать, как работает интерфейс чата.",
         "Для получения реальных AI ответов необходимо настроить API ключ Groq в переменных окружения.",
         "Демо-режим активен. Ваше сообщение получено, но ответ сгенерирован локально.",
@@ -44,7 +44,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "llama-3.1-8b-instant", // Быстрая и мощная модель
+          model: "llama-3.1-8b-instant", // Быстрая и мощна�� модель
           messages: [
             {
               role: "system",
@@ -80,7 +80,18 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
         try {
           const errorData = JSON.parse(errorText);
           if (errorData.error?.code === "invalid_api_key") {
-            errorMessage = "API ключ Groq недействителен. Пожалуйста, проверьте настройки.";
+            // Return a mock response instead of an error for demo purposes
+            const mockResponses = [
+              "Я работаю в демо-режиме с заготовленными ответами. Для настоящего AI нужен валидный API ключ.",
+              "Это демонстрационный ответ. API ключ недействителен, но интерфейс работает корректно.",
+              "В демо-режиме я показываю, как работает чат. Для реальных AI ответов настройте API ключ Groq.",
+            ];
+            const mockResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+            const response: ChatResponse = {
+              success: true,
+              message: mockResponse,
+            };
+            return res.json(response);
           } else {
             errorMessage = "Некорректный запрос к API Groq.";
           }
