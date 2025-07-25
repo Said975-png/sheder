@@ -12,6 +12,17 @@ export default function FridayChat() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const { isListening, isSpeaking, toggleListening, speakText, stopSpeaking } = useVoiceChat({
+    onTranscriptReceived: (text: string) => {
+      setInputValue(text);
+      // Автоматически отправляем сообщение после распознавания речи
+      sendMessageWithText(text);
+    },
+    onTextToSpeech: (text: string) => {
+      console.log('Speaking:', text);
+    }
+  });
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
