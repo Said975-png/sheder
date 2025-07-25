@@ -118,7 +118,7 @@ export default function StarkHero({
                 <p className="text-xl lg:text-2xl text-white/70 leading-relaxed">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Буду��ее взаимодействия с технологиями уже здесь."
+                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будущее взаимодействия с технологиями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
@@ -192,15 +192,15 @@ export default function StarkHero({
                   />
                 </div>
 
-                {/* Floating UI Elements */}
-                <div className="absolute top-4 right-4 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-3">
+                {/* Floating UI Elements - positioned to not overlap */}
+                <div className="absolute top-6 right-6 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-3 z-20">
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
                     <span className="text-xs font-medium text-white">ACTIVE</span>
                   </div>
                 </div>
 
-                <div className="absolute bottom-4 left-4 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-4">
+                <div className="absolute bottom-6 left-6 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-4 z-20">
                   <div className="text-xs font-medium text-white mb-1">Neural Network</div>
                   <div className="flex items-center space-x-1">
                     {Array.from({ length: 8 }).map((_, i) => (
