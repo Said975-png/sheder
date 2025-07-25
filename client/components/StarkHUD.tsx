@@ -26,7 +26,7 @@ export function StarkHUD({
   return (
     <div
       className={cn(
-        "relative overflow-hidden stark-card-corners",
+        "relative overflow-hidden",
         animated && "transition-all duration-500",
         !initialized && animated && "opacity-0 scale-95",
         initialized && animated && "opacity-100 scale-100",
@@ -36,31 +36,9 @@ export function StarkHUD({
       {/* Основной контент */}
       <div className="relative z-10">{children}</div>
 
-      {/* HUD углы */}
-      {showCorners && (
-        <>
-          <div className="absolute top-0 left-0 w-8 h-8 border-l-2 border-t-2 border-cyan-400 opacity-70"></div>
-          <div className="absolute top-0 right-0 w-8 h-8 border-r-2 border-t-2 border-cyan-400 opacity-70"></div>
-          <div className="absolute bottom-0 left-0 w-8 h-8 border-l-2 border-b-2 border-cyan-400 opacity-70"></div>
-          <div className="absolute bottom-0 right-0 w-8 h-8 border-r-2 border-b-2 border-cyan-400 opacity-70"></div>
-        </>
-      )}
+      {/* Убраны HUD углы */}
 
-      {/* Сканирующие линии */}
-      {showScanlines && (
-        <>
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
-          <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"></div>
-          <div
-            className="absolute top-0 left-0 w-px h-full bg-gradient-to-b from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"
-            style={{ animationDelay: "0.5s" }}
-          ></div>
-          <div
-            className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-transparent via-cyan-400 to-transparent opacity-60 animate-pulse"
-            style={{ animationDelay: "0.5s" }}
-          ></div>
-        </>
-      )}
+      {/* Убраны сканирующие линии */}
 
       {/* Энергетическое поле */}
       {animated && (
