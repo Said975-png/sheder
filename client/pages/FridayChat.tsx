@@ -186,7 +186,7 @@ export default function FridayChat() {
               {messages.map((message, index) => (
                 <div
                   key={index}
-                  className={`flex gap-3 ${
+                  className={`flex gap-3 w-full ${
                     message.role === "user" ? "justify-end" : "justify-start"
                   }`}
                 >
