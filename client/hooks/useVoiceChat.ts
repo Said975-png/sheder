@@ -143,7 +143,7 @@ export const useVoiceChat = ({
           throw new Error("ElevenLabs API failed - only custom voice allowed");
         }
 
-        // Используе�� только ElevenLabs с кастомным голосом
+        // Используем только ElevenLabs с кастомным голосом
         const audioBlob = await response.blob();
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
@@ -174,15 +174,10 @@ export const useVoiceChat = ({
   );
 
   const stopSpeaking = useCallback(() => {
-    // Останавливаем ElevenLabs аудио если оно играет
+    // Останавливаем только ElevenLabs аудио
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current = null;
-    }
-
-    // Останавливаем браузерное TTS если оно активно
-    if ("speechSynthesis" in window && speechSynthesis.speaking) {
-      speechSynthesis.cancel();
     }
 
     setIsSpeaking(false);
