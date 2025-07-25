@@ -57,7 +57,8 @@ const pricingPlans: PricingPlan[] = [
     name: "PRO",
     price: "3.500.000",
     originalPrice: "4.000.000",
-    description: "Насыщенный функционал с встроенным ИИ и многими возможностями",
+    description:
+      "Насыщенный функционал с встроенным ИИ и многими возможностями",
     features: [
       "Все из пакета Basic",
       "ИИ-чат бот поддержки",
@@ -82,7 +83,8 @@ const pricingPlans: PricingPlan[] = [
     id: "max",
     name: "MAX",
     price: "5.500.000",
-    description: "Безграничные возможности с Джарвисом и инновационными функциями",
+    description:
+      "Безграничные возможности с Джарвисом и инновационными функциями",
     features: [
       "Все из пакета Pro",
       "Встроенный Джарвис с голосовыми ответами",
@@ -148,7 +150,8 @@ function PricingSection() {
           <div className="w-40 h-1 bg-white mx-auto mb-8 rounded-full" />
 
           <p className="text-xl text-white/80 max-w-4xl mx-auto leading-relaxed">
-            Выберите тариф, который идеально подходит для ваших целей. От стильного базового сайта до премиального решения с Джарвисом
+            Выберите тариф, который идеально подходит для ваших целей. От
+            стильного базового сайта до премиального решения с Джарвисом
           </p>
         </div>
 
@@ -160,7 +163,7 @@ function PricingSection() {
               className={cn(
                 "relative group transition-all duration-500 transform",
                 plan.highlight ? "md:scale-110 md:-mt-4" : "hover:scale-105",
-                hoveredCard === plan.id ? "z-10" : "z-0"
+                hoveredCard === plan.id ? "z-10" : "z-0",
               )}
               onMouseEnter={() => setHoveredCard(plan.id)}
               onMouseLeave={() => setHoveredCard(null)}
@@ -185,7 +188,7 @@ function PricingSection() {
                   plan.highlight
                     ? "border-white bg-white/10 shadow-2xl shadow-white/20"
                     : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10",
-                  "hover:shadow-2xl"
+                  "hover:shadow-2xl",
                 )}
               >
                 {/* Gradient Background for highlighted card */}
@@ -201,7 +204,7 @@ function PricingSection() {
                         "w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto transition-all duration-500",
                         plan.highlight
                           ? "bg-white text-black"
-                          : "bg-white/10 text-white border border-white/20"
+                          : "bg-white/10 text-white border border-white/20",
                       )}
                     >
                       {plan.icon}
@@ -259,7 +262,7 @@ function PricingSection() {
                       "w-full py-4 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 group",
                       plan.highlight
                         ? "bg-white text-black hover:bg-white/90 shadow-lg"
-                        : "bg-white/10 text-white hover:bg-white/20 border border-white/20 hover:border-white/40"
+                        : "bg-white/10 text-white hover:bg-white/20 border border-white/20 hover:border-white/40",
                     )}
                   >
                     <Sparkles className="w-4 h-4 mr-2 group-hover:animate-spin" />
@@ -279,7 +282,8 @@ function PricingSection() {
               Не можете определиться?
             </h3>
             <p className="text-white/70 mb-6 leading-relaxed">
-              Свяжитесь с нами для бесплатной консультации. Мы поможем выбрать идеальный пакет для ваших потребностей.
+              Свяжитесь с нами для бесплатной консультации. Мы поможем выбрать
+              идеальный пакет для ваших потребностей.
             </p>
             <Button className="px-8 py-4 text-lg font-semibold bg-white text-black hover:bg-white/90 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105">
               <Heart className="w-5 h-5 mr-2" />

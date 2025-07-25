@@ -30,7 +30,8 @@ const advantages: Advantage[] = [
   {
     id: "design",
     title: "Современный Дизайн",
-    description: "Создаем визуально потрясающие интерфейсы, которые впечатляют и конвертируют",
+    description:
+      "Создаем визуально потрясающие интерфейсы, которые впечатляют и конвертируют",
     features: [
       "Уникальные решения",
       "Адаптивный дизайн",
@@ -44,7 +45,8 @@ const advantages: Advantage[] = [
   {
     id: "technology",
     title: "Передовые Технологии",
-    description: "Используем новейшие технологии для создания мощных и безопасных решений",
+    description:
+      "Используем новейшие технологии для создания мощных и безопасных решений",
     features: [
       "React & Next.js",
       "TypeScript",
@@ -58,7 +60,8 @@ const advantages: Advantage[] = [
   {
     id: "performance",
     title: "Высокая Производительность",
-    description: "Оптимизируем каждый элемент для максимальной скорости и отзывчивости",
+    description:
+      "Оптимизируем каждый элемент для максимальной скорости и отзывчивости",
     features: [
       "Молниеносная загрузка",
       "SEO оптимизация",
@@ -72,7 +75,8 @@ const advantages: Advantage[] = [
   {
     id: "security",
     title: "Безопасность",
-    description: "Гарантируем максимальную защиту данных и соответствие стандартам",
+    description:
+      "Гарантируем максимальную защиту данных и соответствие стандартам",
     features: [
       "SSL шифрование",
       "Защита от атак",
@@ -86,13 +90,9 @@ const advantages: Advantage[] = [
   {
     id: "ai",
     title: "ИИ Интеграция",
-    description: "Встраиваем искусственный интеллект для автоматизации и улучшения UX",
-    features: [
-      "Чат-боты",
-      "Персонализация",
-      "Аналитика",
-      "Автоматизация",
-    ],
+    description:
+      "Встраиваем искусственный интеллект для автоматизации и улучшения UX",
+    features: ["Чат-боты", "Персонализация", "Аналитика", "Автоматизация"],
     icon: <Sparkles className="w-8 h-8" />,
     gradient: "from-violet-400 via-purple-500 to-indigo-600",
     glowColor: "shadow-violet-400/30",
@@ -100,7 +100,8 @@ const advantages: Advantage[] = [
   {
     id: "support",
     title: "Поддержка и Обслуживание",
-    description: "Предоставляем полную техническую поддержку и регулярные обновления",
+    description:
+      "Предоставляем полную техническую поддержку и регулярные обновления",
     features: [
       "24/7 поддержка",
       "Регулярные обновления",
@@ -130,7 +131,9 @@ function AdvantagesSection() {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setTimeout(() => {
-      setCurrentSlide((prev) => (prev - 1 + advantages.length) % advantages.length);
+      setCurrentSlide(
+        (prev) => (prev - 1 + advantages.length) % advantages.length,
+      );
       setIsTransitioning(false);
     }, 300);
   }, [isTransitioning]);
@@ -187,7 +190,8 @@ function AdvantagesSection() {
           <div className="w-32 h-1 bg-white mx-auto mb-8 rounded-full" />
 
           <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-            Мы создаем не просто сайты — мы создаем цифровые шедевры, объединяющие передовые технологии с безупречным дизайном
+            Мы создаем не просто сайты — мы создаем цифровые шедевры,
+            объединяющие передовые технологии с безупречным дизайном
           </p>
         </div>
 
@@ -215,7 +219,9 @@ function AdvantagesSection() {
             <div
               className={cn(
                 "relative w-full max-w-4xl transition-all duration-500",
-                isTransitioning ? "scale-95 opacity-70" : "scale-100 opacity-100",
+                isTransitioning
+                  ? "scale-95 opacity-70"
+                  : "scale-100 opacity-100",
               )}
             >
               <div className="relative p-8 rounded-3xl border border-white/20 bg-white/5 backdrop-blur-lg transition-all duration-500 hover:border-white/40 hover:bg-white/10 hover:shadow-2xl">
@@ -287,7 +293,7 @@ function AdvantagesSection() {
             {advantages.slice(0, 3).map((advantage, index) => {
               const actualIndex = (currentSlide + index) % advantages.length;
               const displayAdvantage = advantages[actualIndex];
-              
+
               return (
                 <button
                   key={actualIndex}

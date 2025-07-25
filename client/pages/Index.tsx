@@ -457,9 +457,7 @@ export default function Index() {
                 className="w-80 bg-black/90 border-gray-500/30 mt-2 backdrop-blur-lg"
               >
                 <div className="px-3 py-2">
-                  <h3 className="font-semibold text-white mb-2">
-                    CART MATRIX
-                  </h3>
+                  <h3 className="font-semibold text-white mb-2">CART MATRIX</h3>
                   {items.length === 0 ? (
                     <p className="text-sm text-white/60 text-center py-4">
                       Cart is empty
@@ -496,9 +494,7 @@ export default function Index() {
                       </div>
                       <DropdownMenuSeparator className="bg-cyan-400/20 my-3" />
                       <div className="flex justify-between items-center mb-3">
-                        <span className="font-semibold text-white">
-                          TOTAL:
-                        </span>
+                        <span className="font-semibold text-white">TOTAL:</span>
                         <span className="font-bold text-white">
                           {getTotalPrice().toLocaleString()} сум
                         </span>

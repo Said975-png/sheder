@@ -174,9 +174,7 @@ export default function JarvisDemo() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white">
-                      ДЖАРВИС
-                    </h3>
+                    <h3 className="text-lg font-bold text-white">ДЖАРВИС</h3>
                     <p className="text-xs text-white/70">AI Assistant</p>
                   </div>
                 </div>
@@ -332,9 +330,7 @@ export default function JarvisDemo() {
                 ].map((stat, index) => (
                   <div key={index} className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-white/80">
-                        {stat.label}
-                      </span>
+                      <span className="text-white/80">{stat.label}</span>
                       <span className="text-white font-bold">
                         {stat.value}%
                       </span>
@@ -370,9 +366,7 @@ export default function JarvisDemo() {
                     : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10",
                 )}
               >
-                <p className="text-sm text-white line-clamp-2">
-                  {conv.user}
-                </p>
+                <p className="text-sm text-white line-clamp-2">{conv.user}</p>
               </button>
             ))}
           </div>

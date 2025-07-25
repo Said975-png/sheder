@@ -129,10 +129,14 @@ export default function StarkHero({
             </div>
 
             {/* Enhanced CTA Section */}
-            <div className={cn(
-              "flex flex-col sm:flex-row gap-4 transition-all duration-1000",
-              showCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            )}>
+            <div
+              className={cn(
+                "flex flex-col sm:flex-row gap-4 transition-all duration-1000",
+                showCTA
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4",
+              )}
+            >
               {/* Primary CTA */}
               <Button className="group bg-white text-black hover:bg-white/90 px-8 py-4 text-lg font-semibold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105">
                 <Bot className="w-5 h-5 mr-3 group-hover:animate-pulse" />
@@ -144,21 +148,37 @@ export default function StarkHero({
               <SiteSearch />
 
               {/* Tertiary Action */}
-              <Button variant="ghost" className="group text-white border border-white/20 hover:border-white/40 hover:bg-white/5 px-6 py-4 rounded-2xl transition-all duration-300">
+              <Button
+                variant="ghost"
+                className="group text-white border border-white/20 hover:border-white/40 hover:bg-white/5 px-6 py-4 rounded-2xl transition-all duration-300"
+              >
                 <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
                 <span>Смотреть демо</span>
               </Button>
             </div>
 
             {/* Feature Highlights */}
-            <div className={cn(
-              "grid grid-cols-2 md:grid-cols-3 gap-4 pt-8 transition-all duration-1000 delay-300",
-              showCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            )}>
+            <div
+              className={cn(
+                "grid grid-cols-2 md:grid-cols-3 gap-4 pt-8 transition-all duration-1000 delay-300",
+                showCTA
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4",
+              )}
+            >
               {[
-                { icon: <Mic className="w-4 h-4" />, text: "Голосовое управление" },
-                { icon: <Sparkles className="w-4 h-4" />, text: "ИИ-аналитика" },
-                { icon: <Star className="w-4 h-4" />, text: "24/7 доступность" },
+                {
+                  icon: <Mic className="w-4 h-4" />,
+                  text: "Голосовое управление",
+                },
+                {
+                  icon: <Sparkles className="w-4 h-4" />,
+                  text: "ИИ-аналитика",
+                },
+                {
+                  icon: <Star className="w-4 h-4" />,
+                  text: "24/7 доступность",
+                },
               ].map((feature, index) => (
                 <div
                   key={index}
@@ -196,12 +216,16 @@ export default function StarkHero({
                 <div className="absolute top-6 right-6 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-3 z-20">
                   <div className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                    <span className="text-xs font-medium text-white">ACTIVE</span>
+                    <span className="text-xs font-medium text-white">
+                      ACTIVE
+                    </span>
                   </div>
                 </div>
 
                 <div className="absolute bottom-6 left-6 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-4 z-20">
-                  <div className="text-xs font-medium text-white mb-1">Neural Network</div>
+                  <div className="text-xs font-medium text-white mb-1">
+                    Neural Network
+                  </div>
                   <div className="flex items-center space-x-1">
                     {Array.from({ length: 8 }).map((_, i) => (
                       <div
@@ -221,10 +245,12 @@ export default function StarkHero({
         </div>
 
         {/* Bottom section with stats - moved outside model area */}
-        <div className={cn(
-          "mt-16 pb-12 transition-all duration-1000 delay-500",
-          showCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-        )}>
+        <div
+          className={cn(
+            "mt-16 pb-12 transition-all duration-1000 delay-500",
+            showCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
+          )}
+        >
           <div className="flex flex-wrap justify-center items-center gap-8 text-center">
             {[
               { number: "99.9%", label: "Точность ответов" },
