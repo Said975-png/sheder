@@ -58,7 +58,7 @@ export const useVoiceChat = ({
       setIsListening(false);
       if (event.error === "not-allowed") {
         alert(
-          "Доступ к мик��офону запрещен. Разрешите доступ к микрофону для использования голосового ввода.",
+          "Доступ к микрофону запрещен. Разрешите доступ к микрофону для использования голосового ввода.",
         );
       }
     };
@@ -140,31 +140,35 @@ export const useVoiceChat = ({
         }
 
         if (!useElevenLabs || !response?.ok) {
-          // Временный fallback пока ElevenLabs недоступен
+          // Кастомная настройка голоса QwIajjI6ArHb10VNwWmz имитация
           if (!("speechSynthesis" in window)) {
             throw new Error("Speech synthesis not supported");
           }
 
           const utterance = new SpeechSynthesisUtterance(cleanText);
           utterance.lang = "ru-RU";
-          utterance.rate = 0.9;
-          utterance.pitch = 1;
+          utterance.rate = 0.8; // Медленнее для имитации кастомного голоса
+          utterance.pitch = 0.7; // Ниже для мужского голоса
           utterance.volume = 1;
 
-          // Попробуем найти мужской русский голос
+          // Ищем лучший мужской голос
           const voices = speechSynthesis.getVoices();
-          const maleRussianVoice = voices.find(voice =>
-            (voice.lang.includes("ru") || voice.name.toLowerCase().includes("russian")) &&
-            (voice.name.toLowerCase().includes("male") || voice.name.toLowerCase().includes("мужской"))
-          );
-          const russianVoice = voices.find(voice =>
-            voice.lang.includes("ru") || voice.name.toLowerCase().includes("russian")
-          );
 
-          if (maleRussianVoice) {
-            utterance.voice = maleRussianVoice;
-          } else if (russianVoice) {
-            utterance.voice = russianVoice;
+          // Приоритет голосов для имитации кастомного QwIajjI6ArHb10VNwWmz
+          const preferredVoices = [
+            voices.find(voice => voice.name.includes("Microsoft Pavel")), // Мужской русский
+            voices.find(voice => voice.name.includes("Google русский")),
+            voices.find(voice => voice.name.includes("Male") && voice.lang.includes("ru")),
+            voices.find(voice => voice.name.includes("мужской")),
+            voices.find(voice => !voice.name.toLowerCase().includes("female") &&
+                                  !voice.name.toLowerCase().includes("женский") &&
+                                  voice.lang.includes("ru")),
+            voices.find(voice => voice.lang.includes("ru"))
+          ];
+
+          const selectedVoice = preferredVoices.find(voice => voice);
+          if (selectedVoice) {
+            utterance.voice = selectedVoice;
           }
 
           utterance.onend = () => {
@@ -180,7 +184,7 @@ export const useVoiceChat = ({
           return;
         }
 
-        // Используем только ElevenLabs с кастомным голосом
+        // Используем только ElevenLabs �� кастомным голосом
         const audioBlob = await response.blob();
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
