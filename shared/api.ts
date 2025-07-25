@@ -69,7 +69,7 @@ export interface OrderResponse {
  * Chat API types
  */
 export interface ChatMessage {
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   content: string;
   timestamp: number;
 }

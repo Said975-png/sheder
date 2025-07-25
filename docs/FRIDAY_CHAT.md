@@ -34,6 +34,7 @@ export GROQ_API_KEY="your-groq-api-key-here"
 Отправка сообщений в чат с Пятницей.
 
 **Request Body:**
+
 ```json
 {
   "messages": [
@@ -47,6 +48,7 @@ export GROQ_API_KEY="your-groq-api-key-here"
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -63,6 +65,7 @@ export GROQ_API_KEY="your-groq-api-key-here"
 ## Модель ИИ
 
 Используется модель **llama-3.1-8b-instant** от Groq AI:
+
 - 8 миллиардов параметров
 - Поддержка русского языка
 - Очень высокая скорость ответа
