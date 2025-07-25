@@ -145,8 +145,9 @@ export function HologramText({
     <div className={cn("relative", className)}>
       <div
         className={cn(
-          "bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent",
+          "bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent underline font-bold",
         )}
+        style={{ paddingRight: "-2px" }}
       >
         {children}
       </div>
