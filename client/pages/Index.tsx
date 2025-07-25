@@ -46,7 +46,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Компонент для анимации пе��ат�� кода
+// Компонент для анимации пе����ат�� кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -369,8 +369,8 @@ export default function Index() {
           "fixed left-1/2 transform -translate-x-1/2 z-40 transition-all duration-500",
           // Базовые стили в зависимости от состояния скролла
           navbarScrolled
-            ? "bg-black/80 backdrop-blur-lg border border-gray-500/30"
-            : "bg-transparent border border-gray-500/20",
+            ? "bg-black/85 backdrop-blur-xl border border-cyan-500/40 shadow-lg shadow-cyan-500/20"
+            : "bg-black/60 backdrop-blur-md border border-cyan-400/30 shadow-md shadow-cyan-400/10",
 
           "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный нав��ар
         )}
