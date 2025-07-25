@@ -229,16 +229,16 @@ export default function FridayChat() {
                   }`}
                 >
                   {message.role === "assistant" && (
-                    <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
+                    <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30 shadow-md shadow-cyan-400/30">
                       <Bot className="w-4 h-4 text-cyan-400" />
                     </div>
                   )}
 
                   <div
-                    className={`max-w-[70%] min-w-0 rounded-lg px-4 py-2 backdrop-blur-sm ${
+                    className={`max-w-[70%] min-w-0 rounded-lg px-4 py-2 backdrop-blur-md ${
                       message.role === "user"
-                        ? "bg-gradient-to-r from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 text-white"
-                        : "bg-gray-800/50 border border-cyan-400/20 text-white"
+                        ? "bg-gradient-to-r from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 text-white shadow-md shadow-cyan-400/20"
+                        : "bg-black/60 border border-cyan-400/20 text-white shadow-md shadow-cyan-400/10"
                     }`}
                   >
                     <div className="text-sm leading-relaxed whitespace-pre-wrap break-words word-break-break-word overflow-wrap-break-word">
