@@ -111,7 +111,7 @@ export default function StarkHero({
             >
               <div className="flex items-center space-x-3">
                 <ArcReactor size="small" pulsing />
-                <div className="font-mono text-sm">
+                <div className="text-sm">
                   <TypewriterText
                     text="STARK INDUSTRIES"
                     speed={80}
