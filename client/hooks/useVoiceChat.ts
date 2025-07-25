@@ -13,6 +13,7 @@ export const useVoiceChat = ({
   const [isSpeaking, setIsSpeaking] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+  const backgroundAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const startListening = useCallback(() => {
     if (
@@ -43,9 +44,16 @@ export const useVoiceChat = ({
         if (result.isFinal) {
           const transcript = result[0].transcript.trim();
           if (transcript) {
-            // Сразу останавливаем распознавание и отправляем текст
+            // Сначала устанавливаем флаг, затем останавливаем
             setIsListening(false);
-            recognition.stop();
+            if (recognitionRef.current) {
+              try {
+                recognitionRef.current.stop();
+              } catch (e) {
+                // Игнорируем ошибки
+              }
+              recognitionRef.current = null;
+            }
             onTranscriptReceived(transcript);
             return;
           }
@@ -73,15 +81,16 @@ export const useVoiceChat = ({
   }, [onTranscriptReceived]);
 
   const stopListening = useCallback(() => {
-    setIsListening(false);
     if (recognitionRef.current) {
       try {
-        recognitionRef.current.abort(); // Используем abort вместо stop для полной остановки
+        // Используем stop вместо abort для предотвращения ошибки "aborted"
+        recognitionRef.current.stop();
       } catch (e) {
         // Игнорируем ошибки если recognition уже остановлено
       }
       recognitionRef.current = null;
     }
+    setIsListening(false);
   }, []);
 
   const toggleListening = useCallback(() => {
@@ -94,131 +103,9 @@ export const useVoiceChat = ({
 
   const speakText = useCallback(
     async (text: string) => {
-      // Останавливаем текущее воспроизведение
-      if (currentAudioRef.current) {
-        currentAudioRef.current.pause();
-        currentAudioRef.current = null;
-      }
-
-      // Очищаем текст от эмодзи, звездочек и специальных символов
-      const cleanText = text
-        .replace(/[\*_~`]/g, "") // убираем markdown символы
-        .replace(
-          /[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu,
-          "",
-        ) // убираем эмодзи
-        .replace(/[^\w\s.,!?;:\-а-яё]/gi, "") // убираем другие специальные символы, сохраняя русские буквы
-        .trim();
-
-      if (!cleanText) return;
-
-      setIsSpeaking(true);
-
-      try {
-        // Пробуем ElevenLabs API
-        let useElevenLabs = true;
-        let response: Response | undefined;
-
-        try {
-          response = await fetch("/api/elevenlabs-tts", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              text: cleanText,
-              voice_id: "QwIajjI6ArHb10VNwWmz", // Кастомный голос пользователя
-            }),
-          });
-
-          if (!response.ok) {
-            throw new Error(`API error: ${response.status}`);
-          }
-        } catch (elevenLabsError) {
-          console.warn(
-            "ElevenLabs API failed, using browser TTS temporarily:",
-            elevenLabsError,
-          );
-          useElevenLabs = false;
-        }
-
-        if (!useElevenLabs || !response?.ok) {
-          // Кастомная настройка голоса QwIajjI6ArHb10VNwWmz имитация
-          if (!("speechSynthesis" in window)) {
-            throw new Error("Speech synthesis not supported");
-          }
-
-          const utterance = new SpeechSynthesisUtterance(cleanText);
-          utterance.lang = "ru-RU";
-          utterance.rate = 0.8; // Медленнее для имитации кастомного голоса
-          utterance.pitch = 0.7; // Ниже для мужского голоса
-          utterance.volume = 1;
-
-          // Ищем лучший мужской голос
-          const voices = speechSynthesis.getVoices();
-
-          // Приоритет голосов для имитации кастомного QwIajjI6ArHb10VNwWmz
-          const preferredVoices = [
-            voices.find((voice) => voice.name.includes("Microsoft Pavel")), // Мужской русский
-            voices.find((voice) => voice.name.includes("Google русский")),
-            voices.find(
-              (voice) =>
-                voice.name.includes("Male") && voice.lang.includes("ru"),
-            ),
-            voices.find((voice) => voice.name.includes("мужской")),
-            voices.find(
-              (voice) =>
-                !voice.name.toLowerCase().includes("female") &&
-                !voice.name.toLowerCase().includes("женский") &&
-                voice.lang.includes("ru"),
-            ),
-            voices.find((voice) => voice.lang.includes("ru")),
-          ];
-
-          const selectedVoice = preferredVoices.find((voice) => voice);
-          if (selectedVoice) {
-            utterance.voice = selectedVoice;
-          }
-
-          utterance.onend = () => {
-            setIsSpeaking(false);
-          };
-
-          utterance.onerror = () => {
-            setIsSpeaking(false);
-          };
-
-          speechSynthesis.speak(utterance);
-          onTextToSpeech(cleanText);
-          return;
-        }
-
-        // Используем только ElevenLabs �� кастомным голосом
-        const audioBlob = await response.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-        const audio = new Audio(audioUrl);
-
-        currentAudioRef.current = audio;
-
-        audio.onended = () => {
-          setIsSpeaking(false);
-          URL.revokeObjectURL(audioUrl);
-          currentAudioRef.current = null;
-        };
-
-        audio.onerror = () => {
-          setIsSpeaking(false);
-          URL.revokeObjectURL(audioUrl);
-          currentAudioRef.current = null;
-        };
-
-        await audio.play();
-
-        onTextToSpeech(cleanText);
-      } catch (error) {
-        console.error("TTS error:", error);
-        setIsSpeaking(false);
-      }
+      // Голосовое воспроизведение отключено
+      console.log("Voice output disabled");
+      onTextToSpeech(text);
     },
     [onTextToSpeech],
   );
@@ -233,6 +120,11 @@ export const useVoiceChat = ({
     // Останавливаем браузерное TTS если оно активно
     if ("speechSynthesis" in window && speechSynthesis.speaking) {
       speechSynthesis.cancel();
+    }
+
+    // Останавливаем фоновое аудио
+    if (backgroundAudioRef.current) {
+      backgroundAudioRef.current.pause();
     }
 
     setIsSpeaking(false);

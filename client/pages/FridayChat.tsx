@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 import {
   Send,
   Bot,
@@ -11,6 +12,8 @@ import {
   MicOff,
   Volume2,
   VolumeX,
+  Home,
+  ArrowLeft,
 } from "lucide-react";
 import { ChatMessage, ChatRequest, ChatResponse } from "@shared/api";
 import { useVoiceChat } from "@/hooks/useVoiceChat";
@@ -20,6 +23,7 @@ export default function FridayChat() {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const { isListening, isSpeaking, toggleListening, speakText, stopSpeaking } =
     useVoiceChat({
@@ -42,11 +46,12 @@ export default function FridayChat() {
   }, [messages]);
 
   useEffect(() => {
-    // Привет��твенное сообщение при загрузке
+    // Приветственное сообщение при загрузке
     setMessages([
       {
         role: "assistant",
-        content: "Привет! Я Пятница, ваш ИИ-ассистент. Чем могу помочь?",
+        content:
+          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий пакет для вашего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
         timestamp: Date.now(),
       },
     ]);
@@ -94,7 +99,7 @@ export default function FridayChat() {
       } else {
         const errorMessage: ChatMessage = {
           role: "assistant",
-          content: `Извините, произошла о��ибка: ${data.error || "Неизвестная ошибка"}`,
+          content: `Извините, произошла ошибка: ${data.error || "Неизвестная ошибка"}`,
           timestamp: Date.now(),
         };
         setMessages((prev) => [...prev, errorMessage]);
@@ -132,25 +137,56 @@ export default function FridayChat() {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="max-w-4xl mx-auto">
-        <Card className="h-[80vh] flex flex-col">
-          <CardHeader className="border-b">
+    <div className="min-h-screen bg-black text-white p-4">
+      {/* Background effects matching main site */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        ></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-blue-500/5 to-transparent rounded-full"></div>
+      </div>
+
+      <div className="max-w-4xl mx-auto relative z-10">
+        <Card className="h-[85vh] flex flex-col bg-black/60 border-cyan-400/30 backdrop-blur-lg">
+          <CardHeader className="border-b border-cyan-400/20 bg-gradient-to-r from-black/50 to-gray-900/50 backdrop-blur-lg">
             <CardTitle className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Bot className="w-6 h-6 text-primary" />
-                Чат с Пятницей
-                <span className="text-sm font-normal text-muted-foreground ml-2">
-                  (Powered by Groq AI - llama-3.1-8b-instant)
-                </span>
+              <div className="flex items-center gap-3">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => navigate("/")}
+                  className="p-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300 border border-cyan-400/30"
+                >
+                  <ArrowLeft className="w-4 h-4 text-cyan-400" />
+                </Button>
+                <Bot className="w-6 h-6 text-cyan-400" />
+                <div className="flex flex-col">
+                  <span className="text-white font-mono">Чат с Пятницей</span>
+                  <span className="text-xs text-cyan-400/70">
+                    Ваш ИИ-консультант по веб-разработке
+                  </span>
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
                   size="sm"
+                  onClick={() => navigate("/")}
+                  className="border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400/60 transition-all duration-300"
+                >
+                  <Home className="w-4 h-4 mr-1" />
+                  Главная
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
                   onClick={toggleListening}
-                  className={`${
-                    isListening ? "bg-red-500 text-white hover:bg-red-600" : ""
+                  className={`transition-all duration-300 ${
+                    isListening
+                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
+                      : "border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10"
                   }`}
                 >
                   {isListening ? (
@@ -158,15 +194,17 @@ export default function FridayChat() {
                   ) : (
                     <Mic className="w-4 h-4" />
                   )}
-                  {isListening ? "Выкл. микро��он" : "Вкл. микрофон"}
+                  {isListening ? "Стоп" : "Микрофон"}
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={stopSpeaking}
                   disabled={!isSpeaking}
-                  className={`${
-                    isSpeaking ? "bg-blue-500 text-white hover:bg-blue-600" : ""
+                  className={`transition-all duration-300 ${
+                    isSpeaking
+                      ? "bg-blue-500/20 border-blue-500/50 text-blue-400 hover:bg-blue-500/30"
+                      : "border-cyan-400/30 text-cyan-400/60"
                   }`}
                 >
                   {isSpeaking ? (
@@ -174,7 +212,7 @@ export default function FridayChat() {
                   ) : (
                     <Volume2 className="w-4 h-4" />
                   )}
-                  {isSpeaking ? "Остановить" : "Голос"}
+                  {isSpeaking ? "Стоп" : "Голос"}
                 </Button>
               </div>
             </CardTitle>
@@ -191,29 +229,29 @@ export default function FridayChat() {
                   }`}
                 >
                   {message.role === "assistant" && (
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Bot className="w-4 h-4 text-primary" />
+                    <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
+                      <Bot className="w-4 h-4 text-cyan-400" />
                     </div>
                   )}
 
                   <div
-                    className={`max-w-[70%] min-w-0 rounded-lg px-4 py-2 ${
+                    className={`max-w-[70%] min-w-0 rounded-lg px-4 py-2 backdrop-blur-sm ${
                       message.role === "user"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted"
+                        ? "bg-gradient-to-r from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 text-white"
+                        : "bg-gray-800/50 border border-cyan-400/20 text-white"
                     }`}
                   >
                     <div className="text-sm leading-relaxed whitespace-pre-wrap break-words word-break-break-word overflow-wrap-break-word">
                       {message.content}
                     </div>
-                    <div className="text-xs opacity-70 mt-1">
+                    <div className="text-xs opacity-70 mt-1 text-cyan-400/70">
                       {formatTime(message.timestamp)}
                     </div>
                   </div>
 
                   {message.role === "user" && (
-                    <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
-                      <User className="w-4 h-4" />
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 flex items-center justify-center flex-shrink-0">
+                      <User className="w-4 h-4 text-cyan-400" />
                     </div>
                   )}
                 </div>
@@ -221,13 +259,15 @@ export default function FridayChat() {
 
               {isLoading && (
                 <div className="flex gap-3 justify-start">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Bot className="w-4 h-4 text-primary" />
+                  <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
+                    <Bot className="w-4 h-4 text-cyan-400" />
                   </div>
-                  <div className="bg-muted rounded-lg px-4 py-2">
+                  <div className="bg-gray-800/50 border border-cyan-400/20 rounded-lg px-4 py-2 backdrop-blur-sm">
                     <div className="flex items-center gap-2">
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span className="text-sm">Пятница думает...</span>
+                      <Loader2 className="w-4 h-4 animate-spin text-cyan-400" />
+                      <span className="text-sm text-white">
+                        Пятница думает...
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -235,10 +275,10 @@ export default function FridayChat() {
 
               {isListening && (
                 <div className="flex gap-3 justify-center">
-                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2">
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2 backdrop-blur-sm">
                     <div className="flex items-center gap-2">
                       <Mic className="w-4 h-4 text-red-500 animate-pulse" />
-                      <span className="text-sm text-red-500">Слушаю...</span>
+                      <span className="text-sm text-red-400">Слушаю...</span>
                     </div>
                   </div>
                 </div>
@@ -246,13 +286,13 @@ export default function FridayChat() {
 
               {isSpeaking && (
                 <div className="flex gap-3 justify-start">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Bot className="w-4 h-4 text-primary" />
+                  <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
+                    <Bot className="w-4 h-4 text-cyan-400" />
                   </div>
-                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-2">
+                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-2 backdrop-blur-sm">
                     <div className="flex items-center gap-2">
                       <Volume2 className="w-4 h-4 text-blue-500 animate-pulse" />
-                      <span className="text-sm text-blue-500">Говорю...</span>
+                      <span className="text-sm text-blue-400">Говорю...</span>
                     </div>
                   </div>
                 </div>
@@ -262,7 +302,7 @@ export default function FridayChat() {
             </div>
 
             {/* Input area */}
-            <div className="border-t p-4">
+            <div className="border-t border-cyan-400/20 bg-gradient-to-r from-black/50 to-gray-900/50 backdrop-blur-lg p-4">
               <div className="flex gap-2">
                 <Input
                   value={inputValue}
@@ -271,16 +311,21 @@ export default function FridayChat() {
                   placeholder={
                     isListening
                       ? "Говорите в микрофон..."
-                      : "Напишите сообщение Пятнице..."
+                      : "Спросите о наших услугах, тарифах или любую другую тему..."
                   }
                   disabled={isLoading || isListening}
-                  className="flex-1"
+                  className="flex-1 bg-black/50 border-cyan-400/30 text-white placeholder:text-white/50 focus:border-cyan-400/60"
                 />
                 <Button
                   onClick={toggleListening}
-                  variant={isListening ? "destructive" : "outline"}
+                  variant="outline"
                   size="icon"
                   disabled={isLoading}
+                  className={`transition-all duration-300 ${
+                    isListening
+                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
+                      : "border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10"
+                  }`}
                 >
                   {isListening ? (
                     <MicOff className="w-4 h-4" />
@@ -292,6 +337,7 @@ export default function FridayChat() {
                   onClick={sendMessage}
                   disabled={!inputValue.trim() || isLoading}
                   size="icon"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 border-0"
                 >
                   {isLoading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
