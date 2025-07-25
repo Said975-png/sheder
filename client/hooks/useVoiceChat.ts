@@ -13,6 +13,15 @@ export const useVoiceChat = ({
   const [isSpeaking, setIsSpeaking] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+  const backgroundAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Инициализируем фоновое аудио
+  useState(() => {
+    const backgroundAudio = new Audio("https://cdn.builder.io/o/assets%2F2d95e924fbec44478e615e081a2f9789%2F47f7db47644d45e0a3e02699130db740?alt=media&token=e9d17591-2686-44d6-a7c5-7ca30d951531&apiKey=2d95e924fbec44478e615e081a2f9789");
+    backgroundAudio.loop = true;
+    backgroundAudio.volume = 0.15; // Низкая громкость, чтобы не мешать голосу
+    backgroundAudioRef.current = backgroundAudio;
+  });
 
   const startListening = useCallback(() => {
     if (
@@ -114,6 +123,16 @@ export const useVoiceChat = ({
 
       setIsSpeaking(true);
 
+      // Запускаем фоновое аудио
+      if (backgroundAudioRef.current) {
+        try {
+          backgroundAudioRef.current.currentTime = 0;
+          backgroundAudioRef.current.play().catch(console.warn);
+        } catch (e) {
+          console.warn("Background audio failed to start:", e);
+        }
+      }
+
       try {
         // Пробуем ElevenLabs API
         let useElevenLabs = true;
@@ -182,10 +201,18 @@ export const useVoiceChat = ({
 
           utterance.onend = () => {
             setIsSpeaking(false);
+            // Останавливаем фоновое аудио
+            if (backgroundAudioRef.current) {
+              backgroundAudioRef.current.pause();
+            }
           };
 
           utterance.onerror = () => {
             setIsSpeaking(false);
+            // Останавливаем фоновое аудио
+            if (backgroundAudioRef.current) {
+              backgroundAudioRef.current.pause();
+            }
           };
 
           speechSynthesis.speak(utterance);
@@ -204,12 +231,20 @@ export const useVoiceChat = ({
           setIsSpeaking(false);
           URL.revokeObjectURL(audioUrl);
           currentAudioRef.current = null;
+          // Останавливаем фоновое аудио
+          if (backgroundAudioRef.current) {
+            backgroundAudioRef.current.pause();
+          }
         };
 
         audio.onerror = () => {
           setIsSpeaking(false);
           URL.revokeObjectURL(audioUrl);
           currentAudioRef.current = null;
+          // Останавливаем фоновое аудио
+          if (backgroundAudioRef.current) {
+            backgroundAudioRef.current.pause();
+          }
         };
 
         await audio.play();
@@ -218,6 +253,10 @@ export const useVoiceChat = ({
       } catch (error) {
         console.error("TTS error:", error);
         setIsSpeaking(false);
+        // Останавливаем фоновое аудио при ошибке
+        if (backgroundAudioRef.current) {
+          backgroundAudioRef.current.pause();
+        }
       }
     },
     [onTextToSpeech],
@@ -233,6 +272,11 @@ export const useVoiceChat = ({
     // Останавливаем браузерное TTS если оно активно
     if ("speechSynthesis" in window && speechSynthesis.speaking) {
       speechSynthesis.cancel();
+    }
+
+    // Останавливаем фоновое аудио
+    if (backgroundAudioRef.current) {
+      backgroundAudioRef.current.pause();
     }
 
     setIsSpeaking(false);
