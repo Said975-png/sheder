@@ -25,7 +25,8 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
         "Демо-режим активен. Ваше сообщение получено, но ответ сгенерирован локально.",
       ];
 
-      const mockResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+      const mockResponse =
+        mockResponses[Math.floor(Math.random() * mockResponses.length)];
 
       const response: ChatResponse = {
         success: true,
@@ -93,7 +94,8 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
         errorMessage =
           "Превышен лимит запросов к ИИ. Попробуйте через несколько секунд.";
       } else if (groqResponse.status === 401) {
-        errorMessage = "Ошибка авторизации API. API ключ недействителен или не настроен.";
+        errorMessage =
+          "Ошибка авторизации API. API ключ недействителен или не настроен.";
       } else if (groqResponse.status === 400) {
         // Check if it's invalid API key error
         try {
@@ -105,7 +107,8 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
               "Это демонстрационный ответ. API ключ недействителен, но интерфейс работает корректно.",
               "В демо-режиме я показываю, как работает чат. Для реальных AI ответов настройте API ключ Groq.",
             ];
-            const mockResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+            const mockResponse =
+              mockResponses[Math.floor(Math.random() * mockResponses.length)];
             const response: ChatResponse = {
               success: true,
               message: mockResponse,

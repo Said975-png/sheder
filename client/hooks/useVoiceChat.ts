@@ -135,7 +135,10 @@ export const useVoiceChat = ({
             throw new Error(`API error: ${response.status}`);
           }
         } catch (elevenLabsError) {
-          console.warn("ElevenLabs API failed, using browser TTS temporarily:", elevenLabsError);
+          console.warn(
+            "ElevenLabs API failed, using browser TTS temporarily:",
+            elevenLabsError,
+          );
           useElevenLabs = false;
         }
 
@@ -156,17 +159,23 @@ export const useVoiceChat = ({
 
           // Приоритет голосов для имитации кастомного QwIajjI6ArHb10VNwWmz
           const preferredVoices = [
-            voices.find(voice => voice.name.includes("Microsoft Pavel")), // Мужской русский
-            voices.find(voice => voice.name.includes("Google русский")),
-            voices.find(voice => voice.name.includes("Male") && voice.lang.includes("ru")),
-            voices.find(voice => voice.name.includes("мужской")),
-            voices.find(voice => !voice.name.toLowerCase().includes("female") &&
-                                  !voice.name.toLowerCase().includes("женский") &&
-                                  voice.lang.includes("ru")),
-            voices.find(voice => voice.lang.includes("ru"))
+            voices.find((voice) => voice.name.includes("Microsoft Pavel")), // Мужской русский
+            voices.find((voice) => voice.name.includes("Google русский")),
+            voices.find(
+              (voice) =>
+                voice.name.includes("Male") && voice.lang.includes("ru"),
+            ),
+            voices.find((voice) => voice.name.includes("мужской")),
+            voices.find(
+              (voice) =>
+                !voice.name.toLowerCase().includes("female") &&
+                !voice.name.toLowerCase().includes("женский") &&
+                voice.lang.includes("ru"),
+            ),
+            voices.find((voice) => voice.lang.includes("ru")),
           ];
 
-          const selectedVoice = preferredVoices.find(voice => voice);
+          const selectedVoice = preferredVoices.find((voice) => voice);
           if (selectedVoice) {
             utterance.voice = selectedVoice;
           }

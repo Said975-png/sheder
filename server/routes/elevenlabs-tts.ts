@@ -12,7 +12,9 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
     const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
 
     if (!ELEVENLABS_API_KEY) {
-      return res.status(500).json({ error: "ElevenLabs API key not configured" });
+      return res
+        .status(500)
+        .json({ error: "ElevenLabs API key not configured" });
     }
 
     const response = await fetch(
@@ -51,7 +53,8 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
           const errorData = JSON.parse(errorText);
           if (errorData.detail?.status === "missing_permissions") {
             return res.status(401).json({
-              error: "API key does not have text_to_speech permission. Please check your ElevenLabs subscription.",
+              error:
+                "API key does not have text_to_speech permission. Please check your ElevenLabs subscription.",
             });
           }
         } catch (e) {
