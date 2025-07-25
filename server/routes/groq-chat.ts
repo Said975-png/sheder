@@ -36,7 +36,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
           messages: [
             {
               role: "system",
-              content: `Ты - Пятница, умный ИИ-ассистент, вдохновленный персонажем из фильмов о Железном человеке. 
+              content: `Ты - Пятница, умный ИИ-ассистент, вдохновленный персонажем из фильмов о ��елезном человеке. 
             Ты помогаешь пользователям с различными задачами, отвечаешь на вопросы и ведешь интересные беседы.
             Отвечай дружелюбно, но профессионально. Используй русский язык для общения.
             Ты можешь помочь с программированием, объ��снить концепции, дать советы и просто поболтать.`,
@@ -57,9 +57,21 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
     if (!groqResponse.ok) {
       const errorText = await groqResponse.text();
       console.error("Groq API error:", errorText);
+
+      let errorMessage = `Ошибка API Groq: ${groqResponse.status}`;
+
+      // Handle specific error cases
+      if (groqResponse.status === 429) {
+        errorMessage = "Превышен лимит запросов к ИИ. Попробуйте через несколько секунд.";
+      } else if (groqResponse.status === 401) {
+        errorMessage = "Ошибка авторизации API. Проверьте настройки.";
+      } else if (groqResponse.status >= 500) {
+        errorMessage = "Сервис ИИ временно недоступен. Попробуйте позже.";
+      }
+
       const response: ChatResponse = {
         success: false,
-        error: `Ошибка API Groq: ${groqResponse.status}`,
+        error: errorMessage,
       };
       return res.status(500).json(response);
     }
