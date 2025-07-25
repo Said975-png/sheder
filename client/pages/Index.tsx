@@ -46,7 +46,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Компонент для анимации пе����ат�� кода
+// Компонент для анимации пе�����ат�� кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -264,7 +264,7 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Отслеживание скролла для навбара (без эффекта "брови")
+  // Отслеживание скролла для навбара (без эффек��а "брови")
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 100;
@@ -343,7 +343,7 @@ export default function Index() {
   }, []);
 
   const handleModelRotateStop = React.useCallback(() => {
-    console.log("⏹️ Остановка вращения м��дели");
+    console.log("⏹️ Остановка вращения модели");
     setIsModelRotating(false);
   }, []);
 
@@ -442,7 +442,7 @@ export default function Index() {
                 <Button
                   variant="ghost"
                   data-testid="cart-button"
-                  className="relative p-1.5 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                  className="relative p-2 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40"
                 >
                   <ShoppingCart className="w-4 h-4 text-white" />
                   {getTotalItems() > 0 && (
