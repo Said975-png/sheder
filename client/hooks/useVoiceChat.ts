@@ -146,7 +146,7 @@ export const useVoiceChat = ({
             },
             body: JSON.stringify({
               text: cleanText,
-              voice_id: "NOpBlnGInO9m6vDvFkFC", // Кастомный голос пользователя
+              voice_id: "UgBBYS2sOqTuMpoF3BR0", // Кастомный голос пользователя
             }),
           });
 
@@ -169,7 +169,7 @@ export const useVoiceChat = ({
 
           const utterance = new SpeechSynthesisUtterance(cleanText);
           utterance.lang = "ru-RU";
-          utterance.rate = 0.8; // Медленнее для имитации кастомного голоса
+          utterance.rate = 0.8; // Медленнее для имитаци�� кастомного голоса
           utterance.pitch = 0.7; // Ниже для мужского голоса
           utterance.volume = 1;
 
