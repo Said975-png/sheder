@@ -29,7 +29,7 @@ export default function FridayChat() {
     useVoiceChat({
       onTranscriptReceived: (text: string) => {
         setInputValue(text);
-        // Автоматически отправляем сообщение после расп��знавания речи
+        // Автоматически отправляем сообщение после распознавания речи
         sendMessageWithText(text);
       },
       onTextToSpeech: (text: string) => {
@@ -109,7 +109,7 @@ export default function FridayChat() {
       const errorMessage: ChatMessage = {
         role: "assistant",
         content:
-          "Извините, не удалось отправить сообщение. Проверь��е подключение к интернету.",
+          "Извините, не удалось отправить сообщение. Проверьте подключение к интернету.",
         timestamp: Date.now(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -302,7 +302,7 @@ export default function FridayChat() {
             </div>
 
             {/* Input area */}
-            <div className="border-t border-gray-500/20 bg-black backdrop-blur-lg p-4">
+            <div className="border-t border-cyan-400/30 bg-black/60 backdrop-blur-md p-4">
               <div className="flex gap-2">
                 <Input
                   value={inputValue}
@@ -314,7 +314,7 @@ export default function FridayChat() {
                       : "Спросите о наших услугах, тарифах или любую другую тему..."
                   }
                   disabled={isLoading || isListening}
-                  className="flex-1 bg-black/50 border-cyan-400/30 text-white placeholder:text-white/50 focus:border-cyan-400/60"
+                  className="flex-1 bg-black/60 border-cyan-400/20 text-white placeholder:text-white/50 focus:border-cyan-400/60 focus:shadow-md focus:shadow-cyan-400/20 backdrop-blur-md"
                 />
                 <Button
                   onClick={toggleListening}
@@ -323,8 +323,8 @@ export default function FridayChat() {
                   disabled={isLoading}
                   className={`transition-all duration-300 ${
                     isListening
-                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
-                      : "border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10"
+                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30 hover:shadow-md hover:shadow-red-500/30"
+                      : "border-cyan-400/20 bg-black/40 text-cyan-400 hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30"
                   }`}
                 >
                   {isListening ? (
@@ -337,7 +337,7 @@ export default function FridayChat() {
                   onClick={sendMessage}
                   disabled={!inputValue.trim() || isLoading}
                   size="icon"
-                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 border-0"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 border-0 shadow-lg shadow-cyan-500/30 hover:shadow-cyan-400/40 transition-all duration-300"
                 >
                   {isLoading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
