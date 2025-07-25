@@ -95,7 +95,7 @@ export const useVoiceChat = ({
         .replace(
           /[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu,
           "",
-        ) // убираем эмодзи
+        ) // убираем эм��дзи
         .replace(/[^\w\s.,!?;:\-а-яё]/gi, "") // убираем другие специальные символы, сохраняя русские буквы
         .trim();
 
@@ -104,21 +104,11 @@ export const useVoiceChat = ({
       setIsSpeaking(true);
 
       try {
-        // Сначала пробуем кастомный голос
-        let response = await fetch("/api/elevenlabs-tts", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            text: cleanText,
-            voice_id: "7Ipoekf0dq4j3k1xPG37", // Кастомный голос пользователя
-          }),
-        });
+        // Пробуем ElevenLabs API
+        let useElevenLabs = true;
+        let response: Response | undefined;
 
-        // Если кастомный голос не работает, пробуем дефолтный голос
-        if (!response.ok && response.status === 404) {
-          console.warn("Custom voice not found, trying default voice...");
+        try {
           response = await fetch("/api/elevenlabs-tts", {
             method: "POST",
             headers: {
@@ -126,37 +116,71 @@ export const useVoiceChat = ({
             },
             body: JSON.stringify({
               text: cleanText,
-              voice_id: "pNInz6obpgDQGcFmaJgB", // Дефолтный голос Adam
+              voice_id: "pNInz6obpgDQGcFmaJgB", // Используем только проверенный голос Adam
             }),
           });
+
+          if (!response.ok) {
+            throw new Error(`API error: ${response.status}`);
+          }
+        } catch (elevenLabsError) {
+          console.warn("ElevenLabs API failed, falling back to browser TTS:", elevenLabsError);
+          useElevenLabs = false;
         }
 
-        if (!response.ok) {
-          const errorData = await response
-            .json()
-            .catch(() => ({ error: "Unknown error" }));
-          throw new Error(errorData.error || "Failed to generate speech");
+        if (useElevenLabs && response?.ok) {
+          // Используем ElevenLabs
+          const audioBlob = await response.blob();
+          const audioUrl = URL.createObjectURL(audioBlob);
+          const audio = new Audio(audioUrl);
+
+          currentAudioRef.current = audio;
+
+          audio.onended = () => {
+            setIsSpeaking(false);
+            URL.revokeObjectURL(audioUrl);
+            currentAudioRef.current = null;
+          };
+
+          audio.onerror = () => {
+            setIsSpeaking(false);
+            URL.revokeObjectURL(audioUrl);
+            currentAudioRef.current = null;
+          };
+
+          await audio.play();
+        } else {
+          // Fallback к встроенному браузерному TTS
+          if (!("speechSynthesis" in window)) {
+            throw new Error("Speech synthesis not supported");
+          }
+
+          const utterance = new SpeechSynthesisUtterance(cleanText);
+          utterance.lang = "ru-RU";
+          utterance.rate = 0.9;
+          utterance.pitch = 1;
+          utterance.volume = 1;
+
+          // Попробуем найти русский голос
+          const voices = speechSynthesis.getVoices();
+          const russianVoice = voices.find(voice =>
+            voice.lang.includes("ru") || voice.name.toLowerCase().includes("russian")
+          );
+          if (russianVoice) {
+            utterance.voice = russianVoice;
+          }
+
+          utterance.onend = () => {
+            setIsSpeaking(false);
+          };
+
+          utterance.onerror = () => {
+            setIsSpeaking(false);
+          };
+
+          speechSynthesis.speak(utterance);
         }
 
-        const audioBlob = await response.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-        const audio = new Audio(audioUrl);
-
-        currentAudioRef.current = audio;
-
-        audio.onended = () => {
-          setIsSpeaking(false);
-          URL.revokeObjectURL(audioUrl);
-          currentAudioRef.current = null;
-        };
-
-        audio.onerror = () => {
-          setIsSpeaking(false);
-          URL.revokeObjectURL(audioUrl);
-          currentAudioRef.current = null;
-        };
-
-        await audio.play();
         onTextToSpeech(cleanText);
       } catch (error) {
         console.error("TTS error:", error);
