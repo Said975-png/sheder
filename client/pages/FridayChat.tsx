@@ -29,7 +29,7 @@ export default function FridayChat() {
     useVoiceChat({
       onTranscriptReceived: (text: string) => {
         setInputValue(text);
-        // Автоматически отправляем сообщение после распознавания ��ечи
+        // Автоматически отправляем сообщение после распознавания речи
         sendMessageWithText(text);
       },
       onTextToSpeech: (text: string) => {
@@ -109,7 +109,7 @@ export default function FridayChat() {
       const errorMessage: ChatMessage = {
         role: "assistant",
         content:
-          "Извините, не удалось отправить сообщение. Проверьте подключ��ние к интернету.",
+          "Извините, не удалось отправить сообщение. Проверьте подключение к интернету.",
         timestamp: Date.now(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -163,7 +163,7 @@ export default function FridayChat() {
                 </Button>
                 <Bot className="w-6 h-6 text-cyan-400" />
                 <div className="flex flex-col">
-                  <span className="text-white font-mono">Чат с Пятницей</span>
+                  <span className="text-white font-mono stark-text-glow">Чат с Пятницей</span>
                   <span className="text-xs text-cyan-400/70">
                     Ваш ИИ-консультант по веб-разработке
                   </span>
