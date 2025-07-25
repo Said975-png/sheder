@@ -27,26 +27,35 @@ export const useVoiceChat = ({
       window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
 
-    recognition.continuous = true;
+    recognition.continuous = false; // Изменено на false для предотвращения накопления
     recognition.interimResults = false;
     recognition.lang = "ru-RU";
+    recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
       setIsListening(true);
     };
 
     recognition.onresult = (event) => {
-      const lastResult = event.results[event.results.length - 1];
-      if (lastResult.isFinal) {
-        const transcript = lastResult[0].transcript.trim();
-        if (transcript) {
-          onTranscriptReceived(transcript);
+      // Берем только последний финальный результат
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const result = event.results[i];
+        if (result.isFinal) {
+          const transcript = result[0].transcript.trim();
+          if (transcript) {
+            // Сразу останавливаем распознавание и отправляем текст
+            setIsListening(false);
+            recognition.stop();
+            onTranscriptReceived(transcript);
+            return;
+          }
         }
       }
     };
 
     recognition.onerror = (event) => {
       console.error("Speech recognition error:", event.error);
+      setIsListening(false);
       if (event.error === "not-allowed") {
         alert(
           "Доступ к микрофону запрещен. Разрешите доступ к микрофону для использования голосового ввода.",
@@ -55,15 +64,13 @@ export const useVoiceChat = ({
     };
 
     recognition.onend = () => {
-      if (isListening) {
-        // Автоматически перезапускаем распознавание, если оно было активно
-        recognition.start();
-      }
+      setIsListening(false);
+      // Убираем автоматический перезапуск - пользователь должен нажать кнопку снова
     };
 
     recognition.start();
     recognitionRef.current = recognition;
-  }, [isListening, onTranscriptReceived]);
+  }, [onTranscriptReceived]);
 
   const stopListening = useCallback(() => {
     if (recognitionRef.current) {
