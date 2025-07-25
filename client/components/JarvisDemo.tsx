@@ -11,6 +11,7 @@ import {
   Waves,
   Sparkles,
   ArrowRight,
+  Star,
 } from "lucide-react";
 
 interface Message {
@@ -24,7 +25,7 @@ const demoConversations = [
   {
     user: "Джарвис, расскажи о блокчейне простыми словами",
     jarvis:
-      "Блокчейн - это цифровая книга записей, которая хранится од��овременно на множестве компьютеров. Каждая новая запись связана с предыдущей криптографически, что делает данные неизменными и прозрачными. Это как цифровой нотариус, который никогда не спит.",
+      "Блокчейн - это цифровая книга записей, которая хранится одновременно на множес��ве компьютеров. Каждая новая запись связана с предыдущей криптографически, что делает данные неизменными и прозрачными. Это как цифровой нотариус, который никогда не спит.",
   },
   {
     user: "Как создать смарт-контракт?",
@@ -34,7 +35,7 @@ const demoConversations = [
   {
     user: "Какие криптовалюты сейчас перспективны?",
     jarvis:
-      "Анализируя текущие тренды и технологические разработки, обратите внимание на Ethereum 2.0 с переходом на Proof-of-Stake, развитие Layer 2 решений как Polygon, и экосистему DeFi. Однако помните - это не финансовый совет, всегда проводите собственное исследование.",
+      "Анализируя текущие тренды и технологические разработки, обратите внимание на Ethereum 2.0 с переходом на Proof-of-Stake, развитие Layer 2 решений как Polygon, и экосистему DeFi. Однако помните - это не финансовый совет, всегд�� проводите собственное исследование.",
   },
   {
     user: "Помоги оптимизировать мой код",
@@ -126,41 +127,32 @@ export default function JarvisDemo() {
   const displayedTypingText = currentTypingText.substring(0, currentCharIndex);
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div
-          className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "2s" }}
-        ></div>
-      </div>
-
-      {/* Neural Network Grid */}
+    <section className="relative py-20 px-4 overflow-hidden bg-black">
+      {/* Clean minimal background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
           className="w-full h-full"
           style={{
-            backgroundImage: `linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px)`,
-            backgroundSize: "40px 40px",
+            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 1px, transparent 1px)`,
+            backgroundSize: "50px 50px",
           }}
-        ></div>
+        />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-6">
-            <div className="w-12 h-1 bg-gradient-to-r from-transparent to-cyan-400 mr-4"></div>
-            <Brain className="w-8 h-8 text-cyan-400 animate-pulse" />
-            <div className="w-12 h-1 bg-gradient-to-l from-transparent to-cyan-400 ml-4"></div>
+            <div className="w-12 h-1 bg-white mr-4" />
+            <Brain className="w-8 h-8 text-white" />
+            <div className="w-12 h-1 bg-white ml-4" />
           </div>
 
-          <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent mb-6 font-mono">
+          <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
             ДЖАРВИС В ДЕЙСТВИИ
           </h2>
 
-          <div className="w-40 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mb-8 rounded-full"></div>
+          <div className="w-40 h-1 bg-white mx-auto mb-8 rounded-full" />
 
           <p className="text-xl text-white/80 max-w-4xl mx-auto leading-relaxed">
             Посмотрите, как наш ИИ-ассистент Джарвис помогает решать сложные
@@ -172,19 +164,18 @@ export default function JarvisDemo() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Chat Interface */}
           <div className="relative">
-            <div className="bg-black/60 backdrop-blur-lg border border-cyan-400/30 rounded-2xl p-6 min-h-[600px] relative overflow-hidden">
+            <div className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl p-8 min-h-[600px] relative overflow-hidden">
               {/* Header */}
-              <div className="flex items-center justify-between mb-6 pb-4 border-b border-cyan-400/20">
+              <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/20">
                 <div className="flex items-center space-x-3">
                   <div className="relative">
-                    <Bot className="w-8 h-8 text-cyan-400" />
-                    <div className="absolute inset-0 bg-cyan-400/20 blur-md rounded-full animate-pulse"></div>
+                    <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
+                      <Bot className="w-5 h-5 text-white" />
+                    </div>
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-white font-mono">
-                      ДЖАРВИС
-                    </h3>
-                    <p className="text-xs text-cyan-400">AI Assistant</p>
+                    <h3 className="text-lg font-bold text-white">ДЖАРВИС</h3>
+                    <p className="text-xs text-white/70">AI Assistant</p>
                   </div>
                 </div>
 
@@ -193,15 +184,15 @@ export default function JarvisDemo() {
                     {audioWaves.map((height, index) => (
                       <div
                         key={index}
-                        className="bg-gradient-to-t from-cyan-400 to-blue-400 rounded-full w-1 transition-all duration-150"
+                        className="bg-white rounded-full w-1 transition-all duration-150"
                         style={{
                           height: `${height}px`,
                           animationDelay: `${index * 50}ms`,
                         }}
-                      ></div>
+                      />
                     ))}
                   </div>
-                  <Volume2 className="w-4 h-4 text-cyan-400 animate-pulse" />
+                  <Volume2 className="w-4 h-4 text-white animate-pulse" />
                 </div>
               </div>
 
@@ -216,9 +207,8 @@ export default function JarvisDemo() {
                     )}
                   >
                     {message.type === "jarvis" && (
-                      <div className="relative">
-                        <Bot className="w-6 h-6 text-cyan-400" />
-                        <div className="absolute inset-0 bg-cyan-400/20 blur-sm rounded-full animate-pulse"></div>
+                      <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
+                        <Bot className="w-4 h-4 text-white" />
                       </div>
                     )}
 
@@ -226,20 +216,19 @@ export default function JarvisDemo() {
                       className={cn(
                         "max-w-xs lg:max-w-sm xl:max-w-md px-4 py-3 rounded-2xl relative",
                         message.type === "user"
-                          ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white ml-auto"
-                          : "bg-gray-800/60 border border-cyan-400/20 text-white",
+                          ? "bg-white text-black ml-auto"
+                          : "bg-white/10 border border-white/20 text-white",
                       )}
                     >
-                      {message.type === "jarvis" && (
-                        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-blue-400/5 rounded-2xl"></div>
-                      )}
-                      <p className="text-sm leading-relaxed relative z-10 font-mono">
+                      <p className="text-sm leading-relaxed relative z-10">
                         {message.content}
                       </p>
                     </div>
 
                     {message.type === "user" && (
-                      <User className="w-6 h-6 text-blue-400" />
+                      <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
+                        <User className="w-4 h-4 text-white" />
+                      </div>
                     )}
                   </div>
                 ))}
@@ -247,16 +236,14 @@ export default function JarvisDemo() {
                 {/* Typing Animation */}
                 {isTyping && (
                   <div className="flex items-start space-x-3 animate-fadeIn">
-                    <div className="relative">
-                      <Bot className="w-6 h-6 text-cyan-400" />
-                      <div className="absolute inset-0 bg-cyan-400/20 blur-sm rounded-full animate-pulse"></div>
+                    <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
+                      <Bot className="w-4 h-4 text-white" />
                     </div>
 
-                    <div className="max-w-xs lg:max-w-sm xl:max-w-md px-4 py-3 rounded-2xl bg-gray-800/60 border border-cyan-400/20 text-white relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-blue-400/5 rounded-2xl"></div>
-                      <p className="text-sm leading-relaxed relative z-10 font-mono">
+                    <div className="max-w-xs lg:max-w-sm xl:max-w-md px-4 py-3 rounded-2xl bg-white/10 border border-white/20 text-white relative">
+                      <p className="text-sm leading-relaxed relative z-10">
                         {displayedTypingText}
-                        <span className="inline-block w-2 h-5 bg-cyan-400 animate-pulse ml-1"></span>
+                        <span className="inline-block w-2 h-5 bg-white animate-pulse ml-1" />
                       </p>
                     </div>
                   </div>
@@ -264,24 +251,21 @@ export default function JarvisDemo() {
               </div>
 
               {/* Input Area */}
-              <div className="flex items-center space-x-3 p-3 bg-gray-800/40 border border-cyan-400/20 rounded-xl">
-                <MessageCircle className="w-5 h-5 text-cyan-400" />
-                <div className="flex-1 text-sm text-white/60 font-mono">
+              <div className="flex items-center space-x-3 p-4 bg-white/5 border border-white/20 rounded-xl">
+                <MessageCircle className="w-5 h-5 text-white" />
+                <div className="flex-1 text-sm text-white/60">
                   Задайте вопрос Джарвису...
                 </div>
-                <Mic className="w-5 h-5 text-cyan-400 animate-pulse" />
+                <Mic className="w-5 h-5 text-white animate-pulse" />
               </div>
-
-              {/* Glowing border effect */}
-              <div className="absolute inset-0 rounded-2xl border border-cyan-400/30 animate-pulse pointer-events-none"></div>
             </div>
           </div>
 
           {/* Features & Info */}
           <div className="space-y-8">
             <div className="space-y-6">
-              <h3 className="text-3xl font-bold text-white mb-6 font-mono">
-                Возможности <span className="text-cyan-400">Джарвиса</span>
+              <h3 className="text-3xl font-bold text-white mb-6">
+                Возможности <span className="text-white">Джарвиса</span>
               </h3>
 
               <div className="space-y-4">
@@ -313,32 +297,32 @@ export default function JarvisDemo() {
                 ].map((feature, index) => (
                   <div
                     key={index}
-                    className="flex items-start space-x-4 p-4 bg-gray-800/40 border border-cyan-400/20 rounded-xl hover:border-cyan-400/40 transition-all duration-300 group"
+                    className="flex items-start space-x-4 p-6 bg-white/5 border border-white/20 rounded-2xl hover:border-white/40 hover:bg-white/10 transition-all duration-300 group"
                   >
-                    <div className="text-cyan-400 group-hover:scale-110 transition-transform duration-300">
+                    <div className="text-white group-hover:scale-110 transition-transform duration-300">
                       {feature.icon}
                     </div>
                     <div className="flex-1">
-                      <h4 className="text-lg font-semibold text-white mb-2 font-mono group-hover:text-cyan-400 transition-colors duration-300">
+                      <h4 className="text-lg font-semibold text-white mb-2 group-hover:text-white transition-colors duration-300">
                         {feature.title}
                       </h4>
                       <p className="text-white/70 text-sm leading-relaxed">
                         {feature.description}
                       </p>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <ArrowRight className="w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Progress Indicators */}
-            <div className="bg-black/40 border border-cyan-400/20 rounded-xl p-6">
-              <h4 className="text-lg font-bold text-white mb-4 font-mono flex items-center">
-                <Bot className="w-5 h-5 text-cyan-400 mr-2" />
+            <div className="bg-white/5 border border-white/20 rounded-2xl p-6">
+              <h4 className="text-lg font-bold text-white mb-4 flex items-center">
+                <Bot className="w-5 h-5 text-white mr-2" />
                 Статистика Джарвиса
               </h4>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {[
                   { label: "Точность ответов", value: 96 },
                   { label: "Скорость обработки", value: 89 },
@@ -346,18 +330,16 @@ export default function JarvisDemo() {
                 ].map((stat, index) => (
                   <div key={index} className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-white/80 font-mono">
-                        {stat.label}
-                      </span>
-                      <span className="text-cyan-400 font-mono">
+                      <span className="text-white/80">{stat.label}</span>
+                      <span className="text-white font-bold">
                         {stat.value}%
                       </span>
                     </div>
-                    <div className="w-full bg-gray-700/50 rounded-full h-2">
+                    <div className="w-full bg-white/10 rounded-full h-2">
                       <div
-                        className="bg-gradient-to-r from-cyan-400 to-blue-500 h-2 rounded-full transition-all duration-1000 ease-out"
+                        className="bg-white h-2 rounded-full transition-all duration-1000 ease-out"
                         style={{ width: `${stat.value}%` }}
-                      ></div>
+                      />
                     </div>
                   </div>
                 ))}
@@ -367,9 +349,9 @@ export default function JarvisDemo() {
         </div>
 
         {/* Conversation Topics */}
-        <div className="mt-16">
-          <h3 className="text-2xl font-bold text-center text-white mb-8 font-mono">
-            О чем можно спросить <span className="text-cyan-400">Джарвиса</span>
+        <div className="mt-20">
+          <h3 className="text-2xl font-bold text-center text-white mb-8">
+            О чем можно спросить <span className="text-white">Джарвиса</span>
           </h3>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -380,13 +362,11 @@ export default function JarvisDemo() {
                 className={cn(
                   "p-4 rounded-xl border transition-all duration-300 text-left",
                   index === currentConversation
-                    ? "border-cyan-400/60 bg-cyan-400/10 scale-105"
-                    : "border-cyan-400/20 bg-gray-800/40 hover:border-cyan-400/40 hover:bg-cyan-400/5",
+                    ? "border-white bg-white/10 scale-105"
+                    : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10",
                 )}
               >
-                <p className="text-sm text-white/80 font-mono line-clamp-2">
-                  {conv.user}
-                </p>
+                <p className="text-sm text-white line-clamp-2">{conv.user}</p>
               </button>
             ))}
           </div>

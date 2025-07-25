@@ -88,8 +88,8 @@ export function PowerIndicator({
       </div>
 
       {/* Текстовый индикатор */}
-      <div className="font-mono text-xs text-cyan-400 min-w-max">
-        <div className="text-cyan-300">{label}</div>
+      <div className="text-xs text-white min-w-max">
+        <div className="text-white">{label}</div>
         <div className="text-white font-bold">{normalizedLevel}%</div>
       </div>
     </div>
@@ -170,9 +170,9 @@ export function MatrixRain({
   };
 
   const colorClasses = {
-    green: "text-green-400",
-    cyan: "text-cyan-400",
-    blue: "text-blue-400",
+    green: "text-white",
+    cyan: "text-white",
+    blue: "text-white",
   };
 
   useEffect(() => {
@@ -196,7 +196,7 @@ export function MatrixRain({
         <div
           key={index}
           className={cn(
-            "absolute font-mono text-xs opacity-60",
+            "absolute text-xs opacity-60",
             colorClasses[color],
             speedClasses[speed],
           )}

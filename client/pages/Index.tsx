@@ -46,7 +46,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Компонент для анимации печати кода
+// Компонент для анимации пе��ат�� кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -203,22 +203,22 @@ function TypewriterCode() {
       let highlightedLine = line
         .replace(
           /(import|export|from|const|let|var|function|return|if|else|class|def|async|await)/g,
-          '<span class="text-purple-400">$1</span>',
+          '<span class="text-white">$1</span>',
         )
-        .replace(/(\{|\}|\(|\)|;)/g, '<span class="text-cyan-400">$1</span>')
-        .replace(/(["'].*?["'])/g, '<span class="text-green-400">$1</span>')
-        .replace(/(\d+)/g, '<span class="text-orange-400">$1</span>')
-        .replace(/(\/\/.*$)/g, '<span class="text-gray-500">$1</span>')
-        .replace(/(<[^>]*>)/g, '<span class="text-red-400">$1</span>')
+        .replace(/(\{|\}|\(|\)|;)/g, '<span class="text-white">$1</span>')
+        .replace(/(["'].*?["'])/g, '<span class="text-white">$1</span>')
+        .replace(/(\d+)/g, '<span class="text-white">$1</span>')
+        .replace(/(\/\/.*$)/g, '<span class="text-white">$1</span>')
+        .replace(/(<[^>]*>)/g, '<span class="text-white">$1</span>')
         .replace(
           /(className|onClick|useState|useEffect|href|src)/g,
-          '<span class="text-blue-400">$1</span>',
+          '<span class="text-white">$1</span>',
         );
 
       return (
         <div
           key={index}
-          className="font-mono text-sm leading-relaxed"
+          className="text-sm leading-relaxed"
           dangerouslySetInnerHTML={{ __html: highlightedLine }}
         />
       );
@@ -226,8 +226,8 @@ function TypewriterCode() {
   };
 
   return (
-    <div className="font-mono text-sm h-[400px] overflow-hidden relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/50 pointer-events-none z-10"></div>
+    <div className="text-sm h-[400px] overflow-hidden relative">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none z-10"></div>
 
       <div className="space-y-1 text-white/90 h-full overflow-hidden">
         {renderCodeWithSyntaxHighlight(displayedCode)}
@@ -352,7 +352,7 @@ export default function Index() {
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
           <ArcReactor size="large" pulsing />
-          <p className="text-cyan-400 mt-4 font-mono">
+          <p className="text-white mt-4">
             <GlitchText>INITIALIZING STARK SYSTEMS...</GlitchText>
           </p>
         </div>
@@ -362,39 +362,15 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      {/* Неоновый фиолетовый фон */}
-      <div className="neon-purple-background"></div>
-
-      {/* Неоновые углы */}
-      <div className="neon-corners">
-        <div className="neon-corner neon-corner-tl"></div>
-        <div className="neon-corner neon-corner-tr"></div>
-        <div className="neon-corner neon-corner-bl"></div>
-        <div className="neon-corner neon-corner-br"></div>
-      </div>
-
-      {/* Неоновые краевые свечения */}
-      <div className="neon-edges"></div>
-
-      {/* Центральное неоновое свечение */}
-      <div className="neon-center-glow"></div>
-
-      {/* Неоновые частицы */}
-      <div className="neon-particles">
-        <div className="neon-particle"></div>
-        <div className="neon-particle"></div>
-        <div className="neon-particle"></div>
-        <div className="neon-particle"></div>
-        <div className="neon-particle"></div>
-      </div>
+      {/* Убраны неоновые эффекты */}
       {/* Navigation - Enhanced with Stark styling */}
       <nav
         className={cn(
           "fixed left-1/2 transform -translate-x-1/2 z-40 transition-all duration-300",
           // Базовые стили в зависимости от состояния скролла
           navbarScrolled
-            ? "bg-black/80 backdrop-blur-lg border border-cyan-400/30 stark-glow"
-            : "bg-transparent border border-cyan-400/20",
+            ? "bg-black/80 backdrop-blur-lg border border-gray-500/30"
+            : "bg-transparent border border-gray-500/20",
 
           "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный нав��ар
         )}
@@ -409,7 +385,7 @@ export default function Index() {
           <Button
             variant="ghost"
             className={cn(
-              "text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-500 font-mono transform",
+              "text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-500 transform",
               "scale-100 opacity-100 w-auto",
             )}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -443,13 +419,13 @@ export default function Index() {
               "scale-0 opacity-0 w-0 overflow-hidden",
             )}
           >
-            <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"></div>
+            <div className="w-1 h-1 bg-white rounded-full animate-pulse"></div>
             <div
-              className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"
+              className="w-1 h-1 bg-white rounded-full animate-pulse"
               style={{ animationDelay: "0.2s" }}
             ></div>
             <div
-              className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"
+              className="w-1 h-1 bg-white rounded-full animate-pulse"
               style={{ animationDelay: "0.4s" }}
             ></div>
           </div>
@@ -468,7 +444,7 @@ export default function Index() {
                   data-testid="cart-button"
                   className="relative p-1.5 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
                 >
-                  <ShoppingCart className="w-4 h-4 text-cyan-400" />
+                  <ShoppingCart className="w-4 h-4 text-white" />
                   {getTotalItems() > 0 && (
                     <span className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
                       {getTotalItems()}
@@ -478,14 +454,12 @@ export default function Index() {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="w-80 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
+                className="w-80 bg-black/90 border-gray-500/30 mt-2 backdrop-blur-lg"
               >
                 <div className="px-3 py-2">
-                  <h3 className="font-semibold text-cyan-400 mb-2 font-mono">
-                    CART MATRIX
-                  </h3>
+                  <h3 className="font-semibold text-white mb-2">CART MATRIX</h3>
                   {items.length === 0 ? (
-                    <p className="text-sm text-white/60 text-center py-4 font-mono">
+                    <p className="text-sm text-white/60 text-center py-4">
                       Cart is empty
                     </p>
                   ) : (
@@ -494,16 +468,16 @@ export default function Index() {
                         {items.map((item) => (
                           <div
                             key={item.id}
-                            className="flex items-start justify-between p-2 bg-gray-800/50 border border-cyan-400/20 rounded-lg stark-corners"
+                            className="flex items-start justify-between p-2 bg-black/50 border border-gray-500/20 rounded-lg"
                           >
                             <div className="flex-1">
-                              <h4 className="font-medium text-sm text-white font-mono">
+                              <h4 className="font-medium text-sm text-white">
                                 {item.name}
                               </h4>
                               <p className="text-xs text-white/60 mt-1">
                                 {item.description.substring(0, 60)}...
                               </p>
-                              <p className="text-sm font-semibold text-cyan-400 mt-1 font-mono">
+                              <p className="text-sm font-semibold text-white mt-1">
                                 {item.price.toLocaleString()} сум
                               </p>
                             </div>
@@ -511,7 +485,7 @@ export default function Index() {
                               variant="ghost"
                               size="sm"
                               onClick={() => removeItem(item.id)}
-                              className="ml-2 h-6 w-6 p-0 hover:bg-red-500/20 text-red-400"
+                              className="ml-2 h-6 w-6 p-0 hover:bg-gray-500/20 text-white"
                             >
                               ×
                             </Button>
@@ -520,10 +494,8 @@ export default function Index() {
                       </div>
                       <DropdownMenuSeparator className="bg-cyan-400/20 my-3" />
                       <div className="flex justify-between items-center mb-3">
-                        <span className="font-semibold text-cyan-400 font-mono">
-                          TOTAL:
-                        </span>
-                        <span className="font-bold text-white font-mono">
+                        <span className="font-semibold text-white">TOTAL:</span>
+                        <span className="font-bold text-white">
                           {getTotalPrice().toLocaleString()} сум
                         </span>
                       </div>
@@ -532,7 +504,7 @@ export default function Index() {
                           onClick={clearCart}
                           variant="outline"
                           size="sm"
-                          className="flex-1 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10"
+                          className="flex-1 border-gray-500/50 text-white hover:bg-gray-500/10"
                         >
                           Clear
                         </Button>
@@ -573,10 +545,10 @@ export default function Index() {
                     variant="ghost"
                     className="flex items-center space-x-2 p-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
                   >
-                    <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-gradient-to-r from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
                       <User className="w-4 h-4" />
                     </div>
-                    <span className="hidden sm:block text-sm font-mono">
+                    <span className="hidden sm:block text-sm">
                       {currentUser.name}
                     </span>
                   </Button>
@@ -586,7 +558,7 @@ export default function Index() {
                   className="w-56 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
                 >
                   <div className="px-2 py-1.5 text-sm text-white/60">
-                    <div className="font-medium text-cyan-400 font-mono">
+                    <div className="font-medium text-white">
                       {currentUser.name}
                     </div>
                     <div className="text-xs">{currentUser.email}</div>
@@ -616,7 +588,7 @@ export default function Index() {
                   <DropdownMenuSeparator className="bg-cyan-400/20" />
                   <DropdownMenuItem
                     onClick={handleLogout}
-                    className="text-red-400 hover:bg-red-400/10 cursor-pointer"
+                    className="text-white hover:bg-gray-500/10 cursor-pointer"
                   >
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Logout</span>
@@ -633,7 +605,7 @@ export default function Index() {
             >
               <Button
                 variant="ghost"
-                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
                 asChild
               >
                 <Link to="/login">
@@ -642,7 +614,7 @@ export default function Index() {
               </Button>
               <Button
                 variant="ghost"
-                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
                 asChild
               >
                 <Link to="/signup">
@@ -651,7 +623,7 @@ export default function Index() {
               </Button>
               <Button
                 variant="ghost"
-                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
                 asChild
               >
                 <Link to="/chat">
