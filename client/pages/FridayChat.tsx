@@ -15,7 +15,7 @@ export default function FridayChat() {
   const { isListening, isSpeaking, toggleListening, speakText, stopSpeaking } = useVoiceChat({
     onTranscriptReceived: (text: string) => {
       setInputValue(text);
-      // Автоматически отправляем с��общение после распознавания речи
+      // Автоматически отправляем сообщение после распознавания речи
       sendMessageWithText(text);
     },
     onTextToSpeech: (text: string) => {
@@ -32,7 +32,7 @@ export default function FridayChat() {
   }, [messages]);
 
   useEffect(() => {
-    // Приветственное сообщение при загрузке
+    // Привет��твенное сообщение при загрузке
     setMessages([
       {
         role: "assistant",
@@ -104,6 +104,10 @@ export default function FridayChat() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const sendMessage = async () => {
+    await sendMessageWithText(inputValue);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
