@@ -27,26 +27,35 @@ export const useVoiceChat = ({
       window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
 
-    recognition.continuous = true;
+    recognition.continuous = false; // Изменено на false для предотвращения накопления
     recognition.interimResults = false;
     recognition.lang = "ru-RU";
+    recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
       setIsListening(true);
     };
 
     recognition.onresult = (event) => {
-      const lastResult = event.results[event.results.length - 1];
-      if (lastResult.isFinal) {
-        const transcript = lastResult[0].transcript.trim();
-        if (transcript) {
-          onTranscriptReceived(transcript);
+      // Берем только последний финальный результат
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        const result = event.results[i];
+        if (result.isFinal) {
+          const transcript = result[0].transcript.trim();
+          if (transcript) {
+            // Сразу останавливаем распознавание и отправляем текст
+            setIsListening(false);
+            recognition.stop();
+            onTranscriptReceived(transcript);
+            return;
+          }
         }
       }
     };
 
     recognition.onerror = (event) => {
       console.error("Speech recognition error:", event.error);
+      setIsListening(false);
       if (event.error === "not-allowed") {
         alert(
           "Доступ к микрофону запрещен. Разрешите доступ к микрофону для использования голосового ввода.",
@@ -55,20 +64,22 @@ export const useVoiceChat = ({
     };
 
     recognition.onend = () => {
-      if (isListening) {
-        // Автоматически перезапускаем распознавание, если оно было активно
-        recognition.start();
-      }
+      setIsListening(false);
+      // Убираем автоматический перезапуск - пользователь должен нажать кнопку снова
     };
 
     recognition.start();
     recognitionRef.current = recognition;
-  }, [isListening, onTranscriptReceived]);
+  }, [onTranscriptReceived]);
 
   const stopListening = useCallback(() => {
+    setIsListening(false);
     if (recognitionRef.current) {
-      setIsListening(false);
-      recognitionRef.current.stop();
+      try {
+        recognitionRef.current.abort(); // Используем abort вместо stop для полной остановки
+      } catch (e) {
+        // Игнорируем ошибки если recognition уже остановлено
+      }
       recognitionRef.current = null;
     }
   }, []);
@@ -104,21 +115,11 @@ export const useVoiceChat = ({
       setIsSpeaking(true);
 
       try {
-        // Сначала пробуем кастомный голос
-        let response = await fetch("/api/elevenlabs-tts", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            text: cleanText,
-            voice_id: "7Ipoekf0dq4j3k1xPG37", // Кастомный голос пользователя
-          }),
-        });
+        // Пробуем ElevenLabs API
+        let useElevenLabs = true;
+        let response: Response | undefined;
 
-        // Если кастомный голос не работает, пробуем дефолтный голос
-        if (!response.ok && response.status === 404) {
-          console.warn("Custom voice not found, trying default voice...");
+        try {
           response = await fetch("/api/elevenlabs-tts", {
             method: "POST",
             headers: {
@@ -126,18 +127,73 @@ export const useVoiceChat = ({
             },
             body: JSON.stringify({
               text: cleanText,
-              voice_id: "pNInz6obpgDQGcFmaJgB", // Дефолтный голос Adam
+              voice_id: "QwIajjI6ArHb10VNwWmz", // Кастомный голос пользователя
             }),
           });
+
+          if (!response.ok) {
+            throw new Error(`API error: ${response.status}`);
+          }
+        } catch (elevenLabsError) {
+          console.warn(
+            "ElevenLabs API failed, using browser TTS temporarily:",
+            elevenLabsError,
+          );
+          useElevenLabs = false;
         }
 
-        if (!response.ok) {
-          const errorData = await response
-            .json()
-            .catch(() => ({ error: "Unknown error" }));
-          throw new Error(errorData.error || "Failed to generate speech");
+        if (!useElevenLabs || !response?.ok) {
+          // Кастомная настройка голоса QwIajjI6ArHb10VNwWmz имитация
+          if (!("speechSynthesis" in window)) {
+            throw new Error("Speech synthesis not supported");
+          }
+
+          const utterance = new SpeechSynthesisUtterance(cleanText);
+          utterance.lang = "ru-RU";
+          utterance.rate = 0.8; // Медленнее для имитации кастомного голоса
+          utterance.pitch = 0.7; // Ниже для мужского голоса
+          utterance.volume = 1;
+
+          // Ищем лучший мужской голос
+          const voices = speechSynthesis.getVoices();
+
+          // Приоритет голосов для имитации кастомного QwIajjI6ArHb10VNwWmz
+          const preferredVoices = [
+            voices.find((voice) => voice.name.includes("Microsoft Pavel")), // Мужской русский
+            voices.find((voice) => voice.name.includes("Google русский")),
+            voices.find(
+              (voice) =>
+                voice.name.includes("Male") && voice.lang.includes("ru"),
+            ),
+            voices.find((voice) => voice.name.includes("мужской")),
+            voices.find(
+              (voice) =>
+                !voice.name.toLowerCase().includes("female") &&
+                !voice.name.toLowerCase().includes("женский") &&
+                voice.lang.includes("ru"),
+            ),
+            voices.find((voice) => voice.lang.includes("ru")),
+          ];
+
+          const selectedVoice = preferredVoices.find((voice) => voice);
+          if (selectedVoice) {
+            utterance.voice = selectedVoice;
+          }
+
+          utterance.onend = () => {
+            setIsSpeaking(false);
+          };
+
+          utterance.onerror = () => {
+            setIsSpeaking(false);
+          };
+
+          speechSynthesis.speak(utterance);
+          onTextToSpeech(cleanText);
+          return;
         }
 
+        // Используем только ElevenLabs �� кастомным голосом
         const audioBlob = await response.blob();
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
@@ -157,6 +213,7 @@ export const useVoiceChat = ({
         };
 
         await audio.play();
+
         onTextToSpeech(cleanText);
       } catch (error) {
         console.error("TTS error:", error);
@@ -167,11 +224,18 @@ export const useVoiceChat = ({
   );
 
   const stopSpeaking = useCallback(() => {
+    // Останавливаем ElevenLabs аудио
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current = null;
-      setIsSpeaking(false);
     }
+
+    // Останавливаем браузерное TTS если оно активно
+    if ("speechSynthesis" in window && speechSynthesis.speaking) {
+      speechSynthesis.cancel();
+    }
+
+    setIsSpeaking(false);
   }, []);
 
   return {

@@ -8,10 +8,14 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
   }
 
   try {
-    // Используем ваш реальный API ключ ElevenLabs
-    const ELEVENLABS_API_KEY =
-      process.env.ELEVENLABS_API_KEY ||
-      "sk_e2c893aaca006de74fb3fc5bc4e605115e2e1b0dfc2f210f";
+    // Используем API ключ ElevenLabs из переменной окружения
+    const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
+
+    if (!ELEVENLABS_API_KEY) {
+      return res
+        .status(500)
+        .json({ error: "ElevenLabs API key not configured" });
+    }
 
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}`,
@@ -45,6 +49,17 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
             "Voice not found. The specified voice ID may not exist or may not be available.",
         });
       } else if (response.status === 401) {
+        try {
+          const errorData = JSON.parse(errorText);
+          if (errorData.detail?.status === "missing_permissions") {
+            return res.status(401).json({
+              error:
+                "API key does not have text_to_speech permission. Please check your ElevenLabs subscription.",
+            });
+          }
+        } catch (e) {
+          // Ignore JSON parse errors
+        }
         return res.status(401).json({
           error: "API key is invalid or expired.",
         });

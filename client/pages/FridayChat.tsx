@@ -91,9 +91,6 @@ export default function FridayChat() {
           timestamp: Date.now(),
         };
         setMessages((prev) => [...prev, assistantMessage]);
-
-        // Автоматически озвучиваем ответ ИИ
-        speakText(data.message);
       } else {
         const errorMessage: ChatMessage = {
           role: "assistant",
@@ -185,11 +182,11 @@ export default function FridayChat() {
 
           <CardContent className="flex-1 flex flex-col p-0">
             {/* Messages area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-4 w-full">
               {messages.map((message, index) => (
                 <div
                   key={index}
-                  className={`flex gap-3 ${
+                  className={`flex gap-3 w-full ${
                     message.role === "user" ? "justify-end" : "justify-start"
                   }`}
                 >
@@ -200,13 +197,13 @@ export default function FridayChat() {
                   )}
 
                   <div
-                    className={`max-w-[70%] rounded-lg px-4 py-2 ${
+                    className={`max-w-[70%] min-w-0 rounded-lg px-4 py-2 ${
                       message.role === "user"
                         ? "bg-primary text-primary-foreground"
                         : "bg-muted"
                     }`}
                   >
-                    <div className="text-sm leading-relaxed whitespace-pre-wrap">
+                    <div className="text-sm leading-relaxed whitespace-pre-wrap break-words word-break-break-word overflow-wrap-break-word">
                       {message.content}
                     </div>
                     <div className="text-xs opacity-70 mt-1">
