@@ -42,12 +42,12 @@ export default function FridayChat() {
     ]);
   }, []);
 
-  const sendMessage = async () => {
-    if (!inputValue.trim() || isLoading) return;
+  const sendMessageWithText = async (text: string) => {
+    if (!text.trim() || isLoading) return;
 
     const userMessage: ChatMessage = {
       role: "user",
-      content: inputValue.trim(),
+      content: text.trim(),
       timestamp: Date.now(),
     };
 
