@@ -115,14 +115,14 @@ export default function StarkHero({
                   <TypewriterText
                     text="STARK INDUSTRIES"
                     speed={80}
-                    className="text-cyan-400"
+                    className="text-white"
                   />
-                  <span className="text-gray-400 ml-2">|</span>
+                  <span className="text-white ml-2">|</span>
                   <TypewriterText
                     text="BLOCKCHAIN DIVISION"
                     speed={80}
                     delay={1000}
-                    className="text-blue-400 ml-2"
+                    className="text-white ml-2"
                   />
                 </div>
               </div>
@@ -136,7 +136,7 @@ export default function StarkHero({
                   glitch
                 >
                   <TypewriterText
-                    text="Jarvis - ваш искусственный интеллект"
+                    text="Jarvis - ��аш искусственный интеллект"
                     speed={30}
                     delay={500}
                     onComplete={() => setTitleComplete(true)}
@@ -145,9 +145,9 @@ export default function StarkHero({
               </h1>
 
               <div className="relative">
-                <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-lg">
+                <p className="text-lg lg:text-xl text-white leading-relaxed max-w-lg">
                   {targetLocked ? (
-                    <span className="text-cyan-400 stark-text-glow">
+                    <span className="text-white">
                       {titleComplete && (
                         <TypewriterText
                           text="Вы говорите — Джарвис делает. Это не просто сайт. Это — ваш персональный AI-помощник, встроенный в интерфейс"
