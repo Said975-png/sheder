@@ -366,7 +366,7 @@ export default function Index() {
       {/* Navigation - Enhanced with Stark styling */}
       <nav
         className={cn(
-          "fixed left-1/2 transform -translate-x-1/2 z-40 transition-all duration-300",
+          "fixed left-1/2 transform -translate-x-1/2 z-40 transition-all duration-500",
           // Базовые стили в зависимости от состояния скролла
           navbarScrolled
             ? "bg-black/80 backdrop-blur-lg border border-gray-500/30"
