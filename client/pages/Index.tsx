@@ -372,7 +372,7 @@ export default function Index() {
             ? "bg-black/85 backdrop-blur-xl border border-cyan-500/40 shadow-lg shadow-cyan-500/20"
             : "bg-black/60 backdrop-blur-md border border-cyan-400/30 shadow-md shadow-cyan-400/10",
 
-          "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный нав��ар
+          "top-2 rounded-full px-3 py-2 w-auto h-auto", // Улучшенные отступы
         )}
       >
         <div
