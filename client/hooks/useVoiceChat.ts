@@ -95,7 +95,7 @@ export const useVoiceChat = ({
         .replace(
           /[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{1F1E0}-\u{1F1FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu,
           "",
-        ) // убираем эм��дзи
+        ) // убираем эмодзи
         .replace(/[^\w\s.,!?;:\-а-яё]/gi, "") // убираем другие специальные символы, сохраняя русские буквы
         .trim();
 
@@ -191,11 +191,18 @@ export const useVoiceChat = ({
   );
 
   const stopSpeaking = useCallback(() => {
+    // Останавливаем ElevenLabs аудио если оно играет
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current = null;
-      setIsSpeaking(false);
     }
+
+    // Останавливаем браузерное TTS если оно активно
+    if ("speechSynthesis" in window && speechSynthesis.speaking) {
+      speechSynthesis.cancel();
+    }
+
+    setIsSpeaking(false);
   }, []);
 
   return {
