@@ -127,7 +127,7 @@ export const useVoiceChat = ({
             },
             body: JSON.stringify({
               text: cleanText,
-              voice_id: "7Ipoekf0dq4j3k1xPG37", // Кастомный голос пользователя
+              voice_id: "QwIajjI6ArHb10VNwWmz", // Кастомный голос пользователя
             }),
           });
 
