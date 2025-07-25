@@ -180,7 +180,7 @@ function PricingSection() {
   };
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
+    <section className="relative py-20 px-4 overflow-hidden bg-black">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-10 left-20 w-80 h-80 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl animate-pulse"></div>
