@@ -50,7 +50,8 @@ export default function FridayChat() {
     setMessages([
       {
         role: "assistant",
-        content: "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий пакет для вашего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
+        content:
+          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий пакет для вашего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
         timestamp: Date.now(),
       },
     ]);
@@ -140,10 +141,13 @@ export default function FridayChat() {
       {/* Background effects matching main site */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
+        <div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        ></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-blue-500/5 to-transparent rounded-full"></div>
       </div>
-      
+
       <div className="max-w-4xl mx-auto relative z-10">
         <Card className="h-[85vh] flex flex-col bg-black/60 border-cyan-400/30 backdrop-blur-lg">
           <CardHeader className="border-b border-cyan-400/20 bg-gradient-to-r from-black/50 to-gray-900/50 backdrop-blur-lg">
@@ -180,8 +184,8 @@ export default function FridayChat() {
                   size="sm"
                   onClick={toggleListening}
                   className={`transition-all duration-300 ${
-                    isListening 
-                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30" 
+                    isListening
+                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
                       : "border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10"
                   }`}
                 >
@@ -198,8 +202,8 @@ export default function FridayChat() {
                   onClick={stopSpeaking}
                   disabled={!isSpeaking}
                   className={`transition-all duration-300 ${
-                    isSpeaking 
-                      ? "bg-blue-500/20 border-blue-500/50 text-blue-400 hover:bg-blue-500/30" 
+                    isSpeaking
+                      ? "bg-blue-500/20 border-blue-500/50 text-blue-400 hover:bg-blue-500/30"
                       : "border-cyan-400/30 text-cyan-400/60"
                   }`}
                 >
@@ -261,7 +265,9 @@ export default function FridayChat() {
                   <div className="bg-gray-800/50 border border-cyan-400/20 rounded-lg px-4 py-2 backdrop-blur-sm">
                     <div className="flex items-center gap-2">
                       <Loader2 className="w-4 h-4 animate-spin text-cyan-400" />
-                      <span className="text-sm text-white">Пятница думает...</span>
+                      <span className="text-sm text-white">
+                        Пятница думает...
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -316,8 +322,8 @@ export default function FridayChat() {
                   size="icon"
                   disabled={isLoading}
                   className={`transition-all duration-300 ${
-                    isListening 
-                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30" 
+                    isListening
+                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
                       : "border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10"
                   }`}
                 >
