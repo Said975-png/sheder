@@ -2,7 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Send, Bot, User, Loader2, Mic, MicOff, Volume2, VolumeX } from "lucide-react";
+import {
+  Send,
+  Bot,
+  User,
+  Loader2,
+  Mic,
+  MicOff,
+  Volume2,
+  VolumeX,
+} from "lucide-react";
 import { ChatMessage, ChatRequest, ChatResponse } from "@shared/api";
 import { useVoiceChat } from "@/hooks/useVoiceChat";
 
@@ -12,16 +21,17 @@ export default function FridayChat() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const { isListening, isSpeaking, toggleListening, speakText, stopSpeaking } = useVoiceChat({
-    onTranscriptReceived: (text: string) => {
-      setInputValue(text);
-      // Автоматически отправляем сообщение после распознавания речи
-      sendMessageWithText(text);
-    },
-    onTextToSpeech: (text: string) => {
-      console.log('Speaking:', text);
-    }
-  });
+  const { isListening, isSpeaking, toggleListening, speakText, stopSpeaking } =
+    useVoiceChat({
+      onTranscriptReceived: (text: string) => {
+        setInputValue(text);
+        // Автоматически отправляем сообщение после распознавания речи
+        sendMessageWithText(text);
+      },
+      onTextToSpeech: (text: string) => {
+        console.log("Speaking:", text);
+      },
+    });
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -143,7 +153,7 @@ export default function FridayChat() {
                   size="sm"
                   onClick={toggleListening}
                   className={`${
-                    isListening ? 'bg-red-500 text-white hover:bg-red-600' : ''
+                    isListening ? "bg-red-500 text-white hover:bg-red-600" : ""
                   }`}
                 >
                   {isListening ? (
@@ -151,7 +161,7 @@ export default function FridayChat() {
                   ) : (
                     <Mic className="w-4 h-4" />
                   )}
-                  {isListening ? 'Выкл. микро��он' : 'Вкл. микрофон'}
+                  {isListening ? "Выкл. микро��он" : "Вкл. микрофон"}
                 </Button>
                 <Button
                   variant="outline"
@@ -159,7 +169,7 @@ export default function FridayChat() {
                   onClick={stopSpeaking}
                   disabled={!isSpeaking}
                   className={`${
-                    isSpeaking ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
+                    isSpeaking ? "bg-blue-500 text-white hover:bg-blue-600" : ""
                   }`}
                 >
                   {isSpeaking ? (
@@ -167,7 +177,7 @@ export default function FridayChat() {
                   ) : (
                     <Volume2 className="w-4 h-4" />
                   )}
-                  {isSpeaking ? 'Остановить' : 'Голос'}
+                  {isSpeaking ? "Остановить" : "Голос"}
                 </Button>
               </div>
             </CardTitle>
@@ -261,7 +271,11 @@ export default function FridayChat() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder={isListening ? "Говорите в микрофон..." : "Напишите сообщение Пятнице..."}
+                  placeholder={
+                    isListening
+                      ? "Говорите в микрофон..."
+                      : "Напишите сообщение Пятнице..."
+                  }
                   disabled={isLoading || isListening}
                   className="flex-1"
                 />

@@ -41,15 +41,16 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
 
       if (response.status === 404) {
         return res.status(404).json({
-          error: "Voice not found. The specified voice ID may not exist or may not be available."
+          error:
+            "Voice not found. The specified voice ID may not exist or may not be available.",
         });
       } else if (response.status === 401) {
         return res.status(401).json({
-          error: "API key is invalid or expired."
+          error: "API key is invalid or expired.",
         });
       } else if (response.status === 429) {
         return res.status(429).json({
-          error: "Rate limit exceeded. Please try again later."
+          error: "Rate limit exceeded. Please try again later.",
         });
       }
 

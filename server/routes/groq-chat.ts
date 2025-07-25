@@ -59,7 +59,8 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
 
       // Handle specific error cases
       if (groqResponse.status === 429) {
-        errorMessage = "Превышен лимит запросов к ИИ. Попробуйте через несколько секунд.";
+        errorMessage =
+          "Превышен лимит запросов к ИИ. Попробуйте через несколько секунд.";
       } else if (groqResponse.status === 401) {
         errorMessage = "Ошибка авторизации API. Проверьте настройки.";
       } else if (groqResponse.status >= 500) {
