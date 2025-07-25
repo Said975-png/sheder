@@ -118,7 +118,7 @@ export default function StarkHero({
                 <p className="text-xl lg:text-2xl text-white/70 leading-relaxed">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будущее взаимодействия с технологиями уже здесь."
+                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Буду��ее взаимодействия с технологиями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
@@ -177,17 +177,14 @@ export default function StarkHero({
 
           {/* Enhanced 3D Model Section */}
           <div className="flex items-center justify-center lg:justify-end order-first lg:order-last">
-            <div className="relative w-full max-w-lg lg:max-w-2xl h-96 lg:h-[600px]">
-              {/* Model Container with refined styling */}
+            <div className="relative w-full max-w-lg lg:max-w-xl h-96 lg:h-[500px]">
+              {/* Model Container without borders */}
               <div className="relative w-full h-full group">
-                {/* Subtle border effect */}
-                <div className="absolute inset-0 rounded-3xl border border-white/[0.08] group-hover:border-white/20 transition-all duration-500" />
-                
                 {/* Model */}
-                <div className="relative z-10 w-full h-full rounded-3xl overflow-hidden">
+                <div className="relative z-10 w-full h-full overflow-hidden">
                   <GLBModel
                     url="https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f"
-                    scale={3.5}
+                    scale={2.5}
                     autoRotate={true}
                     isRotating={isModelRotating}
                     onRotationStart={onModelRotationStart}
