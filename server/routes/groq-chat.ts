@@ -43,7 +43,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
               content: msg.content,
             })),
           ],
-          max_tokens: 1024,
+          max_tokens: 512,
           temperature: 0.7,
           top_p: 1,
           stream: false,
