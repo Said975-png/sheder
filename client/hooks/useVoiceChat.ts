@@ -58,7 +58,7 @@ export const useVoiceChat = ({
       setIsListening(false);
       if (event.error === "not-allowed") {
         alert(
-          "Доступ к микрофону запрещен. Разрешите доступ к микрофону для исполь��ования голосового ввода.",
+          "Доступ к мик��офону запрещен. Разрешите доступ к микрофону для использования голосового ввода.",
         );
       }
     };
@@ -100,7 +100,7 @@ export const useVoiceChat = ({
         currentAudioRef.current = null;
       }
 
-      // Очищаем т��кст от эмодзи, звездочек и специальных символов
+      // Очищаем текст от эмодзи, звездочек и специальных символов
       const cleanText = text
         .replace(/[\*_~`]/g, "") // убираем markdown символы
         .replace(
@@ -211,10 +211,15 @@ export const useVoiceChat = ({
   );
 
   const stopSpeaking = useCallback(() => {
-    // Останавливаем только ElevenLabs аудио
+    // Останавливаем ElevenLabs аудио
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current = null;
+    }
+
+    // Останавливаем браузерное TTS если оно активно
+    if ("speechSynthesis" in window && speechSynthesis.speaking) {
+      speechSynthesis.cancel();
     }
 
     setIsSpeaking(false);
