@@ -649,6 +649,15 @@ export default function Index() {
                   <span className="stark-text-glow">Sign up</span>
                 </Link>
               </Button>
+              <Button
+                variant="ghost"
+                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+                asChild
+              >
+                <Link to="/chat">
+                  <span className="stark-text-glow">Пятница</span>
+                </Link>
+              </Button>
             </div>
           )}
         </div>
