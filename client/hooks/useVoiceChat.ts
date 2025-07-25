@@ -52,9 +52,16 @@ export const useVoiceChat = ({
         if (result.isFinal) {
           const transcript = result[0].transcript.trim();
           if (transcript) {
-            // Сразу останавливаем распознавание и отправляем текст
+            // Сначала устанавливаем флаг, затем останавливаем
             setIsListening(false);
-            recognition.stop();
+            if (recognitionRef.current) {
+              try {
+                recognitionRef.current.stop();
+              } catch (e) {
+                // Игнорируем ошибки
+              }
+              recognitionRef.current = null;
+            }
             onTranscriptReceived(transcript);
             return;
           }
@@ -82,15 +89,16 @@ export const useVoiceChat = ({
   }, [onTranscriptReceived]);
 
   const stopListening = useCallback(() => {
-    setIsListening(false);
     if (recognitionRef.current) {
       try {
-        recognitionRef.current.abort(); // Используем abort вместо stop для полной остановки
+        // Используем stop вместо abort для предотвращения ошибки "aborted"
+        recognitionRef.current.stop();
       } catch (e) {
         // Игнорируем ошибки если recognition уже остановлено
       }
       recognitionRef.current = null;
     }
+    setIsListening(false);
   }, []);
 
   const toggleListening = useCallback(() => {
@@ -169,7 +177,7 @@ export const useVoiceChat = ({
 
           const utterance = new SpeechSynthesisUtterance(cleanText);
           utterance.lang = "ru-RU";
-          utterance.rate = 0.8; // Медленнее для имитаци�� кастомного голоса
+          utterance.rate = 0.8; // Медленнее для имитации кастомного голоса
           utterance.pitch = 0.7; // Ниже для мужского голоса
           utterance.volume = 1;
 
