@@ -36,7 +36,7 @@ export default function FridayChat() {
     setMessages([
       {
         role: "assistant",
-        content: "Привет! Я Пятница, ваш ИИ-��ссистент. Чем могу помочь?",
+        content: "Привет! Я Пятница, ваш ИИ-ассистент. Чем могу помочь?",
         timestamp: Date.now(),
       },
     ]);
@@ -151,7 +151,7 @@ export default function FridayChat() {
                   ) : (
                     <Mic className="w-4 h-4" />
                   )}
-                  {isListening ? 'Выкл. микрофон' : 'Вкл. микрофон'}
+                  {isListening ? 'Выкл. микро��он' : 'Вкл. микрофон'}
                 </Button>
                 <Button
                   variant="outline"
