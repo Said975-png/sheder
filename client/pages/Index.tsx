@@ -378,7 +378,7 @@ export default function Index() {
         <div
           className={cn(
             "flex items-center transition-all duration-500 overflow-hidden",
-            "space-x-2 opacity-100 scale-100",
+            "space-x-3 opacity-100 scale-100", // Увеличенное расстояние между элементами
           )}
         >
           {/* Home Button */}
