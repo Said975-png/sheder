@@ -12,8 +12,8 @@ export function ThemeToggle() {
       size="icon"
       onClick={toggleTheme}
       className={cn(
-        "h-9 w-9 relative overflow-hidden transition-all duration-300",
-        "hover:bg-cyan-400/10 border border-cyan-400/20 hover:border-cyan-400/40",
+        "h-8 w-8 relative overflow-hidden transition-all duration-300 rounded-full",
+        "hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 border border-cyan-400/20 bg-black/40",
         "group",
       )}
       aria-label="Переключить тему"
