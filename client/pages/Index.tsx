@@ -46,7 +46,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Компонент для анимации печати кода
+// Компонент для анимации печати к��да
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -264,7 +264,7 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Отслеживание скролла для навбара (без эффекта "брови")
+  // Отслеживание скролла для ��авбара (без эффекта "брови")
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 100;
@@ -470,7 +470,7 @@ export default function Index() {
                         {items.map((item) => (
                           <div
                             key={item.id}
-                            className="flex items-start justify-between p-2 bg-gray-800/50 border border-cyan-400/20 rounded-lg stark-corners"
+                            className="flex items-start justify-between p-2 bg-gray-800/50 border border-cyan-400/20 rounded-lg"
                           >
                             <div className="flex-1">
                               <h4 className="font-medium text-sm text-white font-mono">
