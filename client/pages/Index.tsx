@@ -264,7 +264,7 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Отслеживание скролла для навбара (без эффек��а "брови")
+  // Отслеживание скролла для навбара (без эффек���а "брови")
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 100;
@@ -543,7 +543,7 @@ export default function Index() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="flex items-center space-x-2 p-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                    className="flex items-center space-x-2 p-2 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40"
                   >
                     <div className="w-8 h-8 bg-gradient-to-r from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
                       <User className="w-4 h-4" />
