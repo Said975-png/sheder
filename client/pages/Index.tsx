@@ -352,7 +352,7 @@ export default function Index() {
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
           <ArcReactor size="large" pulsing />
-          <p className="text-cyan-400 mt-4">
+          <p className="text-white mt-4">
             <GlitchText>INITIALIZING STARK SYSTEMS...</GlitchText>
           </p>
         </div>
@@ -444,7 +444,7 @@ export default function Index() {
                   data-testid="cart-button"
                   className="relative p-1.5 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
                 >
-                  <ShoppingCart className="w-4 h-4 text-cyan-400" />
+                  <ShoppingCart className="w-4 h-4 text-white" />
                   {getTotalItems() > 0 && (
                     <span className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full flex items-center justify-center animate-pulse">
                       {getTotalItems()}
@@ -457,7 +457,7 @@ export default function Index() {
                 className="w-80 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
               >
                 <div className="px-3 py-2">
-                  <h3 className="font-semibold text-cyan-400 mb-2">
+                  <h3 className="font-semibold text-white mb-2">
                     CART MATRIX
                   </h3>
                   {items.length === 0 ? (
@@ -479,7 +479,7 @@ export default function Index() {
                               <p className="text-xs text-white/60 mt-1">
                                 {item.description.substring(0, 60)}...
                               </p>
-                              <p className="text-sm font-semibold text-cyan-400 mt-1">
+                              <p className="text-sm font-semibold text-white mt-1">
                                 {item.price.toLocaleString()} сум
                               </p>
                             </div>
@@ -487,7 +487,7 @@ export default function Index() {
                               variant="ghost"
                               size="sm"
                               onClick={() => removeItem(item.id)}
-                              className="ml-2 h-6 w-6 p-0 hover:bg-red-500/20 text-red-400"
+                              className="ml-2 h-6 w-6 p-0 hover:bg-gray-500/20 text-white"
                             >
                               ×
                             </Button>
@@ -496,7 +496,7 @@ export default function Index() {
                       </div>
                       <DropdownMenuSeparator className="bg-cyan-400/20 my-3" />
                       <div className="flex justify-between items-center mb-3">
-                        <span className="font-semibold text-cyan-400">
+                        <span className="font-semibold text-white">
                           TOTAL:
                         </span>
                         <span className="font-bold text-white">
@@ -508,7 +508,7 @@ export default function Index() {
                           onClick={clearCart}
                           variant="outline"
                           size="sm"
-                          className="flex-1 border-cyan-400/50 text-cyan-400 hover:bg-cyan-400/10"
+                          className="flex-1 border-gray-500/50 text-white hover:bg-gray-500/10"
                         >
                           Clear
                         </Button>
@@ -562,7 +562,7 @@ export default function Index() {
                   className="w-56 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
                 >
                   <div className="px-2 py-1.5 text-sm text-white/60">
-                    <div className="font-medium text-cyan-400">
+                    <div className="font-medium text-white">
                       {currentUser.name}
                     </div>
                     <div className="text-xs">{currentUser.email}</div>
@@ -592,7 +592,7 @@ export default function Index() {
                   <DropdownMenuSeparator className="bg-cyan-400/20" />
                   <DropdownMenuItem
                     onClick={handleLogout}
-                    className="text-red-400 hover:bg-red-400/10 cursor-pointer"
+                    className="text-white hover:bg-gray-500/10 cursor-pointer"
                   >
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Logout</span>
