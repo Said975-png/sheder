@@ -145,7 +145,7 @@ export default function StarkHero({
               </h1>
 
               <div className="relative">
-                <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-lg font-mono">
+                <p className="text-lg lg:text-xl text-gray-300 leading-relaxed max-w-lg">
                   {targetLocked ? (
                     <span className="text-cyan-400 stark-text-glow">
                       {titleComplete && (
