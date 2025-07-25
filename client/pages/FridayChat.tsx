@@ -36,7 +36,7 @@ export default function FridayChat() {
     setMessages([
       {
         role: "assistant",
-        content: "Привет! Я Пятница, ваш ИИ-ассистент. Чем могу помочь?",
+        content: "Привет! Я Пятница, ваш ИИ-��ссистент. Чем могу помочь?",
         timestamp: Date.now(),
       },
     ]);
@@ -221,6 +221,31 @@ export default function FridayChat() {
                     <div className="flex items-center gap-2">
                       <Loader2 className="w-4 h-4 animate-spin" />
                       <span className="text-sm">Пятница думает...</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {isListening && (
+                <div className="flex gap-3 justify-center">
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2">
+                    <div className="flex items-center gap-2">
+                      <Mic className="w-4 h-4 text-red-500 animate-pulse" />
+                      <span className="text-sm text-red-500">Слушаю...</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {isSpeaking && (
+                <div className="flex gap-3 justify-start">
+                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Bot className="w-4 h-4 text-primary" />
+                  </div>
+                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-2">
+                    <div className="flex items-center gap-2">
+                      <Volume2 className="w-4 h-4 text-blue-500 animate-pulse" />
+                      <span className="text-sm text-blue-500">Говорю...</span>
                     </div>
                   </div>
                 </div>
