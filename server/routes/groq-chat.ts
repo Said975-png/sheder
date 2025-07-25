@@ -22,7 +22,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
       return res.status(500).json(response);
     }
 
-    // Используем одну из самых мощных доступных моделей Groq - llama-3.1-8b-instant
+    // Ис��ользуем одну из самых мощных доступных моделей Groq - llama-3.1-8b-instant
     const groqResponse = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
       {
@@ -62,16 +62,28 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
         errorMessage =
           "Превышен лимит запросов к ИИ. Попробуйте через несколько секунд.";
       } else if (groqResponse.status === 401) {
-        errorMessage = "Ошибка авторизации API. Проверьте настройки.";
+        errorMessage = "Ошибка авторизации API. API ключ недействителен или не настроен.";
+      } else if (groqResponse.status === 400) {
+        // Check if it's invalid API key error
+        try {
+          const errorData = JSON.parse(errorText);
+          if (errorData.error?.code === "invalid_api_key") {
+            errorMessage = "API ключ Groq недействителен. Пожалуйста, проверьте настройки.";
+          } else {
+            errorMessage = "Некорректный запрос к API Groq.";
+          }
+        } catch (e) {
+          errorMessage = "Некорректный запрос к API Groq.";
+        }
       } else if (groqResponse.status >= 500) {
-        errorMessage = "Се��вис ИИ временно недоступен. Попробуйте позже.";
+        errorMessage = "Сервис ИИ временно недоступен. Попробуйте позже.";
       }
 
       const response: ChatResponse = {
         success: false,
         error: errorMessage,
       };
-      return res.status(500).json(response);
+      return res.status(200).json(response);
     }
 
     const groqData = await groqResponse.json();
