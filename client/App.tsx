@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import OrderForm from "./pages/OrderForm";
+import FridayChat from "./pages/FridayChat";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
