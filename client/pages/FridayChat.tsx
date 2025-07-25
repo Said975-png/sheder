@@ -29,7 +29,7 @@ export default function FridayChat() {
     useVoiceChat({
       onTranscriptReceived: (text: string) => {
         setInputValue(text);
-        // Автоматически отправляем сообщение после распознавания речи
+        // Автоматически отправляем сообщение после распознавания ��ечи
         sendMessageWithText(text);
       },
       onTextToSpeech: (text: string) => {
@@ -109,7 +109,7 @@ export default function FridayChat() {
       const errorMessage: ChatMessage = {
         role: "assistant",
         content:
-          "Извините, не удалось отправить сообщение. Проверьте подключение к интернету.",
+          "Извините, не удалось отправить сообщение. Проверьте подключ��ние к интернету.",
         timestamp: Date.now(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -149,15 +149,15 @@ export default function FridayChat() {
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
-        <Card className="h-[85vh] flex flex-col bg-black border-gray-500/30 backdrop-blur-lg">
-          <CardHeader className="border-b border-gray-500/20 bg-black backdrop-blur-lg">
+        <Card className="h-[85vh] flex flex-col bg-black/85 backdrop-blur-xl border border-cyan-500/40 shadow-lg shadow-cyan-500/20">
+          <CardHeader className="border-b border-cyan-400/30 bg-black/60 backdrop-blur-md">
             <CardTitle className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => navigate("/")}
-                  className="p-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300 border border-cyan-400/30"
+                  className="p-2 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40"
                 >
                   <ArrowLeft className="w-4 h-4 text-cyan-400" />
                 </Button>
