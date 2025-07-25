@@ -51,7 +51,7 @@ export default function FridayChat() {
       {
         role: "assistant",
         content:
-          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий пакет для вашего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
+          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий пакет для в��шего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
         timestamp: Date.now(),
       },
     ]);
@@ -149,8 +149,8 @@ export default function FridayChat() {
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
-        <Card className="h-[85vh] flex flex-col bg-black/60 border-cyan-400/30 backdrop-blur-lg">
-          <CardHeader className="border-b border-cyan-400/20 bg-gradient-to-r from-black/50 to-gray-900/50 backdrop-blur-lg">
+        <Card className="h-[85vh] flex flex-col bg-black border-gray-500/30 backdrop-blur-lg">
+          <CardHeader className="border-b border-gray-500/20 bg-black backdrop-blur-lg">
             <CardTitle className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Button
@@ -262,7 +262,7 @@ export default function FridayChat() {
                   <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
                     <Bot className="w-4 h-4 text-cyan-400" />
                   </div>
-                  <div className="bg-gray-800/50 border border-cyan-400/20 rounded-lg px-4 py-2 backdrop-blur-sm">
+                  <div className="bg-black border border-gray-500/20 rounded-lg px-4 py-2 backdrop-blur-sm">
                     <div className="flex items-center gap-2">
                       <Loader2 className="w-4 h-4 animate-spin text-cyan-400" />
                       <span className="text-sm text-white">
@@ -302,7 +302,7 @@ export default function FridayChat() {
             </div>
 
             {/* Input area */}
-            <div className="border-t border-cyan-400/20 bg-gradient-to-r from-black/50 to-gray-900/50 backdrop-blur-lg p-4">
+            <div className="border-t border-gray-500/20 bg-black backdrop-blur-lg p-4">
               <div className="flex gap-2">
                 <Input
                   value={inputValue}
