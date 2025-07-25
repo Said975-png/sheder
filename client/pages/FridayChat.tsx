@@ -91,9 +91,6 @@ export default function FridayChat() {
           timestamp: Date.now(),
         };
         setMessages((prev) => [...prev, assistantMessage]);
-
-        // Автоматически озвучиваем ответ ИИ
-        speakText(data.message);
       } else {
         const errorMessage: ChatMessage = {
           role: "assistant",
