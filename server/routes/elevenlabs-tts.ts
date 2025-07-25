@@ -8,10 +8,12 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
   }
 
   try {
-    // Используем ваш реальный API ключ ElevenLabs
-    const ELEVENLABS_API_KEY =
-      process.env.ELEVENLABS_API_KEY ||
-      "sk_e2c893aaca006de74fb3fc5bc4e605115e2e1b0dfc2f210f";
+    // Используем API ключ ElevenLabs из переменной окружения
+    const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
+
+    if (!ELEVENLABS_API_KEY) {
+      return res.status(500).json({ error: "ElevenLabs API key not configured" });
+    }
 
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}`,
