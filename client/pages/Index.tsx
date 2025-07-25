@@ -68,7 +68,7 @@ function TypewriterCode() {
           "        STARK INDUSTRIES",
           "      </h1>",
           '      <Button variant="stark">',
-          "        Активировать",
+          "        А��тивировать",
           "      </Button>",
           "    </div>",
           "  );",
@@ -338,7 +338,7 @@ export default function Index() {
   }, []);
 
   const handleModelRotateStart = React.useCallback(() => {
-    console.log("🔄 Запуск вращения модели");
+    console.log("🔄 Запуск вращени�� модели");
     setIsModelRotating(true);
   }, []);
 
@@ -605,7 +605,7 @@ export default function Index() {
             >
               <Button
                 variant="ghost"
-                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                className="text-xs px-3 py-1.5 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40"
                 asChild
               >
                 <Link to="/login">
