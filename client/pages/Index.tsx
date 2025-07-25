@@ -606,6 +606,13 @@ export default function Index() {
                     <Settings className="mr-2 h-4 w-4" />
                     <span>Settings</span>
                   </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => (window.location.href = "/chat")}
+                    className="text-white hover:bg-cyan-400/10 cursor-pointer"
+                  >
+                    <Brain className="mr-2 h-4 w-4" />
+                    <span>Чат с Пятницей</span>
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-cyan-400/20" />
                   <DropdownMenuItem
                     onClick={handleLogout}
@@ -640,6 +647,15 @@ export default function Index() {
               >
                 <Link to="/signup">
                   <span className="stark-text-glow">Sign up</span>
+                </Link>
+              </Button>
+              <Button
+                variant="ghost"
+                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+                asChild
+              >
+                <Link to="/chat">
+                  <span className="stark-text-glow">Пятница</span>
                 </Link>
               </Button>
             </div>

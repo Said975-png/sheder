@@ -4,6 +4,7 @@ import { handleDemo } from "./routes/demo";
 import { handleImageUpload, handleGenerateWebsite } from "./routes/upload";
 import { handleSendOrder } from "./routes/orders";
 import { handleElevenLabsTTS } from "./routes/elevenlabs-tts";
+import { handleGroqChat } from "./routes/groq-chat";
 
 export function createServer() {
   const app = express();
@@ -29,6 +30,9 @@ export function createServer() {
 
   // ElevenLabs TTS route
   app.post("/api/elevenlabs-tts", handleElevenLabsTTS);
+
+  // Groq chat route
+  app.post("/api/groq-chat", handleGroqChat);
 
   return app;
 }

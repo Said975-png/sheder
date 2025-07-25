@@ -64,3 +64,22 @@ export interface OrderResponse {
   success: boolean;
   message: string;
 }
+
+/**
+ * Chat API types
+ */
+export interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+  timestamp: number;
+}
+
+export interface ChatRequest {
+  messages: ChatMessage[];
+}
+
+export interface ChatResponse {
+  success: boolean;
+  message?: string;
+  error?: string;
+}
