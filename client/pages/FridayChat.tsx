@@ -261,10 +261,22 @@ export default function FridayChat() {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Напишите сообщение Пятнице..."
-                  disabled={isLoading}
+                  placeholder={isListening ? "Говорите в микрофон..." : "Напишите сообщение Пятнице..."}
+                  disabled={isLoading || isListening}
                   className="flex-1"
                 />
+                <Button
+                  onClick={toggleListening}
+                  variant={isListening ? "destructive" : "outline"}
+                  size="icon"
+                  disabled={isLoading}
+                >
+                  {isListening ? (
+                    <MicOff className="w-4 h-4" />
+                  ) : (
+                    <Mic className="w-4 h-4" />
+                  )}
+                </Button>
                 <Button
                   onClick={sendMessage}
                   disabled={!inputValue.trim() || isLoading}
