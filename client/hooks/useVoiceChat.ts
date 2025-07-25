@@ -58,7 +58,7 @@ export const useVoiceChat = ({
       setIsListening(false);
       if (event.error === "not-allowed") {
         alert(
-          "Доступ к микрофону запрещен. Разрешите доступ к микрофону для использования голосового ввода.",
+          "Доступ к микрофону запрещен. Разрешите доступ к мик��офону для использования голосового ввода.",
         );
       }
     };
@@ -73,9 +73,13 @@ export const useVoiceChat = ({
   }, [onTranscriptReceived]);
 
   const stopListening = useCallback(() => {
+    setIsListening(false);
     if (recognitionRef.current) {
-      setIsListening(false);
-      recognitionRef.current.stop();
+      try {
+        recognitionRef.current.abort(); // Используем abort вместо stop для полной остановки
+      } catch (e) {
+        // Игнорируем ошибки если recognition уже остановлено
+      }
       recognitionRef.current = null;
     }
   }, []);
