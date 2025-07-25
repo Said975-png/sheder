@@ -119,18 +119,13 @@ export function CircuitPattern({
   return (
     <div
       className={cn(
-        "absolute border border-cyan-400/20 rounded",
+        "absolute rounded",
         sizes[size],
         animated && "animate-pulse",
         className,
       )}
     >
-      <div className="absolute top-1/2 left-0 w-full h-px bg-cyan-400/30 transform -translate-y-1/2"></div>
-      <div className="absolute top-0 left-1/2 w-px h-full bg-cyan-400/30 transform -translate-x-1/2"></div>
-      <div className="absolute top-2 left-2 w-2 h-2 bg-cyan-400/50 rounded-full"></div>
-      <div className="absolute top-2 right-2 w-2 h-2 bg-cyan-400/50 rounded-full"></div>
-      <div className="absolute bottom-2 left-2 w-2 h-2 bg-cyan-400/50 rounded-full"></div>
-      <div className="absolute bottom-2 right-2 w-2 h-2 bg-cyan-400/50 rounded-full"></div>
+      {/* Убраны линии и точки */}
     </div>
   );
 }
