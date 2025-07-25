@@ -22,7 +22,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
       return res.status(500).json(response);
     }
 
-    // Используем самую мощную модель Groq - llama-3.1-70b-versatile
+    // Используем одну из самых мощных доступных моделей Groq - llama-3.1-8b-instant
     const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -30,14 +30,14 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'llama-3.1-70b-versatile', // Самая мощная модель
+        model: 'llama-3.1-8b-instant', // Быстрая и мощная модель
         messages: [
           {
             role: 'system',
             content: `Ты - Пятница, умный ИИ-ассистент, вдохновленный персонажем из фильмов о Железном человеке. 
             Ты помогаешь пользователям с различными задачами, отвечаешь на вопросы и ведешь интересные беседы.
             Отвечай дружелюбно, но профессионально. Используй русский язык для общения.
-            Ты можешь помочь с программированием, объяснить концепции, дать советы и просто поболтать.`
+            Ты можешь помочь с программированием, объ��снить концепции, дать советы и просто поболтать.`
           },
           ...messages.map(msg => ({
             role: msg.role,
