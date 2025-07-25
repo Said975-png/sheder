@@ -454,7 +454,7 @@ export default function Index() {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="w-80 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
+                className="w-80 bg-black/90 border-gray-500/30 mt-2 backdrop-blur-lg"
               >
                 <div className="px-3 py-2">
                   <h3 className="font-semibold text-white mb-2">
