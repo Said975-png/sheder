@@ -178,7 +178,7 @@ function TypewriterCode() {
         50 + Math.random() * 50,
       ); // Варьируем скорость печати
     } else if (currentCharIndex >= fullCode.length) {
-      // Пауза по��ле завершения печати
+      // Пауза после завершения печати
       pauseTimer = setTimeout(() => {
         setCurrentCharIndex(0);
         setDisplayedCode("");
@@ -623,7 +623,7 @@ export default function Index() {
               </Button>
               <Button
                 variant="ghost"
-                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                className="text-xs px-3 py-1.5 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40"
                 asChild
               >
                 <Link to="/chat">
