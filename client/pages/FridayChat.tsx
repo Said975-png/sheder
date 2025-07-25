@@ -29,7 +29,7 @@ export default function FridayChat() {
     useVoiceChat({
       onTranscriptReceived: (text: string) => {
         setInputValue(text);
-        // Автоматически отправляем сообщение после распознавания речи
+        // Автоматически отправляем сообщение после расп��знавания речи
         sendMessageWithText(text);
       },
       onTextToSpeech: (text: string) => {
@@ -109,7 +109,7 @@ export default function FridayChat() {
       const errorMessage: ChatMessage = {
         role: "assistant",
         content:
-          "Извините, не удалось отправить сообщение. Проверьте подключение к интернету.",
+          "Извините, не удалось отправить сообщение. Проверь��е подключение к интернету.",
         timestamp: Date.now(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -259,13 +259,13 @@ export default function FridayChat() {
 
               {isLoading && (
                 <div className="flex gap-3 justify-start">
-                  <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
+                  <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30 shadow-md shadow-cyan-400/30">
                     <Bot className="w-4 h-4 text-cyan-400" />
                   </div>
-                  <div className="bg-black border border-gray-500/20 rounded-lg px-4 py-2 backdrop-blur-sm">
+                  <div className="bg-black/60 border border-cyan-400/20 rounded-lg px-4 py-2 backdrop-blur-md shadow-md shadow-cyan-400/10">
                     <div className="flex items-center gap-2">
                       <Loader2 className="w-4 h-4 animate-spin text-cyan-400" />
-                      <span className="text-sm text-white">
+                      <span className="text-sm text-white stark-text-glow">
                         Пятница думает...
                       </span>
                     </div>
@@ -275,10 +275,10 @@ export default function FridayChat() {
 
               {isListening && (
                 <div className="flex gap-3 justify-center">
-                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2 backdrop-blur-sm">
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2 backdrop-blur-md shadow-md shadow-red-500/20">
                     <div className="flex items-center gap-2">
                       <Mic className="w-4 h-4 text-red-500 animate-pulse" />
-                      <span className="text-sm text-red-400">Слушаю...</span>
+                      <span className="text-sm text-red-400 stark-text-glow">Слушаю...</span>
                     </div>
                   </div>
                 </div>
@@ -286,13 +286,13 @@ export default function FridayChat() {
 
               {isSpeaking && (
                 <div className="flex gap-3 justify-start">
-                  <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
+                  <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30 shadow-md shadow-cyan-400/30">
                     <Bot className="w-4 h-4 text-cyan-400" />
                   </div>
-                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-2 backdrop-blur-sm">
+                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-2 backdrop-blur-md shadow-md shadow-blue-500/20">
                     <div className="flex items-center gap-2">
                       <Volume2 className="w-4 h-4 text-blue-500 animate-pulse" />
-                      <span className="text-sm text-blue-400">Говорю...</span>
+                      <span className="text-sm text-blue-400 stark-text-glow">Говорю...</span>
                     </div>
                   </div>
                 </div>
