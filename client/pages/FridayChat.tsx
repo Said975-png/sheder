@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Send, Bot, User, Loader2 } from "lucide-react";
+import { Send, Bot, User, Loader2, Mic, MicOff, Volume2, VolumeX } from "lucide-react";
 import { ChatMessage, ChatRequest, ChatResponse } from "@shared/api";
+import { useVoiceChat } from "@/hooks/useVoiceChat";
 
 export default function FridayChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -82,7 +83,7 @@ export default function FridayChat() {
       const errorMessage: ChatMessage = {
         role: "assistant",
         content:
-          "Извините, не удалось отправить сообщ��ние. Проверьте подключение к интернету.",
+          "Извините, не удалось отправить сообщение. Проверьте подключение к интернету.",
         timestamp: Date.now(),
       };
       setMessages((prev) => [...prev, errorMessage]);
