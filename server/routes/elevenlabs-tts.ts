@@ -49,16 +49,18 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
 
       if (response.status === 404) {
         return res.status(404).json({
-          error: "Voice not found. The specified voice ID may not exist or may not be available.",
-          details: errorText
+          error:
+            "Voice not found. The specified voice ID may not exist or may not be available.",
+          details: errorText,
         });
       } else if (response.status === 401) {
         try {
           const errorData = JSON.parse(errorText);
           if (errorData.detail?.status === "missing_permissions") {
             return res.status(401).json({
-              error: "API key does not have text_to_speech permission. Please check your ElevenLabs subscription.",
-              details: errorText
+              error:
+                "API key does not have text_to_speech permission. Please check your ElevenLabs subscription.",
+              details: errorText,
             });
           }
         } catch (e) {
@@ -66,23 +68,24 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
         }
         return res.status(401).json({
           error: "API key is invalid or expired.",
-          details: errorText
+          details: errorText,
         });
       } else if (response.status === 429) {
         return res.status(429).json({
           error: "Rate limit exceeded. Please try again later.",
-          details: errorText
+          details: errorText,
         });
       } else if (response.status === 500) {
         return res.status(500).json({
-          error: "ElevenLabs server error. The service may be temporarily unavailable.",
-          details: errorText
+          error:
+            "ElevenLabs server error. The service may be temporarily unavailable.",
+          details: errorText,
         });
       }
 
       return res.status(response.status).json({
         error: `ElevenLabs API error: ${response.status}`,
-        details: errorText
+        details: errorText,
       });
     }
 

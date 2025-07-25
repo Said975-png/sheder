@@ -264,7 +264,9 @@ export default function VoiceControl({
             !isSpeaking &&
             !audioPlayingRef.current
           ) {
-            console.log("���� Принудите���ьно сбрасываем застрявшие блокировки");
+            console.log(
+              "���� Принудите���ьно сбрасываем застрявшие блокировки",
+            );
             commandCooldownRef.current = false;
             lastCommandRef.current = "";
           }
@@ -315,7 +317,9 @@ export default function VoiceControl({
 
                   // Полная очистка состояния ��ома��ды и ��ерезап��ск Recognition
                   setTimeout(() => {
-                    console.log("🧹 ��олная очистка ��ос��оя��ия после команды");
+                    console.log(
+                      "🧹 ��олная очистка ��ос��оя��ия после команды",
+                    );
                     setTranscript("");
                     // НЕ вызываем onListeningChange, чтобы не от��рывать панель после отключения
                     lastCommandRef.current = "";
@@ -1028,7 +1032,10 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("Не удалось воспроизв����ст���� ауд���о ����тве����а:", error);
+      console.error(
+        "Не удалось воспроизв����ст���� ауд���о ����тве����а:",
+        error,
+      );
     });
   };
 
@@ -1127,10 +1134,14 @@ export default function VoiceControl({
         console.error(`ElevenLabs API error ${response.status}:`, errorData);
 
         if (response.status === 500) {
-          console.log("Сервер ElevenLabs недоступен, используем браузерный TTS");
+          console.log(
+            "Сервер ElevenLabs недоступен, используем браузерный TTS",
+          );
           throw new Error("ElevenLabs server error");
         } else if (response.status === 401) {
-          console.log("Проблема с API ключом ElevenLabs, используем браузерный TTS");
+          console.log(
+            "Проблема с API ключом ElevenLabs, используем браузерный TTS",
+          );
           throw new Error("ElevenLabs API key error");
         } else if (response.status === 404) {
           console.log("Voice ID не найден, используем браузерный TTS");
@@ -1173,7 +1184,7 @@ export default function VoiceControl({
 
         // Поиск подходящего голоса
         const voices = speechSynthesis.getVoices();
-        const russianVoice = voices.find(voice => voice.lang.includes("ru"));
+        const russianVoice = voices.find((voice) => voice.lang.includes("ru"));
         if (russianVoice) {
           utterance.voice = russianVoice;
         }
@@ -1299,7 +1310,9 @@ export default function VoiceControl({
 
           // Поиск подходящего голоса
           const voices = speechSynthesis.getVoices();
-          const russianVoice = voices.find(voice => voice.lang.includes("ru"));
+          const russianVoice = voices.find((voice) =>
+            voice.lang.includes("ru"),
+          );
           if (russianVoice) {
             utterance.voice = russianVoice;
           }
