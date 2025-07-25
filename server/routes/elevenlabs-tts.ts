@@ -11,7 +11,11 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
     // Используем API ключ ElevenLabs из переменной окружения
     const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
 
+    console.log("ElevenLabs TTS request:", { text, voice_id });
+    console.log("API key present:", !!ELEVENLABS_API_KEY);
+
     if (!ELEVENLABS_API_KEY) {
+      console.error("ElevenLabs API key not found in environment variables");
       return res
         .status(500)
         .json({ error: "ElevenLabs API key not configured" });
