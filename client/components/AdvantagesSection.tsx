@@ -170,7 +170,7 @@ export default function AdvantagesSection() {
   const currentAdvantage = advantages[currentSlide];
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black">
+    <section className="relative py-20 px-4 overflow-hidden bg-black">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -196,7 +196,7 @@ export default function AdvantagesSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent mb-6 font-mono">
-            НАШИ ПРЕИМУЩЕСТВА
+            НАШИ ПРЕИМУ��ЕСТВА
           </h2>
           <div className="w-32 h-1 bg-gradient-to-r from-cyan-400 to-purple-600 mx-auto mb-8 rounded-full"></div>
           <p className="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
