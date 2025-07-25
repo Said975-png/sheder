@@ -250,7 +250,7 @@ export default function FridayChat() {
                   </div>
 
                   {message.role === "user" && (
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 flex items-center justify-center flex-shrink-0 shadow-md shadow-cyan-400/30">
                       <User className="w-4 h-4 text-cyan-400" />
                     </div>
                   )}
