@@ -91,7 +91,8 @@ export const useVoiceChat = ({ onTranscriptReceived, onTextToSpeech }: UseVoiceC
     setIsSpeaking(true);
 
     try {
-      const response = await fetch('/api/elevenlabs-tts', {
+      // Сначала пробуем кастомный голос
+      let response = await fetch('/api/elevenlabs-tts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -102,8 +103,24 @@ export const useVoiceChat = ({ onTranscriptReceived, onTextToSpeech }: UseVoiceC
         }),
       });
 
+      // Если кастомный голос не работает, пробуем дефолтный голос
+      if (!response.ok && response.status === 404) {
+        console.warn('Custom voice not found, trying default voice...');
+        response = await fetch('/api/elevenlabs-tts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            text: cleanText,
+            voice_id: 'pNInz6obpgDQGcFmaJgB' // Дефолтный голос Adam
+          }),
+        });
+      }
+
       if (!response.ok) {
-        throw new Error('Failed to generate speech');
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errorData.error || 'Failed to generate speech');
       }
 
       const audioBlob = await response.blob();
