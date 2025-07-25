@@ -174,10 +174,10 @@ export default function FridayChat() {
                   variant="outline"
                   size="sm"
                   onClick={() => navigate("/")}
-                  className="border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400/60 transition-all duration-300"
+                  className="border-cyan-400/20 bg-black/40 text-cyan-400 hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300"
                 >
                   <Home className="w-4 h-4 mr-1" />
-                  Главная
+                  <span className="stark-text-glow">Главная</span>
                 </Button>
                 <Button
                   variant="outline"
@@ -185,8 +185,8 @@ export default function FridayChat() {
                   onClick={toggleListening}
                   className={`transition-all duration-300 ${
                     isListening
-                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
-                      : "border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10"
+                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30 hover:shadow-md hover:shadow-red-500/30"
+                      : "border-cyan-400/20 bg-black/40 text-cyan-400 hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30"
                   }`}
                 >
                   {isListening ? (
@@ -194,7 +194,7 @@ export default function FridayChat() {
                   ) : (
                     <Mic className="w-4 h-4" />
                   )}
-                  {isListening ? "Стоп" : "Микрофон"}
+                  <span className="stark-text-glow">{isListening ? "Стоп" : "Микрофон"}</span>
                 </Button>
                 <Button
                   variant="outline"
@@ -203,8 +203,8 @@ export default function FridayChat() {
                   disabled={!isSpeaking}
                   className={`transition-all duration-300 ${
                     isSpeaking
-                      ? "bg-blue-500/20 border-blue-500/50 text-blue-400 hover:bg-blue-500/30"
-                      : "border-cyan-400/30 text-cyan-400/60"
+                      ? "bg-blue-500/20 border-blue-500/50 text-blue-400 hover:bg-blue-500/30 hover:shadow-md hover:shadow-blue-500/30"
+                      : "border-cyan-400/20 bg-black/40 text-cyan-400/60"
                   }`}
                 >
                   {isSpeaking ? (
@@ -212,7 +212,7 @@ export default function FridayChat() {
                   ) : (
                     <Volume2 className="w-4 h-4" />
                   )}
-                  {isSpeaking ? "Стоп" : "Голос"}
+                  <span className="stark-text-glow">{isSpeaking ? "Стоп" : "Голос"}</span>
                 </Button>
               </div>
             </CardTitle>
