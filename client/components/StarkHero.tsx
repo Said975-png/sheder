@@ -63,40 +63,7 @@ export default function StarkHero({
         className,
       )}
     >
-      {/* Фоновые эффекты */}
-      <div className="absolute inset-0">
-        {/* Матричный дождь */}
-        <MatrixRain density="low" speed="slow" color="cyan" />
-
-        {/* Схемы и паттерны */}
-        <CircuitPattern size="large" className="top-10 left-10 opacity-20" />
-        <CircuitPattern
-          size="medium"
-          className="top-20 right-20 opacity-15"
-          animated
-        />
-        <CircuitPattern size="small" className="bottom-20 left-20 opacity-25" />
-
-        {/* Потоки данных */}
-        <DataStream
-          direction="vertical"
-          speed="medium"
-          color="cyan"
-          className="top-0 left-1/4"
-        />
-        <DataStream
-          direction="vertical"
-          speed="slow"
-          color="blue"
-          className="top-0 right-1/3"
-        />
-        <DataStream
-          direction="horizontal"
-          speed="fast"
-          color="orange"
-          className="top-1/3 left-0"
-        />
-      </div>
+      {/* Убраны фоновые эффекты */}
 
       {/* Убраны HUD углы экрана и сканирующие линии */}
 
@@ -136,7 +103,7 @@ export default function StarkHero({
                   glitch
                 >
                   <TypewriterText
-                    text="Jarvis - ��аш искусственный интеллект"
+                    text="Jarvis - ваш искусственный интеллект"
                     speed={30}
                     delay={500}
                     onComplete={() => setTitleComplete(true)}
