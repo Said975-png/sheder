@@ -139,58 +139,30 @@ export const useVoiceChat = ({
           useElevenLabs = false;
         }
 
-        if (useElevenLabs && response?.ok) {
-          // Используем ElevenLabs
-          const audioBlob = await response.blob();
-          const audioUrl = URL.createObjectURL(audioBlob);
-          const audio = new Audio(audioUrl);
-
-          currentAudioRef.current = audio;
-
-          audio.onended = () => {
-            setIsSpeaking(false);
-            URL.revokeObjectURL(audioUrl);
-            currentAudioRef.current = null;
-          };
-
-          audio.onerror = () => {
-            setIsSpeaking(false);
-            URL.revokeObjectURL(audioUrl);
-            currentAudioRef.current = null;
-          };
-
-          await audio.play();
-        } else {
-          // Fallback к встроенному браузерному TTS
-          if (!("speechSynthesis" in window)) {
-            throw new Error("Speech synthesis not supported");
-          }
-
-          const utterance = new SpeechSynthesisUtterance(cleanText);
-          utterance.lang = "ru-RU";
-          utterance.rate = 0.9;
-          utterance.pitch = 1;
-          utterance.volume = 1;
-
-          // Попробуем найти русский голос
-          const voices = speechSynthesis.getVoices();
-          const russianVoice = voices.find(voice =>
-            voice.lang.includes("ru") || voice.name.toLowerCase().includes("russian")
-          );
-          if (russianVoice) {
-            utterance.voice = russianVoice;
-          }
-
-          utterance.onend = () => {
-            setIsSpeaking(false);
-          };
-
-          utterance.onerror = () => {
-            setIsSpeaking(false);
-          };
-
-          speechSynthesis.speak(utterance);
+        if (!useElevenLabs || !response?.ok) {
+          throw new Error("ElevenLabs API failed - only custom voice allowed");
         }
+
+        // Используе�� только ElevenLabs с кастомным голосом
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+
+        currentAudioRef.current = audio;
+
+        audio.onended = () => {
+          setIsSpeaking(false);
+          URL.revokeObjectURL(audioUrl);
+          currentAudioRef.current = null;
+        };
+
+        audio.onerror = () => {
+          setIsSpeaking(false);
+          URL.revokeObjectURL(audioUrl);
+          currentAudioRef.current = null;
+        };
+
+        await audio.play();
 
         onTextToSpeech(cleanText);
       } catch (error) {
