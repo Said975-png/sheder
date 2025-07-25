@@ -170,9 +170,9 @@ export function MatrixRain({
   };
 
   const colorClasses = {
-    green: "text-green-400",
-    cyan: "text-cyan-400",
-    blue: "text-blue-400",
+    green: "text-white",
+    cyan: "text-white",
+    blue: "text-white",
   };
 
   useEffect(() => {
