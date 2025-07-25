@@ -126,7 +126,7 @@ export default function JarvisDemo() {
   const displayedTypingText = currentTypingText.substring(0, currentCharIndex);
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
+    <section className="relative py-20 px-4 overflow-hidden bg-black">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
