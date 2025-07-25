@@ -23,7 +23,7 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
           "xi-api-key": ELEVENLABS_API_KEY,
         },
         body: JSON.stringify({
-          text: `[RU] ${text}`,
+          text: text,
           model_id: "eleven_multilingual_v2",
           voice_settings: {
             stability: 0.2,
