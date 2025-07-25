@@ -113,7 +113,7 @@ export default function FridayChat() {
               <Bot className="w-6 h-6 text-primary" />
               Чат с Пятнице��
               <span className="text-sm font-normal text-muted-foreground ml-2">
-                (Powered by Groq AI - llama-3.1-70b-versatile)
+                (Powered by Groq AI - llama-3.1-8b-instant)
               </span>
             </CardTitle>
           </CardHeader>
