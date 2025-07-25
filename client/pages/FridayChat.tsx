@@ -129,12 +129,47 @@ export default function FridayChat() {
       <div className="max-w-4xl mx-auto">
         <Card className="h-[80vh] flex flex-col">
           <CardHeader className="border-b">
-            <CardTitle className="flex items-center gap-2">
-              <Bot className="w-6 h-6 text-primary" />
-              Чат с Пятницей
-              <span className="text-sm font-normal text-muted-foreground ml-2">
-                (Powered by Groq AI - llama-3.1-8b-instant)
-              </span>
+            <CardTitle className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Bot className="w-6 h-6 text-primary" />
+                Чат с Пятницей
+                <span className="text-sm font-normal text-muted-foreground ml-2">
+                  (Powered by Groq AI - llama-3.1-8b-instant)
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={toggleListening}
+                  className={`${
+                    isListening ? 'bg-red-500 text-white hover:bg-red-600' : ''
+                  }`}
+                >
+                  {isListening ? (
+                    <MicOff className="w-4 h-4" />
+                  ) : (
+                    <Mic className="w-4 h-4" />
+                  )}
+                  {isListening ? 'Выкл. микрофон' : 'Вкл. микрофон'}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={stopSpeaking}
+                  disabled={!isSpeaking}
+                  className={`${
+                    isSpeaking ? 'bg-blue-500 text-white hover:bg-blue-600' : ''
+                  }`}
+                >
+                  {isSpeaking ? (
+                    <VolumeX className="w-4 h-4" />
+                  ) : (
+                    <Volume2 className="w-4 h-4" />
+                  )}
+                  {isSpeaking ? 'Остановить' : 'Голос'}
+                </Button>
+              </div>
             </CardTitle>
           </CardHeader>
 
