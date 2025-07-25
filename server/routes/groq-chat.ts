@@ -14,15 +14,27 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
     }
 
     const groqApiKey = process.env.GROQ_API_KEY;
-    if (!groqApiKey) {
+    if (!groqApiKey || groqApiKey === "gsk_demo_key_placeholder") {
+      // Fallback to mock responses for demo purposes
+      const lastMessage = messages[messages.length - 1];
+      const mockResponses = [
+        "Привет! Я работаю в демо-режиме. Для полной функциональности нужен настоящий API ключ Groq.",
+        "Это демонстрацион��ый ответ. Я понимаю ваше сообщение, но использую заготовленные ответы.",
+        "Спасибо за ваше сообщение! В демо-режиме я могу только показать, как работает интерфейс чата.",
+        "Для получения реальных AI ответов необходимо настроить API ключ Groq в переменных окружения.",
+        "Демо-режим активен. Ваше сообщение получено, но ответ сгенерирован локально.",
+      ];
+
+      const mockResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)];
+
       const response: ChatResponse = {
-        success: false,
-        error: "API ключ Groq не настроен",
+        success: true,
+        message: mockResponse,
       };
-      return res.status(500).json(response);
+      return res.json(response);
     }
 
-    // Ис��ользуем одну из самых мощных доступных моделей Groq - llama-3.1-8b-instant
+    // Используем одну из самых мощных доступных моделей Groq - llama-3.1-8b-instant
     const groqResponse = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
       {
