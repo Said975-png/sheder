@@ -44,7 +44,7 @@ export const useVoiceChat = ({
         if (result.isFinal) {
           const transcript = result[0].transcript.trim();
           if (transcript) {
-            // Сначала устанавливаем флаг, затем останавливаем
+            // Сначала устанавливаем флаг, затем останавливае��
             setIsListening(false);
             if (recognitionRef.current) {
               try {
@@ -83,7 +83,7 @@ export const useVoiceChat = ({
   const stopListening = useCallback(() => {
     if (recognitionRef.current) {
       try {
-        // Используем stop вместо abort для предотвращения ошибки "aborted"
+        // Используем stop вместо abort для предотвращ��ния ошибки "aborted"
         recognitionRef.current.stop();
       } catch (e) {
         // Игнорируем ошибки если recognition уже остановлено
@@ -103,11 +103,96 @@ export const useVoiceChat = ({
 
   const speakText = useCallback(
     async (text: string) => {
-      // Голосовое воспроизведение отключено
-      console.log("Voice output disabled");
-      onTextToSpeech(text);
+      if (isSpeaking) {
+        console.log("Already speaking, skipping");
+        return;
+      }
+
+      console.log("Speaking with Friday's voice:", text);
+      setIsSpeaking(true);
+
+      try {
+        // Используем ElevenLabs API с кастомным голосом Пятницы
+        const response = await fetch("/api/elevenlabs-tts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text: text,
+            voice_id: "xybB2n1F05JZpVVx92Tu", // Кастомный голос Пятницы
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        currentAudioRef.current = audio;
+
+        audio.onended = () => {
+          URL.revokeObjectURL(audioUrl);
+          setIsSpeaking(false);
+          currentAudioRef.current = null;
+        };
+
+        audio.onerror = () => {
+          URL.revokeObjectURL(audioUrl);
+          setIsSpeaking(false);
+          currentAudioRef.current = null;
+          console.error("Ошибка воспроизведения аудио Пятницы");
+        };
+
+        await audio.play();
+        onTextToSpeech(text);
+      } catch (error) {
+        console.error("Не удалось получить аудио для Пятницы:", error);
+        setIsSpeaking(false);
+
+        // Fallback на браузерный TTS
+        if ("speechSynthesis" in window) {
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = "ru-RU";
+          utterance.rate = 0.8;
+          utterance.pitch = 1.1; // Более высокий тон для женского голоса
+          utterance.volume = 0.9;
+
+          // Ищем женский русский голос
+          const voices = speechSynthesis.getVoices();
+          const femaleRussianVoice = voices.find(
+            (voice) =>
+              voice.lang.includes("ru") &&
+              (voice.name.toLowerCase().includes("женский") ||
+                voice.name.toLowerCase().includes("female") ||
+                voice.name.toLowerCase().includes("anna") ||
+                voice.name.toLowerCase().includes("екатерина")),
+          );
+
+          if (femaleRussianVoice) {
+            utterance.voice = femaleRussianVoice;
+          }
+
+          utterance.onend = () => {
+            setIsSpeaking(false);
+          };
+
+          utterance.onerror = () => {
+            setIsSpeaking(false);
+            console.error("Ошибка браузерного TTS");
+          };
+
+          speechSynthesis.speak(utterance);
+          onTextToSpeech(text);
+        } else {
+          console.log("TTS недоступен");
+          onTextToSpeech(text);
+        }
+      }
     },
-    [onTextToSpeech],
+    [isSpeaking, onTextToSpeech],
   );
 
   const stopSpeaking = useCallback(() => {

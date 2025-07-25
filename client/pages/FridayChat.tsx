@@ -149,21 +149,23 @@ export default function FridayChat() {
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">
-        <Card className="h-[85vh] flex flex-col bg-black border-gray-500/30 backdrop-blur-lg">
-          <CardHeader className="border-b border-gray-500/20 bg-black backdrop-blur-lg">
+        <Card className="h-[85vh] flex flex-col bg-black/85 backdrop-blur-xl border border-cyan-500/40 shadow-lg shadow-cyan-500/20">
+          <CardHeader className="border-b border-cyan-400/30 bg-black/60 backdrop-blur-md">
             <CardTitle className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => navigate("/")}
-                  className="p-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300 border border-cyan-400/30"
+                  className="p-2 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40"
                 >
                   <ArrowLeft className="w-4 h-4 text-cyan-400" />
                 </Button>
                 <Bot className="w-6 h-6 text-cyan-400" />
                 <div className="flex flex-col">
-                  <span className="text-white font-mono">Чат с Пятницей</span>
+                  <span className="text-white font-mono stark-text-glow">
+                    Чат с Пятницей
+                  </span>
                   <span className="text-xs text-cyan-400/70">
                     Ваш ИИ-консультант по веб-разработке
                   </span>
@@ -174,10 +176,10 @@ export default function FridayChat() {
                   variant="outline"
                   size="sm"
                   onClick={() => navigate("/")}
-                  className="border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10 hover:border-cyan-400/60 transition-all duration-300"
+                  className="border-cyan-400/20 bg-black/40 text-cyan-400 hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300"
                 >
                   <Home className="w-4 h-4 mr-1" />
-                  Главная
+                  <span className="stark-text-glow">Главная</span>
                 </Button>
                 <Button
                   variant="outline"
@@ -185,8 +187,8 @@ export default function FridayChat() {
                   onClick={toggleListening}
                   className={`transition-all duration-300 ${
                     isListening
-                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
-                      : "border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10"
+                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30 hover:shadow-md hover:shadow-red-500/30"
+                      : "border-cyan-400/20 bg-black/40 text-cyan-400 hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30"
                   }`}
                 >
                   {isListening ? (
@@ -194,7 +196,9 @@ export default function FridayChat() {
                   ) : (
                     <Mic className="w-4 h-4" />
                   )}
-                  {isListening ? "Стоп" : "Микрофон"}
+                  <span className="stark-text-glow">
+                    {isListening ? "Стоп" : "Микрофон"}
+                  </span>
                 </Button>
                 <Button
                   variant="outline"
@@ -203,8 +207,8 @@ export default function FridayChat() {
                   disabled={!isSpeaking}
                   className={`transition-all duration-300 ${
                     isSpeaking
-                      ? "bg-blue-500/20 border-blue-500/50 text-blue-400 hover:bg-blue-500/30"
-                      : "border-cyan-400/30 text-cyan-400/60"
+                      ? "bg-blue-500/20 border-blue-500/50 text-blue-400 hover:bg-blue-500/30 hover:shadow-md hover:shadow-blue-500/30"
+                      : "border-cyan-400/20 bg-black/40 text-cyan-400/60"
                   }`}
                 >
                   {isSpeaking ? (
@@ -212,7 +216,9 @@ export default function FridayChat() {
                   ) : (
                     <Volume2 className="w-4 h-4" />
                   )}
-                  {isSpeaking ? "Стоп" : "Голос"}
+                  <span className="stark-text-glow">
+                    {isSpeaking ? "Стоп" : "Голос"}
+                  </span>
                 </Button>
               </div>
             </CardTitle>
@@ -229,16 +235,16 @@ export default function FridayChat() {
                   }`}
                 >
                   {message.role === "assistant" && (
-                    <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
+                    <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30 shadow-md shadow-cyan-400/30">
                       <Bot className="w-4 h-4 text-cyan-400" />
                     </div>
                   )}
 
                   <div
-                    className={`max-w-[70%] min-w-0 rounded-lg px-4 py-2 backdrop-blur-sm ${
+                    className={`max-w-[70%] min-w-0 rounded-lg px-4 py-2 backdrop-blur-md ${
                       message.role === "user"
-                        ? "bg-gradient-to-r from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 text-white"
-                        : "bg-gray-800/50 border border-cyan-400/20 text-white"
+                        ? "bg-gradient-to-r from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 text-white shadow-md shadow-cyan-400/20"
+                        : "bg-black/60 border border-cyan-400/20 text-white shadow-md shadow-cyan-400/10"
                     }`}
                   >
                     <div className="text-sm leading-relaxed whitespace-pre-wrap break-words word-break-break-word overflow-wrap-break-word">
@@ -250,7 +256,7 @@ export default function FridayChat() {
                   </div>
 
                   {message.role === "user" && (
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-600/20 border border-cyan-400/30 flex items-center justify-center flex-shrink-0 shadow-md shadow-cyan-400/30">
                       <User className="w-4 h-4 text-cyan-400" />
                     </div>
                   )}
@@ -259,13 +265,13 @@ export default function FridayChat() {
 
               {isLoading && (
                 <div className="flex gap-3 justify-start">
-                  <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
+                  <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30 shadow-md shadow-cyan-400/30">
                     <Bot className="w-4 h-4 text-cyan-400" />
                   </div>
-                  <div className="bg-black border border-gray-500/20 rounded-lg px-4 py-2 backdrop-blur-sm">
+                  <div className="bg-black/60 border border-cyan-400/20 rounded-lg px-4 py-2 backdrop-blur-md shadow-md shadow-cyan-400/10">
                     <div className="flex items-center gap-2">
                       <Loader2 className="w-4 h-4 animate-spin text-cyan-400" />
-                      <span className="text-sm text-white">
+                      <span className="text-sm text-white stark-text-glow">
                         Пятница думает...
                       </span>
                     </div>
@@ -275,10 +281,12 @@ export default function FridayChat() {
 
               {isListening && (
                 <div className="flex gap-3 justify-center">
-                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2 backdrop-blur-sm">
+                  <div className="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2 backdrop-blur-md shadow-md shadow-red-500/20">
                     <div className="flex items-center gap-2">
                       <Mic className="w-4 h-4 text-red-500 animate-pulse" />
-                      <span className="text-sm text-red-400">Слушаю...</span>
+                      <span className="text-sm text-red-400 stark-text-glow">
+                        Слушаю...
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -286,13 +294,15 @@ export default function FridayChat() {
 
               {isSpeaking && (
                 <div className="flex gap-3 justify-start">
-                  <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30">
+                  <div className="w-8 h-8 rounded-full bg-cyan-400/20 flex items-center justify-center flex-shrink-0 border border-cyan-400/30 shadow-md shadow-cyan-400/30">
                     <Bot className="w-4 h-4 text-cyan-400" />
                   </div>
-                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-2 backdrop-blur-sm">
+                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-2 backdrop-blur-md shadow-md shadow-blue-500/20">
                     <div className="flex items-center gap-2">
                       <Volume2 className="w-4 h-4 text-blue-500 animate-pulse" />
-                      <span className="text-sm text-blue-400">Говорю...</span>
+                      <span className="text-sm text-blue-400 stark-text-glow">
+                        Говорю...
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -302,7 +312,7 @@ export default function FridayChat() {
             </div>
 
             {/* Input area */}
-            <div className="border-t border-gray-500/20 bg-black backdrop-blur-lg p-4">
+            <div className="border-t border-cyan-400/30 bg-black/60 backdrop-blur-md p-4">
               <div className="flex gap-2">
                 <Input
                   value={inputValue}
@@ -314,7 +324,7 @@ export default function FridayChat() {
                       : "Спросите о наших услугах, тарифах или любую другую тему..."
                   }
                   disabled={isLoading || isListening}
-                  className="flex-1 bg-black/50 border-cyan-400/30 text-white placeholder:text-white/50 focus:border-cyan-400/60"
+                  className="flex-1 bg-black/60 border-cyan-400/20 text-white placeholder:text-white/50 focus:border-cyan-400/60 focus:shadow-md focus:shadow-cyan-400/20 backdrop-blur-md"
                 />
                 <Button
                   onClick={toggleListening}
@@ -323,8 +333,8 @@ export default function FridayChat() {
                   disabled={isLoading}
                   className={`transition-all duration-300 ${
                     isListening
-                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
-                      : "border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10"
+                      ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30 hover:shadow-md hover:shadow-red-500/30"
+                      : "border-cyan-400/20 bg-black/40 text-cyan-400 hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30"
                   }`}
                 >
                   {isListening ? (
@@ -337,7 +347,7 @@ export default function FridayChat() {
                   onClick={sendMessage}
                   disabled={!inputValue.trim() || isLoading}
                   size="icon"
-                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 border-0"
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 border-0 shadow-lg shadow-cyan-500/30 hover:shadow-cyan-400/40 transition-all duration-300"
                 >
                   {isLoading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />

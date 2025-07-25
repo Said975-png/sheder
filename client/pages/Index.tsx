@@ -46,7 +46,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Компонент для анимации пе��ат�� кода
+// Компонент для анимации пе�����ат�� кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -264,7 +264,7 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Отслеживание скролла для навбара (без эффекта "брови")
+  // Отслеживание скролла для навбара (без эффек���а "брови")
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 100;
@@ -366,27 +366,27 @@ export default function Index() {
       {/* Navigation - Enhanced with Stark styling */}
       <nav
         className={cn(
-          "fixed left-1/2 transform -translate-x-1/2 z-40 transition-all duration-300",
+          "fixed left-1/2 transform -translate-x-1/2 z-40 transition-all duration-500",
           // Базовые стили в зависимости от состояния скролла
           navbarScrolled
-            ? "bg-black/80 backdrop-blur-lg border border-gray-500/30"
-            : "bg-transparent border border-gray-500/20",
+            ? "bg-black/85 backdrop-blur-xl border border-cyan-500/40 shadow-lg shadow-cyan-500/20"
+            : "bg-black/60 backdrop-blur-md border border-cyan-400/30 shadow-md shadow-cyan-400/10",
 
-          "top-2 rounded-full px-2 py-1 w-auto h-auto", // Обычный нав��ар
+          "top-2 rounded-full px-3 py-2 w-auto h-auto", // Улучшенные отступы
         )}
       >
         <div
           className={cn(
             "flex items-center transition-all duration-500 overflow-hidden",
-            "space-x-2 opacity-100 scale-100",
+            "space-x-3 opacity-100 scale-100", // Увеличенное расстояние между элементами
           )}
         >
           {/* Home Button */}
           <Button
             variant="ghost"
             className={cn(
-              "text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-500 transform",
-              "scale-100 opacity-100 w-auto",
+              "text-xs px-3 py-1.5 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-500 transform",
+              "scale-100 opacity-100 w-auto border border-cyan-400/20 bg-black/40",
             )}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
@@ -442,7 +442,7 @@ export default function Index() {
                 <Button
                   variant="ghost"
                   data-testid="cart-button"
-                  className="relative p-1.5 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                  className="relative p-2 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40"
                 >
                   <ShoppingCart className="w-4 h-4 text-white" />
                   {getTotalItems() > 0 && (
@@ -543,7 +543,7 @@ export default function Index() {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="flex items-center space-x-2 p-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                    className="flex items-center space-x-2 p-2 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40"
                   >
                     <div className="w-8 h-8 bg-gradient-to-r from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
                       <User className="w-4 h-4" />
@@ -605,7 +605,7 @@ export default function Index() {
             >
               <Button
                 variant="ghost"
-                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                className="text-xs px-3 py-1.5 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40"
                 asChild
               >
                 <Link to="/login">
@@ -614,7 +614,7 @@ export default function Index() {
               </Button>
               <Button
                 variant="ghost"
-                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                className="text-xs px-3 py-1.5 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40"
                 asChild
               >
                 <Link to="/signup">
@@ -623,7 +623,7 @@ export default function Index() {
               </Button>
               <Button
                 variant="ghost"
-                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
+                className="text-xs px-3 py-1.5 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40"
                 asChild
               >
                 <Link to="/chat">

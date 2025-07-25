@@ -8,10 +8,14 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
   }
 
   try {
-    // Используем API ключ ElevenLabs из переменной окружения
+    // Испо��ьзуем API ключ ElevenLabs из переменной окружения
     const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
 
+    console.log("ElevenLabs TTS request:", { text, voice_id });
+    console.log("API key present:", !!ELEVENLABS_API_KEY);
+
     if (!ELEVENLABS_API_KEY) {
+      console.error("ElevenLabs API key not found in environment variables");
       return res
         .status(500)
         .json({ error: "ElevenLabs API key not configured" });
@@ -47,6 +51,7 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
         return res.status(404).json({
           error:
             "Voice not found. The specified voice ID may not exist or may not be available.",
+          details: errorText,
         });
       } else if (response.status === 401) {
         try {
@@ -55,6 +60,7 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
             return res.status(401).json({
               error:
                 "API key does not have text_to_speech permission. Please check your ElevenLabs subscription.",
+              details: errorText,
             });
           }
         } catch (e) {
@@ -62,14 +68,25 @@ export const handleElevenLabsTTS: RequestHandler = async (req, res) => {
         }
         return res.status(401).json({
           error: "API key is invalid or expired.",
+          details: errorText,
         });
       } else if (response.status === 429) {
         return res.status(429).json({
           error: "Rate limit exceeded. Please try again later.",
+          details: errorText,
+        });
+      } else if (response.status === 500) {
+        return res.status(500).json({
+          error:
+            "ElevenLabs server error. The service may be temporarily unavailable.",
+          details: errorText,
         });
       }
 
-      throw new Error(`ElevenLabs API error: ${response.status}`);
+      return res.status(response.status).json({
+        error: `ElevenLabs API error: ${response.status}`,
+        details: errorText,
+      });
     }
 
     const audioBuffer = await response.arrayBuffer();
