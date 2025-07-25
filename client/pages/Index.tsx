@@ -203,16 +203,16 @@ function TypewriterCode() {
       let highlightedLine = line
         .replace(
           /(import|export|from|const|let|var|function|return|if|else|class|def|async|await)/g,
-          '<span class="text-purple-400">$1</span>',
+          '<span class="text-white">$1</span>',
         )
-        .replace(/(\{|\}|\(|\)|;)/g, '<span class="text-cyan-400">$1</span>')
-        .replace(/(["'].*?["'])/g, '<span class="text-green-400">$1</span>')
-        .replace(/(\d+)/g, '<span class="text-orange-400">$1</span>')
-        .replace(/(\/\/.*$)/g, '<span class="text-gray-500">$1</span>')
-        .replace(/(<[^>]*>)/g, '<span class="text-red-400">$1</span>')
+        .replace(/(\{|\}|\(|\)|;)/g, '<span class="text-white">$1</span>')
+        .replace(/(["'].*?["'])/g, '<span class="text-white">$1</span>')
+        .replace(/(\d+)/g, '<span class="text-white">$1</span>')
+        .replace(/(\/\/.*$)/g, '<span class="text-white">$1</span>')
+        .replace(/(<[^>]*>)/g, '<span class="text-white">$1</span>')
         .replace(
           /(className|onClick|useState|useEffect|href|src)/g,
-          '<span class="text-blue-400">$1</span>',
+          '<span class="text-white">$1</span>',
         );
 
       return (
