@@ -162,12 +162,13 @@ export const useVoiceChat = ({
 
           // Ищем женский русский голос
           const voices = speechSynthesis.getVoices();
-          const femaleRussianVoice = voices.find((voice) =>
-            voice.lang.includes("ru") &&
-            (voice.name.toLowerCase().includes("женский") ||
-             voice.name.toLowerCase().includes("female") ||
-             voice.name.toLowerCase().includes("anna") ||
-             voice.name.toLowerCase().includes("екатерина"))
+          const femaleRussianVoice = voices.find(
+            (voice) =>
+              voice.lang.includes("ru") &&
+              (voice.name.toLowerCase().includes("женский") ||
+                voice.name.toLowerCase().includes("female") ||
+                voice.name.toLowerCase().includes("anna") ||
+                voice.name.toLowerCase().includes("екатерина")),
           );
 
           if (femaleRussianVoice) {

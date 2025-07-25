@@ -163,7 +163,9 @@ export default function FridayChat() {
                 </Button>
                 <Bot className="w-6 h-6 text-cyan-400" />
                 <div className="flex flex-col">
-                  <span className="text-white font-mono stark-text-glow">Чат с Пятницей</span>
+                  <span className="text-white font-mono stark-text-glow">
+                    Чат с Пятницей
+                  </span>
                   <span className="text-xs text-cyan-400/70">
                     Ваш ИИ-консультант по веб-разработке
                   </span>
@@ -194,7 +196,9 @@ export default function FridayChat() {
                   ) : (
                     <Mic className="w-4 h-4" />
                   )}
-                  <span className="stark-text-glow">{isListening ? "Стоп" : "Микрофон"}</span>
+                  <span className="stark-text-glow">
+                    {isListening ? "Стоп" : "Микрофон"}
+                  </span>
                 </Button>
                 <Button
                   variant="outline"
@@ -212,7 +216,9 @@ export default function FridayChat() {
                   ) : (
                     <Volume2 className="w-4 h-4" />
                   )}
-                  <span className="stark-text-glow">{isSpeaking ? "Стоп" : "Голос"}</span>
+                  <span className="stark-text-glow">
+                    {isSpeaking ? "Стоп" : "Голос"}
+                  </span>
                 </Button>
               </div>
             </CardTitle>
@@ -278,7 +284,9 @@ export default function FridayChat() {
                   <div className="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-2 backdrop-blur-md shadow-md shadow-red-500/20">
                     <div className="flex items-center gap-2">
                       <Mic className="w-4 h-4 text-red-500 animate-pulse" />
-                      <span className="text-sm text-red-400 stark-text-glow">Слушаю...</span>
+                      <span className="text-sm text-red-400 stark-text-glow">
+                        Слушаю...
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -292,7 +300,9 @@ export default function FridayChat() {
                   <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-2 backdrop-blur-md shadow-md shadow-blue-500/20">
                     <div className="flex items-center gap-2">
                       <Volume2 className="w-4 h-4 text-blue-500 animate-pulse" />
-                      <span className="text-sm text-blue-400 stark-text-glow">Говорю...</span>
+                      <span className="text-sm text-blue-400 stark-text-glow">
+                        Говорю...
+                      </span>
                     </div>
                   </div>
                 </div>
