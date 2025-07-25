@@ -227,7 +227,7 @@ function TypewriterCode() {
 
   return (
     <div className="text-sm h-[400px] overflow-hidden relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/50 pointer-events-none z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none z-10"></div>
 
       <div className="space-y-1 text-white/90 h-full overflow-hidden">
         {renderCodeWithSyntaxHighlight(displayedCode)}
