@@ -91,9 +91,6 @@ export default function FridayChat() {
           timestamp: Date.now(),
         };
         setMessages((prev) => [...prev, assistantMessage]);
-
-        // Автоматически озвучиваем ответ ИИ
-        speakText(data.message);
       } else {
         const errorMessage: ChatMessage = {
           role: "assistant",
@@ -255,7 +252,7 @@ export default function FridayChat() {
                   <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-4 py-2">
                     <div className="flex items-center gap-2">
                       <Volume2 className="w-4 h-4 text-blue-500 animate-pulse" />
-                      <span className="text-sm text-blue-500">Говорю...</span>
+                      <span className="text-sm text-blue-500">Гово��ю...</span>
                     </div>
                   </div>
                 </div>
