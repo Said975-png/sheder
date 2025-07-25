@@ -31,5 +31,8 @@ export function createServer() {
   // ElevenLabs TTS route
   app.post("/api/elevenlabs-tts", handleElevenLabsTTS);
 
+  // Groq chat route
+  app.post("/api/groq-chat", handleGroqChat);
+
   return app;
 }
