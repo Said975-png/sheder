@@ -58,7 +58,7 @@ export const useVoiceChat = ({
       setIsListening(false);
       if (event.error === "not-allowed") {
         alert(
-          "Доступ к микрофону запрещен. Разрешите доступ к мик��офону для использования голосового ввода.",
+          "Доступ к микрофону запрещен. Разрешите доступ к микрофону для использования голосового ввода.",
         );
       }
     };
@@ -127,7 +127,7 @@ export const useVoiceChat = ({
             },
             body: JSON.stringify({
               text: cleanText,
-              voice_id: "pNInz6obpgDQGcFmaJgB", // Используем только проверенный голос Adam
+              voice_id: "7Ipoekf0dq4j3k1xPG37", // Кастомный голос пользователя
             }),
           });
 
