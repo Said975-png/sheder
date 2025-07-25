@@ -46,7 +46,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// Компонент для анимации печати к��да
+// Компонент для анимации печати кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -218,7 +218,7 @@ function TypewriterCode() {
       return (
         <div
           key={index}
-          className="font-mono text-sm leading-relaxed"
+          className="text-sm leading-relaxed"
           dangerouslySetInnerHTML={{ __html: highlightedLine }}
         />
       );
@@ -226,7 +226,7 @@ function TypewriterCode() {
   };
 
   return (
-    <div className="font-mono text-sm h-[400px] overflow-hidden relative">
+    <div className="text-sm h-[400px] overflow-hidden relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/50 pointer-events-none z-10"></div>
 
       <div className="space-y-1 text-white/90 h-full overflow-hidden">
@@ -264,7 +264,7 @@ export default function Index() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Отслеживание скролла для ��авбара (без эффекта "брови")
+  // Отслеживание скролла для навбара (без эффекта "брови")
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY > 100;
@@ -352,7 +352,7 @@ export default function Index() {
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
           <ArcReactor size="large" pulsing />
-          <p className="text-cyan-400 mt-4 font-mono">
+          <p className="text-cyan-400 mt-4">
             <GlitchText>INITIALIZING STARK SYSTEMS...</GlitchText>
           </p>
         </div>
@@ -385,7 +385,7 @@ export default function Index() {
           <Button
             variant="ghost"
             className={cn(
-              "text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-500 font-mono transform",
+              "text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-500 transform",
               "scale-100 opacity-100 w-auto",
             )}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -457,11 +457,11 @@ export default function Index() {
                 className="w-80 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
               >
                 <div className="px-3 py-2">
-                  <h3 className="font-semibold text-cyan-400 mb-2 font-mono">
+                  <h3 className="font-semibold text-cyan-400 mb-2">
                     CART MATRIX
                   </h3>
                   {items.length === 0 ? (
-                    <p className="text-sm text-white/60 text-center py-4 font-mono">
+                    <p className="text-sm text-white/60 text-center py-4">
                       Cart is empty
                     </p>
                   ) : (
@@ -473,13 +473,13 @@ export default function Index() {
                             className="flex items-start justify-between p-2 bg-gray-800/50 border border-cyan-400/20 rounded-lg"
                           >
                             <div className="flex-1">
-                              <h4 className="font-medium text-sm text-white font-mono">
+                              <h4 className="font-medium text-sm text-white">
                                 {item.name}
                               </h4>
                               <p className="text-xs text-white/60 mt-1">
                                 {item.description.substring(0, 60)}...
                               </p>
-                              <p className="text-sm font-semibold text-cyan-400 mt-1 font-mono">
+                              <p className="text-sm font-semibold text-cyan-400 mt-1">
                                 {item.price.toLocaleString()} сум
                               </p>
                             </div>
@@ -496,10 +496,10 @@ export default function Index() {
                       </div>
                       <DropdownMenuSeparator className="bg-cyan-400/20 my-3" />
                       <div className="flex justify-between items-center mb-3">
-                        <span className="font-semibold text-cyan-400 font-mono">
+                        <span className="font-semibold text-cyan-400">
                           TOTAL:
                         </span>
-                        <span className="font-bold text-white font-mono">
+                        <span className="font-bold text-white">
                           {getTotalPrice().toLocaleString()} сум
                         </span>
                       </div>
@@ -552,7 +552,7 @@ export default function Index() {
                     <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
                       <User className="w-4 h-4" />
                     </div>
-                    <span className="hidden sm:block text-sm font-mono">
+                    <span className="hidden sm:block text-sm">
                       {currentUser.name}
                     </span>
                   </Button>
@@ -562,7 +562,7 @@ export default function Index() {
                   className="w-56 bg-black/90 border-cyan-400/30 mt-2 backdrop-blur-lg"
                 >
                   <div className="px-2 py-1.5 text-sm text-white/60">
-                    <div className="font-medium text-cyan-400 font-mono">
+                    <div className="font-medium text-cyan-400">
                       {currentUser.name}
                     </div>
                     <div className="text-xs">{currentUser.email}</div>
@@ -609,7 +609,7 @@ export default function Index() {
             >
               <Button
                 variant="ghost"
-                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
                 asChild
               >
                 <Link to="/login">
@@ -618,7 +618,7 @@ export default function Index() {
               </Button>
               <Button
                 variant="ghost"
-                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
                 asChild
               >
                 <Link to="/signup">
@@ -627,7 +627,7 @@ export default function Index() {
               </Button>
               <Button
                 variant="ghost"
-                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300 font-mono"
+                className="text-xs px-2 py-1 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
                 asChild
               >
                 <Link to="/chat">
