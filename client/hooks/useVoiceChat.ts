@@ -146,7 +146,7 @@ export const useVoiceChat = ({
             },
             body: JSON.stringify({
               text: cleanText,
-              voice_id: "UgBBYS2sOqTuMpoF3BR0", // Кастомный голос пользователя
+              voice_id: "NOpBlnGInO9m6vDvFkFC", // Кастомный голос пользователя
             }),
           });
 
@@ -176,7 +176,7 @@ export const useVoiceChat = ({
           // Ищем лучший мужской голос
           const voices = speechSynthesis.getVoices();
 
-          // Приоритет голосов для имитации кастомного QwIajjI6ArHb10VNwWmz
+          // Пр��ори��ет голосов для имитации кастомного QwIajjI6ArHb10VNwWmz
           const preferredVoices = [
             voices.find((voice) => voice.name.includes("Microsoft Pavel")), // Мужской русский
             voices.find((voice) => voice.name.includes("Google русский")),
