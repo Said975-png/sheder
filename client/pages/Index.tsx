@@ -343,7 +343,7 @@ export default function Index() {
   }, []);
 
   const handleModelRotateStop = React.useCallback(() => {
-    console.log("⏹️ Остановка вращения модели");
+    console.log("⏹️ Остановка вращения м��дели");
     setIsModelRotating(false);
   }, []);
 
@@ -386,7 +386,7 @@ export default function Index() {
             variant="ghost"
             className={cn(
               "text-xs px-3 py-1.5 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-500 transform",
-              "scale-100 opacity-100 w-auto",
+              "scale-100 opacity-100 w-auto border border-cyan-400/20 bg-black/40",
             )}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
