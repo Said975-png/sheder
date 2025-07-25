@@ -362,31 +362,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
-      {/* Неоновый фиолетовый фон */}
-      <div className="neon-purple-background"></div>
-
-      {/* Неоновые углы */}
-      <div className="neon-corners">
-        <div className="neon-corner neon-corner-tl"></div>
-        <div className="neon-corner neon-corner-tr"></div>
-        <div className="neon-corner neon-corner-bl"></div>
-        <div className="neon-corner neon-corner-br"></div>
-      </div>
-
-      {/* Неоновые краевые свечения */}
-      <div className="neon-edges"></div>
-
-      {/* Центральное неоновое свечение */}
-      <div className="neon-center-glow"></div>
-
-      {/* Неоновые частицы */}
-      <div className="neon-particles">
-        <div className="neon-particle"></div>
-        <div className="neon-particle"></div>
-        <div className="neon-particle"></div>
-        <div className="neon-particle"></div>
-        <div className="neon-particle"></div>
-      </div>
+      {/* Убраны неоновые эффекты */}
       {/* Navigation - Enhanced with Stark styling */}
       <nav
         className={cn(
