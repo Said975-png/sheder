@@ -549,7 +549,7 @@ export default function Index() {
                     variant="ghost"
                     className="flex items-center space-x-2 p-2 rounded-full hover:bg-cyan-400/10 transition-all duration-300"
                   >
-                    <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-gradient-to-r from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
                       <User className="w-4 h-4" />
                     </div>
                     <span className="hidden sm:block text-sm">
