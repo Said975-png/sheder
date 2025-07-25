@@ -419,13 +419,13 @@ export default function Index() {
               "scale-0 opacity-0 w-0 overflow-hidden",
             )}
           >
-            <div className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"></div>
+            <div className="w-1 h-1 bg-white rounded-full animate-pulse"></div>
             <div
-              className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"
+              className="w-1 h-1 bg-white rounded-full animate-pulse"
               style={{ animationDelay: "0.2s" }}
             ></div>
             <div
-              className="w-1 h-1 bg-cyan-400 rounded-full animate-pulse"
+              className="w-1 h-1 bg-white rounded-full animate-pulse"
               style={{ animationDelay: "0.4s" }}
             ></div>
           </div>
