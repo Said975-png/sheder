@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Zap, Code } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  StarkHUD,
-  DataStream,
-  CircuitPattern,
-  HologramText,
-} from "@/components/StarkHUD";
-import {
-  ArcReactor,
-  PowerIndicator,
-  GlitchText,
-  MatrixRain,
-} from "@/components/StarkEffects";
 import GLBModel from "@/components/GLBModel";
 import { TypewriterText } from "@/components/TypewriterText";
 import { SiteSearch } from "@/components/SiteSearch";
+import {
+  Play,
+  Star,
+  ArrowRight,
+  Sparkles,
+  Bot,
+  Mic,
+  Search,
+} from "lucide-react";
 
 interface StarkHeroProps {
   className?: string;
@@ -31,30 +27,17 @@ export default function StarkHero({
   onModelRotationStart,
   onModelRotationStop,
 }: StarkHeroProps) {
-  const [scanProgress, setScanProgress] = useState(0);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [targetLocked, setTargetLocked] = useState(false);
   const [titleComplete, setTitleComplete] = useState(false);
   const [descriptionComplete, setDescriptionComplete] = useState(false);
+  const [showCTA, setShowCTA] = useState(false);
 
   useEffect(() => {
-    // Симуляция сканирования
-    const scanInterval = setInterval(() => {
-      setScanProgress((prev) => {
-        if (prev >= 100) {
-          setIsAnalyzing(true);
-          setTimeout(() => {
-            setTargetLocked(true);
-            setIsAnalyzing(false);
-          }, 1500);
-          return 0;
-        }
-        return prev + 2;
-      });
-    }, 100);
-
-    return () => clearInterval(scanInterval);
-  }, []);
+    // Show CTA after description completes
+    if (descriptionComplete) {
+      const timer = setTimeout(() => setShowCTA(true), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [descriptionComplete]);
 
   return (
     <section
@@ -63,102 +46,204 @@ export default function StarkHero({
         className,
       )}
     >
-      {/* Убраны фоновые эффекты */}
+      {/* Refined minimal background */}
+      <div className="absolute inset-0 opacity-[0.02]">
+        <div
+          className="w-full h-full"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+              radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: "60px 60px, 40px 40px",
+          }}
+        />
+      </div>
 
-      {/* Убраны HUD углы экрана и сканирующие линии */}
+      {/* Subtle glow effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/[0.02] rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-white/[0.01] rounded-full blur-3xl" />
+      </div>
 
-      <div className="container mx-auto px-6 relative z-10 pt-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[80vh]">
-          {/* Левая часть - контент */}
-          <div className="space-y-8">
-            {/* Статус хедер */}
-            <StarkHUD
-              className="inline-block bg-black/60 backdrop-blur-lg px-6 py-3"
-              showCorners={false}
-            >
-              <div className="flex items-center space-x-3">
-                <ArcReactor size="small" pulsing />
-                <div className="text-sm">
-                  <TypewriterText
-                    text="STARK INDUSTRIES"
-                    speed={80}
-                    className="text-white"
-                  />
-                  <span className="text-white ml-2">|</span>
-                  <TypewriterText
-                    text="BLOCKCHAIN DIVISION"
-                    speed={80}
-                    delay={1000}
-                    className="text-white ml-2"
-                  />
-                </div>
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-screen">
+          {/* Enhanced Content Section */}
+          <div className="space-y-8 lg:space-y-10">
+            {/* Premium Status Badge */}
+            <div className="inline-flex items-center space-x-3 px-6 py-3 bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-full">
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+              <div className="text-sm font-medium text-white/90">
+                <TypewriterText
+                  text="STARK INDUSTRIES"
+                  speed={80}
+                  className="text-white"
+                />
+                <span className="text-white/60 mx-2">•</span>
+                <TypewriterText
+                  text="AI DIVISION"
+                  speed={80}
+                  delay={1000}
+                  className="text-white/80"
+                />
               </div>
-            </StarkHUD>
+              <div className="w-2 h-2 bg-white/50 rounded-full" />
+            </div>
 
-            {/* Заголовок */}
+            {/* Enhanced Typography */}
             <div className="space-y-6">
-              <h1 className="text-4xl lg:text-6xl xl:text-7xl font-bold leading-tight">
-                <HologramText
-                  className="text-4xl lg:text-6xl xl:text-7xl font-bold"
-                  glitch
-                >
-                  <TypewriterText
-                    text="Jarvis - ваш искусственный интеллект"
-                    speed={30}
-                    delay={500}
-                    onComplete={() => setTitleComplete(true)}
-                  />
-                </HologramText>
+              <h1 className="text-5xl lg:text-7xl xl:text-8xl font-bold leading-[0.9] tracking-tight">
+                <div className="relative">
+                  <div className="text-white">
+                    <TypewriterText
+                      text="Jarvis"
+                      speed={150}
+                      delay={500}
+                      onComplete={() => setTitleComplete(true)}
+                      className="block"
+                    />
+                    {titleComplete && (
+                      <TypewriterText
+                        text="ваш AI-помощник"
+                        speed={100}
+                        delay={200}
+                        className="block text-white/80 text-4xl lg:text-5xl xl:text-6xl font-normal mt-2"
+                      />
+                    )}
+                  </div>
+                </div>
               </h1>
 
-              <div className="relative">
-                <p className="text-lg lg:text-xl text-white leading-relaxed max-w-lg">
-                  {targetLocked ? (
-                    <span className="text-white">
-                      {titleComplete && (
-                        <TypewriterText
-                          text="Вы говорите — Джарвис делает. Это не просто сайт. Это — ваш персональный AI-помощник, встроенный в интерфейс"
-                          speed={30}
-                          delay={300}
-                          onComplete={() => setDescriptionComplete(true)}
-                        />
-                      )}
-                    </span>
-                  ) : (
-                    "Scanning quantum blockchain matrices... Analyzing distributed networks..."
+              <div className="relative max-w-2xl">
+                <p className="text-xl lg:text-2xl text-white/70 leading-relaxed">
+                  {titleComplete && (
+                    <TypewriterText
+                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будущее взаимодействия с технологиями уже здесь."
+                      speed={30}
+                      delay={800}
+                      onComplete={() => setDescriptionComplete(true)}
+                    />
                   )}
                 </p>
-
-                {/* Прогресс сканирования */}
-                {!targetLocked && (
-                  <div className="mt-4">
-                    <PowerIndicator
-                      level={scanProgress}
-                      label={isAnalyzing ? "ANALYZING" : "SCANNING"}
-                    />
-                  </div>
-                )}
               </div>
             </div>
 
-            {/* Поиск по сайту */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            {/* Enhanced CTA Section */}
+            <div className={cn(
+              "flex flex-col sm:flex-row gap-4 transition-all duration-1000",
+              showCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}>
+              {/* Primary CTA */}
+              <Button className="group bg-white text-black hover:bg-white/90 px-8 py-4 text-lg font-semibold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <Bot className="w-5 h-5 mr-3 group-hover:animate-pulse" />
+                <span>Начать с Jarvis</span>
+                <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
+              </Button>
+
+              {/* Secondary CTA */}
               <SiteSearch />
+
+              {/* Tertiary Action */}
+              <Button variant="ghost" className="group text-white border border-white/20 hover:border-white/40 hover:bg-white/5 px-6 py-4 rounded-2xl transition-all duration-300">
+                <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
+                <span>Смотреть демо</span>
+              </Button>
+            </div>
+
+            {/* Feature Highlights */}
+            <div className={cn(
+              "grid grid-cols-2 md:grid-cols-3 gap-4 pt-8 transition-all duration-1000 delay-300",
+              showCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}>
+              {[
+                { icon: <Mic className="w-4 h-4" />, text: "Голосовое управление" },
+                { icon: <Sparkles className="w-4 h-4" />, text: "ИИ-аналитика" },
+                { icon: <Star className="w-4 h-4" />, text: "24/7 доступность" },
+              ].map((feature, index) => (
+                <div
+                  key={index}
+                  className="flex items-center space-x-2 text-white/60 group cursor-pointer"
+                >
+                  <div className="text-white group-hover:scale-110 transition-transform duration-300">
+                    {feature.icon}
+                  </div>
+                  <span className="text-sm font-medium group-hover:text-white/80 transition-colors duration-300">
+                    {feature.text}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Правая часть - GLB модель */}
+          {/* Enhanced 3D Model Section */}
           <div className="flex items-center justify-center lg:justify-end order-first lg:order-last">
-            <div className="w-full max-w-md lg:max-w-xl h-96 lg:h-[500px]">
-              <GLBModel
-                url="https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f"
-                scale={3.0}
-                autoRotate={true}
-                isRotating={isModelRotating}
-                onRotationStart={onModelRotationStart}
-                onRotationStop={onModelRotationStop}
-              />
+            <div className="relative w-full max-w-lg lg:max-w-2xl h-96 lg:h-[600px]">
+              {/* Model Container with refined styling */}
+              <div className="relative w-full h-full group">
+                {/* Subtle border effect */}
+                <div className="absolute inset-0 rounded-3xl border border-white/[0.08] group-hover:border-white/20 transition-all duration-500" />
+                
+                {/* Model */}
+                <div className="relative z-10 w-full h-full rounded-3xl overflow-hidden">
+                  <GLBModel
+                    url="https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f"
+                    scale={3.5}
+                    autoRotate={true}
+                    isRotating={isModelRotating}
+                    onRotationStart={onModelRotationStart}
+                    onRotationStop={onModelRotationStop}
+                  />
+                </div>
+
+                {/* Floating UI Elements */}
+                <div className="absolute top-4 right-4 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-3">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                    <span className="text-xs font-medium text-white">ACTIVE</span>
+                  </div>
+                </div>
+
+                <div className="absolute bottom-4 left-4 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-4">
+                  <div className="text-xs font-medium text-white mb-1">Neural Network</div>
+                  <div className="flex items-center space-x-1">
+                    {Array.from({ length: 8 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="w-1 bg-white/60 rounded-full animate-pulse"
+                        style={{
+                          height: `${Math.random() * 16 + 8}px`,
+                          animationDelay: `${i * 100}ms`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+
+        {/* Bottom section with stats */}
+        <div className={cn(
+          "absolute bottom-8 left-6 right-6 transition-all duration-1000 delay-500",
+          showCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        )}>
+          <div className="flex flex-wrap justify-center lg:justify-between items-center gap-8 text-center lg:text-left">
+            {[
+              { number: "99.9%", label: "Точность ответов" },
+              { number: "24/7", label: "Доступность" },
+              { number: "1000+", label: "Довольных клиентов" },
+              { number: "<1сек", label: "Время отклика" },
+            ].map((stat, index) => (
+              <div key={index} className="group cursor-pointer">
+                <div className="text-2xl lg:text-3xl font-bold text-white group-hover:scale-110 transition-transform duration-300">
+                  {stat.number}
+                </div>
+                <div className="text-sm text-white/60 group-hover:text-white/80 transition-colors duration-300">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
