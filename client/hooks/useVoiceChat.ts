@@ -57,7 +57,7 @@ export const useVoiceChat = ({
 
       const combinedTranscript = (finalTranscript + interimTranscript).trim();
 
-      // Обрабатываем т��лько финальные результаты или достаточно длинные промежуточные
+      // Обрабатываем только финальные рез��льтаты или достаточно длинные промежуточные
       if (combinedTranscript.length >= 3) {
         console.log("🎯 Получен текст:", combinedTranscript);
         
@@ -118,7 +118,7 @@ export const useVoiceChat = ({
     return recognition;
   }, [isListening, isSpeaking, onTranscriptReceived]);
 
-  // Запуск прослу��ивания
+  // Запуск прослушивания
   const startListening = useCallback(() => {
     if (isSpeaking) {
       console.log("⏸️ Не можем начать слушать - сейчас говорим");
@@ -380,7 +380,11 @@ export const useVoiceChat = ({
       }
       
       if ("speechSynthesis" in window && speechSynthesis.speaking) {
-        speechSynthesis.cancel();
+        try {
+          speechSynthesis.cancel();
+        } catch (error) {
+          console.log("ℹ️ Ошибка остановки TTS при размонтировании:", error);
+        }
       }
     };
   }, []);
@@ -395,12 +399,12 @@ export const useVoiceChat = ({
         isProcessingRef.current = false;
       }
       
-      // Если слушаем, но нет активного распознавания - перезапускаем
+      // Если слушаем, ��о нет активного распознавания - перезапускаем
       if (isListening && !recognitionRef.current && !isProcessingRef.current) {
         console.log("🧹 Перезапуск зависшего распознавания");
         startListening();
       }
-    }, 3000); // Проверяем каж��ые 3 секунды
+    }, 3000); // Проверяем каждые 3 секунды
 
     return () => clearInterval(cleanupInterval);
   }, [isListening, isSpeaking, startListening]);
