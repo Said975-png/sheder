@@ -137,7 +137,7 @@ function Profile() {
               onClick={() => navigate("/login")}
               className="bg-purple-600 hover:bg-purple-700"
             >
-              Войти в аккаунт
+              Войти в а��каунт
             </Button>
           </CardContent>
         </Card>
@@ -341,7 +341,7 @@ function Profile() {
       );
       localStorage.setItem("faceDescriptors", JSON.stringify(filteredFaces));
       setHasFaceID(false);
-      setSuccess("Face ID отключе��");
+      setSuccess("Face ID отключен");
     }
   };
 
@@ -411,52 +411,41 @@ function Profile() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
-          {/* Enhanced Profile Info Card */}
-          <div className="xl:col-span-1">
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-purple-500/20 to-cyan-500/20 blur-xl group-hover:blur-2xl transition-all duration-500"></div>
-              <Card className="relative bg-black/40 backdrop-blur-xl border border-cyan-400/30 group-hover:border-cyan-400/50 transition-all duration-500">
-                <CardHeader className="border-b border-cyan-400/20">
-                  <CardTitle className="text-center">
-                    <div className="flex items-center justify-center space-x-2 mb-2">
-                      <div className="w-6 h-6 rounded border border-cyan-400/50 flex items-center justify-center">
-                        <User className="w-4 h-4 text-cyan-400" />
-                      </div>
-                      <span className="text-cyan-400 font-mono">USER PROFILE</span>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-center p-6">
-                  {/* Enhanced Avatar */}
-                  <div className="relative mb-6">
-                    <div className="relative">
-                      <div className="w-32 h-32 mx-auto rounded-full overflow-hidden relative group">
-                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-purple-600/20 animate-pulse"></div>
-                        <div className="relative w-full h-full bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center">
-                          {avatar ? (
-                            <img
-                              src={avatar}
-                              alt="Avatar"
-                              className="w-full h-full object-cover"
-                            />
-                          ) : (
-                            <User className="w-16 h-16 text-white" />
-                          )}
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Modern Profile Card */}
+          <div className="lg:col-span-1">
+            <Card className="bg-white shadow-sm border border-gray-200">
+              <CardHeader className="border-b border-gray-200 bg-gray-50">
+                <CardTitle className="text-center">
+                  <div className="flex items-center justify-center space-x-2">
+                    <User className="w-5 h-5 text-blue-600" />
+                    <span className="text-gray-900 font-semibold">Профиль пользователя</span>
+                  </div>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6">
+                {/* Modern Avatar */}
+                <div className="text-center mb-6">
+                  <div className="relative inline-block">
+                    <div className="w-24 h-24 mx-auto rounded-full overflow-hidden border-4 border-gray-100 shadow-lg">
+                      {avatar ? (
+                        <img
+                          src={avatar}
+                          alt="Avatar"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                          <User className="w-12 h-12 text-white" />
                         </div>
-                        <div className="absolute inset-0 border-2 border-cyan-400/50 rounded-full"></div>
-                      </div>
-
-                      {/* Holographic rings */}
-                      <div className="absolute inset-0 rounded-full border border-cyan-400/30 animate-ping" style={{ animationDuration: "3s" }}></div>
-                      <div className="absolute inset-0 rounded-full border border-purple-400/20 animate-ping" style={{ animationDuration: "4s", animationDelay: "1s" }}></div>
+                      )}
                     </div>
 
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="absolute -bottom-2 -right-2 w-12 h-12 bg-cyan-500/20 backdrop-blur-md border border-cyan-400/50 rounded-full flex items-center justify-center hover:bg-cyan-500/30 transition-all duration-300 group"
+                      className="absolute bottom-0 right-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-blue-700 transition-colors duration-200"
                     >
-                      <Camera className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
+                      <Camera className="w-4 h-4" />
                     </button>
                     <input
                       ref={fileInputRef}
@@ -467,47 +456,42 @@ function Profile() {
                     />
                   </div>
 
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-2xl font-bold text-white mb-1">
-                        {currentUser.name}
-                      </h3>
-                      <p className="text-cyan-300/70 text-lg">{currentUser.email}</p>
-                    </div>
+                  <div className="mb-4">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                      {currentUser.name}
+                    </h3>
+                    <p className="text-gray-600">{currentUser.email}</p>
+                  </div>
 
-                    {/* Enhanced Stats */}
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between p-3 bg-cyan-500/5 border border-cyan-400/20 rounded-lg">
-                        <span className="text-cyan-400 font-mono text-sm">USER ID:</span>
-                        <Badge
-                          variant="secondary"
-                          className="bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 font-mono"
-                        >
-                          {currentUser.id}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center justify-between p-3 bg-purple-500/5 border border-purple-400/20 rounded-lg">
-                        <span className="text-purple-400 font-mono text-sm">РЕГИСТРАЦИЯ:</span>
-                        <span className="text-white font-mono text-sm">
-                          {formatDate(
-                            JSON.parse(localStorage.getItem("users") || "[]").find(
-                              (u: User) => u.id === currentUser.id,
-                            )?.createdAt || new Date().toISOString(),
-                          )}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between p-3 bg-green-500/5 border border-green-400/20 rounded-lg">
-                        <span className="text-green-400 font-mono text-sm">СТАТУС:</span>
-                        <div className="flex items-center space-x-2">
-                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                          <span className="text-green-300 font-mono text-sm">АКТИВЕН</span>
-                        </div>
+                  {/* Modern Stats */}
+                  <div className="space-y-3 text-sm">
+                    <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
+                      <span className="text-gray-600 font-medium">ID пользователя:</span>
+                      <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
+                        {currentUser.id}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
+                      <span className="text-gray-600 font-medium">Дата регистрации:</span>
+                      <span className="text-gray-900 font-medium">
+                        {formatDate(
+                          JSON.parse(localStorage.getItem("users") || "[]").find(
+                            (u: User) => u.id === currentUser.id,
+                          )?.createdAt || new Date().toISOString(),
+                        )}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 px-3 bg-green-50 rounded-lg">
+                      <span className="text-gray-600 font-medium">Статус аккаунта:</span>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span className="text-green-700 font-medium">Акт��вен</span>
                       </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Enhanced Settings Panel */}
@@ -677,7 +661,7 @@ function Profile() {
                           <div className="mt-3 pt-3 border-t border-white/10">
                             <div className="text-xs text-white/50 space-y-1">
                               <p>
-                                ✓ Face ID будет запрашиваться при вход�� в
+                                ✓ Face ID будет запрашиваться при входе в
                                 ли��ный кабинет
                               </p>
                               <p>
@@ -787,7 +771,7 @@ function Profile() {
                         </h5>
                         <p className="text-red-300/70 text-sm mb-4">
                           Удаление аккаунта приведёт к полному удалению всех
-                          ваших данных. Это действие нельзя отмени��ь.
+                          ваших данных. Это действие нельзя отменить.
                         </p>
                         <Button
                           onClick={handleDeleteAccount}
