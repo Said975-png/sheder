@@ -125,7 +125,7 @@ export default function StarkHero({
               </h1>
 
               <div className="relative max-w-2xl">
-                <p className="text-xl lg:text-2xl text-white/70 leading-relaxed">
+                <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-white/70 leading-relaxed">
                   {titleComplete && (
                     <TypewriterText
                       text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
