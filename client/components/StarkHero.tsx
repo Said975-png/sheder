@@ -15,6 +15,7 @@ import {
   Bot,
   Mic,
   Search,
+  FileText,
 } from "lucide-react";
 
 interface StarkHeroProps {
@@ -175,7 +176,7 @@ export default function StarkHero({
                 className="group text-white border border-blue-400/30 hover:border-blue-400/60 hover:bg-blue-500/10 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold rounded-2xl transition-all duration-300 transform hover:scale-105 min-h-[48px] touch-manipulation w-full sm:w-auto"
               >
                 <FileText className="w-4 sm:w-5 h-4 sm:h-5 mr-2 sm:mr-3 group-hover:animate-pulse flex-shrink-0" />
-                <span className="lg:whitespace-nowrap">Заказать усл��гу</span>
+                <span className="lg:whitespace-nowrap">Заказать услугу</span>
                 <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 ml-2 sm:ml-3 group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0" />
               </Button>
 
