@@ -210,7 +210,7 @@ export default function StarkHero({
 
           {/* Enhanced 3D Model Section */}
           <div className="flex items-center justify-center lg:justify-end order-first lg:order-last">
-            <div className="relative w-full max-w-lg lg:max-w-xl h-96 lg:h-[500px]">
+            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl h-64 sm:h-80 lg:h-96 xl:h-[500px]">
               {/* Model Container without borders */}
               <div className="relative w-full h-full group">
                 {/* Model */}
