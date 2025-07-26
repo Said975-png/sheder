@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CreateContractRequest, CreateContractResponse } from "@shared/api";
 import { useAuth } from "@/hooks/useAuth";
@@ -28,7 +29,7 @@ interface ServiceOrderFormProps {
 const serviceTypes = [
   { value: "website", label: "Веб-сайт", icon: Globe, price: 50000, description: "Современный адаптивный сайт" },
   { value: "mobile-app", label: "Мобильное приложение", icon: Smartphone, price: 120000, description: "iOS/Android приложение" },
-  { value: "ecommerce", label: "Интернет-магазин", icon: ShoppingCart, price: 80000, description: "Полноценный интернет-магазин" },
+  { value: "ecommerce", label: "Интернет-магазин", icon: ShoppingCart, price: 80000, description: "Полноценный и��тернет-магазин" },
   { value: "crm", label: "CRM система", icon: Users, price: 150000, description: "Система управления клиентами" },
   { value: "automation", label: "Автоматизация", icon: Zap, price: 100000, description: "Автоматизация бизнес-процессов" }
 ];
