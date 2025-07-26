@@ -476,7 +476,7 @@
     }
   }
 
-  /* Пульсирующее неоновое свечение логотипа */
+  /* Пульсирующее неоновое свечение логотип�� */
   .logo-pulse {
     animation: logoPulse 4s ease-in-out infinite;
   }
@@ -617,7 +617,7 @@
     border: 1px solid hsl(var(--border));
   }
 
-  /* Адаптивные кнопки */
+  /* Адапт��вные кнопки */
   .theme-button-ghost {
     color: hsl(var(--foreground) / 0.8);
   }
@@ -1422,7 +1422,17 @@
     touch-action: manipulation;
   }
 
-  /* Ensure minimum touch target size */
+  /* Prevent horizontal overflow */
+  html {
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Ensure minimum touch target size and mobile improvements */
   @media (max-width: 768px) {
     button,
     a,
@@ -1430,6 +1440,19 @@
     textarea,
     select {
       min-height: 44px;
+    }
+
+    /* Prevent text overflow */
+    * {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+    }
+
+    /* Ensure containers don't overflow */
+    .container {
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     /* Improve text readability on mobile */
