@@ -331,10 +331,6 @@ export default function Index() {
         onAddBasicPlan={handleAddBeginnerPlan}
         onAddProPlan={handleAddIntermediatePlan}
         onAddMaxPlan={handleAddAdvancedPlan}
-        onListeningChange={handleListeningChange}
-        forceStopVoice={forceStopVoice}
-        onModelRotateStart={handleModelRotateStart}
-        onModelRotateStop={handleModelRotateStop}
       />
 
       {/* Hero Section - Stark Style */}
