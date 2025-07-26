@@ -202,7 +202,7 @@ export default function VoiceTest() {
         <ul>
           <li>• "Привет" или "Джарвис"</li>
           <li>• "Как дела?"</li>
-          <li>• "Спасибо"</li>
+          <li>• "Спаси��о"</li>
         </ul>
         <p className="mt-2"><strong>Проверьте:</strong></p>
         <ul className="text-xs text-gray-600 mt-1">
@@ -214,6 +214,8 @@ export default function VoiceTest() {
           <li>• <strong>Нет обратной связи (эхо) от динамиков</strong></li>
           <li>• <strong>Система полностью игнорирует голос из динамиков</strong></li>
           <li>• <strong>Двойная защита: остановка + блокировка результатов</strong></li>
+          <li>• <strong>Предыдущие команды полностью очищаются</strong></li>
+          <li>• <strong>Новые команды не смешиваются со старыми</strong></li>
         </ul>
       </div>
     </div>
