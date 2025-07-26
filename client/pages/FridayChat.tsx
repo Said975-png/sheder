@@ -105,7 +105,7 @@ export default function FridayChat() {
       } else {
         const errorMessage: ChatMessage = {
           role: "assistant",
-          content: `Извините, пр��изошла ошибка: ${data.error || "Неизвестная ошибка"}`,
+          content: `Извините, произошла ошибка: ${data.error || "Неизвестная ошибка"}`,
           timestamp: Date.now(),
         };
         setMessages((prev) => [...prev, errorMessage]);
@@ -371,8 +371,8 @@ export default function FridayChat() {
             </div>
 
             {/* Enhanced Input Area */}
-            <div className="border-t border-slate-700/50 bg-gradient-to-r from-slate-900/80 to-blue-900/40 backdrop-blur-xl p-6">
-              <div className="flex items-end gap-4">
+            <div className="border-t border-slate-700/50 bg-gradient-to-r from-slate-900/80 to-blue-900/40 backdrop-blur-xl p-3 sm:p-6">
+              <div className="flex items-end gap-2 sm:gap-4">
                 {/* Voice Control */}
                 <div className="flex flex-col gap-2">
                   <Button
