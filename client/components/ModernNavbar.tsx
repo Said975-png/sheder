@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
-import JarvisInterface from "@/components/JarvisInterface";
 import {
   DropdownMenu,
   DropdownMenuContent,
