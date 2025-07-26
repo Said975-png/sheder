@@ -5,6 +5,8 @@ import GLBModel from "@/components/GLBModel";
 import { TypewriterText } from "@/components/TypewriterText";
 import { SiteSearch } from "@/components/SiteSearch";
 import JarvisCommandsPanel from "@/components/JarvisCommandsPanel";
+import ServiceOrderForm from "@/components/ServiceOrderForm";
+import { useAuth } from "@/hooks/useAuth";
 import {
   Play,
   Star,
@@ -13,6 +15,7 @@ import {
   Bot,
   Mic,
   Search,
+  FileText,
 } from "lucide-react";
 
 interface StarkHeroProps {
@@ -28,16 +31,18 @@ export default function StarkHero({
   onModelRotationStart,
   onModelRotationStop,
 }: StarkHeroProps) {
+  const { currentUser } = useAuth();
   const [titleComplete, setTitleComplete] = useState(false);
   const [descriptionComplete, setDescriptionComplete] = useState(false);
   const [showCTA, setShowCTA] = useState(false);
   const [showCommandsPanel, setShowCommandsPanel] = useState(false);
+  const [showOrderForm, setShowOrderForm] = useState(false);
   const [currentModelUrl, setCurrentModelUrl] = useState(
     "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
   );
 
   const handleModelChange = (newUrl: string) => {
-    console.log("🔄 StarkHero: Смена модели на", newUrl);
+    console.log("🔄 StarkHero: Сме��а модели на", newUrl);
     setCurrentModelUrl(newUrl);
   };
 
@@ -128,7 +133,7 @@ export default function StarkHero({
                 <p className="text-sm sm:text-base lg:text-xl xl:text-2xl text-white/70 leading-relaxed hyphens-auto break-words">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, к��торый по��имает ваши потребно��ти и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
+                      text="Революционный И��-ассистент, к��торый по��имает ваши потребно��ти и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
@@ -150,24 +155,34 @@ export default function StarkHero({
               {/* Primary CTA */}
               <Button
                 onClick={() => setShowCommandsPanel(true)}
-                className="group bg-white text-black hover:bg-white/90 px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-semibold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 min-h-[48px] touch-manipulation w-full sm:w-auto max-w-full overflow-hidden"
+                variant="secondary"
+                className="group !bg-white !text-black hover:!bg-white/90 hover:!text-black px-4 sm:px-8 lg:px-12 py-3 sm:py-4 text-sm sm:text-lg font-semibold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 min-h-[48px] touch-manipulation w-full sm:w-auto lg:min-w-[280px] max-w-full"
               >
                 <Bot className="w-4 sm:w-5 h-4 sm:h-5 mr-2 sm:mr-3 group-hover:animate-pulse flex-shrink-0" />
-                <span className="truncate">Начать с Jarvis</span>
+                <span className="lg:whitespace-nowrap">Начать с Jarvis</span>
+                <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 ml-2 sm:ml-3 group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0" />
+              </Button>
+
+              {/* Service Order Button */}
+              <Button
+                onClick={() => {
+                  if (currentUser) {
+                    setShowOrderForm(true);
+                  } else {
+                    // Redirect to login if not authenticated
+                    window.location.href = "/login";
+                  }
+                }}
+                variant="outline"
+                className="group text-white border border-blue-400/30 hover:border-blue-400/60 hover:bg-blue-500/10 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold rounded-2xl transition-all duration-300 transform hover:scale-105 min-h-[48px] touch-manipulation w-full sm:w-auto"
+              >
+                <FileText className="w-4 sm:w-5 h-4 sm:h-5 mr-2 sm:mr-3 group-hover:animate-pulse flex-shrink-0" />
+                <span className="lg:whitespace-nowrap">Заказать услугу</span>
                 <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 ml-2 sm:ml-3 group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0" />
               </Button>
 
               {/* Secondary CTA */}
               <SiteSearch />
-
-              {/* Tertiary Action */}
-              <Button
-                variant="ghost"
-                className="group text-white border border-white/20 hover:border-white/40 hover:bg-white/5 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 rounded-2xl transition-all duration-300 min-h-[48px] touch-manipulation w-full sm:w-auto max-w-full overflow-hidden"
-              >
-                <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                <span>Смотреть де����о</span>
-              </Button>
             </div>
 
             {/* Feature Highlights */}
@@ -292,6 +307,12 @@ export default function StarkHero({
       <JarvisCommandsPanel
         isOpen={showCommandsPanel}
         onClose={() => setShowCommandsPanel(false)}
+      />
+
+      {/* Форма заказа услуг */}
+      <ServiceOrderForm
+        isOpen={showOrderForm}
+        onClose={() => setShowOrderForm(false)}
       />
     </section>
   );

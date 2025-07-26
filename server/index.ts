@@ -5,6 +5,11 @@ import { handleImageUpload, handleGenerateWebsite } from "./routes/upload";
 import { handleSendOrder } from "./routes/orders";
 import { handleElevenLabsTTS } from "./routes/elevenlabs-tts";
 import { handleGroqChat } from "./routes/groq-chat";
+import {
+  createContract,
+  getUserContracts,
+  getContract,
+} from "./routes/contracts";
 
 export function createServer() {
   const app = express();
@@ -33,6 +38,11 @@ export function createServer() {
 
   // Groq chat route
   app.post("/api/groq-chat", handleGroqChat);
+
+  // Contracts routes
+  app.post("/api/contracts", createContract);
+  app.get("/api/contracts", getUserContracts);
+  app.get("/api/contracts/:contractId", getContract);
 
   return app;
 }

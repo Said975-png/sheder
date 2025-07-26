@@ -203,7 +203,7 @@ function PricingSection() {
                       className={cn(
                         "w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto transition-all duration-500",
                         plan.highlight
-                          ? "bg-white text-black"
+                          ? "!bg-white !text-black"
                           : "bg-white/10 text-white border border-white/20",
                       )}
                     >
@@ -258,10 +258,11 @@ function PricingSection() {
                   {/* CTA Button */}
                   <Button
                     onClick={() => handleAddToCart(plan)}
+                    variant={plan.highlight ? "secondary" : "outline"}
                     className={cn(
                       "w-full py-4 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 group",
                       plan.highlight
-                        ? "bg-white text-black hover:bg-white/90 shadow-lg"
+                        ? "!bg-white !text-black hover:!bg-white/90 hover:!text-black shadow-lg"
                         : "bg-white/10 text-white hover:bg-white/20 border border-white/20 hover:border-white/40",
                     )}
                   >
@@ -285,7 +286,10 @@ function PricingSection() {
               Свяжитесь с нами для бесплатной консультации. Мы поможем выбрать
               идеальный пакет для ваших потребностей.
             </p>
-            <Button className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-semibold bg-white text-black hover:bg-white/90 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full">
+            <Button
+              variant="secondary"
+              className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-semibold !bg-white !text-black hover:!bg-white/90 hover:!text-black rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full"
+            >
               <Heart className="w-4 sm:w-5 h-4 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" />
               <span className="truncate">Бесплатная Консультация</span>
             </Button>

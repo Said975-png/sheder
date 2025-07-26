@@ -276,7 +276,8 @@ function CartDropdown({
               </Button>
               <Button
                 onClick={handleProceedToOrder}
-                className="flex-1 font-semibold bg-white text-black hover:bg-white/90 transition-all duration-200"
+                variant="secondary"
+                className="flex-1 font-semibold !bg-white !text-black hover:!bg-white/90 hover:!text-black transition-all duration-200"
               >
                 Checkout
               </Button>
@@ -372,9 +373,10 @@ function AuthButtons() {
         <Link to="/login">Login</Link>
       </Button>
       <Button
+        variant="secondary"
         className={cn(
           "px-4 py-2 font-medium text-sm h-10",
-          "bg-white text-black hover:bg-white/90",
+          "!bg-white !text-black hover:!bg-white/90 hover:!text-black",
           "transition-all duration-200",
         )}
         asChild

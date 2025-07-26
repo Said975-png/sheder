@@ -246,11 +246,11 @@ export default function FridayChat() {
         <div className="h-[calc(100vh-160px)] sm:h-[calc(100vh-200px)] bg-gradient-to-br from-slate-900/90 to-blue-900/30 backdrop-blur-xl border border-blue-500/20 rounded-2xl sm:rounded-3xl shadow-2xl shadow-blue-500/10 overflow-hidden">
           {/* Messages Area */}
           <div className="h-full flex flex-col">
-            <div className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
+            <div className="flex-1 overflow-y-auto p-2 sm:p-6 space-y-2 sm:space-y-6">
               {messages.map((message, index) => (
                 <div
                   key={index}
-                  className={`flex gap-4 ${
+                  className={`flex gap-2 sm:gap-4 ${
                     message.role === "user" ? "justify-end" : "justify-start"
                   }`}
                 >
@@ -267,7 +267,7 @@ export default function FridayChat() {
                       message.role === "user"
                         ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/20"
                         : "bg-gradient-to-r from-slate-800/80 to-slate-700/80 text-white shadow-lg shadow-slate-900/20 border border-slate-600/30"
-                    } rounded-xl sm:rounded-2xl px-3 sm:px-5 py-3 sm:py-4 backdrop-blur-md relative overflow-hidden`}
+                    } rounded-lg sm:rounded-2xl px-2 sm:px-5 py-2 sm:py-4 backdrop-blur-md relative overflow-hidden`}
                   >
                     {/* Message glow effect */}
                     <div
@@ -279,11 +279,11 @@ export default function FridayChat() {
                     ></div>
 
                     <div className="relative z-10">
-                      <div className="text-sm leading-relaxed whitespace-pre-wrap break-words">
+                      <div className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap break-words">
                         {message.content}
                       </div>
                       <div
-                        className={`text-xs mt-2 ${
+                        className={`text-[10px] sm:text-xs mt-1 sm:mt-2 ${
                           message.role === "user"
                             ? "text-blue-100/70"
                             : "text-slate-400"
@@ -325,7 +325,7 @@ export default function FridayChat() {
                           style={{ animationDelay: "0.2s" }}
                         ></div>
                       </div>
-                      <span className="text-sm text-slate-300">
+                      <span className="text-xs sm:text-sm text-slate-300">
                         Пятница анализирует...
                       </span>
                       <Sparkles className="w-4 h-4 text-blue-400 animate-pulse" />
@@ -341,7 +341,7 @@ export default function FridayChat() {
                     <div className="flex items-center gap-3">
                       <div className="w-3 h-3 bg-red-400 rounded-full animate-pulse"></div>
                       <Mic className="w-4 h-4 text-red-200 animate-pulse" />
-                      <span className="text-sm text-red-100">
+                      <span className="text-xs sm:text-sm text-red-100">
                         Слушаю вас...
                       </span>
                     </div>
@@ -371,7 +371,9 @@ export default function FridayChat() {
                           ></div>
                         ))}
                       </div>
-                      <span className="text-sm text-green-100">Говорю...</span>
+                      <span className="text-xs sm:text-sm text-green-100">
+                        Говорю...
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -408,16 +410,16 @@ export default function FridayChat() {
                     variant="outline"
                     size="icon"
                     disabled={!isSpeaking}
-                    className={`w-12 h-12 rounded-2xl transition-all duration-300 ${
+                    className={`w-10 sm:w-12 h-10 sm:h-12 rounded-xl sm:rounded-2xl transition-all duration-300 touch-manipulation ${
                       isSpeaking
                         ? "bg-green-500/20 border-green-500/50 text-green-400 hover:bg-green-500/30 shadow-lg shadow-green-500/20"
                         : "border-slate-600/30 bg-slate-800/30 text-slate-500"
                     }`}
                   >
                     {isSpeaking ? (
-                      <VolumeX className="w-5 h-5" />
+                      <VolumeX className="w-4 sm:w-5 h-4 sm:h-5" />
                     ) : (
-                      <Volume2 className="w-5 h-5" />
+                      <Volume2 className="w-4 sm:w-5 h-4 sm:h-5" />
                     )}
                   </Button>
                 </div>
