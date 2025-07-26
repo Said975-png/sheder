@@ -323,17 +323,17 @@ function UserMenu({ user, onLogout }: any) {
         <Button
           variant="ghost"
           className={cn(
-            "flex items-center space-x-2 p-2 rounded-xl",
-            "bg-gradient-to-r from-purple-500/20 to-blue-500/20",
-            "border border-purple-400/40 hover:border-purple-300/60",
-            "hover:bg-gradient-to-r hover:from-purple-400/30 hover:to-blue-400/30",
-            "transition-all duration-300 hover:scale-105"
+            "flex items-center space-x-1.5 px-2 py-1 rounded-full h-8",
+            "bg-gradient-to-r from-purple-500/25 to-blue-500/25",
+            "border border-purple-400/50 hover:border-purple-300/70",
+            "hover:bg-gradient-to-r hover:from-purple-400/35 hover:to-blue-400/35",
+            "transition-all duration-300 hover:scale-110"
           )}
         >
-          <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
-            <User className="w-4 h-4 text-white" />
+          <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+            <User className="w-3 h-3 text-white" />
           </div>
-          <span className="hidden sm:block text-sm font-medium text-white">
+          <span className="hidden sm:block text-xs font-medium text-white max-w-20 truncate">
             {user.name}
           </span>
         </Button>
