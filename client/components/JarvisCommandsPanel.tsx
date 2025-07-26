@@ -28,7 +28,7 @@ export default function JarvisCommandsPanel({
       items: [
         { command: "Покрути модель", description: "Запуск вращения 3D модели" },
         { command: "Хватит", description: "Остановка вращения модели" },
-        { command: "Смени модель", description: "Переключение ��а новую модель" },
+        { command: "Смени модель", description: "Переключение на новую модель" },
         { command: "Верни прошлую модель", description: "Возврат к старой модели" },
       ],
     },
@@ -63,7 +63,7 @@ export default function JarvisCommandsPanel({
       category: "Социальные команды",
       items: [
         { command: "Спасибо", description: "Благодарность" },
-        { command: "Люблю тебя", description: "Выражение симпатии" },
+        { command: "Люблю тебя", description: "Выражен��е симпатии" },
         { command: "Давай продолжим", description: "Продолжение работы" },
         { command: "Верно", description: "Подтверждение" },
       ],
@@ -92,7 +92,7 @@ export default function JarvisCommandsPanel({
               variant="ghost"
               size="sm"
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40"
+              className="p-2 sm:p-3 rounded-full hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 transition-all duration-300 border border-cyan-400/20 bg-black/40 min-h-[44px] touch-manipulation"
             >
               <X className="w-4 h-4 text-cyan-400" />
             </Button>
@@ -111,7 +111,7 @@ export default function JarvisCommandsPanel({
             <ol className="text-sm text-white/80 space-y-1 ml-4">
               <li>1. Нажмите на кнопку с микрофоном в интерфейсе</li>
               <li>2. Дождитесь активации (красная кнопка микрофона)</li>
-              <li>3. Произнесите команду четко и громко</li>
+              <li>3. Произнесите ��оманду четко и громко</li>
               <li>4. Дождитесь ответа Джарвиса</li>
             </ol>
           </div>
