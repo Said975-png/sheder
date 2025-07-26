@@ -128,7 +128,7 @@ export default function VoiceControl({
                 echoCancellation: true,
                 noiseSuppression: true,
                 autoGainControl: true,
-                // @ts-ignore - Пр��двинутые ��астройки для лучшего захв��та звука
+                // @ts-ignore - Пр��двинутые ��ас��ройки для лучшего захв��та звука
                 googEchoCancellation: true,
                 googAutoGainControl: true,
                 googNoiseSuppression: true,
@@ -265,7 +265,7 @@ export default function VoiceControl({
             !audioPlayingRef.current
           ) {
             console.log(
-              "���� Принудите���ьно сбрасываем застрявшие блокировки",
+              "���� Принудите���ьно сбрасываем застрявшие блокиро��ки",
             );
             commandCooldownRef.current = false;
             lastCommandRef.current = "";
@@ -610,7 +610,7 @@ export default function VoiceControl({
     };
   }, [isListening]);
 
-  // Функция дл�� про��ерки досту��нос�����и речевого ����ервиса
+  // Функция дл�� про��ерки д��сту��нос�����и речевого ����ервиса
   const checkSpeechServiceAvailability = async () => {
     try {
       // Проверяем о��лайн статус
@@ -873,7 +873,7 @@ export default function VoiceControl({
     setIsSpeaking(true);
     commandCooldownRef.current = true;
 
-    // Создаем и воспроизв��дим аудио ��ля команды "Джарвис полный доступ"
+    // Создаем и воспроизв��дим аудио ��ля команды "Джарвис полный до��туп"
     const audio = new Audio(
       "https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fd8b2e931609e45c3ad40a718329bc1c4?alt=media&token=78714408-6862-47cc-a4ac-8f778b958265&apiKey=236158b44f8b45f680ab2467abfc361c",
     );
@@ -1092,7 +1092,7 @@ export default function VoiceControl({
   const speakWithElevenLabs = async (text: string) => {
     // Улучшен���ая защита - разрешаем если нет активного аудио
     if (isSpeaking && audioPlayingRef.current) {
-      console.log("❌ speakWithElevenLabs заблокирован - играет аудио");
+      console.log("❌ speakWithElevenLabs заблокирован - играет ау��ио");
       return;
     }
 
@@ -1334,7 +1334,7 @@ export default function VoiceControl({
               commandCooldownRef.current = false;
               lastCommandRef.current = "";
             }, 500);
-            console.error("Ошибка браузерного TTS");
+            console.error("Ошибка бра��зерного TTS");
             resolve(false);
           };
 
@@ -1526,7 +1526,7 @@ export default function VoiceControl({
       if (jarvisLikeVoice) {
         utterance.voice = jarvisLikeVoice;
         utterance.lang = "ru-RU";
-        utterance.pitch = 0.6; // Чуть ниже для лучшего ����вучания русского
+        utterance.pitch = 0.6; // Ч��ть ниже для лучшего ����вучания русского
       } else if (russianMaleVoice) {
         utterance.voice = russianMaleVoice;
         utterance.lang = "ru-RU";
@@ -1674,7 +1674,7 @@ export default function VoiceControl({
 
     firstAudio.onerror = () => {
       resetState();
-      console.error("❌ Ошибка воспроизведения ��ервого аудио ��иагностик��");
+      console.error("❌ Ошибка воспроизведения ��ервого ауд��о ��иагностик��");
     };
 
     console.log("▶️ ����пускаем перво�� ауд����");
@@ -1967,10 +1967,12 @@ export default function VoiceControl({
         scannerElements.forEach((el) => el.remove());
       }, 2000);
 
+      // Быстрый сброс cooldown для старой модели
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
-      }, 500);
+        console.log("✅ Cooldown сброшен после смены на старую модель");
+      }, 100);
     };
 
     audio.onended = () => {
@@ -2314,7 +2316,7 @@ export default function VoiceControl({
       command.includes("активировать лабораторию") ||
       command.includes("джарвис включи лабораторию") ||
       command.includes("жарвис активация лаборатории") ||
-      command.includes("ярвис а���тивация лаборатории") ||
+      command.includes("ярвис а���тивация л��боратории") ||
       command.includes("полная активация")
     ) {
       console.log("🔬 Команда активации лаборатории распознана:", command);
@@ -2622,7 +2624,7 @@ export default function VoiceControl({
       command.includes("остановит�� вращение")
     ) {
       console.log("⏹�� Ко��анда ос��ановки модели распознана:", command);
-      // Улучшенная проверка - разрешаем если нет активного аудио
+      // Улучшенная проверка - разрешаем если нет активног�� аудио
       if (!isSpeaking || !audioPlayingRef.current) {
         speakStopModel();
       }
@@ -2811,7 +2813,7 @@ export default function VoiceControl({
       "т��ри��",
       "услуги",
       "компания",
-      "��онта��ты",
+      "��он��а��ты",
       "п����ддержк��",
       "те��нологи����",
       "р��зр��ботка",
@@ -3275,7 +3277,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("Пока��ыв��ю ��озможности");
+        speak("Пока��ыв��ю ����озможности");
       }
       return;
     }
