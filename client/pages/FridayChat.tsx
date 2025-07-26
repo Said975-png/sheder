@@ -57,7 +57,7 @@ export default function FridayChat() {
       {
         role: "assistant",
         content:
-          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий пакет для вашего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
+          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий па��ет для вашего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
         timestamp: Date.now(),
       },
     ]);
@@ -105,7 +105,7 @@ export default function FridayChat() {
       } else {
         const errorMessage: ChatMessage = {
           role: "assistant",
-          content: `Извините, произошла ошибка: ${data.error || "Неизвестная ошибк��"}`,
+          content: `Извините, произошла ошибка: ${data.error || "Неизвестная ошибка"}`,
           timestamp: Date.now(),
         };
         setMessages((prev) => [...prev, errorMessage]);
@@ -212,15 +212,15 @@ export default function FridayChat() {
               </div>
             </div>
             
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => navigate("/")}
-                className="border-blue-400/30 bg-slate-800/50 text-blue-400 hover:bg-blue-500/20 transition-all duration-300 rounded-xl"
+                className="border-blue-400/30 bg-slate-800/50 text-blue-400 hover:bg-blue-500/20 transition-all duration-300 rounded-xl min-h-[44px] touch-manipulation"
               >
-                <Home className="w-4 h-4 mr-2" />
-                Главная
+                <Home className="w-4 h-4 sm:mr-2" />
+                <span className="hidden sm:inline">Главная</span>
               </Button>
               
               <Button
@@ -457,7 +457,7 @@ export default function FridayChat() {
                   <span>Powered by AI • Secure & Private</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span>{messages.length} сообщений</span>
+                  <span>{messages.length} сообще��ий</span>
                   <div className="flex items-center gap-1">
                     <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                     <span>Подключено</span>
