@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import VoiceControl from "@/components/VoiceControl";
+import ModernNavbar from "@/components/ModernNavbar";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
@@ -176,7 +177,7 @@ function TypewriterCode() {
           setCurrentCharIndex((prev) => prev + 1);
         },
         50 + Math.random() * 50,
-      ); // Варьируем скорость печати
+      ); // Варьируем скорость печат��
     } else if (currentCharIndex >= fullCode.length) {
       // Пауза после завершения печати
       pauseTimer = setTimeout(() => {
