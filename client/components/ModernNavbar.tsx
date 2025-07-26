@@ -304,7 +304,6 @@ function UserMenu({ user, onLogout }: any) {
           variant="ghost"
           className={cn(
             "flex items-center space-x-2 px-4 py-2 h-10",
-            "bg-white/10 hover:bg-white/20",
             "transition-all duration-200",
             "text-white hover:text-white"
           )}
