@@ -51,14 +51,14 @@ export default function SignUp() {
         localStorage.getItem("users") || "[]",
       ) as User[];
 
-      // Проверяем, существует ли пользоват��ль с таким email
+      // Проверяем, существует ли пользователь с таким email
       if (existingUsers.find((user) => user.email === formData.email)) {
         setError("Пользователь с таким email уже существует");
         setLoading(false);
         return;
       }
 
-      // Создаём нового п��льзователя
+      // Создаём нового пользователя
       const newUser: User = {
         id: Date.now().toString(),
         name: formData.name,
