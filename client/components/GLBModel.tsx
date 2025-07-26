@@ -142,7 +142,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
   React.useEffect(() => {
     const handleModelChange = (event: CustomEvent) => {
       const newUrl = event.detail.newModelUrl;
-      console.log("🔄 Получено событие смены модели:", newUrl);
+      console.log("🔄 Получено ��обытие смены модели:", newUrl);
       setCurrentModelUrl(newUrl);
       setIsLoading(true);
 
@@ -157,7 +157,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
     };
   }, [onModelChange]);
 
-  // Стабилизируем пара��етры чтобы избежать пересоздания Canvas
+  // Стабилизируем параметры чтобы избежать пересоздания Canvas
   const stableProps = useMemo(
     () => ({
       camera: { position: [0, 0, 5] as [number, number, number], fov: 50 },
@@ -206,9 +206,13 @@ const GLBModel: React.FC<GLBModelProps> = ({
   );
 };
 
-// Предзагружаем модель чтобы избежать повторных загрузок
+// Предзагружаем модели чтобы избежать повторных загрузок
 useGLTF.preload(
   "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
+);
+
+useGLTF.preload(
+  "https://cdn.builder.io/o/assets%2Fd75af4d8f215499ea8d0f6203e423bd8%2Fceb414e31cc44cb7869507c2ece72b68?alt=media&token=4ad08660-2a7e-43be-9dcb-a5914c9540bb&apiKey=d75af4d8f215499ea8d0f6203e423bd8",
 );
 
 export default GLBModel;
