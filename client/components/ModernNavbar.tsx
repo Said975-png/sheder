@@ -226,7 +226,7 @@ function CartDropdown({
         className={cn(
           "w-80 mt-2 p-0 border-0 overflow-hidden",
           "bg-black/95 backdrop-blur-xl",
-          "rounded-xl shadow-2xl shadow-cyan-400/20"
+          "rounded-xl shadow-2xl border border-white/20"
         )}
       >
         <div className="p-4 border-b border-cyan-400/20">
