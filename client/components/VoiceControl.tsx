@@ -102,7 +102,7 @@ export default function VoiceControl({
             // Увеличиваем чувствительность к тихим звукам
             recognitionRef.current.webkitSensitivity = 1.0;
             recognitionRef.current.webkitSpeechInputMinimumLengthMS = 500; // Минимальная длина записи
-            recognitionRef.current.webkitSpeechInputCompleteTimeoutMS = 2000; // Таймаут ����вершения
+            recognitionRef.current.webkitSpeechInputCompleteTimeoutMS = 2000; // Таймаут ������вершения
           } catch (e) {
             console.log("Расширенные настройки WebKit недоступны");
           }
@@ -128,7 +128,7 @@ export default function VoiceControl({
                 echoCancellation: true,
                 noiseSuppression: true,
                 autoGainControl: true,
-                // @ts-ignore - Пр��двинутые ��астройки для лучшего захв��та звука
+                // @ts-ignore - П����двинутые ��астройки для лучшего захв��та звука
                 googEchoCancellation: true,
                 googAutoGainControl: true,
                 googNoiseSuppression: true,
@@ -153,7 +153,7 @@ export default function VoiceControl({
                 const capabilities = track.getCapabilities();
                 console.log("🔧 Возможности микрофона:", capabilities);
 
-                // Применяем оптимальные настройки если ��оддерживаются
+                // Применяем оптимальные настрой��и если ��оддерживаются
                 const constraints = {
                   echoCancellation: true,
                   noiseSuppression: true,
@@ -474,7 +474,7 @@ export default function VoiceControl({
           // Другие оши��ки - �������резапускаем через корот���ое время
           else {
             console.warn(
-              "⚠���� Неожиданн���я ошибка ра��позна����ния:",
+              "⚠���� Неожиданн���я ошибк�� ра��позна����ния:",
               event.error,
               "- перезапу��каем",
             );
@@ -650,7 +650,7 @@ export default function VoiceControl({
     setIsSpeaking(false);
     setTranscript("");
 
-    console.log("✅ ВСЕ СОСТОЯНИЯ СБРОШЕНЫ");
+    console.log("�� ВСЕ СОСТОЯНИЯ СБРОШЕНЫ");
   };
 
   // Фу��кция дл�� пол��ого ��броса состояния по���л�� ��оманды
@@ -954,7 +954,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое ���екущее воспроизведение
+    // Останавливаем лю��ое ���екущее воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -1023,7 +1023,7 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("Ошибка воспроиз���ед����ния аудио о��вета");
+      console.error("Ошибка воспро��з���ед����ния аудио о��вета");
     };
 
     audio.play().catch((error) => {
@@ -1140,7 +1140,7 @@ export default function VoiceControl({
           throw new Error("ElevenLabs server error");
         } else if (response.status === 401) {
           console.log(
-            "Проблема с API ключом ElevenLabs, используем браузерный TTS",
+            "Проблема с API ключом ElevenLabs, используем бр��узерный TTS",
           );
           throw new Error("ElevenLabs API key error");
         } else if (response.status === 404) {
@@ -1481,7 +1481,7 @@ export default function VoiceControl({
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
 
-    // Используе�� Web Speech API для синтеза фразы "у меня в��е в п��рядке сэр"
+    // Используе�� Web Speech API для синтеза фразы "у меня в����е в п��рядке сэр"
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(
         "у меня все в ��ор��дке сэр",
@@ -1497,7 +1497,7 @@ export default function VoiceControl({
       utterance.pitch = 0.7; // Сред����-ни��кий тон для ����втор��те����ос��и
       utterance.volume = 0.95; // Четкая, но не резкая громкость
 
-      // ��оиск наиболее подходящего голоса д��я имитации Jarvis
+      // ��оиск наиболее подходящего голос�� д��я имитации Jarvis
       const voices = speechSynthesis.getVoices();
 
       // Прио��итет: голоса, похожие н��� британский/американский мужской
@@ -1613,7 +1613,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавл����ваем любое текущее воспроиз��ед��ние
+    // Останавл����ваем любое т��кущее воспроиз��ед��ние
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -2554,7 +2554,7 @@ export default function VoiceControl({
       "мерс��",
       "��ахмат",
       "рах��ет",
-      "��о��ошо",
+      "��о��ош��",
       "отлично",
       "замечате����ьно",
       "круто",
@@ -2713,7 +2713,7 @@ export default function VoiceControl({
       if (
         command.includes("компан") ||
         command.includes("о нас") ||
-        command.includes("кто мы")
+        command.includes("��то мы")
       ) {
         found = searchAndNavigate(["компан", "�� нас", "about", "кто мы"]);
         if (found) {
@@ -2753,7 +2753,7 @@ export default function VoiceControl({
           "технолог",
           "webgl",
           "��и",
-          "искусственн��й",
+          "искусс��венн��й",
           "ai",
           "джарвис",
           "jarvis",
@@ -2873,7 +2873,7 @@ export default function VoiceControl({
       command.includes("показать корзину") ||
       command.includes("что в корз��не")
     ) {
-      // Нахо��им и нажимаем ��но��ку ко��з����ны
+      // Нахо��им и нажимаем ��но��к�� ко��з����ны
       const cartButton = document.querySelector(
         '[data-testid="cart-button"]',
       ) as HTMLElement;
@@ -2911,7 +2911,7 @@ export default function VoiceControl({
       command.includes("добави��ь мак���") ||
       command.includes("макс план") ||
       command.includes("максимальный план") ||
-      command.includes("д����а��������ис п��а�����") ||
+      command.includes("д��������������ис п��а�����") ||
       command.includes("��акс в ��орзину") ||
       command.includes("о��править макс")
     ) {
@@ -2942,7 +2942,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("��о���������ы��аю п���ан��");
+        speak("����о���������ы��аю п���ан��");
       }
       return;
     }
@@ -3021,7 +3021,7 @@ export default function VoiceControl({
     if (
       command.includes("в коне��� стр��ницы") ||
       command.includes("в сам���й н��з") ||
-      command.includes("вниз ��траницы")
+      command.includes("��низ ��траницы")
     ) {
       window.scrollTo(0, document.body.scrollHeight);
       speak("��ерехожу в конец");
@@ -3109,7 +3109,7 @@ export default function VoiceControl({
         </Button>
 
         {/* Status indicator */}
-        <div className="text-xs text-white/60 text-center">
+        <div className={inNavbar ? "text-sm text-white font-medium" : "text-xs text-white/60 text-center"}>
           {isSpeaking ? "Говорю..." : isListening ? "Слушаю..." : "ДЖАРВИС"}
         </div>
       </div>
