@@ -351,7 +351,7 @@ export default function VoiceControl({
 
   const speakSystemDiagnostics = () => {
     playAudio("https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Fe84cbc4e1b6d4e408263b15a7e68cd11?alt=media&token=db88c399-0c44-4b82-a1eb-251e7fb476b3&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76", () => {
-      // Воспроизводим второе аудио через 2 секунды
+      // Вос��роизводим второе аудио через 2 секунды
       setTimeout(() => {
         playAudio("https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76");
       }, 2000);
@@ -397,6 +397,10 @@ export default function VoiceControl({
       
       if (currentAudioRef.current) {
         currentAudioRef.current.pause();
+      }
+
+      if (commandTimeoutRef.current) {
+        clearTimeout(commandTimeoutRef.current);
       }
     };
   }, []);
