@@ -197,7 +197,13 @@ export default function VoiceTest() {
           <li>• "Как дела?"</li>
           <li>• "Спасибо"</li>
         </ul>
-        <p className="mt-2"><strong>Проверьте:</strong> команды не должны дублироваться, кнопка не должна мигать</p>
+        <p className="mt-2"><strong>Проверьте:</strong></p>
+        <ul className="text-xs text-gray-600 mt-1">
+          <li>• Команды не дублируются</li>
+          <li>• Кнопка не мигает</li>
+          <li>• <strong>Можно говорить новые команды сразу после предыдущей</strong></li>
+          <li>• <strong>Старые команды быстро очищаются</strong></li>
+        </ul>
       </div>
     </div>
   );
