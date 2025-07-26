@@ -86,6 +86,38 @@ function Profile() {
     }
   }, [currentUser]);
 
+  // Load user contracts
+  const loadContracts = async () => {
+    if (!currentUser) return;
+
+    setLoadingContracts(true);
+    try {
+      const response = await fetch("/api/contracts", {
+        headers: {
+          "user-id": currentUser.id
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setContracts(data.contracts || []);
+        }
+      }
+    } catch (error) {
+      console.error("Error loading contracts:", error);
+    } finally {
+      setLoadingContracts(false);
+    }
+  };
+
+  // Load contracts when tab changes to contracts
+  useEffect(() => {
+    if (activeTab === "contracts" && currentUser) {
+      loadContracts();
+    }
+  }, [activeTab, currentUser]);
+
   // Если пользователь не авторизован
   if (!currentUser) {
     return (
