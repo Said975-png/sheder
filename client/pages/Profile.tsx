@@ -58,7 +58,7 @@ function Profile() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [activeTab, setActiveTab] = useState<"profile" | "security">("profile");
+  const [activeTab, setActiveTab] = useState<"profile" | "security" | "contracts">("profile");
   const [showFaceIDModal, setShowFaceIDModal] = useState(false);
   const [faceIDMode, setFaceIDMode] = useState<"register" | "verify">(
     "register",
@@ -111,7 +111,7 @@ function Profile() {
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Пр��веряем размер файла (максимум 5MB)
+      // Проверяем размер файла (максимум 5MB)
       if (file.size > 5 * 1024 * 1024) {
         setError("Размер файла не должен превышать 5MB");
         return;
@@ -356,7 +356,7 @@ function Profile() {
             <Card className="theme-card">
               <CardHeader>
                 <CardTitle className="text-white text-center">
-                  Информация о профиле
+                  ��нформация о профиле
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-center">
