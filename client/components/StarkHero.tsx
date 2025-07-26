@@ -124,7 +124,7 @@ export default function StarkHero({
                 </div>
               </h1>
 
-              <div className="relative max-w-2xl">
+              <div className="relative max-w-full lg:max-w-2xl">
                 <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-white/70 leading-relaxed">
                   {titleComplete && (
                     <TypewriterText
@@ -190,7 +190,7 @@ export default function StarkHero({
                 },
                 {
                   icon: <Star className="w-4 h-4" />,
-                  text: "24/7 доступность",
+                  text: "24/7 до��тупность",
                 },
               ].map((feature, index) => (
                 <div
