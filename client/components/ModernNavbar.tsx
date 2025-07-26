@@ -200,20 +200,22 @@ function CartDropdown({
         <Button
           variant="ghost"
           className={cn(
-            "relative p-2 rounded-full h-8 w-8",
-            "bg-gradient-to-r from-orange-500/25 to-red-500/25",
-            "border border-orange-400/50 hover:border-orange-300/70",
-            "hover:bg-gradient-to-r hover:from-orange-400/35 hover:to-red-400/35",
-            "transition-all duration-300 hover:scale-110",
-            "hover:shadow-lg hover:shadow-orange-400/40"
+            "relative rounded-full px-4 py-2 h-10",
+            "bg-white/10 hover:bg-white/20",
+            "border border-white/20 hover:border-white/30",
+            "transition-all duration-200",
+            "text-white hover:text-white"
           )}
         >
-          <ShoppingCart className="w-4 h-4 text-orange-300" />
-          {getTotalItems() > 0 && (
-            <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-gradient-to-r from-orange-500 to-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold animate-pulse">
-              {getTotalItems()}
-            </span>
-          )}
+          <div className="flex items-center space-x-2">
+            <ShoppingCart className="w-4 h-4" />
+            <span className="font-medium text-sm">Cart</span>
+            {getTotalItems() > 0 && (
+              <span className="w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
+                {getTotalItems()}
+              </span>
+            )}
+          </div>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
