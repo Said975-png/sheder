@@ -215,8 +215,13 @@ export default function VoiceControl({
       }
       
       setTranscript("");
+      // Очищаем команду при остановке
+      lastCommandRef.current = "";
     } else {
       // Запускаем
+      // Очищаем команду при з��пуске для свежего старта
+      lastCommandRef.current = "";
+
       if (!recognitionRef.current) {
         recognitionRef.current = initializeRecognition();
       }
