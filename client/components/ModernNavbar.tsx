@@ -110,19 +110,7 @@ export default function ModernNavbar({
               </div>
             </Button>
 
-            {/* JARVIS Interface */}
-            <div className="px-0 sm:px-1 lg:px-3 py-2 h-8 sm:h-10 overflow-hidden max-w-[80px] sm:max-w-none">
-              <JarvisInterface
-                onAddBasicPlan={onAddBasicPlan}
-                onAddProPlan={onAddProPlan}
-                onAddMaxPlan={onAddMaxPlan}
-                inNavbar={true}
-                onListeningChange={onListeningChange}
-                forceStop={forceStopVoice}
-                onModelRotateStart={onModelRotateStart}
-                onModelRotateStop={onModelRotateStop}
-              />
-            </div>
+
             {/* Cart */}
             <CartDropdown
               items={items}
