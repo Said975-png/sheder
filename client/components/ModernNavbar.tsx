@@ -80,7 +80,7 @@ export default function ModernNavbar({
       <nav
         className={cn(
           "fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-out",
-          "top-2 sm:top-4 rounded-full px-3 sm:px-6 py-2 sm:py-3 w-auto max-w-[calc(100vw-1rem)] sm:max-w-4xl h-12 sm:h-14",
+          "top-2 sm:top-4 rounded-full px-2 sm:px-3 lg:px-6 py-2 sm:py-3 w-auto max-w-[calc(100vw-0.5rem)] sm:max-w-[calc(100vw-2rem)] lg:max-w-4xl h-12 sm:h-14",
           // Simple transparent background
           isScrolled
             ? "bg-white/10 backdrop-blur-md border border-white/20"
