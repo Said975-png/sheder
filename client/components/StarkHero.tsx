@@ -117,7 +117,7 @@ export default function StarkHero({
                         text="ваш AI-помощник"
                         speed={100}
                         delay={200}
-                        className="block text-white/80 text-4xl lg:text-5xl xl:text-6xl font-normal mt-2"
+                        className="block text-white/80 text-2xl sm:text-3xl lg:text-5xl xl:text-6xl font-normal mt-2"
                       />
                     )}
                   </div>
