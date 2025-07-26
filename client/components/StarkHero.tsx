@@ -125,7 +125,7 @@ export default function StarkHero({
               </h1>
 
               <div className="relative max-w-full lg:max-w-2xl">
-                <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-white/70 leading-relaxed">
+                <p className="text-sm sm:text-base lg:text-xl xl:text-2xl text-white/70 leading-relaxed hyphens-auto break-words">
                   {titleComplete && (
                     <TypewriterText
                       text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
@@ -190,7 +190,7 @@ export default function StarkHero({
                 },
                 {
                   icon: <Star className="w-4 h-4" />,
-                  text: "24/7 до��тупность",
+                  text: "24/7 доступность",
                 },
               ].map((feature, index) => (
                 <div
