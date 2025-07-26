@@ -424,6 +424,15 @@ function MobileMenu({
                 <span className="text-white">Чат с Пятницей</span>
               </Link>
 
+              <Link
+                to="/voice-test"
+                onClick={onClose}
+                className="flex items-center space-x-3 p-3 rounded-xl hover:bg-green-400/10 transition-colors"
+              >
+                <Brain className="w-5 h-5 text-green-400" />
+                <span className="text-white">Тест голосового управления</span>
+              </Link>
+
               <button
                 onClick={() => {
                   onLogout();
