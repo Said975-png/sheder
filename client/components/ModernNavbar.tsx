@@ -134,7 +134,7 @@ export default function ModernNavbar({
 
             {/* Theme Toggle */}
             <div className="hidden sm:block">
-              <div className="p-2 rounded-full bg-white/10 border border-white/20">
+              <div className="p-2 bg-white/10">
                 <ThemeToggle />
               </div>
             </div>
