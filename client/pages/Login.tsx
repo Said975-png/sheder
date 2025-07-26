@@ -79,15 +79,15 @@ export default function Login() {
 
   if (success) {
     return (
-      <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
-        <Card className="theme-card w-full max-w-md">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950/20 to-indigo-950/30 text-white flex items-center justify-center p-6">
+        <Card className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-blue-500/20 w-full max-w-md">
           <CardContent className="p-8 text-center">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold theme-text mb-2">
+            <h2 className="text-xl font-semibold text-white mb-2">
               Вход выполнен успешно!
             </h2>
-            <p className="theme-text-muted mb-4">Добро пожаловать обратно!</p>
-            <p className="theme-text-muted text-sm">
+            <p className="text-white/70 mb-4">Добро пожаловать обратно!</p>
+            <p className="text-white/70 text-sm">
               Перенаправляем на главную страницу...
             </p>
           </CardContent>
@@ -97,14 +97,14 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950/20 to-indigo-950/30 text-white flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-between items-start mb-6">
             <Link
               to="/"
-              className="inline-flex items-center space-x-2 theme-nav-text"
+              className="inline-flex items-center space-x-2 text-white/80 hover:text-white transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
@@ -123,9 +123,9 @@ export default function Login() {
         </div>
 
         {/* Login Form */}
-        <Card className="theme-card">
+        <Card className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-blue-500/20">
           <CardHeader>
-            <CardTitle className="theme-text text-center">Вход</CardTitle>
+            <CardTitle className="text-white text-center">Вход</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -136,7 +136,7 @@ export default function Login() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="theme-label">
+                <Label htmlFor="email" className="text-white/80">
                   Email
                 </Label>
                 <div className="relative">
@@ -155,7 +155,7 @@ export default function Login() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="theme-label">
+                <Label htmlFor="password" className="text-white/80">
                   Пароль
                 </Label>
                 <div className="relative">
@@ -183,7 +183,7 @@ export default function Login() {
             </form>
 
             <div className="mt-6 text-center">
-              <p className="theme-text-muted">
+              <p className="text-white/70">
                 Нет аккаунта?{" "}
                 <Link
                   to="/signup"
