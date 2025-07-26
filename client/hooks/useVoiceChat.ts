@@ -57,7 +57,7 @@ export const useVoiceChat = ({
 
       const combinedTranscript = (finalTranscript + interimTranscript).trim();
 
-      // Обрабатываем только финальные рез��льтаты или достаточно длинные промежуточные
+      // Обрабатываем только финальные результаты или достаточно длинные промежуточные
       if (combinedTranscript.length >= 3) {
         console.log("🎯 Получен текст:", combinedTranscript);
         
@@ -82,7 +82,7 @@ export const useVoiceChat = ({
       
       // Критические ошибки - останавливаем
       if (event.error === "not-allowed" || event.error === "service-not-allowed") {
-        console.error("🚫 Доступ к микрофону запрещен");
+        console.error("🚫 Доступ к микроф��ну запрещен");
         setIsListening(false);
         return;
       }
@@ -224,14 +224,16 @@ export const useVoiceChat = ({
       const audioBlob = await response.blob();
       const audioUrl = URL.createObjectURL(audioBlob);
       const audio = new Audio(audioUrl);
-      currentAudioRef.current = audio;
 
+      // Подготавливаем обработчики перед установкой ref
       audio.onended = () => {
         URL.revokeObjectURL(audioUrl);
         setIsSpeaking(false);
         isProcessingRef.current = false;
-        currentAudioRef.current = null;
-        
+        if (currentAudioRef.current === audio) {
+          currentAudioRef.current = null;
+        }
+
         // Возобновляем прослушивание если было активно
         if (wasListening) {
           console.log("🔄 Возобновляем прослушивание после речи");
@@ -241,7 +243,7 @@ export const useVoiceChat = ({
             }
           }, 500);
         }
-        
+
         onTextToSpeech(text);
       };
 
@@ -249,15 +251,23 @@ export const useVoiceChat = ({
         URL.revokeObjectURL(audioUrl);
         setIsSpeaking(false);
         isProcessingRef.current = false;
-        currentAudioRef.current = null;
+        if (currentAudioRef.current === audio) {
+          currentAudioRef.current = null;
+        }
         console.error("❌ Ошибка воспроизведения аудио ElevenLabs");
-        
+
         if (wasListening) {
           startListening();
         }
       };
 
-      await audio.play();
+      // Устанавливаем ref только после подготовки
+      currentAudioRef.current = audio;
+
+      // Проверяем что элемент еще актуален перед воспроизведением
+      if (currentAudioRef.current === audio) {
+        await audio.play();
+      }
     } catch (error) {
       console.error("❌ ElevenLabs недоступен, используем браузерный TTS:", error);
       
@@ -399,7 +409,7 @@ export const useVoiceChat = ({
         isProcessingRef.current = false;
       }
       
-      // Если слушаем, ��о нет активного распознавания - перезапускаем
+      // Если слушаем, но нет активного распознавания - перезапускаем
       if (isListening && !recognitionRef.current && !isProcessingRef.current) {
         console.log("🧹 Перезапуск зависшего распознавания");
         startListening();
