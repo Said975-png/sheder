@@ -180,7 +180,7 @@ export default function VoiceControl({
           console.log("MediaDevices API недоступен");
         }
 
-        // @ts-ignore - эти свойства могут не быть в типа��, но рабо����ют в браузерах
+        // @ts-ignore - эти свойства мо��ут не быть в типа��, но рабо����ют в браузерах
         if ("webkitSpeechRecognition" in window) {
           recognitionRef.current.serviceURI =
             "wss://www.google.com/speech-api/full-duplex/v1/up";
@@ -593,7 +593,7 @@ export default function VoiceControl({
     };
 
     const handleOffline = () => {
-      console.log("📵 Потеряно интернет соединение");
+      console.log("📵 Пот��ряно интернет соединение");
       if (isListening) {
         console.log(
           "⚠️ Распознавание реч�� может ��аботать некоррект��о без интер��ета",
@@ -668,7 +668,7 @@ export default function VoiceControl({
       setIsSpeaking(false); // Принудительно сбрасываем состояние го��орения
       currentAudioRef.current = null; // Очищаем ссылку на аудио
 
-      console.log("🔄 Полный сброс ��сех ��остояний бл����и��овки вы��олн����");
+      console.log("🔄 Полный сброс ��сех ��остояний бл����и���овки вы��олн����");
 
       // Только сообщаем о состоянии, если микр��фон все ��ще ак��ивен �� это не ������оманда о��ключения
       if (isListening && !skipPanelReopen) {
@@ -691,7 +691,7 @@ export default function VoiceControl({
 
     // Если есть cooldown, но не играет аудио, то ��рин��дительн�� сбрасываем cooldown
     if (commandCooldownRef.current) {
-      console.log("⚠️ Принудитель��о сбрасываем cooldown ��ля новой коман��ы");
+      console.log("⚠️ Принудитель��о сбрасываем cooldown ��л�� новой коман��ы");
       commandCooldownRef.current = false;
     }
 
@@ -745,7 +745,7 @@ export default function VoiceControl({
     lastCommandRef.current = "";
     console.log("🔴 Принудительно сбро��или все блокировки");
 
-    // СНАЧАЛА отключаем состояние listening, чт��бы предотвр��тить автом��тический перезапуск
+    // СНАЧАЛА отключаем состояние listening, чт��бы предотвр��тить автом��тический перезап��ск
     setIsListening(false);
     onListeningChange?.(false, "");
     console.log("�� Состоян��е listening отключено");
@@ -801,7 +801,7 @@ export default function VoiceControl({
       console.log("▶️ ��ытаемся во��произвести ау��ио отключения");
       audio.play().catch((error) => {
         console.error(
-          "❌ Не уд����лось воспрои��вес��и аудио ��тключения:",
+          "❌ Не уд����лось воспрои��вес��и аудио ��тключен��я:",
           error,
         );
         shutdownComplete();
@@ -906,7 +906,7 @@ export default function VoiceControl({
   };
 
   const speakThankYou = () => {
-    // Разреша��м выпо��нение если ��ет ак��ивного аудио
+    // Разреша��м выпо��нение если ��ет ак��ивного ��удио
     if (isSpeaking && audioPlayingRef.current) return;
 
     setIsSpeaking(true);
@@ -941,7 +941,7 @@ export default function VoiceControl({
         lastCommandRef.current = "";
       }, 500);
       console.error(
-        "Не удал��сь вос����о��звести аудио благо��а��ности:",
+        "Не удал��сь вос����о��звести ау��ио благо��а��ности:",
         error,
       );
     });
@@ -1047,7 +1047,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Ост��навливаем лю��ое текущ��е воспроизведение
+    // Ост��навливаем лю��ое теку����е воспроизведение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -1234,7 +1234,7 @@ export default function VoiceControl({
     }
     console.log("����� ��ач���наем воспроизведение Jarvis аудио");
 
-    // О�������танавливаем любое текущее воспроизве��ение
+    // О�������танавлив��ем любое текущее воспроизве��ение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -1674,7 +1674,7 @@ export default function VoiceControl({
 
     firstAudio.onerror = () => {
       resetState();
-      console.error("❌ Ошибка воспроизведения первого аудио ��иагностик��");
+      console.error("❌ Ошибка воспроизведения ��ервого аудио ��иагностик��");
     };
 
     console.log("▶️ ����пускаем перво�� ауд����");
@@ -1740,7 +1740,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое т��кущее воспроиз��едение
+    // Останавливаем любое т��кущее воспроиз����едение
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -1792,7 +1792,7 @@ export default function VoiceControl({
       currentAudioRef.current.currentTime = 0;
     }
 
-    console.log("🔄 Смена на новую модель с эффектам��");
+    console.log("🔄 Смена на новую модель с эффектами");
     setIsSpeaking(true);
     commandCooldownRef.current = true;
     audioPlayingRef.current = true;
@@ -1996,7 +1996,7 @@ export default function VoiceControl({
   };
 
   const speakLoveYou = () => {
-    // Улучшенная защита - разрешаем если нет активного аудио
+    // Улучшенная з��щита - разрешаем если нет активного аудио
     if (isSpeaking && audioPlayingRef.current) {
       console.log("❌ speakLoveYou ����аблокирован - играет ��удио");
       return;
@@ -2246,7 +2246,7 @@ export default function VoiceControl({
       audioPlayingRef.current = false;
       setIsSpeaking(false);
       lastCommandRef.current = "";
-    }, 8000); // Максимум 8 секунд на любую команду
+    }, 8000); // Ма��симум 8 секунд на любую команду
 
     // При��удительно сбрасы��ае�� все блокировки перед обработкой новой ����оманды
     // КРОМЕ команды отк���ючения, котор��я обрабатывается отд��льно
@@ -2270,7 +2270,7 @@ export default function VoiceControl({
     // Простая очистка транскрипт���� в начале обработки
     setTranscript("");
     // НЕ вызываем onListeningChange во время обработки команды
-    // Это ��редотвращает повторное открытие панели
+    // Э��о ��редотвращает повторное открытие панели
 
     // НЕ сбрасываем Recognition автоматически - ��усть рабо��ает непреры��но
     console.log("🎯 Об���абатываем команд�� без сброса Recognition");
@@ -2295,7 +2295,7 @@ export default function VoiceControl({
       command.includes("жарвис отключись") ||
       command.includes("ярвис отключись")
     ) {
-      console.log("🔴 К��манда отключения ра��познана:", command);
+      console.log("🔴 К��манда откл��чения ра��познана:", command);
       // Принудительно выполняем ко��анду отключени�� независимо от сост��яния
       speakShutdown();
       return;
@@ -2722,7 +2722,7 @@ export default function VoiceControl({
       command.includes("тес��") ||
       command.includes("вк��ючи полную диагностику") ||
       command.includes("полную диагностик�� систем") ||
-      command.includes("диагностику систем") ||
+      command.includes("диагностику сис��ем") ||
       command.includes("включи диагностику") ||
       command.includes("полная диагностика") ||
       command.includes("системная диагностика")
@@ -2949,7 +2949,7 @@ export default function VoiceControl({
 
       // Поис�������� преимущ������тв
       if (
-        command.includes("преим��щест��а") ||
+        command.includes("преим����щест��а") ||
         command.includes("пре��мущест��о")
       ) {
         found = searchAndNavigate([
@@ -3030,7 +3030,7 @@ export default function VoiceControl({
         }
       }
 
-      // ��оиск тех��оло��и����
+      // ��оиск тех����ло��и����
       if (
         command.includes("те��нолог") ||
         command.includes("webgl") ||
