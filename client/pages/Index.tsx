@@ -253,27 +253,7 @@ export default function Index() {
   const [forceStopVoice, setForceStopVoice] = useState(false);
   const [isModelRotating, setIsModelRotating] = useState(false);
 
-  // Запуск анимации при загрузке компонента
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setNavbarAnimated(true);
-    }, 300);
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Отслеживание скролла для навбара (без эффек���а "брови")
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrolled = window.scrollY > 100;
-      setNavbarScrolled(scrolled);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   const handleLogout = React.useCallback(() => {
     logout();
