@@ -298,7 +298,7 @@ export default function Index() {
 
   const handleStopListening = React.useCallback(() => {
     setForceStopVoice(true);
-    setTimeout(() => setForceStopVoice(false), 100);
+    setTimeout(() => setForceStopVoice(false), 500);
   }, []);
 
   const handleModelRotateStart = React.useCallback(() => {
