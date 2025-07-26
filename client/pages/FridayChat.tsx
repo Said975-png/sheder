@@ -57,7 +57,7 @@ export default function FridayChat() {
       {
         role: "assistant",
         content:
-          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий пакет для вашего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
+          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий пакет для вашего проекта. Также могу обсудить любые другие темы. ��ем могу помочь?",
         timestamp: Date.now(),
       },
     ]);
@@ -256,8 +256,8 @@ export default function FridayChat() {
                 >
                   {message.role === "assistant" && (
                     <div className="flex-shrink-0">
-                      <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/30 border border-blue-400/30">
-                        <Cpu className="w-5 h-5 text-white" />
+                      <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/30 border border-blue-400/30">
+                        <Cpu className="w-4 sm:w-5 h-4 sm:h-5 text-white" />
                       </div>
                     </div>
                   )}
