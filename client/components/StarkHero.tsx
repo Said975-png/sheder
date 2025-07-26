@@ -79,7 +79,7 @@ export default function StarkHero({
       <div className="container mx-auto px-3 sm:px-6 lg:px-8 relative z-10 max-w-full overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-center min-h-screen py-16 sm:py-20 lg:py-0">
           {/* Enhanced Content Section */}
-          <div className="space-y-8 lg:space-y-10">
+          <div className="space-y-6 sm:space-y-8 lg:space-y-10">
             {/* Premium Status Badge */}
             <div className="inline-flex items-center space-x-3 px-6 py-3 bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-full">
               <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
