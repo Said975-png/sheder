@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Shield, Mail, Lock, ArrowLeft, CheckCircle } from "lucide-react";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface User {
   id: string;
@@ -46,7 +45,7 @@ export default function Login() {
         return;
       }
 
-      // Сохраняем текущего пользователя
+      // Сохраняем текуще��о пользователя
       localStorage.setItem(
         "currentUser",
         JSON.stringify({
