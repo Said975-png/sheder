@@ -35,5 +35,10 @@ export function createServer() {
   // Groq chat route
   app.post("/api/groq-chat", handleGroqChat);
 
+  // Contracts routes
+  app.post("/api/contracts", createContract);
+  app.get("/api/contracts", getUserContracts);
+  app.get("/api/contracts/:contractId", getContract);
+
   return app;
 }
