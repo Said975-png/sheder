@@ -334,7 +334,7 @@ export default function VoiceControl({
           currentAudioRef.current = null;
 
           // Возобновляем распознавание речи если оно было активно (при неудачном воспроизведении)
-          if (wasListening && !recognitionRef.current) {
+          if (wasListeningAtStart && !recognitionRef.current) {
             console.log("🔊 Возобновляем микрофон после неудачного воспроизведения");
             setTimeout(() => {
               if (!recognitionRef.current) {
