@@ -52,7 +52,7 @@ export default function FridayChat() {
   }, [messages]);
 
   useEffect(() => {
-    // Приветственное сообщение при загрузке
+    // Приветствен��ое сообщение при загрузке
     setMessages([
       {
         role: "assistant",
@@ -374,13 +374,13 @@ export default function FridayChat() {
             <div className="border-t border-slate-700/50 bg-gradient-to-r from-slate-900/80 to-blue-900/40 backdrop-blur-xl p-3 sm:p-6">
               <div className="flex items-end gap-2 sm:gap-4">
                 {/* Voice Control */}
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-1 sm:gap-2">
                   <Button
                     onClick={toggleListening}
                     variant="outline"
                     size="icon"
                     disabled={isLoading}
-                    className={`w-12 h-12 rounded-2xl transition-all duration-300 ${
+                    className={`w-10 sm:w-12 h-10 sm:h-12 rounded-xl sm:rounded-2xl transition-all duration-300 touch-manipulation ${
                       isListening
                         ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30 shadow-lg shadow-red-500/20"
                         : "border-blue-400/30 bg-slate-800/50 text-blue-400 hover:bg-blue-500/20 shadow-lg shadow-blue-500/10"
