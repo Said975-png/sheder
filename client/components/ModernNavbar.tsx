@@ -306,9 +306,8 @@ function UserMenu({ user, onLogout }: any) {
         <Button
           variant="ghost"
           className={cn(
-            "flex items-center space-x-2 px-4 py-2 rounded-full h-10",
+            "flex items-center space-x-2 px-4 py-2 h-10",
             "bg-white/10 hover:bg-white/20",
-            "border border-white/20 hover:border-white/30",
             "transition-all duration-200",
             "text-white hover:text-white"
           )}
