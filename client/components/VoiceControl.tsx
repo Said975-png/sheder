@@ -133,7 +133,7 @@ export default function VoiceControl({
                   try {
                     recognitionRef.current.start();
                   } catch (e) {
-                    console.log("❌ Не удалось перезапустить");
+                    console.log("❌ Не удалось п��резапустить");
                   }
                 }
               }, 1000);
@@ -236,7 +236,7 @@ export default function VoiceControl({
     }
   }, [isListening, onListeningChange, initializeRecognition]);
 
-  // Исправленная функция воспроизведения ауди��
+  // Испра��ленная функция воспроизведения ауди��
   const playAudio = useCallback((url: string, onComplete?: () => void) => {
     // Защита от множественного воспроизведения
     if (isSpeaking) {
@@ -330,7 +330,25 @@ export default function VoiceControl({
         audio.play().catch((error) => {
           setIsSpeaking(false);
           currentAudioRef.current = null;
-          console.error("❌ Не удалос�� воспроизвести аудио:", error);
+
+          // Возобновляем распознавание речи если оно было активно (при неудачном воспроизведении)
+          if (wasListening && !recognitionRef.current) {
+            console.log("🔊 Возобновляем микрофон после неудачного воспроизведения");
+            setTimeout(() => {
+              if (!recognitionRef.current) {
+                recognitionRef.current = initializeRecognition();
+              }
+              if (recognitionRef.current) {
+                try {
+                  recognitionRef.current.start();
+                } catch (error) {
+                  console.log("ℹ️ Ошибка возобновления распознавания:", error);
+                }
+              }
+            }, 500);
+          }
+
+          console.error("❌ Не удалось воспроизвести аудио:", error);
         });
       }
     }, 50); // Короткая задержка в 50мс
