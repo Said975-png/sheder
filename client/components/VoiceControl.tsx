@@ -127,7 +127,7 @@ export default function VoiceControl({
     recognition.onend = () => {
       console.log("🔄 Распознавание завершилось");
       
-      // Перезапу��каем автоматически если слушаем
+      // Перезапу��каем автоматически есл�� слушаем
       if (isListening && !isSpeaking) {
         setTimeout(() => {
           if (isListening && recognitionRef.current) {
@@ -164,7 +164,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Остальные команды
+    // Ос��альные команды
     if (command.includes("джарвис") || command.includes("jarvis")) {
       if (command.includes("я вернулся") || command.includes("привет")) {
         speakWelcomeBack();
@@ -309,6 +309,11 @@ export default function VoiceControl({
         if (wasListeningAtStart && !recognitionRef.current) {
           console.log("🔊 Возобновляем микрофон после аудио");
           setTimeout(() => {
+            // Дополни��ельная очистка перед возобновлением для гарантии чистого состояния
+            lastCommandRef.current = "";
+            setTranscript("");
+            console.log("🧹 Дополнительная очистка перед возобновлением микрофона");
+
             if (!recognitionRef.current) {
               recognitionRef.current = initializeRecognition();
             }
@@ -439,7 +444,7 @@ export default function VoiceControl({
 
   const speakHowAreYou = () => {
     if ("speechSynthesis" in window) {
-      // Останавливаем распознавание речи во время TTS
+      // Останав��иваем распознавание речи во время TTS
       const wasListening = isListening;
       if (recognitionRef.current && isListening) {
         try {
