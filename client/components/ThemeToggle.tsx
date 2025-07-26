@@ -16,7 +16,7 @@ export function ThemeToggle() {
         "hover:bg-primary/20 hover:shadow-md hover:shadow-primary/30 border border-primary/20 bg-background/60",
         "group",
       )}
-      aria-label="Переключить тему"
+      aria-label="П��реключить тему"
     >
       {/* Фоновый эффект */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -26,8 +26,8 @@ export function ThemeToggle() {
         {theme === "light" ? (
           <Moon
             className={cn(
-              "h-4 w-4 text-cyan-400 transition-all duration-300",
-              "group-hover:scale-110 group-hover:text-cyan-300",
+              "h-4 w-4 text-primary transition-all duration-300",
+              "group-hover:scale-110 group-hover:text-primary/80",
             )}
           />
         ) : (
