@@ -76,7 +76,7 @@ export default function StarkHero({
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-white/[0.01] rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-3 sm:px-6 lg:px-8 relative z-10 max-w-full overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-center min-h-screen py-16 sm:py-20 lg:py-0">
           {/* Enhanced Content Section */}
           <div className="space-y-8 lg:space-y-10">
