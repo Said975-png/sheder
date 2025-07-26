@@ -503,13 +503,7 @@ function MobileMenu({
           )}
         </div>
 
-        {/* Theme Toggle */}
-        <div className="mt-6 pt-6 border-t border-cyan-400/20">
-          <div className="flex items-center justify-between">
-            <span className="text-white font-medium">Theme</span>
-            <ThemeToggle />
-          </div>
-        </div>
+
       </div>
     </div>
   );
