@@ -163,16 +163,16 @@ export default function ModernNavbar({
               variant="ghost"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={cn(
-                "lg:hidden p-2 rounded-xl",
-                "border border-cyan-400/30 bg-black/60",
-                "hover:bg-cyan-400/20 hover:border-cyan-300/50",
-                "transition-all duration-300"
+                "lg:hidden p-1.5 rounded-full h-8 w-8",
+                "border border-cyan-400/40 bg-black/70",
+                "hover:bg-cyan-400/25 hover:border-cyan-300/60",
+                "transition-all duration-300 hover:scale-110"
               )}
             >
               {isMobileMenuOpen ? (
-                <X className="w-5 h-5 text-cyan-300" />
+                <X className="w-4 h-4 text-cyan-300" />
               ) : (
-                <Menu className="w-5 h-5 text-cyan-300" />
+                <Menu className="w-4 h-4 text-cyan-300" />
               )}
             </Button>
           </div>
