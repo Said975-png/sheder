@@ -261,7 +261,7 @@ export default function StarkHero({
         {/* Bottom section with stats - moved outside model area */}
         <div
           className={cn(
-            "mt-16 pb-12 transition-all duration-1000 delay-500",
+            "mt-8 sm:mt-12 lg:mt-16 pb-8 sm:pb-12 transition-all duration-1000 delay-500",
             showCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
           )}
         >
