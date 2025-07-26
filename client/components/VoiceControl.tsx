@@ -153,7 +153,7 @@ export default function VoiceControl({
     return recognition;
   }, [isListening, isSpeaking, onListeningChange]);
 
-  // Обработка голосовы�� команд
+  // ��бработка голосовы�� команд
   const processVoiceCommand = useCallback((command: string) => {
     console.log("🎯 Обрабатываем команду:", command);
 
@@ -273,7 +273,7 @@ export default function VoiceControl({
     if (recognitionRef.current && isListening) {
       try {
         recognitionRef.current.stop();
-        console.log("🔇 Микрофон временно отключен во время аудио");
+        console.log("🔇 Микр��фон временно отключен во время аудио");
       } catch (error) {
         console.log("ℹ️ Ошибка остановки распознавания для аудио:", error);
       }
@@ -324,7 +324,7 @@ export default function VoiceControl({
             setTranscript("");
             console.log("🔥 РАДИКАЛЬНАЯ ОЧИСТКА: Уничтожен старый recognition, создаем новый");
 
-            // Создаем СОВЕРШ��ННО НОВЫЙ recognition об��ект
+            // Создаем СОВЕРШ��ННО НОВЫ�� recognition об��ект
             recognitionRef.current = initializeRecognition();
             if (recognitionRef.current) {
               try {
@@ -352,7 +352,7 @@ export default function VoiceControl({
 
         // РАДИКАЛЬНОЕ возобновление при ошибке аудио
         if (wasListeningAtStart) {
-          console.log("🔊 РАДИКАЛЬНОЕ восстановление микрофона посл�� ошибки аудио");
+          console.log("🔊 РАДИКАЛЬНОЕ восстановление микрофона посл�� оши��ки аудио");
           setTimeout(() => {
             // Уничтожаем любой существующий recognition
             if (recognitionRef.current) {
@@ -547,18 +547,28 @@ export default function VoiceControl({
         isPlayingAudioRef.current = false;
         console.log("✅ БЛОКИРОВКА TTS СНЯТА + СОСТОЯНИЕ ОЧИЩЕНО после ошибки");
 
-        // Возобновляем распознавание речи при ошибке TTS
-        if (wasListening && !recognitionRef.current) {
-          console.log("🔊 Возобно��ляем микрофон после ошибки TTS");
+        // РАДИКАЛЬНОЕ возобновление при ошибке TTS
+        if (wasListening) {
+          console.log("🔊 РАДИКАЛЬНОЕ восстановление микрофона после ошибки TTS");
           setTimeout(() => {
-            if (!recognitionRef.current) {
-              recognitionRef.current = initializeRecognition();
+            // Уничтожаем любой существующий recognition
+            if (recognitionRef.current) {
+              try {
+                recognitionRef.current.stop();
+                recognitionRef.current = null;
+              } catch (error) {
+                console.log("ℹ️ Ошибка уничтожения recognition при ошибке TTS:", error);
+              }
             }
+
+            // Создаем новый чистый recognition
+            recognitionRef.current = initializeRecognition();
             if (recognitionRef.current) {
               try {
                 recognitionRef.current.start();
+                console.log("✅ Новый чистый recognition создан после ошибки TTS");
               } catch (error) {
-                console.log("ℹ️ Ошибка возобновления распознавани�� после ошибки TTS:", error);
+                console.log("ℹ️ Ошибка запуска нового recognition после ошибки TTS:", error);
               }
             }
           }, 500);
@@ -618,7 +628,7 @@ export default function VoiceControl({
     }
   }, [forceStop, isListening, onListeningChange]);
 
-  // Очистка при размонтировании
+  // Очистка при размонти��овании
   useEffect(() => {
     return () => {
       if (recognitionRef.current) {
