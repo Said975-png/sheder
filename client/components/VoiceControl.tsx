@@ -197,7 +197,7 @@ export default function VoiceControl({
     } else if (command.includes("про") || command.includes("п��офессиональный")) {
       onAddProPlan();
       speak();
-    } else if (command.includes("макс") || command.includes("максимальный")) {
+    } else if (command.includes("макс") || command.includes("мак��имальный")) {
       onAddMaxPlan();
       speak();
     } else {
@@ -294,7 +294,7 @@ export default function VoiceControl({
         setIsSpeaking(false);
         currentAudioRef.current = null;
 
-        // СНИМАЕМ БЛОКИРОВКУ: Полная очистка состояния перед разрешением обработки
+        // СНИМАЕМ БЛОКИРОВКУ: Полная очистка состояния перед разрешением о��работки
         setTimeout(() => {
           // Полностью очищаем все старые коман��ы и состояния
           lastCommandRef.current = "";
@@ -392,18 +392,28 @@ export default function VoiceControl({
           isPlayingAudioRef.current = false;
           console.log("✅ БЛОКИРОВКА СНЯТА + СОСТОЯНИЕ ОЧИЩЕНО после неудачного воспроизведения");
 
-          // Возобновляем распознавание речи если оно было активно (при неудачном воспроизведении)
-          if (wasListeningAtStart && !recognitionRef.current) {
-            console.log("🔊 Возобновляем микрофон после неудачного воспроизведения");
+          // РАДИКАЛЬНОЕ возобновление при неудачном воспроизведении
+          if (wasListeningAtStart) {
+            console.log("🔊 РАДИКАЛЬНОЕ восстановление микрофона после неудачного воспроизведения");
             setTimeout(() => {
-              if (!recognitionRef.current) {
-                recognitionRef.current = initializeRecognition();
+              // Уничтожаем любой существующи�� recognition
+              if (recognitionRef.current) {
+                try {
+                  recognitionRef.current.stop();
+                  recognitionRef.current = null;
+                } catch (error) {
+                  console.log("ℹ️ Ошибка уничтожения recognition при неудачном воспроизведении:", error);
+                }
               }
+
+              // Создаем новый чистый recognition
+              recognitionRef.current = initializeRecognition();
               if (recognitionRef.current) {
                 try {
                   recognitionRef.current.start();
+                  console.log("✅ Новый чистый recognition создан после неудачного воспроизведения");
                 } catch (error) {
-                  console.log("ℹ️ Ошибка возобновл��ния распознавания:", error);
+                  console.log("ℹ️ Ошибка запуска нового recognition после неудачного воспроизведения:", error);
                 }
               }
             }, 500);
