@@ -365,7 +365,7 @@ function Profile() {
             <div>
               <h1 className="text-3xl font-bold">Профиль пользователя</h1>
               <p className="text-white/70">
-                Управляйте настройками вашего аккаунта
+                Управляйте на��тройками вашего аккаунта
               </p>
             </div>
           </div>
@@ -477,6 +477,16 @@ function Profile() {
                     }`}
                   >
                     Безопасность
+                  </button>
+                  <button
+                    onClick={() => setActiveTab("contracts")}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      activeTab === "contracts"
+                        ? "bg-purple-600 text-white"
+                        : "text-white/70 hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    Договоры
                   </button>
                 </div>
               </CardHeader>
