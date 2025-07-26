@@ -371,7 +371,9 @@ export default function FridayChat() {
                           ></div>
                         ))}
                       </div>
-                      <span className="text-xs sm:text-sm text-green-100">Говорю...</span>
+                      <span className="text-xs sm:text-sm text-green-100">
+                        Говорю...
+                      </span>
                     </div>
                   </div>
                 </div>

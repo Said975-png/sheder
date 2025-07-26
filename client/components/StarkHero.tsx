@@ -159,8 +159,6 @@ export default function StarkHero({
 
               {/* Secondary CTA */}
               <SiteSearch />
-
-
             </div>
 
             {/* Feature Highlights */}
