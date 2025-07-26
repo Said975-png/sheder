@@ -57,7 +57,7 @@ export const useVoiceChat = ({
 
       const combinedTranscript = (finalTranscript + interimTranscript).trim();
 
-      // Обрабатываем только финальные результаты или достаточно длинные промежуточные
+      // Обрабатываем т��лько финальные результаты или достаточно длинные промежуточные
       if (combinedTranscript.length >= 3) {
         console.log("🎯 Получен текст:", combinedTranscript);
         
@@ -88,7 +88,7 @@ export const useVoiceChat = ({
       }
       
       // Для других ошибок просто продолжаем
-      console.log("ℹ️ Игнорируем ошибку, п��одолжаем слушать");
+      console.log("ℹ️ Игнорируем ошибку, продолжаем слушать");
     };
 
     recognition.onend = () => {
@@ -118,7 +118,7 @@ export const useVoiceChat = ({
     return recognition;
   }, [isListening, isSpeaking, onTranscriptReceived]);
 
-  // Запуск прослушивания
+  // Запуск прослу��ивания
   const startListening = useCallback(() => {
     if (isSpeaking) {
       console.log("⏸️ Не можем начать слушать - сейчас говорим");
@@ -366,7 +366,13 @@ export const useVoiceChat = ({
       }
       
       if (currentAudioRef.current) {
-        currentAudioRef.current.pause();
+        try {
+          currentAudioRef.current.pause();
+          currentAudioRef.current.currentTime = 0;
+          currentAudioRef.current = null;
+        } catch (error) {
+          console.log("ℹ️ Ошибка очистки аудио при размонтировании:", error);
+        }
       }
       
       if (restartTimeoutRef.current) {
@@ -394,7 +400,7 @@ export const useVoiceChat = ({
         console.log("🧹 Перезапуск зависшего распознавания");
         startListening();
       }
-    }, 3000); // Проверяем каждые 3 секунды
+    }, 3000); // Проверяем каж��ые 3 секунды
 
     return () => clearInterval(cleanupInterval);
   }, [isListening, isSpeaking, startListening]);
