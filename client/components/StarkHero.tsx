@@ -42,7 +42,7 @@ export default function StarkHero({
   );
 
   const handleModelChange = (newUrl: string) => {
-    console.log("🔄 StarkHero: Смена модели на", newUrl);
+    console.log("🔄 StarkHero: Сме��а модели на", newUrl);
     setCurrentModelUrl(newUrl);
   };
 
@@ -133,7 +133,7 @@ export default function StarkHero({
                 <p className="text-sm sm:text-base lg:text-xl xl:text-2xl text-white/70 leading-relaxed hyphens-auto break-words">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, к��торый по��имает ваши потребно��ти и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
+                      text="Революционный И��-ассистент, к��торый по��имает ваши потребно��ти и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
@@ -155,7 +155,8 @@ export default function StarkHero({
               {/* Primary CTA */}
               <Button
                 onClick={() => setShowCommandsPanel(true)}
-                className="group bg-white text-black hover:bg-white/90 px-4 sm:px-8 lg:px-12 py-3 sm:py-4 text-sm sm:text-lg font-semibold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 min-h-[48px] touch-manipulation w-full sm:w-auto lg:min-w-[280px] max-w-full"
+                variant="secondary"
+                className="group !bg-white !text-black hover:!bg-white/90 hover:!text-black px-4 sm:px-8 lg:px-12 py-3 sm:py-4 text-sm sm:text-lg font-semibold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 min-h-[48px] touch-manipulation w-full sm:w-auto lg:min-w-[280px] max-w-full"
               >
                 <Bot className="w-4 sm:w-5 h-4 sm:h-5 mr-2 sm:mr-3 group-hover:animate-pulse flex-shrink-0" />
                 <span className="lg:whitespace-nowrap">Начать с Jarvis</span>
