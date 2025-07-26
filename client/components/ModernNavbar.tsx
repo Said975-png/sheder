@@ -130,12 +130,7 @@ export default function ModernNavbar({
               handleProceedToOrder={handleProceedToOrder}
             />
 
-            {/* Theme Toggle */}
-            <div className="hidden sm:block">
-              <div className="p-2">
-                <ThemeToggle />
-              </div>
-            </div>
+
 
             {/* User Menu or Auth Buttons */}
             {isAuthenticated && currentUser ? (
