@@ -64,6 +64,9 @@ function Profile() {
     "register",
   );
   const [hasFaceID, setHasFaceID] = useState(false);
+  const [contracts, setContracts] = useState<ContractData[]>([]);
+  const [loadingContracts, setLoadingContracts] = useState(false);
+  const [showOrderForm, setShowOrderForm] = useState(false);
 
   // Получаем аватар пользователя и проверяем Face ID при загрузке
   useEffect(() => {
@@ -356,7 +359,7 @@ function Profile() {
             <Card className="theme-card">
               <CardHeader>
                 <CardTitle className="text-white text-center">
-                  ��нформация о профиле
+                  Информация о профиле
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-center">
