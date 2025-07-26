@@ -241,7 +241,7 @@ function Profile() {
         return;
       }
 
-      // Проверяем текущий пароль
+      // Пр��веряем текущий пароль
       if (users[userIndex].password !== formData.currentPassword) {
         setError("Неверный текущий пароль");
         return;
@@ -365,7 +365,7 @@ function Profile() {
             <div>
               <h1 className="text-3xl font-bold">Профиль пользователя</h1>
               <p className="text-white/70">
-                Управляйте на��тройками вашего аккаунта
+                Управляйте настройками вашего аккаунта
               </p>
             </div>
           </div>
@@ -724,6 +724,125 @@ function Profile() {
                         </Button>
                       </div>
                     </div>
+                  </div>
+                )}
+
+                {activeTab === "contracts" && (
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-lg font-semibold text-white flex items-center space-x-2">
+                        <FileText className="w-5 h-5" />
+                        <span>Мои договоры</span>
+                      </h4>
+                      <Button
+                        onClick={() => setShowOrderForm(true)}
+                        className="bg-purple-600 hover:bg-purple-700 text-white"
+                      >
+                        <Plus className="w-4 h-4 mr-2" />
+                        Заказать услугу
+                      </Button>
+                    </div>
+
+                    {loadingContracts ? (
+                      <div className="text-center py-8">
+                        <div className="animate-spin w-8 h-8 border-2 border-purple-400 border-t-transparent rounded-full mx-auto mb-4"></div>
+                        <p className="text-white/70">Загружаем договоры...</p>
+                      </div>
+                    ) : contracts.length === 0 ? (
+                      <div className="text-center py-12">
+                        <FileText className="w-16 h-16 text-white/30 mx-auto mb-4" />
+                        <h5 className="text-xl font-semibold text-white mb-2">
+                          У вас пока нет договоров
+                        </h5>
+                        <p className="text-white/70 mb-6">
+                          Закажите первую услугу и получите договор автоматически
+                        </p>
+                        <Button
+                          onClick={() => setShowOrderForm(true)}
+                          className="bg-purple-600 hover:bg-purple-700 text-white"
+                        >
+                          <Plus className="w-4 h-4 mr-2" />
+                          Заказать услугу
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="space-y-4">
+                        {contracts.map((contract) => (
+                          <div
+                            key={contract.id}
+                            className="p-4 border border-white/20 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"
+                          >
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-3 mb-2">
+                                  <h5 className="text-white font-medium">
+                                    {contract.projectType}
+                                  </h5>
+                                  <Badge
+                                    variant="outline"
+                                    className={`${
+                                      contract.status === 'active'
+                                        ? 'border-green-500/50 text-green-400'
+                                        : contract.status === 'completed'
+                                        ? 'border-blue-500/50 text-blue-400'
+                                        : contract.status === 'cancelled'
+                                        ? 'border-red-500/50 text-red-400'
+                                        : 'border-yellow-500/50 text-yellow-400'
+                                    }`}
+                                  >
+                                    {contract.status === 'active' && <CheckCircle2 className="w-3 h-3 mr-1" />}
+                                    {contract.status === 'draft' && <Clock className="w-3 h-3 mr-1" />}
+                                    {contract.status === 'completed' && <CheckCircle className="w-3 h-3 mr-1" />}
+                                    {contract.status === 'cancelled' && <XCircle className="w-3 h-3 mr-1" />}
+                                    {contract.status === 'active' ? 'Активный' :
+                                     contract.status === 'completed' ? 'Завершен' :
+                                     contract.status === 'cancelled' ? 'Отменен' : 'Черновик'}
+                                  </Badge>
+                                </div>
+                                <p className="text-white/70 text-sm mb-2">
+                                  {contract.projectDescription.length > 100
+                                    ? `${contract.projectDescription.substring(0, 100)}...`
+                                    : contract.projectDescription}
+                                </p>
+                                <div className="flex items-center gap-4 text-xs text-white/60">
+                                  <span>№ {contract.id}</span>
+                                  <span>•</span>
+                                  <span>{new Date(contract.createdAt).toLocaleDateString('ru-RU')}</span>
+                                  <span>•</span>
+                                  <span className="font-semibold text-purple-400">
+                                    {contract.price.toLocaleString('ru-RU')} ₽
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2 ml-4">
+                                <Button
+                                  onClick={() => window.open(`/api/contracts/${contract.id}`, '_blank')}
+                                  size="sm"
+                                  variant="outline"
+                                  className="border-white/20 text-white hover:bg-white/10"
+                                >
+                                  <Eye className="w-4 h-4 mr-1" />
+                                  Просмотр
+                                </Button>
+                                <Button
+                                  onClick={() => {
+                                    const link = document.createElement('a');
+                                    link.href = `/api/contracts/${contract.id}`;
+                                    link.download = contract.fileName;
+                                    link.click();
+                                  }}
+                                  size="sm"
+                                  className="bg-purple-600 hover:bg-purple-700 text-white"
+                                >
+                                  <Download className="w-4 h-4 mr-1" />
+                                  Скачать
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </CardContent>
