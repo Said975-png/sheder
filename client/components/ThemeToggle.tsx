@@ -13,7 +13,7 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       className={cn(
         "h-8 w-8 relative overflow-hidden transition-all duration-300 rounded-full",
-        "hover:bg-cyan-400/20 hover:shadow-md hover:shadow-cyan-400/30 border border-cyan-400/20 bg-black/40",
+        "hover:bg-primary/20 hover:shadow-md hover:shadow-primary/30 border border-primary/20 bg-background/60",
         "group",
       )}
       aria-label="Переключить тему"
