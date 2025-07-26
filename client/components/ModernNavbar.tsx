@@ -108,7 +108,7 @@ export default function ModernNavbar({
             </Button>
 
             {/* JARVIS Interface */}
-            <div className="px-1 sm:px-3 py-2 h-8 sm:h-10">
+            <div className="px-0.5 sm:px-1 lg:px-3 py-2 h-8 sm:h-10 overflow-hidden">
               <JarvisInterface
                 onAddBasicPlan={onAddBasicPlan}
                 onAddProPlan={onAddProPlan}
