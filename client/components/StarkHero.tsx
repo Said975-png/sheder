@@ -160,14 +160,7 @@ export default function StarkHero({
               {/* Secondary CTA */}
               <SiteSearch />
 
-              {/* Tertiary Action */}
-              <Button
-                variant="ghost"
-                className="group text-white border border-white/20 hover:border-white/40 hover:bg-white/5 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 rounded-2xl transition-all duration-300 min-h-[48px] touch-manipulation w-full sm:w-auto max-w-full overflow-hidden"
-              >
-                <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                <span>Смотреть де����о</span>
-              </Button>
+
             </div>
 
             {/* Feature Highlights */}
