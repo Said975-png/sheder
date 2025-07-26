@@ -58,7 +58,7 @@ export default function VoiceControl({
     };
 
     recognition.onresult = (event) => {
-      // БЛОКИРОВКА: Игнорируем все результаты во время воспроизведения аудио
+      // БЛОКИРОВКА: Игнорируем все результаты во время вос��роизведения аудио
       if (isPlayingAudioRef.current || isSpeaking) {
         console.log("🚫 Игнорируем результат распознавания - играет аудио");
         return;
@@ -251,7 +251,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Безопасно останавливаем предыдущее аудио
+    // Без��пасно останавливаем предыдущее аудио
     if (currentAudioRef.current) {
       try {
         currentAudioRef.current.pause();
@@ -482,6 +482,10 @@ export default function VoiceControl({
 
       utterance.onerror = () => {
         setIsSpeaking(false);
+
+        // СНИМАЕМ БЛОКИРОВКУ при ошибке TTS
+        isPlayingAudioRef.current = false;
+        console.log("✅ БЛОКИРОВКА TTS СНЯТА после ошибки");
 
         // Возобновляем распознавание речи при ошибке TTS
         if (wasListening && !recognitionRef.current) {
