@@ -82,7 +82,7 @@ function TypewriterCode() {
           '    <div className="ai-interface">',
           '      <Brain className="neural-icon" />',
           "      <button onClick={handleVoiceCommand}>",
-          '        {isActive ? "Деактивировать" : "Активировать"}',
+          '        {isActive ? "Деактивировать" : "Ак��ивировать"}',
           "      </button>",
           "    </div>",
           "  );",
@@ -315,7 +315,7 @@ export default function Index() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
           <ArcReactor size="large" pulsing />
           <p className="text-white mt-4">
