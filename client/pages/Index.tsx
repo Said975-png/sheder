@@ -20,15 +20,11 @@ import {
 import { cn } from "@/lib/utils";
 import {
   Shield,
-  User,
-  LogOut,
-  Settings,
   Code,
   Cpu,
   Brain,
   Zap,
   CheckCircle,
-  ShoppingCart,
   Lock,
   Eye,
   Layers,
@@ -38,14 +34,6 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 // Компонент для анимации пе�����ат�� кода
 function TypewriterCode() {
@@ -301,7 +289,7 @@ export default function Index() {
     (isListening: boolean, transcript?: string) => {
       // Микрофон работает в ф��не, панель не показываем
       console.log(
-        "🎤 М��крофон активен:",
+        "🎤 Микрофон активен:",
         isListening,
         "Транскрипт:",
         transcript,
