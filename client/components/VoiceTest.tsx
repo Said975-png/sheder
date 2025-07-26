@@ -15,7 +15,7 @@ export default function VoiceTest() {
       const timeSinceLastCommand = now - lastCommandTime;
       
       console.log("Получен текст:", text);
-      console.log("Время с последней команды:", timeSinceLastCommand, "мс");
+      console.log("Время с после��ней команды:", timeSinceLastCommand, "мс");
       
       // Проверяем не дублируется ли команда
       if (text === lastTranscript && timeSinceLastCommand < 2000) {
@@ -43,7 +43,7 @@ export default function VoiceTest() {
       
       setResponses(prev => [...prev, `${commandCount + 1}. Вы: ${text}`, `   Ассистент: ${response}`]);
       
-      // Воспроизводим ответ
+      // Вос��роизводим ответ
       setTimeout(() => {
         speakText(response);
       }, 500);
@@ -87,7 +87,7 @@ export default function VoiceTest() {
   };
 
   const getStatusText = () => {
-    if (isSpeaking && isListening) return "🔇 Микрофон временно отключен (во время аудио)";
+    if (isSpeaking && isListening) return "🔇 Микрофон временно отклю��ен (во время аудио)";
     if (isSpeaking) return "🔊 Говорю...";
     if (isListening) return "🎤 Слушаю...";
     return "⏹️ Остановлено";
@@ -218,6 +218,8 @@ export default function VoiceTest() {
           <li>• <strong>Двойная защита: остановка + блокировка результатов</strong></li>
           <li>• <strong>Предыдущие команды полностью очищаются</strong></li>
           <li>• <strong>Новые команды не смешиваются со старыми</strong></li>
+          <li>• <strong>Recognition объект полностью пересоздается</strong></li>
+          <li>• <strong>Никаких старых событий в очереди браузера</strong></li>
         </ul>
       </div>
     </div>
