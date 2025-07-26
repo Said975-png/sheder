@@ -19,7 +19,7 @@ export function ThemeToggle() {
       aria-label="Переключить тему"
     >
       {/* Фоновый эффект */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-blue-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
       {/* Иконка */}
       <div className="relative z-10">
