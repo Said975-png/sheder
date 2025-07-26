@@ -90,20 +90,20 @@ export default function ModernNavbar({
       >
         <div className="flex items-center justify-center w-full h-full">
           {/* Even spacing for all buttons */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-1 sm:space-x-4">
             {/* Home Button */}
             <Button
               variant="ghost"
               onClick={scrollToTop}
               className={cn(
-                "px-4 py-2 h-10",
+                "px-2 sm:px-4 py-2 h-8 sm:h-10",
                 "transition-all duration-200",
                 "text-white hover:text-white"
               )}
             >
-              <div className="flex items-center space-x-2">
-                <Home className="w-4 h-4" />
-                <span className="font-medium text-sm">Home</span>
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <Home className="w-3 sm:w-4 h-3 sm:h-4" />
+                <span className="hidden sm:inline font-medium text-sm">Home</span>
               </div>
             </Button>
 
@@ -251,7 +251,7 @@ function CartDropdown({
                     onClick={() => removeItem(item.id)}
                     className="ml-3 w-8 h-8 p-0 rounded-full hover:bg-red-500/20 text-red-400 hover:text-red-300"
                   >
-                    ��
+                    ×
                   </Button>
                 </div>
               ))}
