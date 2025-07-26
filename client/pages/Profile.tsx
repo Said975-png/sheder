@@ -438,7 +438,7 @@ function Profile() {
                 <CheckCircle className="w-6 h-6 text-green-400" />
               </div>
               <div>
-                <div className="text-green-400 font-mono text-sm mb-1">ОПЕРАЦИЯ ЗАВЕРШЕНА</div>
+                <div className="text-green-400 font-mono text-sm mb-1">ОПЕРАЦИЯ ��АВЕРШЕНА</div>
                 <div className="text-white text-lg">{success}</div>
               </div>
             </div>
@@ -566,13 +566,19 @@ function Profile() {
                 <div className="flex space-x-1">
                   <button
                     onClick={() => setActiveTab("profile")}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`group relative px-6 py-3 rounded-xl font-mono text-sm font-medium transition-all duration-300 ${
                       activeTab === "profile"
-                        ? "bg-purple-600 text-white"
-                        : "text-white/70 hover:text-white hover:bg-white/5"
+                        ? "bg-cyan-500/20 text-cyan-300 border border-cyan-400/50"
+                        : "text-cyan-400/70 hover:text-cyan-300 hover:bg-cyan-500/10 border border-cyan-400/20"
                     }`}
                   >
-                    Профиль
+                    <div className="flex items-center space-x-2">
+                      <User className="w-4 h-4" />
+                      <span>ПРОФИЛЬ</span>
+                    </div>
+                    {activeTab === "profile" && (
+                      <div className="absolute inset-0 bg-cyan-400/10 rounded-xl animate-pulse"></div>
+                    )}
                   </button>
                   <button
                     onClick={() => setActiveTab("security")}
