@@ -105,7 +105,7 @@ export default function FridayChat() {
       } else {
         const errorMessage: ChatMessage = {
           role: "assistant",
-          content: `Извините, произошла ошибка: ${data.error || "Неизвестная ошибка"}`,
+          content: `Извините, пр��изошла ошибка: ${data.error || "Неизвестная ошибка"}`,
           timestamp: Date.now(),
         };
         setMessages((prev) => [...prev, errorMessage]);
@@ -290,8 +290,8 @@ export default function FridayChat() {
 
                   {message.role === "user" && (
                     <div className="flex-shrink-0">
-                      <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center shadow-lg shadow-emerald-500/30 border border-emerald-400/30">
-                        <User className="w-5 h-5 text-white" />
+                      <div className="w-8 sm:w-10 h-8 sm:h-10 rounded-xl sm:rounded-2xl bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center shadow-lg shadow-emerald-500/30 border border-emerald-400/30">
+                        <User className="w-4 sm:w-5 h-4 sm:h-5 text-white" />
                       </div>
                     </div>
                   )}
