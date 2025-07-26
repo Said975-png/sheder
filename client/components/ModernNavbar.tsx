@@ -93,34 +93,34 @@ export default function ModernNavbar({
           "animate-pulse-glow"
         )}
       >
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between h-full">
           {/* Left side - Brand/Home */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
             <Button
               variant="ghost"
               onClick={scrollToTop}
               className={cn(
-                "group relative overflow-hidden rounded-xl px-4 py-2",
-                "bg-gradient-to-r from-cyan-500/20 to-blue-500/20",
-                "border border-cyan-400/40 hover:border-cyan-300/60",
-                "transition-all duration-300 hover:scale-105",
-                "hover:shadow-lg hover:shadow-cyan-400/30"
+                "group relative overflow-hidden rounded-full px-3 py-1 h-8",
+                "bg-gradient-to-r from-cyan-500/25 to-blue-500/25",
+                "border border-cyan-400/50 hover:border-cyan-300/70",
+                "transition-all duration-300 hover:scale-110",
+                "hover:shadow-lg hover:shadow-cyan-400/40"
               )}
             >
-              <div className="flex items-center space-x-2">
-                <Home className="w-4 h-4 text-cyan-300" />
-                <span className="font-semibold text-white tracking-wider">
+              <div className="flex items-center space-x-1.5">
+                <Home className="w-3.5 h-3.5 text-cyan-300" />
+                <span className="font-bold text-white tracking-wider text-sm">
                   STARK
                 </span>
               </div>
               {/* Animated background on hover */}
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/20 to-cyan-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/30 to-cyan-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full" />
             </Button>
           </div>
 
           {/* Center - JARVIS Interface (hidden on mobile) */}
           <div className="hidden lg:block">
-            <div className="bg-black/60 border border-cyan-400/30 rounded-xl p-2">
+            <div className="bg-black/70 border border-cyan-400/40 rounded-full px-2 py-1 h-8">
               <JarvisInterface
                 onAddBasicPlan={onAddBasicPlan}
                 onAddProPlan={onAddProPlan}
@@ -135,7 +135,7 @@ export default function ModernNavbar({
           </div>
 
           {/* Right side - Actions */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2">
             {/* Cart */}
             <CartDropdown
               items={items}
