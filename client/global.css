@@ -209,7 +209,7 @@
     position: relative;
   }
 
-  /* Убраны углы для StarkHUD карточек */
+  /* Убраны углы для StarkHUD ка��точек */
   .stark-card-corners {
     position: relative;
   }
@@ -476,7 +476,7 @@
     }
   }
 
-  /* Пульсирующее неоновое свече��ие логотипа */
+  /* Пульсирующее неоновое свечение логотипа */
   .logo-pulse {
     animation: logoPulse 4s ease-in-out infinite;
   }
@@ -1417,6 +1417,39 @@
     }
   }
 
+  /* Touch and mobile optimizations */
+  .touch-manipulation {
+    touch-action: manipulation;
+  }
+
+  /* Ensure minimum touch target size */
+  @media (max-width: 768px) {
+    button,
+    a,
+    input,
+    textarea,
+    select {
+      min-height: 44px;
+    }
+
+    /* Improve text readability on mobile */
+    body {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    /* Reduce animations on mobile for better performance */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  }
+
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .neural-node {
@@ -1464,9 +1497,32 @@
     }
   }
 
+  /* High DPI / Retina display optimizations */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+    .neural-node,
+    .ai-particle {
+      will-change: transform;
+    }
+  }
+
+  /* Tablet optimizations */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  /* Large screen optimizations */
+  @media (min-width: 1440px) {
+    .container {
+      max-width: 1400px;
+    }
+  }
+
   /* STARK LABORATORY THEME - Лабораторная тема Старка */
 
-  /* Основные переменные для лабор��торной темы */
+  /* Основные переменные для лабор��торн��й темы */
   .stark-lab-theme {
     --background: 195 100% 6%; /* #0f2027 конвертированный в HSL */
     --foreground: 195 100% 93%; /* #e6f7ff */
