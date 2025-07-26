@@ -334,36 +334,36 @@ function UserMenu({ user, onLogout }: any) {
         align="end"
         className="w-64 bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl mt-2"
       >
-        <div className="px-4 py-3 border-b border-cyan-400/20">
+        <div className="px-4 py-3 border-b border-white/20">
           <div className="font-semibold text-white">{user.name}</div>
           <div className="text-sm text-white/60">{user.email}</div>
         </div>
-        
+
         <div className="p-2">
           <DropdownMenuItem
             onClick={() => (window.location.href = "/profile")}
-            className="text-white hover:bg-cyan-400/10 cursor-pointer rounded-lg"
+            className="text-white hover:bg-white/10 cursor-pointer rounded-lg"
           >
             <User className="mr-3 h-4 w-4" />
             Profile
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => (window.location.href = "/profile")}
-            className="text-white hover:bg-cyan-400/10 cursor-pointer rounded-lg"
+            className="text-white hover:bg-white/10 cursor-pointer rounded-lg"
           >
             <Settings className="mr-3 h-4 w-4" />
             Settings
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => (window.location.href = "/chat")}
-            className="text-white hover:bg-cyan-400/10 cursor-pointer rounded-lg"
+            className="text-white hover:bg-white/10 cursor-pointer rounded-lg"
           >
             <Brain className="mr-3 h-4 w-4" />
             Чат с Пятницей
           </DropdownMenuItem>
         </div>
-        
-        <div className="p-2 border-t border-cyan-400/20">
+
+        <div className="p-2 border-t border-white/20">
           <DropdownMenuItem
             onClick={onLogout}
             className="text-red-400 hover:bg-red-500/10 cursor-pointer rounded-lg"
