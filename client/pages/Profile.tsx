@@ -70,7 +70,7 @@ function Profile() {
   const [loadingContracts, setLoadingContracts] = useState(false);
   const [showOrderForm, setShowOrderForm] = useState(false);
 
-  // Получаем аватар пользователя и проверяем Face ID при загрузке
+  // Получаем аватар пользователя и проверяе�� Face ID при загрузке
   useEffect(() => {
     if (currentUser) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -120,7 +120,7 @@ function Profile() {
     }
   }, [activeTab, currentUser]);
 
-  // Если пользовател�� не авторизован
+  // Если пользователь не авторизован
   if (!currentUser) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950/20 to-indigo-950/30 text-white flex items-center justify-center p-6">
@@ -501,51 +501,36 @@ function Profile() {
                 <div className="flex flex-wrap gap-1">
                   <button
                     onClick={() => setActiveTab("profile")}
-                    className={`group relative px-6 py-3 rounded-xl font-mono text-sm font-medium transition-all duration-300 ${
+                    className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
                       activeTab === "profile"
-                        ? "bg-cyan-500/20 text-cyan-300 border border-cyan-400/50"
-                        : "text-cyan-400/70 hover:text-cyan-300 hover:bg-cyan-500/10 border border-cyan-400/20"
+                        ? "bg-blue-600 text-white shadow-sm"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                     }`}
                   >
-                    <div className="flex items-center space-x-2">
-                      <User className="w-4 h-4" />
-                      <span>ПРОФИЛЬ</span>
-                    </div>
-                    {activeTab === "profile" && (
-                      <div className="absolute inset-0 bg-cyan-400/10 rounded-xl animate-pulse"></div>
-                    )}
+                    <User className="w-4 h-4 mr-2" />
+                    Профиль
                   </button>
                   <button
                     onClick={() => setActiveTab("security")}
-                    className={`group relative px-6 py-3 rounded-xl font-mono text-sm font-medium transition-all duration-300 ${
+                    className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
                       activeTab === "security"
-                        ? "bg-purple-500/20 text-purple-300 border border-purple-400/50"
-                        : "text-purple-400/70 hover:text-purple-300 hover:bg-purple-500/10 border border-purple-400/20"
+                        ? "bg-blue-600 text-white shadow-sm"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                     }`}
                   >
-                    <div className="flex items-center space-x-2">
-                      <Shield className="w-4 h-4" />
-                      <span>БЕЗОПАСНОСТЬ</span>
-                    </div>
-                    {activeTab === "security" && (
-                      <div className="absolute inset-0 bg-purple-400/10 rounded-xl animate-pulse"></div>
-                    )}
+                    <Shield className="w-4 h-4 mr-2" />
+                    Безопасность
                   </button>
                   <button
                     onClick={() => setActiveTab("contracts")}
-                    className={`group relative px-6 py-3 rounded-xl font-mono text-sm font-medium transition-all duration-300 ${
+                    className={`inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
                       activeTab === "contracts"
-                        ? "bg-green-500/20 text-green-300 border border-green-400/50"
-                        : "text-green-400/70 hover:text-green-300 hover:bg-green-500/10 border border-green-400/20"
+                        ? "bg-blue-600 text-white shadow-sm"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                     }`}
                   >
-                    <div className="flex items-center space-x-2">
-                      <FileText className="w-4 h-4" />
-                      <span>ДОГОВОРЫ</span>
-                    </div>
-                    {activeTab === "contracts" && (
-                      <div className="absolute inset-0 bg-green-400/10 rounded-xl animate-pulse"></div>
-                    )}
+                    <FileText className="w-4 h-4 mr-2" />
+                    Договоры
                   </button>
                 </div>
               </CardHeader>
