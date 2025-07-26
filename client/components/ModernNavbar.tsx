@@ -80,7 +80,7 @@ export default function ModernNavbar({
       <nav
         className={cn(
           "fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-out",
-          "top-4 rounded-full px-6 py-3 w-auto max-w-4xl h-14",
+          "top-2 sm:top-4 rounded-full px-3 sm:px-6 py-2 sm:py-3 w-auto max-w-[calc(100vw-1rem)] sm:max-w-4xl h-12 sm:h-14",
           // Simple transparent background
           isScrolled
             ? "bg-white/10 backdrop-blur-md border border-white/20"
@@ -251,7 +251,7 @@ function CartDropdown({
                     onClick={() => removeItem(item.id)}
                     className="ml-3 w-8 h-8 p-0 rounded-full hover:bg-red-500/20 text-red-400 hover:text-red-300"
                   >
-                    ×
+                    ��
                   </Button>
                 </div>
               ))}
