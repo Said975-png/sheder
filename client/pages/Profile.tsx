@@ -378,10 +378,12 @@ function Profile() {
               <div className="text-right">
                 <div className="flex items-center space-x-2 mb-1">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-sm text-green-600 font-medium">Активен</span>
+                  <span className="text-sm text-green-600 font-medium">
+                    Активен
+                  </span>
                 </div>
                 <p className="text-xs text-gray-500">
-                  Последний вход: {new Date().toLocaleDateString('ru-RU')}
+                  Последний вход: {new Date().toLocaleDateString("ru-RU")}
                 </p>
               </div>
             </div>
@@ -419,7 +421,9 @@ function Profile() {
                 <CardTitle className="text-center">
                   <div className="flex items-center justify-center space-x-2">
                     <User className="w-5 h-5 text-blue-600" />
-                    <span className="text-gray-900 font-semibold">Профиль пользователя</span>
+                    <span className="text-gray-900 font-semibold">
+                      Профиль пользователя
+                    </span>
                   </div>
                 </CardTitle>
               </CardHeader>
@@ -466,26 +470,35 @@ function Profile() {
                   {/* Modern Stats */}
                   <div className="space-y-3 text-sm">
                     <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
-                      <span className="text-gray-600 font-medium">ID пользователя:</span>
+                      <span className="text-gray-600 font-medium">
+                        ID пользователя:
+                      </span>
                       <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">
                         {currentUser.id}
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg">
-                      <span className="text-gray-600 font-medium">Дата регистрации:</span>
+                      <span className="text-gray-600 font-medium">
+                        Дата регистрации:
+                      </span>
                       <span className="text-gray-900 font-medium">
                         {formatDate(
-                          JSON.parse(localStorage.getItem("users") || "[]").find(
-                            (u: User) => u.id === currentUser.id,
-                          )?.createdAt || new Date().toISOString(),
+                          JSON.parse(
+                            localStorage.getItem("users") || "[]",
+                          ).find((u: User) => u.id === currentUser.id)
+                            ?.createdAt || new Date().toISOString(),
                         )}
                       </span>
                     </div>
                     <div className="flex items-center justify-between py-2 px-3 bg-green-50 rounded-lg">
-                      <span className="text-gray-600 font-medium">Статус аккаунта:</span>
+                      <span className="text-gray-600 font-medium">
+                        Статус аккаунта:
+                      </span>
                       <div className="flex items-center space-x-2">
                         <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                        <span className="text-green-700 font-medium">Акт��вен</span>
+                        <span className="text-green-700 font-medium">
+                          Акт��вен
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -538,7 +551,10 @@ function Profile() {
                 {activeTab === "profile" && (
                   <form onSubmit={handleProfileUpdate} className="space-y-6">
                     <div className="space-y-2">
-                      <Label htmlFor="name" className="text-gray-700 font-medium">
+                      <Label
+                        htmlFor="name"
+                        className="text-gray-700 font-medium"
+                      >
                         Полное имя
                       </Label>
                       <div className="relative">
@@ -557,7 +573,10 @@ function Profile() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-gray-700 font-medium">
+                      <Label
+                        htmlFor="email"
+                        className="text-gray-700 font-medium"
+                      >
                         Email
                       </Label>
                       <div className="relative">
