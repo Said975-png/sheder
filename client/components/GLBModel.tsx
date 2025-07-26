@@ -57,7 +57,7 @@ function Model({
       const time = state.clock.getElapsedTime();
 
       if (isRotating) {
-        // Быстрое вращени�� когда активирована команда
+        // Быстрое вращение когда активирована команда
         modelRef.current.rotation.y += 0.05;
         modelRef.current.rotation.x = Math.sin(time * 2) * 0.1;
         modelRef.current.rotation.z = Math.cos(time * 1.5) * 0.05;
@@ -157,7 +157,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
     };
   }, [onModelChange]);
 
-  // Стабилизируем параметры чтобы избежать пересоздания Canvas
+  // Стабилизируем пара��етры чтобы избежать пересоздания Canvas
   const stableProps = useMemo(
     () => ({
       camera: { position: [0, 0, 5] as [number, number, number], fov: 50 },
@@ -186,7 +186,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
 
         <Suspense fallback={<ThreeLoadingFallback />}>
           <Model
-            url={url}
+            url={currentModelUrl}
             scale={scale}
             position={position}
             onLoad={() => setIsLoading(false)}
