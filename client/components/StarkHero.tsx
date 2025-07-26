@@ -141,7 +141,7 @@ export default function StarkHero({
             {/* Enhanced CTA Section */}
             <div
               className={cn(
-                "flex flex-col sm:flex-row gap-3 sm:gap-4 transition-all duration-1000",
+                "flex flex-col gap-3 sm:gap-4 transition-all duration-1000 w-full max-w-full",
                 showCTA
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-4",
