@@ -83,3 +83,36 @@ export interface ChatResponse {
   message?: string;
   error?: string;
 }
+
+/**
+ * Contract API types
+ */
+export interface ContractData {
+  id: string;
+  userId: string;
+  clientName: string;
+  clientEmail: string;
+  projectType: string;
+  projectDescription: string;
+  price: number;
+  createdAt: string;
+  status: 'draft' | 'active' | 'completed' | 'cancelled';
+  fileName: string;
+  fileUrl?: string;
+}
+
+export interface CreateContractRequest {
+  projectType: string;
+  projectDescription: string;
+  clientName: string;
+  clientEmail: string;
+  estimatedPrice: number;
+}
+
+export interface CreateContractResponse {
+  success: boolean;
+  message: string;
+  contractId?: string;
+  contractUrl?: string;
+  error?: string;
+}
