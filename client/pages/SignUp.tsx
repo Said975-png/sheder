@@ -156,9 +156,9 @@ export default function SignUp() {
         </div>
 
         {/* SignUp Form */}
-        <Card className="theme-card">
+        <Card className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-blue-500/20">
           <CardHeader>
-            <CardTitle className="theme-text text-center">
+            <CardTitle className="text-white text-center">
               Регистрация
             </CardTitle>
           </CardHeader>
@@ -171,7 +171,7 @@ export default function SignUp() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="name" className="theme-label">
+                <Label htmlFor="name" className="text-white/80">
                   Полное имя
                 </Label>
                 <div className="relative">
@@ -190,7 +190,7 @@ export default function SignUp() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="theme-label">
+                <Label htmlFor="email" className="text-white/80">
                   Email
                 </Label>
                 <div className="relative">
@@ -209,7 +209,7 @@ export default function SignUp() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password" className="theme-label">
+                <Label htmlFor="password" className="text-white/80">
                   Пароль
                 </Label>
                 <div className="relative">
@@ -229,7 +229,7 @@ export default function SignUp() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="theme-label">
+                <Label htmlFor="confirmPassword" className="text-white/80">
                   Подтвердите пароль
                 </Label>
                 <div className="relative">
@@ -257,7 +257,7 @@ export default function SignUp() {
             </form>
 
             <div className="mt-6 text-center">
-              <p className="theme-text-muted">
+              <p className="text-white/70">
                 Уже есть аккаунт?{" "}
                 <Link
                   to="/login"
