@@ -81,14 +81,16 @@ export default function ModernNavbar({
       <nav
         className={cn(
           "fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-700 ease-out",
-          "top-4 rounded-2xl px-4 py-3 w-auto max-w-6xl",
+          "top-3 rounded-full px-3 py-1.5 w-auto max-w-5xl h-12",
           // Dynamic styling based on scroll
           isScrolled
-            ? "bg-black/95 backdrop-blur-xl border border-cyan-400/50 shadow-2xl shadow-cyan-400/25"
-            : "bg-black/70 backdrop-blur-lg border border-cyan-400/30 shadow-lg shadow-cyan-400/15",
-          // Glow effects
-          "before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-r before:from-cyan-400/10 before:via-transparent before:to-blue-400/10 before:-z-10",
-          "after:absolute after:inset-0 after:rounded-2xl after:bg-gradient-to-b after:from-white/5 after:to-transparent after:-z-10"
+            ? "bg-black/98 backdrop-blur-2xl border border-cyan-400/60 shadow-2xl shadow-cyan-400/30"
+            : "bg-black/80 backdrop-blur-xl border border-cyan-400/40 shadow-lg shadow-cyan-400/20",
+          // Enhanced futuristic glow effects
+          "before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-r before:from-cyan-400/15 before:via-blue-400/10 before:to-purple-400/15 before:-z-10 before:blur-sm",
+          "after:absolute after:inset-0 after:rounded-full after:bg-gradient-to-b after:from-white/8 after:to-transparent after:-z-10",
+          // Animated border glow
+          "animate-pulse-glow"
         )}
       >
         <div className="flex items-center justify-between">
