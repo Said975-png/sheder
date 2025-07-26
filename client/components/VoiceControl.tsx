@@ -159,7 +159,7 @@ export default function VoiceControl({
 
     // Команды отключения имеют приоритет
     if (command.includes("отключись") || command.includes("выключись")) {
-      console.log("🔴 Команда отключения");
+      console.log("🔴 Кома��да отключения");
       speakShutdown();
       return;
     }
@@ -222,7 +222,7 @@ export default function VoiceControl({
       }
       
       setTranscript("");
-      // Очищаем команду при остановке
+      // Очищаем к��манду при остановке
       lastCommandRef.current = "";
     } else {
       // Запускаем
@@ -576,6 +576,9 @@ export default function VoiceControl({
       if (commandTimeoutRef.current) {
         clearTimeout(commandTimeoutRef.current);
       }
+
+      // Сбрасываем флаг блокировки при размонтировании
+      isPlayingAudioRef.current = false;
     };
   }, []);
 
