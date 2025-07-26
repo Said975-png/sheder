@@ -105,7 +105,7 @@ export default function FridayChat() {
       } else {
         const errorMessage: ChatMessage = {
           role: "assistant",
-          content: `Извините, произошла ошибка: ${data.error || "Неизвестная ошибка"}`,
+          content: `Извините, произошла ошибка: ${data.error || "Неизвестная ошибк��"}`,
           timestamp: Date.now(),
         };
         setMessages((prev) => [...prev, errorMessage]);
@@ -193,19 +193,19 @@ export default function FridayChat() {
               
               {/* AI Avatar */}
               <div className="relative">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
-                  <Brain className="w-6 h-6 text-white" />
+                <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
+                  <Brain className="w-5 sm:w-6 h-5 sm:h-6 text-white" />
                 </div>
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-slate-900 animate-pulse"></div>
+                <div className="absolute -top-1 -right-1 w-3 sm:w-4 h-3 sm:h-4 bg-green-400 rounded-full border-2 border-slate-900 animate-pulse"></div>
               </div>
-              
+
               <div className="flex flex-col">
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   Пятница AI
                 </h1>
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                  <span className="text-sm text-slate-300">
+                  <span className="text-xs sm:text-sm text-slate-300">
                     Онлайн • ИИ-консультант
                   </span>
                 </div>
