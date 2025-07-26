@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Shield, Mail, Lock, User, ArrowLeft, CheckCircle } from "lucide-react";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface User {
   id: string;
@@ -47,7 +46,7 @@ export default function SignUp() {
     }
 
     try {
-      // Получаем существующих пользователей из localStorage
+      // Получаем существующих пользова��елей из localStorage
       const existingUsers = JSON.parse(
         localStorage.getItem("users") || "[]",
       ) as User[];
