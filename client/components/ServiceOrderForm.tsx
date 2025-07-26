@@ -211,7 +211,7 @@ export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormPr
             {/* Service Selection */}
             <div className="space-y-3">
               <Label className="text-white/80">Выберите тип услуги</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-4">
                 {serviceTypes.map((service) => {
                   const Icon = service.icon;
                   const isSelected = formData.projectType === service.label;
