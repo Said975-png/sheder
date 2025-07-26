@@ -68,10 +68,10 @@ export default function VoiceControl({
       }
 
       const combinedTranscript = (finalTranscript + interimTranscript).trim();
-      
+
       if (combinedTranscript.length >= 2) {
         setTranscript(combinedTranscript);
-        onListeningChange?.(true, combinedTranscript);
+        // Не вызываем onListeningChange для промежуточных результатов чтобы избежать мигания
       }
 
       // ��брабатываем только финальные результаты
