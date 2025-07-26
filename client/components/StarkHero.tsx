@@ -128,7 +128,7 @@ export default function StarkHero({
                 <p className="text-sm sm:text-base lg:text-xl xl:text-2xl text-white/70 leading-relaxed hyphens-auto break-words">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, к��торый понимает ваши потребно��ти и превращает ид��и в реальность. Будущее взаимодействия с техноло��иями уже здесь."
+                      text="Революционный ИИ-ассистент, к��торый понимает ваши потребно��ти и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
@@ -272,11 +272,11 @@ export default function StarkHero({
               { number: "1000+", label: "Довольных клиентов" },
               { number: "<1сек", label: "Время отклика" },
             ].map((stat, index) => (
-              <div key={index} className="group cursor-pointer">
-                <div className="text-2xl lg:text-3xl font-bold text-white group-hover:scale-110 transition-transform duration-300">
+              <div key={index} className="group cursor-pointer min-w-0 flex-shrink-0">
+                <div className="text-lg sm:text-xl lg:text-3xl font-bold text-white group-hover:scale-110 transition-transform duration-300 whitespace-nowrap">
                   {stat.number}
                 </div>
-                <div className="text-sm text-white/60 group-hover:text-white/80 transition-colors duration-300">
+                <div className="text-xs sm:text-sm text-white/60 group-hover:text-white/80 transition-colors duration-300 whitespace-nowrap">
                   {stat.label}
                 </div>
               </div>
