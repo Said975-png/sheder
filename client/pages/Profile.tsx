@@ -70,7 +70,7 @@ function Profile() {
   const [loadingContracts, setLoadingContracts] = useState(false);
   const [showOrderForm, setShowOrderForm] = useState(false);
 
-  // Получаем аватар польз��вателя и проверяем Face ID при загрузке
+  // Получаем аватар пользователя и проверяем Face ID при загрузке
   useEffect(() => {
     if (currentUser) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -191,7 +191,7 @@ function Profile() {
           (u) => u.email === formData.email && u.id !== currentUser.id,
         );
         if (emailExists) {
-          setError("Пользователь с таким email уже существует");
+          setError("Пользователь с таким email уже сущес��вует");
           return;
         }
       }
@@ -318,7 +318,7 @@ function Profile() {
   const handleFaceIDSuccess = () => {
     if (faceIDMode === "register") {
       setHasFaceID(true);
-      setSuccess("Face ID успешно настроен!");
+      setSuccess("Face ID ��спешно настроен!");
     }
     setShowFaceIDModal(false);
   };
@@ -348,49 +348,41 @@ function Profile() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        {/* Enhanced Header */}
+        {/* Modern Business Header */}
         <div className="mb-8">
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex items-center justify-between mb-6">
             <Link
               to="/"
-              className="group inline-flex items-center space-x-3 text-cyan-400 hover:text-cyan-300 transition-all duration-300"
+              className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors duration-200"
             >
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center group-hover:bg-cyan-500/20 transition-all duration-300">
-                <ArrowLeft className="w-5 h-5" />
-              </div>
-              <span className="text-lg font-medium">НАЗАД К ПАНЕЛИ</span>
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              <span>Назад на главную</span>
             </Link>
           </div>
 
-          {/* Holographic Header */}
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-cyan-500/20 blur-xl"></div>
-            <div className="relative bg-black/40 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-8">
-              <div className="flex items-center space-x-6">
-                <div className="relative">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center shadow-2xl shadow-cyan-500/50">
-                    <Settings className="w-10 h-10 text-white" />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-black animate-pulse"></div>
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <div className="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <Settings className="w-8 h-8 text-white" />
                 </div>
-                <div className="flex-1">
-                  <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-2">
-                    STARK INDUSTRIES
+                <div>
+                  <h1 className="text-2xl font-bold text-gray-900">
+                    Личный кабинет
                   </h1>
-                  <h2 className="text-2xl font-semibold text-white mb-1">
-                    Панель управления пользователя
-                  </h2>
-                  <p className="text-cyan-300/70 text-lg">
-                    Система безопасности и настройки аккаунта
+                  <p className="text-gray-600 mt-1">
+                    Управление профилем и настройками аккаунта
                   </p>
                 </div>
-                <div className="text-right">
-                  <div className="text-xs text-cyan-400 mb-1">СИСТЕМА АКТИВНА</div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <span className="text-green-400 text-sm font-mono">ОНЛАЙН</span>
-                  </div>
+              </div>
+              <div className="text-right">
+                <div className="flex items-center space-x-2 mb-1">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-sm text-green-600 font-medium">Активен</span>
                 </div>
+                <p className="text-xs text-gray-500">
+                  Последний вход: {new Date().toLocaleDateString('ru-RU')}
+                </p>
               </div>
             </div>
           </div>
@@ -803,7 +795,7 @@ function Profile() {
                         </h5>
                         <p className="text-red-300/70 text-sm mb-4">
                           Удаление аккаунта приведёт к полному удалению всех
-                          ваших данных. Это действие нельзя отмени��ь.
+                          ваших данных. Это действие нельзя отменить.
                         </p>
                         <Button
                           onClick={handleDeleteAccount}
