@@ -128,7 +128,7 @@ export default function StarkHero({
                 <p className="text-xl lg:text-2xl text-white/70 leading-relaxed">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будущее взаимодействия с технологиями уже здесь."
+                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
@@ -284,6 +284,12 @@ export default function StarkHero({
           </div>
         </div>
       </div>
+
+      {/* Панель команд Jarvis */}
+      <JarvisCommandsPanel
+        isOpen={showCommandsPanel}
+        onClose={() => setShowCommandsPanel(false)}
+      />
     </section>
   );
 }
