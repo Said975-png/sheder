@@ -141,7 +141,7 @@ export default function StarkHero({
             {/* Enhanced CTA Section */}
             <div
               className={cn(
-                "flex flex-col sm:flex-row gap-4 transition-all duration-1000",
+                "flex flex-col sm:flex-row gap-3 sm:gap-4 transition-all duration-1000",
                 showCTA
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-4",
@@ -150,7 +150,7 @@ export default function StarkHero({
               {/* Primary CTA */}
               <Button
                 onClick={() => setShowCommandsPanel(true)}
-                className="group bg-white text-black hover:bg-white/90 px-8 py-4 text-lg font-semibold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105"
+                className="group bg-white text-black hover:bg-white/90 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 min-h-[48px] touch-manipulation"
               >
                 <Bot className="w-5 h-5 mr-3 group-hover:animate-pulse" />
                 <span>Начать с Jarvis</span>
