@@ -11,6 +11,7 @@ interface GLBModelProps {
   isRotating?: boolean;
   onRotationStart?: () => void;
   onRotationStop?: () => void;
+  onModelChange?: (newUrl: string) => void;
 }
 
 function Model({
