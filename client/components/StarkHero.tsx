@@ -37,7 +37,7 @@ export default function StarkHero({
   );
 
   const handleModelChange = (newUrl: string) => {
-    console.log("�� StarkHero: Смена модели на", newUrl);
+    console.log("🔄 StarkHero: Смена модели на", newUrl);
     setCurrentModelUrl(newUrl);
   };
 
@@ -128,7 +128,7 @@ export default function StarkHero({
                 <p className="text-sm sm:text-base lg:text-xl xl:text-2xl text-white/70 leading-relaxed hyphens-auto break-words">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, к��торый понимает ваши потребности и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
+                      text="Революционный ИИ-ассистент, к��торый понимает ваши потребно��ти и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
@@ -200,7 +200,7 @@ export default function StarkHero({
                   <div className="text-white group-hover:scale-110 transition-transform duration-300">
                     {feature.icon}
                   </div>
-                  <span className="text-sm font-medium group-hover:text-white/80 transition-colors duration-300">
+                  <span className="text-xs sm:text-sm font-medium group-hover:text-white/80 transition-colors duration-300 truncate">
                     {feature.text}
                   </span>
                 </div>
@@ -267,7 +267,7 @@ export default function StarkHero({
         >
           <div className="flex flex-wrap justify-center items-center gap-8 text-center">
             {[
-              { number: "99.9%", label: "Точ��ость ответов" },
+              { number: "99.9%", label: "Точность ответов" },
               { number: "24/7", label: "Доступность" },
               { number: "1000+", label: "Довольных клиентов" },
               { number: "<1сек", label: "Время отклика" },
