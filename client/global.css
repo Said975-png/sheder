@@ -150,7 +150,7 @@
   }
 
   body {
-    @apply bg-black text-white;
+    @apply bg-background text-foreground;
     font-family:
       "Inter",
       -apple-system,
@@ -158,6 +158,7 @@
       "Segoe UI",
       Roboto,
       sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
@@ -684,7 +685,7 @@
     }
   }
 
-  /* Светящиеся эффекты для ��нопок */
+  /* Светящиеся эффекты для ��н��пок */
   .glow-button {
     position: relative;
     overflow: hidden;
