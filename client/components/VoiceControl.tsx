@@ -251,7 +251,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Без��пасно останавливаем предыдущее аудио
+    // Без����пасно останавливаем предыдущее аудио
     if (currentAudioRef.current) {
       try {
         currentAudioRef.current.pause();
@@ -302,7 +302,7 @@ export default function VoiceControl({
 
           // Снимаем блокировку
           isPlayingAudioRef.current = false;
-          console.log("✅ БЛОК��РОВКА СНЯТА + СОСТОЯНИЕ ОЧИЩЕНО: Готов к новым ко��а��дам");
+          console.log("✅ БЛОК��РОВКА СНЯТА + СОСТ��ЯНИЕ ОЧИЩЕНО: Готов к новым ко��а��дам");
         }, 1000); // Увеличиваем задержку для полной уверенности
 
         // Возобновляем распознавание речи если оно было активно
@@ -324,7 +324,7 @@ export default function VoiceControl({
             setTranscript("");
             console.log("🔥 РАДИКАЛЬНАЯ ОЧИСТКА: Уничтожен старый recognition, создаем новый");
 
-            // Создаем СОВЕРШ��ННО НОВЫЙ recognition объект
+            // Создаем СОВЕРШ��ННО НОВЫЙ recognition об��ект
             recognitionRef.current = initializeRecognition();
             if (recognitionRef.current) {
               try {
@@ -440,7 +440,7 @@ export default function VoiceControl({
       try {
         recognitionRef.current.stop();
       } catch (error) {
-        console.log("ℹ️ Ошибка остановки при отключении:", error);
+        console.log("ℹ️ Оши��ка остановки при отключении:", error);
       }
     }
 
@@ -529,8 +529,9 @@ export default function VoiceControl({
             if (recognitionRef.current) {
               try {
                 recognitionRef.current.start();
+                console.log("✅ Новый чистый recognition создан после TTS");
               } catch (error) {
-                console.log("ℹ️ Ошибка возобновления распознавания после TTS:", error);
+                console.log("ℹ️ Ошибка запуска нового recognition после TTS:", error);
               }
             }
           }, 500);
