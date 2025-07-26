@@ -15,6 +15,7 @@ import OrderForm from "./pages/OrderForm";
 import FridayChat from "./pages/FridayChat";
 import NotFound from "./pages/NotFound";
 import VoiceTest from "./components/VoiceTest";
+import AudioTest from "./components/AudioTest";
 
 const queryClient = new QueryClient();
 
