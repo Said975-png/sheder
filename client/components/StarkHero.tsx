@@ -307,6 +307,12 @@ export default function StarkHero({
         isOpen={showCommandsPanel}
         onClose={() => setShowCommandsPanel(false)}
       />
+
+      {/* Форма заказа услуг */}
+      <ServiceOrderForm
+        isOpen={showOrderForm}
+        onClose={() => setShowOrderForm(false)}
+      />
     </section>
   );
 }
