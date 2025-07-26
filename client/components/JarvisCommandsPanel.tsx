@@ -28,7 +28,7 @@ export default function JarvisCommandsPanel({
       items: [
         { command: "Покрути модель", description: "Запуск вращения 3D модели" },
         { command: "Хватит", description: "Остановка вращения модели" },
-        { command: "Смени модель", description: "Переключение на новую модель" },
+        { command: "Смени модель", description: "Переключение ��а новую модель" },
         { command: "Верни прошлую модель", description: "Возврат к старой модели" },
       ],
     },
@@ -76,14 +76,14 @@ export default function JarvisCommandsPanel({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-6">
       <Card className="w-full max-w-4xl max-h-[90vh] sm:max-h-[80vh] overflow-y-auto bg-black/90 border-cyan-400/30 shadow-2xl shadow-cyan-400/20">
         <CardHeader className="border-b border-cyan-400/30 bg-black/60 backdrop-blur-md">
-          <CardTitle className="flex items-center justify-between">
+          <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
             <div className="flex items-center gap-3">
-              <Bot className="w-6 h-6 text-cyan-400" />
+              <Bot className="w-5 sm:w-6 h-5 sm:h-6 text-cyan-400" />
               <div className="flex flex-col">
-                <span className="text-white font-mono text-xl">
+                <span className="text-white font-mono text-lg sm:text-xl">
                   Команды голосового Джарвиса
                 </span>
-                <span className="text-xs text-cyan-400/70">
+                <span className="text-xs sm:text-sm text-cyan-400/70">
                   Произнесите любую из этих команд после активации микрофона
                 </span>
               </div>
