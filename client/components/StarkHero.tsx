@@ -148,7 +148,10 @@ export default function StarkHero({
               )}
             >
               {/* Primary CTA */}
-              <Button className="group bg-white text-black hover:bg-white/90 px-8 py-4 text-lg font-semibold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105">
+              <Button
+                onClick={() => setShowCommandsPanel(true)}
+                className="group bg-white text-black hover:bg-white/90 px-8 py-4 text-lg font-semibold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105"
+              >
                 <Bot className="w-5 h-5 mr-3 group-hover:animate-pulse" />
                 <span>Начать с Jarvis</span>
                 <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
