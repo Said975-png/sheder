@@ -288,7 +288,9 @@ export default function VoiceControl({
 
           // Обрабатываем команды ТОЛЬКО для финальных результатов или очень уверенных промежуточных
           if (
-            (finalTranscript || (interimTranscript.length > 8 && combinedTranscript.length > 8)) && // Финальные ИЛИ длинные промежуточные (8+ символов)
+            (finalTranscript ||
+              (interimTranscript.length > 8 &&
+                combinedTranscript.length > 8)) && // Финальные ИЛИ длинные промежуточные (8+ символов)
             (isShutdownCommand || (!commandCooldownRef.current && !isSpeaking))
           ) {
             const command = (finalTranscript || combinedTranscript)
@@ -446,9 +448,7 @@ export default function VoiceControl({
                   console.log("✅ Распознава��ие восстановлено");
                   setNetworkErrorCount(0); // Сбрасываем счетчик при успехе
                 } else {
-                  console.error(
-                    "❌ Не удалось восстановить распознавание",
-                  );
+                  console.error("❌ Не удалось восстановить распознавание");
                 }
               }
             }, retryDelay);
@@ -544,7 +544,7 @@ export default function VoiceControl({
       console.log("✅ SpeechRecognition безопасно запущен");
       return true;
     } catch (error: any) {
-      if (error.name === 'InvalidStateError') {
+      if (error.name === "InvalidStateError") {
         console.log("ℹ️ SpeechRecognition уже запущен, пропускаем");
         return true; // Считаем это успехом, так как цель достигнута
       } else {
@@ -564,7 +564,10 @@ export default function VoiceControl({
       recognitionRef.current.stop();
       console.log("✅ SpeechRecognition безопасно остановлен");
     } catch (error) {
-      console.log("ℹ️ Ошибка остановки SpeechRecognition (возможно уже остановлен):", error);
+      console.log(
+        "ℹ️ Ошибка остановки SpeechRecognition (возможно уже остановлен):",
+        error,
+      );
     }
   };
 
@@ -615,8 +618,15 @@ export default function VoiceControl({
   useEffect(() => {
     const interval = setInterval(() => {
       // АГРЕССИВНАЯ очистка: если микрофон активен но есть любые блокировки более 3 секунд
-      if (isListening && (commandCooldownRef.current || isSpeaking) && !audioPlayingRef.current && !currentAudioRef.current) {
-        console.log("���� АГРЕССИВНАЯ очистка застрявших блокировок - микрофон активен но ��аб��окирован");
+      if (
+        isListening &&
+        (commandCooldownRef.current || isSpeaking) &&
+        !audioPlayingRef.current &&
+        !currentAudioRef.current
+      ) {
+        console.log(
+          "���� АГРЕССИВНАЯ очистка застрявших блокировок - микрофон активен но ��аб��окирован",
+        );
         commandCooldownRef.current = false;
         audioPlayingRef.current = false;
         lastCommandRef.current = "";
@@ -659,7 +669,12 @@ export default function VoiceControl({
       }
 
       // Дополнительная проверка: если транскрипт "завис" более 5 секунд - очищаем
-      if (transcript && transcript.length > 0 && !isSpeaking && !commandCooldownRef.current) {
+      if (
+        transcript &&
+        transcript.length > 0 &&
+        !isSpeaking &&
+        !commandCooldownRef.current
+      ) {
         console.log("🧹 Очистка зависшего транскрипта:", transcript);
         setTranscript("");
       }
@@ -705,7 +720,9 @@ export default function VoiceControl({
       if (isListening && timeSinceLastActivity > 10000) {
         // И при этом есть транскрипт или блокировки
         if (transcript || commandCooldownRef.current || isSpeaking) {
-          console.log("🚨 ОБНАРУЖЕНО ЗАВИСАНИЕ СИСТЕМЫ - принудительное восстановление");
+          console.log(
+            "🚨 ОБНАРУЖЕНО ЗАВИСАНИЕ СИСТЕМЫ - принудительное восстановление",
+          );
 
           // Полный сброс системы
           setTranscript("");
@@ -803,7 +820,9 @@ export default function VoiceControl({
       setIsSpeaking(false); // Принудительно сбрасываем состояние го��орения
       currentAudioRef.current = null; // Очищаем ссылку на аудио
 
-      console.log("🔄 П��лный сброс ��сех ��осто��ний бл����и���овки вы��олн����");
+      console.log(
+        "🔄 П��лный сброс ��сех ��осто��ний бл����и���овки вы��олн����",
+      );
 
       // Только сообщаем о состоянии, если микр��фон в��е ��ще ак��ивен �� это не ���������манда о��ключения
       if (isListening && !skipPanelReopen) {
@@ -951,7 +970,9 @@ export default function VoiceControl({
     }
 
     if (commandCooldownRef.current) {
-      console.log("����� П��инудительно с��расываем cooldown для speakWelcomeBack");
+      console.log(
+        "����� П��инудительно с��расываем cooldown для speakWelcomeBack",
+      );
       commandCooldownRef.current = false;
     }
 
@@ -988,7 +1009,10 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("Не уд������ось восп��ои��в�����сти аудио приветствия:", error);
+      console.error(
+        "Не уд������ось восп��ои��в�����сти аудио приветствия:",
+        error,
+      );
     });
   };
 
@@ -1066,7 +1090,9 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("Ошибка во��п����оизведения ���удио бл��годар������о�����и");
+      console.error(
+        "Ошибка во��п����оизведения ���удио бл��годар������о�����и",
+      );
     };
 
     audio.play().catch((error) => {
@@ -1118,9 +1144,7 @@ export default function VoiceControl({
     audio.onended = resetState;
     audio.onerror = () => {
       resetState();
-      console.error(
-        "Ошибка воспроизведения аудио утреннего пр��ветстви��",
-      );
+      console.error("Ошибка воспроизведения аудио утреннего пр��ветстви��");
     };
 
     audio.play().catch((error) => {
@@ -2266,7 +2290,9 @@ export default function VoiceControl({
             commandCooldownRef.current = false;
             lastCommandRef.current = "";
           }, 500);
-          console.error("❌ Оши��ка воспроизведения вто��ого аудио акт��ваци��");
+          console.error(
+            "❌ Оши��ка воспроизведения вто��ого аудио акт��ваци��",
+          );
         };
 
         secondAudio.play().catch((error) => {
@@ -2293,7 +2319,9 @@ export default function VoiceControl({
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
       }, 500);
-      console.error("❌ Ошибка вос��р��извед��ния пе���вог�� а��дио акти��ации");
+      console.error(
+        "❌ Ошибка вос��р��извед��ния пе���вог�� а��дио акти��ации",
+      );
     };
 
     firstAudio.play().catch((error) => {
@@ -2431,16 +2459,16 @@ export default function VoiceControl({
 
     // Дополнительная проверка: если команда выглядит как неполная (обрывается на полуслове)
     const suspiciousPatterns = [
-      /джарв$/i,    // "джарв" без "ис"
-      /джар$/i,     // "джар" бе�� "вис"
-      /смен$/i,     // "смен" без "и"
-      /включ$/i,    // "включ" без "и"
-      /откл$/i,     // "откл" без "учи"
-      /полн$/i,     // "полн" без "ая"
+      /джарв$/i, // "джарв" без "ис"
+      /джар$/i, // "джар" бе�� "вис"
+      /смен$/i, // "смен" без "и"
+      /включ$/i, // "включ" без "и"
+      /откл$/i, // "откл" без "учи"
+      /полн$/i, // "полн" без "ая"
     ];
 
-    const isIncompleteCommand = suspiciousPatterns.some(pattern =>
-      pattern.test(trimmedCommand)
+    const isIncompleteCommand = suspiciousPatterns.some((pattern) =>
+      pattern.test(trimmedCommand),
     );
 
     if (isIncompleteCommand) {
@@ -2448,7 +2476,9 @@ export default function VoiceControl({
       // Даем дополнительное время на завершение команды
       setTimeout(() => {
         if (lastCommandRef.current === trimmedCommand) {
-          console.log("🔄 ��еполная команда не завершилась, сбрасывае�� сос��ояние");
+          console.log(
+            "🔄 ��еполная команда не завершилась, сбрасывае�� сос��ояние",
+          );
           commandCooldownRef.current = false;
           audioPlayingRef.current = false;
           lastCommandRef.current = "";
@@ -2564,7 +2594,10 @@ export default function VoiceControl({
       command.includes("жарвис верни") ||
       command.includes("ярвис верни")
     ) {
-      console.log("���� Коман��а возврата к прошлой модели распознана:", command);
+      console.log(
+        "���� Коман��а возврата к прошлой модели распознана:",
+        command,
+      );
       if (!isSpeaking || !audioPlayingRef.current) {
         changeToOldModel();
       }
@@ -2703,13 +2736,19 @@ export default function VoiceControl({
     ) {
       // Дополнительная п��оверка, чтобы избеж��ть повторных срабатываний
       // Разрешаем только если нет активного аудио И не в cooldown И последняя команда другая
-      if (!isSpeaking && !audioPlayingRef.current && !commandCooldownRef.current &&
-          lastCommandRef.current !== "добро�� утро") {
+      if (
+        !isSpeaking &&
+        !audioPlayingRef.current &&
+        !commandCooldownRef.current &&
+        lastCommandRef.current !== "добро�� утро"
+      ) {
         console.log("✅ Выполня��м команду 'доброе утро'");
         lastCommandRef.current = "доброе утро";
         speakGoodMorning();
       } else {
-        console.log("❌ Команда 'доброе утро' заблокирована - с��стема занята или повтор");
+        console.log(
+          "❌ Команда 'доброе утро' заблокирована - с��стема занята или повтор",
+        );
       }
       return;
     }
@@ -3515,7 +3554,9 @@ export default function VoiceControl({
 
   const toggleListening = () => {
     if (isListening) {
-      console.log("🔴 Отключение микрофона - агрессивная очистка всех состояний");
+      console.log(
+        "🔴 Отключение микрофона - агрессивная очистка всех состояний",
+      );
 
       // Останавливаем распознавание
       safeStopRecognition();
@@ -3544,7 +3585,9 @@ export default function VoiceControl({
       onListeningChange?.(false, "");
       console.log("✅ Микрофон отключен, все состояния очищены");
     } else {
-      console.log("🟢 Включение микрофона - принудительная очистка перед запуском");
+      console.log(
+        "🟢 Включение микрофона - принудительная очистка перед запуском",
+      );
 
       if (recognitionRef.current) {
         // АГРЕССИВНАЯ очистка всех состояний перед включением
@@ -3582,7 +3625,9 @@ export default function VoiceControl({
           onListeningChange?.(true, "");
           console.log("✅ Микрофон включен, система готова к работе");
         } else {
-          console.log("⚠️ Первая попытка запуска не удалась, пробуем через 500мс");
+          console.log(
+            "⚠️ Первая попытка запуска не удалась, пробуем через 500мс",
+          );
           // Принудительный перезапуск при ошибке
           setTimeout(() => {
             const retryStarted = safeStartRecognition();

@@ -9,7 +9,13 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Shield,
@@ -51,7 +57,7 @@ import {
   ExternalLink,
   Database,
   Wifi,
-  WifiOff
+  WifiOff,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import FaceIDProtected from "@/components/FaceIDProtected";
@@ -77,7 +83,7 @@ interface User {
     sms: boolean;
   };
   preferences?: {
-    theme: 'light' | 'dark' | 'auto';
+    theme: "light" | "dark" | "auto";
     language: string;
     timezone: string;
   };
@@ -85,7 +91,12 @@ interface User {
 
 interface ActivityLog {
   id: string;
-  type: 'login' | 'profile_update' | 'password_change' | 'contract_created' | 'security_change';
+  type:
+    | "login"
+    | "profile_update"
+    | "password_change"
+    | "contract_created"
+    | "security_change";
   description: string;
   timestamp: string;
   ip?: string;
@@ -97,7 +108,7 @@ interface DashboardStats {
   activeProjects: number;
   completedProjects: number;
   totalSpent: number;
-  accountLevel: 'Bronze' | 'Silver' | 'Gold' | 'Platinum';
+  accountLevel: "Bronze" | "Silver" | "Gold" | "Platinum";
 }
 
 function Profile() {
@@ -117,57 +128,59 @@ function Profile() {
     newPassword: "",
     confirmPassword: "",
   });
-  
+
   const [avatar, setAvatar] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [activeTab, setActiveTab] = useState("dashboard");
   const [showFaceIDModal, setShowFaceIDModal] = useState(false);
-  const [faceIDMode, setFaceIDMode] = useState<"register" | "verify">("register");
+  const [faceIDMode, setFaceIDMode] = useState<"register" | "verify">(
+    "register",
+  );
   const [hasFaceID, setHasFaceID] = useState(false);
   const [contracts, setContracts] = useState<ContractData[]>([]);
   const [loadingContracts, setLoadingContracts] = useState(false);
   const [showOrderForm, setShowOrderForm] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
-  
+
   // Notification settings
   const [notifications, setNotifications] = useState({
     email: true,
     push: true,
-    sms: false
+    sms: false,
   });
-  
+
   // Preferences
   const [preferences, setPreferences] = useState({
-    theme: 'auto' as 'light' | 'dark' | 'auto',
-    language: 'ru',
-    timezone: 'Europe/Moscow'
+    theme: "auto" as "light" | "dark" | "auto",
+    language: "ru",
+    timezone: "Europe/Moscow",
   });
 
   // Activity log
   const [activityLog, setActivityLog] = useState<ActivityLog[]>([]);
-  
+
   // Dashboard stats
   const [stats, setStats] = useState<DashboardStats>({
     totalContracts: 0,
     activeProjects: 0,
     completedProjects: 0,
     totalSpent: 0,
-    accountLevel: 'Bronze'
+    accountLevel: "Bronze",
   });
 
   // Network status
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
-    
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-    
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 
@@ -176,25 +189,27 @@ function Profile() {
     if (currentUser) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
       const user = users.find((u) => u.id === currentUser.id);
-      
+
       if (user) {
         if (user.avatar) setAvatar(user.avatar);
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
           bio: user.bio || "",
           phone: user.phone || "",
           location: user.location || "",
           website: user.website || "",
-          company: user.company || ""
+          company: user.company || "",
         }));
-        
+
         if (user.notifications) setNotifications(user.notifications);
         if (user.preferences) setPreferences(user.preferences);
       }
 
       // Check Face ID
       const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
-      const userFace = faces.find((face: any) => face.userId === currentUser.id);
+      const userFace = faces.find(
+        (face: any) => face.userId === currentUser.id,
+      );
       setHasFaceID(!!userFace);
 
       // Load activity log
@@ -204,46 +219,62 @@ function Profile() {
   }, [currentUser]);
 
   const loadActivityLog = () => {
-    const logs = JSON.parse(localStorage.getItem(`activityLog_${currentUser?.id}`) || "[]");
+    const logs = JSON.parse(
+      localStorage.getItem(`activityLog_${currentUser?.id}`) || "[]",
+    );
     setActivityLog(logs.slice(0, 10)); // Show last 10 activities
   };
 
-  const addActivityLog = (type: ActivityLog['type'], description: string) => {
+  const addActivityLog = (type: ActivityLog["type"], description: string) => {
     if (!currentUser) return;
-    
+
     const newLog: ActivityLog = {
       id: Date.now().toString(),
       type,
       description,
       timestamp: new Date().toISOString(),
-      ip: '127.0.0.1', // Mock IP
-      device: navigator.userAgent.split('(')[0].trim()
+      ip: "127.0.0.1", // Mock IP
+      device: navigator.userAgent.split("(")[0].trim(),
     };
-    
-    const logs = JSON.parse(localStorage.getItem(`activityLog_${currentUser.id}`) || "[]");
+
+    const logs = JSON.parse(
+      localStorage.getItem(`activityLog_${currentUser.id}`) || "[]",
+    );
     logs.unshift(newLog);
-    localStorage.setItem(`activityLog_${currentUser.id}`, JSON.stringify(logs.slice(0, 50))); // Keep last 50
+    localStorage.setItem(
+      `activityLog_${currentUser.id}`,
+      JSON.stringify(logs.slice(0, 50)),
+    ); // Keep last 50
     setActivityLog(logs.slice(0, 10));
   };
 
   const loadDashboardStats = () => {
     // Calculate stats from contracts and other data
-    const userContracts = JSON.parse(localStorage.getItem(`contracts_${currentUser?.id}`) || "[]");
-    const active = userContracts.filter((c: any) => c.status === 'active').length;
-    const completed = userContracts.filter((c: any) => c.status === 'completed').length;
-    const totalSpent = userContracts.reduce((sum: number, c: any) => sum + (c.price || 0), 0);
-    
-    let accountLevel: DashboardStats['accountLevel'] = 'Bronze';
-    if (totalSpent > 500000) accountLevel = 'Platinum';
-    else if (totalSpent > 200000) accountLevel = 'Gold';
-    else if (totalSpent > 50000) accountLevel = 'Silver';
-    
+    const userContracts = JSON.parse(
+      localStorage.getItem(`contracts_${currentUser?.id}`) || "[]",
+    );
+    const active = userContracts.filter(
+      (c: any) => c.status === "active",
+    ).length;
+    const completed = userContracts.filter(
+      (c: any) => c.status === "completed",
+    ).length;
+    const totalSpent = userContracts.reduce(
+      (sum: number, c: any) => sum + (c.price || 0),
+      0,
+    );
+
+    let accountLevel: DashboardStats["accountLevel"] = "Bronze";
+    if (totalSpent > 500000) accountLevel = "Platinum";
+    else if (totalSpent > 200000) accountLevel = "Gold";
+    else if (totalSpent > 50000) accountLevel = "Silver";
+
     setStats({
       totalContracts: userContracts.length,
       activeProjects: active,
       completedProjects: completed,
       totalSpent,
-      accountLevel
+      accountLevel,
     });
   };
 
@@ -274,7 +305,10 @@ function Profile() {
 
   // Load contracts when needed
   useEffect(() => {
-    if ((activeTab === "contracts" || activeTab === "dashboard") && currentUser) {
+    if (
+      (activeTab === "contracts" || activeTab === "dashboard") &&
+      currentUser
+    ) {
       loadContracts();
     }
   }, [activeTab, currentUser]);
@@ -362,7 +396,7 @@ function Profile() {
         company: formData.company,
         avatar: avatar || users[userIndex].avatar,
         notifications,
-        preferences
+        preferences,
       };
 
       localStorage.setItem("users", JSON.stringify(users));
@@ -374,7 +408,7 @@ function Profile() {
       };
       localStorage.setItem("currentUser", JSON.stringify(updatedCurrentUser));
 
-      addActivityLog('profile_update', 'Профиль обновлен');
+      addActivityLog("profile_update", "Профиль обновлен");
       setSuccess("Профиль успешно обновлён");
 
       setTimeout(() => {
@@ -421,7 +455,7 @@ function Profile() {
       users[userIndex].password = formData.newPassword;
       localStorage.setItem("users", JSON.stringify(users));
 
-      addActivityLog('password_change', 'Пароль изменен');
+      addActivityLog("password_change", "Пароль изменен");
       setSuccess("Пароль успешно изменён");
       setFormData((prev) => ({
         ...prev,
@@ -446,17 +480,19 @@ function Profile() {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
       const filteredUsers = users.filter((u) => u.id !== currentUser.id);
       localStorage.setItem("users", JSON.stringify(filteredUsers));
-      
+
       // Clean up user data
       localStorage.removeItem(`activityLog_${currentUser.id}`);
       localStorage.removeItem(`contracts_${currentUser.id}`);
-      
+
       logout();
       navigate("/");
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -472,24 +508,35 @@ function Profile() {
     });
   };
 
-  const getActivityIcon = (type: ActivityLog['type']) => {
+  const getActivityIcon = (type: ActivityLog["type"]) => {
     switch (type) {
-      case 'login': return <User className="w-4 h-4" />;
-      case 'profile_update': return <Edit3 className="w-4 h-4" />;
-      case 'password_change': return <Lock className="w-4 h-4" />;
-      case 'contract_created': return <FileText className="w-4 h-4" />;
-      case 'security_change': return <Shield className="w-4 h-4" />;
-      default: return <Activity className="w-4 h-4" />;
+      case "login":
+        return <User className="w-4 h-4" />;
+      case "profile_update":
+        return <Edit3 className="w-4 h-4" />;
+      case "password_change":
+        return <Lock className="w-4 h-4" />;
+      case "contract_created":
+        return <FileText className="w-4 h-4" />;
+      case "security_change":
+        return <Shield className="w-4 h-4" />;
+      default:
+        return <Activity className="w-4 h-4" />;
     }
   };
 
-  const getAccountLevelColor = (level: DashboardStats['accountLevel']) => {
+  const getAccountLevelColor = (level: DashboardStats["accountLevel"]) => {
     switch (level) {
-      case 'Bronze': return 'text-amber-600 bg-amber-50 border-amber-200';
-      case 'Silver': return 'text-gray-600 bg-gray-50 border-gray-200';
-      case 'Gold': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-      case 'Platinum': return 'text-purple-600 bg-purple-50 border-purple-200';
-      default: return 'text-gray-600 bg-gray-50 border-gray-200';
+      case "Bronze":
+        return "text-amber-600 bg-amber-50 border-amber-200";
+      case "Silver":
+        return "text-gray-600 bg-gray-50 border-gray-200";
+      case "Gold":
+        return "text-yellow-600 bg-yellow-50 border-yellow-200";
+      case "Platinum":
+        return "text-purple-600 bg-purple-50 border-purple-200";
+      default:
+        return "text-gray-600 bg-gray-50 border-gray-200";
     }
   };
 
@@ -502,7 +549,7 @@ function Profile() {
   const handleFaceIDSuccess = () => {
     if (faceIDMode === "register") {
       setHasFaceID(true);
-      addActivityLog('security_change', 'Face ID настроен');
+      addActivityLog("security_change", "Face ID настроен");
       setSuccess("Face ID успешно настроен!");
     }
     setShowFaceIDModal(false);
@@ -526,7 +573,7 @@ function Profile() {
       );
       localStorage.setItem("faceDescriptors", JSON.stringify(filteredFaces));
       setHasFaceID(false);
-      addActivityLog('security_change', 'Face ID отключен');
+      addActivityLog("security_change", "Face ID отключен");
       setSuccess("Face ID отключен");
     }
   };
@@ -551,32 +598,52 @@ function Profile() {
                   <User className="w-4 h-4 text-white" />
                 </div>
                 <div className="hidden sm:block">
-                  <h1 className="font-semibold text-gray-900">Личный кабинет</h1>
-                  <p className="text-xs text-gray-500">Добро пожаловать, {currentUser.name}</p>
+                  <h1 className="font-semibold text-gray-900">
+                    Личный кабинет
+                  </h1>
+                  <p className="text-xs text-gray-500">
+                    Добро пожаловать, {currentUser.name}
+                  </p>
                 </div>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-3">
               {/* Connection Status */}
               <div className="flex items-center space-x-2 text-sm">
                 {isOnline ? (
-                  <><Wifi className="w-4 h-4 text-green-500" /><span className="hidden sm:inline text-green-600">Онлайн</span></>
+                  <>
+                    <Wifi className="w-4 h-4 text-green-500" />
+                    <span className="hidden sm:inline text-green-600">
+                      Онлайн
+                    </span>
+                  </>
                 ) : (
-                  <><WifiOff className="w-4 h-4 text-red-500" /><span className="hidden sm:inline text-red-600">Офлайн</span></>
+                  <>
+                    <WifiOff className="w-4 h-4 text-red-500" />
+                    <span className="hidden sm:inline text-red-600">
+                      Офлайн
+                    </span>
+                  </>
                 )}
               </div>
-              
+
               {/* Account Level Badge */}
-              <Badge className={`${getAccountLevelColor(stats.accountLevel)} font-medium`}>
+              <Badge
+                className={`${getAccountLevelColor(stats.accountLevel)} font-medium`}
+              >
                 <Award className="w-3 h-3 mr-1" />
                 {stats.accountLevel}
               </Badge>
-              
+
               {/* Avatar */}
               <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-gray-200">
                 {avatar ? (
-                  <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
+                  <img
+                    src={avatar}
+                    alt="Avatar"
+                    className="w-full h-full object-cover"
+                  />
                 ) : (
                   <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                     <User className="w-4 h-4 text-white" />
@@ -604,29 +671,51 @@ function Profile() {
           </div>
         )}
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="space-y-6"
+        >
           <TabsList className="grid w-full grid-cols-6 lg:w-auto lg:grid-cols-none lg:inline-flex">
-            <TabsTrigger value="dashboard" className="flex items-center space-x-2">
+            <TabsTrigger
+              value="dashboard"
+              className="flex items-center space-x-2"
+            >
               <BarChart3 className="w-4 h-4" />
               <span className="hidden sm:inline">Панель</span>
             </TabsTrigger>
-            <TabsTrigger value="profile" className="flex items-center space-x-2">
+            <TabsTrigger
+              value="profile"
+              className="flex items-center space-x-2"
+            >
               <User className="w-4 h-4" />
               <span className="hidden sm:inline">Профиль</span>
             </TabsTrigger>
-            <TabsTrigger value="security" className="flex items-center space-x-2">
+            <TabsTrigger
+              value="security"
+              className="flex items-center space-x-2"
+            >
               <Shield className="w-4 h-4" />
               <span className="hidden sm:inline">Безопасность</span>
             </TabsTrigger>
-            <TabsTrigger value="contracts" className="flex items-center space-x-2">
+            <TabsTrigger
+              value="contracts"
+              className="flex items-center space-x-2"
+            >
               <FileText className="w-4 h-4" />
               <span className="hidden sm:inline">Договоры</span>
             </TabsTrigger>
-            <TabsTrigger value="settings" className="flex items-center space-x-2">
+            <TabsTrigger
+              value="settings"
+              className="flex items-center space-x-2"
+            >
               <Settings className="w-4 h-4" />
               <span className="hidden sm:inline">Настройки</span>
             </TabsTrigger>
-            <TabsTrigger value="activity" className="flex items-center space-x-2">
+            <TabsTrigger
+              value="activity"
+              className="flex items-center space-x-2"
+            >
               <Activity className="w-4 h-4" />
               <span className="hidden sm:inline">Активность</span>
             </TabsTrigger>
@@ -640,8 +729,12 @@ function Profile() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Всего договоров</p>
-                      <p className="text-3xl font-bold text-gray-900">{stats.totalContracts}</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        Всего договоров
+                      </p>
+                      <p className="text-3xl font-bold text-gray-900">
+                        {stats.totalContracts}
+                      </p>
                     </div>
                     <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                       <FileText className="w-6 h-6 text-blue-600" />
@@ -654,8 +747,12 @@ function Profile() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Активные проекты</p>
-                      <p className="text-3xl font-bold text-gray-900">{stats.activeProjects}</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        Активные проекты
+                      </p>
+                      <p className="text-3xl font-bold text-gray-900">
+                        {stats.activeProjects}
+                      </p>
                     </div>
                     <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                       <Zap className="w-6 h-6 text-green-600" />
@@ -668,8 +765,12 @@ function Profile() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Завершено</p>
-                      <p className="text-3xl font-bold text-gray-900">{stats.completedProjects}</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        Завершено
+                      </p>
+                      <p className="text-3xl font-bold text-gray-900">
+                        {stats.completedProjects}
+                      </p>
                     </div>
                     <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                       <CheckCircle className="w-6 h-6 text-purple-600" />
@@ -682,8 +783,12 @@ function Profile() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Общая сумма</p>
-                      <p className="text-3xl font-bold text-gray-900">{stats.totalSpent.toLocaleString('ru-RU')} ₽</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        Общая сумма
+                      </p>
+                      <p className="text-3xl font-bold text-gray-900">
+                        {stats.totalSpent.toLocaleString("ru-RU")} ₽
+                      </p>
                     </div>
                     <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
                       <TrendingUp className="w-6 h-6 text-yellow-600" />
@@ -706,7 +811,11 @@ function Profile() {
                   <div className="flex items-start space-x-4">
                     <div className="w-20 h-20 rounded-xl overflow-hidden border-4 border-gray-100 flex-shrink-0">
                       {avatar ? (
-                        <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
+                        <img
+                          src={avatar}
+                          alt="Avatar"
+                          className="w-full h-full object-cover"
+                        />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                           <User className="w-10 h-10 text-white" />
@@ -714,9 +823,15 @@ function Profile() {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-xl font-bold text-gray-900">{currentUser.name}</h3>
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {currentUser.name}
+                      </h3>
                       <p className="text-gray-600">{currentUser.email}</p>
-                      {formData.bio && <p className="text-sm text-gray-500 mt-2">{formData.bio}</p>}
+                      {formData.bio && (
+                        <p className="text-sm text-gray-500 mt-2">
+                          {formData.bio}
+                        </p>
+                      )}
                       <div className="flex items-center space-x-4 mt-3 text-sm text-gray-500">
                         {formData.location && (
                           <div className="flex items-center space-x-1">
@@ -733,7 +848,7 @@ function Profile() {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Quick Actions */}
                   <div className="flex flex-wrap gap-3">
                     <Button
@@ -773,19 +888,27 @@ function Profile() {
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Email уведомления</span>
-                      <Badge variant={notifications.email ? "default" : "secondary"}>
+                      <span className="text-sm text-gray-600">
+                        Email уведомления
+                      </span>
+                      <Badge
+                        variant={notifications.email ? "default" : "secondary"}
+                      >
                         {notifications.email ? "Включены" : "Отключены"}
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Push уведомления</span>
-                      <Badge variant={notifications.push ? "default" : "secondary"}>
+                      <span className="text-sm text-gray-600">
+                        Push уведомления
+                      </span>
+                      <Badge
+                        variant={notifications.push ? "default" : "secondary"}
+                      >
                         {notifications.push ? "Включены" : "Отключены"}
                       </Badge>
                     </div>
                   </div>
-                  
+
                   <Button
                     onClick={() => setActiveTab("security")}
                     variant="outline"
@@ -825,9 +948,11 @@ function Profile() {
                         {getActivityIcon(log.type)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm text-gray-900">{log.description}</p>
+                        <p className="text-sm text-gray-900">
+                          {log.description}
+                        </p>
                         <p className="text-xs text-gray-500">
-                          {new Date(log.timestamp).toLocaleString('ru-RU')}
+                          {new Date(log.timestamp).toLocaleString("ru-RU")}
                         </p>
                       </div>
                     </div>
@@ -854,7 +979,11 @@ function Profile() {
                   <div className="relative inline-block">
                     <div className="w-32 h-32 mx-auto rounded-xl overflow-hidden border-4 border-gray-100 shadow-lg">
                       {avatar ? (
-                        <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
+                        <img
+                          src={avatar}
+                          alt="Avatar"
+                          className="w-full h-full object-cover"
+                        />
                       ) : (
                         <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                           <User className="w-16 h-16 text-white" />
@@ -1015,7 +1144,9 @@ function Profile() {
                   <div className="p-4 border rounded-lg bg-gray-50">
                     <div className="flex items-center justify-between mb-3">
                       <div>
-                        <h5 className="font-medium text-gray-900">Распознавание лица</h5>
+                        <h5 className="font-medium text-gray-900">
+                          Распознавание лица
+                        </h5>
                         <p className="text-sm text-gray-600">
                           {hasFaceID
                             ? "Face ID настроен и активен"
@@ -1026,7 +1157,7 @@ function Profile() {
                         {hasFaceID ? "Активен" : "Не настроен"}
                       </Badge>
                     </div>
-                    
+
                     {hasFaceID ? (
                       <Button
                         onClick={handleRemoveFaceID}
@@ -1102,7 +1233,9 @@ function Profile() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="confirmPassword">Подтвердите пароль</Label>
+                      <Label htmlFor="confirmPassword">
+                        Подтвердите пароль
+                      </Label>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                         <Input
@@ -1134,10 +1267,12 @@ function Profile() {
               <CardContent className="p-6">
                 <div className="space-y-4">
                   <div>
-                    <h5 className="font-medium text-red-700 mb-2">Удалить аккаунт</h5>
+                    <h5 className="font-medium text-red-700 mb-2">
+                      Удалить аккаунт
+                    </h5>
                     <p className="text-sm text-red-600 mb-4">
-                      Удаление аккаунта приведёт к полному удалению всех ваших данных. 
-                      Это действие нельзя отменить.
+                      Удаление аккаунта приведёт к полному удалению всех ваших
+                      данных. Это действие нельзя отменить.
                     </p>
                     <Button
                       onClick={handleDeleteAccount}
@@ -1157,8 +1292,12 @@ function Profile() {
           <TabsContent value="contracts" className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">Мои договоры</h3>
-                <p className="text-gray-600">Управление договорами и заказами</p>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Мои договоры
+                </h3>
+                <p className="text-gray-600">
+                  Управление договорами и заказами
+                </p>
               </div>
               <Button
                 onClick={() => setShowOrderForm(true)}
@@ -1198,7 +1337,10 @@ function Profile() {
             ) : (
               <div className="grid grid-cols-1 gap-4">
                 {contracts.map((contract) => (
-                  <Card key={contract.id} className="hover:shadow-md transition-shadow">
+                  <Card
+                    key={contract.id}
+                    className="hover:shadow-md transition-shadow"
+                  >
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -1218,10 +1360,18 @@ function Profile() {
                                       : "border-yellow-500 text-yellow-700 bg-yellow-50"
                               }`}
                             >
-                              {contract.status === "active" && <CheckCircle2 className="w-3 h-3 mr-1" />}
-                              {contract.status === "draft" && <Clock className="w-3 h-3 mr-1" />}
-                              {contract.status === "completed" && <CheckCircle className="w-3 h-3 mr-1" />}
-                              {contract.status === "cancelled" && <XCircle className="w-3 h-3 mr-1" />}
+                              {contract.status === "active" && (
+                                <CheckCircle2 className="w-3 h-3 mr-1" />
+                              )}
+                              {contract.status === "draft" && (
+                                <Clock className="w-3 h-3 mr-1" />
+                              )}
+                              {contract.status === "completed" && (
+                                <CheckCircle className="w-3 h-3 mr-1" />
+                              )}
+                              {contract.status === "cancelled" && (
+                                <XCircle className="w-3 h-3 mr-1" />
+                              )}
                               {contract.status === "active"
                                 ? "Активный"
                                 : contract.status === "completed"
@@ -1239,7 +1389,9 @@ function Profile() {
                           <div className="flex items-center gap-6 text-sm text-gray-500">
                             <span>№ {contract.id}</span>
                             <span>
-                              {new Date(contract.createdAt).toLocaleDateString("ru-RU")}
+                              {new Date(contract.createdAt).toLocaleDateString(
+                                "ru-RU",
+                              )}
                             </span>
                             <span className="font-semibold text-purple-600">
                               {contract.price.toLocaleString("ru-RU")} ₽
@@ -1248,7 +1400,12 @@ function Profile() {
                         </div>
                         <div className="flex items-center gap-2 ml-6">
                           <Button
-                            onClick={() => window.open(`/api/contracts/${contract.id}`, "_blank")}
+                            onClick={() =>
+                              window.open(
+                                `/api/contracts/${contract.id}`,
+                                "_blank",
+                              )
+                            }
                             size="sm"
                             variant="outline"
                           >
@@ -1292,42 +1449,51 @@ function Profile() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-medium">Email уведомления</p>
-                      <p className="text-sm text-gray-600">Получать уведомления на email</p>
+                      <p className="text-sm text-gray-600">
+                        Получать уведомления на email
+                      </p>
                     </div>
                     <Switch
                       checked={notifications.email}
                       onCheckedChange={(checked) =>
-                        setNotifications(prev => ({ ...prev, email: checked }))
+                        setNotifications((prev) => ({
+                          ...prev,
+                          email: checked,
+                        }))
                       }
                     />
                   </div>
-                  
+
                   <Separator />
-                  
+
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-medium">Push уведомления</p>
-                      <p className="text-sm text-gray-600">Уведомления в браузере</p>
+                      <p className="text-sm text-gray-600">
+                        Уведомления в браузере
+                      </p>
                     </div>
                     <Switch
                       checked={notifications.push}
                       onCheckedChange={(checked) =>
-                        setNotifications(prev => ({ ...prev, push: checked }))
+                        setNotifications((prev) => ({ ...prev, push: checked }))
                       }
                     />
                   </div>
-                  
+
                   <Separator />
-                  
+
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-medium">SMS уведомления</p>
-                      <p className="text-sm text-gray-600">Получать SMS на телефон</p>
+                      <p className="text-sm text-gray-600">
+                        Получать SMS на телефон
+                      </p>
                     </div>
                     <Switch
                       checked={notifications.sms}
                       onCheckedChange={(checked) =>
-                        setNotifications(prev => ({ ...prev, sms: checked }))
+                        setNotifications((prev) => ({ ...prev, sms: checked }))
                       }
                     />
                   </div>
@@ -1347,8 +1513,8 @@ function Profile() {
                     <Label>Тема оформления</Label>
                     <Select
                       value={preferences.theme}
-                      onValueChange={(value: 'light' | 'dark' | 'auto') =>
-                        setPreferences(prev => ({ ...prev, theme: value }))
+                      onValueChange={(value: "light" | "dark" | "auto") =>
+                        setPreferences((prev) => ({ ...prev, theme: value }))
                       }
                     >
                       <SelectTrigger>
@@ -1367,7 +1533,7 @@ function Profile() {
                     <Select
                       value={preferences.language}
                       onValueChange={(value) =>
-                        setPreferences(prev => ({ ...prev, language: value }))
+                        setPreferences((prev) => ({ ...prev, language: value }))
                       }
                     >
                       <SelectTrigger>
@@ -1385,16 +1551,22 @@ function Profile() {
                     <Select
                       value={preferences.timezone}
                       onValueChange={(value) =>
-                        setPreferences(prev => ({ ...prev, timezone: value }))
+                        setPreferences((prev) => ({ ...prev, timezone: value }))
                       }
                     >
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Europe/Moscow">Москва (UTC+3)</SelectItem>
-                        <SelectItem value="Europe/Kiev">Киев (UTC+2)</SelectItem>
-                        <SelectItem value="Asia/Almaty">Алматы (UTC+6)</SelectItem>
+                        <SelectItem value="Europe/Moscow">
+                          Москва (UTC+3)
+                        </SelectItem>
+                        <SelectItem value="Europe/Kiev">
+                          Киев (UTC+2)
+                        </SelectItem>
+                        <SelectItem value="Asia/Almaty">
+                          Алматы (UTC+6)
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -1433,16 +1605,25 @@ function Profile() {
                     </div>
                   ) : (
                     activityLog.map((log) => (
-                      <div key={log.id} className="flex items-start space-x-4 p-4 border rounded-lg hover:bg-gray-50">
+                      <div
+                        key={log.id}
+                        className="flex items-start space-x-4 p-4 border rounded-lg hover:bg-gray-50"
+                      >
                         <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-gray-600 flex-shrink-0">
                           {getActivityIcon(log.type)}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900">{log.description}</p>
+                          <p className="text-sm font-medium text-gray-900">
+                            {log.description}
+                          </p>
                           <div className="flex items-center space-x-4 text-xs text-gray-500 mt-1">
-                            <span>{new Date(log.timestamp).toLocaleString('ru-RU')}</span>
+                            <span>
+                              {new Date(log.timestamp).toLocaleString("ru-RU")}
+                            </span>
                             {log.ip && <span>IP: {log.ip}</span>}
-                            {log.device && <span>Устройство: {log.device}</span>}
+                            {log.device && (
+                              <span>Устройство: {log.device}</span>
+                            )}
                           </div>
                         </div>
                       </div>

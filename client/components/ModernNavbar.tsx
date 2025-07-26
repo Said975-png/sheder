@@ -101,7 +101,6 @@ export default function ModernNavbar({
               </div>
             </Button>
 
-
             {/* Cart */}
             <CartDropdown
               items={items}
@@ -396,8 +395,6 @@ function MobileMenu({
 
       {/* Menu Panel */}
       <div className="absolute top-20 left-4 right-4 bg-black/95 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-6 shadow-2xl shadow-cyan-400/20">
-
-
         {/* Navigation Links */}
         <div className="space-y-3">
           {isAuthenticated && currentUser ? (
