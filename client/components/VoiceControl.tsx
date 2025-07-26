@@ -87,7 +87,7 @@ export default function VoiceControl({
           recognitionRef.current.webkitContinuous = true;
           // @ts-ignore
           recognitionRef.current.webkitInterimResults = true;
-          // @ts-ignore - Уб��раем ограничения грамматики для лучшего распознавания
+          // @ts-ignore - Уб��раем ограничен��я грамматики для лучшего распознавания
           recognitionRef.current.webkitGrammars = null;
           // @ts-ignore - Увеличиваем количество а��ьтернати��
           recognitionRef.current.webkitMaxAlternatives = 10;
@@ -104,7 +104,7 @@ export default function VoiceControl({
             recognitionRef.current.webkitSpeechInputMinimumLengthMS = 500; // Минимальная длина записи
             recognitionRef.current.webkitSpeechInputCompleteTimeoutMS = 2000; // Таймаут ����вершения
           } catch (e) {
-            console.log("Расширенные настройки WebKit недоступны");
+            console.log("Расширенны�� настройки WebKit недоступны");
           }
         }
 
@@ -293,7 +293,7 @@ export default function VoiceControl({
               setTranscript(command);
               onListeningChange?.(true, command);
 
-              // Очи��аем п��едыдущ����� таймер
+              // Оч����аем п��едыдущ����� таймер
               if (commandDelayRef.current) {
                 clearTimeout(commandDelayRef.current);
               }
@@ -315,7 +315,7 @@ export default function VoiceControl({
                     // НЕ вызываем onListeningChange, ���тобы н�� открывать па��ель после отключения
                   }, 800);
 
-                  // Полная очистка состояния ��ома��ды и ��ерезап��ск Recognition
+                  // Полная очист��а состояния ��ома��ды и ��ерезап��ск Recognition
                   setTimeout(() => {
                     console.log(
                       "🧹 ��олная очистка ��ос��оя��ия пос��е команды",
@@ -511,7 +511,7 @@ export default function VoiceControl({
   // Функ��ия для полног�� сброса Speech Recognition
   const resetSpeechRecognition = () => {
     if (recognitionRef.current) {
-      console.log("�� П��лный сброс Speech Recognition");
+      console.log("�� П����лный сброс Speech Recognition");
       try {
         recognitionRef.current.stop();
       } catch (error) {
@@ -575,7 +575,7 @@ export default function VoiceControl({
       // Допо��нительная защита: если система молчит более 5 секунд, принуд��тельно с��ра��ываем
       if (isSpeaking && !audioPlayingRef.current && !currentAudioRef.current) {
         console.log(
-          "🔄 Принудительны�� ����брос 'г��ворящего' состоя��ия без аудио",
+          "🔄 Прину��ительны�� ����брос 'г��ворящего' состоя��ия без аудио",
         );
         setIsSpeaking(false);
         commandCooldownRef.current = false;
@@ -610,7 +610,7 @@ export default function VoiceControl({
     };
   }, [isListening]);
 
-  // Функция дл�� про��ерки досту��нос�����и речевого сервиса
+  // Функция дл�� про��ерки досту��нос�����и речевого ��ервиса
   const checkSpeechServiceAvailability = async () => {
     try {
       // Проверяем о��лайн статус
@@ -670,7 +670,7 @@ export default function VoiceControl({
 
       console.log("🔄 Полный сброс ��сех ��остояний бл����и���овки вы��олн����");
 
-      // Только сообщаем о состоянии, если микр��фон все ��ще ак��ивен �� это не ������оманда о��ключения
+      // Только сообщаем о состоянии, если микр��фон все ��ще ак��ивен �� это не ��������манда о��ключения
       if (isListening && !skipPanelReopen) {
         onListeningChange?.(true, "");
         console.log("✅ Cooldown сброшен, микро���он активен");
@@ -1590,7 +1590,7 @@ export default function VoiceControl({
     const url2 =
       "https://cdn.builder.io/o/assets%2Ff623eb4c005f4a40a75c4b9a0beb1b76%2Ff74fdea7f34b4c2fa5df3d62bd9efe29?alt=media&token=80cd6e08-efaa-4afd-b3aa-66aa3f68623c&apiKey=f623eb4c005f4a40a75c4b9a0beb1b76";
 
-    console.log("🧪 Т����т����у��м URL аудио��а��лов:");
+    console.log("🧪 Т����т����у��м URL аудио��а���лов:");
     console.log("URL1:", url1);
     console.log("URL2:", url2);
 
@@ -1786,7 +1786,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Останавливаем любое текущее воспроизведе��ие
+    // Останавливаем любое текущее во��произведе��ие
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current.currentTime = 0;
@@ -1884,10 +1884,12 @@ export default function VoiceControl({
         scannerElements.forEach((el) => el.remove());
       }, 2000);
 
+      // Быстрый сброс cooldown для новой модели
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
-      }, 500);
+        console.log("✅ Cooldown сброшен после смены на новую модель");
+      }, 100);
     };
 
     audio.onended = () => {
@@ -2301,7 +2303,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джар��ис, полна�� активация" - ак��ивация лаборатории Старка
+    // Коман��а "Джар��ис, полна�� активация" - ак��ивация лаборатории Старка
     if (
       command.includes("джарвис полная активация") ||
       command.includes("полная активация ��жар��ис") ||
@@ -2367,7 +2369,7 @@ export default function VoiceControl({
       command.includes("верни старую") ||
       command.includes("верни прежнюю модель") ||
       command.includes("верни прежнюю") ||
-      command.includes("вернуть модель") ||
+      command.includes("ве��нуть модель") ||
       command.includes("верни модель") ||
       command.includes("верни назад") ||
       command.includes("модель назад") ||
@@ -2659,7 +2661,7 @@ export default function VoiceControl({
       command.includes("как твои дела") ||
       command.includes("что нового джарвис")
     ) {
-      // Дополнительная проверка, чт��бы избежать повторных срабатываний
+      // ��ополнительная проверка, чт��бы избежать повторных срабатываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -2722,7 +2724,7 @@ export default function VoiceControl({
       command.includes("тес��") ||
       command.includes("вк��ючи полную диагностику") ||
       command.includes("полную диагностик�� систем") ||
-      command.includes("диагностику сис��ем") ||
+      command.includes("диагностику сис����м") ||
       command.includes("включи диагностику") ||
       command.includes("полная диагностика") ||
       command.includes("системная диагностика")
@@ -3298,7 +3300,7 @@ export default function VoiceControl({
 
     if (
       command.includes("��аверх страни����") ||
-      command.includes("в на��ало") ||
+      command.includes("в н����ало") ||
       command.includes("в самый ��ерх")
     ) {
       window.scrollTo(0, 0);
