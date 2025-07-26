@@ -16,7 +16,7 @@ export function ThemeToggle() {
         "hover:bg-primary/20 hover:shadow-md hover:shadow-primary/30 border border-primary/20 bg-background/60",
         "group",
       )}
-      aria-label="П��реключить тему"
+      aria-label="Переключить тему"
     >
       {/* Фоновый эффект */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -41,7 +41,7 @@ export function ThemeToggle() {
       </div>
 
       {/* Энергетическое кольцо при hover */}
-      <div className="absolute inset-0 rounded-full border border-cyan-400/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
+      <div className="absolute inset-0 rounded-full border border-primary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
 
       {/* Угловые индикаторы */}
       <div className="absolute top-0 left-0 w-2 h-2 border-l border-t border-cyan-400/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
