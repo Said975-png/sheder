@@ -246,7 +246,7 @@ function CartDropdown({
               {items.map((item: any) => (
                 <div
                   key={item.id}
-                  className="flex items-start justify-between p-3 bg-black/60 border border-cyan-400/20 rounded-lg hover:border-cyan-400/40 transition-colors"
+                  className="flex items-start justify-between p-3 bg-white/5 border border-white/10 rounded-lg hover:border-white/20 transition-colors"
                 >
                   <div className="flex-1">
                     <h4 className="font-semibold text-white">{item.name}</h4>
