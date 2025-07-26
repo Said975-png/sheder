@@ -52,7 +52,7 @@ export default function FridayChat() {
   }, [messages]);
 
   useEffect(() => {
-    // Приветствен��ое сообщение при загрузке
+    // Приветственное сообщение при загрузке
     setMessages([
       {
         role: "assistant",
@@ -330,7 +330,7 @@ export default function FridayChat() {
                       <div className="w-3 h-3 bg-red-400 rounded-full animate-pulse"></div>
                       <Mic className="w-4 h-4 text-red-200 animate-pulse" />
                       <span className="text-sm text-red-100">
-                        Слушаю вас...
+                        Слушаю в��с...
                       </span>
                     </div>
                   </div>
@@ -387,9 +387,9 @@ export default function FridayChat() {
                     }`}
                   >
                     {isListening ? (
-                      <MicOff className="w-5 h-5" />
+                      <MicOff className="w-4 sm:w-5 h-4 sm:h-5" />
                     ) : (
-                      <Mic className="w-5 h-5" />
+                      <Mic className="w-4 sm:w-5 h-4 sm:h-5" />
                     )}
                   </Button>
                   
