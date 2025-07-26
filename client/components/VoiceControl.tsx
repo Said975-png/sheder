@@ -182,7 +182,7 @@ export default function VoiceControl({
       speakSystemDiagnostics();
     } else if (command.includes("продолжим") || command.includes("давай")) {
       speakContinue();
-    } else if (command.includes("верно") || command.includes("правильно")) {
+    } else if (command.includes("верно") || command.includes("прав��льно")) {
       speakCorrect();
     } else if (command.includes("базовый") || command.includes("basic")) {
       onAddBasicPlan();
@@ -377,7 +377,7 @@ export default function VoiceControl({
 
     // Очищаем команду при отключении
     lastCommandRef.current = "";
-    console.log("🧹 Команда очищена при отключении");
+    console.log("🧹 Команда оч��щена при отключении");
 
     // Воспроизводим аудио отключения
     playAudio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c");
@@ -405,16 +405,67 @@ export default function VoiceControl({
 
   const speakHowAreYou = () => {
     if ("speechSynthesis" in window) {
+      // Останавливаем распознавание речи во время TTS
+      const wasListening = isListening;
+      if (recognitionRef.current && isListening) {
+        try {
+          recognitionRef.current.stop();
+          console.log("🔇 Микрофон временно отключен во время TTS");
+        } catch (error) {
+          console.log("ℹ️ Ошибка остановки распознавания для TTS:", error);
+        }
+      }
+
       const utterance = new SpeechSynthesisUtterance("у меня все в порядке сэр");
       utterance.lang = "ru-RU";
       utterance.rate = 0.75;
       utterance.pitch = 0.7;
       utterance.volume = 0.95;
-      
+
       setIsSpeaking(true);
-      utterance.onend = () => setIsSpeaking(false);
-      utterance.onerror = () => setIsSpeaking(false);
-      
+
+      utterance.onend = () => {
+        setIsSpeaking(false);
+
+        // Возобновляем распознавание речи если оно было активно
+        if (wasListening && !recognitionRef.current) {
+          console.log("🔊 Возобновляем микрофон после TTS");
+          setTimeout(() => {
+            if (!recognitionRef.current) {
+              recognitionRef.current = initializeRecognition();
+            }
+            if (recognitionRef.current) {
+              try {
+                recognitionRef.current.start();
+              } catch (error) {
+                console.log("ℹ️ Ошибка возобновления распознавания после TTS:", error);
+              }
+            }
+          }, 500);
+        }
+      };
+
+      utterance.onerror = () => {
+        setIsSpeaking(false);
+
+        // Возобновляем распознавание речи при ошибке TTS
+        if (wasListening && !recognitionRef.current) {
+          console.log("🔊 Возобновляем микрофон после ошибки TTS");
+          setTimeout(() => {
+            if (!recognitionRef.current) {
+              recognitionRef.current = initializeRecognition();
+            }
+            if (recognitionRef.current) {
+              try {
+                recognitionRef.current.start();
+              } catch (error) {
+                console.log("ℹ️ Ошибка возобновления распознавани�� после ошибки TTS:", error);
+              }
+            }
+          }, 500);
+        }
+      };
+
       speechSynthesis.speak(utterance);
     }
   };
