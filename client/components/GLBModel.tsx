@@ -144,7 +144,11 @@ const GLBModel: React.FC<GLBModelProps> = ({
     if (modelUrl.includes("d4105e0c74e944c29631ffc49b1daf4a")) {
       return {
         scale: scale * 1.1, // Увеличиваем масштаб для новой модели
-        position: [position[0], position[1] - 0.5, position[2]] as [number, number, number], // Опускаем немного ниже
+        position: [position[0], position[1] - 0.5, position[2]] as [
+          number,
+          number,
+          number,
+        ], // Опускаем немного ниже
       };
     }
     // Для исходной модели используем стандартные параметры
@@ -169,7 +173,10 @@ const GLBModel: React.FC<GLBModelProps> = ({
 
     window.addEventListener("changeModel", handleModelChange as EventListener);
     return () => {
-      window.removeEventListener("changeModel", handleModelChange as EventListener);
+      window.removeEventListener(
+        "changeModel",
+        handleModelChange as EventListener,
+      );
     };
   }, [onModelChange]);
 

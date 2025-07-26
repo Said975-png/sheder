@@ -1859,15 +1859,16 @@ export default function VoiceControl({
 
     // Воспроизводим аудио пользователя
     const audio = new Audio(
-      "https://cdn.builder.io/o/assets%2Fd75af4d8f215499ea8d0f6203e423bd8%2F3b053c81e36b4fef904e40553c401613?alt=media&token=f48c0f2a-72ec-4b41-816d-2942d8cc3442&apiKey=d75af4d8f215499ea8d0f6203e423bd8"
+      "https://cdn.builder.io/o/assets%2Fd75af4d8f215499ea8d0f6203e423bd8%2F3b053c81e36b4fef904e40553c401613?alt=media&token=f48c0f2a-72ec-4b41-816d-2942d8cc3442&apiKey=d75af4d8f215499ea8d0f6203e423bd8",
     );
     currentAudioRef.current = audio;
 
     // Уведомляем о смене модели через глобальное событие
     const changeEvent = new CustomEvent("changeModel", {
       detail: {
-        newModelUrl: "https://cdn.builder.io/o/assets%2Fd75af4d8f215499ea8d0f6203e423bd8%2Fd4105e0c74e944c29631ffc49b1daf4a?alt=media&token=3f1fe075-c812-408f-ba1a-5229fc29b16a&apiKey=d75af4d8f215499ea8d0f6203e423bd8"
-      }
+        newModelUrl:
+          "https://cdn.builder.io/o/assets%2Fd75af4d8f215499ea8d0f6203e423bd8%2Fd4105e0c74e944c29631ffc49b1daf4a?alt=media&token=3f1fe075-c812-408f-ba1a-5229fc29b16a&apiKey=d75af4d8f215499ea8d0f6203e423bd8",
+      },
     });
 
     const resetState = () => {
@@ -1877,8 +1878,10 @@ export default function VoiceControl({
 
       // Удаляем эффекты через 2 секунды
       setTimeout(() => {
-        const scannerElements = document.querySelectorAll(".model-change-scanner");
-        scannerElements.forEach(el => el.remove());
+        const scannerElements = document.querySelectorAll(
+          ".model-change-scanner",
+        );
+        scannerElements.forEach((el) => el.remove());
       }, 2000);
 
       setTimeout(() => {
@@ -1937,15 +1940,16 @@ export default function VoiceControl({
 
     // Воспроизводим то же аудио
     const audio = new Audio(
-      "https://cdn.builder.io/o/assets%2Fd75af4d8f215499ea8d0f6203e423bd8%2F3b053c81e36b4fef904e40553c401613?alt=media&token=f48c0f2a-72ec-4b41-816d-2942d8cc3442&apiKey=d75af4d8f215499ea8d0f6203e423bd8"
+      "https://cdn.builder.io/o/assets%2Fd75af4d8f215499ea8d0f6203e423bd8%2F3b053c81e36b4fef904e40553c401613?alt=media&token=f48c0f2a-72ec-4b41-816d-2942d8cc3442&apiKey=d75af4d8f215499ea8d0f6203e423bd8",
     );
     currentAudioRef.current = audio;
 
     // Уведомляем о возврате к старой модели
     const changeEvent = new CustomEvent("changeModel", {
       detail: {
-        newModelUrl: "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f"
-      }
+        newModelUrl:
+          "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
+      },
     });
 
     const resetState = () => {
@@ -1955,8 +1959,10 @@ export default function VoiceControl({
 
       // Удаляем эффекты через 2 секунды
       setTimeout(() => {
-        const scannerElements = document.querySelectorAll(".model-change-scanner");
-        scannerElements.forEach(el => el.remove());
+        const scannerElements = document.querySelectorAll(
+          ".model-change-scanner",
+        );
+        scannerElements.forEach((el) => el.remove());
       }, 2000);
 
       setTimeout(() => {
@@ -1980,7 +1986,10 @@ export default function VoiceControl({
 
     audio.play().catch((error) => {
       resetState();
-      console.error("❌ Не удалось воспроизвести аудио возврата модели:", error);
+      console.error(
+        "❌ Не удалось воспроизвести аудио возврата модели:",
+        error,
+      );
       // Отправляем событие даже при ошибке
       window.dispatchEvent(changeEvent);
     });
@@ -3383,16 +3392,32 @@ export default function VoiceControl({
           disabled={isSpeaking}
         >
           {isSpeaking ? (
-            <Volume2 className={inNavbar ? "w-4 h-4 text-white" : "w-6 h-6 text-white animate-pulse"} />
+            <Volume2
+              className={
+                inNavbar
+                  ? "w-4 h-4 text-white"
+                  : "w-6 h-6 text-white animate-pulse"
+              }
+            />
           ) : isListening ? (
-            <Mic className={inNavbar ? "w-4 h-4 text-white" : "w-6 h-6 text-white"} />
+            <Mic
+              className={inNavbar ? "w-4 h-4 text-white" : "w-6 h-6 text-white"}
+            />
           ) : (
-            <MicOff className={inNavbar ? "w-4 h-4 text-white" : "w-6 h-6 text-white"} />
+            <MicOff
+              className={inNavbar ? "w-4 h-4 text-white" : "w-6 h-6 text-white"}
+            />
           )}
         </Button>
 
         {/* Status indicator */}
-        <div className={inNavbar ? "text-sm text-white font-medium whitespace-nowrap" : "text-xs text-white/60 text-center"}>
+        <div
+          className={
+            inNavbar
+              ? "text-sm text-white font-medium whitespace-nowrap"
+              : "text-xs text-white/60 text-center"
+          }
+        >
           {isSpeaking ? "Говорю..." : isListening ? "Слушаю..." : ""}
         </div>
       </div>
