@@ -100,7 +100,7 @@ export default function VoiceControl({
         // Очищаем транскрипт
         setTimeout(() => {
           setTranscript("");
-          // Не выз��ваем onListeningChange при очистке чтобы избежать мигания
+          // Не выз��ваем onListeningChange при очистке что��ы избежать мигания
         }, 500);
 
         // Обрабатываем команду
@@ -309,19 +309,29 @@ export default function VoiceControl({
         if (wasListeningAtStart && !recognitionRef.current) {
           console.log("🔊 Возобновляем микрофон после аудио");
           setTimeout(() => {
-            // Дополни��ельная очистка перед возобновлением для гарантии чистого состояния
+            // РАДИКАЛЬНАЯ ОЧИСТКА: Полностью уничтожаем старый recognition объект
+            if (recognitionRef.current) {
+              try {
+                recognitionRef.current.stop();
+                recognitionRef.current = null;
+              } catch (error) {
+                console.log("ℹ️ Ошибка уничтожения старого recognition:", error);
+              }
+            }
+
+            // Полная очистка всех состояний
             lastCommandRef.current = "";
             setTranscript("");
-            console.log("🧹 Дополнительная очистка перед возобновлением микрофона");
+            console.log("🔥 РАДИКАЛЬНАЯ ОЧИСТКА: Уничтожен старый recognition, создаем новый");
 
-            if (!recognitionRef.current) {
-              recognitionRef.current = initializeRecognition();
-            }
+            // Создаем СОВЕРШЕННО НОВЫЙ recognition объект
+            recognitionRef.current = initializeRecognition();
             if (recognitionRef.current) {
               try {
                 recognitionRef.current.start();
+                console.log("✅ Новый чистый recognition запущен");
               } catch (error) {
-                console.log("ℹ️ Ошибка возобновления распознавания:", error);
+                console.log("ℹ️ Ошибка запуска нового recognition:", error);
               }
             }
           }, 1200); // Увеличиваем задержку чтобы сначала сняли блокировку
@@ -383,7 +393,7 @@ export default function VoiceControl({
                 try {
                   recognitionRef.current.start();
                 } catch (error) {
-                  console.log("ℹ️ Ошибка возобновления распознавания:", error);
+                  console.log("ℹ️ Ошибка возобновл��ния распознавания:", error);
                 }
               }
             }, 500);
