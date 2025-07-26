@@ -46,12 +46,12 @@ export default function SignUp() {
     }
 
     try {
-      // Получаем существующих пользова��елей из localStorage
+      // Получаем существующих пользователей из localStorage
       const existingUsers = JSON.parse(
         localStorage.getItem("users") || "[]",
       ) as User[];
 
-      // Проверяем, существует ли пользователь с таким email
+      // Проверяем, существует ли пользоват��ль с таким email
       if (existingUsers.find((user) => user.email === formData.email)) {
         setError("Пользователь с таким email уже существует");
         setLoading(false);
@@ -140,7 +140,7 @@ export default function SignUp() {
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
             </Link>
-            <ThemeToggle />
+
           </div>
 
           <div className="flex items-center justify-center space-x-2 mb-4">
