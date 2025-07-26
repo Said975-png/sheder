@@ -21,7 +21,6 @@ import {
   Scan,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import FaceIDProtected from "@/components/FaceIDProtected";
 import FaceIDModal from "@/components/FaceIDModal";
 
@@ -237,7 +236,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.",
+        "Вы уверены, что хотите удалить аккаунт? Это действие нельз�� отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
