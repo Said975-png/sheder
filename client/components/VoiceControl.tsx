@@ -82,7 +82,7 @@ export default function VoiceControl({
         // Очищаем транскрипт
         setTimeout(() => {
           setTranscript("");
-          onListeningChange?.(true, "");
+          // Не вызываем onListeningChange при очистке чтобы избежать мигания
         }, 500);
 
         // Обрабатываем команду
@@ -103,7 +103,7 @@ export default function VoiceControl({
     recognition.onend = () => {
       console.log("🔄 Распознавание завершилось");
       
-      // Перезапускаем автоматически если слушаем
+      // Перезапу��каем автоматически если слушаем
       if (isListening && !isSpeaking) {
         setTimeout(() => {
           if (isListening && recognitionRef.current) {
