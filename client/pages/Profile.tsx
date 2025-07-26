@@ -120,7 +120,7 @@ function Profile() {
     }
   }, [activeTab, currentUser]);
 
-  // Если пользователь не авторизован
+  // Если пользовател�� не авторизован
   if (!currentUser) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950/20 to-indigo-950/30 text-white flex items-center justify-center p-6">
@@ -494,11 +494,11 @@ function Profile() {
             </Card>
           </div>
 
-          {/* Enhanced Settings Panel */}
-          <div className="xl:col-span-3">
-            <Card className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-blue-500/20">
-              <CardHeader>
-                <div className="flex space-x-1">
+          {/* Modern Settings Panel */}
+          <div className="lg:col-span-3">
+            <Card className="bg-white shadow-sm border border-gray-200">
+              <CardHeader className="border-b border-gray-200 bg-gray-50">
+                <div className="flex flex-wrap gap-1">
                   <button
                     onClick={() => setActiveTab("profile")}
                     className={`group relative px-6 py-3 rounded-xl font-mono text-sm font-medium transition-all duration-300 ${
