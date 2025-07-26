@@ -37,7 +37,7 @@ export default function StarkHero({
   );
 
   const handleModelChange = (newUrl: string) => {
-    console.log("🔄 StarkHero: Смен�� модели на", newUrl);
+    console.log("🔄 StarkHero: Смена модели на", newUrl);
     setCurrentModelUrl(newUrl);
   };
 
@@ -83,7 +83,7 @@ export default function StarkHero({
             {/* Premium Status Badge */}
             <div className="inline-flex items-center space-x-2 sm:space-x-3 px-4 sm:px-6 py-2 sm:py-3 bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-full max-w-full overflow-hidden">
               <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-              <div className="text-sm font-medium text-white/90">
+              <div className="text-xs sm:text-sm font-medium text-white/90 truncate">
                 <TypewriterText
                   text="STARK INDUSTRIES"
                   speed={80}
@@ -128,7 +128,7 @@ export default function StarkHero({
                 <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-white/70 leading-relaxed">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, который понимает ваши потребност�� и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
+                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
