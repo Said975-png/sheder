@@ -408,16 +408,16 @@ export default function FridayChat() {
                     variant="outline"
                     size="icon"
                     disabled={!isSpeaking}
-                    className={`w-12 h-12 rounded-2xl transition-all duration-300 ${
+                    className={`w-10 sm:w-12 h-10 sm:h-12 rounded-xl sm:rounded-2xl transition-all duration-300 touch-manipulation ${
                       isSpeaking
                         ? "bg-green-500/20 border-green-500/50 text-green-400 hover:bg-green-500/30 shadow-lg shadow-green-500/20"
                         : "border-slate-600/30 bg-slate-800/30 text-slate-500"
                     }`}
                   >
                     {isSpeaking ? (
-                      <VolumeX className="w-5 h-5" />
+                      <VolumeX className="w-4 sm:w-5 h-4 sm:h-5" />
                     ) : (
-                      <Volume2 className="w-5 h-5" />
+                      <Volume2 className="w-4 sm:w-5 h-4 sm:h-5" />
                     )}
                   </Button>
                 </div>
