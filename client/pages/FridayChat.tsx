@@ -440,7 +440,7 @@ export default function FridayChat() {
                   onClick={sendMessage}
                   disabled={!inputValue.trim() || isLoading}
                   size="icon"
-                  className="w-14 h-14 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-0 shadow-lg shadow-blue-500/30 hover:shadow-blue-400/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-12 sm:w-14 h-12 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-0 shadow-lg shadow-blue-500/30 hover:shadow-blue-400/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
                 >
                   {isLoading ? (
                     <Loader2 className="w-6 h-6 animate-spin" />
