@@ -309,13 +309,13 @@ export default function Index() {
   }, []);
 
   const handleModelRotateStop = React.useCallback(() => {
-    console.log("⏹️ Остановка вращения модели");
+    console.log("⏹️ Остан��вка вращения модели");
     setIsModelRotating(false);
   }, []);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
         <div className="text-center">
           <ArcReactor size="large" pulsing />
           <p className="text-white mt-4">
