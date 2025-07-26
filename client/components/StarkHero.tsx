@@ -128,7 +128,7 @@ export default function StarkHero({
                 <p className="text-sm sm:text-base lg:text-xl xl:text-2xl text-white/70 leading-relaxed hyphens-auto break-words">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, к��торый понимает ваши потребно��ти и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
+                      text="Революционный ИИ-ассистент, к��торый понимает ваши потребно��ти и превращает ид��и в реальность. Будущее взаимодействия с техноло��иями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
@@ -265,7 +265,7 @@ export default function StarkHero({
             showCTA ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
           )}
         >
-          <div className="flex flex-wrap justify-center items-center gap-8 text-center">
+          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 lg:gap-8 text-center px-2">
             {[
               { number: "99.9%", label: "Точность ответов" },
               { number: "24/7", label: "Доступность" },
