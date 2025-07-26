@@ -76,7 +76,7 @@ const advantages: Advantage[] = [
     id: "security",
     title: "Безопасность",
     description:
-      "Гарантируем максимальную защиту данных и соответствие стандартам",
+      "Гарантируем максимальную защ��ту данных и соответствие стандартам",
     features: [
       "SSL шифрование",
       "Защита о�� атак",
@@ -329,7 +329,10 @@ function AdvantagesSection() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-20">
-          <Button className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-semibold bg-white text-black hover:bg-white/90 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full">
+          <Button
+            variant="secondary"
+            className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-semibold !bg-white !text-black hover:!bg-white/90 hover:!text-black rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full"
+          >
             <Sparkles className="w-4 sm:w-5 h-4 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" />
             <span className="truncate">Узнать больше о наших услугах</span>
             <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 ml-1 sm:ml-2 flex-shrink-0" />
