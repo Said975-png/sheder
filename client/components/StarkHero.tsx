@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import GLBModel from "@/components/GLBModel";
@@ -162,7 +161,7 @@ export default function StarkHero({
                 className="group text-white border border-white/20 hover:border-white/40 hover:bg-white/5 px-6 py-4 rounded-2xl transition-all duration-300"
               >
                 <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                <span>Смотреть де��о</span>
+                <span>Смотреть де����о</span>
               </Button>
             </div>
 
