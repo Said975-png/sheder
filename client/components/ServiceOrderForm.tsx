@@ -219,20 +219,50 @@ export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormPr
                     <div
                       key={service.value}
                       onClick={() => handleServiceSelect(service.value)}
-                      className={`p-4 rounded-xl border cursor-pointer transition-all ${
+                      className={`p-4 rounded-xl border cursor-pointer transition-all relative ${
                         isSelected
                           ? "border-blue-500/50 bg-blue-500/10"
                           : "border-white/20 hover:border-white/40 hover:bg-white/5"
                       }`}
                     >
-                      <div className="flex items-center gap-3 mb-2">
-                        <Icon className="w-5 h-5 text-blue-400" />
-                        <span className="text-white font-medium">{service.label}</span>
+                      {service.popular && (
+                        <div className="absolute -top-2 left-4 bg-purple-600 text-white text-xs px-2 py-1 rounded-full">
+                          ПОПУЛЯРНЫЙ
+                        </div>
+                      )}
+
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <Icon className="w-5 h-5 text-blue-400" />
+                          <span className="text-white font-medium">{service.label}</span>
+                        </div>
+                        <div className="text-right">
+                          {service.originalPrice && (
+                            <p className="text-white/40 text-sm line-through">
+                              {service.originalPrice.toLocaleString('ru-RU')} сум
+                            </p>
+                          )}
+                          <p className="text-blue-400 font-semibold">
+                            {service.price.toLocaleString('ru-RU')} сум
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-white/60 text-sm mb-2">{service.description}</p>
-                      <p className="text-blue-400 font-semibold">
-                        от {service.price.toLocaleString('ru-RU')} ₽
-                      </p>
+
+                      <p className="text-white/60 text-sm mb-3">{service.description}</p>
+
+                      {service.features && (
+                        <div className="space-y-1">
+                          {service.features.slice(0, 3).map((feature, idx) => (
+                            <div key={idx} className="flex items-center gap-2">
+                              <div className="w-1 h-1 bg-blue-400 rounded-full"></div>
+                              <span className="text-white/50 text-xs">{feature}</span>
+                            </div>
+                          ))}
+                          {service.features.length > 3 && (
+                            <p className="text-white/40 text-xs">и ещё {service.features.length - 3} возможностей...</p>
+                          )}
+                        </div>
+                      )}
                     </div>
                   );
                 })}
