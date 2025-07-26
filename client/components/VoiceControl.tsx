@@ -78,7 +78,7 @@ export default function VoiceControl({
           console.log("Продвинутые настройки микрофона недоступны");
         }
 
-        // Дополнительные настройки для Chrome/WebKit - максимальная чувствительность
+        // Дополнительные настройки для Chrome/WebKit - максимальная чувствительн��сть
         if (
           recognitionRef.current.webkitSpeechRecognition ||
           "webkitSpeechRecognition" in window
@@ -99,7 +99,7 @@ export default function VoiceControl({
             recognitionRef.current.webkitAutoGainControl = true;
             recognitionRef.current.webkitHighpassFilter = false; // Отключаем фильтр для лучшего захвата низких частот
             recognitionRef.current.webkitTypingNoiseDetection = false;
-            // Увеличиваем чувствительность к тихим звукам
+            // Увеличиваем чувствительность к тих��м звукам
             recognitionRef.current.webkitSensitivity = 1.0;
             recognitionRef.current.webkitSpeechInputMinimumLengthMS = 500; // Минимальная длина записи
             recognitionRef.current.webkitSpeechInputCompleteTimeoutMS = 2000; // Таймаут ����вершения
@@ -121,7 +121,7 @@ export default function VoiceControl({
         }
         // Настройка прямого доступа к микрофону для лучшего качества
         try {
-          // Запрашиваем доступ к микрофону с оптимальными настройками
+          // Запрашиваем доступ к мик��офону с оптимальными настройками
           navigator.mediaDevices
             .getUserMedia({
               audio: {
@@ -284,7 +284,7 @@ export default function VoiceControl({
             if (
               command &&
               command !== lastCommandRef.current &&
-              command.length > 1 // Снижен порог с 2 до 1 символа для лучшего распоз��авания коротких команд
+              command.length > 1 // Снижен порог с 2 до 1 символа для лучшего распоз��ава��ия коротких команд
             ) {
               console.log(
                 "�� К��манда принята дл�� обраб��т��и:",
@@ -331,7 +331,7 @@ export default function VoiceControl({
                   }, 2000);
                 },
                 finalTranscript ? 100 : 1000,
-              ); // Мень��е за��ержки дл�� фи����альных ре��ул����татов
+              ); // Мень��е за����ержки дл�� фи����альных ре��ул����татов
             } else {
               console.log("❌ Команда о��клонена:", {
                 isEmpty: !command,
@@ -596,7 +596,7 @@ export default function VoiceControl({
       console.log("📵 Потеряно интернет соединение");
       if (isListening) {
         console.log(
-          "⚠️ Распознавание реч�� может работать некоррект��о без интернета",
+          "⚠️ Распознавание реч�� может работать некоррект��о без интер��ета",
         );
       }
     };
@@ -634,7 +634,7 @@ export default function VoiceControl({
 
   // Глобальная функция для принудительного с��роса ВСЕХ блокировок
   const forceResetAllStates = () => {
-    console.log("🔥 ПРИНУДИТ��Л����НЫЙ СБРОС ВСЕХ СОСТОЯНИЙ");
+    console.log("🔥 ПРИНУД��Т��Л����НЫЙ СБРОС ВСЕХ СОСТОЯНИЙ");
 
     // Останав��иваем любое текущее аудио
     if (currentAudioRef.current) {
@@ -977,7 +977,7 @@ export default function VoiceControl({
       setTimeout(() => {
         commandCooldownRef.current = false;
         lastCommandRef.current = "";
-      }, 2000); // Увеличен тай��аут до 2 секунд
+      }, 2000); // Увеличен тай����ут до 2 секунд
     };
 
     audio.onended = resetState;
@@ -1240,7 +1240,7 @@ export default function VoiceControl({
       currentAudioRef.current.currentTime = 0;
     }
 
-    // Запоминаем со��тояние прослу���ивания ДО остановки
+    // Запоминаем со��тояние прослу���ивания ДО остановк��
     const wasListening = isListening;
 
     setIsSpeaking(true);
@@ -1266,7 +1266,7 @@ export default function VoiceControl({
       audioPlayingRef.current = false;
       currentAudioRef.current = null;
 
-      // Микрофон продолжал работать, ������чего восстанавливать не нуж���о
+      // Мик��офон продолжал работать, ������чего восстанавливать не нуж���о
       console.log("✅ Ауди�� завершено, микрофон остается активным");
 
       setTimeout(() => {
@@ -2034,7 +2034,7 @@ export default function VoiceControl({
 
     // При��удительно сбрасы��ае�� все блокировки перед обработкой новой ����оманды
     // КРОМЕ команды отк���ючения, котор��я обрабатывается отд��льно
-    if (!command.includes("от��лючись") && !command.includes("выключись")) {
+    if (!command.includes("от���лючись") && !command.includes("выключись")) {
       if (commandCooldownRef.current || audioPlayingRef.current) {
         console.log(
           "��� Пр��н��дит����льно сбрасываем блокировки перед обработкой команды",
@@ -2059,7 +2059,7 @@ export default function VoiceControl({
     // НЕ сбрасываем Recognition автоматически - ��усть рабо��ает непреры��но
     console.log("🎯 Об���абатываем команд�� без сброса Recognition");
 
-    // Фильтруем пу��тые или �����ишком коротки�� команды
+    // Фильтруем пу��тые или ������ишком коротки�� команды
     const trimmedCommand = command.trim();
     if (trimmedCommand.length < 3) {
       return;
@@ -2107,7 +2107,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис верни меня обратно" - возврат к обычной теме
+    // Команда "Джарвис верни меня обратно" - возв��ат к обычной теме
     if (
       command.includes("джарвис верни меня обратно") ||
       command.includes("в��рни меня обратно джарвис") ||
@@ -2163,7 +2163,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команда "Джарвис давай продолжим" - воспроизводит первое аудио
+    // Команда "Джа��вис давай продолжим" - воспроизводит первое аудио
     if (
       command.includes("джарвис давай продолжим") ||
       command.includes("давай продолжим джарвис") ||
@@ -2328,7 +2328,7 @@ export default function VoiceControl({
       command.includes("остановить модель") ||
       command.includes("остановит�� вращение")
     ) {
-      console.log("⏹️ Команда ос��ановки модели распознана:", command);
+      console.log("⏹�� Команда ос��ановки модели распознана:", command);
       // Улучшенная проверка - разрешаем если нет активного аудио
       if (!isSpeaking || !audioPlayingRef.current) {
         speakStopModel();
@@ -2441,7 +2441,7 @@ export default function VoiceControl({
     ) {
       console.log("🎯 ��аспознана ко����ан��а ��иагностики:", command);
 
-      // ��оп����лнит��льн��я проверка, чт����бы избежать пов��орных сра��атываний
+      // ��оп����лнит��льн��я проверка, чт����бы избежать пов��орных сра���атываний
       if (
         !isSpeaking &&
         !commandCooldownRef.current &&
@@ -2514,13 +2514,13 @@ export default function VoiceControl({
       "что",
       "как",
       "цена",
-      "сто��мость",
+      "сто����ость",
       "т��ри��",
       "услуги",
       "компания",
       "��онта��ты",
       "п����ддержк��",
-      "технологи���",
+      "технологи����",
       "р��зр��ботка",
       "сайт",
       "интеллект",
@@ -2722,7 +2722,7 @@ export default function VoiceControl({
         }
       }
 
-      // П��иск контактов
+      // П����иск контактов
       if (
         command.includes("кон��акт") ||
         command.includes("св��зь") ||
@@ -2884,7 +2884,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Команды доб�����вления планов в корз��н��
+    // Ко��анды доб�����вления планов в корз��н��
     if (
       command.includes("добавить базовый") ||
       command.includes("базовый план") ||
@@ -2916,7 +2916,7 @@ export default function VoiceControl({
       command.includes("о��править макс")
     ) {
       onAddMaxPlan();
-      speak("Максимальн���й пл������ добавле��");
+      speak("Максимальн���й пл������ добавле����");
       return;
     }
 
@@ -2950,7 +2950,7 @@ export default function VoiceControl({
     if (
       command.includes("к пр�����мущес������м") ||
       command.includes("наши п��е��мущества") ||
-      command.includes("сп��стит��ся к преимущества��") ||
+      command.includes("сп���стит��ся к преимущества��") ||
       command.includes("перейти к ��реимущес���ва��") ||
       command.includes("��реим���щества")
     ) {
@@ -2982,7 +2982,7 @@ export default function VoiceControl({
         },
       );
       if (found) {
-        speak("Пока��ыв��ю возможности");
+        speak("Пока��ыв��ю ��озможности");
       }
       return;
     }
@@ -3057,7 +3057,7 @@ export default function VoiceControl({
         lastCommandRef.current = "";
         commandCooldownRef.current = false;
 
-        // Принудительно очищаем все состояния перед запуском
+        // Принудительно очищаем все состояния перед запуско��
         setTimeout(() => {
           setTranscript("");
           lastCommandRef.current = "";
@@ -3094,28 +3094,32 @@ export default function VoiceControl({
         <Button
           onClick={toggleListening}
           data-testid="voice-control"
-          className={`w-14 h-14 rounded-full p-0 transition-all duration-300 bg-transparent hover:bg-white/10 ${
-            isListening ? "animate-pulse" : ""
-          } ${isSpeaking ? "ring-4 ring-blue-400/50" : ""}`}
+          className={
+            inNavbar
+              ? "w-8 h-8 p-0 transition-all duration-300 bg-transparent"
+              : `w-14 h-14 rounded-full p-0 transition-all duration-300 bg-transparent hover:bg-white/10 ${
+                  isListening ? "animate-pulse" : ""
+                } ${isSpeaking ? "ring-4 ring-blue-400/50" : ""}`
+          }
           disabled={isSpeaking}
         >
           {isSpeaking ? (
-            <Volume2 className="w-6 h-6 text-white animate-pulse" />
+            <Volume2 className={inNavbar ? "w-4 h-4 text-white" : "w-6 h-6 text-white animate-pulse"} />
           ) : isListening ? (
-            <Mic className="w-6 h-6 text-white" />
+            <Mic className={inNavbar ? "w-4 h-4 text-white" : "w-6 h-6 text-white"} />
           ) : (
-            <MicOff className="w-6 h-6 text-white" />
+            <MicOff className={inNavbar ? "w-4 h-4 text-white" : "w-6 h-6 text-white"} />
           )}
         </Button>
 
         {/* Status indicator */}
-        <div className="text-xs text-white/60 text-center">
+        <div className={inNavbar ? "text-sm text-white font-medium whitespace-nowrap" : "text-xs text-white/60 text-center"}>
           {isSpeaking ? "Говорю..." : isListening ? "Слушаю..." : "ДЖАРВИС"}
         </div>
       </div>
 
       {/* Pulse effect when listening */}
-      {isListening && (
+      {isListening && !inNavbar && (
         <div className="absolute top-0 right-0 w-14 h-14 rounded-full bg-purple-500/30 animate-ping"></div>
       )}
     </div>
