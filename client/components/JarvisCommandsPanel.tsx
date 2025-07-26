@@ -36,7 +36,7 @@ export default function JarvisCommandsPanel({
       category: "Навигация по сайту",
       items: [
         { command: "К планам", description: "Переход к разделу тарифов" },
-        { command: "К преимущества��", description: "Показать преимущества" },
+        { command: "К преимуществам", description: "Показать преимущества" },
         { command: "К возможностям", description: "Показать возможности" },
         { command: "Открыть профиль", description: "Переход в личный кабинет" },
       ],
@@ -56,7 +56,7 @@ export default function JarvisCommandsPanel({
         { command: "Полная активация", description: "Режим лаборатории Старка" },
         { command: "Верни меня обратно", description: "Обычная тема" },
         { command: "Диагностика", description: "Проверка всех систем" },
-        { command: "Джарвис т�� тут?", description: "Проверка присутствия" },
+        { command: "Джарвис ты тут?", description: "Проверка присутствия" },
       ],
     },
     {
@@ -73,8 +73,8 @@ export default function JarvisCommandsPanel({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-      <Card className="w-full max-w-4xl max-h-[80vh] overflow-y-auto bg-black/90 border-cyan-400/30 shadow-2xl shadow-cyan-400/20">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-6">
+      <Card className="w-full max-w-4xl max-h-[90vh] sm:max-h-[80vh] overflow-y-auto bg-black/90 border-cyan-400/30 shadow-2xl shadow-cyan-400/20">
         <CardHeader className="border-b border-cyan-400/30 bg-black/60 backdrop-blur-md">
           <CardTitle className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -109,7 +109,7 @@ export default function JarvisCommandsPanel({
               </span>
             </div>
             <ol className="text-sm text-white/80 space-y-1 ml-4">
-              <li>1. Нажмите на кнопку с микрофоном в ин��ерфейсе</li>
+              <li>1. Нажмите на кнопку с микрофоном в интерфейсе</li>
               <li>2. Дождитесь активации (красная кнопка микрофона)</li>
               <li>3. Произнесите команду четко и громко</li>
               <li>4. Дождитесь ответа Джарвиса</li>
@@ -155,7 +155,7 @@ export default function JarvisCommandsPanel({
                 <li>• Говорите четко и не слишком быстро</li>
                 <li>• Избегайте шумного окружения для лучшего распознавания</li>
                 <li>• Некоторые команды работают без слова "Джарвис"</li>
-                <li>• При проблем��х скажите "Джарвис отключись" и попробуйте снова</li>
+                <li>• При проблемах скажите "Джарвис отключись" и попробуйте снова</li>
               </ul>
             </div>
           </div>
