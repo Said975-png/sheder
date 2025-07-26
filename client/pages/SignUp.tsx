@@ -58,7 +58,7 @@ export default function SignUp() {
         return;
       }
 
-      // Создаём нового пользователя
+      // Создаём нового п��льзователя
       const newUser: User = {
         id: Date.now().toString(),
         name: formData.name,
@@ -105,20 +105,20 @@ export default function SignUp() {
 
   if (success) {
     return (
-      <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
-        <Card className="theme-card w-full max-w-md">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950/20 to-indigo-950/30 text-white flex items-center justify-center p-6">
+        <Card className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-green-500/20 w-full max-w-md">
           <CardContent className="p-8 text-center">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold theme-text mb-2">
+            <h2 className="text-xl font-semibold text-white mb-2">
               Регистрация успешна!
             </h2>
-            <p className="theme-text-muted mb-4">
+            <p className="text-white/70 mb-4">
               Добро пожаловать, {formData.name}!
             </p>
-            <p className="theme-text-muted text-sm mb-2">
+            <p className="text-white/70 text-sm mb-2">
               Перенаправляем в личный кабинет...
             </p>
-            <p className="theme-text-muted text-xs">
+            <p className="text-white/60 text-xs">
               Рекомендуем настроить Face ID для безопасности
             </p>
           </CardContent>
@@ -128,14 +128,14 @@ export default function SignUp() {
   }
 
   return (
-    <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950/20 to-indigo-950/30 text-white flex items-center justify-center p-6">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-between items-start mb-6">
             <Link
               to="/"
-              className="inline-flex items-center space-x-2 theme-nav-text"
+              className="inline-flex items-center space-x-2 text-white/80 hover:text-white transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
@@ -252,7 +252,7 @@ export default function SignUp() {
                 disabled={loading}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white"
               >
-                {loading ? "Создаем аккаунт..." : "Создать аккаунт"}
+                {loading ? "Создаем аккаунт..." : "Создать акка��нт"}
               </Button>
             </form>
 
