@@ -175,7 +175,7 @@ export default function VoiceControl({
       } else {
         speakAuthenticJarvis();
       }
-    } else if (command.includes("спасибо") || command.includes("благодарю")) {
+    } else if (command.includes("спасибо") || command.includes("б��агодарю")) {
       speakThankYou();
     } else if (command.includes("доброе у��ро")) {
       speakGoodMorning();
@@ -201,7 +201,7 @@ export default function VoiceControl({
       onAddMaxPlan();
       speak();
     } else {
-      // Д��я неизвестных команд просто подтверждаем
+      // Д��я неизвестны�� команд просто подтверждаем
       speak();
     }
   }, [onAddBasicPlan, onAddProPlan, onAddMaxPlan, onModelRotateStart, onModelRotateStop]);
@@ -294,6 +294,12 @@ export default function VoiceControl({
         setIsSpeaking(false);
         currentAudioRef.current = null;
 
+        // СНИМАЕМ БЛОКИРОВКУ: Разрешаем обработку результатов распознавания
+        setTimeout(() => {
+          isPlayingAudioRef.current = false;
+          console.log("✅ БЛОКИРОВКА СНЯ��А: Результаты распознавания снова обрабатываются");
+        }, 1000); // Увеличиваем задержку для полной уверенности
+
         // Возобновляем распознавание речи если оно было активно
         if (wasListeningAtStart && !recognitionRef.current) {
           console.log("🔊 Возобновляем микрофон после аудио");
@@ -308,7 +314,7 @@ export default function VoiceControl({
                 console.log("ℹ️ Ошибка возобновления распознавания:", error);
               }
             }
-          }, 500); // Небольшая задержка для стабильности
+          }, 1200); // Увеличиваем задержку чтобы сначала сняли блокировку
         }
 
         onComplete?.();
@@ -318,7 +324,7 @@ export default function VoiceControl({
         setIsSpeaking(false);
         currentAudioRef.current = null;
 
-        // Воз��бновляем распознавание речи если оно было активно (при ошибке аудио)
+        // Воз��бновляем распознавание речи если оно было активно (при ошибк�� аудио)
         if (wasListeningAtStart && !recognitionRef.current) {
           console.log("🔊 Возобновляем микрофон после ошибки аудио");
           setTimeout(() => {
@@ -346,7 +352,7 @@ export default function VoiceControl({
 
           // Возобновляем распознавание речи если оно было активно (при неудачном воспроизведе��ии)
           if (wasListeningAtStart && !recognitionRef.current) {
-            console.log("🔊 Возобновляем микрофон после неудачного воспроизведения");
+            console.log("🔊 Возоб��овляем микрофон после неудачного воспроизведения");
             setTimeout(() => {
               if (!recognitionRef.current) {
                 recognitionRef.current = initializeRecognition();
