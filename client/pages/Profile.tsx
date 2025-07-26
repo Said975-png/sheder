@@ -58,7 +58,9 @@ function Profile() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [activeTab, setActiveTab] = useState<"profile" | "security" | "contracts">("profile");
+  const [activeTab, setActiveTab] = useState<
+    "profile" | "security" | "contracts"
+  >("profile");
   const [showFaceIDModal, setShowFaceIDModal] = useState(false);
   const [faceIDMode, setFaceIDMode] = useState<"register" | "verify">(
     "register",
@@ -94,8 +96,8 @@ function Profile() {
     try {
       const response = await fetch("/api/contracts", {
         headers: {
-          "user-id": currentUser.id
-        }
+          "user-id": currentUser.id,
+        },
       });
 
       if (response.ok) {
@@ -602,8 +604,8 @@ function Profile() {
                           <div className="mt-3 pt-3 border-t border-white/10">
                             <div className="text-xs text-white/50 space-y-1">
                               <p>
-                                ✓ Face ID будет запрашиваться при входе в ли��ный
-                                кабинет
+                                ✓ Face ID будет запрашиваться при входе в
+                                ли��ный кабинет
                               </p>
                               <p>
                                 ✓ Биометрические данные хранятся локально и не
@@ -755,7 +757,8 @@ function Profile() {
                           У вас пока нет договоров
                         </h5>
                         <p className="text-white/70 mb-6">
-                          Закажите первую услугу и получите договор автоматически
+                          Закажите первую услугу и получите договор
+                          автоматически
                         </p>
                         <Button
                           onClick={() => setShowOrderForm(true)}
@@ -781,22 +784,34 @@ function Profile() {
                                   <Badge
                                     variant="outline"
                                     className={`${
-                                      contract.status === 'active'
-                                        ? 'border-green-500/50 text-green-400'
-                                        : contract.status === 'completed'
-                                        ? 'border-blue-500/50 text-blue-400'
-                                        : contract.status === 'cancelled'
-                                        ? 'border-red-500/50 text-red-400'
-                                        : 'border-yellow-500/50 text-yellow-400'
+                                      contract.status === "active"
+                                        ? "border-green-500/50 text-green-400"
+                                        : contract.status === "completed"
+                                          ? "border-blue-500/50 text-blue-400"
+                                          : contract.status === "cancelled"
+                                            ? "border-red-500/50 text-red-400"
+                                            : "border-yellow-500/50 text-yellow-400"
                                     }`}
                                   >
-                                    {contract.status === 'active' && <CheckCircle2 className="w-3 h-3 mr-1" />}
-                                    {contract.status === 'draft' && <Clock className="w-3 h-3 mr-1" />}
-                                    {contract.status === 'completed' && <CheckCircle className="w-3 h-3 mr-1" />}
-                                    {contract.status === 'cancelled' && <XCircle className="w-3 h-3 mr-1" />}
-                                    {contract.status === 'active' ? 'Активный' :
-                                     contract.status === 'completed' ? 'Завершен' :
-                                     contract.status === 'cancelled' ? 'Отменен' : 'Черновик'}
+                                    {contract.status === "active" && (
+                                      <CheckCircle2 className="w-3 h-3 mr-1" />
+                                    )}
+                                    {contract.status === "draft" && (
+                                      <Clock className="w-3 h-3 mr-1" />
+                                    )}
+                                    {contract.status === "completed" && (
+                                      <CheckCircle className="w-3 h-3 mr-1" />
+                                    )}
+                                    {contract.status === "cancelled" && (
+                                      <XCircle className="w-3 h-3 mr-1" />
+                                    )}
+                                    {contract.status === "active"
+                                      ? "Активный"
+                                      : contract.status === "completed"
+                                        ? "Завершен"
+                                        : contract.status === "cancelled"
+                                          ? "Отменен"
+                                          : "Черновик"}
                                   </Badge>
                                 </div>
                                 <p className="text-white/70 text-sm mb-2">
@@ -807,16 +822,25 @@ function Profile() {
                                 <div className="flex items-center gap-4 text-xs text-white/60">
                                   <span>№ {contract.id}</span>
                                   <span>•</span>
-                                  <span>{new Date(contract.createdAt).toLocaleDateString('ru-RU')}</span>
+                                  <span>
+                                    {new Date(
+                                      contract.createdAt,
+                                    ).toLocaleDateString("ru-RU")}
+                                  </span>
                                   <span>•</span>
                                   <span className="font-semibold text-purple-400">
-                                    {contract.price.toLocaleString('ru-RU')} ₽
+                                    {contract.price.toLocaleString("ru-RU")} ₽
                                   </span>
                                 </div>
                               </div>
                               <div className="flex items-center gap-2 ml-4">
                                 <Button
-                                  onClick={() => window.open(`/api/contracts/${contract.id}`, '_blank')}
+                                  onClick={() =>
+                                    window.open(
+                                      `/api/contracts/${contract.id}`,
+                                      "_blank",
+                                    )
+                                  }
                                   size="sm"
                                   variant="outline"
                                   className="border-white/20 text-white hover:bg-white/10"
@@ -826,7 +850,7 @@ function Profile() {
                                 </Button>
                                 <Button
                                   onClick={() => {
-                                    const link = document.createElement('a');
+                                    const link = document.createElement("a");
                                     link.href = `/api/contracts/${contract.id}`;
                                     link.download = contract.fileName;
                                     link.click();

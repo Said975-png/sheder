@@ -1,18 +1,22 @@
 import { RequestHandler } from "express";
-import { CreateContractRequest, CreateContractResponse, ContractData } from "@shared/api";
+import {
+  CreateContractRequest,
+  CreateContractResponse,
+  ContractData,
+} from "@shared/api";
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";
 
 // Ensure contracts directory exists
-const contractsDir = join(process.cwd(), 'data', 'contracts');
+const contractsDir = join(process.cwd(), "data", "contracts");
 if (!existsSync(contractsDir)) {
   mkdirSync(contractsDir, { recursive: true });
 }
 
 // Contract template
 const generateContractHTML = (contractData: ContractData): string => {
-  const currentDate = new Date().toLocaleDateString('ru-RU');
-  
+  const currentDate = new Date().toLocaleDateString("ru-RU");
+
   return `
     <!DOCTYPE html>
     <html lang="ru">
@@ -123,7 +127,7 @@ const generateContractHTML = (contractData: ContractData): string => {
           </div>
           <div class="detail-row">
             <div class="detail-label">Стоимость:</div>
-            <div class="detail-value">${contractData.price.toLocaleString('ru-RU')} рублей</div>
+            <div class="detail-value">${contractData.price.toLocaleString("ru-RU")} рублей</div>
           </div>
         </div>
       </div>
@@ -137,7 +141,7 @@ const generateContractHTML = (contractData: ContractData): string => {
 
       <div class="section">
         <div class="section-title">4. ПОРЯДОК ОПЛАТЫ</div>
-        <p>4.1. Общая стоимость работ составляет ${contractData.price.toLocaleString('ru-RU')} рублей.</p>
+        <p>4.1. Общая стоимость работ составляет ${contractData.price.toLocaleString("ru-RU")} рублей.</p>
         <p>4.2. Оплата производится в следующем порядке:</p>
         <ul>
           <li>50% предоплата при подписании договора</li>
@@ -167,7 +171,7 @@ const generateContractHTML = (contractData: ContractData): string => {
 
       <div class="footer">
         <p><em>Договор сгенерирован автоматически системой Jarvis AI</em></p>
-        <p><em>Дата создания: ${new Date(contractData.createdAt).toLocaleString('ru-RU')}</em></p>
+        <p><em>Дата создания: ${new Date(contractData.createdAt).toLocaleString("ru-RU")}</em></p>
       </div>
     </body>
     </html>
@@ -176,13 +180,19 @@ const generateContractHTML = (contractData: ContractData): string => {
 
 export const createContract: RequestHandler = async (req, res) => {
   try {
-    const { projectType, projectDescription, clientName, clientEmail, estimatedPrice }: CreateContractRequest = req.body;
+    const {
+      projectType,
+      projectDescription,
+      clientName,
+      clientEmail,
+      estimatedPrice,
+    }: CreateContractRequest = req.body;
 
     // Generate contract ID
     const contractId = `JAR-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
-    
+
     // Get current user from request (you might need to implement auth middleware)
-    const userId = req.headers['user-id'] as string || 'anonymous';
+    const userId = (req.headers["user-id"] as string) || "anonymous";
 
     // Create contract data
     const contractData: ContractData = {
@@ -194,50 +204,54 @@ export const createContract: RequestHandler = async (req, res) => {
       projectDescription,
       price: estimatedPrice,
       createdAt: new Date().toISOString(),
-      status: 'draft',
-      fileName: `contract-${contractId}.html`
+      status: "draft",
+      fileName: `contract-${contractId}.html`,
     };
 
     // Generate HTML contract
     const contractHTML = generateContractHTML(contractData);
-    
+
     // Save contract file
     const contractPath = join(contractsDir, contractData.fileName);
-    writeFileSync(contractPath, contractHTML, 'utf8');
+    writeFileSync(contractPath, contractHTML, "utf8");
 
     // Load existing contracts or create new array
-    const contractsFilePath = join(contractsDir, 'contracts.json');
+    const contractsFilePath = join(contractsDir, "contracts.json");
     let contracts: ContractData[] = [];
-    
+
     if (existsSync(contractsFilePath)) {
       try {
-        const contractsData = readFileSync(contractsFilePath, 'utf8');
+        const contractsData = readFileSync(contractsFilePath, "utf8");
         contracts = JSON.parse(contractsData);
       } catch (error) {
-        console.error('Error reading contracts file:', error);
+        console.error("Error reading contracts file:", error);
       }
     }
 
     // Add new contract
     contracts.push(contractData);
-    
+
     // Save contracts index
-    writeFileSync(contractsFilePath, JSON.stringify(contracts, null, 2), 'utf8');
+    writeFileSync(
+      contractsFilePath,
+      JSON.stringify(contracts, null, 2),
+      "utf8",
+    );
 
     const response: CreateContractResponse = {
       success: true,
-      message: 'Договор успешно создан',
+      message: "Договор успешно создан",
       contractId,
-      contractUrl: `/api/contracts/${contractId}`
+      contractUrl: `/api/contracts/${contractId}`,
     };
 
     res.json(response);
   } catch (error) {
-    console.error('Contract creation error:', error);
+    console.error("Contract creation error:", error);
     const response: CreateContractResponse = {
       success: false,
-      message: 'Ошибка при создании договора',
-      error: error instanceof Error ? error.message : 'Unknown error'
+      message: "Ошибка при создании договора",
+      error: error instanceof Error ? error.message : "Unknown error",
     };
     res.status(500).json(response);
   }
@@ -245,39 +259,41 @@ export const createContract: RequestHandler = async (req, res) => {
 
 export const getUserContracts: RequestHandler = async (req, res) => {
   try {
-    const userId = req.headers['user-id'] as string;
-    
+    const userId = req.headers["user-id"] as string;
+
     if (!userId) {
       return res.status(401).json({
         success: false,
-        message: 'Пользователь не авторизован'
+        message: "Пользователь не авторизован",
       });
     }
 
-    const contractsFilePath = join(contractsDir, 'contracts.json');
-    
+    const contractsFilePath = join(contractsDir, "contracts.json");
+
     if (!existsSync(contractsFilePath)) {
       return res.json({
         success: true,
-        contracts: []
+        contracts: [],
       });
     }
 
-    const contractsData = readFileSync(contractsFilePath, 'utf8');
+    const contractsData = readFileSync(contractsFilePath, "utf8");
     const allContracts: ContractData[] = JSON.parse(contractsData);
-    
+
     // Filter contracts by user ID
-    const userContracts = allContracts.filter(contract => contract.userId === userId);
+    const userContracts = allContracts.filter(
+      (contract) => contract.userId === userId,
+    );
 
     res.json({
       success: true,
-      contracts: userContracts
+      contracts: userContracts,
     });
   } catch (error) {
-    console.error('Error fetching user contracts:', error);
+    console.error("Error fetching user contracts:", error);
     res.status(500).json({
       success: false,
-      message: 'Ошибка при получении догов��ров'
+      message: "Ошибка при получении догов��ров",
     });
   }
 };
@@ -286,22 +302,22 @@ export const getContract: RequestHandler = async (req, res) => {
   try {
     const { contractId } = req.params;
     const contractPath = join(contractsDir, `contract-${contractId}.html`);
-    
+
     if (!existsSync(contractPath)) {
       return res.status(404).json({
         success: false,
-        message: 'Договор не найден'
+        message: "Договор не найден",
       });
     }
 
-    const contractHTML = readFileSync(contractPath, 'utf8');
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    const contractHTML = readFileSync(contractPath, "utf8");
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.send(contractHTML);
   } catch (error) {
-    console.error('Error fetching contract:', error);
+    console.error("Error fetching contract:", error);
     res.status(500).json({
       success: false,
-      message: 'Ошибка при получении договора'
+      message: "Ошибка при получении договора",
     });
   }
 };

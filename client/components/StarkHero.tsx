@@ -169,7 +169,7 @@ export default function StarkHero({
                     setShowOrderForm(true);
                   } else {
                     // Redirect to login if not authenticated
-                    window.location.href = '/login';
+                    window.location.href = "/login";
                   }
                 }}
                 variant="outline"

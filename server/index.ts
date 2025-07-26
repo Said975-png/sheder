@@ -5,7 +5,11 @@ import { handleImageUpload, handleGenerateWebsite } from "./routes/upload";
 import { handleSendOrder } from "./routes/orders";
 import { handleElevenLabsTTS } from "./routes/elevenlabs-tts";
 import { handleGroqChat } from "./routes/groq-chat";
-import { createContract, getUserContracts, getContract } from "./routes/contracts";
+import {
+  createContract,
+  getUserContracts,
+  getContract,
+} from "./routes/contracts";
 
 export function createServer() {
   const app = express();

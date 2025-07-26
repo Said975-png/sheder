@@ -4,7 +4,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { CreateContractRequest, CreateContractResponse } from "@shared/api";
 import { useAuth } from "@/hooks/useAuth";
 import {
@@ -19,7 +25,7 @@ import {
   ShoppingCart,
   Users,
   Zap,
-  Brain
+  Brain,
 } from "lucide-react";
 
 interface ServiceOrderFormProps {
@@ -34,7 +40,12 @@ const serviceTypes = [
     icon: Globe,
     price: 2500000,
     description: "Красивый и функциональный сайт с современным дизайном",
-    features: ["Уникальный дизайн", "Адаптивная верстка", "SEO оптимизация", "Техподдержка 3 мес"]
+    features: [
+      "Уникальный дизайн",
+      "Адаптивная верстка",
+      "SEO оптимизация",
+      "Техподдержка 3 мес",
+    ],
   },
   {
     value: "pro",
@@ -42,21 +53,38 @@ const serviceTypes = [
     icon: Brain,
     price: 3500000,
     originalPrice: 4000000,
-    description: "Насыщенный функционал с встроенным ИИ и многими возможностями",
-    features: ["Все из Basic", "ИИ-чат бот", "Панель управления", "API интеграции", "Техподдержка 6 мес"],
-    popular: true
+    description:
+      "Насыщенный функционал с встроенным ИИ и многими возможностями",
+    features: [
+      "Все из Basic",
+      "ИИ-чат бот",
+      "Панель управления",
+      "API интеграции",
+      "Техподдержка 6 мес",
+    ],
+    popular: true,
   },
   {
     value: "max",
     label: "MAX - Веб-сайт",
     icon: Zap,
     price: 5500000,
-    description: "Безграничные возможности с Джарвисом и инновационными функциями",
-    features: ["Все из Pro", "Встроенный Джарвис", "3D элементы", "VR/AR интеграция", "Персональный менеджер"]
-  }
+    description:
+      "Безграничные возможности с Джарвисом и инновационными функциями",
+    features: [
+      "Все из Pro",
+      "Встроенный Джарвис",
+      "3D элементы",
+      "VR/AR интеграция",
+      "Персональный менеджер",
+    ],
+  },
 ];
 
-export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormProps) {
+export default function ServiceOrderForm({
+  isOpen,
+  onClose,
+}: ServiceOrderFormProps) {
   const { currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -69,30 +97,30 @@ export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormPr
     projectDescription: "",
     clientName: currentUser?.name || "",
     clientEmail: currentUser?.email || "",
-    estimatedPrice: 0
+    estimatedPrice: 0,
   });
 
   const handleServiceSelect = (serviceValue: string) => {
-    const selectedService = serviceTypes.find(s => s.value === serviceValue);
+    const selectedService = serviceTypes.find((s) => s.value === serviceValue);
     if (selectedService) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         projectType: selectedService.label,
-        estimatedPrice: selectedService.price
+        estimatedPrice: selectedService.price,
       }));
     }
   };
 
   const handleChange = (field: string, value: string | number) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!currentUser) {
       setError("Необходимо войти в аккаунт для создания договора");
       return;
@@ -108,9 +136,9 @@ export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormPr
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "user-id": currentUser.id
+          "user-id": currentUser.id,
         },
-        body: JSON.stringify(request)
+        body: JSON.stringify(request),
       });
 
       const data: CreateContractResponse = await response.json();
@@ -132,7 +160,7 @@ export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormPr
 
   const handleDownloadContract = () => {
     if (contractUrl) {
-      window.open(contractUrl, '_blank');
+      window.open(contractUrl, "_blank");
     }
   };
 
@@ -146,7 +174,7 @@ export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormPr
       projectDescription: "",
       clientName: currentUser?.name || "",
       clientEmail: currentUser?.email || "",
-      estimatedPrice: 0
+      estimatedPrice: 0,
     });
   };
 
@@ -198,7 +226,7 @@ export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormPr
             Заказать услугу и создать договор
           </CardTitle>
         </CardHeader>
-        
+
         <CardContent className="p-6">
           {error && (
             <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-300 flex items-center gap-2">
@@ -234,32 +262,42 @@ export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormPr
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-center gap-3">
                           <Icon className="w-5 h-5 text-blue-400" />
-                          <span className="text-white font-medium">{service.label}</span>
+                          <span className="text-white font-medium">
+                            {service.label}
+                          </span>
                         </div>
                         <div className="text-right">
                           {service.originalPrice && (
                             <p className="text-white/40 text-sm line-through">
-                              {service.originalPrice.toLocaleString('ru-RU')} сум
+                              {service.originalPrice.toLocaleString("ru-RU")}{" "}
+                              сум
                             </p>
                           )}
                           <p className="text-blue-400 font-semibold">
-                            {service.price.toLocaleString('ru-RU')} сум
+                            {service.price.toLocaleString("ru-RU")} сум
                           </p>
                         </div>
                       </div>
 
-                      <p className="text-white/60 text-sm mb-3">{service.description}</p>
+                      <p className="text-white/60 text-sm mb-3">
+                        {service.description}
+                      </p>
 
                       {service.features && (
                         <div className="space-y-1">
                           {service.features.slice(0, 3).map((feature, idx) => (
                             <div key={idx} className="flex items-center gap-2">
                               <div className="w-1 h-1 bg-blue-400 rounded-full"></div>
-                              <span className="text-white/50 text-xs">{feature}</span>
+                              <span className="text-white/50 text-xs">
+                                {feature}
+                              </span>
                             </div>
                           ))}
                           {service.features.length > 3 && (
-                            <p className="text-white/40 text-xs">и ещё {service.features.length - 3} возможностей...</p>
+                            <p className="text-white/40 text-xs">
+                              и ещё {service.features.length - 3}{" "}
+                              возможностей...
+                            </p>
                           )}
                         </div>
                       )}
@@ -309,7 +347,9 @@ export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormPr
               <Textarea
                 id="projectDescription"
                 value={formData.projectDescription}
-                onChange={(e) => handleChange("projectDescription", e.target.value)}
+                onChange={(e) =>
+                  handleChange("projectDescription", e.target.value)
+                }
                 required
                 rows={4}
                 className="bg-white/5 border-white/20 text-white placeholder:text-white/50 resize-none"
@@ -321,13 +361,16 @@ export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormPr
             {formData.estimatedPrice > 0 && (
               <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
                 <div className="flex items-center justify-between">
-                  <span className="text-white/80">Предварительная стоимость:</span>
+                  <span className="text-white/80">
+                    Предварительная стоимость:
+                  </span>
                   <span className="text-blue-400 font-bold text-lg">
-                    {formData.estimatedPrice.toLocaleString('ru-RU')} ₽
+                    {formData.estimatedPrice.toLocaleString("ru-RU")} ₽
                   </span>
                 </div>
                 <p className="text-white/60 text-sm mt-1">
-                  * Окончательная цена будет определена после детального анализа проекта
+                  * Окончательная цена будет определена после детального анализа
+                  проекта
                 </p>
               </div>
             )}
@@ -336,7 +379,11 @@ export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormPr
             <div className="flex gap-3 pt-4">
               <Button
                 type="submit"
-                disabled={loading || !formData.projectType || !formData.projectDescription}
+                disabled={
+                  loading ||
+                  !formData.projectType ||
+                  !formData.projectDescription
+                }
                 className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
               >
                 {loading ? (
@@ -351,7 +398,7 @@ export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormPr
                   </>
                 )}
               </Button>
-              
+
               <Button
                 type="button"
                 onClick={onClose}

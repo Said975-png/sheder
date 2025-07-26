@@ -96,7 +96,7 @@ export interface ContractData {
   projectDescription: string;
   price: number;
   createdAt: string;
-  status: 'draft' | 'active' | 'completed' | 'cancelled';
+  status: "draft" | "active" | "completed" | "cancelled";
   fileName: string;
   fileUrl?: string;
 }
