@@ -241,8 +241,6 @@ export default function Index() {
   const [forceStopVoice, setForceStopVoice] = useState(false);
   const [isModelRotating, setIsModelRotating] = useState(false);
 
-
-
   const handleLogout = React.useCallback(() => {
     logout();
     window.location.reload();

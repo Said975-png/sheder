@@ -272,7 +272,10 @@ export default function StarkHero({
               { number: "1000+", label: "Довольных клиентов" },
               { number: "<1сек", label: "Время отклика" },
             ].map((stat, index) => (
-              <div key={index} className="group cursor-pointer min-w-0 flex-shrink-0">
+              <div
+                key={index}
+                className="group cursor-pointer min-w-0 flex-shrink-0"
+              >
                 <div className="text-lg sm:text-xl lg:text-3xl font-bold text-white group-hover:scale-110 transition-transform duration-300 whitespace-nowrap">
                   {stat.number}
                 </div>

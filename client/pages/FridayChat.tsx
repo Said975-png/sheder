@@ -147,7 +147,7 @@ export default function FridayChat() {
       {/* Futuristic Background Effects */}
       <div className="fixed inset-0 -z-10">
         {/* Animated Grid */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage: `
@@ -157,21 +157,21 @@ export default function FridayChat() {
             backgroundSize: "50px 50px",
           }}
         />
-        
+
         {/* Floating Orbs */}
         <div className="absolute top-20 left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div 
+        <div
           className="absolute bottom-20 right-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
           style={{ animationDelay: "2s" }}
         ></div>
-        <div 
+        <div
           className="absolute top-1/2 left-1/4 w-64 h-64 bg-cyan-400/5 rounded-full blur-2xl animate-pulse"
           style={{ animationDelay: "1s" }}
         ></div>
-        
+
         {/* Scanning Lines */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-400/50 to-transparent animate-pulse"></div>
-        <div 
+        <div
           className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-400/50 to-transparent animate-pulse"
           style={{ animationDelay: "1.5s" }}
         ></div>
@@ -190,7 +190,7 @@ export default function FridayChat() {
               >
                 <ArrowLeft className="w-5 h-5 text-blue-400" />
               </Button>
-              
+
               {/* AI Avatar */}
               <div className="relative">
                 <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
@@ -211,7 +211,7 @@ export default function FridayChat() {
                 </div>
               </div>
             </div>
-            
+
             <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <Button
                 variant="outline"
@@ -222,7 +222,7 @@ export default function FridayChat() {
                 <Home className="w-4 h-4 sm:mr-2" />
                 <span className="hidden sm:inline">Главная</span>
               </Button>
-              
+
               <Button
                 variant="ghost"
                 size="sm"
@@ -230,7 +230,7 @@ export default function FridayChat() {
               >
                 <Settings className="w-4 h-4 text-slate-400" />
               </Button>
-              
+
               <Button
                 variant="ghost"
                 size="sm"
@@ -270,19 +270,25 @@ export default function FridayChat() {
                     } rounded-xl sm:rounded-2xl px-3 sm:px-5 py-3 sm:py-4 backdrop-blur-md relative overflow-hidden`}
                   >
                     {/* Message glow effect */}
-                    <div className={`absolute inset-0 ${
-                      message.role === "user" 
-                        ? "bg-gradient-to-r from-blue-500/20 to-purple-500/20" 
-                        : "bg-gradient-to-r from-blue-500/5 to-purple-500/5"
-                    } rounded-2xl`}></div>
-                    
+                    <div
+                      className={`absolute inset-0 ${
+                        message.role === "user"
+                          ? "bg-gradient-to-r from-blue-500/20 to-purple-500/20"
+                          : "bg-gradient-to-r from-blue-500/5 to-purple-500/5"
+                      } rounded-2xl`}
+                    ></div>
+
                     <div className="relative z-10">
                       <div className="text-sm leading-relaxed whitespace-pre-wrap break-words">
                         {message.content}
                       </div>
-                      <div className={`text-xs mt-2 ${
-                        message.role === "user" ? "text-blue-100/70" : "text-slate-400"
-                      }`}>
+                      <div
+                        className={`text-xs mt-2 ${
+                          message.role === "user"
+                            ? "text-blue-100/70"
+                            : "text-slate-400"
+                        }`}
+                      >
                         {formatTime(message.timestamp)}
                       </div>
                     </div>
@@ -310,8 +316,14 @@ export default function FridayChat() {
                     <div className="flex items-center gap-3">
                       <div className="flex gap-1">
                         <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
-                        <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+                        <div
+                          className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.1s" }}
+                        ></div>
+                        <div
+                          className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0.2s" }}
+                        ></div>
                       </div>
                       <span className="text-sm text-slate-300">
                         Пятница анализирует...
@@ -349,19 +361,17 @@ export default function FridayChat() {
                     <div className="flex items-center gap-3">
                       <div className="flex gap-1">
                         {[...Array(4)].map((_, i) => (
-                          <div 
+                          <div
                             key={i}
                             className="w-1 bg-green-300 rounded-full animate-pulse"
-                            style={{ 
+                            style={{
                               height: `${Math.random() * 16 + 8}px`,
-                              animationDelay: `${i * 100}ms` 
+                              animationDelay: `${i * 100}ms`,
                             }}
                           ></div>
                         ))}
                       </div>
-                      <span className="text-sm text-green-100">
-                        Говорю...
-                      </span>
+                      <span className="text-sm text-green-100">Говорю...</span>
                     </div>
                   </div>
                 </div>
@@ -392,7 +402,7 @@ export default function FridayChat() {
                       <Mic className="w-4 sm:w-5 h-4 sm:h-5" />
                     )}
                   </Button>
-                  
+
                   <Button
                     onClick={stopSpeaking}
                     variant="outline"
@@ -426,7 +436,7 @@ export default function FridayChat() {
                     disabled={isLoading || isListening}
                     className="h-12 sm:h-14 px-4 sm:px-6 pr-12 sm:pr-16 bg-slate-800/50 border-slate-600/30 text-white placeholder:text-slate-400 focus:border-blue-400/50 focus:ring-blue-400/20 rounded-xl sm:rounded-2xl text-sm sm:text-base backdrop-blur-md"
                   />
-                  
+
                   {/* Input decorations */}
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
                     {inputValue && (
@@ -449,7 +459,7 @@ export default function FridayChat() {
                   )}
                 </Button>
               </div>
-              
+
               {/* Status bar */}
               <div className="flex items-center justify-between mt-4 text-xs text-slate-400">
                 <div className="flex items-center gap-2">

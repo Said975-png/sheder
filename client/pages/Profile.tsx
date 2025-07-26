@@ -312,7 +312,6 @@ function Profile() {
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
             </Link>
-
           </div>
 
           <div className="flex items-center space-x-4">

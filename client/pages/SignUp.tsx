@@ -140,7 +140,6 @@ export default function SignUp() {
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
             </Link>
-
           </div>
 
           <div className="flex items-center justify-center space-x-2 mb-4">
