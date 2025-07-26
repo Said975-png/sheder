@@ -154,7 +154,7 @@ function Profile() {
         return;
       }
 
-      // Проверяем тип файла
+      // Проверяе�� тип файла
       if (!file.type.startsWith("image/")) {
         setError("Пожалуйста, выберите изображение");
         return;
@@ -196,7 +196,7 @@ function Profile() {
         }
       }
 
-      // Обновляем данные пользователя
+      // Обн��вляем данные пользователя
       users[userIndex] = {
         ...users[userIndex],
         name: formData.name,
@@ -273,7 +273,7 @@ function Profile() {
       }));
     } catch (error) {
       console.error("Password change error:", error);
-      setError("Произошла ошибка при смене пароля");
+      setError("Произошла ошибка при смене ��ароля");
     } finally {
       setLoading(false);
     }
@@ -282,7 +282,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.",
+        "Вы уверены, что хотите удали��ь аккаунт? Это действие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -346,29 +346,85 @@ function Profile() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950/20 to-indigo-950/30 text-white p-6">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Futuristic Background */}
+      <div className="fixed inset-0 -z-10">
+        {/* Animated Grid */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(0, 247, 255, 0.15) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0, 247, 255, 0.15) 1px, transparent 1px)
+            `,
+            backgroundSize: "50px 50px",
+          }}
+        />
+
+        {/* Floating Orbs */}
+        <div className="absolute top-20 left-20 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div
+          className="absolute bottom-20 right-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "2s" }}
+        ></div>
+        <div
+          className="absolute top-1/2 left-1/4 w-64 h-64 bg-blue-400/5 rounded-full blur-2xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        ></div>
+
+        {/* Scanning Lines */}
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent animate-pulse"></div>
+        <div
+          className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-400/50 to-transparent animate-pulse"
+          style={{ animationDelay: "1.5s" }}
+        ></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 relative z-10">
+        {/* Enhanced Header */}
         <div className="mb-8">
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center mb-8">
             <Link
               to="/"
-              className="inline-flex items-center space-x-2 text-white/80 hover:text-white transition-colors"
+              className="group inline-flex items-center space-x-3 text-cyan-400 hover:text-cyan-300 transition-all duration-300"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Назад на главную</span>
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center group-hover:bg-cyan-500/20 transition-all duration-300">
+                <ArrowLeft className="w-5 h-5" />
+              </div>
+              <span className="text-lg font-medium">НАЗАД К ПАНЕЛИ</span>
             </Link>
           </div>
 
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center">
-              <Settings className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold">Профиль пользователя</h1>
-              <p className="text-white/70">
-                Управляйте настройками вашего аккаунта
-              </p>
+          {/* Holographic Header */}
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-cyan-500/20 blur-xl"></div>
+            <div className="relative bg-black/40 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-8">
+              <div className="flex items-center space-x-6">
+                <div className="relative">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center shadow-2xl shadow-cyan-500/50">
+                    <Settings className="w-10 h-10 text-white" />
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-black animate-pulse"></div>
+                </div>
+                <div className="flex-1">
+                  <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-2">
+                    STARK INDUSTRIES
+                  </h1>
+                  <h2 className="text-2xl font-semibold text-white mb-1">
+                    Панель управления пользователя
+                  </h2>
+                  <p className="text-cyan-300/70 text-lg">
+                    Система безопасности и настройки аккаунта
+                  </p>
+                </div>
+                <div className="text-right">
+                  <div className="text-xs text-cyan-400 mb-1">СИСТЕМА АКТИВНА</div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="text-green-400 text-sm font-mono">ОНЛАЙН</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -608,7 +664,7 @@ function Profile() {
                                 ли��ный кабинет
                               </p>
                               <p>
-                                ✓ Биометрические данные хранятся локально и не
+                                ✓ Биометрические данные хранятся локаль��о и не
                                 передаются на сервер
                               </p>
                               <p>
@@ -765,7 +821,7 @@ function Profile() {
                           className="bg-purple-600 hover:bg-purple-700 text-white"
                         >
                           <Plus className="w-4 h-4 mr-2" />
-                          Заказать услугу
+                          За��азать услугу
                         </Button>
                       </div>
                     ) : (
