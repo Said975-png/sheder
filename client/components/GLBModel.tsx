@@ -57,7 +57,7 @@ function Model({
       const time = state.clock.getElapsedTime();
 
       if (isRotating) {
-        // Быстрое вращение когда активирована команда
+        // Быстрое вращени�� когда активирована команда
         modelRef.current.rotation.y += 0.05;
         modelRef.current.rotation.x = Math.sin(time * 2) * 0.1;
         modelRef.current.rotation.z = Math.cos(time * 1.5) * 0.05;
@@ -133,8 +133,29 @@ const GLBModel: React.FC<GLBModelProps> = ({
   isRotating = false,
   onRotationStart,
   onRotationStop,
+  onModelChange,
 }) => {
   const [isLoading, setIsLoading] = React.useState(true);
+  const [currentModelUrl, setCurrentModelUrl] = React.useState(url);
+
+  // Слушаем события смены модели
+  React.useEffect(() => {
+    const handleModelChange = (event: CustomEvent) => {
+      const newUrl = event.detail.newModelUrl;
+      console.log("🔄 Получено событие смены модели:", newUrl);
+      setCurrentModelUrl(newUrl);
+      setIsLoading(true);
+
+      if (onModelChange) {
+        onModelChange(newUrl);
+      }
+    };
+
+    window.addEventListener("changeModel", handleModelChange as EventListener);
+    return () => {
+      window.removeEventListener("changeModel", handleModelChange as EventListener);
+    };
+  }, [onModelChange]);
 
   // Стабилизируем параметры чтобы избежать пересоздания Canvas
   const stableProps = useMemo(
