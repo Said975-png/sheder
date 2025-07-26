@@ -30,6 +30,8 @@ export default function VoiceControl({
   const [transcript, setTranscript] = useState("");
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+  const lastCommandRef = useRef<string>("");
+  const commandTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
 
@@ -216,7 +218,7 @@ export default function VoiceControl({
 
   // Исправленная функция воспроизведения аудио
   const playAudio = useCallback((url: string, onComplete?: () => void) => {
-    // Безопасно останавливаем предыдущее аудио
+    // Безопа��но останавливаем предыдущее аудио
     if (currentAudioRef.current) {
       try {
         currentAudioRef.current.pause();
