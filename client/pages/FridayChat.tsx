@@ -177,7 +177,7 @@ export default function FridayChat() {
         ></div>
       </div>
 
-      <div className="max-w-6xl mx-auto p-4 relative z-10">
+      <div className="max-w-6xl mx-auto p-2 sm:p-4 relative z-10">
         {/* Modern Header */}
         <div className="mb-6">
           <div className="flex items-center justify-between p-6 bg-gradient-to-r from-slate-900/80 to-blue-900/40 backdrop-blur-xl border border-blue-500/20 rounded-2xl shadow-2xl shadow-blue-500/10">
