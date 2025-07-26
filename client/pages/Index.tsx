@@ -36,7 +36,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
 
-// Компонент для анимации печати кода
+// Ком��онент для анимации печати кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -349,6 +349,17 @@ export default function Index() {
 
       {/* Jarvis Demo Section */}
       <JarvisDemo />
+
+      {/* Floating Voice Control */}
+      <FloatingVoiceControl
+        onAddBasicPlan={handleAddBeginnerPlan}
+        onAddProPlan={handleAddIntermediatePlan}
+        onAddMaxPlan={handleAddAdvancedPlan}
+        onListeningChange={handleListeningChange}
+        forceStop={forceStopVoice}
+        onModelRotateStart={handleModelRotateStart}
+        onModelRotateStop={handleModelRotateStop}
+      />
     </div>
   );
 }
