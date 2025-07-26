@@ -213,17 +213,17 @@ function CartDropdown({
         <Button
           variant="ghost"
           className={cn(
-            "relative p-3 rounded-xl",
-            "bg-gradient-to-r from-orange-500/20 to-red-500/20",
-            "border border-orange-400/40 hover:border-orange-300/60",
-            "hover:bg-gradient-to-r hover:from-orange-400/30 hover:to-red-400/30",
-            "transition-all duration-300 hover:scale-105",
-            "hover:shadow-lg hover:shadow-orange-400/30"
+            "relative p-2 rounded-full h-8 w-8",
+            "bg-gradient-to-r from-orange-500/25 to-red-500/25",
+            "border border-orange-400/50 hover:border-orange-300/70",
+            "hover:bg-gradient-to-r hover:from-orange-400/35 hover:to-red-400/35",
+            "transition-all duration-300 hover:scale-110",
+            "hover:shadow-lg hover:shadow-orange-400/40"
           )}
         >
-          <ShoppingCart className="w-5 h-5 text-orange-300" />
+          <ShoppingCart className="w-4 h-4 text-orange-300" />
           {getTotalItems() > 0 && (
-            <span className="absolute -top-1 -right-1 w-5 h-5 bg-gradient-to-r from-orange-500 to-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold animate-pulse">
+            <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-gradient-to-r from-orange-500 to-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold animate-pulse">
               {getTotalItems()}
             </span>
           )}
