@@ -536,32 +536,32 @@ function Profile() {
               </CardHeader>
               <CardContent className="p-6">
                 {activeTab === "profile" && (
-                  <form onSubmit={handleProfileUpdate} className="space-y-4">
+                  <form onSubmit={handleProfileUpdate} className="space-y-6">
                     <div className="space-y-2">
-                      <Label htmlFor="name" className="text-white/80">
+                      <Label htmlFor="name" className="text-gray-700 font-medium">
                         Полное имя
                       </Label>
                       <div className="relative">
-                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
+                        <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                         <Input
                           id="name"
                           name="name"
                           type="text"
-                          placeholder="Введ��те ваше имя"
+                          placeholder="Введите ваше имя"
                           value={formData.name}
                           onChange={handleChange}
                           required
-                          className="pl-10 bg-white/5 border-white/20 text-white placeholder:text-white/50"
+                          className="pl-10 bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-white/80">
+                      <Label htmlFor="email" className="text-gray-700 font-medium">
                         Email
                       </Label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-white/50" />
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                         <Input
                           id="email"
                           name="email"
@@ -570,7 +570,7 @@ function Profile() {
                           value={formData.email}
                           onChange={handleChange}
                           required
-                          className="pl-10 bg-white/5 border-white/20 text-white placeholder:text-white/50"
+                          className="pl-10 bg-white border-gray-300 text-gray-900 placeholder:text-gray-400 focus:border-blue-500 focus:ring-blue-500"
                         />
                       </div>
                     </div>
@@ -578,7 +578,7 @@ function Profile() {
                     <Button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium"
                     >
                       <Save className="w-4 h-4 mr-2" />
                       {loading ? "Сохраняем..." : "Сохранить изменения"}
