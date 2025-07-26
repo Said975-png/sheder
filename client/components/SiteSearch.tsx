@@ -78,7 +78,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
     },
     {
       id: "profile",
-      title: "Профиль пол��зователя",
+      title: "Про��иль пол��зователя",
       description: "Настройки и информация о пользователе",
       type: "page",
       url: "/profile",
@@ -256,7 +256,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Поиск по сайту..."
-                className="w-full pl-12 pr-12 py-4 text-lg bg-black/90 border-2 border-cyan-400/30 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none backdrop-blur-sm"
+                className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-3 sm:py-4 text-base sm:text-lg bg-black/90 border-2 border-cyan-400/30 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none backdrop-blur-sm min-h-[48px]"
               />
               <Button
                 onClick={() => setIsOpen(false)}
