@@ -138,6 +138,22 @@ const GLBModel: React.FC<GLBModelProps> = ({
   const [isLoading, setIsLoading] = React.useState(true);
   const [currentModelUrl, setCurrentModelUrl] = React.useState(url);
 
+  // Функция для определения параметров модели в зависимости от URL
+  const getModelParams = (modelUrl: string) => {
+    // Если это новая модель (7e7ff2ca5bfe498ab61759615baa851b), применяем другие параметры
+    if (modelUrl.includes("7e7ff2ca5bfe498ab61759615baa851b")) {
+      return {
+        scale: scale * 1.5, // Увеличиваем масштаб для новой модели
+        position: [position[0], position[1] - 0.5, position[2]] as [number, number, number], // Опускаем немного ниже
+      };
+    }
+    // Для исходной модели используем стандартные параметры
+    return {
+      scale: scale,
+      position: position,
+    };
+  };
+
   // Слушаем события смены модели
   React.useEffect(() => {
     const handleModelChange = (event: CustomEvent) => {
