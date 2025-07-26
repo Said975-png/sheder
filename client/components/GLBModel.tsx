@@ -68,7 +68,7 @@ function Model({
         modelRef.current.position.y = Math.sin(time * 0.8) * 0.2;
         modelRef.current.rotation.z = Math.sin(time * 0.5) * 0.1;
 
-        // Легкое вращение от мыши (уменьшенное)
+        // Легкое ��ращение от мыши (уменьшенное)
         const targetRotationY = mouseRef.current.x * 0.2;
         const targetRotationX = -mouseRef.current.y * 0.1;
 
@@ -142,7 +142,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
   React.useEffect(() => {
     const handleModelChange = (event: CustomEvent) => {
       const newUrl = event.detail.newModelUrl;
-      console.log("🔄 Получено ��обытие смены модели:", newUrl);
+      console.log("🔄 Получено событие смены модели:", newUrl);
       setCurrentModelUrl(newUrl);
       setIsLoading(true);
 
@@ -212,7 +212,7 @@ useGLTF.preload(
 );
 
 useGLTF.preload(
-  "https://cdn.builder.io/o/assets%2Fd75af4d8f215499ea8d0f6203e423bd8%2Fceb414e31cc44cb7869507c2ece72b68?alt=media&token=4ad08660-2a7e-43be-9dcb-a5914c9540bb&apiKey=d75af4d8f215499ea8d0f6203e423bd8",
+  "https://cdn.builder.io/o/assets%2Fd75af4d8f215499ea8d0f6203e423bd8%2F7e7ff2ca5bfe498ab61759615baa851b?alt=media&token=7869bfeb-bbfa-460d-b8f8-4c63d65277f4&apiKey=d75af4d8f215499ea8d0f6203e423bd8",
 );
 
 export default GLBModel;
