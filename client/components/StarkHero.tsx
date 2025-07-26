@@ -37,7 +37,7 @@ export default function StarkHero({
   );
 
   const handleModelChange = (newUrl: string) => {
-    console.log("🔄 StarkHero: Смена модели на", newUrl);
+    console.log("�� StarkHero: Смена модели на", newUrl);
     setCurrentModelUrl(newUrl);
   };
 
@@ -195,7 +195,7 @@ export default function StarkHero({
               ].map((feature, index) => (
                 <div
                   key={index}
-                  className="flex items-center space-x-2 text-white/60 group cursor-pointer"
+                  className="flex items-center space-x-2 text-white/60 group cursor-pointer overflow-hidden"
                 >
                   <div className="text-white group-hover:scale-110 transition-transform duration-300">
                     {feature.icon}
@@ -267,7 +267,7 @@ export default function StarkHero({
         >
           <div className="flex flex-wrap justify-center items-center gap-8 text-center">
             {[
-              { number: "99.9%", label: "Точность ответов" },
+              { number: "99.9%", label: "Точ��ость ответов" },
               { number: "24/7", label: "Доступность" },
               { number: "1000+", label: "Довольных клиентов" },
               { number: "<1сек", label: "Время отклика" },
