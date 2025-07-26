@@ -115,7 +115,7 @@ export default function FridayChat() {
       const errorMessage: ChatMessage = {
         role: "assistant",
         content:
-          "Извините, не удалось отправить сообщение. Проверьте подключение к интернету.",
+          "Извините, не удалось отправить сообщение. Пр��верьте подключение к интернету.",
         timestamp: Date.now(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -179,8 +179,8 @@ export default function FridayChat() {
 
       <div className="max-w-6xl mx-auto p-2 sm:p-4 relative z-10">
         {/* Modern Header */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between p-6 bg-gradient-to-r from-slate-900/80 to-blue-900/40 backdrop-blur-xl border border-blue-500/20 rounded-2xl shadow-2xl shadow-blue-500/10">
+        <div className="mb-4 sm:mb-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 sm:p-6 bg-gradient-to-r from-slate-900/80 to-blue-900/40 backdrop-blur-xl border border-blue-500/20 rounded-2xl shadow-2xl shadow-blue-500/10 gap-4 sm:gap-0">
             <div className="flex items-center gap-4">
               <Button
                 variant="ghost"
@@ -421,7 +421,7 @@ export default function FridayChat() {
                     placeholder={
                       isListening
                         ? "🎤 Говорите в микрофон..."
-                        : "💬 Спросите о наших услугах, тарифах или любую другую тему..."
+                        : "💬 Спросите о наших услугах, тарифах или л��бую другую тему..."
                     }
                     disabled={isLoading || isListening}
                     className="h-14 px-6 pr-16 bg-slate-800/50 border-slate-600/30 text-white placeholder:text-slate-400 focus:border-blue-400/50 focus:ring-blue-400/20 rounded-2xl text-base backdrop-blur-md"
