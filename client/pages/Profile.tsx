@@ -438,7 +438,7 @@ function Profile() {
                 <CheckCircle className="w-6 h-6 text-green-400" />
               </div>
               <div>
-                <div className="text-green-400 font-mono text-sm mb-1">ОПЕРАЦИЯ ��АВЕРШЕНА</div>
+                <div className="text-green-400 font-mono text-sm mb-1">ОПЕРАЦИЯ ЗАВЕРШЕНА</div>
                 <div className="text-white text-lg">{success}</div>
               </div>
             </div>
@@ -582,23 +582,35 @@ function Profile() {
                   </button>
                   <button
                     onClick={() => setActiveTab("security")}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`group relative px-6 py-3 rounded-xl font-mono text-sm font-medium transition-all duration-300 ${
                       activeTab === "security"
-                        ? "bg-purple-600 text-white"
-                        : "text-white/70 hover:text-white hover:bg-white/5"
+                        ? "bg-purple-500/20 text-purple-300 border border-purple-400/50"
+                        : "text-purple-400/70 hover:text-purple-300 hover:bg-purple-500/10 border border-purple-400/20"
                     }`}
                   >
-                    Безопасность
+                    <div className="flex items-center space-x-2">
+                      <Shield className="w-4 h-4" />
+                      <span>БЕЗОПАСНОСТЬ</span>
+                    </div>
+                    {activeTab === "security" && (
+                      <div className="absolute inset-0 bg-purple-400/10 rounded-xl animate-pulse"></div>
+                    )}
                   </button>
                   <button
                     onClick={() => setActiveTab("contracts")}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`group relative px-6 py-3 rounded-xl font-mono text-sm font-medium transition-all duration-300 ${
                       activeTab === "contracts"
-                        ? "bg-purple-600 text-white"
-                        : "text-white/70 hover:text-white hover:bg-white/5"
+                        ? "bg-green-500/20 text-green-300 border border-green-400/50"
+                        : "text-green-400/70 hover:text-green-300 hover:bg-green-500/10 border border-green-400/20"
                     }`}
                   >
-                    Договоры
+                    <div className="flex items-center space-x-2">
+                      <FileText className="w-4 h-4" />
+                      <span>ДОГОВОРЫ</span>
+                    </div>
+                    {activeTab === "contracts" && (
+                      <div className="absolute inset-0 bg-green-400/10 rounded-xl animate-pulse"></div>
+                    )}
                   </button>
                 </div>
               </CardHeader>
