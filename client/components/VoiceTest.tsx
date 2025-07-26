@@ -1,16 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Mic, MicOff, Volume2 } from "lucide-react";
+import { Mic, MicOff, Volume2, AlertCircle } from "lucide-react";
 import { useVoiceChat } from "@/hooks/useVoiceChat";
 
 export default function VoiceTest() {
   const [lastTranscript, setLastTranscript] = useState("");
   const [responses, setResponses] = useState<string[]>([]);
+  const [commandCount, setCommandCount] = useState(0);
+  const [lastCommandTime, setLastCommandTime] = useState<number>(0);
 
   const { isListening, isSpeaking, toggleListening, speakText } = useVoiceChat({
     onTranscriptReceived: (text: string) => {
+      const now = Date.now();
+      const timeSinceLastCommand = now - lastCommandTime;
+      
       console.log("Получен текст:", text);
+      console.log("Время с последней команды:", timeSinceLastCommand, "мс");
+      
+      // Проверяем не дублируется ли команда
+      if (text === lastTranscript && timeSinceLastCommand < 2000) {
+        console.log("⚠️ Дублированная команда обнаружена:", text);
+        setResponses(prev => [...prev, `⚠️ ДУБЛЬ: ${text} (через ${timeSinceLastCommand}мс)`]);
+        return;
+      }
+      
       setLastTranscript(text);
+      setLastCommandTime(now);
+      setCommandCount(prev => prev + 1);
       
       // Простые ответы на команды
       let response = "Команда принята";
@@ -21,9 +37,11 @@ export default function VoiceTest() {
         response = "У меня все отлично, спасибо!";
       } else if (text.toLowerCase().includes("спасибо")) {
         response = "Пожалуйста!";
+      } else if (text.toLowerCase().includes("��жарвис")) {
+        response = "Да, сэр?";
       }
       
-      setResponses(prev => [...prev, `Вы: ${text}`, `Ассистент: ${response}`]);
+      setResponses(prev => [...prev, `${commandCount + 1}. Вы: ${text}`, `   Ассистент: ${response}`]);
       
       // Воспроизводим ответ
       setTimeout(() => {
@@ -38,16 +56,50 @@ export default function VoiceTest() {
   const clearHistory = () => {
     setResponses([]);
     setLastTranscript("");
+    setCommandCount(0);
+    setLastCommandTime(0);
+  };
+
+  const testMultipleCommands = () => {
+    const commands = ["Привет", "Как дела", "Спасибо"];
+    let index = 0;
+    
+    const interval = setInterval(() => {
+      if (index < commands.length) {
+        console.log("Тестовая команда:", commands[index]);
+        // Симулируем получение команды
+        const event = new CustomEvent('voiceCommand', { 
+          detail: { command: commands[index] } 
+        });
+        window.dispatchEvent(event);
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 1000);
+  };
+
+  // Индикатор состояния
+  const getStatusColor = () => {
+    if (isSpeaking) return "text-green-600";
+    if (isListening) return "text-blue-600";
+    return "text-gray-600";
+  };
+
+  const getStatusText = () => {
+    if (isSpeaking) return "🔊 Говорю...";
+    if (isListening) return "🎤 Слушаю...";
+    return "⏹️ Остановлено";
   };
 
   return (
-    <div className="p-6 max-w-md mx-auto bg-white rounded-lg shadow-lg">
-      <h2 className="text-xl font-bold mb-4 text-center">Тест голосового управления</h2>
+    <div className="p-6 max-w-lg mx-auto bg-white rounded-lg shadow-lg">
+      <h2 className="text-xl font-bold mb-4 text-center">Тест исправлений голосового управления</h2>
       
       <div className="flex justify-center mb-4">
         <Button
           onClick={toggleListening}
-          className={`w-16 h-16 rounded-full ${
+          className={`w-16 h-16 rounded-full transition-all ${
             isListening 
               ? "bg-red-500 hover:bg-red-600 animate-pulse" 
               : "bg-blue-500 hover:bg-blue-600"
@@ -58,40 +110,46 @@ export default function VoiceTest() {
       </div>
       
       <div className="text-center mb-4">
-        <p className="text-sm text-gray-600">
-          {isListening ? "🎤 Слушаю..." : "Нажмите микрофон для начала"}
+        <p className={`text-sm font-medium ${getStatusColor()}`}>
+          {getStatusText()}
         </p>
-        {isSpeaking && (
-          <p className="text-sm text-green-600 flex items-center justify-center gap-2">
-            <Volume2 className="w-4 h-4" />
-            Говорю...
-          </p>
-        )}
+        <p className="text-xs text-gray-500">
+          Команд обработано: {commandCount}
+        </p>
       </div>
       
       {lastTranscript && (
         <div className="mb-4 p-3 bg-gray-100 rounded">
           <p className="text-sm"><strong>Последняя команда:</strong></p>
           <p className="text-sm">{lastTranscript}</p>
+          <p className="text-xs text-gray-500">
+            Время: {new Date(lastCommandTime).toLocaleTimeString()}
+          </p>
         </div>
       )}
       
-      <div className="mb-4 max-h-40 overflow-y-auto">
-        {responses.map((response, index) => (
-          <div 
-            key={index} 
-            className={`text-sm p-2 mb-1 rounded ${
-              response.startsWith("Вы:") 
-                ? "bg-blue-100 text-blue-800" 
-                : "bg-green-100 text-green-800"
-            }`}
-          >
-            {response}
-          </div>
-        ))}
+      <div className="mb-4 max-h-48 overflow-y-auto border rounded p-2">
+        {responses.length === 0 ? (
+          <p className="text-sm text-gray-500 italic">Команды будут отображаться здесь...</p>
+        ) : (
+          responses.map((response, index) => (
+            <div 
+              key={index} 
+              className={`text-sm p-1 mb-1 rounded ${
+                response.includes("ДУБЛЬ") 
+                  ? "bg-red-100 text-red-800 font-bold" 
+                  : response.startsWith("   ") 
+                    ? "bg-green-100 text-green-800 ml-4" 
+                    : "bg-blue-100 text-blue-800"
+              }`}
+            >
+              {response}
+            </div>
+          ))
+        )}
       </div>
       
-      <div className="flex gap-2">
+      <div className="flex gap-2 mb-4">
         <Button 
           onClick={clearHistory} 
           variant="outline" 
@@ -101,7 +159,7 @@ export default function VoiceTest() {
           Очистить
         </Button>
         <Button 
-          onClick={() => speakText("Тест воспроизведения речи")} 
+          onClick={() => speakText("Тест воспроизведения речи без дублирования")} 
           variant="outline" 
           size="sm"
           className="flex-1"
@@ -111,13 +169,29 @@ export default function VoiceTest() {
         </Button>
       </div>
       
-      <div className="mt-4 text-xs text-gray-500">
-        <p><strong>Попробуйте сказать:</strong></p>
+      <div className="bg-yellow-50 border border-yellow-200 rounded p-3 mb-4">
+        <div className="flex items-start gap-2">
+          <AlertCircle className="w-4 h-4 text-yellow-600 mt-0.5" />
+          <div className="text-xs">
+            <p className="font-medium text-yellow-800">Исправления:</p>
+            <ul className="text-yellow-700 mt-1">
+              <li>• Убрано мигание кнопки микрофона</li>
+              <li>• Предотвращено дублирование команд</li>
+              <li>• Защита от множественного воспроизведения аудио</li>
+              <li>• Стабильное состояние компонентов</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div className="text-xs text-gray-500">
+        <p><strong>Попробуйте сказа��ь:</strong></p>
         <ul>
-          <li>• "Привет"</li>
+          <li>• "Привет" или "Джарвис"</li>
           <li>• "Как дела?"</li>
           <li>• "Спасибо"</li>
         </ul>
+        <p className="mt-2"><strong>Проверьте:</strong> команды не должны дублироваться, кнопка не должна мигать</p>
       </div>
     </div>
   );
