@@ -413,19 +413,7 @@ function MobileMenu({
 
       {/* Menu Panel */}
       <div className="absolute top-20 left-4 right-4 bg-black/95 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-6 shadow-2xl shadow-cyan-400/20">
-        {/* JARVIS Interface */}
-        <div className="mb-6 p-4 bg-black/60 border border-cyan-400/20 rounded-xl">
-          <JarvisInterface
-            onAddBasicPlan={onAddBasicPlan}
-            onAddProPlan={onAddProPlan}
-            onAddMaxPlan={onAddMaxPlan}
-            inNavbar={true}
-            onListeningChange={onListeningChange}
-            forceStop={forceStopVoice}
-            onModelRotateStart={onModelRotateStart}
-            onModelRotateStop={onModelRotateStop}
-          />
-        </div>
+
 
         {/* Navigation Links */}
         <div className="space-y-3">
