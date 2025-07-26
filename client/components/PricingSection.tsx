@@ -203,7 +203,7 @@ function PricingSection() {
                       className={cn(
                         "w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto transition-all duration-500",
                         plan.highlight
-                          ? "bg-white text-black"
+                          ? "!bg-white !text-black"
                           : "bg-white/10 text-white border border-white/20",
                       )}
                     >
@@ -258,10 +258,11 @@ function PricingSection() {
                   {/* CTA Button */}
                   <Button
                     onClick={() => handleAddToCart(plan)}
+                    variant={plan.highlight ? "secondary" : "outline"}
                     className={cn(
                       "w-full py-4 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 group",
                       plan.highlight
-                        ? "bg-white text-black hover:bg-white/90 shadow-lg"
+                        ? "!bg-white !text-black hover:!bg-white/90 hover:!text-black shadow-lg"
                         : "bg-white/10 text-white hover:bg-white/20 border border-white/20 hover:border-white/40",
                     )}
                   >
