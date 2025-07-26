@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import VoiceControl from "@/components/VoiceControl";
 import ModernNavbar from "@/components/ModernNavbar";
+import FloatingVoiceControl from "@/components/FloatingVoiceControl";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
