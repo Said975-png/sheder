@@ -76,11 +76,28 @@ export default function VoiceControl({
         // Не вызываем onListeningChange для промежуточных результатов чтобы избежать мигания
       }
 
-      // ��брабатываем только финальные результаты
+      // Обрабатываем только финальные результаты
       if (finalTranscript.trim()) {
         const command = finalTranscript.trim().toLowerCase();
         console.log("📝 Финальная команда:", command);
-        
+
+        // Проверяем не повторяется ли команда
+        if (command === lastCommandRef.current) {
+          console.log("⏭️ Пропускаем повторную команду:", command);
+          return;
+        }
+
+        // Очищаем предыдущий таймаут
+        if (commandTimeoutRef.current) {
+          clearTimeout(commandTimeoutRef.current);
+        }
+
+        // Запоминаем команду и устанавливаем таймаут для сброса
+        lastCommandRef.current = command;
+        commandTimeoutRef.current = setTimeout(() => {
+          lastCommandRef.current = "";
+        }, 2000); // Сбрасываем через 2 секунды
+
         // Очищаем транскрипт
         setTimeout(() => {
           setTranscript("");
@@ -245,7 +262,7 @@ export default function VoiceControl({
       audio.onerror = () => {
         setIsSpeaking(false);
         currentAudioRef.current = null;
-        console.error("❌ Ошибка воспроизведения аудио");
+        console.error("❌ Ошибка воспроизведен��я аудио");
       };
 
       // Проверяем что элемент еще актуален перед воспроизведением
