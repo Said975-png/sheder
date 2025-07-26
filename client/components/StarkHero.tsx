@@ -211,12 +211,13 @@ export default function StarkHero({
                 {/* Model */}
                 <div className="relative z-10 w-full h-full overflow-hidden">
                   <GLBModel
-                    url="https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f"
+                    url={currentModelUrl}
                     scale={2.5}
                     autoRotate={true}
                     isRotating={isModelRotating}
                     onRotationStart={onModelRotationStart}
                     onRotationStop={onModelRotationStop}
+                    onModelChange={handleModelChange}
                   />
                 </div>
 
