@@ -191,7 +191,7 @@ function Profile() {
           (u) => u.email === formData.email && u.id !== currentUser.id,
         );
         if (emailExists) {
-          setError("Пользователь с таким email уже сущес��вует");
+          setError("Пользователь с таким email уже существует");
           return;
         }
       }
@@ -318,7 +318,7 @@ function Profile() {
   const handleFaceIDSuccess = () => {
     if (faceIDMode === "register") {
       setHasFaceID(true);
-      setSuccess("Face ID ��спешно настроен!");
+      setSuccess("Face ID успешно настроен!");
     }
     setShowFaceIDModal(false);
   };
@@ -341,7 +341,7 @@ function Profile() {
       );
       localStorage.setItem("faceDescriptors", JSON.stringify(filteredFaces));
       setHasFaceID(false);
-      setSuccess("Face ID отключен");
+      setSuccess("Face ID отключе��");
     }
   };
 
@@ -388,32 +388,24 @@ function Profile() {
           </div>
         </div>
 
-        {/* Holographic Notifications */}
+        {/* Modern Notifications */}
         {success && (
-          <div className="mb-8 relative">
-            <div className="absolute inset-0 bg-green-400/20 blur-xl"></div>
-            <div className="relative bg-black/60 backdrop-blur-xl border border-green-400/30 rounded-xl p-6 flex items-center space-x-4">
-              <div className="w-12 h-12 rounded-full bg-green-500/20 border border-green-400/50 flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-green-400" />
-              </div>
+          <div className="mb-6">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center space-x-3">
+              <CheckCircle className="w-5 h-5 text-green-600" />
               <div>
-                <div className="text-green-400 font-mono text-sm mb-1">ОПЕРАЦИЯ ЗАВЕРШЕНА</div>
-                <div className="text-white text-lg">{success}</div>
+                <p className="text-green-800 font-medium">{success}</p>
               </div>
             </div>
           </div>
         )}
 
         {error && (
-          <div className="mb-8 relative">
-            <div className="absolute inset-0 bg-red-400/20 blur-xl"></div>
-            <div className="relative bg-black/60 backdrop-blur-xl border border-red-400/30 rounded-xl p-6 flex items-center space-x-4">
-              <div className="w-12 h-12 rounded-full bg-red-500/20 border border-red-400/50 flex items-center justify-center">
-                <XCircle className="w-6 h-6 text-red-400" />
-              </div>
+          <div className="mb-6">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center space-x-3">
+              <XCircle className="w-5 h-5 text-red-600" />
               <div>
-                <div className="text-red-400 font-mono text-sm mb-1">ОШИБКА СИСТЕМЫ</div>
-                <div className="text-white text-lg">{error}</div>
+                <p className="text-red-800 font-medium">{error}</p>
               </div>
             </div>
           </div>
@@ -685,7 +677,7 @@ function Profile() {
                           <div className="mt-3 pt-3 border-t border-white/10">
                             <div className="text-xs text-white/50 space-y-1">
                               <p>
-                                ✓ Face ID будет запрашиваться при входе в
+                                ✓ Face ID будет запрашиваться при вход�� в
                                 ли��ный кабинет
                               </p>
                               <p>
@@ -795,7 +787,7 @@ function Profile() {
                         </h5>
                         <p className="text-red-300/70 text-sm mb-4">
                           Удаление аккаунта приведёт к полному удалению всех
-                          ваших данных. Это действие нельзя отменить.
+                          ваших данных. Это действие нельзя отмени��ь.
                         </p>
                         <Button
                           onClick={handleDeleteAccount}
