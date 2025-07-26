@@ -388,15 +388,15 @@ function UserMenu({ user, onLogout }: any) {
 // Auth Buttons Component
 function AuthButtons() {
   return (
-    <div className="hidden sm:flex items-center space-x-2">
+    <div className="hidden sm:flex items-center space-x-1.5">
       <Button
         variant="ghost"
         className={cn(
-          "px-4 py-2 rounded-xl font-medium",
-          "border border-cyan-400/30 bg-black/60",
-          "hover:bg-cyan-400/20 hover:border-cyan-300/50",
+          "px-3 py-1 rounded-full font-medium text-xs h-8",
+          "border border-cyan-400/40 bg-black/70",
+          "hover:bg-cyan-400/25 hover:border-cyan-300/60",
           "text-cyan-300 hover:text-white",
-          "transition-all duration-300"
+          "transition-all duration-300 hover:scale-110"
         )}
         asChild
       >
@@ -404,11 +404,11 @@ function AuthButtons() {
       </Button>
       <Button
         className={cn(
-          "px-4 py-2 rounded-xl font-medium",
+          "px-3 py-1 rounded-full font-medium text-xs h-8",
           "bg-gradient-to-r from-cyan-500 to-blue-600",
           "hover:from-cyan-400 hover:to-blue-500",
           "shadow-lg shadow-cyan-400/30 hover:shadow-cyan-400/50",
-          "transition-all duration-300 hover:scale-105"
+          "transition-all duration-300 hover:scale-110"
         )}
         asChild
       >
@@ -417,11 +417,11 @@ function AuthButtons() {
       <Button
         variant="ghost"
         className={cn(
-          "px-4 py-2 rounded-xl font-medium",
-          "border border-purple-400/30 bg-black/60",
-          "hover:bg-purple-400/20 hover:border-purple-300/50",
+          "px-3 py-1 rounded-full font-medium text-xs h-8",
+          "border border-purple-400/40 bg-black/70",
+          "hover:bg-purple-400/25 hover:border-purple-300/60",
           "text-purple-300 hover:text-white",
-          "transition-all duration-300"
+          "transition-all duration-300 hover:scale-110"
         )}
         asChild
       >
