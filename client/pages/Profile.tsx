@@ -30,6 +30,8 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import FaceIDProtected from "@/components/FaceIDProtected";
 import FaceIDModal from "@/components/FaceIDModal";
+import ServiceOrderForm from "@/components/ServiceOrderForm";
+import { ContractData } from "@shared/api";
 
 interface User {
   id: string;
@@ -109,7 +111,7 @@ function Profile() {
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Проверяем размер файла (максимум 5MB)
+      // Пр��веряем размер файла (максимум 5MB)
       if (file.size > 5 * 1024 * 1024) {
         setError("Размер файла не должен превышать 5MB");
         return;
@@ -293,7 +295,7 @@ function Profile() {
     if (
       currentUser &&
       window.confirm(
-        "Вы уверен��, что хотите отключить Face ID? Это снизит безопасность вашего аккаунта.",
+        "Вы уверены, что хотите отключить Face ID? Это снизит безопасность вашего аккаунта.",
       )
     ) {
       const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
@@ -664,7 +666,7 @@ function Profile() {
                           Удалить аккаунт
                         </h5>
                         <p className="text-red-300/70 text-sm mb-4">
-                          Удаление аккаунта приведё�� к полному удалению всех
+                          Удаление аккаунта приведёт к полному удалению всех
                           ваших данных. Это действие нельзя отменить.
                         </p>
                         <Button
