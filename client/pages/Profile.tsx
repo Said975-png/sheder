@@ -121,8 +121,8 @@ function Profile() {
   // Если пользователь не авторизован
   if (!currentUser) {
     return (
-      <div className="min-h-screen theme-gradient theme-text flex items-center justify-center p-6">
-        <Card className="theme-card w-full max-w-md">
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950/20 to-indigo-950/30 text-white flex items-center justify-center p-6">
+        <Card className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-blue-500/20 w-full max-w-md">
           <CardContent className="p-8 text-center">
             <Shield className="w-16 h-16 text-purple-400 mx-auto mb-4" />
             <h2 className="text-xl font-semibold text-white mb-2">
@@ -344,14 +344,14 @@ function Profile() {
   };
 
   return (
-    <div className="min-h-screen theme-gradient theme-text p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950/20 to-indigo-950/30 text-white p-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <div className="flex justify-between items-center mb-6">
             <Link
               to="/"
-              className="inline-flex items-center space-x-2 theme-nav-text"
+              className="inline-flex items-center space-x-2 text-white/80 hover:text-white transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
@@ -388,7 +388,7 @@ function Profile() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Profile Info Card */}
           <div className="lg:col-span-1">
-            <Card className="theme-card">
+            <Card className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-blue-500/20">
               <CardHeader>
                 <CardTitle className="text-white text-center">
                   Информация о профиле
@@ -455,7 +455,7 @@ function Profile() {
 
           {/* Settings */}
           <div className="lg:col-span-2">
-            <Card className="theme-card">
+            <Card className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-blue-500/20">
               <CardHeader>
                 <div className="flex space-x-1">
                   <button
@@ -503,7 +503,7 @@ function Profile() {
                           id="name"
                           name="name"
                           type="text"
-                          placeholder="Введ���те ваше имя"
+                          placeholder="Введ��те ваше имя"
                           value={formData.name}
                           onChange={handleChange}
                           required
@@ -602,7 +602,7 @@ function Profile() {
                           <div className="mt-3 pt-3 border-t border-white/10">
                             <div className="text-xs text-white/50 space-y-1">
                               <p>
-                                ✓ Face ID будет запрашиваться при входе в личный
+                                ✓ Face ID будет запрашиваться при входе в ли��ный
                                 кабинет
                               </p>
                               <p>
@@ -875,7 +875,7 @@ function Profile() {
   );
 }
 
-// Обертка д��я защиты страницы профиля через Face ID
+// Обертка для защиты страницы профиля через Face ID
 export default function ProtectedProfile() {
   return (
     <FaceIDProtected requireFaceID={true}>
