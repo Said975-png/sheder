@@ -152,9 +152,9 @@ export default function StarkHero({
                 onClick={() => setShowCommandsPanel(true)}
                 className="group bg-white text-black hover:bg-white/90 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 text-sm sm:text-base lg:text-lg font-semibold rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 min-h-[48px] touch-manipulation w-full sm:w-auto max-w-full overflow-hidden"
               >
-                <Bot className="w-5 h-5 mr-3 group-hover:animate-pulse" />
-                <span>Начать с Jarvis</span>
-                <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
+                <Bot className="w-4 sm:w-5 h-4 sm:h-5 mr-2 sm:mr-3 group-hover:animate-pulse flex-shrink-0" />
+                <span className="truncate">Начать с Jarvis</span>
+                <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 ml-2 sm:ml-3 group-hover:translate-x-1 transition-transform duration-300 flex-shrink-0" />
               </Button>
 
               {/* Secondary CTA */}
