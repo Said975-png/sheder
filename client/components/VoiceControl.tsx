@@ -235,7 +235,13 @@ export default function VoiceControl({
 
   // Исправленная функция воспроизведения аудио
   const playAudio = useCallback((url: string, onComplete?: () => void) => {
-    // Безопа��но останавливаем предыдущее аудио
+    // Защита от множественного воспроизведения
+    if (isSpeaking) {
+      console.log("⏸️ Аудио уже воспроизводится, пропускаем");
+      return;
+    }
+
+    // Безопасно останавливаем предыдущее аудио
     if (currentAudioRef.current) {
       try {
         currentAudioRef.current.pause();
