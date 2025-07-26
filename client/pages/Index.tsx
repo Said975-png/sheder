@@ -35,7 +35,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
 
-// Компонент для анимации пе�����ат�� кода
+// Компонент для анимации печати кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
