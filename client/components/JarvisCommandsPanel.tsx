@@ -46,7 +46,7 @@ export default function JarvisCommandsPanel({
       items: [
         { command: "Добавить базовый план", description: "Добавить в корзину" },
         { command: "Добавить про план", description: "Добавить в корзину" },
-        { command: "Добавить макс план", description: "Добавить в корзину" },
+        { command: "Добавить макс план", description: "Добавить в корз��ну" },
         { command: "Открыть корзину", description: "Показать содержимое корзины" },
       ],
     },
@@ -63,7 +63,7 @@ export default function JarvisCommandsPanel({
       category: "Социальные команды",
       items: [
         { command: "Спасибо", description: "Благодарность" },
-        { command: "Люблю тебя", description: "Выражен��е симпатии" },
+        { command: "Люблю тебя", description: "Выражение симпатии" },
         { command: "Давай продолжим", description: "Продолжение работы" },
         { command: "Верно", description: "Подтверждение" },
       ],
@@ -99,9 +99,9 @@ export default function JarvisCommandsPanel({
           </CardTitle>
         </CardHeader>
 
-        <CardContent className="p-6">
+        <CardContent className="p-4 sm:p-6">
           {/* Инструкция по использованию */}
-          <div className="mb-6 p-4 bg-cyan-400/5 border border-cyan-400/20 rounded-lg">
+          <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-cyan-400/5 border border-cyan-400/20 rounded-lg">
             <div className="flex items-center gap-2 mb-2">
               <Mic className="w-4 h-4 text-cyan-400" />
               <span className="text-sm font-medium text-cyan-400">
@@ -111,7 +111,7 @@ export default function JarvisCommandsPanel({
             <ol className="text-sm text-white/80 space-y-1 ml-4">
               <li>1. Нажмите на кнопку с микрофоном в интерфейсе</li>
               <li>2. Дождитесь активации (красная кнопка микрофона)</li>
-              <li>3. Произнесите ��оманду четко и громко</li>
+              <li>3. Произнесите команду четко и громко</li>
               <li>4. Дождитесь ответа Джарвиса</li>
             </ol>
           </div>
