@@ -82,7 +82,7 @@ function TypewriterCode() {
           '    <div className="ai-interface">',
           '      <Brain className="neural-icon" />',
           "      <button onClick={handleVoiceCommand}>",
-          '        {isActive ? "Деактивировать" : "��ктивировать"}',
+          '        {isActive ? "Деактивировать" : "Активировать"}',
           "      </button>",
           "    </div>",
           "  );",
