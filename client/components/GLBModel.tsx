@@ -11,6 +11,7 @@ interface GLBModelProps {
   isRotating?: boolean;
   onRotationStart?: () => void;
   onRotationStop?: () => void;
+  onModelChange?: (newUrl: string) => void;
 }
 
 function Model({
@@ -67,7 +68,7 @@ function Model({
         modelRef.current.position.y = Math.sin(time * 0.8) * 0.2;
         modelRef.current.rotation.z = Math.sin(time * 0.5) * 0.1;
 
-        // Легкое вращение от мыши (уменьшенное)
+        // Легкое ��ращение от мыши (уменьшенное)
         const targetRotationY = mouseRef.current.x * 0.2;
         const targetRotationX = -mouseRef.current.y * 0.1;
 
@@ -132,10 +133,54 @@ const GLBModel: React.FC<GLBModelProps> = ({
   isRotating = false,
   onRotationStart,
   onRotationStop,
+  onModelChange,
 }) => {
   const [isLoading, setIsLoading] = React.useState(true);
+  const [currentModelUrl, setCurrentModelUrl] = React.useState(url);
 
-  // Стабилизируем параметры чтобы избежать пересоздания Canvas
+  // Функция для определения параметров модели в зависимости от URL
+  const getModelParams = (modelUrl: string) => {
+    // Если это новая модель (d4105e0c74e944c29631ffc49b1daf4a), применяем другие параметры
+    if (modelUrl.includes("d4105e0c74e944c29631ffc49b1daf4a")) {
+      return {
+        scale: scale * 1.1, // Увеличиваем масштаб для новой модели
+        position: [position[0], position[1] - 0.5, position[2]] as [
+          number,
+          number,
+          number,
+        ], // Опускаем немного ниже
+      };
+    }
+    // Для исходной модели используем стандартные параметры
+    return {
+      scale: scale,
+      position: position,
+    };
+  };
+
+  // Слушаем события смены модели
+  React.useEffect(() => {
+    const handleModelChange = (event: CustomEvent) => {
+      const newUrl = event.detail.newModelUrl;
+      console.log("🔄 Получено событие смены модели:", newUrl);
+      setCurrentModelUrl(newUrl);
+      setIsLoading(true);
+
+      if (onModelChange) {
+        onModelChange(newUrl);
+      }
+    };
+
+    window.addEventListener("changeModel", handleModelChange as EventListener);
+    return () => {
+      window.removeEventListener(
+        "changeModel",
+        handleModelChange as EventListener,
+      );
+    };
+  }, [onModelChange]);
+
+  // Стабилизируем параметры чтобы ��збежать пересоздания Canvas
   const stableProps = useMemo(
     () => ({
       camera: { position: [0, 0, 5] as [number, number, number], fov: 50 },
@@ -164,9 +209,9 @@ const GLBModel: React.FC<GLBModelProps> = ({
 
         <Suspense fallback={<ThreeLoadingFallback />}>
           <Model
-            url={url}
-            scale={scale}
-            position={position}
+            url={currentModelUrl}
+            scale={getModelParams(currentModelUrl).scale}
+            position={getModelParams(currentModelUrl).position}
             onLoad={() => setIsLoading(false)}
             isRotating={isRotating}
           />
@@ -184,9 +229,13 @@ const GLBModel: React.FC<GLBModelProps> = ({
   );
 };
 
-// Предзагружаем модель чтобы избежать повторных загрузок
+// Предзагружаем модели чтобы избежать повторных загрузок
 useGLTF.preload(
   "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
+);
+
+useGLTF.preload(
+  "https://cdn.builder.io/o/assets%2Fd75af4d8f215499ea8d0f6203e423bd8%2Fd4105e0c74e944c29631ffc49b1daf4a?alt=media&token=3f1fe075-c812-408f-ba1a-5229fc29b16a&apiKey=d75af4d8f215499ea8d0f6203e423bd8",
 );
 
 export default GLBModel;

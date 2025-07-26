@@ -30,6 +30,14 @@ export default function StarkHero({
   const [titleComplete, setTitleComplete] = useState(false);
   const [descriptionComplete, setDescriptionComplete] = useState(false);
   const [showCTA, setShowCTA] = useState(false);
+  const [currentModelUrl, setCurrentModelUrl] = useState(
+    "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
+  );
+
+  const handleModelChange = (newUrl: string) => {
+    console.log("🔄 StarkHero: Смена модели на", newUrl);
+    setCurrentModelUrl(newUrl);
+  };
 
   useEffect(() => {
     // Show CTA after description completes
@@ -153,7 +161,7 @@ export default function StarkHero({
                 className="group text-white border border-white/20 hover:border-white/40 hover:bg-white/5 px-6 py-4 rounded-2xl transition-all duration-300"
               >
                 <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
-                <span>Смотреть демо</span>
+                <span>Смотреть де����о</span>
               </Button>
             </div>
 
@@ -203,12 +211,13 @@ export default function StarkHero({
                 {/* Model */}
                 <div className="relative z-10 w-full h-full overflow-hidden">
                   <GLBModel
-                    url="https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f"
+                    url={currentModelUrl}
                     scale={2.5}
                     autoRotate={true}
                     isRotating={isModelRotating}
                     onRotationStart={onModelRotationStart}
                     onRotationStop={onModelRotationStop}
+                    onModelChange={handleModelChange}
                   />
                 </div>
 
