@@ -332,7 +332,7 @@ function UserMenu({ user, onLogout }: any) {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="w-64 bg-black/95 backdrop-blur-xl border border-cyan-400/30 rounded-xl mt-2"
+        className="w-64 bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl mt-2"
       >
         <div className="px-4 py-3 border-b border-cyan-400/20">
           <div className="font-semibold text-white">{user.name}</div>
