@@ -37,7 +37,7 @@ export default function VoiceTest() {
         response = "У меня все отлично, спасибо!";
       } else if (text.toLowerCase().includes("спасибо")) {
         response = "Пожалуйста!";
-      } else if (text.toLowerCase().includes("��жарвис")) {
+      } else if (text.toLowerCase().includes("джарвис")) {
         response = "Да, сэр?";
       }
       
@@ -116,6 +116,11 @@ export default function VoiceTest() {
         <p className="text-xs text-gray-500">
           Команд обработано: {commandCount}
         </p>
+        {lastTranscript && (
+          <p className="text-xs text-green-600">
+            ✅ Последняя команда будет очищена через несколько секунд
+          </p>
+        )}
       </div>
       
       {lastTranscript && (
@@ -185,7 +190,7 @@ export default function VoiceTest() {
       </div>
       
       <div className="text-xs text-gray-500">
-        <p><strong>Попробуйте сказа��ь:</strong></p>
+        <p><strong>Попробуйте сказать:</strong></p>
         <ul>
           <li>• "Привет" или "Джарвис"</li>
           <li>• "Как дела?"</li>
