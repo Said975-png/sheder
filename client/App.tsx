@@ -33,6 +33,7 @@ const App = () => (
             <Route path="/order" element={<OrderForm />} />
             <Route path="/chat" element={<FridayChat />} />
             <Route path="/voice-test" element={<VoiceTest />} />
+            <Route path="/audio-test" element={<AudioTest />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
