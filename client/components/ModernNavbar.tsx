@@ -27,10 +27,6 @@ interface ModernNavbarProps {
   onAddBasicPlan: () => void;
   onAddProPlan: () => void;
   onAddMaxPlan: () => void;
-  onListeningChange: (isListening: boolean, transcript?: string) => void;
-  forceStopVoice: boolean;
-  onModelRotateStart: () => void;
-  onModelRotateStop: () => void;
 }
 
 export default function ModernNavbar({
