@@ -134,7 +134,7 @@ export default function VoiceControl({
             try {
               recognitionRef.current.start();
             } catch (error) {
-              console.log("ℹ️ Перезапуск через секунду");
+              console.log("ℹ️ Пере��апуск через секунду");
               setTimeout(() => {
                 if (isListening && recognitionRef.current) {
                   try {
@@ -194,7 +194,7 @@ export default function VoiceControl({
     } else if (command.includes("базовый") || command.includes("basic")) {
       onAddBasicPlan();
       speak();
-    } else if (command.includes("про") || command.includes("п��офессиональный")) {
+    } else if (command.includes("про") || command.includes("п���офессиональный")) {
       onAddProPlan();
       speak();
     } else if (command.includes("макс") || command.includes("мак��имальный")) {
@@ -502,7 +502,7 @@ export default function VoiceControl({
 
         // СНИМАЕМ БЛОКИРОВК�� после TTS + полная очистка
         setTimeout(() => {
-          // Полностью очищаем все старые команды и состояния для TTS
+          // Полностью очищаем все старые команды и сос��ояния для TTS
           lastCommandRef.current = "";
           setTranscript("");
 
@@ -510,13 +510,22 @@ export default function VoiceControl({
           console.log("✅ БЛОКИРОВКА TTS СНЯТА + СОСТОЯНИЕ ОЧИЩЕНО: Готов к новым командам");
         }, 1000);
 
-        // Возобновляем распознавание речи если оно было активно
-        if (wasListening && !recognitionRef.current) {
-          console.log("🔊 Возобновля��м микрофон после TTS");
+        // РАДИКАЛЬНОЕ возобновление после TTS
+        if (wasListening) {
+          console.log("🔊 РАДИКАЛЬНОЕ восстановление микрофона после TTS");
           setTimeout(() => {
-            if (!recognitionRef.current) {
-              recognitionRef.current = initializeRecognition();
+            // Уничтожаем любой существующий recognition
+            if (recognitionRef.current) {
+              try {
+                recognitionRef.current.stop();
+                recognitionRef.current = null;
+              } catch (error) {
+                console.log("ℹ️ Ошибка уничтожения recognition после TTS:", error);
+              }
             }
+
+            // Создаем новый чистый recognition
+            recognitionRef.current = initializeRecognition();
             if (recognitionRef.current) {
               try {
                 recognitionRef.current.start();
