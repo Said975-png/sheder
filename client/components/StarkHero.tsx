@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import GLBModel from "@/components/GLBModel";
 import { TypewriterText } from "@/components/TypewriterText";
 import { SiteSearch } from "@/components/SiteSearch";
+import JarvisCommandsPanel from "@/components/JarvisCommandsPanel";
 import {
   Play,
   Star,
