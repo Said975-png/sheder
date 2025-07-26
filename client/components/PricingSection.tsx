@@ -286,8 +286,8 @@ function PricingSection() {
               идеальный пакет для ваших потребностей.
             </p>
             <Button className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-semibold bg-white text-black hover:bg-white/90 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full">
-              <Heart className="w-5 h-5 mr-2" />
-              Бесплатная Консультация
+              <Heart className="w-4 sm:w-5 h-4 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" />
+              <span className="truncate">Бесплатная Консультация</span>
             </Button>
           </div>
         </div>
