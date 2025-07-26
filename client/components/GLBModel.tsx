@@ -203,8 +203,8 @@ const GLBModel: React.FC<GLBModelProps> = ({
         <Suspense fallback={<ThreeLoadingFallback />}>
           <Model
             url={currentModelUrl}
-            scale={scale}
-            position={position}
+            scale={getModelParams(currentModelUrl).scale}
+            position={getModelParams(currentModelUrl).position}
             onLoad={() => setIsLoading(false)}
             isRotating={isRotating}
           />
