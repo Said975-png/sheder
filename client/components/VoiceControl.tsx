@@ -83,7 +83,7 @@ export default function VoiceControl({
         // Не вызываем onListeningChange для промежуточных результатов чтобы избежать мигания
       }
 
-      // Обрабатываем только финальные результаты
+      // Обрабатываем только финальные рез��льтаты
       if (finalTranscript.trim()) {
         const command = finalTranscript.trim().toLowerCase();
         console.log("📝 Финальна�� команда:", command);
@@ -159,7 +159,7 @@ export default function VoiceControl({
 
     // Команды отключения имеют приоритет
     if (command.includes("отключись") || command.includes("выключись")) {
-      console.log("🔴 Кома��да отключения");
+      console.log("🔴 Команда отключения");
       speakShutdown();
       return;
     }
@@ -222,7 +222,7 @@ export default function VoiceControl({
       }
       
       setTranscript("");
-      // Очищаем к��манду при остановке
+      // Очищаем команду при остановке
       lastCommandRef.current = "";
     } else {
       // Запускаем
@@ -324,7 +324,7 @@ export default function VoiceControl({
         setIsSpeaking(false);
         currentAudioRef.current = null;
 
-        // СНИМАЕМ БЛОКИРОВКУ при ошибке
+        // СНИМАЕМ БЛОКИРОВК�� при ошибке
         isPlayingAudioRef.current = false;
         console.log("✅ БЛОКИРОВКА СНЯТА после ошибки аудио");
 
@@ -356,7 +356,7 @@ export default function VoiceControl({
 
           // СНИМАЕМ БЛОКИРОВКУ при неудачном воспроизведении
           isPlayingAudioRef.current = false;
-          console.log("✅ БЛОКИРОВКА СНЯТА после неудачного воспроизведения");
+          console.log("✅ БЛОК��РОВКА СНЯТА после неудачного воспроизведения");
 
           // Возобновляем распознавание речи если оно было активно (при неудачном воспроизведении)
           if (wasListeningAtStart && !recognitionRef.current) {
@@ -589,6 +589,7 @@ export default function VoiceControl({
       if (isSpeaking && !currentAudioRef.current && !speechSynthesis.speaking) {
         console.log("🧹 Очистка зависшего состояния речи");
         setIsSpeaking(false);
+        isPlayingAudioRef.current = false; // Сбрасываем блокировку при очистке
       }
     }, 2000);
 
