@@ -173,7 +173,7 @@ export default function StarkHero({
             {/* Feature Highlights */}
             <div
               className={cn(
-                "grid grid-cols-2 md:grid-cols-3 gap-4 pt-8 transition-all duration-1000 delay-300",
+                "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 pt-6 sm:pt-8 transition-all duration-1000 delay-300",
                 showCTA
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-4",
