@@ -34,12 +34,13 @@ export default function FridayChat() {
   const { isListening, isSpeaking, toggleListening, speakText, stopSpeaking } =
     useVoiceChat({
       onTranscriptReceived: (text: string) => {
+        console.log("📝 Получен текст от голосового ввода:", text);
         setInputValue(text);
         // Автоматически отправляем сообщение после распознавания речи
         sendMessageWithText(text);
       },
       onTextToSpeech: (text: string) => {
-        console.log("Speaking:", text);
+        console.log("🔊 Воспроизводим текст:", text);
       },
     });
 
