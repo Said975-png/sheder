@@ -371,7 +371,6 @@ function AuthButtons() {
         variant="ghost"
         className={cn(
           "px-4 py-2 font-medium text-sm h-10",
-          "bg-white/10 hover:bg-white/20",
           "text-white hover:text-white",
           "transition-all duration-200"
         )}
@@ -393,7 +392,6 @@ function AuthButtons() {
         variant="ghost"
         className={cn(
           "px-4 py-2 font-medium text-sm h-10",
-          "bg-white/10 hover:bg-white/20",
           "text-white hover:text-white",
           "transition-all duration-200"
         )}
@@ -505,7 +503,7 @@ function MobileMenu({
                 onClick={onClose}
                 className="block p-3 text-center rounded-xl border border-purple-400/30 hover:bg-purple-400/10 text-purple-300 transition-colors"
               >
-                Пятница
+                Пя��ница
               </Link>
             </>
           )}
