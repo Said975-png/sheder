@@ -128,7 +128,7 @@ export default function StarkHero({
                 <p className="text-sm sm:text-base lg:text-xl xl:text-2xl text-white/70 leading-relaxed hyphens-auto break-words">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, к��торый понимает ваши потребно��ти и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
+                      text="Революционный ИИ-ассистент, к��торый по��имает ваши потребно��ти и превращает идеи в реальность. Будущее взаимодействия с техноло��иями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
@@ -141,7 +141,7 @@ export default function StarkHero({
             {/* Enhanced CTA Section */}
             <div
               className={cn(
-                "flex flex-col gap-3 sm:gap-4 transition-all duration-1000 w-full max-w-full",
+                "flex flex-col sm:flex-row gap-3 sm:gap-4 transition-all duration-1000 w-full max-w-full",
                 showCTA
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-4",
