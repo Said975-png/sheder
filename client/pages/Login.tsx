@@ -109,7 +109,7 @@ export default function Login() {
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
             </Link>
-            <ThemeToggle />
+
           </div>
 
           <div className="flex items-center justify-center space-x-2 mb-4">
