@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 
 interface UseVoiceChatProps {
   onTranscriptReceived: (text: string) => void;
@@ -13,86 +13,156 @@ export const useVoiceChat = ({
   const [isSpeaking, setIsSpeaking] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
-  const backgroundAudioRef = useRef<HTMLAudioElement | null>(null);
+  const isProcessingRef = useRef(false);
+  const restartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const startListening = useCallback(() => {
-    if (
-      !("webkitSpeechRecognition" in window) &&
-      !("SpeechRecognition" in window)
-    ) {
-      alert("Распознавание речи не поддерживается в этом браузере");
-      return;
+  // Инициализация распознавания речи
+  const initializeRecognition = useCallback(() => {
+    if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) {
+      console.error("Распознавание речи не поддерживается в этом браузере");
+      return null;
     }
 
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
 
-    recognition.continuous = false; // Изменено на false для предотвращения накопления
-    recognition.interimResults = false;
+    recognition.continuous = true; // Непрерывное распознавание
+    recognition.interimResults = true; // Промежуточные результаты
     recognition.lang = "ru-RU";
     recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
+      console.log("🎤 Распознавание речи запущено");
       setIsListening(true);
     };
 
     recognition.onresult = (event) => {
-      // Берем только последний финальный результат
+      if (isProcessingRef.current || isSpeaking) {
+        console.log("⏸️ Пропускаем результат - обрабатываем команду или говорим");
+        return;
+      }
+
+      let finalTranscript = "";
+      let interimTranscript = "";
+
+      // Обрабатываем все результаты
       for (let i = event.resultIndex; i < event.results.length; i++) {
-        const result = event.results[i];
-        if (result.isFinal) {
-          const transcript = result[0].transcript.trim();
-          if (transcript) {
-            // Сначала устанавливаем флаг, затем останавливае��
-            setIsListening(false);
-            if (recognitionRef.current) {
-              try {
-                recognitionRef.current.stop();
-              } catch (e) {
-                // Игнорируем ошибки
-              }
-              recognitionRef.current = null;
-            }
-            onTranscriptReceived(transcript);
-            return;
-          }
+        const transcript = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          finalTranscript += transcript;
+        } else {
+          interimTranscript += transcript;
+        }
+      }
+
+      const combinedTranscript = (finalTranscript + interimTranscript).trim();
+
+      // Обрабатываем только финальные результаты или достаточно длинные промежуточные
+      if (combinedTranscript.length >= 3) {
+        console.log("🎯 Получен текст:", combinedTranscript);
+        
+        // Если это финальный результат, обрабатываем команду
+        if (finalTranscript && !isProcessingRef.current) {
+          isProcessingRef.current = true;
+          console.log("✅ Обрабатываем финальную команду:", finalTranscript);
+          
+          onTranscriptReceived(finalTranscript.trim());
+          
+          // Сбрасываем флаг обработки через небольшую задержку
+          setTimeout(() => {
+            isProcessingRef.current = false;
+            console.log("🔄 Готов к следующей команде");
+          }, 1000);
         }
       }
     };
 
     recognition.onerror = (event) => {
-      console.error("Speech recognition error:", event.error);
-      setIsListening(false);
-      if (event.error === "not-allowed") {
-        alert(
-          "Доступ к микрофону запрещен. Разрешите доступ к микрофону для использования голосового ввода.",
-        );
+      console.log("❌ Ошибка распознавания:", event.error);
+      
+      // Критические ошибки - останавливаем
+      if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+        console.error("🚫 Доступ к микрофону запрещен");
+        setIsListening(false);
+        return;
       }
+      
+      // Для других ошибок просто продолжаем
+      console.log("ℹ️ Игнорируем ошибку, продолжаем слушать");
     };
 
     recognition.onend = () => {
-      setIsListening(false);
-      // Убираем автоматический перезапуск - пользователь должен нажать кнопку снова
+      console.log("🔄 Распознавание завершилось");
+      
+      // Автоматически перезапускаем, если должны слушать
+      if (isListening && !isProcessingRef.current) {
+        console.log("🔄 Перезапускаем распознавание");
+        
+        // Небольшая задержка перед перезапуском
+        if (restartTimeoutRef.current) {
+          clearTimeout(restartTimeoutRef.current);
+        }
+        
+        restartTimeoutRef.current = setTimeout(() => {
+          if (isListening && recognitionRef.current) {
+            try {
+              recognitionRef.current.start();
+            } catch (error) {
+              console.log("ℹ️ Не удалось перезапустить, попробуем позже");
+            }
+          }
+        }, 100);
+      }
     };
 
-    recognition.start();
-    recognitionRef.current = recognition;
-  }, [onTranscriptReceived]);
+    return recognition;
+  }, [isListening, isSpeaking, onTranscriptReceived]);
 
+  // Запуск прослушивания
+  const startListening = useCallback(() => {
+    if (isSpeaking) {
+      console.log("⏸️ Не можем начать слушать - сейчас говорим");
+      return;
+    }
+
+    try {
+      if (!recognitionRef.current) {
+        recognitionRef.current = initializeRecognition();
+      }
+
+      if (recognitionRef.current) {
+        recognitionRef.current.start();
+        isProcessingRef.current = false;
+        console.log("🎤 Начинаем слушать");
+      }
+    } catch (error) {
+      console.error("❌ Не удалось запустить распознавание:", error);
+    }
+  }, [isSpeaking, initializeRecognition]);
+
+  // Остановка прослушивания
   const stopListening = useCallback(() => {
+    console.log("🛑 Останавливаем прослушивание");
+    
+    setIsListening(false);
+    isProcessingRef.current = false;
+    
+    if (restartTimeoutRef.current) {
+      clearTimeout(restartTimeoutRef.current);
+      restartTimeoutRef.current = null;
+    }
+
     if (recognitionRef.current) {
       try {
-        // Используем stop вместо abort для предотвращ��ния ошибки "aborted"
         recognitionRef.current.stop();
-      } catch (e) {
-        // Игнорируем ошибки если recognition уже остановлено
+      } catch (error) {
+        console.log("ℹ️ Ошибка остановки распознавания:", error);
       }
       recognitionRef.current = null;
     }
-    setIsListening(false);
   }, []);
 
+  // Переключение состояния прослушивания
   const toggleListening = useCallback(() => {
     if (isListening) {
       stopListening();
@@ -101,119 +171,211 @@ export const useVoiceChat = ({
     }
   }, [isListening, startListening, stopListening]);
 
-  const speakText = useCallback(
-    async (text: string) => {
-      if (isSpeaking) {
-        console.log("Already speaking, skipping");
-        return;
-      }
+  // Воспроизведение речи через ElevenLabs с fallback на браузерный TTS
+  const speakText = useCallback(async (text: string) => {
+    if (isSpeaking) {
+      console.log("⏸️ Уже говорим, пропускаем");
+      return;
+    }
 
-      console.log("Speaking with Friday's voice:", text);
-      setIsSpeaking(true);
+    console.log("🔊 Начинаем говорить:", text);
+    setIsSpeaking(true);
+    isProcessingRef.current = true;
 
+    // Останавливаем прослушивание пока говорим
+    const wasListening = isListening;
+    if (wasListening && recognitionRef.current) {
       try {
-        // Используем ElevenLabs API с кастомным голосом Пятницы
-        const response = await fetch("/api/elevenlabs-tts", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            text: text,
-            voice_id: "xybB2n1F05JZpVVx92Tu", // Кастомный голос Пятницы
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const audioBlob = await response.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-        const audio = new Audio(audioUrl);
-        currentAudioRef.current = audio;
-
-        audio.onended = () => {
-          URL.revokeObjectURL(audioUrl);
-          setIsSpeaking(false);
-          currentAudioRef.current = null;
-        };
-
-        audio.onerror = () => {
-          URL.revokeObjectURL(audioUrl);
-          setIsSpeaking(false);
-          currentAudioRef.current = null;
-          console.error("Ошибка воспроизведения аудио Пятницы");
-        };
-
-        await audio.play();
-        onTextToSpeech(text);
+        recognitionRef.current.stop();
       } catch (error) {
-        console.error("Не удалось получить аудио для Пятницы:", error);
-        setIsSpeaking(false);
-
-        // Fallback на браузерный TTS
-        if ("speechSynthesis" in window) {
-          const utterance = new SpeechSynthesisUtterance(text);
-          utterance.lang = "ru-RU";
-          utterance.rate = 0.8;
-          utterance.pitch = 1.1; // Более высокий тон для женского голоса
-          utterance.volume = 0.9;
-
-          // Ищем женский русский голос
-          const voices = speechSynthesis.getVoices();
-          const femaleRussianVoice = voices.find(
-            (voice) =>
-              voice.lang.includes("ru") &&
-              (voice.name.toLowerCase().includes("женский") ||
-                voice.name.toLowerCase().includes("female") ||
-                voice.name.toLowerCase().includes("anna") ||
-                voice.name.toLowerCase().includes("екатерина")),
-          );
-
-          if (femaleRussianVoice) {
-            utterance.voice = femaleRussianVoice;
-          }
-
-          utterance.onend = () => {
-            setIsSpeaking(false);
-          };
-
-          utterance.onerror = () => {
-            setIsSpeaking(false);
-            console.error("Ошибка браузерного TTS");
-          };
-
-          speechSynthesis.speak(utterance);
-          onTextToSpeech(text);
-        } else {
-          console.log("TTS недоступен");
-          onTextToSpeech(text);
-        }
+        console.log("ℹ️ Ошибка остановки распознавания при речи:", error);
       }
-    },
-    [isSpeaking, onTextToSpeech],
-  );
+    }
 
+    try {
+      // Пробуем ElevenLabs API
+      const response = await fetch("/api/elevenlabs-tts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: text,
+          voice_id: "xybB2n1F05JZpVVx92Tu", // Кастомный голос Пятницы
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      currentAudioRef.current = audio;
+
+      audio.onended = () => {
+        URL.revokeObjectURL(audioUrl);
+        setIsSpeaking(false);
+        isProcessingRef.current = false;
+        currentAudioRef.current = null;
+        
+        // Возобновляем прослушивание если было активно
+        if (wasListening) {
+          console.log("🔄 Возобновляем прослушивание после речи");
+          setTimeout(() => {
+            if (!isListening) {
+              startListening();
+            }
+          }, 500);
+        }
+        
+        onTextToSpeech(text);
+      };
+
+      audio.onerror = () => {
+        URL.revokeObjectURL(audioUrl);
+        setIsSpeaking(false);
+        isProcessingRef.current = false;
+        currentAudioRef.current = null;
+        console.error("❌ Ошибка воспроизведения аудио ElevenLabs");
+        
+        if (wasListening) {
+          startListening();
+        }
+      };
+
+      await audio.play();
+    } catch (error) {
+      console.error("❌ ElevenLabs недоступен, используем браузерный TTS:", error);
+      
+      // Fallback на браузерный TTS
+      if ("speechSynthesis" in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "ru-RU";
+        utterance.rate = 0.8;
+        utterance.pitch = 1.1;
+        utterance.volume = 0.9;
+
+        // Ищем женский русский голос
+        const voices = speechSynthesis.getVoices();
+        const femaleRussianVoice = voices.find(
+          (voice) =>
+            voice.lang.includes("ru") &&
+            (voice.name.toLowerCase().includes("женский") ||
+              voice.name.toLowerCase().includes("female") ||
+              voice.name.toLowerCase().includes("anna") ||
+              voice.name.toLowerCase().includes("екатерина"))
+        );
+
+        if (femaleRussianVoice) {
+          utterance.voice = femaleRussianVoice;
+        }
+
+        utterance.onend = () => {
+          setIsSpeaking(false);
+          isProcessingRef.current = false;
+          
+          if (wasListening) {
+            console.log("🔄 Возобновляем прослушивание после браузерного TTS");
+            setTimeout(() => {
+              if (!isListening) {
+                startListening();
+              }
+            }, 500);
+          }
+          
+          onTextToSpeech(text);
+        };
+
+        utterance.onerror = () => {
+          setIsSpeaking(false);
+          isProcessingRef.current = false;
+          console.error("❌ Ошибка браузерного TTS");
+          
+          if (wasListening) {
+            startListening();
+          }
+        };
+
+        speechSynthesis.speak(utterance);
+      } else {
+        console.log("❌ TTS недоступен");
+        setIsSpeaking(false);
+        isProcessingRef.current = false;
+        
+        if (wasListening) {
+          startListening();
+        }
+        
+        onTextToSpeech(text);
+      }
+    }
+  }, [isSpeaking, isListening, startListening, onTextToSpeech]);
+
+  // Остановка речи
   const stopSpeaking = useCallback(() => {
+    console.log("🛑 Останавливаем речь");
+    
     // Останавливаем ElevenLabs аудио
     if (currentAudioRef.current) {
       currentAudioRef.current.pause();
       currentAudioRef.current = null;
     }
 
-    // Останавливаем браузерное TTS если оно активно
+    // Останавливаем браузерное TTS
     if ("speechSynthesis" in window && speechSynthesis.speaking) {
       speechSynthesis.cancel();
     }
 
-    // Останавливаем фоновое аудио
-    if (backgroundAudioRef.current) {
-      backgroundAudioRef.current.pause();
-    }
-
     setIsSpeaking(false);
+    isProcessingRef.current = false;
   }, []);
+
+  // Очистка при размонтировании
+  useEffect(() => {
+    return () => {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch (error) {
+          console.log("ℹ️ Ошибка очистки распознавания:", error);
+        }
+      }
+      
+      if (currentAudioRef.current) {
+        currentAudioRef.current.pause();
+      }
+      
+      if (restartTimeoutRef.current) {
+        clearTimeout(restartTimeoutRef.current);
+      }
+      
+      if ("speechSynthesis" in window && speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
+  // Автоматическая очистка зависших состояний
+  useEffect(() => {
+    const cleanupInterval = setInterval(() => {
+      // Если говорим, но нет активного аудио - сбрасываем
+      if (isSpeaking && !currentAudioRef.current && !speechSynthesis.speaking) {
+        console.log("🧹 Очистка зависшего состояния речи");
+        setIsSpeaking(false);
+        isProcessingRef.current = false;
+      }
+      
+      // Если слушаем, но нет активного распознавания - перезапускаем
+      if (isListening && !recognitionRef.current && !isProcessingRef.current) {
+        console.log("🧹 Перезапуск зависшего распознавания");
+        startListening();
+      }
+    }, 3000); // Проверяем каждые 3 секунды
+
+    return () => clearInterval(cleanupInterval);
+  }, [isListening, isSpeaking, startListening]);
 
   return {
     isListening,
