@@ -140,8 +140,8 @@ const GLBModel: React.FC<GLBModelProps> = ({
 
   // Функция для определения параметров модели в зависимости от URL
   const getModelParams = (modelUrl: string) => {
-    // Если это новая модель (7e7ff2ca5bfe498ab61759615baa851b), применяем другие параметры
-    if (modelUrl.includes("7e7ff2ca5bfe498ab61759615baa851b")) {
+    // Если это новая модель (d4105e0c74e944c29631ffc49b1daf4a), применяем другие параметры
+    if (modelUrl.includes("d4105e0c74e944c29631ffc49b1daf4a")) {
       return {
         scale: scale * 1.5, // Увеличиваем масштаб для новой модели
         position: [position[0], position[1] - 0.5, position[2]] as [number, number, number], // Опускаем немного ниже
