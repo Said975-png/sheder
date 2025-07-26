@@ -330,7 +330,7 @@ export default function FridayChat() {
                       <div className="w-3 h-3 bg-red-400 rounded-full animate-pulse"></div>
                       <Mic className="w-4 h-4 text-red-200 animate-pulse" />
                       <span className="text-sm text-red-100">
-                        Слушаю в��с...
+                        Слушаю вас...
                       </span>
                     </div>
                   </div>
@@ -420,11 +420,11 @@ export default function FridayChat() {
                     onKeyPress={handleKeyPress}
                     placeholder={
                       isListening
-                        ? "🎤 Говорите в микрофон..."
-                        : "💬 Спросите о наших услугах, тарифах или любую другую тему..."
+                        ? "🎤 Говорите..."
+                        : "💬 Спросите о наших услугах..."
                     }
                     disabled={isLoading || isListening}
-                    className="h-14 px-6 pr-16 bg-slate-800/50 border-slate-600/30 text-white placeholder:text-slate-400 focus:border-blue-400/50 focus:ring-blue-400/20 rounded-2xl text-base backdrop-blur-md"
+                    className="h-12 sm:h-14 px-4 sm:px-6 pr-12 sm:pr-16 bg-slate-800/50 border-slate-600/30 text-white placeholder:text-slate-400 focus:border-blue-400/50 focus:ring-blue-400/20 rounded-xl sm:rounded-2xl text-sm sm:text-base backdrop-blur-md"
                   />
                   
                   {/* Input decorations */}
