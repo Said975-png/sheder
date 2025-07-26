@@ -206,7 +206,7 @@ export default function VoiceControl({
     }
   }, [onAddBasicPlan, onAddProPlan, onAddMaxPlan, onModelRotateStart, onModelRotateStop]);
 
-  // Переключение прослушивания
+  // Перек��ючение прослушивания
   const toggleListening = useCallback(() => {
     if (isListening) {
       // Останавливаем
@@ -324,7 +324,11 @@ export default function VoiceControl({
         setIsSpeaking(false);
         currentAudioRef.current = null;
 
-        // Воз��бновляем распознавание речи если оно было активно (при ошибк�� аудио)
+        // СНИМАЕМ БЛОКИРОВКУ при ошибке
+        isPlayingAudioRef.current = false;
+        console.log("✅ БЛОКИРОВКА СНЯТА после ошибки аудио");
+
+        // Возобновляем распознавание речи если оно было активно (при ошибке аудио)
         if (wasListeningAtStart && !recognitionRef.current) {
           console.log("🔊 Возобновляем микрофон после ошибки аудио");
           setTimeout(() => {
@@ -352,7 +356,7 @@ export default function VoiceControl({
 
           // Возобновляем распознавание речи если оно было активно (при неудачном воспроизведе��ии)
           if (wasListeningAtStart && !recognitionRef.current) {
-            console.log("🔊 Возоб��овляем микрофон после неудачного воспроизведения");
+            console.log("🔊 Возоб���овляем микрофон после неудачного воспроизведения");
             setTimeout(() => {
               if (!recognitionRef.current) {
                 recognitionRef.current = initializeRecognition();
