@@ -150,10 +150,6 @@ export default function ModernNavbar({
         onAddBasicPlan={onAddBasicPlan}
         onAddProPlan={onAddProPlan}
         onAddMaxPlan={onAddMaxPlan}
-        onListeningChange={onListeningChange}
-        forceStopVoice={forceStopVoice}
-        onModelRotateStart={onModelRotateStart}
-        onModelRotateStop={onModelRotateStop}
       />
     </Fragment>
   );
