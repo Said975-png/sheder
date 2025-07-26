@@ -308,7 +308,7 @@ function UserMenu({ user, onLogout }: any) {
             "text-white hover:text-white"
           )}
         >
-          <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+          <div className="w-6 h-6 rounded-full flex items-center justify-center">
             <User className="w-4 h-4" />
           </div>
           <span className="hidden sm:block text-sm font-medium max-w-20 truncate">
