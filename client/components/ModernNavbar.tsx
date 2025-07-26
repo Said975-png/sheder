@@ -229,9 +229,9 @@ function CartDropdown({
           "rounded-xl shadow-2xl border border-white/20"
         )}
       >
-        <div className="p-4 border-b border-cyan-400/20">
-          <h3 className="font-bold text-lg text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
-            CART MATRIX
+        <div className="p-4 border-b border-white/20">
+          <h3 className="font-bold text-lg text-white">
+            Shopping Cart
           </h3>
         </div>
         
