@@ -101,8 +101,8 @@ export default function StarkHero({
             </div>
 
             {/* Enhanced Typography */}
-            <div className="space-y-6">
-              <h1 className="text-5xl lg:text-7xl xl:text-8xl font-bold leading-[0.9] tracking-tight">
+            <div className="space-y-4 sm:space-y-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-bold leading-[0.9] tracking-tight">
                 <div className="relative">
                   <div className="text-white">
                     <TypewriterText
