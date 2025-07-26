@@ -135,7 +135,9 @@ export default function ModernNavbar({
 
             {/* Theme Toggle */}
             <div className="hidden sm:block">
-              <ThemeToggle />
+              <div className="p-2 rounded-full bg-white/10 border border-white/20">
+                <ThemeToggle />
+              </div>
             </div>
 
             {/* User Menu or Auth Buttons */}
@@ -150,16 +152,17 @@ export default function ModernNavbar({
               variant="ghost"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={cn(
-                "lg:hidden p-1.5 rounded-full h-8 w-8",
-                "border border-cyan-400/40 bg-black/70",
-                "hover:bg-cyan-400/25 hover:border-cyan-300/60",
-                "transition-all duration-300 hover:scale-110"
+                "lg:hidden rounded-full px-3 py-2 h-10",
+                "bg-white/10 hover:bg-white/20",
+                "border border-white/20 hover:border-white/30",
+                "transition-all duration-200",
+                "text-white hover:text-white"
               )}
             >
               {isMobileMenuOpen ? (
-                <X className="w-4 h-4 text-cyan-300" />
+                <X className="w-4 h-4" />
               ) : (
-                <Menu className="w-4 h-4 text-cyan-300" />
+                <Menu className="w-4 h-4" />
               )}
             </Button>
           </div>
