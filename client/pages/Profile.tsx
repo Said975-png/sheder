@@ -241,7 +241,7 @@ function Profile() {
         return;
       }
 
-      // Пр��веряем текущий пароль
+      // Проверяем текущий пароль
       if (users[userIndex].password !== formData.currentPassword) {
         setError("Неверный текущий пароль");
         return;
@@ -503,7 +503,7 @@ function Profile() {
                           id="name"
                           name="name"
                           type="text"
-                          placeholder="Введ��те ваше имя"
+                          placeholder="Введ���те ваше имя"
                           value={formData.name}
                           onChange={handleChange}
                           required
@@ -859,11 +859,23 @@ function Profile() {
         onSuccess={handleFaceIDSuccess}
         onError={handleFaceIDError}
       />
+
+      {/* Service Order Form */}
+      <ServiceOrderForm
+        isOpen={showOrderForm}
+        onClose={() => {
+          setShowOrderForm(false);
+          // Reload contracts if we're on contracts tab
+          if (activeTab === "contracts") {
+            loadContracts();
+          }
+        }}
+      />
     </div>
   );
 }
 
-// Обертка для защиты страницы профиля через Face ID
+// Обертка д��я защиты страницы профиля через Face ID
 export default function ProtectedProfile() {
   return (
     <FaceIDProtected requireFaceID={true}>
