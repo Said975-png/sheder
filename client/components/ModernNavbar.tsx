@@ -424,6 +424,15 @@ function MobileMenu({
                 <span className="text-white">Чат с Пятницей</span>
               </Link>
 
+              <Link
+                to="/voice-test"
+                onClick={onClose}
+                className="flex items-center space-x-3 p-3 rounded-xl hover:bg-green-400/10 transition-colors"
+              >
+                <Brain className="w-5 h-5 text-green-400" />
+                <span className="text-white">Тест голосового управления</span>
+              </Link>
+
               <button
                 onClick={() => {
                   onLogout();
@@ -456,7 +465,14 @@ function MobileMenu({
                 onClick={onClose}
                 className="block p-3 text-center rounded-xl border border-purple-400/30 hover:bg-purple-400/10 text-purple-300 transition-colors"
               >
-                Пя��ница
+                Пятница
+              </Link>
+              <Link
+                to="/voice-test"
+                onClick={onClose}
+                className="block p-3 text-center rounded-xl border border-green-400/30 hover:bg-green-400/10 text-green-300 transition-colors"
+              >
+                Голосовой тест
               </Link>
             </>
           )}

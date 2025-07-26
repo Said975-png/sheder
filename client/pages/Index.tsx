@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import VoiceControl from "@/components/VoiceControl";
 import ModernNavbar from "@/components/ModernNavbar";
 import FloatingVoiceControl from "@/components/FloatingVoiceControl";
 
@@ -299,7 +298,7 @@ export default function Index() {
 
   const handleStopListening = React.useCallback(() => {
     setForceStopVoice(true);
-    setTimeout(() => setForceStopVoice(false), 100);
+    setTimeout(() => setForceStopVoice(false), 500);
   }, []);
 
   const handleModelRotateStart = React.useCallback(() => {

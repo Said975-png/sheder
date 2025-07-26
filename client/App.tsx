@@ -14,6 +14,8 @@ import Profile from "./pages/Profile";
 import OrderForm from "./pages/OrderForm";
 import FridayChat from "./pages/FridayChat";
 import NotFound from "./pages/NotFound";
+import VoiceTest from "./components/VoiceTest";
+import AudioTest from "./components/AudioTest";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +32,8 @@ const App = () => (
             <Route path="/profile" element={<Profile />} />
             <Route path="/order" element={<OrderForm />} />
             <Route path="/chat" element={<FridayChat />} />
+            <Route path="/voice-test" element={<VoiceTest />} />
+            <Route path="/audio-test" element={<AudioTest />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
