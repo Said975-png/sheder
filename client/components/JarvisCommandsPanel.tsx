@@ -45,6 +45,7 @@ export default function JarvisCommandsPanel({
         { command: "К преимуществам", description: "Показать преимущества" },
         { command: "К возможностям", description: "Показать возможности" },
         { command: "Открыть профиль", description: "Переход в личный кабинет" },
+        { command: "Заказать услугу", description: "Создание договора на разработку" },
       ],
     },
     {
