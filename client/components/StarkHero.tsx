@@ -173,8 +173,7 @@ export default function StarkHero({
                     window.location.href = "/login";
                   }
                 }}
-                variant="outline"
-                className="group text-white border border-blue-400/30 hover:border-blue-400/60 hover:bg-blue-500/10 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold rounded-2xl transition-all duration-300 transform hover:scale-105 min-h-[48px] touch-manipulation w-full sm:w-auto"
+                className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold rounded-2xl transition-all duration-300 transform hover:scale-105 min-h-[48px] touch-manipulation w-full sm:w-auto shadow-lg hover:shadow-xl"
               >
                 <FileText className="w-4 sm:w-5 h-4 sm:h-5 mr-2 sm:mr-3 group-hover:animate-pulse flex-shrink-0" />
                 <span className="lg:whitespace-nowrap">Заказать услугу</span>
