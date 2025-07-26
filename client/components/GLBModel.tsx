@@ -228,7 +228,7 @@ useGLTF.preload(
 );
 
 useGLTF.preload(
-  "https://cdn.builder.io/o/assets%2Fd75af4d8f215499ea8d0f6203e423bd8%2F7e7ff2ca5bfe498ab61759615baa851b?alt=media&token=7869bfeb-bbfa-460d-b8f8-4c63d65277f4&apiKey=d75af4d8f215499ea8d0f6203e423bd8",
+  "https://cdn.builder.io/o/assets%2Fd75af4d8f215499ea8d0f6203e423bd8%2Fd4105e0c74e944c29631ffc49b1daf4a?alt=media&token=3f1fe075-c812-408f-ba1a-5229fc29b16a&apiKey=d75af4d8f215499ea8d0f6203e423bd8",
 );
 
 export default GLBModel;
