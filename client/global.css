@@ -242,6 +242,26 @@
       hsl(var(--gradient-via)),
       hsl(var(--gradient-to))
     );
+    transition: background 0.3s ease;
+  }
+
+  /* Дополнительные темные/светлые градиенты */
+  .light .theme-gradient {
+    background: linear-gradient(
+      to bottom right,
+      hsl(220 20% 98%),
+      hsl(220 15% 95%),
+      hsl(220 10% 92%)
+    );
+  }
+
+  .dark .theme-gradient {
+    background: linear-gradient(
+      to bottom right,
+      hsl(240 10% 8%),
+      hsl(240 8% 12%),
+      hsl(240 6% 16%)
+    );
   }
 
   .theme-text {
@@ -685,7 +705,7 @@
     }
   }
 
-  /* Светящиеся эффекты для ��н��пок */
+  /* Светящиеся эффекты для ��нопок */
   .glow-button {
     position: relative;
     overflow: hidden;
