@@ -82,7 +82,7 @@ function TypewriterCode() {
           '    <div className="ai-interface">',
           '      <Brain className="neural-icon" />',
           "      <button onClick={handleVoiceCommand}>",
-          '        {isActive ? "Деактивировать" : "Ак��ивировать"}',
+          '        {isActive ? "Деактивировать" : "��ктивировать"}',
           "      </button>",
           "    </div>",
           "  );",
@@ -327,7 +327,7 @@ export default function Index() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Modern Navigation Component */}
       <ModernNavbar
         onAddBasicPlan={handleAddBeginnerPlan}
