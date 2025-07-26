@@ -384,10 +384,6 @@ function MobileMenu({
   onAddBasicPlan,
   onAddProPlan,
   onAddMaxPlan,
-  onListeningChange,
-  forceStopVoice,
-  onModelRotateStart,
-  onModelRotateStop,
 }: any) {
   if (!isOpen) return null;
 
