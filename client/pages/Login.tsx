@@ -45,7 +45,7 @@ export default function Login() {
         return;
       }
 
-      // Сохраняем текуще��о пользователя
+      // Сохраняем текущего пользователя
       localStorage.setItem(
         "currentUser",
         JSON.stringify({

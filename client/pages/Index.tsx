@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import VoiceControl from "@/components/VoiceControl";
 import ModernNavbar from "@/components/ModernNavbar";
+import FloatingVoiceControl from "@/components/FloatingVoiceControl";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
@@ -35,7 +36,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
 
-// Компонент для анимации пе�����ат�� кода
+// Ком��онент для анимации печати кода
 function TypewriterCode() {
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
   const [displayedCode, setDisplayedCode] = useState("");
@@ -82,7 +83,7 @@ function TypewriterCode() {
           '    <div className="ai-interface">',
           '      <Brain className="neural-icon" />',
           "      <button onClick={handleVoiceCommand}>",
-          '        {isActive ? "Деактивировать" : "��ктивировать"}',
+          '        {isActive ? "Деактивировать" : "Активировать"}',
           "      </button>",
           "    </div>",
           "  );",
@@ -331,10 +332,6 @@ export default function Index() {
         onAddBasicPlan={handleAddBeginnerPlan}
         onAddProPlan={handleAddIntermediatePlan}
         onAddMaxPlan={handleAddAdvancedPlan}
-        onListeningChange={handleListeningChange}
-        forceStopVoice={forceStopVoice}
-        onModelRotateStart={handleModelRotateStart}
-        onModelRotateStop={handleModelRotateStop}
       />
 
       {/* Hero Section - Stark Style */}
@@ -352,6 +349,17 @@ export default function Index() {
 
       {/* Jarvis Demo Section */}
       <JarvisDemo />
+
+      {/* Floating Voice Control */}
+      <FloatingVoiceControl
+        onAddBasicPlan={handleAddBeginnerPlan}
+        onAddProPlan={handleAddIntermediatePlan}
+        onAddMaxPlan={handleAddAdvancedPlan}
+        onListeningChange={handleListeningChange}
+        forceStop={forceStopVoice}
+        onModelRotateStart={handleModelRotateStart}
+        onModelRotateStop={handleModelRotateStop}
+      />
     </div>
   );
 }

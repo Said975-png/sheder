@@ -51,14 +51,14 @@ export default function SignUp() {
         localStorage.getItem("users") || "[]",
       ) as User[];
 
-      // Проверяем, существует ли пользоват��ль с таким email
+      // Проверяем, существует ли пользователь с таким email
       if (existingUsers.find((user) => user.email === formData.email)) {
         setError("Пользователь с таким email уже существует");
         setLoading(false);
         return;
       }
 
-      // Создаём нового п��льзователя
+      // Создаём нового пользователя
       const newUser: User = {
         id: Date.now().toString(),
         name: formData.name,
@@ -83,7 +83,7 @@ export default function SignUp() {
 
       setSuccess(true);
 
-      // Перенаправляем на профиль для настройки Face ID через 2 секунды
+      // Перенаправляем на профиль для нас��ройки Face ID через 2 секунды
       setTimeout(() => {
         navigate("/profile");
       }, 2000);
@@ -252,7 +252,7 @@ export default function SignUp() {
                 disabled={loading}
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white"
               >
-                {loading ? "Создаем аккаунт..." : "Создать акка��нт"}
+                {loading ? "Создаем аккаунт..." : "Создать аккаунт"}
               </Button>
             </form>
 

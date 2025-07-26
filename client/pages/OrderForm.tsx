@@ -112,7 +112,7 @@ export default function OrderForm() {
               Заказ принят!
             </h2>
             <p className="theme-text-muted mb-4">
-              Спасибо за ваш заказ. Мы св��жемся с вами в ближайшее время.
+              Спасибо за ваш заказ. Мы свяжемся с вами в ближайшее время.
             </p>
             <p className="text-sm theme-text-muted">
               Перенаправление на главную страницу...
@@ -218,7 +218,7 @@ export default function OrderForm() {
                     className="theme-label flex items-center"
                   >
                     <Phone className="w-4 h-4 mr-2" />
-                    Номер теле��она
+                    Номер телефона
                   </Label>
                   <Input
                     id="phone"

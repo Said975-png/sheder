@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
-import JarvisInterface from "@/components/JarvisInterface";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -27,20 +26,12 @@ interface ModernNavbarProps {
   onAddBasicPlan: () => void;
   onAddProPlan: () => void;
   onAddMaxPlan: () => void;
-  onListeningChange: (isListening: boolean, transcript?: string) => void;
-  forceStopVoice: boolean;
-  onModelRotateStart: () => void;
-  onModelRotateStop: () => void;
 }
 
 export default function ModernNavbar({
   onAddBasicPlan,
   onAddProPlan,
   onAddMaxPlan,
-  onListeningChange,
-  forceStopVoice,
-  onModelRotateStart,
-  onModelRotateStop,
 }: ModernNavbarProps) {
   const { currentUser, logout, isAuthenticated } = useAuth();
   const { getTotalItems, items, removeItem, getTotalPrice, clearCart } =
@@ -110,19 +101,6 @@ export default function ModernNavbar({
               </div>
             </Button>
 
-            {/* JARVIS Interface */}
-            <div className="px-0 sm:px-1 lg:px-3 py-2 h-8 sm:h-10 overflow-hidden max-w-[80px] sm:max-w-none">
-              <JarvisInterface
-                onAddBasicPlan={onAddBasicPlan}
-                onAddProPlan={onAddProPlan}
-                onAddMaxPlan={onAddMaxPlan}
-                inNavbar={true}
-                onListeningChange={onListeningChange}
-                forceStop={forceStopVoice}
-                onModelRotateStart={onModelRotateStart}
-                onModelRotateStop={onModelRotateStop}
-              />
-            </div>
             {/* Cart */}
             <CartDropdown
               items={items}
@@ -170,10 +148,6 @@ export default function ModernNavbar({
         onAddBasicPlan={onAddBasicPlan}
         onAddProPlan={onAddProPlan}
         onAddMaxPlan={onAddMaxPlan}
-        onListeningChange={onListeningChange}
-        forceStopVoice={forceStopVoice}
-        onModelRotateStart={onModelRotateStart}
-        onModelRotateStop={onModelRotateStop}
       />
     </Fragment>
   );
@@ -408,10 +382,6 @@ function MobileMenu({
   onAddBasicPlan,
   onAddProPlan,
   onAddMaxPlan,
-  onListeningChange,
-  forceStopVoice,
-  onModelRotateStart,
-  onModelRotateStop,
 }: any) {
   if (!isOpen) return null;
 
@@ -425,20 +395,6 @@ function MobileMenu({
 
       {/* Menu Panel */}
       <div className="absolute top-20 left-4 right-4 bg-black/95 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-6 shadow-2xl shadow-cyan-400/20">
-        {/* JARVIS Interface */}
-        <div className="mb-6 p-4 bg-black/60 border border-cyan-400/20 rounded-xl">
-          <JarvisInterface
-            onAddBasicPlan={onAddBasicPlan}
-            onAddProPlan={onAddProPlan}
-            onAddMaxPlan={onAddMaxPlan}
-            inNavbar={true}
-            onListeningChange={onListeningChange}
-            forceStop={forceStopVoice}
-            onModelRotateStart={onModelRotateStart}
-            onModelRotateStop={onModelRotateStop}
-          />
-        </div>
-
         {/* Navigation Links */}
         <div className="space-y-3">
           {isAuthenticated && currentUser ? (
