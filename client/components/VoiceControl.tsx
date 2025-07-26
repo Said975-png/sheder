@@ -32,6 +32,7 @@ export default function VoiceControl({
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
   const lastCommandRef = useRef<string>("");
   const commandTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isPlayingAudioRef = useRef<boolean>(false);
   const navigate = useNavigate();
   const { getTotalItems, clearCart } = useCart();
 
@@ -87,7 +88,7 @@ export default function VoiceControl({
           return;
         }
 
-        // Запоминаем команду на короткое время для предотвращения дублей
+        // Запоминаем команду на короткое время для предотвр��щения дублей
         lastCommandRef.current = command;
 
         // Очищаем транскрипт
