@@ -76,7 +76,7 @@ export default function ModernNavbar({
   }, []);
 
   return (
-    <>
+    <Fragment>
       {/* Main Navigation */}
       <nav
         className={cn(
@@ -180,7 +180,7 @@ export default function ModernNavbar({
         onModelRotateStart={onModelRotateStart}
         onModelRotateStop={onModelRotateStop}
       />
-    </>
+    </Fragment>
   );
 }
 
