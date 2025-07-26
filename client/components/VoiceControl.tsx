@@ -257,7 +257,7 @@ export default function VoiceControl({
 
     setIsSpeaking(true);
 
-    // Останавливаем распознавание речи во время воспроизве��ения чтобы микрофон не записывал аудио
+    // Останавливаем распознавание речи во время воспроизведения чтобы микрофон не записывал аудио
     const wasListening = isListening;
     if (recognitionRef.current && isListening) {
       try {
@@ -308,7 +308,7 @@ export default function VoiceControl({
         currentAudioRef.current = null;
 
         // Возобновляем распознавание речи если оно было активно (при ошибке аудио)
-        if (wasListening && !recognitionRef.current) {
+        if (wasListeningAtStart && !recognitionRef.current) {
           console.log("🔊 Возобновляем микрофон после ошибки аудио");
           setTimeout(() => {
             if (!recognitionRef.current) {
