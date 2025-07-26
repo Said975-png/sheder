@@ -96,7 +96,7 @@ export default function ModernNavbar({
               variant="ghost"
               onClick={scrollToTop}
               className={cn(
-                "px-2 sm:px-4 py-2 h-8 sm:h-10",
+                "px-1 sm:px-2 lg:px-4 py-2 h-8 sm:h-10",
                 "transition-all duration-200",
                 "text-white hover:text-white"
               )}
