@@ -58,7 +58,7 @@ export default function FridayChat() {
       {
         role: "assistant",
         content:
-          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий пакет для вашего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
+          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые в��просы о наших услугах, тарифах и помочь выбрать подходящий пакет для вашего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
         timestamp: Date.now(),
       },
     ]);
@@ -103,6 +103,11 @@ export default function FridayChat() {
           timestamp: Date.now(),
         };
         setMessages((prev) => [...prev, assistantMessage]);
+
+        // Автоматически воспроизводим ответ ассистента
+        setTimeout(() => {
+          speakText(data.message);
+        }, 500);
       } else {
         const errorMessage: ChatMessage = {
           role: "assistant",
