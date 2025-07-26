@@ -172,7 +172,7 @@ export default function VoiceControl({
       }
     } else if (command.includes("спасибо") || command.includes("благодарю")) {
       speakThankYou();
-    } else if (command.includes("доброе утро")) {
+    } else if (command.includes("доброе у��ро")) {
       speakGoodMorning();
     } else if (command.includes("как дела")) {
       speakHowAreYou();
@@ -280,7 +280,7 @@ export default function VoiceControl({
         });
       }
     }, 50); // Короткая задержка в 50мс
-  }, []);
+  }, [isSpeaking]);
 
   const speak = () => {
     playAudio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fdb47541068444a9093b406f29a6af3ce?alt=media&token=43fbc024-64ae-479b-8a6c-5b9d12b43294&apiKey=236158b44f8b45f680ab2467abfc361c");
