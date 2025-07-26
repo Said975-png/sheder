@@ -33,10 +33,6 @@ export default function ModernNavbar({
   onAddBasicPlan,
   onAddProPlan,
   onAddMaxPlan,
-  onListeningChange,
-  forceStopVoice,
-  onModelRotateStart,
-  onModelRotateStop,
 }: ModernNavbarProps) {
   const { currentUser, logout, isAuthenticated } = useAuth();
   const { getTotalItems, items, removeItem, getTotalPrice, clearCart } =
