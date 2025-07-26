@@ -68,7 +68,7 @@ export const useVoiceChat = ({
           
           onTranscriptReceived(finalTranscript.trim());
           
-          // Сбрасываем флаг обработки через небольшую задержку
+          // Сбрасываем флаг обработки че��ез небольшую задержку
           setTimeout(() => {
             isProcessingRef.current = false;
             console.log("🔄 Готов к следующей команде");
@@ -140,7 +140,7 @@ export const useVoiceChat = ({
     }
   }, [isSpeaking, initializeRecognition]);
 
-  // Остановка прослушивания
+  // Остан��вка прослушивания
   const stopListening = useCallback(() => {
     console.log("🛑 Останавливаем прослушивание");
     
@@ -179,6 +179,18 @@ export const useVoiceChat = ({
     }
 
     console.log("🔊 Начинаем говорить:", text);
+
+    // Безопасно очищаем преды��ущее аудио
+    if (currentAudioRef.current) {
+      try {
+        currentAudioRef.current.pause();
+        currentAudioRef.current.currentTime = 0;
+        currentAudioRef.current = null;
+      } catch (error) {
+        console.log("ℹ️ Ошибка очистки предыдущего аудио:", error);
+      }
+    }
+
     setIsSpeaking(true);
     isProcessingRef.current = true;
 
@@ -332,7 +344,7 @@ export const useVoiceChat = ({
     isProcessingRef.current = false;
   }, []);
 
-  // Очистка при размонтировании
+  // Очистка при размонтирован��и
   useEffect(() => {
     return () => {
       if (recognitionRef.current) {
@@ -372,7 +384,7 @@ export const useVoiceChat = ({
         console.log("🧹 Перезапуск зависшего распознавания");
         startListening();
       }
-    }, 3000); // Проверяем каждые 3 секунды
+    }, 3000); // Проверяем каждые 3 секу��ды
 
     return () => clearInterval(cleanupInterval);
   }, [isListening, isSpeaking, startListening]);
