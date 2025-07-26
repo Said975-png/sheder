@@ -27,7 +27,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
   const searchData: SearchResult[] = [
     {
       id: "home",
-      title: "Главная страница",
+      title: "Главн��я страница",
       description: "Домашняя страница с информацией о ДЖАРВИС AI",
       type: "page",
       url: "/",
@@ -236,7 +236,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
       {/* Кнопка поиска */}
       <Button
         onClick={() => setIsOpen(true)}
-        className="group relative bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-4 rounded-lg text-lg font-bold stark-glow transition-all duration-300 hover:shadow-cyan-500/40 overflow-hidden"
+        className="group relative bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-3 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-lg text-sm sm:text-base lg:text-lg font-bold stark-glow transition-all duration-300 hover:shadow-cyan-500/40 overflow-hidden w-full sm:w-auto max-w-full min-h-[48px] touch-manipulation"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
         <Search className="w-6 h-6 mr-3 group-hover:animate-pulse" />
