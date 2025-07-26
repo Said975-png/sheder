@@ -150,7 +150,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black text-white;
     font-family:
       "Inter",
       -apple-system,
@@ -158,7 +158,6 @@
       "Segoe UI",
       Roboto,
       sans-serif;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 }
 
