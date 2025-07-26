@@ -177,7 +177,7 @@ function TypewriterCode() {
           setCurrentCharIndex((prev) => prev + 1);
         },
         50 + Math.random() * 50,
-      ); // Варьируем скорость печат��
+      ); // Варьируем скорость печати
     } else if (currentCharIndex >= fullCode.length) {
       // Пауза после завершения печати
       pauseTimer = setTimeout(() => {
@@ -250,9 +250,6 @@ export default function Index() {
     clearCart,
   } = useCart();
   const navigate = useNavigate();
-  const [navbarAnimated, setNavbarAnimated] = useState(false);
-  const [navbarScrolled, setNavbarScrolled] = useState(false);
-
   const [forceStopVoice, setForceStopVoice] = useState(false);
   const [isModelRotating, setIsModelRotating] = useState(false);
 
