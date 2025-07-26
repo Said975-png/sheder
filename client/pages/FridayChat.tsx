@@ -57,7 +57,7 @@ export default function FridayChat() {
       {
         role: "assistant",
         content:
-          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий пакет для вашего проекта. Также могу обсудить любые другие темы. ��ем могу помочь?",
+          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий пакет для вашего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
         timestamp: Date.now(),
       },
     ]);
@@ -263,11 +263,11 @@ export default function FridayChat() {
                   )}
 
                   <div
-                    className={`max-w-[75%] min-w-0 ${
+                    className={`max-w-[85%] sm:max-w-[75%] min-w-0 ${
                       message.role === "user"
                         ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/20"
                         : "bg-gradient-to-r from-slate-800/80 to-slate-700/80 text-white shadow-lg shadow-slate-900/20 border border-slate-600/30"
-                    } rounded-2xl px-5 py-4 backdrop-blur-md relative overflow-hidden`}
+                    } rounded-xl sm:rounded-2xl px-3 sm:px-5 py-3 sm:py-4 backdrop-blur-md relative overflow-hidden`}
                   >
                     {/* Message glow effect */}
                     <div className={`absolute inset-0 ${
