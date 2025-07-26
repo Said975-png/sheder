@@ -46,7 +46,7 @@ export default function JarvisCommandsPanel({
       items: [
         { command: "Добавить базовый план", description: "Добавить в корзину" },
         { command: "Добавить про план", description: "Добавить в корзину" },
-        { command: "Добавить макс план", description: "Добавить в корз��ну" },
+        { command: "Добавить макс план", description: "Добавить в корзину" },
         { command: "Открыть корзину", description: "Показать содержимое корзины" },
       ],
     },
@@ -117,7 +117,7 @@ export default function JarvisCommandsPanel({
           </div>
 
           {/* Список команд по категориям */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             {commands.map((category, categoryIndex) => (
               <div key={categoryIndex} className="space-y-3">
                 <h3 className="text-lg font-semibold text-cyan-400 border-b border-cyan-400/20 pb-2">
