@@ -283,7 +283,7 @@ export default function VoiceControl({
         audio.play().catch((error) => {
           setIsSpeaking(false);
           currentAudioRef.current = null;
-          console.error("❌ Не удалось воспроизвести аудио:", error);
+          console.error("❌ Не удалос�� воспроизвести аудио:", error);
         });
       }
     }, 50); // Короткая задержка в 50мс
@@ -307,7 +307,11 @@ export default function VoiceControl({
         console.log("ℹ️ Ошибка остановки при отключении:", error);
       }
     }
-    
+
+    // Очищаем команду при отключении
+    lastCommandRef.current = "";
+    console.log("🧹 Команда очищена при отключении");
+
     // Воспроизводим аудио отключения
     playAudio("https://cdn.builder.io/o/assets%2F236158b44f8b45f680ab2467abfc361c%2Fa7471f308f3b4a36a50440bf01707cdc?alt=media&token=9a246f92-9460-41f2-8125-eb0a7e936b47&apiKey=236158b44f8b45f680ab2467abfc361c");
   };
