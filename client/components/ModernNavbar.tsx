@@ -465,7 +465,14 @@ function MobileMenu({
                 onClick={onClose}
                 className="block p-3 text-center rounded-xl border border-purple-400/30 hover:bg-purple-400/10 text-purple-300 transition-colors"
               >
-                Пя��ница
+                Пятница
+              </Link>
+              <Link
+                to="/voice-test"
+                onClick={onClose}
+                className="block p-3 text-center rounded-xl border border-green-400/30 hover:bg-green-400/10 text-green-300 transition-colors"
+              >
+                Голосовой тест
               </Link>
             </>
           )}
