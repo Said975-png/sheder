@@ -246,7 +246,7 @@ export default function FridayChat() {
         <div className="h-[calc(100vh-160px)] sm:h-[calc(100vh-200px)] bg-gradient-to-br from-slate-900/90 to-blue-900/30 backdrop-blur-xl border border-blue-500/20 rounded-2xl sm:rounded-3xl shadow-2xl shadow-blue-500/10 overflow-hidden">
           {/* Messages Area */}
           <div className="h-full flex flex-col">
-            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            <div className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
               {messages.map((message, index) => (
                 <div
                   key={index}
