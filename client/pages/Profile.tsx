@@ -534,7 +534,7 @@ function Profile() {
                   </button>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 {activeTab === "profile" && (
                   <form onSubmit={handleProfileUpdate} className="space-y-4">
                     <div className="space-y-2">
