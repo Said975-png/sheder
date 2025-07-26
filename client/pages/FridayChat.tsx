@@ -57,7 +57,7 @@ export default function FridayChat() {
       {
         role: "assistant",
         content:
-          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий па��ет для вашего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
+          "Привет! Я Пятница, ваш ИИ-консультант. Готов ответить на любые вопросы о наших услугах, тарифах и помочь выбрать подходящий пакет для вашего проекта. Также могу обсудить любые другие темы. Чем могу помочь?",
         timestamp: Date.now(),
       },
     ]);
@@ -243,7 +243,7 @@ export default function FridayChat() {
         </div>
 
         {/* Chat Container */}
-        <div className="h-[calc(100vh-200px)] bg-gradient-to-br from-slate-900/90 to-blue-900/30 backdrop-blur-xl border border-blue-500/20 rounded-3xl shadow-2xl shadow-blue-500/10 overflow-hidden">
+        <div className="h-[calc(100vh-160px)] sm:h-[calc(100vh-200px)] bg-gradient-to-br from-slate-900/90 to-blue-900/30 backdrop-blur-xl border border-blue-500/20 rounded-2xl sm:rounded-3xl shadow-2xl shadow-blue-500/10 overflow-hidden">
           {/* Messages Area */}
           <div className="h-full flex flex-col">
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
@@ -457,7 +457,7 @@ export default function FridayChat() {
                   <span>Powered by AI • Secure & Private</span>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span>{messages.length} сообще��ий</span>
+                  <span>{messages.length} сообщений</span>
                   <div className="flex items-center gap-1">
                     <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                     <span>Подключено</span>
