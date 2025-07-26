@@ -460,76 +460,107 @@ function Profile() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Profile Info Card */}
-          <div className="lg:col-span-1">
-            <Card className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-blue-500/20">
-              <CardHeader>
-                <CardTitle className="text-white text-center">
-                  Информация о профиле
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center">
-                {/* Avatar */}
-                <div className="relative mb-4">
-                  <div className="w-24 h-24 mx-auto bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center overflow-hidden">
-                    {avatar ? (
-                      <img
-                        src={avatar}
-                        alt="Avatar"
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <User className="w-12 h-12 text-white" />
-                    )}
-                  </div>
-                  <button
-                    onClick={() => fileInputRef.current?.click()}
-                    className="absolute bottom-0 right-1/2 transform translate-x-1/2 translate-y-1/2 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition-colors"
-                  >
-                    <Camera className="w-4 h-4 text-white" />
-                  </button>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleAvatarChange}
-                    className="hidden"
-                  />
-                </div>
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
+          {/* Enhanced Profile Info Card */}
+          <div className="xl:col-span-1">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-purple-500/20 to-cyan-500/20 blur-xl group-hover:blur-2xl transition-all duration-500"></div>
+              <Card className="relative bg-black/40 backdrop-blur-xl border border-cyan-400/30 group-hover:border-cyan-400/50 transition-all duration-500">
+                <CardHeader className="border-b border-cyan-400/20">
+                  <CardTitle className="text-center">
+                    <div className="flex items-center justify-center space-x-2 mb-2">
+                      <div className="w-6 h-6 rounded border border-cyan-400/50 flex items-center justify-center">
+                        <User className="w-4 h-4 text-cyan-400" />
+                      </div>
+                      <span className="text-cyan-400 font-mono">USER PROFILE</span>
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-center p-6">
+                  {/* Enhanced Avatar */}
+                  <div className="relative mb-6">
+                    <div className="relative">
+                      <div className="w-32 h-32 mx-auto rounded-full overflow-hidden relative group">
+                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-purple-600/20 animate-pulse"></div>
+                        <div className="relative w-full h-full bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center">
+                          {avatar ? (
+                            <img
+                              src={avatar}
+                              alt="Avatar"
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <User className="w-16 h-16 text-white" />
+                          )}
+                        </div>
+                        <div className="absolute inset-0 border-2 border-cyan-400/50 rounded-full"></div>
+                      </div>
 
-                <h3 className="text-xl font-semibold text-white mb-1">
-                  {currentUser.name}
-                </h3>
-                <p className="text-white/70 mb-4">{currentUser.email}</p>
+                      {/* Holographic rings */}
+                      <div className="absolute inset-0 rounded-full border border-cyan-400/30 animate-ping" style={{ animationDuration: "3s" }}></div>
+                      <div className="absolute inset-0 rounded-full border border-purple-400/20 animate-ping" style={{ animationDuration: "4s", animationDelay: "1s" }}></div>
+                    </div>
 
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center justify-between">
-                    <span className="text-white/70">ID пользователя:</span>
-                    <Badge
-                      variant="secondary"
-                      className="bg-white/10 text-white"
+                    <button
+                      onClick={() => fileInputRef.current?.click()}
+                      className="absolute -bottom-2 -right-2 w-12 h-12 bg-cyan-500/20 backdrop-blur-md border border-cyan-400/50 rounded-full flex items-center justify-center hover:bg-cyan-500/30 transition-all duration-300 group"
                     >
-                      {currentUser.id}
-                    </Badge>
+                      <Camera className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
+                    </button>
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleAvatarChange}
+                      className="hidden"
+                    />
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-white/70">Дата регистрации:</span>
-                    <span className="text-white">
-                      {formatDate(
-                        JSON.parse(localStorage.getItem("users") || "[]").find(
-                          (u: User) => u.id === currentUser.id,
-                        )?.createdAt || new Date().toISOString(),
-                      )}
-                    </span>
+
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-1">
+                        {currentUser.name}
+                      </h3>
+                      <p className="text-cyan-300/70 text-lg">{currentUser.email}</p>
+                    </div>
+
+                    {/* Enhanced Stats */}
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-cyan-500/5 border border-cyan-400/20 rounded-lg">
+                        <span className="text-cyan-400 font-mono text-sm">USER ID:</span>
+                        <Badge
+                          variant="secondary"
+                          className="bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 font-mono"
+                        >
+                          {currentUser.id}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-purple-500/5 border border-purple-400/20 rounded-lg">
+                        <span className="text-purple-400 font-mono text-sm">РЕГИСТРАЦИЯ:</span>
+                        <span className="text-white font-mono text-sm">
+                          {formatDate(
+                            JSON.parse(localStorage.getItem("users") || "[]").find(
+                              (u: User) => u.id === currentUser.id,
+                            )?.createdAt || new Date().toISOString(),
+                          )}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-green-500/5 border border-green-400/20 rounded-lg">
+                        <span className="text-green-400 font-mono text-sm">СТАТУС:</span>
+                        <div className="flex items-center space-x-2">
+                          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                          <span className="text-green-300 font-mono text-sm">АКТИВЕН</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </div>
 
-          {/* Settings */}
-          <div className="lg:col-span-2">
+          {/* Enhanced Settings Panel */}
+          <div className="xl:col-span-3">
             <Card className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-blue-500/20">
               <CardHeader>
                 <div className="flex space-x-1">
