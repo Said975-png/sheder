@@ -236,7 +236,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы уверены, что хотите удалить аккаунт? Это действие нельз�� отменить.",
+        "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -312,7 +312,7 @@ function Profile() {
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
             </Link>
-            <ThemeToggle />
+
           </div>
 
           <div className="flex items-center space-x-4">
@@ -450,7 +450,7 @@ function Profile() {
                           id="name"
                           name="name"
                           type="text"
-                          placeholder="Введите ваше имя"
+                          placeholder="Введ��те ваше имя"
                           value={formData.name}
                           onChange={handleChange}
                           required
@@ -530,7 +530,7 @@ function Profile() {
                                 size="sm"
                                 className="border-red-500/20 text-red-300 hover:bg-red-500/10"
                               >
-                                Отключить
+                                Отклю��ить
                               </Button>
                             ) : (
                               <Button
