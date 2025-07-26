@@ -68,7 +68,7 @@ export const useVoiceChat = ({
           
           onTranscriptReceived(finalTranscript.trim());
           
-          // Сбрасываем флаг обработки че��ез небольшую задержку
+          // Сбрасываем флаг обработки через небольшую задержку
           setTimeout(() => {
             isProcessingRef.current = false;
             console.log("🔄 Готов к следующей команде");
@@ -88,7 +88,7 @@ export const useVoiceChat = ({
       }
       
       // Для других ошибок просто продолжаем
-      console.log("ℹ️ Игнорируем ошибку, продолжаем слушать");
+      console.log("ℹ️ Игнорируем ошибку, п��одолжаем слушать");
     };
 
     recognition.onend = () => {
@@ -140,7 +140,7 @@ export const useVoiceChat = ({
     }
   }, [isSpeaking, initializeRecognition]);
 
-  // Остан��вка прослушивания
+  // Остановка прослушивания
   const stopListening = useCallback(() => {
     console.log("🛑 Останавливаем прослушивание");
     
@@ -180,7 +180,7 @@ export const useVoiceChat = ({
 
     console.log("🔊 Начинаем говорить:", text);
 
-    // Безопасно очищаем преды��ущее аудио
+    // Безопасно очищаем предыдущее аудио
     if (currentAudioRef.current) {
       try {
         currentAudioRef.current.pause();
@@ -328,23 +328,33 @@ export const useVoiceChat = ({
   // Остановка речи
   const stopSpeaking = useCallback(() => {
     console.log("🛑 Останавливаем речь");
-    
-    // Останавливаем ElevenLabs аудио
+
+    // Безопасно останавливаем ElevenLabs аудио
     if (currentAudioRef.current) {
-      currentAudioRef.current.pause();
-      currentAudioRef.current = null;
+      try {
+        currentAudioRef.current.pause();
+        currentAudioRef.current.currentTime = 0;
+        currentAudioRef.current = null;
+      } catch (error) {
+        console.log("ℹ️ Ошибка остановки аудио:", error);
+        currentAudioRef.current = null;
+      }
     }
 
     // Останавливаем браузерное TTS
     if ("speechSynthesis" in window && speechSynthesis.speaking) {
-      speechSynthesis.cancel();
+      try {
+        speechSynthesis.cancel();
+      } catch (error) {
+        console.log("ℹ️ Ошибка остановки TTS:", error);
+      }
     }
 
     setIsSpeaking(false);
     isProcessingRef.current = false;
   }, []);
 
-  // Очистка при размонтирован��и
+  // Очистка при размонтировании
   useEffect(() => {
     return () => {
       if (recognitionRef.current) {
@@ -384,7 +394,7 @@ export const useVoiceChat = ({
         console.log("🧹 Перезапуск зависшего распознавания");
         startListening();
       }
-    }, 3000); // Проверяем каждые 3 секу��ды
+    }, 3000); // Проверяем каждые 3 секунды
 
     return () => clearInterval(cleanupInterval);
   }, [isListening, isSpeaking, startListening]);
