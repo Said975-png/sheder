@@ -218,7 +218,7 @@ export default function OrderForm() {
                     className="theme-label flex items-center"
                   >
                     <Phone className="w-4 h-4 mr-2" />
-                    Номе�� теле��она
+                    Номер телефона
                   </Label>
                   <Input
                     id="phone"
