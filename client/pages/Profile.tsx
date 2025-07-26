@@ -19,6 +19,13 @@ import {
   Trash2,
   CheckCircle,
   Scan,
+  FileText,
+  Eye,
+  Download,
+  Plus,
+  Clock,
+  CheckCircle2,
+  XCircle,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import FaceIDProtected from "@/components/FaceIDProtected";
@@ -286,7 +293,7 @@ function Profile() {
     if (
       currentUser &&
       window.confirm(
-        "Вы уверены, что хотите отключить Face ID? Это снизит безопасность вашего аккаунта.",
+        "Вы уверен��, что хотите отключить Face ID? Это снизит безопасность вашего аккаунта.",
       )
     ) {
       const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
@@ -657,7 +664,7 @@ function Profile() {
                           Удалить аккаунт
                         </h5>
                         <p className="text-red-300/70 text-sm mb-4">
-                          Удаление аккаунта приведёт к полному удалению всех
+                          Удаление аккаунта приведё�� к полному удалению всех
                           ваших данных. Это действие нельзя отменить.
                         </p>
                         <Button
