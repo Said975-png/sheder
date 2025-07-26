@@ -374,9 +374,8 @@ function AuthButtons() {
       <Button
         variant="ghost"
         className={cn(
-          "px-4 py-2 rounded-full font-medium text-sm h-10",
+          "px-4 py-2 font-medium text-sm h-10",
           "bg-white/10 hover:bg-white/20",
-          "border border-white/20 hover:border-white/30",
           "text-white hover:text-white",
           "transition-all duration-200"
         )}
@@ -386,7 +385,7 @@ function AuthButtons() {
       </Button>
       <Button
         className={cn(
-          "px-4 py-2 rounded-full font-medium text-sm h-10",
+          "px-4 py-2 font-medium text-sm h-10",
           "bg-white text-black hover:bg-white/90",
           "transition-all duration-200"
         )}
@@ -397,9 +396,8 @@ function AuthButtons() {
       <Button
         variant="ghost"
         className={cn(
-          "px-4 py-2 rounded-full font-medium text-sm h-10",
+          "px-4 py-2 font-medium text-sm h-10",
           "bg-white/10 hover:bg-white/20",
-          "border border-white/20 hover:border-white/30",
           "text-white hover:text-white",
           "transition-all duration-200"
         )}
