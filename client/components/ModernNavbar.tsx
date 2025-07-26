@@ -272,10 +272,10 @@ function CartDropdown({
         </div>
 
         {items.length > 0 && (
-          <div className="p-4 border-t border-cyan-400/20 bg-black/80">
+          <div className="p-4 border-t border-white/20 bg-black/80">
             <div className="flex justify-between items-center mb-4">
               <span className="font-bold text-white">TOTAL:</span>
-              <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+              <span className="text-xl font-bold text-white">
                 {getTotalPrice().toLocaleString()} сум
               </span>
             </div>
@@ -289,13 +289,7 @@ function CartDropdown({
               </Button>
               <Button
                 onClick={handleProceedToOrder}
-                className={cn(
-                  "flex-1 font-semibold",
-                  "bg-gradient-to-r from-cyan-500 to-blue-600",
-                  "hover:from-cyan-400 hover:to-blue-500",
-                  "shadow-lg shadow-cyan-400/30 hover:shadow-cyan-400/50",
-                  "transition-all duration-300"
-                )}
+                className="flex-1 font-semibold bg-white text-black hover:bg-white/90 transition-all duration-200"
               >
                 Checkout
               </Button>
