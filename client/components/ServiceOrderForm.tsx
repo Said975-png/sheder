@@ -18,7 +18,8 @@ import {
   Smartphone,
   ShoppingCart,
   Users,
-  Zap
+  Zap,
+  Brain
 } from "lucide-react";
 
 interface ServiceOrderFormProps {
