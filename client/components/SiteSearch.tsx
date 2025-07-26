@@ -245,8 +245,8 @@ export function SiteSearch({ className }: SiteSearchProps) {
 
       {/* Модальное окно поиска */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-black/50 backdrop-blur-sm">
-          <div className="relative w-full max-w-2xl mx-4">
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-20 bg-black/50 backdrop-blur-sm p-2 sm:p-4">
+          <div className="relative w-full max-w-2xl mx-2 sm:mx-4">
             {/* Поисковая строка */}
             <div className="relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-cyan-400" />
