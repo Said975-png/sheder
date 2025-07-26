@@ -143,7 +143,7 @@ export default function FridayChat() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/10 text-foreground relative overflow-hidden theme-gradient">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950/20 to-indigo-950/30 text-white relative overflow-hidden">
       {/* Futuristic Background Effects */}
       <div className="fixed inset-0 -z-10">
         {/* Animated Grid */}
