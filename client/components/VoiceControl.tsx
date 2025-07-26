@@ -74,7 +74,7 @@ export default function VoiceControl({
         onListeningChange?.(true, combinedTranscript);
       }
 
-      // Обрабатываем только финальные результаты
+      // ��брабатываем только финальные результаты
       if (finalTranscript.trim()) {
         const command = finalTranscript.trim().toLowerCase();
         console.log("📝 Финальная команда:", command);
@@ -170,7 +170,7 @@ export default function VoiceControl({
     } else if (command.includes("базовый") || command.includes("basic")) {
       onAddBasicPlan();
       speak();
-    } else if (command.includes("про") || command.includes("профессиональный")) {
+    } else if (command.includes("про") || command.includes("п��офессиональный")) {
       onAddProPlan();
       speak();
     } else if (command.includes("макс") || command.includes("максимальный")) {
@@ -214,33 +214,47 @@ export default function VoiceControl({
     }
   }, [isListening, onListeningChange, initializeRecognition]);
 
-  // Простые функции воспроизведения аудио
+  // Исправленная функция воспроизведения аудио
   const playAudio = useCallback((url: string, onComplete?: () => void) => {
+    // Безопасно останавливаем предыдущее аудио
     if (currentAudioRef.current) {
-      currentAudioRef.current.pause();
+      try {
+        currentAudioRef.current.pause();
+        currentAudioRef.current.currentTime = 0;
+        currentAudioRef.current = null;
+      } catch (error) {
+        console.log("ℹ️ Ошибка остановки предыдущего аудио:", error);
+      }
     }
 
     setIsSpeaking(true);
-    const audio = new Audio(url);
-    currentAudioRef.current = audio;
 
-    audio.onended = () => {
-      setIsSpeaking(false);
-      currentAudioRef.current = null;
-      onComplete?.();
-    };
+    // Небольшая задержка для полной очистки предыдущего аудио
+    setTimeout(() => {
+      const audio = new Audio(url);
+      currentAudioRef.current = audio;
 
-    audio.onerror = () => {
-      setIsSpeaking(false);
-      currentAudioRef.current = null;
-      console.error("❌ Ошибка воспроизведения аудио");
-    };
+      audio.onended = () => {
+        setIsSpeaking(false);
+        currentAudioRef.current = null;
+        onComplete?.();
+      };
 
-    audio.play().catch((error) => {
-      setIsSpeaking(false);
-      currentAudioRef.current = null;
-      console.error("❌ Не удалось воспроизвести аудио:", error);
-    });
+      audio.onerror = () => {
+        setIsSpeaking(false);
+        currentAudioRef.current = null;
+        console.error("❌ Ошибка воспроизведения аудио");
+      };
+
+      // Проверяем что элемент еще актуален перед воспроизведением
+      if (currentAudioRef.current === audio) {
+        audio.play().catch((error) => {
+          setIsSpeaking(false);
+          currentAudioRef.current = null;
+          console.error("❌ Не удалось воспроизвести аудио:", error);
+        });
+      }
+    }, 50); // Короткая задержка в 50мс
   }, []);
 
   const speak = () => {
