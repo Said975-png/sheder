@@ -151,9 +151,8 @@ export default function ModernNavbar({
               variant="ghost"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={cn(
-                "lg:hidden rounded-full px-3 py-2 h-10",
+                "lg:hidden px-3 py-2 h-10",
                 "bg-white/10 hover:bg-white/20",
-                "border border-white/20 hover:border-white/30",
                 "transition-all duration-200",
                 "text-white hover:text-white"
               )}
