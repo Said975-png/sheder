@@ -90,7 +90,7 @@ export default function ModernNavbar({
       >
         <div className="flex items-center justify-center w-full h-full">
           {/* Even spacing for all buttons */}
-          <div className="flex items-center space-x-1 sm:space-x-4">
+          <div className="flex items-center space-x-0.5 sm:space-x-2 lg:space-x-4 overflow-hidden">
             {/* Home Button */}
             <Button
               variant="ghost"
