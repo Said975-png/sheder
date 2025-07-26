@@ -77,8 +77,7 @@ export default function JarvisInterface({
 
   if (inNavbar) {
     return (
-      <div className="flex items-center space-x-3">
-        <ArcReactor size="small" pulsing={isActive} />
+      <div className="flex items-center">
         <VoiceControl
           onAddBasicPlan={onAddBasicPlan}
           onAddProPlan={onAddProPlan}
