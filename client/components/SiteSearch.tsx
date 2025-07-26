@@ -78,7 +78,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
     },
     {
       id: "profile",
-      title: "Профиль пол��зователя",
+      title: "Про��иль пол��зователя",
       description: "Настройки и информация о пользователе",
       type: "page",
       url: "/profile",
@@ -236,17 +236,17 @@ export function SiteSearch({ className }: SiteSearchProps) {
       {/* Кнопка поиска */}
       <Button
         onClick={() => setIsOpen(true)}
-        className="group relative bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-4 rounded-lg text-lg font-bold stark-glow transition-all duration-300 hover:shadow-cyan-500/40 overflow-hidden"
+        className="group relative bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-3 sm:px-6 lg:px-8 py-3 sm:py-4 rounded-lg text-sm sm:text-base lg:text-lg font-bold stark-glow transition-all duration-300 hover:shadow-cyan-500/40 overflow-hidden w-full sm:w-auto max-w-full min-h-[48px] touch-manipulation"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-        <Search className="w-6 h-6 mr-3 group-hover:animate-pulse" />
-        <span className="relative z-10">Поиск по сайту</span>
+        <Search className="w-4 sm:w-5 lg:w-6 h-4 sm:h-5 lg:h-6 mr-2 sm:mr-3 group-hover:animate-pulse flex-shrink-0" />
+        <span className="relative z-10 truncate">Поиск по сайту</span>
       </Button>
 
       {/* Модальное окно поиска */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 bg-black/50 backdrop-blur-sm">
-          <div className="relative w-full max-w-2xl mx-4">
+        <div className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-20 bg-black/50 backdrop-blur-sm p-2 sm:p-4">
+          <div className="relative w-full max-w-2xl mx-2 sm:mx-4">
             {/* Поисковая строка */}
             <div className="relative">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-cyan-400" />
@@ -256,7 +256,7 @@ export function SiteSearch({ className }: SiteSearchProps) {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Поиск по сайту..."
-                className="w-full pl-12 pr-12 py-4 text-lg bg-black/90 border-2 border-cyan-400/30 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none backdrop-blur-sm"
+                className="w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-3 sm:py-4 text-base sm:text-lg bg-black/90 border-2 border-cyan-400/30 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:outline-none backdrop-blur-sm min-h-[48px]"
               />
               <Button
                 onClick={() => setIsOpen(false)}

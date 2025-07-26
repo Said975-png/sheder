@@ -82,7 +82,7 @@ function TypewriterCode() {
           '    <div className="ai-interface">',
           '      <Brain className="neural-icon" />',
           "      <button onClick={handleVoiceCommand}>",
-          '        {isActive ? "Деактивировать" : "Активировать"}',
+          '        {isActive ? "Деактивировать" : "��ктивировать"}',
           "      </button>",
           "    </div>",
           "  );",
@@ -240,8 +240,6 @@ export default function Index() {
   const navigate = useNavigate();
   const [forceStopVoice, setForceStopVoice] = useState(false);
   const [isModelRotating, setIsModelRotating] = useState(false);
-
-
 
   const handleLogout = React.useCallback(() => {
     logout();

@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Shield, Mail, Lock, User, ArrowLeft, CheckCircle } from "lucide-react";
-import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface User {
   id: string;
@@ -52,7 +51,7 @@ export default function SignUp() {
         localStorage.getItem("users") || "[]",
       ) as User[];
 
-      // Проверяем, существует ли пользователь с таким email
+      // Проверяем, существует ли пользоват��ль с таким email
       if (existingUsers.find((user) => user.email === formData.email)) {
         setError("Пользователь с таким email уже существует");
         setLoading(false);
@@ -141,7 +140,6 @@ export default function SignUp() {
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
             </Link>
-            <ThemeToggle />
           </div>
 
           <div className="flex items-center justify-center space-x-2 mb-4">

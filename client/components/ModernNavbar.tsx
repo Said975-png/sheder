@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import JarvisInterface from "@/components/JarvisInterface";
 import {
   DropdownMenu,
@@ -44,9 +43,10 @@ export default function ModernNavbar({
   onModelRotateStop,
 }: ModernNavbarProps) {
   const { currentUser, logout, isAuthenticated } = useAuth();
-  const { getTotalItems, items, removeItem, getTotalPrice, clearCart } = useCart();
+  const { getTotalItems, items, removeItem, getTotalPrice, clearCart } =
+    useCart();
   const navigate = useNavigate();
-  
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -81,35 +81,37 @@ export default function ModernNavbar({
       <nav
         className={cn(
           "fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-out",
-          "top-4 rounded-full px-6 py-3 w-auto max-w-4xl h-14",
+          "top-2 sm:top-4 rounded-full px-2 sm:px-3 lg:px-6 py-2 sm:py-3 w-auto max-w-[calc(100vw-0.5rem)] sm:max-w-[calc(100vw-2rem)] lg:max-w-4xl h-12 sm:h-14",
           // Simple transparent background
           isScrolled
             ? "bg-white/10 backdrop-blur-md border border-white/20"
             : "bg-transparent border border-white/10",
-          "shadow-lg"
+          "shadow-lg",
         )}
       >
         <div className="flex items-center justify-center w-full h-full">
           {/* Even spacing for all buttons */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-0.5 sm:space-x-2 lg:space-x-4 overflow-hidden">
             {/* Home Button */}
             <Button
               variant="ghost"
               onClick={scrollToTop}
               className={cn(
-                "px-4 py-2 h-10",
+                "px-1 sm:px-2 lg:px-4 py-2 h-8 sm:h-10",
                 "transition-all duration-200",
-                "text-white hover:text-white"
+                "text-white hover:text-white",
               )}
             >
-              <div className="flex items-center space-x-2">
-                <Home className="w-4 h-4" />
-                <span className="font-medium text-sm">Home</span>
+              <div className="flex items-center space-x-1 sm:space-x-2">
+                <Home className="w-3 sm:w-4 h-3 sm:h-4" />
+                <span className="hidden sm:inline font-medium text-sm">
+                  Home
+                </span>
               </div>
             </Button>
 
             {/* JARVIS Interface */}
-            <div className="px-3 py-2 h-10">
+            <div className="px-0 sm:px-1 lg:px-3 py-2 h-8 sm:h-10 overflow-hidden max-w-[80px] sm:max-w-none">
               <JarvisInterface
                 onAddBasicPlan={onAddBasicPlan}
                 onAddProPlan={onAddProPlan}
@@ -131,13 +133,6 @@ export default function ModernNavbar({
               handleProceedToOrder={handleProceedToOrder}
             />
 
-            {/* Theme Toggle */}
-            <div className="hidden sm:block">
-              <div className="p-2">
-                <ThemeToggle />
-              </div>
-            </div>
-
             {/* User Menu or Auth Buttons */}
             {isAuthenticated && currentUser ? (
               <UserMenu user={currentUser} onLogout={handleLogout} />
@@ -152,7 +147,7 @@ export default function ModernNavbar({
               className={cn(
                 "lg:hidden px-3 py-2 h-10",
                 "transition-all duration-200",
-                "text-white hover:text-white"
+                "text-white hover:text-white",
               )}
             >
               {isMobileMenuOpen ? (
@@ -201,7 +196,7 @@ function CartDropdown({
           className={cn(
             "relative px-4 py-2 h-10",
             "transition-all duration-200",
-            "text-white hover:text-white"
+            "text-white hover:text-white",
           )}
         >
           <div className="flex items-center space-x-2">
@@ -220,15 +215,13 @@ function CartDropdown({
         className={cn(
           "w-80 mt-2 p-0 border-0 overflow-hidden",
           "bg-black/95 backdrop-blur-xl",
-          "rounded-xl shadow-2xl border border-white/20"
+          "rounded-xl shadow-2xl border border-white/20",
         )}
       >
         <div className="p-4 border-b border-white/20">
-          <h3 className="font-bold text-lg text-white">
-            Shopping Cart
-          </h3>
+          <h3 className="font-bold text-lg text-white">Shopping Cart</h3>
         </div>
-        
+
         <div className="max-h-80 overflow-y-auto">
           {items.length === 0 ? (
             <div className="p-6 text-center">
@@ -305,7 +298,7 @@ function UserMenu({ user, onLogout }: any) {
           className={cn(
             "flex items-center space-x-2 px-4 py-2 h-10",
             "transition-all duration-200",
-            "text-white hover:text-white"
+            "text-white hover:text-white",
           )}
         >
           <div className="w-6 h-6 rounded-full flex items-center justify-center">
@@ -372,7 +365,7 @@ function AuthButtons() {
         className={cn(
           "px-4 py-2 font-medium text-sm h-10",
           "text-white hover:text-white",
-          "transition-all duration-200"
+          "transition-all duration-200",
         )}
         asChild
       >
@@ -382,7 +375,7 @@ function AuthButtons() {
         className={cn(
           "px-4 py-2 font-medium text-sm h-10",
           "bg-white text-black hover:bg-white/90",
-          "transition-all duration-200"
+          "transition-all duration-200",
         )}
         asChild
       >
@@ -393,7 +386,7 @@ function AuthButtons() {
         className={cn(
           "px-4 py-2 font-medium text-sm h-10",
           "text-white hover:text-white",
-          "transition-all duration-200"
+          "transition-all duration-200",
         )}
         asChild
       >
@@ -423,11 +416,11 @@ function MobileMenu({
   return (
     <div className="fixed inset-0 z-40 lg:hidden">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/80 backdrop-blur-sm"
         onClick={onClose}
       />
-      
+
       {/* Menu Panel */}
       <div className="absolute top-20 left-4 right-4 bg-black/95 backdrop-blur-xl border border-cyan-400/30 rounded-2xl p-6 shadow-2xl shadow-cyan-400/20">
         {/* JARVIS Interface */}
@@ -449,10 +442,12 @@ function MobileMenu({
           {isAuthenticated && currentUser ? (
             <>
               <div className="p-3 bg-purple-500/10 border border-purple-400/20 rounded-xl">
-                <div className="font-semibold text-white">{currentUser.name}</div>
+                <div className="font-semibold text-white">
+                  {currentUser.name}
+                </div>
                 <div className="text-sm text-white/60">{currentUser.email}</div>
               </div>
-              
+
               <Link
                 to="/profile"
                 onClick={onClose}
@@ -461,7 +456,7 @@ function MobileMenu({
                 <User className="w-5 h-5 text-cyan-400" />
                 <span className="text-white">Profile</span>
               </Link>
-              
+
               <Link
                 to="/chat"
                 onClick={onClose}
@@ -470,7 +465,7 @@ function MobileMenu({
                 <Brain className="w-5 h-5 text-purple-400" />
                 <span className="text-white">Чат с Пятницей</span>
               </Link>
-              
+
               <button
                 onClick={() => {
                   onLogout();
@@ -507,14 +502,6 @@ function MobileMenu({
               </Link>
             </>
           )}
-        </div>
-
-        {/* Theme Toggle */}
-        <div className="mt-6 pt-6 border-t border-cyan-400/20">
-          <div className="flex items-center justify-between">
-            <span className="text-white font-medium">Theme</span>
-            <ThemeToggle />
-          </div>
         </div>
       </div>
     </div>

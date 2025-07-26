@@ -21,7 +21,6 @@ import {
   Scan,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import FaceIDProtected from "@/components/FaceIDProtected";
 import FaceIDModal from "@/components/FaceIDModal";
 
@@ -313,7 +312,6 @@ function Profile() {
               <ArrowLeft className="w-4 h-4" />
               <span>Назад на главную</span>
             </Link>
-            <ThemeToggle />
           </div>
 
           <div className="flex items-center space-x-4">
@@ -451,7 +449,7 @@ function Profile() {
                           id="name"
                           name="name"
                           type="text"
-                          placeholder="Введите ваше имя"
+                          placeholder="Введ��те ваше имя"
                           value={formData.name}
                           onChange={handleChange}
                           required
@@ -531,7 +529,7 @@ function Profile() {
                                 size="sm"
                                 className="border-red-500/20 text-red-300 hover:bg-red-500/10"
                               >
-                                Отключить
+                                Отклю��ить
                               </Button>
                             ) : (
                               <Button
