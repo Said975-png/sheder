@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import VoiceControl from "@/components/VoiceControl";
 import ModernNavbar from "@/components/ModernNavbar";
 import FloatingVoiceControl from "@/components/FloatingVoiceControl";
 
