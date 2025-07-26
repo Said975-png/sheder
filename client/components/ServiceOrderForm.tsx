@@ -27,11 +27,32 @@ interface ServiceOrderFormProps {
 }
 
 const serviceTypes = [
-  { value: "website", label: "Веб-сайт", icon: Globe, price: 50000, description: "Современный адаптивный сайт" },
-  { value: "mobile-app", label: "Мобильное приложение", icon: Smartphone, price: 120000, description: "iOS/Android приложение" },
-  { value: "ecommerce", label: "Интернет-магазин", icon: ShoppingCart, price: 80000, description: "Полноценный и��тернет-магазин" },
-  { value: "crm", label: "CRM система", icon: Users, price: 150000, description: "Система управления клиентами" },
-  { value: "automation", label: "Автоматизация", icon: Zap, price: 100000, description: "Автоматизация бизнес-процессов" }
+  {
+    value: "basic",
+    label: "BASIC - Веб-сайт",
+    icon: Globe,
+    price: 2500000,
+    description: "Красивый и функциональный сайт с современным дизайном",
+    features: ["Уникальный дизайн", "Адаптивная верстка", "SEO оптимизация", "Техподдержка 3 мес"]
+  },
+  {
+    value: "pro",
+    label: "PRO - Веб-сайт",
+    icon: Brain,
+    price: 3500000,
+    originalPrice: 4000000,
+    description: "Насыщенный функционал с встроенным ИИ и многими возможностями",
+    features: ["Все из Basic", "ИИ-чат бот", "Панель управления", "API интеграции", "Техподдержка 6 мес"],
+    popular: true
+  },
+  {
+    value: "max",
+    label: "MAX - Веб-сайт",
+    icon: Zap,
+    price: 5500000,
+    description: "Безграничные возможности с Джарвисом и инновационными функциями",
+    features: ["Все из Pro", "Встроенный Джарвис", "3D элементы", "VR/AR интеграция", "Персональный менеджер"]
+  }
 ];
 
 export default function ServiceOrderForm({ isOpen, onClose }: ServiceOrderFormProps) {
