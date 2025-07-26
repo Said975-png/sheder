@@ -163,7 +163,7 @@ export default function StarkHero({
               {/* Tertiary Action */}
               <Button
                 variant="ghost"
-                className="group text-white border border-white/20 hover:border-white/40 hover:bg-white/5 px-6 py-4 rounded-2xl transition-all duration-300"
+                className="group text-white border border-white/20 hover:border-white/40 hover:bg-white/5 px-4 sm:px-6 py-3 sm:py-4 rounded-2xl transition-all duration-300 min-h-[48px] touch-manipulation"
               >
                 <Play className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
                 <span>Смотреть де����о</span>
