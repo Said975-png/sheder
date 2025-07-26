@@ -205,6 +205,8 @@ export default function VoiceTest() {
           <li>• Кнопка не мигает</li>
           <li>• <strong>Можно говорить новые команды сразу после предыдущей</strong></li>
           <li>• <strong>Старые команды быстро очищаются</strong></li>
+          <li>• <strong>Микрофон не записывает аудио ответы системы</strong></li>
+          <li>• <strong>Нет обратной связи (эхо) от динамиков</strong></li>
         </ul>
       </div>
     </div>
