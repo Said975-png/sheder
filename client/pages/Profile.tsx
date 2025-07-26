@@ -154,7 +154,7 @@ function Profile() {
         return;
       }
 
-      // Проверяе�� тип файла
+      // Проверяем тип файла
       if (!file.type.startsWith("image/")) {
         setError("Пожалуйста, выберите изображение");
         return;
@@ -196,7 +196,7 @@ function Profile() {
         }
       }
 
-      // Обн��вляем данные пользователя
+      // Обновляем данные пользователя
       users[userIndex] = {
         ...users[userIndex],
         name: formData.name,
@@ -273,7 +273,7 @@ function Profile() {
       }));
     } catch (error) {
       console.error("Password change error:", error);
-      setError("Произошла ошибка при смене ��ароля");
+      setError("Произошла ошибка при смене пароля");
     } finally {
       setLoading(false);
     }
@@ -282,7 +282,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы уверены, что хотите удали��ь аккаунт? Это действие нельзя отменить.",
+        "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -429,17 +429,34 @@ function Profile() {
           </div>
         </div>
 
-        {/* Success/Error Messages */}
+        {/* Holographic Notifications */}
         {success && (
-          <div className="mb-6 p-4 rounded-lg bg-green-500/10 border border-green-500/20 text-green-300 flex items-center space-x-2">
-            <CheckCircle className="w-5 h-5" />
-            <span>{success}</span>
+          <div className="mb-8 relative">
+            <div className="absolute inset-0 bg-green-400/20 blur-xl"></div>
+            <div className="relative bg-black/60 backdrop-blur-xl border border-green-400/30 rounded-xl p-6 flex items-center space-x-4">
+              <div className="w-12 h-12 rounded-full bg-green-500/20 border border-green-400/50 flex items-center justify-center">
+                <CheckCircle className="w-6 h-6 text-green-400" />
+              </div>
+              <div>
+                <div className="text-green-400 font-mono text-sm mb-1">ОПЕРАЦИЯ ЗАВЕРШЕНА</div>
+                <div className="text-white text-lg">{success}</div>
+              </div>
+            </div>
           </div>
         )}
 
         {error && (
-          <div className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-300">
-            {error}
+          <div className="mb-8 relative">
+            <div className="absolute inset-0 bg-red-400/20 blur-xl"></div>
+            <div className="relative bg-black/60 backdrop-blur-xl border border-red-400/30 rounded-xl p-6 flex items-center space-x-4">
+              <div className="w-12 h-12 rounded-full bg-red-500/20 border border-red-400/50 flex items-center justify-center">
+                <XCircle className="w-6 h-6 text-red-400" />
+              </div>
+              <div>
+                <div className="text-red-400 font-mono text-sm mb-1">ОШИБКА СИСТЕМЫ</div>
+                <div className="text-white text-lg">{error}</div>
+              </div>
+            </div>
           </div>
         )}
 
@@ -664,7 +681,7 @@ function Profile() {
                                 ли��ный кабинет
                               </p>
                               <p>
-                                ✓ Биометрические данные хранятся локаль��о и не
+                                ✓ Биометрические данные хранятся локально и не
                                 передаются на сервер
                               </p>
                               <p>
@@ -821,7 +838,7 @@ function Profile() {
                           className="bg-purple-600 hover:bg-purple-700 text-white"
                         >
                           <Plus className="w-4 h-4 mr-2" />
-                          За��азать услугу
+                          Заказать услугу
                         </Button>
                       </div>
                     ) : (
