@@ -406,7 +406,7 @@ function Profile() {
       const userIndex = users.findIndex((u) => u.id === currentUser.id);
 
       if (userIndex === -1) {
-        setError("Пользователь не найд��н");
+        setError("Пользователь не найден");
         return;
       }
 
@@ -490,7 +490,7 @@ function Profile() {
       users[userIndex].password = formData.newPassword;
       localStorage.setItem("users", JSON.stringify(users));
 
-      addActivityLog("password_change", "Пароль из��енен");
+      addActivityLog("password_change", "Пароль изменен");
       setSuccess("Пароль успешно изменён");
       setFormData((prev) => ({
         ...prev,
@@ -711,7 +711,7 @@ function Profile() {
           onValueChange={setActiveTab}
           className="space-y-6"
         >
-          <TabsList className="grid w-full grid-cols-6 lg:w-auto lg:grid-cols-none lg:inline-flex">
+          <TabsList className="grid w-full grid-cols-7 lg:w-auto lg:grid-cols-none lg:inline-flex">
             <TabsTrigger
               value="dashboard"
               className="flex items-center space-x-2"
@@ -739,6 +739,13 @@ function Profile() {
             >
               <FileText className="w-4 h-4" />
               <span className="hidden sm:inline">Договоры</span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="bookings"
+              className="flex items-center space-x-2"
+            >
+              <Calendar className="w-4 h-4" />
+              <span className="hidden sm:inline">Брони</span>
             </TabsTrigger>
             <TabsTrigger
               value="settings"
