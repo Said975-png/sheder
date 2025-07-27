@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import OrderForm from "./pages/OrderForm";
+import Chat from "./pages/Chat";
 
 import NotFound from "./pages/NotFound";
 
@@ -31,8 +32,7 @@ const App = () => (
             <Route path="/signup" element={<SignUp />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/order" element={<OrderForm />} />
-
-
+            <Route path="/chat" element={<Chat />} />
 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
