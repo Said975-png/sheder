@@ -92,7 +92,7 @@ export default function VoiceMicrophone({
     // Останавливаем прослушивание на время воспроизведения аудио
     const wasListening = isListening;
     if (isListening) {
-      toggleListening(); // Останавли��аем микрофон
+      toggleListening(); // Останавливаем микрофон
     }
 
     setIsPlayingAudio(true);
@@ -127,7 +127,7 @@ export default function VoiceMicrophone({
 
       // Возобновля��м прослушивание если была ошибка
       if (wasListening) {
-        toggleListening(); // Включаем микрофон о���ратно
+        toggleListening(); // Включаем микрофон о��ратно
         console.log("🎤 Микрофон возобновлен после ошибки аудио");
       }
     };
@@ -162,7 +162,7 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Останавливаем предыдущее аудио если есть
+    // Останавлив��ем предыдущее аудио если есть
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -253,7 +253,7 @@ export default function VoiceMicrophone({
       lowerCommand.includes("джарвис смени модель") ||
       lowerCommand.includes("jarvis смени модель") ||
       (lowerCommand.includes("джарвис") &&
-        (lowerCommand.includes("с��ени модель") ||
+        (lowerCommand.includes("смени модель") ||
           lowerCommand.includes("сми модель")))
     ) {
       console.log(
@@ -277,7 +277,7 @@ export default function VoiceMicrophone({
     // Команда "верни модель" - воспроизводим аудио и возвращаем предыдущую модель
     if (
       lowerCommand.includes("верни модель") ||
-      lowerCommand.includes("��ерни модел") ||
+      lowerCommand.includes("верни модел") ||
       lowerCommand.includes("верни м") ||
       (lowerCommand.includes("верни") && lowerCommand.includes("модель"))
     ) {
@@ -321,7 +321,7 @@ export default function VoiceMicrophone({
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2Fea0c68e7425848fa87af48c5fcfd79e0?alt=media&token=88b16ebf-8330-4065-b454-15f196538359&apiKey=3eff37bfce48420f81bfea727d0802d9",
         () => {
           console.log("✅ Аудио ответ завершен, скроллим к прайс листу");
-          // Прокручиваем к прайс листу после ауди��
+          // Прокручиваем к прайс листу после аудио
           const pricingSection = document.querySelector('[data-section="pricing"]');
           if (pricingSection) {
             pricingSection.scrollIntoView({
@@ -384,38 +384,19 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Команда "открой чат" - воспроизводим аудио и скроллим к прайс листу
+    // Команда "открой чат" - воспроизводим аудио и переходим в чат с Пятницей
     if (
       lowerCommand.includes("открой чат") ||
       lowerCommand.includes("открыть чат") ||
       lowerCommand.includes("чат")
     ) {
-      console.log("🎯 Команда 'открой чат' получена - воспроизводим аудио и скроллим к прайс листу");
+      console.log("🎯 Команда 'открой чат' получена - воспроизводим аудио и переходим в чат");
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F8cdc875575354683ba86969db638b81f?alt=media&token=3b17dba6-0ef5-4b41-a462-54d46af09a3d&apiKey=3eff37bfce48420f81bfea727d0802d9",
         () => {
-          console.log("✅ Аудио ответ завершен, скроллим к прайс листу");
-          // Прокручиваем к прайс листу после аудио
-          const pricingSection = document.querySelector('[data-section="pricing"]');
-          if (pricingSection) {
-            pricingSection.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
-            });
-          } else {
-            // Если нет data-атрибута, ищем по тексту
-            const pricingElement = Array.from(document.querySelectorAll('h2')).find(el =>
-              el.textContent?.includes('НАШИ ЦЕНЫ') ||
-              el.textContent?.includes('цены') ||
-              el.textContent?.includes('ЦЕНЫ')
-            );
-            if (pricingElement) {
-              pricingElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-              });
-            }
-          }
+          console.log("✅ Аудио ответ завершен, переходим в чат с Пятницей");
+          // Переходим на страницу чата с Пятницей после аудио
+          window.location.href = '/chat';
         },
       );
       return;
@@ -514,7 +495,7 @@ export default function VoiceMicrophone({
     );
   }
 
-  // Встроен��ый режим
+  // Встроенный режим
   return (
     <div className={cn("flex items-center gap-3", className)}>
       {/* Транскрипт (встроенный) */}
