@@ -340,6 +340,9 @@ export default function Index() {
         floating={true}
         size="lg"
       />
+
+      {/* Stark Mode Overlay */}
+      <StarkModeOverlay />
     </div>
   );
 }
