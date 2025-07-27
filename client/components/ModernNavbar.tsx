@@ -319,6 +319,17 @@ function UserMenu({ user, onLogout }: any) {
             <Brain className="mr-3 h-4 w-4" />
             Чат с Пятницей 🤖
           </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={toggleTheme}
+            className="text-white hover:bg-white/10 cursor-pointer rounded-lg"
+          >
+            {theme === 'dark' ? (
+              <Sun className="mr-3 h-4 w-4" />
+            ) : (
+              <Moon className="mr-3 h-4 w-4" />
+            )}
+            {theme === 'dark' ? 'Светлая тема' : 'Темная тема'}
+          </DropdownMenuItem>
         </div>
 
         <div className="p-2 border-t border-white/20">
@@ -434,7 +445,7 @@ function MobileMenu({
                 className="flex items-center space-x-3 p-3 rounded-xl hover:bg-green-400/10 transition-colors"
               >
                 <Brain className="w-5 h-5 text-green-400" />
-                <span className="text-white">Тест голосового управления</span>
+                <span className="text-white">Тест голосо��ого управления</span>
               </Link>
 
               <button
