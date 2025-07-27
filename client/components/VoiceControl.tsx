@@ -56,7 +56,7 @@ export default function VoiceControl({
         // Проверяем состояние recognition
         try {
           recognitionRef.current.start();
-          console.log("🎤 Перезапуск существующего recognition");
+          console.log("🎤 Перез��пуск существующего recognition");
           return;
         } catch (error) {
           // Если ошибка - очищаем и создаем новый
@@ -245,7 +245,7 @@ export default function VoiceControl({
           error.message.includes("user didn't interact")
         ) {
           console.log(
-            "⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользовател��",
+            "⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя",
           );
         } else {
           console.log(
@@ -393,6 +393,41 @@ export default function VoiceControl({
         return;
       }
 
+      // Команда "открой чат"
+      if (
+        lowerCommand.includes("открой чат") ||
+        lowerCommand.includes("открыть чат") ||
+        lowerCommand.includes("чат")
+      ) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F8cdc875575354683ba86969db638b81f?alt=media&token=3b17dba6-0ef5-4b41-a462-54d46af09a3d&apiKey=3eff37bfce48420f81bfea727d0802d9",
+          () => {
+            // Прокручиваем к прайс листу после аудио
+            const pricingSection = document.querySelector('[data-section="pricing"]');
+            if (pricingSection) {
+              pricingSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            } else {
+              // Если нет data-атрибута, ищем по тексту
+              const pricingElement = Array.from(document.querySelectorAll('h2')).find(el =>
+                el.textContent?.includes('НАШИ ЦЕНЫ') ||
+                el.textContent?.includes('цены') ||
+                el.textContent?.includes('ЦЕНЫ')
+              );
+              if (pricingElement) {
+                pricingElement.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }
+            }
+          }
+        );
+        return;
+      }
+
       // Отправк�� в чат для обработки ИИ
       if (lowerCommand.includes("пятница")) {
         // Здесь можно отправить команду в чат с Пятницей
@@ -414,7 +449,7 @@ export default function VoiceControl({
   );
 
   // Отключен автоматический запуск для предотвращения ошибок autoplay
-  // Пользователь до��жен сам включить микрофон первым кликом
+  // Пользователь должен сам включить микрофон первым кликом
   // useEffect(() => {
   //   if (isSupported) {
   //     const timer = setTimeout(() => {
