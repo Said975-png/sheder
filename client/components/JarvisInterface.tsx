@@ -167,16 +167,7 @@ export default function JarvisInterface({
             </span>
           </div>
 
-          <VoiceControl
-            onAddBasicPlan={onAddBasicPlan}
-            onAddProPlan={onAddProPlan}
-            onAddMaxPlan={onAddMaxPlan}
-            inNavbar={false}
-            onListeningChange={onListeningChange}
-            forceStop={forceStop}
-            onModelRotateStart={onModelRotateStart}
-            onModelRotateStop={onModelRotateStop}
-          />
+
         </div>
 
         {/* Системные сообщения */}
