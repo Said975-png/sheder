@@ -128,7 +128,7 @@ export default function VoiceControl({
       recognition.onend = () => {
         console.log("🔄 Распознавание завершено");
         setIsListening(false);
-        recognitionRef.current = null; // Очищаем при завер��ении
+        recognitionRef.current = null; // Очищаем при заверш��нии
 
         // Если не обрабатываем команду и не играет аудио, перезапускаем микрофон с большей задержкой
         if (!isProcessingRef.current && !isPlayingAudio) {
@@ -156,7 +156,7 @@ export default function VoiceControl({
       recognitionRef.current = null;
       isProcessingRef.current = false;
 
-      // Попробуем еще раз через больший интервал
+      // Попробуем еще раз через больший ��нтервал
       setTimeout(() => {
         if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
           startListening();
@@ -262,7 +262,7 @@ export default function VoiceControl({
   // Обработка голосовых команд
   const handleVoiceCommand = useCallback((command: string) => {
     const lowerCommand = command.toLowerCase().trim();
-    console.log("🔍 Обрабат��ваем команду:", lowerCommand);
+    console.log("🔍 Обрабаты��аем команду:", lowerCommand);
 
     // Команда "Джарвис ты тут"
     if (lowerCommand.includes("джарвис ты тут") || lowerCommand.includes("jarvis ты тут")) {
@@ -314,7 +314,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Отправка в чат д��я обработки ИИ
+    // Отправка в чат дл�� обработки ИИ
     if (lowerCommand.includes("пя��ница")) {
       // Здесь можно отправить команду в чат с Пятницей
       console.log("💬 Отправляем команду в чат:", command);
@@ -340,12 +340,12 @@ export default function VoiceControl({
   // Автоматический запуск при загрузке с задержкой
   useEffect(() => {
     if (isSupported) {
-      // Небольшая задержка для предотвращения конфликтов
+      // ��величенная задержка для предотвращения конфликтов
       const timer = setTimeout(() => {
         if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
           startListening();
         }
-      }, 1000);
+      }, 3000); // Увеличен с 1000 до 3000
 
       return () => clearTimeout(timer);
     }
