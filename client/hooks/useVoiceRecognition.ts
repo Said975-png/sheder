@@ -9,21 +9,22 @@ interface UseVoiceRecognitionProps {
 export const useVoiceRecognition = ({
   onTranscript,
   onCommand,
-  lang = "ru-RU"
+  lang = "ru-RU",
 }: UseVoiceRecognitionProps) => {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [isSupported, setIsSupported] = useState(false);
-  
+
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const isProcessingRef = useRef(false);
   const restartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Проверка поддержки браузером
   useEffect(() => {
-    const supported = 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
+    const supported =
+      "webkitSpeechRecognition" in window || "SpeechRecognition" in window;
     setIsSupported(supported);
-    
+
     if (!supported) {
       console.warn("Распознавание речи не поддерживается в этом браузере");
     }
@@ -33,7 +34,9 @@ export const useVoiceRecognition = ({
   const initializeRecognition = useCallback(() => {
     if (!isSupported) return null;
 
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition =
+      (window as any).SpeechRecognition ||
+      (window as any).webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
 
     recognition.continuous = true;
@@ -67,58 +70,68 @@ export const useVoiceRecognition = ({
       }
 
       const currentTranscript = (finalTranscript + interimTranscript).trim();
-      
+
       if (currentTranscript) {
         setTranscript(currentTranscript);
         onTranscript?.(currentTranscript);
       }
 
-      // Обрабатываем финальные результаты
+      // Обрабатываем финальные результаты быстро
       if (finalTranscript.trim() && !isProcessingRef.current) {
         isProcessingRef.current = true;
         const command = finalTranscript.trim();
-        
+
         console.log("✅ Обрабатываем команду:", command);
-        onCommand?.(command);
-        
-        // Очищаем транскрипт и готовимся к новой команде сразу
+
+        // Сразу очищаем транскрипт для готовности к следующей команде
         setTranscript("");
-        isProcessingRef.current = false;
-        console.log("🔄 Готов к сл��дующей команде");
+
+        // Асинхронная обработка команды для минимальной задержки
+        requestAnimationFrame(() => {
+          onCommand?.(command);
+          isProcessingRef.current = false;
+          console.log("🔄 Готов к следующей команде");
+        });
       }
     };
 
     recognition.onerror = (event) => {
       console.log("❌ Ошибка распознавания:", event.error);
-      
-      if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+
+      if (
+        event.error === "not-allowed" ||
+        event.error === "service-not-allowed"
+      ) {
         console.error("🚫 Доступ к микрофону запрещен");
         setIsListening(false);
         isProcessingRef.current = false;
         return;
       }
-      
+
       // Для других ошибок продолжаем работу
       isProcessingRef.current = false;
     };
 
     recognition.onend = () => {
       console.log("🔄 Распознавание завершилось");
-      
-      // Автоматический перезапуск если должны слушать
+
+      // Быстрый автоматический перезапуск если должны слушать
       if (isListening && !isProcessingRef.current) {
         if (restartTimeoutRef.current) {
           clearTimeout(restartTimeoutRef.current);
         }
-        
-        if (isListening && recognitionRef.current) {
-          try {
-            recognitionRef.current.start();
-            console.log("🔄 Перезапуск распознавания");
-          } catch (error) {
-            console.log("ℹ️ Ошибка перезапуска:", error);
+
+        // Минимальная задержка для стабильности - используем requestAnimationFrame для оптимальной производительности
+        requestAnimationFrame(() => {
+          if (isListening && recognitionRef.current) {
+            try {
+              recognitionRef.current.start();
+              console.log("🔄 Быстрый перезапуск распознавания");
+            } catch (error) {
+              console.log("ℹ️ Ошибка перезапуска:", error);
+            }
           }
-        }
+        });
       }
     };
 
@@ -157,11 +170,11 @@ export const useVoiceRecognition = ({
   // Остановка прослушивания
   const stopListening = useCallback(() => {
     console.log("🛑 Останавливаем прослушивание");
-    
+
     setIsListening(false);
     setTranscript("");
     isProcessingRef.current = false;
-    
+
     if (restartTimeoutRef.current) {
       clearTimeout(restartTimeoutRef.current);
       restartTimeoutRef.current = null;
@@ -196,7 +209,7 @@ export const useVoiceRecognition = ({
           console.log("ℹ️ Ошибка очистки:", error);
         }
       }
-      
+
       if (restartTimeoutRef.current) {
         clearTimeout(restartTimeoutRef.current);
       }
