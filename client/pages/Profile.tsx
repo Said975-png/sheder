@@ -63,7 +63,8 @@ import { useAuth } from "@/hooks/useAuth";
 import FaceIDProtected from "@/components/FaceIDProtected";
 import FaceIDModal from "@/components/FaceIDModal";
 import ServiceOrderForm from "@/components/ServiceOrderForm";
-import { ContractData } from "@shared/api";
+import BookingForm from "@/components/BookingForm";
+import { ContractData, BookingData } from "@shared/api";
 
 interface User {
   id: string;
@@ -1593,7 +1594,7 @@ function Profile() {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Activity className="w-5 h-5" />
-                  <span>История активности</span>
+                  <span>Истори�� активности</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
