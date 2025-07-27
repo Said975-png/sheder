@@ -200,7 +200,10 @@ export default function VoiceControl({
 
   // Запуск прослушивания
   const startListening = useCallback(() => {
-    if (!isSupported || isListening || isPlayingAudio) return;
+    if (!isSupported || isListening || isPlayingAudio) {
+      console.log("🚫 Не могу запустить микрофон:", { isSupported, isListening, isPlayingAudio });
+      return;
+    }
 
     try {
       if (!recognitionRef.current) {
@@ -211,10 +214,18 @@ export default function VoiceControl({
         isProcessingRef.current = false;
         setTranscript("");
         recognitionRef.current.start();
+        console.log("🎤 Микрофон запущен успешно");
       }
     } catch (error) {
       console.error("❌ Не удалось запустить распознавание:", error);
       setIsListening(false);
+      // Попробуем еще раз через секунду
+      setTimeout(() => {
+        if (!isListening && !isPlayingAudio) {
+          recognitionRef.current = null; // Сбросим recognition
+          startListening();
+        }
+      }, 1000);
     }
   }, [isSupported, isListening, isPlayingAudio]);
 
@@ -235,7 +246,7 @@ export default function VoiceControl({
   // Обработка голосовых команд
   const handleVoiceCommand = useCallback((command: string) => {
     const lowerCommand = command.toLowerCase().trim();
-    console.log("🔍 Обрабатываем команду:", lowerCommand);
+    console.log("🔍 Обрабатываем коман��у:", lowerCommand);
 
     // Команда "Джарвис ты тут"
     if (lowerCommand.includes("джарвис ты тут") || lowerCommand.includes("jarvis ты тут")) {
@@ -287,7 +298,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Отправка в чат для обработки ИИ
+    // Отправка в чат для обработк�� ИИ
     if (lowerCommand.includes("пятница")) {
       // Здесь можно отправить команду в чат с Пятницей
       console.log("💬 Отправляем команду в чат:", command);
