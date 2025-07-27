@@ -307,6 +307,31 @@ function Profile() {
     }
   };
 
+  // Load user bookings
+  const loadBookings = async () => {
+    if (!currentUser) return;
+
+    setLoadingBookings(true);
+    try {
+      const response = await fetch("/api/bookings", {
+        headers: {
+          "user-id": currentUser.id,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setBookings(data.bookings || []);
+        }
+      }
+    } catch (error) {
+      console.error("Error loading bookings:", error);
+    } finally {
+      setLoadingBookings(false);
+    }
+  };
+
   // Load contracts when needed
   useEffect(() => {
     if (
@@ -1324,7 +1349,7 @@ function Profile() {
                 <CardContent className="p-12 text-center">
                   <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <h5 className="text-xl font-semibold text-gray-900 mb-2">
-                    У вас пока нет ��оговоров
+                    У вас пока нет договоров
                   </h5>
                   <p className="text-gray-600 mb-6">
                     Закажите первую услугу и получите договор автоматически
