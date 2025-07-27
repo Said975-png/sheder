@@ -30,7 +30,7 @@ export default function VoiceMicrophone({
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Определяем мобильн��е устройство при монтировании
+  // Определяем мобильное устро��ство при монтировании
   useEffect(() => {
     setIsMobileDevice(isMobile());
   }, []);
@@ -91,7 +91,7 @@ export default function VoiceMicrophone({
     const previousModelUrl =
       modelHistoryRef.current[modelHistoryRef.current.length - 1];
 
-    console.log("↩️ Возвращаемся к предыдущей модели:", previousModelUrl);
+    console.log("↩️ Возвраща��мся к предыдущей модели:", previousModelUrl);
     console.log("📝 История моделей после возврат��:", modelHistoryRef.current);
 
     const event = new CustomEvent("changeModel", {
@@ -190,7 +190,7 @@ export default function VoiceMicrophone({
     }
 
     setIsPlayingAudio(true);
-    console.log("🔊 Начинаем ��оспроизведение аудио, микрофон остановлен");
+    console.log("🔊 Начинаем ��оспроизведение аудио, м��крофон остановлен");
 
     const audio = new Audio(audioUrl);
     audioRef.current = audio;
@@ -210,10 +210,7 @@ export default function VoiceMicrophone({
       console.error("❌ Ошибка воспроизведения аудио");
 
       // Возобновляем прослушивание если была ошибка
-      if (wasListening) {
-        toggleListening(); // Включаем мик��офон обратно
-        console.log("🎤 М��крофон возобновлен после ошибки аудио");
-      }
+      resumeMicrophone(wasListening, "после ошибки аудио");
     };
 
     audio.play().catch((error) => {
@@ -276,7 +273,7 @@ export default function VoiceMicrophone({
           lowerCommand.includes("сми модель")))
     ) {
       console.log(
-        "🎯 Команда 'Джа��вис смени м��дель' получена - восп��оизводим ��удио и меняем модель",
+        "🎯 Команда 'Джа��вис смени м��дель' получена - восп��оизводим аудио и меняем модель",
       );
 
       // Сначала воспроизводим аудио ответ
@@ -328,10 +325,10 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Команда "покажи прайс лист" - воспроизвод��м аудио и скроллим к прайсам
+    // Команда "покажи пр��йс лист" - воспроизводим аудио и скроллим к прайсам
     if (
       lowerCommand.includes("покажи прайс лист") ||
-      lowerCommand.includes("прайс лист") ||
+      lowerCommand.includes("п��айс лист") ||
       lowerCommand.includes("прайс") ||
       lowerCommand.includes("цены")
     ) {
