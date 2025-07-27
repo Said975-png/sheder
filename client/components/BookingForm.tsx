@@ -64,7 +64,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
     { value: "custom", label: "Индивидуальный проект" },
   ];
 
-  // Варианты времени
+  // Вари��нты времени
   const timeSlots = [
     "09:00", "10:00", "11:00", "12:00", "13:00", 
     "14:00", "15:00", "16:00", "17:00", "18:00"
@@ -285,7 +285,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
                   name="clientName"
                   value={formData.clientName}
                   onChange={handleChange}
-                  className="pl-10"
+                  className="pl-10 bg-white text-gray-900 border-gray-300 placeholder:text-gray-500"
                   placeholder="Введите ваше имя"
                   required
                 />
