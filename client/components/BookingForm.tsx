@@ -61,7 +61,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
     { value: "pro", label: "PRO - 3.500.000 сум" },
     { value: "max", label: "MAX - 5.500.000 сум" },
     { value: "consultation", label: "Консультация" },
-    { value: "custom", label: "Индивид��альный проект" },
+    { value: "custom", label: "Индивидуальный проект" },
   ];
 
   // Варианты времени
@@ -234,7 +234,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
 
           {/* Тип услуги */}
           <div className="space-y-2">
-            <Label htmlFor="serviceType">
+            <Label htmlFor="serviceType" className="text-gray-900 font-medium">
               Тип услуги <span className="text-red-500">*</span>
             </Label>
             <Select
