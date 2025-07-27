@@ -35,7 +35,7 @@ export const useVoiceRecognition = ({
     setIsSupported(supported);
 
     if (!supported) {
-      console.warn("Распознавание речи не поддерживается в этом брау��ере");
+      console.warn("Распознавание речи не поддерживается в этом браузере");
     }
   }, []);
 
@@ -106,7 +106,7 @@ export const useVoiceRecognition = ({
         onTranscript?.(currentTranscript);
       }
 
-      // Обрабатыва��м финальные результаты
+      // Обрабатываем финальные результаты
       if (finalTranscript.trim() && !isProcessingRef.current) {
         isProcessingRef.current = true;
         const command = finalTranscript.trim();
@@ -147,7 +147,7 @@ export const useVoiceRecognition = ({
         return;
       }
 
-      // Обработка сетевых ошибок (частые на мобильных)
+      // Обработка ��етевых ошибок (частые на мобильных)
       if (event.error === "network" || event.error === "service-not-allowed") {
         console.log("🌐 Сетевая ошибка, попробуем перезапустить");
         restartAttemptsRef.current++;
@@ -200,7 +200,7 @@ export const useVoiceRecognition = ({
 
               // Если слишком много ошибок, останавливаем
               if (restartAttemptsRef.current > 5) {
-                console.log("🛑 Слишком много ошибок перезапуска, останавливаем");
+                console.log("🛑 Слишком много ошибо�� перезапуска, останавливаем");
                 setIsListening(false);
                 isProcessingRef.current = false;
                 restartAttemptsRef.current = 0;
@@ -239,7 +239,7 @@ export const useVoiceRecognition = ({
     }
 
     try {
-      // Пересоздаем recognition для мобильных устройств
+      // Пересоздаем recognition для мобильных устро��ств
       if (mobile || !recognitionRef.current) {
         recognitionRef.current = initializeRecognition();
       }
@@ -275,6 +275,7 @@ export const useVoiceRecognition = ({
     setIsListening(false);
     setTranscript("");
     isProcessingRef.current = false;
+    restartAttemptsRef.current = 0;
 
     if (restartTimeoutRef.current) {
       clearTimeout(restartTimeoutRef.current);
@@ -284,6 +285,7 @@ export const useVoiceRecognition = ({
     if (recognitionRef.current) {
       try {
         recognitionRef.current.stop();
+        recognitionRef.current.abort();
       } catch (error) {
         console.log("ℹ️ Ошибка остановки:", error);
       }
