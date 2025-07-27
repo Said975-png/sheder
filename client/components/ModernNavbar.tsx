@@ -146,7 +146,7 @@ export default function ModernNavbar({
                 toggleTheme={toggleTheme}
               />
             ) : (
-              <AuthButtons />
+              <AuthButtons theme={theme} />
             )}
 
             {/* Mobile Menu Button */}
