@@ -147,7 +147,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
     console.error("Groq chat error:", error);
     const response: ChatResponse = {
       success: false,
-      error: "Ошибка серве��а",
+      error: "Ошибка сервера",
     };
     res.status(500).json(response);
   }
