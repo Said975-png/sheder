@@ -12,6 +12,11 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (context === undefined) {
+    // В режиме разработки показываем предупреждение вместо ошибки
+    if (process.env.NODE_ENV === "development") {
+      console.warn("useTheme must be used within a ThemeProvider");
+      return { theme: "dark" as Theme, toggleTheme: () => {} };
+    }
     throw new Error("useTheme must be used within a ThemeProvider");
   }
   return context;
