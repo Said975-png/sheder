@@ -313,7 +313,7 @@ function UserMenu({ user, onLogout }: any) {
             className="text-white hover:bg-white/10 cursor-pointer rounded-lg"
           >
             <Brain className="mr-3 h-4 w-4" />
-            Чат с Пятницей
+            Чат с Пятницей 🤖
           </DropdownMenuItem>
         </div>
 
