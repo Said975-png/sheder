@@ -60,7 +60,7 @@ const pricingPlans: PricingPlan[] = [
     price: "3.500.000",
     originalPrice: "4.000.000",
     description:
-      "Насыщенный функционал с встроенным ИИ и многими возмо��ностями",
+      "Насыщенный функционал с встроенным ИИ и многими возможностями",
     features: [
       "Все из пакета Basic",
       "ИИ-чат бот поддержки",
@@ -303,13 +303,24 @@ function PricingSection() {
               Свяжитесь с нами для бесплатной консультации. Мы поможем выбрать
               идеальный пакет для ваших потребностей.
             </p>
-            <Button
-              variant="secondary"
-              className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-semibold !bg-white !text-black hover:!bg-white/90 hover:!text-black rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full"
-            >
-              <Heart className="w-4 sm:w-5 h-4 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" />
-              <span className="truncate">Бесплатная Консультация</span>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                onClick={() => setShowBookingForm(true)}
+                variant="secondary"
+                className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-semibold !bg-white !text-black hover:!bg-white/90 hover:!text-black rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full"
+              >
+                <Calendar className="w-4 sm:w-5 h-4 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" />
+                <span className="truncate">Забронировать Консультацию</span>
+              </Button>
+
+              <Button
+                variant="outline"
+                className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-medium bg-white/10 text-white hover:bg-white/20 border border-white/30 hover:border-white/50 rounded-xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full"
+              >
+                <Heart className="w-4 sm:w-5 h-4 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" />
+                <span className="truncate">Бесплатная Консультация</span>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
