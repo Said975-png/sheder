@@ -186,7 +186,7 @@ export default function VoiceControl({
   const playAudioResponse = useCallback((audioUrl: string, callback?: () => void) => {
     console.log("🔊 Начинаем воспроизведение аудио ответа");
     
-    // Останавливаем микрофон
+    // Останавливаем микроф��н
     if (isListening) {
       stopListening();
     }
@@ -259,7 +259,7 @@ export default function VoiceControl({
     });
   }, [isListening, isPlayingAudio, startListening, stopListening]);
 
-  // Обработка голосовых команд
+  // Обработка голосо��ых команд
   const handleVoiceCommand = useCallback((command: string) => {
     const lowerCommand = command.toLowerCase().trim();
     console.log("🔍 Обрабатываем ком��нду:", lowerCommand);
@@ -340,12 +340,12 @@ export default function VoiceControl({
   // Автоматический запуск при загрузке с задержкой
   useEffect(() => {
     if (isSupported) {
-      // Увеличенная задержка для предотвращения конфликтов
+      // Ма��симальная задержка для предотвращения конфликтов
       const timer = setTimeout(() => {
         if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
           startListening();
         }
-      }, 3000); // Увеличен с 1000 до 3000
+      }, 10000); // Увеличен с 3000 до 10000 (10 секунд)
 
       return () => clearTimeout(timer);
     }
@@ -380,7 +380,7 @@ export default function VoiceControl({
   if (!isSupported) {
     return (
       <div className={cn("text-sm text-gray-500", className)}>
-        Распознавание речи не поддерживается
+        Распознавание речи не поддерживаетс��
       </div>
     );
   }
