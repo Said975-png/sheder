@@ -339,7 +339,7 @@ export default function Admin() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Зав��ршены</p>
+                      <p className="text-sm font-medium text-gray-600">Завершены</p>
                       <p className="text-3xl font-bold text-blue-600">{stats.completedBookings}</p>
                     </div>
                     <CheckCircle className="w-8 h-8 text-blue-600" />
@@ -516,35 +516,35 @@ export default function Admin() {
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
                               <h6 className="font-medium text-gray-900 mb-2">Контактная информация</h6>
-                              <div className="space-y-1 text-sm text-gray-600">
+                              <div className="space-y-1 text-sm text-gray-700">
                                 <div className="flex items-center gap-2">
-                                  <User className="w-4 h-4" />
+                                  <User className="w-4 h-4 text-gray-500" />
                                   <span>{booking.clientName}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                  <Mail className="w-4 h-4" />
+                                  <Mail className="w-4 h-4 text-gray-500" />
                                   <span>{booking.clientEmail}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                  <Phone className="w-4 h-4" />
+                                  <Phone className="w-4 h-4 text-gray-500" />
                                   <span>{booking.clientPhone}</span>
                                 </div>
                               </div>
                             </div>
-                            
+
                             <div>
                               <h6 className="font-medium text-gray-900 mb-2">Детали встречи</h6>
-                              <div className="space-y-1 text-sm text-gray-600">
+                              <div className="space-y-1 text-sm text-gray-700">
                                 <div className="flex items-center gap-2">
-                                  <Calendar className="w-4 h-4" />
+                                  <Calendar className="w-4 h-4 text-gray-500" />
                                   <span>{formatDate(booking.preferredDate)}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                  <Clock className="w-4 h-4" />
+                                  <Clock className="w-4 h-4 text-gray-500" />
                                   <span>{booking.preferredTime}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                  <FileText className="w-4 h-4" />
+                                  <FileText className="w-4 h-4 text-gray-500" />
                                   <span>№ {booking.id}</span>
                                 </div>
                               </div>
@@ -563,7 +563,7 @@ export default function Admin() {
                           </div>
 
                           <div className="text-xs text-gray-400">
-                            С��здано: {new Date(booking.createdAt).toLocaleString("ru-RU")} • 
+                            Создано: {new Date(booking.createdAt).toLocaleString("ru-RU")} • 
                             Обновлено: {new Date(booking.updatedAt).toLocaleString("ru-RU")}
                           </div>
                         </div>
