@@ -121,7 +121,7 @@ export default function VoiceControl({
             if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
               startListening();
             }
-          }, 5000); // Увеличен с 2000 до 5000
+          }, 8000); // Увеличен с 5000 до 8000 (8 секунд)
         }
       };
 
