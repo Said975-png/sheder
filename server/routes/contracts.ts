@@ -257,9 +257,9 @@ export const getUserContracts: RequestHandler = async (req, res) => {
 export const getContract: RequestHandler = async (req, res) => {
   try {
     const { contractId } = req.params;
-    
+
     // Find contract in memory storage
-    const contract = contractsStore.find(c => c.id === contractId);
+    const contract = contractsStore.find((c) => c.id === contractId);
 
     if (!contract) {
       return res.status(404).json({
