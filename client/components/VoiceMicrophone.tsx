@@ -22,6 +22,11 @@ export default function VoiceMicrophone({
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // История моделей для команды "верни модель"
+  const modelHistoryRef = useRef<string[]>([
+    "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f"
+  ]); // Изначальная модель
+
   const { isListening, transcript, isSupported, toggleListening } = useVoiceRecognition({
     onTranscript: (text) => {
       console.log("📝 Получен транскрипт:", text);
@@ -37,8 +42,33 @@ export default function VoiceMicrophone({
   // Функция смены модели через CustomEvent
   const changeModel = (newModelUrl: string) => {
     console.log("🔄 Отправляем событие смены модели:", newModelUrl);
+
+    // Добавляем новую модель в историю
+    modelHistoryRef.current.push(newModelUrl);
+    console.log("📝 История моделей обновлена:", modelHistoryRef.current);
+
     const event = new CustomEvent("changeModel", {
       detail: { newModelUrl }
+    });
+    window.dispatchEvent(event);
+  };
+
+  // Функция возврата к предыдущей модели
+  const revertToPreviousModel = () => {
+    if (modelHistoryRef.current.length <= 1) {
+      console.log("⚠️ Нет предыдущих моделей для возврата");
+      return;
+    }
+
+    // Удаляем текущую модель и возвращаемся к предыдущей
+    modelHistoryRef.current.pop();
+    const previousModelUrl = modelHistoryRef.current[modelHistoryRef.current.length - 1];
+
+    console.log("↩️ Возвращаемся к предыдущей модели:", previousModelUrl);
+    console.log("📝 История моделей после возврата:", modelHistoryRef.current);
+
+    const event = new CustomEvent("changeModel", {
+      detail: { newModelUrl: previousModelUrl }
     });
     window.dispatchEvent(event);
   };
@@ -63,7 +93,7 @@ export default function VoiceMicrophone({
     }
 
     setIsPlayingAudio(true);
-    console.log("🔊 Начинаем воспроизв��дение аудио с колбэком, микрофон остановлен");
+    console.log("🔊 Начинаем воспроизведение аудио с колбэком, микрофон остановлен");
 
     const audio = new Audio(audioUrl);
     audioRef.current = audio;
@@ -136,7 +166,7 @@ export default function VoiceMicrophone({
     }
 
     setIsPlayingAudio(true);
-    console.log("🔊 Начинаем воспроизведение аудио, микрофон остановлен");
+    console.log("🔊 Начинае�� воспроизведение аудио, микрофон остановлен");
 
     const audio = new Audio(audioUrl);
     audioRef.current = audio;
@@ -194,7 +224,7 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Команда "Джарвис смени модель" - воспроизводим аудио и меняем модель
+    // Команда "Джарвис смени модель" - воспроиз��одим аудио и меняем модель
     if (lowerCommand.includes("джарвис смени модель") || lowerCommand.includes("jarvis смени модель")) {
       console.log("🎯 Команда 'Джарвис смени модель' получена - воспроизводим аудио и меняем модель");
 
@@ -205,6 +235,22 @@ export default function VoiceMicrophone({
           // После окончания аудио меняем модель
           console.log("🔄 Смена модели после аудио ответа");
           changeModel("https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F1357ace3fa8347cfa6f565692cad1fb7?alt=media&token=ebe4c351-faec-46fe-9b11-d9c4e4881670&apiKey=e61c233aecf6402a8a9db34e2dc8f046");
+        }
+      );
+      return;
+    }
+
+    // Команда "верни модель" - воспроизводим аудио и возвращаем предыдущую модель
+    if (lowerCommand.includes("верни модель") || lowerCommand.includes("верни модел")) {
+      console.log("🎯 Команда 'верни модель' получена - воспроизводим аудио и возвращаем предыдущую модель");
+
+      // Сначала воспроизводим аудио ответ
+      playAudioWithCallback(
+        "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F2562e9998e1d4afc90ded9608258444e?alt=media&token=1786dd2e-6e68-4c76-93fe-77066a4a2ecf&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
+        () => {
+          // После окончания аудио возвращаем предыдущую модель
+          console.log("↩️ Возврат к предыдущей модели после аудио ответа");
+          revertToPreviousModel();
         }
       );
       return;
