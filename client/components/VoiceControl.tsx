@@ -33,7 +33,7 @@ export default function VoiceControl({
 
   // Запуск прослушивания
   const startListening = useCallback(() => {
-    // Дополнительные проверки для предотвращения дублирования
+    // Дополнительные проверки для пре��отвращения дублирования
     if (!isSupported || isListening || isPlayingAudio || isProcessingRef.current) {
       console.log("🚫 Не могу запустить микрофон:", {
         isSupported,
@@ -121,7 +121,7 @@ export default function VoiceControl({
             if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
               startListening();
             }
-          }, 2000);
+          }, 5000); // Увеличен с 2000 до 5000
         }
       };
 
