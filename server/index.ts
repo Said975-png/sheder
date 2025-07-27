@@ -10,6 +10,13 @@ import {
   getUserContracts,
   getContract,
 } from "./routes/contracts";
+import {
+  createBooking,
+  getUserBookings,
+  getAllBookings,
+  updateBooking,
+  deleteBooking,
+} from "./routes/bookings";
 
 export function createServer() {
   const app = express();
