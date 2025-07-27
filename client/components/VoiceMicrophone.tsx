@@ -60,7 +60,7 @@ export default function VoiceMicrophone({
         console.log("🎤 Разрешение на использование микрофона получено");
       } catch (error) {
         console.error("❌ Не удалось получить разрешение на микрофон:", error);
-        alert("Для работы голосовых команд ну��но разрешить доступ к микрофону");
+        alert("Для работы голосовых команд нужно разрешить доступ к микрофону");
         return;
       }
     }
@@ -68,7 +68,7 @@ export default function VoiceMicrophone({
     toggleListening();
   };
 
-  // История моделей для коман��ы "верни модель"
+  // И��тория моделей для коман��ы "верни модель"
   const modelHistoryRef = useRef<string[]>([
     "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
   ]); // Изначальная модель
@@ -93,7 +93,7 @@ export default function VoiceMicrophone({
 
     // Добавляем новую модель в историю
     modelHistoryRef.current.push(newModelUrl);
-    console.log("📝 История моделей обновлена:", modelHistoryRef.current);
+    console.log("📝 История моделей обно��лена:", modelHistoryRef.current);
 
     const event = new CustomEvent("changeModel", {
       detail: { newModelUrl },
@@ -188,7 +188,7 @@ export default function VoiceMicrophone({
       }
 
       // Возобновляем прослушивание если не удалось воспроизвести
-      resumeMicrophone(wasListening, "после неудачного воспроизве��ения");
+      resumeMicrophone(wasListening, "после неудачного воспроизведения");
     });
   };
 
@@ -223,7 +223,7 @@ export default function VoiceMicrophone({
       console.log("✅ Воспроизведение завершено");
 
       // Возобновляем прослушивание если оно было активно
-      resumeMicrophone(wasListening, "��осле аудио");
+      resumeMicrophone(wasListening, "после аудио");
     };
 
     audio.onerror = () => {
@@ -307,7 +307,7 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Команда "верни модель" - воспроизводим аудио и возвращаем предыдущую модель
+    // Команда "верни модел��" - воспроизводим аудио и возвращаем предыдущую модель
     if (
       lowerCommand.includes("верни м��дель") ||
       lowerCommand.includes("верни модел") ||
@@ -387,7 +387,7 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Кома��да "покажи наши преимущества" - воспроизводим аудио и скроллим к преимущества��
+    // Кома��да "покажи наши преимущества" - воспроизводим аудио и скроллим к преимуществам
     if (
       lowerCommand.includes("покажи наши преимущества") ||
       lowerCommand.includes("наши преимущества") ||
@@ -601,7 +601,7 @@ export default function VoiceMicrophone({
         </div>
       )}
 
-      {/* Статус аудио (��строенный) */}
+      {/* Статус аудио (встроенный) */}
       {isPlayingAudio && (
         <div className="flex items-center gap-1 text-green-400 text-xs">
           <Volume2 className="w-3 h-3 animate-pulse" />
@@ -611,7 +611,7 @@ export default function VoiceMicrophone({
 
       {/* Кнопка микрофона (встро��н��ая) */}
       <Button
-        onClick={toggleListening}
+        onClick={handleMicrophoneClick}
         variant="outline"
         size="sm"
         disabled={isPlayingAudio}
