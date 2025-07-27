@@ -42,7 +42,9 @@ export default function Chat() {
   }, []);
 
   const sendMessage = async () => {
-    if (!inputMessage.trim() || isLoading) return;
+    if (!inputMessage.trim() || isLoading || isRequestInProgressRef.current) return;
+
+    isRequestInProgressRef.current = true;
 
     const userMessage: ChatMessage = {
       role: "user",
