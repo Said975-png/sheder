@@ -35,11 +35,11 @@ export const useVoiceRecognition = ({
     setIsSupported(supported);
 
     if (!supported) {
-      console.warn("Распознавание речи не подд��рживается в этом браузере");
+      console.warn("Распознавание речи не поддерживается в этом браузере");
     }
   }, []);
 
-  // Инициализация распознавания речи
+  // Инициализация ��аспознавания речи
   const initializeRecognition = useCallback(() => {
     if (!isSupported) return null;
 
@@ -83,10 +83,19 @@ export const useVoiceRecognition = ({
       // Обрабатываем результаты
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const transcript = event.results[i][0].transcript;
-        if (event.results[i].isFinal) {
-          finalTranscript += transcript;
-        } else {
-          interimTranscript += transcript;
+        const confidence = event.results[i][0].confidence || 1;
+
+        // Для мобильных устройств требуем более высокую уверенность
+        const mobile = isMobile();
+        const minConfidence = mobile ? 0.6 : 0.3;
+
+        if (confidence >= minConfidence) {
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript;
+          } else if (!mobile) {
+            // Показываем промежуточные результаты только на десктопе
+            interimTranscript += transcript;
+          }
         }
       }
 
@@ -97,22 +106,30 @@ export const useVoiceRecognition = ({
         onTranscript?.(currentTranscript);
       }
 
-      // Обрабатываем финальные результаты быстро
+      // Обрабатываем финальные результаты
       if (finalTranscript.trim() && !isProcessingRef.current) {
         isProcessingRef.current = true;
         const command = finalTranscript.trim();
+
+        // Фильтруем слишком короткие команды (вероятно ложные срабатывания)
+        if (command.length < 2) {
+          isProcessingRef.current = false;
+          return;
+        }
 
         console.log("✅ Обрабатываем команду:", command);
 
         // Сразу очищаем транскрипт для готовности к следующей команде
         setTranscript("");
 
-        // Асинхронная обработка команды для минимальной задержки
-        requestAnimationFrame(() => {
+        // На мобильных используем больший timeout для стабильности
+        const delay = isMobile() ? 100 : 0;
+
+        setTimeout(() => {
           onCommand?.(command);
           isProcessingRef.current = false;
           console.log("🔄 Готов к следующей команде");
-        });
+        }, delay);
       }
     };
 
@@ -159,7 +176,7 @@ export const useVoiceRecognition = ({
     return recognition;
   }, [isSupported, lang, onTranscript, onCommand, isListening]);
 
-  // Запуск прослушивания
+  // Запус�� прослушивания
   const startListening = useCallback(() => {
     if (!isSupported) {
       console.warn("Распознавание речи не поддерживается");
