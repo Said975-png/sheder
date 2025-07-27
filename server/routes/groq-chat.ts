@@ -98,7 +98,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
     if (!groqResponse.ok) {
       const errorText = await groqResponse.text();
       console.error("Groq API error:", errorText);
-      
+
       const response: ChatResponse = {
         success: false,
         error: `Ошибка API: ${groqResponse.status}`,
