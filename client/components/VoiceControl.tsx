@@ -194,7 +194,7 @@ export default function VoiceControl({
       setIsPlayingAudio(false);
       audioRef.current = null;
 
-      // Выполняем callback если есть
+      // Выполняем callback если ес��ь
       if (callback) {
         try {
           callback();
@@ -216,13 +216,8 @@ export default function VoiceControl({
       audioRef.current = null;
       isProcessingRef.current = false;
       
-      // Включаем микрофон даже при ошибке
-      setTimeout(() => {
-        if (!isListening && !isPlayingAudio) {
-          startListening();
-          console.log("✅ Микрофон включен после ошибки аудио");
-        }
-      }, 3000); // Увеличен с 1000 до 3000 (3 секунды)
+      // НЕ включаем микрофон автоматически при ошибке
+      console.log("⏹️ Ошибка аудио, микрофон НЕ включается автоматически");
     };
 
     audio.play().catch((error) => {
@@ -309,7 +304,7 @@ export default function VoiceControl({
     }
 
     // Для других команд просто включаем микрофон обратно
-    console.log("ℹ️ Неизвестная команда, перезапускаем микрофон");
+    console.log("��️ Неизвестная команда, перезапускаем микрофон");
     isProcessingRef.current = false;
     setTimeout(() => {
       if (!isListening && !isPlayingAudio) {
@@ -333,7 +328,7 @@ export default function VoiceControl({
     }
   }, [isSupported]);
 
-  // Очи��тка при размонтировании
+  // Очистка при размонтировании
   useEffect(() => {
     return () => {
       console.log("🧹 Очистка компонента VoiceControl");
