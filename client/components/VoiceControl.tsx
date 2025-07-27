@@ -255,7 +255,7 @@ export default function VoiceControl({
           startListening();
           console.log("✅ Микрофон включен после ��еудачи воспроизведения");
         }
-      }, 300);
+      }, 1000); // Увеличен с 300 до 1000
     });
   }, [isListening, isPlayingAudio, startListening, stopListening]);
 
