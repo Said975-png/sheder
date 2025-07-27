@@ -366,7 +366,7 @@ function AuthButtons() {
         )}
         asChild
       >
-        <Link to="/chat">Пятница</Link>
+        <Link to="/chat">Пятница 🤖</Link>
       </Button>
     </div>
   );
