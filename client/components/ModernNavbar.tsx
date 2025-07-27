@@ -411,7 +411,7 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
 }
 
 // Auth Buttons Component
-function AuthButtons() {
+function AuthButtons({ theme }: { theme: string }) {
   return (
     <div className="hidden sm:flex items-center space-x-3">
       <Button
