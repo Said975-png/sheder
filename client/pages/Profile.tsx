@@ -415,7 +415,7 @@ function Profile() {
           (u) => u.email === formData.email && u.id !== currentUser.id,
         );
         if (emailExists) {
-          setError("Пользов��тель с таким email уже существует");
+          setError("Пользователь с таким email уже существует");
           return;
         }
       }
@@ -936,7 +936,7 @@ function Profile() {
                       <Badge
                         variant={notifications.email ? "default" : "secondary"}
                       >
-                        {notifications.email ? "Включены" : "Отключены"}
+                        {notifications.email ? "Включены" : "Отключе��ы"}
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
@@ -1196,7 +1196,7 @@ function Profile() {
                         </p>
                       </div>
                       <Badge variant={hasFaceID ? "default" : "secondary"}>
-                        {hasFaceID ? "Активен" : "Не настроен"}
+                        {hasFaceID ? "Ак��ивен" : "Не настроен"}
                       </Badge>
                     </div>
 
@@ -1225,7 +1225,7 @@ function Profile() {
                     <div className="text-xs text-gray-500 space-y-1 border-t pt-3">
                       <p>✓ Face ID запрашивается при входе в личный кабинет</p>
                       <p>✓ Биометрические данные хранятся локально</p>
-                      <p>✓ Только ваше лицо может получить доступ</p>
+                      <p>✓ Только ваше лицо может получ��ть доступ</p>
                     </div>
                   )}
                 </CardContent>
