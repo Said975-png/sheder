@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import ModernNavbar from "@/components/ModernNavbar";
 import VoiceControl from "@/components/VoiceControl";
+import StarkModeOverlay from "@/components/StarkModeOverlay";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
