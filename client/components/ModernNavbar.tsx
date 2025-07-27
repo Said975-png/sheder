@@ -11,9 +11,12 @@ import {
   Home,
   Menu,
   X,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,6 +39,7 @@ export default function ModernNavbar({
   const { currentUser, logout, isAuthenticated } = useAuth();
   const { getTotalItems, items, removeItem, getTotalPrice, clearCart } =
     useCart();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -111,11 +115,38 @@ export default function ModernNavbar({
               handleProceedToOrder={handleProceedToOrder}
             />
 
+            {/* Theme Toggle Button */}
+            <Button
+              variant="ghost"
+              onClick={toggleTheme}
+              className={cn(
+                "px-2 py-2 h-8 sm:h-10",
+                "transition-all duration-200",
+                "text-white hover:text-white",
+              )}
+            >
+              <div className="flex items-center space-x-1">
+                {theme === "dark" ? (
+                  <Sun className="w-4 h-4" />
+                ) : (
+                  <Moon className="w-4 h-4" />
+                )}
+                <span className="hidden lg:inline font-medium text-sm">
+                  {theme === "dark" ? "Светлая" : "Темная"}
+                </span>
+              </div>
+            </Button>
+
             {/* User Menu or Auth Buttons */}
             {isAuthenticated && currentUser ? (
-              <UserMenu user={currentUser} onLogout={handleLogout} />
+              <UserMenu
+                user={currentUser}
+                onLogout={handleLogout}
+                theme={theme}
+                toggleTheme={toggleTheme}
+              />
             ) : (
-              <AuthButtons />
+              <AuthButtons theme={theme} />
             )}
 
             {/* Mobile Menu Button */}
@@ -264,7 +295,7 @@ function CartDropdown({
 }
 
 // User Menu Component
-function UserMenu({ user, onLogout }: any) {
+function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -286,38 +317,100 @@ function UserMenu({ user, onLogout }: any) {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="w-64 bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl mt-2"
+        className={cn(
+          "w-64 backdrop-blur-xl rounded-xl mt-2",
+          theme === "dark"
+            ? "bg-black/95 border-white/20 text-white"
+            : "bg-white/95 border-black/20 text-black",
+        )}
       >
-        <div className="px-4 py-3 border-b border-white/20">
-          <div className="font-semibold text-white">{user.name}</div>
-          <div className="text-sm text-white/60">{user.email}</div>
+        <div
+          className={cn(
+            "px-4 py-3",
+            theme === "dark"
+              ? "border-b border-white/20"
+              : "border-b border-black/20",
+          )}
+        >
+          <div
+            className={cn(
+              "font-semibold",
+              theme === "dark" ? "text-white" : "text-black",
+            )}
+          >
+            {user.name}
+          </div>
+          <div
+            className={cn(
+              "text-sm",
+              theme === "dark" ? "text-white/60" : "text-black/60",
+            )}
+          >
+            {user.email}
+          </div>
         </div>
 
         <div className="p-2">
           <DropdownMenuItem
             onClick={() => (window.location.href = "/profile")}
-            className="text-white hover:bg-white/10 cursor-pointer rounded-lg"
+            className={cn(
+              "cursor-pointer rounded-lg",
+              theme === "dark"
+                ? "text-white hover:bg-white/10"
+                : "text-black hover:bg-black/10",
+            )}
           >
             <User className="mr-3 h-4 w-4" />
             Profile
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => (window.location.href = "/profile")}
-            className="text-white hover:bg-white/10 cursor-pointer rounded-lg"
+            className={cn(
+              "cursor-pointer rounded-lg",
+              theme === "dark"
+                ? "text-white hover:bg-white/10"
+                : "text-black hover:bg-black/10",
+            )}
           >
             <Settings className="mr-3 h-4 w-4" />
             Settings
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => (window.location.href = "/chat")}
-            className="text-white hover:bg-white/10 cursor-pointer rounded-lg"
+            className={cn(
+              "cursor-pointer rounded-lg",
+              theme === "dark"
+                ? "text-white hover:bg-white/10"
+                : "text-black hover:bg-black/10",
+            )}
           >
             <Brain className="mr-3 h-4 w-4" />
-            Чат с Пятницей 🤖
+            Чат с Пятнице�� 🤖
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={toggleTheme}
+            className={cn(
+              "cursor-pointer rounded-lg",
+              theme === "dark"
+                ? "text-white hover:bg-white/10"
+                : "text-black hover:bg-black/10",
+            )}
+          >
+            {theme === "dark" ? (
+              <Sun className="mr-3 h-4 w-4" />
+            ) : (
+              <Moon className="mr-3 h-4 w-4" />
+            )}
+            {theme === "dark" ? "Светлая тема" : "Темная тема"}
           </DropdownMenuItem>
         </div>
 
-        <div className="p-2 border-t border-white/20">
+        <div
+          className={cn(
+            "p-2 border-t",
+            theme === "dark" ? "border-white/20" : "border-black/20",
+          )}
+        >
           <DropdownMenuItem
             onClick={onLogout}
             className="text-red-400 hover:bg-red-500/10 cursor-pointer rounded-lg"
@@ -332,15 +425,17 @@ function UserMenu({ user, onLogout }: any) {
 }
 
 // Auth Buttons Component
-function AuthButtons() {
+function AuthButtons({ theme }: { theme: string }) {
   return (
     <div className="hidden sm:flex items-center space-x-3">
       <Button
         variant="ghost"
         className={cn(
           "px-4 py-2 font-medium text-sm h-10",
-          "text-white hover:text-white",
           "transition-all duration-200",
+          theme === "dark"
+            ? "text-white hover:text-white"
+            : "text-black hover:text-black",
         )}
         asChild
       >
@@ -350,8 +445,10 @@ function AuthButtons() {
         variant="secondary"
         className={cn(
           "px-4 py-2 font-medium text-sm h-10",
-          "!bg-white !text-black hover:!bg-white/90 hover:!text-black",
           "transition-all duration-200",
+          theme === "dark"
+            ? "!bg-white !text-black hover:!bg-white/90 hover:!text-black"
+            : "!bg-black !text-white hover:!bg-black/90 hover:!text-white",
         )}
         asChild
       >
@@ -361,8 +458,10 @@ function AuthButtons() {
         variant="ghost"
         className={cn(
           "px-4 py-2 font-medium text-sm h-10",
-          "text-white hover:text-white",
           "transition-all duration-200",
+          theme === "dark"
+            ? "text-white hover:text-white"
+            : "text-black hover:text-black",
         )}
         asChild
       >
@@ -430,7 +529,7 @@ function MobileMenu({
                 className="flex items-center space-x-3 p-3 rounded-xl hover:bg-green-400/10 transition-colors"
               >
                 <Brain className="w-5 h-5 text-green-400" />
-                <span className="text-white">Тест голосового управления</span>
+                <span className="text-white">Тест голосо��ого управл��ния</span>
               </Link>
 
               <button

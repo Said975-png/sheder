@@ -20,6 +20,7 @@ export default function Chat() {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isRequestInProgressRef = useRef(false);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -41,7 +42,10 @@ export default function Chat() {
   }, []);
 
   const sendMessage = async () => {
-    if (!inputMessage.trim() || isLoading) return;
+    if (!inputMessage.trim() || isLoading || isRequestInProgressRef.current)
+      return;
+
+    isRequestInProgressRef.current = true;
 
     const userMessage: ChatMessage = {
       role: "user",
@@ -66,7 +70,21 @@ export default function Chat() {
         body: JSON.stringify(chatRequest),
       });
 
-      const data: ChatResponse = await response.json();
+      // Проверяем статус ответа перед чтением body
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Клонир��ем response для безопасного чтения body
+      const responseClone = response.clone();
+      let data: ChatResponse;
+
+      try {
+        data = await responseClone.json();
+      } catch (parseError) {
+        console.error("Ошибка парсинга JSON:", parseError);
+        throw new Error("Неверный фор��ат ответа от сервера");
+      }
 
       if (data.success && data.message) {
         const assistantMessage: ChatMessage = {
@@ -93,6 +111,7 @@ export default function Chat() {
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
+      isRequestInProgressRef.current = false;
       inputRef.current?.focus();
     }
   };

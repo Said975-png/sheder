@@ -105,7 +105,7 @@ export default function VoiceControl({
           isProcessingRef.current = true;
           const command = finalTranscript.trim();
 
-          console.log("✅ Команда получена:", command);
+          console.log("✅ Ко��анда получена:", command);
           setTranscript("");
 
           // Останавливаем микрофон сразу после получения команды
@@ -149,7 +149,7 @@ export default function VoiceControl({
 
       // Запускаем с дополнительной проверкой
       recognition.start();
-      console.log("🎤 Новый микрофон запущен успешно");
+      console.log("🎤 Новый микрофон запущен успешн��");
     } catch (error) {
       console.error("❌ Не удалось запустить распознавание:", error);
       setIsListening(false);
@@ -176,10 +176,10 @@ export default function VoiceControl({
     }
   }, []);
 
-  // Функция в��спроизв��дения аудио БЕЗ автоматического возобновления микрофона
+  // Функция в��спроизв���дения аудио БЕЗ автоматического возобновления микрофона
   const playAudioResponse = useCallback(
     (audioUrl: string, callback?: () => void) => {
-      console.log("🔊 Начинаем воспроизведение аудио ответа");
+      console.log("🔊 Начинае�� воспроизведение аудио ответа");
 
       // Останавливаем микрофон
       if (isListening) {
@@ -239,9 +239,19 @@ export default function VoiceControl({
         audioRef.current = null;
         isProcessingRef.current = false;
 
-        console.log(
-          "⏹️ Неудача воспроизведения, нажмите кнопку для включения микрофона",
-        );
+        // Проверяем, является ли ошибка связанной с автовоспроизведением
+        if (
+          error.name === "NotAllowedError" ||
+          error.message.includes("user didn't interact")
+        ) {
+          console.log(
+            "⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя",
+          );
+        } else {
+          console.log(
+            "⏹️ Неудача воспроизведения, нажмите кнопку для включения микрофона",
+          );
+        }
       });
     },
     [isListening, isPlayingAudio, startListening, stopListening],
@@ -290,7 +300,7 @@ export default function VoiceControl({
         playAudioResponse(
           "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F2562e9998e1d4afc90ded9608258444e?alt=media&token=1786dd2e-6e68-4c76-93fe-77066a4a2ecf&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
           () => {
-            // Возврат к оригинальной модели
+            // Возв��ат к оригинальной модели
             const event = new CustomEvent("changeModel", {
               detail: {
                 newModelUrl:
@@ -311,12 +321,143 @@ export default function VoiceControl({
         return;
       }
 
+      // Команда "покажи пр��йс лист"
+      if (
+        lowerCommand.includes("покажи прайс лист") ||
+        lowerCommand.includes("прайс лист") ||
+        lowerCommand.includes("прайс") ||
+        lowerCommand.includes("цены")
+      ) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2Fea0c68e7425848fa87af48c5fcfd79e0?alt=media&token=88b16ebf-8330-4065-b454-15f196538359&apiKey=3eff37bfce48420f81bfea727d0802d9",
+          () => {
+            // Прокручиваем к прайс листу после аудио
+            const pricingSection = document.querySelector(
+              '[data-section="pricing"]',
+            );
+            if (pricingSection) {
+              pricingSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            } else {
+              // Если нет data-атрибута, ищем по классу или тексту
+              const pricingElement =
+                document.querySelector('h2:contains("НАШИ ЦЕНЫ")') ||
+                Array.from(document.querySelectorAll("h2")).find(
+                  (el) =>
+                    el.textContent?.includes("НАШИ ЦЕНЫ") ||
+                    el.textContent?.includes("цены") ||
+                    el.textContent?.includes("ЦЕНЫ"),
+                );
+              if (pricingElement) {
+                pricingElement.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }
+            }
+          },
+        );
+        return;
+      }
+
+      // Команда "покажи наши преимущества"
+      if (
+        lowerCommand.includes("покажи наши преимущества") ||
+        lowerCommand.includes("наши преимущества") ||
+        lowerCommand.includes("преимущества")
+      ) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F6fb621bfa5f6417391fbb189af735e4c?alt=media&token=2271b582-0acf-4930-9fe6-41004818b406&apiKey=3eff37bfce48420f81bfea727d0802d9",
+          () => {
+            // Прокручиваем к секции преимуществ после аудио
+            const advantagesSection = document.querySelector(
+              '[data-section="advantages"]',
+            );
+            if (advantagesSection) {
+              advantagesSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            } else {
+              // Если нет data-атрибута, ищем по тексту
+              const advantagesElement = Array.from(
+                document.querySelectorAll("h2"),
+              ).find(
+                (el) =>
+                  el.textContent?.includes("НАШИ ПРЕИМУЩЕСТВА") ||
+                  el.textContent?.includes("ПРЕИМУЩЕСТВА") ||
+                  el.textContent?.includes("преимущества"),
+              );
+              if (advantagesElement) {
+                advantagesElement.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }
+            }
+          },
+        );
+        return;
+      }
+
+      // Команда "открой чат"
+      if (
+        lowerCommand.includes("открой чат") ||
+        lowerCommand.includes("открыть чат") ||
+        lowerCommand.includes("чат")
+      ) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F8cdc875575354683ba86969db638b81f?alt=media&token=3b17dba6-0ef5-4b41-a462-54d46af09a3d&apiKey=3eff37bfce48420f81bfea727d0802d9",
+          () => {
+            // Переходим на страницу чата с Пятницей после аудио
+            window.location.href = "/chat";
+          },
+        );
+        return;
+      }
+
+      // Команда "джарвис полный доступ"
+      if (
+        lowerCommand.includes("джарвис полный доступ") ||
+        lowerCommand.includes("jarvis полный доступ") ||
+        lowerCommand.includes("полный доступ")
+      ) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F1652227bcb764a7ea61d8bdafa9654e6?alt=media&token=f2716b6b-58ef-47af-8250-b114c2e04e5e&apiKey=3eff37bfce48420f81bfea727d0802d9",
+          () => {
+            // Активируем режим Старка после аудио
+            const event = new CustomEvent("activateStarkMode");
+            window.dispatchEvent(event);
+          },
+        );
+        return;
+      }
+
+      // Команда "отмени"
+      if (
+        lowerCommand.includes("отмени") ||
+        lowerCommand.includes("отменить") ||
+        lowerCommand.includes("выключи")
+      ) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F0af399f58c304f4086753a87ff8ce4d9?alt=media&token=27c73bcd-59ba-4644-a9fa-7dbe681dac1b&apiKey=3eff37bfce48420f81bfea727d0802d9",
+          () => {
+            // Отключаем режим Старка после аудио
+            const event = new CustomEvent("deactivateStarkMode");
+            window.dispatchEvent(event);
+          },
+        );
+        return;
+      }
+
       // Отправк�� в чат для обработки ИИ
       if (lowerCommand.includes("пятница")) {
         // Здесь можно отправить команду в чат с Пятницей
         console.log("💬 Отправляем команду в чат:", command);
 
-        // Простой аудио ответ
+        // Простой ау��ио ответ
         playAudioResponse(
           "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
         );
@@ -331,19 +472,18 @@ export default function VoiceControl({
     [playAudioResponse],
   );
 
-  // Автоматический запуск при загрузке с большой задержкой
-  useEffect(() => {
-    if (isSupported) {
-      // Запуск только один раз при загрузке
-      const timer = setTimeout(() => {
-        if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
-          startListening();
-        }
-      }, 3000); // 3 секунды задержка
-
-      return () => clearTimeout(timer);
-    }
-  }, [isSupported]); // Убрана зависимость от startListening
+  // Отключен автоматический запуск для предотвращения ��шибок autoplay
+  // Пользователь должен сам включить микрофон первым кликом
+  // useEffect(() => {
+  //   if (isSupported) {
+  //     const timer = setTimeout(() => {
+  //       if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
+  //         startListening();
+  //       }
+  //     }, 3000);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [isSupported]);
 
   // Очистка при размонтировании
   useEffect(() => {
