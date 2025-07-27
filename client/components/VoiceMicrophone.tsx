@@ -89,10 +89,10 @@ export default function VoiceMicrophone({
       audioRef.current.currentTime = 0;
     }
 
-    // Останавливаем прослушивание на время воспроизве��ения аудио
+    // Останавливаем прослушивание на время воспроизведения аудио
     const wasListening = isListening;
     if (isListening) {
-      toggleListening(); // Останавливаем микрофон
+      toggleListening(); // Останавли��аем микрофон
     }
 
     setIsPlayingAudio(true);
@@ -125,9 +125,9 @@ export default function VoiceMicrophone({
       audioRef.current = null;
       console.error("❌ Ошибка воспроизведения аудио");
 
-      // Возобновля��м прослушивани�� если была ошибка
+      // Возобновля��м прослушивание если была ошибка
       if (wasListening) {
-        toggleListening(); // Включаем микрофон о��ратно
+        toggleListening(); // Включаем микрофон о���ратно
         console.log("🎤 Микрофон возобновлен после ошибки аудио");
       }
     };
@@ -155,7 +155,7 @@ export default function VoiceMicrophone({
     });
   };
 
-  // Фун��ция воспрои��ведения аудио (простая версия)
+  // Функция воспрои��ведения аудио (простая версия)
   const playAudio = (audioUrl: string) => {
     if (isPlayingAudio) {
       console.log("⏸️ Аудио уже воспроизводится");
@@ -187,7 +187,7 @@ export default function VoiceMicrophone({
 
       // Возобновляем прослушивание если оно было активно
       if (wasListening) {
-        toggleListening(); // Включ��ем микрофон обрат��о сразу
+        toggleListening(); // Включ��ем микрофон обратно сразу
         console.log("🎤 Микрофон возобновлен после аудио");
       }
     };
@@ -219,7 +219,7 @@ export default function VoiceMicrophone({
         );
       }
 
-      // Возобновляем пр��слушивание если не удалось воспроизвести
+      // Возобновляем прослушивание если не удалось воспроизвести
       if (wasListening) {
         toggleListening(); // Включаем микрофон обратно
         console.log(
@@ -253,7 +253,7 @@ export default function VoiceMicrophone({
       lowerCommand.includes("джарвис смени модель") ||
       lowerCommand.includes("jarvis смени модель") ||
       (lowerCommand.includes("джарвис") &&
-        (lowerCommand.includes("смени модель") ||
+        (lowerCommand.includes("с��ени модель") ||
           lowerCommand.includes("сми модель")))
     ) {
       console.log(
@@ -277,7 +277,7 @@ export default function VoiceMicrophone({
     // Команда "верни модель" - воспроизводим аудио и возвращаем предыдущую модель
     if (
       lowerCommand.includes("верни модель") ||
-      lowerCommand.includes("верни модел") ||
+      lowerCommand.includes("��ерни модел") ||
       lowerCommand.includes("верни м") ||
       (lowerCommand.includes("верни") && lowerCommand.includes("модель"))
     ) {
@@ -320,8 +320,8 @@ export default function VoiceMicrophone({
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2Fea0c68e7425848fa87af48c5fcfd79e0?alt=media&token=88b16ebf-8330-4065-b454-15f196538359&apiKey=3eff37bfce48420f81bfea727d0802d9",
         () => {
-          console.log("✅ Ауди�� ответ завершен, скроллим к прайс листу");
-          // Прокручиваем к прайс листу после аудио
+          console.log("✅ Аудио ответ завершен, скроллим к прайс листу");
+          // Прокручиваем к прайс листу после ауди��
           const pricingSection = document.querySelector('[data-section="pricing"]');
           if (pricingSection) {
             pricingSection.scrollIntoView({
@@ -369,11 +369,48 @@ export default function VoiceMicrophone({
             // Если нет data-атрибута, ищем по тексту
             const advantagesElement = Array.from(document.querySelectorAll('h2')).find(el =>
               el.textContent?.includes('НАШИ ПРЕИМУЩЕСТВА') ||
-              el.textContent?.includes('ПРЕ��МУЩЕСТВА') ||
+              el.textContent?.includes('ПРЕИМУЩЕСТВА') ||
               el.textContent?.includes('преимущества')
             );
             if (advantagesElement) {
               advantagesElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          }
+        },
+      );
+      return;
+    }
+
+    // Команда "открой чат" - воспроизводим аудио и скроллим к прайс листу
+    if (
+      lowerCommand.includes("открой чат") ||
+      lowerCommand.includes("открыть чат") ||
+      lowerCommand.includes("чат")
+    ) {
+      console.log("🎯 Команда 'открой чат' получена - воспроизводим аудио и скроллим к прайс листу");
+      playAudioWithCallback(
+        "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F8cdc875575354683ba86969db638b81f?alt=media&token=3b17dba6-0ef5-4b41-a462-54d46af09a3d&apiKey=3eff37bfce48420f81bfea727d0802d9",
+        () => {
+          console.log("✅ Аудио ответ завершен, скроллим к прайс листу");
+          // Прокручиваем к прайс листу после аудио
+          const pricingSection = document.querySelector('[data-section="pricing"]');
+          if (pricingSection) {
+            pricingSection.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          } else {
+            // Если нет data-атрибута, ищем по тексту
+            const pricingElement = Array.from(document.querySelectorAll('h2')).find(el =>
+              el.textContent?.includes('НАШИ ЦЕНЫ') ||
+              el.textContent?.includes('цены') ||
+              el.textContent?.includes('ЦЕНЫ')
+            );
+            if (pricingElement) {
+              pricingElement.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
               });
@@ -477,7 +514,7 @@ export default function VoiceMicrophone({
     );
   }
 
-  // Встроенный режим
+  // Встроен��ый режим
   return (
     <div className={cn("flex items-center gap-3", className)}>
       {/* Транскрипт (встроенный) */}
