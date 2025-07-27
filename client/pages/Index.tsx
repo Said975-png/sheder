@@ -336,7 +336,18 @@ export default function Index() {
       {/* Jarvis Demo Section */}
       <JarvisDemo />
 
-
+      {/* Voice Microphone */}
+      <VoiceMicrophone
+        onCommand={(command) => {
+          console.log("🎤 Команда получена:", command);
+          // Здесь можно добавить обработку команд
+        }}
+        onTranscript={(text) => {
+          console.log("📝 Транскрипт:", text);
+        }}
+        floating={true}
+        size="lg"
+      />
     </div>
   );
 }
