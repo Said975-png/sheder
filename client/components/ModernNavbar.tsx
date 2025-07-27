@@ -268,7 +268,7 @@ function CartDropdown({
 }
 
 // User Menu Component
-function UserMenu({ user, onLogout }: any) {
+function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
