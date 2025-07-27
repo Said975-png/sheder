@@ -14,7 +14,7 @@ import Profile from "./pages/Profile";
 import OrderForm from "./pages/OrderForm";
 
 import NotFound from "./pages/NotFound";
-import VoiceTest from "./components/VoiceTest";
+
 
 
 const queryClient = new QueryClient();
@@ -32,7 +32,7 @@ const App = () => (
             <Route path="/profile" element={<Profile />} />
             <Route path="/order" element={<OrderForm />} />
 
-            <Route path="/voice-test" element={<VoiceTest />} />
+
 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
