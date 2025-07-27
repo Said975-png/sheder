@@ -93,7 +93,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
     setError("");
 
     try {
-      // Валидация на клиенте
+      // Валид��ция на клиенте
       if (!formData.serviceType || !formData.clientName || !formData.clientEmail ||
           !formData.clientPhone || !formData.preferredDate || !formData.preferredTime) {
         setError("Пожалуйста, заполните все обязательные поля");
@@ -206,7 +206,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
               Мы свяжемся с вами в ближайшее время для подтверждения деталей.
             </p>
             <p className="text-sm text-gray-500">
-              Вы можете просмотреть свои брони в личном кабинете.
+              Вы можете просмотр��ть свои брони в личном кабинете.
             </p>
           </div>
         </DialogContent>
@@ -292,7 +292,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="clientPhone">
+              <Label htmlFor="clientPhone" className="text-gray-900 font-medium">
                 Телефон <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
