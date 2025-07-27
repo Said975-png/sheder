@@ -79,7 +79,7 @@ export default function VoiceMicrophone({
     window.dispatchEvent(event);
   };
 
-  // Фун��ция возврата к предыдущей модели
+  // Ф��н��ция возврата к предыдущей модели
   const revertToPreviousModel = () => {
     if (modelHistoryRef.current.length <= 1) {
       console.log("⚠️ Нет предыдущих моделей для возврата");
@@ -372,7 +372,7 @@ export default function VoiceMicrophone({
       lowerCommand.includes("преимущества")
     ) {
       console.log(
-        "🎯 Команда 'покажи наши преимущ��ства' получена - воспроизводим аудио и скроллим",
+        "🎯 Команда 'покажи наши преимущ��ства' полу��ена - воспроизводим аудио и скроллим",
       );
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F6fb621bfa5f6417391fbb189af735e4c?alt=media&token=2271b582-0acf-4930-9fe6-41004818b406&apiKey=3eff37bfce48420f81bfea727d0802d9",
@@ -429,7 +429,7 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Команда "джарвис полный доступ" - воспроизводим аудио и активируем режим Старка
+    // Ком��нда "джарвис полный доступ" - воспроизводим аудио и активируем режим Старка
     if (
       lowerCommand.includes("джарвис полн��й доступ") ||
       lowerCommand.includes("jarvis пол��ый доступ") ||
@@ -543,7 +543,12 @@ export default function VoiceMicrophone({
 
           {/* Статус */}
           <div className="text-xs text-center">
-            {isPlayingAudio ? (
+            {!isSupported ? (
+              <div className="flex items-center gap-1 text-red-400">
+                <VolumeX className="w-3 h-3" />
+                <span>Не поддерживается</span>
+              </div>
+            ) : isPlayingAudio ? (
               <div className="flex items-center gap-1 text-green-400">
                 <Volume2 className="w-3 h-3 animate-pulse" />
                 <span>Говорю...</span>
