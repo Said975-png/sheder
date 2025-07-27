@@ -33,111 +33,135 @@ export default function VoiceControl({
 
   // Запуск прослушивания
   const startListening = useCallback(() => {
-    if (!isSupported || isListening || isPlayingAudio) {
-      console.log("🚫 Не могу запустить микрофон:", { isSupported, isListening, isPlayingAudio });
+    // Дополнительные проверки для предотвращения дублирования
+    if (!isSupported || isListening || isPlayingAudio || isProcessingRef.current) {
+      console.log("🚫 Не могу запустить микрофон:", {
+        isSupported,
+        isListening,
+        isPlayingAudio,
+        isProcessing: isProcessingRef.current
+      });
       return;
     }
 
     try {
-      if (!recognitionRef.current) {
-        // Инициализация распознавания речи
-        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-        const recognition = new SpeechRecognition();
-
-        recognition.continuous = false;
-        recognition.interimResults = true;
-        recognition.lang = "ru-RU";
-        recognition.maxAlternatives = 1;
-
-        recognition.onstart = () => {
-          console.log("🎤 Микрофон включен - жду команду");
-          setIsListening(true);
-          isProcessingRef.current = false;
-        };
-
-        recognition.onresult = (event) => {
-          if (isProcessingRef.current) return;
-
-          let finalTranscript = "";
-          let interimTranscript = "";
-
-          for (let i = event.resultIndex; i < event.results.length; i++) {
-            const transcript = event.results[i][0].transcript;
-            if (event.results[i].isFinal) {
-              finalTranscript += transcript;
-            } else {
-              interimTranscript += transcript;
-            }
-          }
-
-          const currentTranscript = (finalTranscript + interimTranscript).trim();
-          setTranscript(currentTranscript);
-
-          // Обрабатываем финальную команду
-          if (finalTranscript.trim() && !isProcessingRef.current) {
-            isProcessingRef.current = true;
-            const command = finalTranscript.trim();
-            
-            console.log("✅ Команда получена:", command);
-            setTranscript("");
-            
-            // Останавливаем микрофон сразу после получения команды
-            stopListening();
-            
-            // Обрабатываем команду
-            handleVoiceCommand(command);
-            onCommand?.(command);
-          }
-        };
-
-        recognition.onerror = (event) => {
-          console.log("❌ Ошибка распознавания:", event.error);
-          setIsListening(false);
-          isProcessingRef.current = false;
-          
-          // Перезапускаем при ошибке (кроме отказа в доступе)
-          if (event.error !== "not-allowed" && event.error !== "service-not-allowed") {
-            setTimeout(() => {
-              startListening();
-            }, 1000);
-          }
-        };
-
-        recognition.onend = () => {
-          console.log("🔄 Распознавание завершено");
-          setIsListening(false);
-          
-          // Если не обрабатываем команду и не играет аудио, перезапускаем микрофон
-          if (!isProcessingRef.current && !isPlayingAudio) {
-            console.log("🔄 Автоматический перезапуск микрофона через recognition.onend");
-            setTimeout(() => {
-              if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
-                startListening();
-                console.log("✅ Микрофон перезапущен автоматически");
-              }
-            }, 200);
-          }
-        };
-
-        recognitionRef.current = recognition;
-      }
-
+      // Если recognition уже существует и активен, не создаваем новый
       if (recognitionRef.current) {
-        isProcessingRef.current = false;
-        setTranscript("");
-        recognitionRef.current.start();
-        console.log("🎤 Микрофон запущен успешно");
+        // Проверяем состояние recognition
+        try {
+          recognitionRef.current.start();
+          console.log("🎤 Перезапуск существующего recognition");
+          return;
+        } catch (error) {
+          // Если ошибка - очищаем и создаем новый
+          console.log("🔄 Очищаем стары�� recognition из-за ошибки");
+          recognitionRef.current = null;
+        }
       }
+
+      // Создаем новый recognition только если нужно
+      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.lang = "ru-RU";
+      recognition.maxAlternatives = 1;
+
+      recognition.onstart = () => {
+        console.log("🎤 Микрофон включен - жду команду");
+        setIsListening(true);
+        isProcessingRef.current = false;
+      };
+
+      recognition.onresult = (event) => {
+        if (isProcessingRef.current) return;
+
+        let finalTranscript = "";
+        let interimTranscript = "";
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript;
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+
+        const currentTranscript = (finalTranscript + interimTranscript).trim();
+        setTranscript(currentTranscript);
+
+        // О��рабатываем финальную команду
+        if (finalTranscript.trim() && !isProcessingRef.current) {
+          isProcessingRef.current = true;
+          const command = finalTranscript.trim();
+
+          console.log("✅ Команда получена:", command);
+          setTranscript("");
+
+          // Останавливаем микрофон сразу после получения команды
+          stopListening();
+
+          // Обрабатываем команду
+          handleVoiceCommand(command);
+          onCommand?.(command);
+        }
+      };
+
+      recognition.onerror = (event) => {
+        console.log("❌ Ошибка распознавания:", event.error);
+        setIsListening(false);
+        isProcessingRef.current = false;
+        recognitionRef.current = null; // Очищаем при ошибке
+
+        // Перезапускаем при ошибке (кроме отказа в доступе)
+        if (event.error !== "not-allowed" && event.error !== "service-not-allowed") {
+          setTimeout(() => {
+            if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
+              startListening();
+            }
+          }, 2000);
+        }
+      };
+
+      recognition.onend = () => {
+        console.log("🔄 Распознавание завершено");
+        setIsListening(false);
+        recognitionRef.current = null; // Очищаем при завершении
+
+        // Если не обрабатываем команду и не играет аудио, перезапускаем микрофон
+        if (!isProcessingRef.current && !isPlayingAudio) {
+          console.log("🔄 Автоматический перезапуск микрофона через recognition.onend");
+          setTimeout(() => {
+            if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
+              startListening();
+              console.log("✅ Микрофон перезапущен автоматически");
+            }
+          }, 500);
+        }
+      };
+
+      recognitionRef.current = recognition;
+      isProcessingRef.current = false;
+      setTranscript("");
+
+      // Запускаем с дополнительной проверкой
+      recognition.start();
+      console.log("🎤 Новый микрофон запущен успешно");
+
     } catch (error) {
       console.error("❌ Не удалось запустить распознавание:", error);
       setIsListening(false);
-      // Попробуем еще раз через секунду
+      recognitionRef.current = null;
+      isProcessingRef.current = false;
+
+      // Попробуем еще раз через больший интервал
       setTimeout(() => {
-        if (!isListening && !isPlayingAudio) {
-          recognitionRef.current = null; // Сбросим recognition
+        if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
           startListening();
         }
-      }, 1000);
+      }, 3000);
     }
   }, [isSupported, isListening, isPlayingAudio]);
 
@@ -155,7 +179,7 @@ export default function VoiceControl({
     }
   }, []);
 
-  // Фун��ция воспроизведения аудио с автоматическим возобновлением микрофона
+  // Функция воспроизведения аудио с автоматическим возобновлением микрофона
   const playAudioResponse = useCallback((audioUrl: string, callback?: () => void) => {
     console.log("🔊 Начинаем воспроизведение аудио ответа");
     
@@ -226,7 +250,7 @@ export default function VoiceControl({
       setTimeout(() => {
         if (!isListening && !isPlayingAudio) {
           startListening();
-          console.log("✅ Микрофон включен после ��еудачи воспроизведения");
+          console.log("✅ Микрофон включен после неудачи воспроизведения");
         }
       }, 300);
     });
