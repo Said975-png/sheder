@@ -126,20 +126,12 @@ export default function VoiceControl({
       };
 
       recognition.onend = () => {
-        console.log("🔄 Распознавание завершено");
+        console.log("🔄 Распознавание ��авершено");
         setIsListening(false);
         recognitionRef.current = null; // Очищаем при завершении
 
-        // Если не обрабатываем команду и не играет аудио, перезапускаем микрофон с большой задержкой
-        if (!isProcessingRef.current && !isPlayingAudio) {
-          console.log("🔄 Автоматический перезапуск микрофона через recognition.onend");
-          setTimeout(() => {
-            if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
-              startListening();
-              console.log("✅ Микрофон перезапущен автоматически");
-            }
-          }, 5000); // Увеличен с 2000 до 5000 (5 секунд)
-        }
+        // НЕ перезапускаем автоматически - пусть пользователь сам включает
+        console.log("⏹️ Микрофон остановлен, ждем ручного включения");
       };
 
       recognitionRef.current = recognition;
@@ -186,7 +178,7 @@ export default function VoiceControl({
   const playAudioResponse = useCallback((audioUrl: string, callback?: () => void) => {
     console.log("🔊 Начинаем воспроизведение аудио ответа");
     
-    // Останавливаем микроф��н
+    // Останавливаем микрофон
     if (isListening) {
       stopListening();
     }
@@ -202,7 +194,7 @@ export default function VoiceControl({
     audioRef.current = audio;
 
     audio.onended = () => {
-      console.log("✅ Аудио завершено");
+      console.log("✅ Аудио завершен��");
       setIsPlayingAudio(false);
       audioRef.current = null;
 
@@ -259,7 +251,7 @@ export default function VoiceControl({
     });
   }, [isListening, isPlayingAudio, startListening, stopListening]);
 
-  // Обработка голосо��ых команд
+  // Обработка голосовых команд
   const handleVoiceCommand = useCallback((command: string) => {
     const lowerCommand = command.toLowerCase().trim();
     console.log("🔍 Обрабатываем ком��нду:", lowerCommand);
@@ -340,7 +332,7 @@ export default function VoiceControl({
   // Автоматический запуск при загрузке с задержкой
   useEffect(() => {
     if (isSupported) {
-      // Ма��симальная задержка для предотвращения конфликтов
+      // Максимальная задержка для предотвращения конфликтов
       const timer = setTimeout(() => {
         if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
           startListening();
@@ -380,7 +372,7 @@ export default function VoiceControl({
   if (!isSupported) {
     return (
       <div className={cn("text-sm text-gray-500", className)}>
-        Распознавание речи не поддерживаетс��
+        Распознавание речи не поддерживается
       </div>
     );
   }
