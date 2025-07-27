@@ -89,7 +89,7 @@ export default function VoiceMicrophone({
       audioRef.current.currentTime = 0;
     }
 
-    // Останавливаем прослушивание на время воспроизведения аудио
+    // Останавливаем прослушивание на время воспроизве��ения аудио
     const wasListening = isListening;
     if (isListening) {
       toggleListening(); // Останавливаем микрофон
@@ -125,7 +125,7 @@ export default function VoiceMicrophone({
       audioRef.current = null;
       console.error("❌ Ошибка воспроизведения аудио");
 
-      // Возобновля��м прослушивание если была ошибка
+      // Возобновля��м прослушивани�� если была ошибка
       if (wasListening) {
         toggleListening(); // Включаем микрофон о��ратно
         console.log("🎤 Микрофон возобновлен после ошибки аудио");
@@ -155,7 +155,7 @@ export default function VoiceMicrophone({
     });
   };
 
-  // Функция воспрои��ведения аудио (простая версия)
+  // Фун��ция воспрои��ведения аудио (простая версия)
   const playAudio = (audioUrl: string) => {
     if (isPlayingAudio) {
       console.log("⏸️ Аудио уже воспроизводится");
@@ -187,7 +187,7 @@ export default function VoiceMicrophone({
 
       // Возобновляем прослушивание если оно было активно
       if (wasListening) {
-        toggleListening(); // Включ��ем микрофон обратно сразу
+        toggleListening(); // Включ��ем микрофон обрат��о сразу
         console.log("🎤 Микрофон возобновлен после аудио");
       }
     };
@@ -219,7 +219,7 @@ export default function VoiceMicrophone({
         );
       }
 
-      // Возобновля��м прослушивание если не удалось воспроизвести
+      // Возобновляем пр��слушивание если не удалось воспроизвести
       if (wasListening) {
         toggleListening(); // Включаем микрофон обратно
         console.log(
@@ -320,7 +320,7 @@ export default function VoiceMicrophone({
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2Fea0c68e7425848fa87af48c5fcfd79e0?alt=media&token=88b16ebf-8330-4065-b454-15f196538359&apiKey=3eff37bfce48420f81bfea727d0802d9",
         () => {
-          console.log("✅ Аудио ответ завершен, скроллим к прайс листу");
+          console.log("✅ Ауди�� ответ завершен, скроллим к прайс листу");
           // Прокручиваем к прайс листу после аудио
           const pricingSection = document.querySelector('[data-section="pricing"]');
           if (pricingSection) {
@@ -337,6 +337,43 @@ export default function VoiceMicrophone({
             );
             if (pricingElement) {
               pricingElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          }
+        },
+      );
+      return;
+    }
+
+    // Команда "покажи наши преимущества" - воспроизводим аудио и скроллим к преимуществам
+    if (
+      lowerCommand.includes("покажи наши преимущества") ||
+      lowerCommand.includes("наши преимущества") ||
+      lowerCommand.includes("преимущества")
+    ) {
+      console.log("🎯 Команда 'покажи наши преимущества' получена - воспроизводим аудио и скроллим");
+      playAudioWithCallback(
+        "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F6fb621bfa5f6417391fbb189af735e4c?alt=media&token=2271b582-0acf-4930-9fe6-41004818b406&apiKey=3eff37bfce48420f81bfea727d0802d9",
+        () => {
+          console.log("✅ Аудио ответ завершен, скроллим к секции преимуществ");
+          // Прокручиваем к секции преимуществ после аудио
+          const advantagesSection = document.querySelector('[data-section="advantages"]');
+          if (advantagesSection) {
+            advantagesSection.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          } else {
+            // Если нет data-атрибута, ищем по тексту
+            const advantagesElement = Array.from(document.querySelectorAll('h2')).find(el =>
+              el.textContent?.includes('НАШИ ПРЕИМУЩЕСТВА') ||
+              el.textContent?.includes('ПРЕ��МУЩЕСТВА') ||
+              el.textContent?.includes('преимущества')
+            );
+            if (advantagesElement) {
+              advantagesElement.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
               });
