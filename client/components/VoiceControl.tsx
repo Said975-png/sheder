@@ -105,7 +105,7 @@ export default function VoiceControl({
           isProcessingRef.current = true;
           const command = finalTranscript.trim();
 
-          console.log("✅ Команда получена:", command);
+          console.log("✅ Ко��анда получена:", command);
           setTranscript("");
 
           // Останавливаем микрофон сразу после получения команды
@@ -176,10 +176,10 @@ export default function VoiceControl({
     }
   }, []);
 
-  // Функция в��спроизв��дения аудио БЕЗ автоматического возобновления микрофона
+  // Функция в��спроизв���дения аудио БЕЗ автоматического возобновления микрофона
   const playAudioResponse = useCallback(
     (audioUrl: string, callback?: () => void) => {
-      console.log("🔊 Начинаем воспроизведение аудио ответа");
+      console.log("🔊 Начинаем воспроизвед��ние аудио ответа");
 
       // Останавливаем микрофон
       if (isListening) {
@@ -245,7 +245,7 @@ export default function VoiceControl({
           error.message.includes("user didn't interact")
         ) {
           console.log(
-            "⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя",
+            "⚠️ Автовоспроизведение заблокировано - требуется в��аимодействие пользователя",
           );
         } else {
           console.log(
@@ -277,7 +277,7 @@ export default function VoiceControl({
       // Команда "Джарвис смени модель"
       if (
         lowerCommand.includes("джарвис смени модель") ||
-        lowerCommand.includes("jarvis смени модель")
+        lowerCommand.includes("jarvis смени модел��")
       ) {
         playAudioResponse(
           "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F91df3aea397c4fbba9b49e597b4e2cb6?alt=media&token=522412d9-5f3a-454f-851c-dd4228a39931&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
@@ -321,7 +321,7 @@ export default function VoiceControl({
         return;
       }
 
-      // Команда "покажи прайс лист"
+      // Команда "покажи пр��йс лист"
       if (
         lowerCommand.includes("покажи прайс лист") ||
         lowerCommand.includes("прайс лист") ||
@@ -418,6 +418,23 @@ export default function VoiceControl({
         return;
       }
 
+      // Команда "джарвис полный доступ"
+      if (
+        lowerCommand.includes("джарвис полный доступ") ||
+        lowerCommand.includes("jarvis полный доступ") ||
+        lowerCommand.includes("полный доступ")
+      ) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F1652227bcb764a7ea61d8bdafa9654e6?alt=media&token=f2716b6b-58ef-47af-8250-b114c2e04e5e&apiKey=3eff37bfce48420f81bfea727d0802d9",
+          () => {
+            // Активируем режим Старка после аудио
+            const event = new CustomEvent("activateStarkMode");
+            window.dispatchEvent(event);
+          },
+        );
+        return;
+      }
+
       // Отправк�� в чат для обработки ИИ
       if (lowerCommand.includes("пятница")) {
         // Здесь можно отправить команду в чат с Пятницей
@@ -438,7 +455,7 @@ export default function VoiceControl({
     [playAudioResponse],
   );
 
-  // Отключен автоматический запуск для предотвращения ошибок autoplay
+  // Отключен автоматический запуск для предотвращения ��шибок autoplay
   // Пользователь должен сам включить микрофон первым кликом
   // useEffect(() => {
   //   if (isSupported) {
