@@ -324,6 +324,15 @@ function PricingSection() {
           </div>
         </div>
       </div>
+
+      {/* Booking Form Modal */}
+      <BookingForm
+        isOpen={showBookingForm}
+        onClose={() => setShowBookingForm(false)}
+        onSuccess={() => {
+          console.log("✅ Бронь успешно создана из PricingSection");
+        }}
+      />
     </section>
   );
 }
