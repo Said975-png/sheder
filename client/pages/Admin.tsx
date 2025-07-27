@@ -161,7 +161,7 @@ export default function Admin() {
       filtered = filtered.filter(booking => booking.status === statusFilter);
     }
 
-    // Фильтр по типу услуги
+    // ��ильтр по типу услуги
     if (serviceFilter !== "all") {
       filtered = filtered.filter(booking => booking.serviceType === serviceFilter);
     }
@@ -228,7 +228,7 @@ export default function Admin() {
       case "consultation":
         return "Консультация";
       default:
-        return "Индивидуаль��ый проект";
+        return "Индивидуальный проект";
     }
   };
 
