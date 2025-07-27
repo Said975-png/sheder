@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import ModernNavbar from "@/components/ModernNavbar";
-import FloatingVoiceControl from "@/components/FloatingVoiceControl";
+
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
@@ -238,7 +238,7 @@ export default function Index() {
     clearCart,
   } = useCart();
   const navigate = useNavigate();
-  const [forceStopVoice, setForceStopVoice] = useState(false);
+
   const [isModelRotating, setIsModelRotating] = useState(false);
 
   const handleLogout = React.useCallback(() => {
@@ -283,23 +283,9 @@ export default function Index() {
     navigate("/order");
   }, [navigate]);
 
-  const handleListeningChange = React.useCallback(
-    (isListening: boolean, transcript?: string) => {
-      // Микрофон работает в ф��не, панель не показываем
-      console.log(
-        "🎤 Микрофон активен:",
-        isListening,
-        "Транскрипт:",
-        transcript,
-      );
-    },
-    [],
-  );
 
-  const handleStopListening = React.useCallback(() => {
-    setForceStopVoice(true);
-    setTimeout(() => setForceStopVoice(false), 500);
-  }, []);
+
+
 
   const handleModelRotateStart = React.useCallback(() => {
     console.log("🔄 Запуск вращения модели");
@@ -349,16 +335,7 @@ export default function Index() {
       {/* Jarvis Demo Section */}
       <JarvisDemo />
 
-      {/* Floating Voice Control */}
-      <FloatingVoiceControl
-        onAddBasicPlan={handleAddBeginnerPlan}
-        onAddProPlan={handleAddIntermediatePlan}
-        onAddMaxPlan={handleAddAdvancedPlan}
-        onListeningChange={handleListeningChange}
-        forceStop={forceStopVoice}
-        onModelRotateStart={handleModelRotateStart}
-        onModelRotateStop={handleModelRotateStop}
-      />
+
     </div>
   );
 }
