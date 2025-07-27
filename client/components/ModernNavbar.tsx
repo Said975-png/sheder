@@ -39,6 +39,7 @@ export default function ModernNavbar({
   const { currentUser, logout, isAuthenticated } = useAuth();
   const { getTotalItems, items, removeItem, getTotalPrice, clearCart } =
     useCart();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const [isScrolled, setIsScrolled] = useState(false);
