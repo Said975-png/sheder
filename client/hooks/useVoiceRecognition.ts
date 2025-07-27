@@ -104,21 +104,24 @@ export const useVoiceRecognition = ({
 
     recognition.onend = () => {
       console.log("🔄 Распознавание завершилось");
-      
+
       // Автоматический перезапуск если должны слушать
       if (isListening && !isProcessingRef.current) {
         if (restartTimeoutRef.current) {
           clearTimeout(restartTimeoutRef.current);
         }
-        
-        if (isListening && recognitionRef.current) {
-          try {
-            recognitionRef.current.start();
-            console.log("🔄 Перезапуск распознавания");
-          } catch (error) {
-            console.log("ℹ️ Ошибка перезапуска:", error);
+
+        // Минимальная задержка для стабильности
+        restartTimeoutRef.current = setTimeout(() => {
+          if (isListening && recognitionRef.current) {
+            try {
+              recognitionRef.current.start();
+              console.log("🔄 Быстрый перезапуск распознавания");
+            } catch (error) {
+              console.log("ℹ️ Ошибка перезапуска:", error);
+            }
           }
-        }
+        }, 100); // Минимальная задержка 100мс
       }
     };
 
