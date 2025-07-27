@@ -393,7 +393,10 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
           </DropdownMenuItem>
         </div>
 
-        <div className="p-2 border-t border-white/20">
+        <div className={cn(
+          "p-2 border-t",
+          theme === "dark" ? "border-white/20" : "border-black/20"
+        )}>
           <DropdownMenuItem
             onClick={onLogout}
             className="text-red-400 hover:bg-red-500/10 cursor-pointer rounded-lg"
