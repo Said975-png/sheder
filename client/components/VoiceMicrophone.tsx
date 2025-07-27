@@ -73,7 +73,7 @@ export default function VoiceMicrophone({
     window.dispatchEvent(event);
   };
 
-  // Функция воспрои��ведения аудио с колбэком
+  // Функция воспрои��ведения а��дио с колбэком
   const playAudioWithCallback = (audioUrl: string, callback?: () => void) => {
     if (isPlayingAudio) {
       console.log("⏸️ Аудио уже воспроизводится");
@@ -173,7 +173,7 @@ export default function VoiceMicrophone({
 
       // Возобновляем прослушивание если оно было активно
       if (wasListening) {
-        toggleListening(); // Включаем микрофон обратно сразу
+        toggleListening(); // Включ��ем микрофон обратно сразу
         console.log("🎤 Микрофон возобновлен после аудио");
       }
     };
@@ -206,17 +206,20 @@ export default function VoiceMicrophone({
   };
 
   const handleCommand = (command: string) => {
-    const lowerCommand = command.toLowerCase();
+    const lowerCommand = command.toLowerCase().trim();
+    console.log("🔍 Анализируем команду:", `"${lowerCommand}"`);
 
     // Команда "Джарвис ты тут" - воспроизводим аудио ответ
-    if (lowerCommand.includes("джарвис ты тут") || lowerCommand.includes("jarvis ты тут")) {
+    if (lowerCommand.includes("джарвис ты тут") || lowerCommand.includes("jarvis ты тут") ||
+        (lowerCommand.includes("джарвис") && lowerCommand.includes("тут"))) {
       console.log("🎯 Команда 'Джарвис ты тут' получена - воспроизводим аудио ответ");
       playAudio("https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046");
       return;
     }
 
     // Команда "Джарвис смени модель" - воспроизводим аудио и меняем модель
-    if (lowerCommand.includes("джарвис смени модель") || lowerCommand.includes("jarvis смени модель")) {
+    if (lowerCommand.includes("джарвис смени модель") || lowerCommand.includes("jarvis смени модель") ||
+        (lowerCommand.includes("джарвис") && (lowerCommand.includes("смени модель") || lowerCommand.includes("сми модель")))) {
       console.log("🎯 Команда 'Джарвис смени модель' получена - воспроизводим аудио и меняем модель");
 
       // Сначала воспроизводим аудио ответ
@@ -232,7 +235,8 @@ export default function VoiceMicrophone({
     }
 
     // Команда "верни модель" - воспроизводим аудио и возвращаем предыдущую модель
-    if (lowerCommand.includes("верни модель") || lowerCommand.includes("верни модел")) {
+    if (lowerCommand.includes("верни модель") || lowerCommand.includes("верни модел") ||
+        lowerCommand.includes("верни м") || lowerCommand.includes("верни") && lowerCommand.includes("модель")) {
       console.log("🎯 Команда 'верни модель' получена - воспроизводим аудио и возвращаем предыдущую модель");
 
       // Сначала воспроизводим аудио ответ
