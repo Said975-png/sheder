@@ -17,7 +17,7 @@ import {
   PowerIndicator,
   GlitchText,
 } from "@/components/StarkEffects";
-import VoiceControl from "@/components/VoiceControl";
+
 
 interface JarvisInterfaceProps {
   onAddBasicPlan: () => void;
