@@ -365,10 +365,15 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => (window.location.href = "/chat")}
-            className="text-white hover:bg-white/10 cursor-pointer rounded-lg"
+            className={cn(
+              "cursor-pointer rounded-lg",
+              theme === "dark"
+                ? "text-white hover:bg-white/10"
+                : "text-black hover:bg-black/10"
+            )}
           >
             <Brain className="mr-3 h-4 w-4" />
-            Чат с Пятни��ей 🤖
+            Чат с Пятницей 🤖
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={toggleTheme}
