@@ -47,8 +47,14 @@ export default function VoiceMicrophone({
       audioRef.current.currentTime = 0;
     }
 
+    // Останавливаем прослушивание на время воспроизведения аудио
+    const wasListening = isListening;
+    if (isListening) {
+      toggleListening(); // Останавливаем микрофон
+    }
+
     setIsPlayingAudio(true);
-    console.log("🔊 Начинаем воспроизведение аудио");
+    console.log("🔊 Начинаем воспроизведение аудио, микрофон остановлен");
 
     const audio = new Audio(audioUrl);
     audioRef.current = audio;
@@ -57,18 +63,42 @@ export default function VoiceMicrophone({
       setIsPlayingAudio(false);
       audioRef.current = null;
       console.log("✅ Воспроизведение завершено");
+
+      // Возобновляем прослушивание если оно было активно
+      if (wasListening) {
+        setTimeout(() => {
+          toggleListening(); // Включаем микрофон обратно
+          console.log("🎤 Микрофон возобновлен после аудио");
+        }, 500);
+      }
     };
 
     audio.onerror = () => {
       setIsPlayingAudio(false);
       audioRef.current = null;
       console.error("❌ Ошибка воспроизведения аудио");
+
+      // Возобно��ляем прослушивание если была ошибка
+      if (wasListening) {
+        setTimeout(() => {
+          toggleListening(); // Включаем микрофон обратно
+          console.log("🎤 Микрофон возобновлен после ошибки аудио");
+        }, 500);
+      }
     };
 
     audio.play().catch((error) => {
       setIsPlayingAudio(false);
       audioRef.current = null;
       console.error("❌ Не удалось воспроизвести аудио:", error);
+
+      // Возобновляем прослушивание если не удалось воспроизвести
+      if (wasListening) {
+        setTimeout(() => {
+          toggleListening(); // Включаем микрофон обратно
+          console.log("🎤 Микрофон возобновлен после неудачного воспроизведения");
+        }, 500);
+      }
     });
   };
 
@@ -76,8 +106,8 @@ export default function VoiceMicrophone({
     const lowerCommand = command.toLowerCase();
 
     // Команда "Джарвис ты тут" - воспроизводим аудио ответ
-    if (lowerCommand.includes("джарвис ты ��ут") || lowerCommand.includes("jarvis ты тут")) {
-      console.log("🎯 Команда 'Джарвис ты тут' получена - воспроизводим аудио ответ");
+    if (lowerCommand.includes("джарвис ты тут") || lowerCommand.includes("jarvis ты тут")) {
+      console.log("🎯 Команд�� 'Джарвис ты тут' получена - воспроизводим аудио ответ");
       playAudio("https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046");
       return;
     }
