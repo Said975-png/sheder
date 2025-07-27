@@ -317,11 +317,25 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="w-64 bg-black/95 backdrop-blur-xl border border-white/20 rounded-xl mt-2"
+        className={cn(
+          "w-64 backdrop-blur-xl rounded-xl mt-2",
+          theme === "dark"
+            ? "bg-black/95 border-white/20 text-white"
+            : "bg-white/95 border-black/20 text-black"
+        )}
       >
-        <div className="px-4 py-3 border-b border-white/20">
-          <div className="font-semibold text-white">{user.name}</div>
-          <div className="text-sm text-white/60">{user.email}</div>
+        <div className={cn(
+          "px-4 py-3",
+          theme === "dark" ? "border-b border-white/20" : "border-b border-black/20"
+        )}>
+          <div className={cn(
+            "font-semibold",
+            theme === "dark" ? "text-white" : "text-black"
+          )}>{user.name}</div>
+          <div className={cn(
+            "text-sm",
+            theme === "dark" ? "text-white/60" : "text-black/60"
+          )}>{user.email}</div>
         </div>
 
         <div className="p-2">
