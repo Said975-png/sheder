@@ -144,7 +144,11 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
 
     res.json(response);
   } catch (error) {
-    console.error("Groq chat error:", error);
+    console.error("❌ Groq chat error:", {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined,
+      error
+    });
     const response: ChatResponse = {
       success: false,
       error: "Ошибка сервера",
