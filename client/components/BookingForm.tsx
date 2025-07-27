@@ -61,7 +61,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
     { value: "pro", label: "PRO - 3.500.000 сум" },
     { value: "max", label: "MAX - 5.500.000 сум" },
     { value: "consultation", label: "Консультация" },
-    { value: "custom", label: "Индивидуальный про��кт" },
+    { value: "custom", label: "Индивидуальный проект" },
   ];
 
   // Варианты времени
@@ -241,13 +241,13 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
               value={formData.serviceType}
               onValueChange={(value) => handleSelectChange("serviceType", value)}
             >
-              <SelectTrigger>
-                <Package className="w-4 h-4 mr-2" />
-                <SelectValue placeholder="Выберите тип услуги" />
+              <SelectTrigger className="bg-white text-gray-900 border-gray-300">
+                <Package className="w-4 h-4 mr-2 text-gray-500" />
+                <SelectValue placeholder="Выберите тип услуги" className="text-gray-900" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-white border-gray-300">
                 {serviceTypes.map((service) => (
-                  <SelectItem key={service.value} value={service.value}>
+                  <SelectItem key={service.value} value={service.value} className="text-gray-900 hover:bg-gray-100">
                     {service.label}
                   </SelectItem>
                 ))}
