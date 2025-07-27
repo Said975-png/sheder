@@ -25,7 +25,7 @@ export default function VoiceControl({
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const isProcessingRef = useRef(false);
 
-  // Проверка по��держки браузером
+  // Проверка поддержки браузером
   useEffect(() => {
     const supported = "webkitSpeechRecognition" in window || "SpeechRecognition" in window;
     setIsSupported(supported);
@@ -115,7 +115,7 @@ export default function VoiceControl({
         isProcessingRef.current = false;
         recognitionRef.current = null; // Очищаем при ошибке
 
-        // Перезапускаем при ошибке (кроме отказа в доступе)
+        // Перезапускаем при ��шибке (кроме отказа в доступе)
         if (event.error !== "not-allowed" && event.error !== "service-not-allowed") {
           setTimeout(() => {
             if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
@@ -182,7 +182,7 @@ export default function VoiceControl({
     }
   }, []);
 
-  // Функция воспроизведения аудио с автоматическим возобновлением микрофона
+  // Фун��ция воспроизведения аудио с автоматическим возобновлением микрофона
   const playAudioResponse = useCallback((audioUrl: string, callback?: () => void) => {
     console.log("🔊 Начинаем воспроизведение аудио ответа");
     
@@ -191,7 +191,7 @@ export default function VoiceControl({
       stopListening();
     }
 
-    // Останавлив��ем предыдущее аудио если есть
+    // Останавливаем предыдущее аудио если есть
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -253,7 +253,7 @@ export default function VoiceControl({
       setTimeout(() => {
         if (!isListening && !isPlayingAudio) {
           startListening();
-          console.log("✅ Микрофон включен после неудачи воспроизведения");
+          console.log("✅ Микрофон включен после ��еудачи воспроизведения");
         }
       }, 300);
     });
@@ -264,7 +264,7 @@ export default function VoiceControl({
     const lowerCommand = command.toLowerCase().trim();
     console.log("🔍 Обрабатываем команду:", lowerCommand);
 
-    // Команда "Джарвис т�� тут"
+    // Команда "Джарвис ты тут"
     if (lowerCommand.includes("джарвис ты тут") || lowerCommand.includes("jarvis ты тут")) {
       playAudioResponse(
         "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046"
@@ -354,16 +354,26 @@ export default function VoiceControl({
   // Очистка при размонтировании
   useEffect(() => {
     return () => {
+      console.log("🧹 Очистка компонента VoiceControl");
+
+      // Останавливаем recognition
       if (recognitionRef.current) {
         try {
           recognitionRef.current.stop();
+          recognitionRef.current = null;
         } catch (error) {
-          console.log("ℹ️ Ошибка очистки:", error);
+          console.log("ℹ️ Ошибка очистки recognition:", error);
         }
       }
+
+      // Останавливаем аудио
       if (audioRef.current) {
         audioRef.current.pause();
+        audioRef.current = null;
       }
+
+      // Сбрасываем флаги
+      isProcessingRef.current = false;
     };
   }, []);
 
