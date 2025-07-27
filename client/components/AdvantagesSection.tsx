@@ -162,7 +162,7 @@ function AdvantagesSection() {
   const currentAdvantage = advantages[currentSlide];
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden bg-black">
+    <section data-section="advantages" className="relative py-20 px-4 overflow-hidden bg-black">
       {/* Clean minimal background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
