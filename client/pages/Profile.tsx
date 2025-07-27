@@ -381,7 +381,7 @@ function Profile() {
       }
 
       if (!file.type.startsWith("image/")) {
-        setError("Пожалуйста, выберите изображение");
+        setError("По��алуйста, выберите изображение");
         return;
       }
 
@@ -1322,7 +1322,7 @@ function Profile() {
                       className="bg-red-600 hover:bg-red-700"
                     >
                       <Trash2 className="w-4 h-4 mr-2" />
-                      ��далить аккаунт
+                      Удалить аккаунт
                     </Button>
                   </div>
                 </div>
@@ -1538,7 +1538,7 @@ function Profile() {
                                booking.serviceType === "pro" ? "PRO пакет" :
                                booking.serviceType === "max" ? "MAX пакет" :
                                booking.serviceType === "consultation" ? "Консультация" :
-                               "Индивидуальный проект"}
+                               "Индивидуальн��й проект"}
                             </h5>
                             <Badge
                               variant="outline"
@@ -1709,7 +1709,7 @@ function Profile() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="ru">Р��сский</SelectItem>
+                        <SelectItem value="ru">Русский</SelectItem>
                         <SelectItem value="en">English</SelectItem>
                       </SelectContent>
                     </Select>
