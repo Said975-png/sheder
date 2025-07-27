@@ -61,7 +61,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
     { value: "pro", label: "PRO - 3.500.000 сум" },
     { value: "max", label: "MAX - 5.500.000 сум" },
     { value: "consultation", label: "Консультация" },
-    { value: "custom", label: "Индивидуальный проект" },
+    { value: "custom", label: "Индивид��альный проект" },
   ];
 
   // Варианты времени
@@ -216,9 +216,9 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto bg-white">
         <DialogHeader>
-          <DialogTitle className="flex items-center space-x-2">
+          <DialogTitle className="flex items-center space-x-2 text-gray-900">
             <Calendar className="w-6 h-6 text-purple-600" />
             <span>Забронировать консультацию</span>
           </DialogTitle>
