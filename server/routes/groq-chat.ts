@@ -17,7 +17,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
 
     const groqApiKey = process.env.GROQ_API_KEY;
     if (!groqApiKey) {
-      console.log("❌ GROQ_API_KEY не найден в переменн��х окружения");
+      console.log("❌ GROQ_API_KEY не найден в переменных окружения");
       const response: ChatResponse = {
         success: false,
         error: "API ключ не настроен",
@@ -49,7 +49,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
 
 ТВОЯ РОЛЬ:
 - Консультант по веб-разработке
-- Помощник с любыми вопрос��ми
+- Помощник с любыми вопросами
 - Можешь решать математические задачи
 - Помогаешь с прогр��ммированием
 
@@ -120,8 +120,13 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
     }
 
     const groqData = await groqResponse.json();
+    console.log("📦 Получены данные от Groq API:", {
+      hasChoices: !!groqData.choices,
+      choicesLength: groqData.choices?.length || 0
+    });
 
     if (!groqData.choices || groqData.choices.length === 0) {
+      console.error("❌ Пустой ответ от API:", groqData);
       const response: ChatResponse = {
         success: false,
         error: "Пустой ответ от API",
@@ -130,6 +135,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
     }
 
     const aiMessage = groqData.choices[0].message.content;
+    console.log("✅ Успешный ответ получен, длина:", aiMessage?.length || 0);
 
     const response: ChatResponse = {
       success: true,
