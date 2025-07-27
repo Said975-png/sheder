@@ -274,7 +274,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
           {/* Контактная информация */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="clientName">
+              <Label htmlFor="clientName" className="text-gray-900 font-medium">
                 Ваше имя <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
