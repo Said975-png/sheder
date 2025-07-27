@@ -38,7 +38,7 @@ export default function VoiceControl({
 
   // Функция воспроизведения аудио с автоматическим возобновлением микрофона
   const playAudioResponse = useCallback((audioUrl: string, callback?: () => void) => {
-    console.log("🔊 Начинаем воспроиз��едение аудио ответа");
+    console.log("🔊 Начинаем воспроизведение аудио ответа");
 
     // Останавливаем микрофон
     if (isListening) {
@@ -185,7 +185,7 @@ export default function VoiceControl({
 
       // Если не обрабатываем команду и не играет аудио, перезапускаем микрофон
       if (!isProcessingRef.current && !isPlayingAudio) {
-        console.log("🔄 Автоматический перезапуск ��икрофона через recognition.onend");
+        console.log("🔄 Автоматический перезапуск микрофона через recognition.onend");
         setTimeout(() => {
           if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
             startListening();
@@ -196,7 +196,7 @@ export default function VoiceControl({
     };
 
     return recognition;
-  }, [isSupported, isPlayingAudio]);
+  }, [isSupported]);
 
   // Запуск прослушивания
   const startListening = useCallback(() => {
