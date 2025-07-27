@@ -227,7 +227,7 @@ export default function VoiceControl({
         }
       }, 1000);
     }
-  }, [isSupported, isListening, isPlayingAudio]);
+  }, [isSupported, isListening, isPlayingAudio, initializeRecognition]);
 
   // Остановка прослушивания
   const stopListening = useCallback(() => {
@@ -246,7 +246,7 @@ export default function VoiceControl({
   // Обработка голосовых команд
   const handleVoiceCommand = useCallback((command: string) => {
     const lowerCommand = command.toLowerCase().trim();
-    console.log("🔍 Обрабатываем коман��у:", lowerCommand);
+    console.log("🔍 Обрабатываем команду:", lowerCommand);
 
     // Команда "Джарвис ты тут"
     if (lowerCommand.includes("джарвис ты тут") || lowerCommand.includes("jarvis ты тут")) {
@@ -298,7 +298,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Отправка в чат для обработк�� ИИ
+    // Отправка в чат для обработки ИИ
     if (lowerCommand.includes("пятница")) {
       // Здесь можно отправить команду в чат с Пятницей
       console.log("💬 Отправляем команду в чат:", command);
@@ -387,7 +387,7 @@ export default function VoiceControl({
                   : "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-blue-500/50",
             )}
           >
-            {/* Анимированный фон */}
+            {/* Аними��ованный фон */}
             {isListening && (
               <div className="absolute inset-0 bg-red-400/20 animate-ping rounded-full" />
             )}
