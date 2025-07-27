@@ -142,7 +142,10 @@ function Profile() {
   const [hasFaceID, setHasFaceID] = useState(false);
   const [contracts, setContracts] = useState<ContractData[]>([]);
   const [loadingContracts, setLoadingContracts] = useState(false);
+  const [bookings, setBookings] = useState<BookingData[]>([]);
+  const [loadingBookings, setLoadingBookings] = useState(false);
   const [showOrderForm, setShowOrderForm] = useState(false);
+  const [showBookingForm, setShowBookingForm] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   // Notification settings
@@ -1321,7 +1324,7 @@ function Profile() {
                 <CardContent className="p-12 text-center">
                   <FileText className="w-16 h-16 text-gray-300 mx-auto mb-4" />
                   <h5 className="text-xl font-semibold text-gray-900 mb-2">
-                    У вас пока нет договоров
+                    У вас пока нет ��оговоров
                   </h5>
                   <p className="text-gray-600 mb-6">
                     Закажите первую услугу и получите договор автоматически
@@ -1594,7 +1597,7 @@ function Profile() {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <Activity className="w-5 h-5" />
-                  <span>Истори�� активности</span>
+                  <span>История активности</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
