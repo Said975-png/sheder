@@ -179,7 +179,7 @@ export default function VoiceControl({
   // Функция в��спроизв���дения аудио БЕЗ автоматического возобновления микрофона
   const playAudioResponse = useCallback(
     (audioUrl: string, callback?: () => void) => {
-      console.log("🔊 Начинаем воспроизвед��ние аудио ответа");
+      console.log("🔊 Начинае�� воспроизведение аудио ответа");
 
       // Останавливаем микрофон
       if (isListening) {
@@ -245,7 +245,7 @@ export default function VoiceControl({
           error.message.includes("user didn't interact")
         ) {
           console.log(
-            "⚠️ Автовоспроизведение заблокировано - требуется в��аимодействие пользователя",
+            "⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя",
           );
         } else {
           console.log(
@@ -277,7 +277,7 @@ export default function VoiceControl({
       // Команда "Джарвис смени модель"
       if (
         lowerCommand.includes("джарвис смени модель") ||
-        lowerCommand.includes("jarvis смени модел��")
+        lowerCommand.includes("jarvis смени модель")
       ) {
         playAudioResponse(
           "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F91df3aea397c4fbba9b49e597b4e2cb6?alt=media&token=522412d9-5f3a-454f-851c-dd4228a39931&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
@@ -435,12 +435,29 @@ export default function VoiceControl({
         return;
       }
 
+      // Команда "отмени"
+      if (
+        lowerCommand.includes("отмени") ||
+        lowerCommand.includes("отменить") ||
+        lowerCommand.includes("выключи")
+      ) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F0af399f58c304f4086753a87ff8ce4d9?alt=media&token=27c73bcd-59ba-4644-a9fa-7dbe681dac1b&apiKey=3eff37bfce48420f81bfea727d0802d9",
+          () => {
+            // Отключаем режим Старка после аудио
+            const event = new CustomEvent("deactivateStarkMode");
+            window.dispatchEvent(event);
+          },
+        );
+        return;
+      }
+
       // Отправк�� в чат для обработки ИИ
       if (lowerCommand.includes("пятница")) {
         // Здесь можно отправить команду в чат с Пятницей
         console.log("💬 Отправляем команду в чат:", command);
 
-        // Простой аудио ответ
+        // Простой ау��ио ответ
         playAudioResponse(
           "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
         );
