@@ -24,21 +24,22 @@ export default function VoiceMicrophone({
 
   // История моделей для команды "верни модель"
   const modelHistoryRef = useRef<string[]>([
-    "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f"
+    "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
   ]); // Изначальная модель
 
-  const { isListening, transcript, isSupported, toggleListening } = useVoiceRecognition({
-    onTranscript: (text) => {
-      console.log("📝 Получен транскрипт:", text);
-      onTranscript?.(text);
-    },
-    onCommand: (command) => {
-      console.log("🎯 Получена команда для обработки:", command);
-      console.log("🎯 Длина команды:", command.length, "символов");
-      handleCommand(command);
-      onCommand?.(command);
-    },
-  });
+  const { isListening, transcript, isSupported, toggleListening } =
+    useVoiceRecognition({
+      onTranscript: (text) => {
+        console.log("📝 Получен транскрипт:", text);
+        onTranscript?.(text);
+      },
+      onCommand: (command) => {
+        console.log("🎯 Получена команда для обработки:", command);
+        console.log("🎯 Длина команды:", command.length, "символов");
+        handleCommand(command);
+        onCommand?.(command);
+      },
+    });
 
   // Функция смены модели через CustomEvent
   const changeModel = (newModelUrl: string) => {
@@ -49,7 +50,7 @@ export default function VoiceMicrophone({
     console.log("📝 История моделей обновлена:", modelHistoryRef.current);
 
     const event = new CustomEvent("changeModel", {
-      detail: { newModelUrl }
+      detail: { newModelUrl },
     });
     window.dispatchEvent(event);
   };
@@ -63,13 +64,14 @@ export default function VoiceMicrophone({
 
     // Удаляем текущую модель и возвращаемся к предыдущей
     modelHistoryRef.current.pop();
-    const previousModelUrl = modelHistoryRef.current[modelHistoryRef.current.length - 1];
+    const previousModelUrl =
+      modelHistoryRef.current[modelHistoryRef.current.length - 1];
 
     console.log("↩️ Возвращаемся к предыдущей модели:", previousModelUrl);
     console.log("📝 История моделей после возврата:", modelHistoryRef.current);
 
     const event = new CustomEvent("changeModel", {
-      detail: { newModelUrl: previousModelUrl }
+      detail: { newModelUrl: previousModelUrl },
     });
     window.dispatchEvent(event);
   };
@@ -94,7 +96,9 @@ export default function VoiceMicrophone({
     }
 
     setIsPlayingAudio(true);
-    console.log("🔊 Начинаем воспроизведение аудио с колбэком, микрофон остановлен");
+    console.log(
+      "🔊 Начинаем воспроизведение аудио с колбэком, микр��фон остановлен",
+    );
 
     const audio = new Audio(audioUrl);
     audioRef.current = audio;
@@ -125,7 +129,6 @@ export default function VoiceMicrophone({
       if (wasListening) {
         toggleListening(); // Включаем микрофон о��ратно
         console.log("🎤 Микрофон возобновлен после ошибки аудио");
-
       }
     };
 
@@ -162,7 +165,7 @@ export default function VoiceMicrophone({
     }
 
     setIsPlayingAudio(true);
-    console.log("🔊 Начинаем воспроизведение аудио, микрофон остановлен");
+    console.log("🔊 Начинаем ��оспроизведение аудио, микрофон остановлен");
 
     const audio = new Audio(audioUrl);
     audioRef.current = audio;
@@ -188,7 +191,6 @@ export default function VoiceMicrophone({
       if (wasListening) {
         toggleListening(); // Включаем мик��офон обратно
         console.log("🎤 Микрофон возобновлен после ошибки аудио");
-
       }
     };
 
@@ -200,8 +202,9 @@ export default function VoiceMicrophone({
       // Возобновляем прослушивание если не удалось воспроизвести
       if (wasListening) {
         toggleListening(); // Включаем микрофон обратно
-          console.log("🎤 Микрофон возобновлен п��сле неудачного воспроизведения");
-
+        console.log(
+          "🎤 Микрофон возобновлен п��сле неудачного воспроизведения",
+        );
       }
     });
   };
@@ -211,17 +214,31 @@ export default function VoiceMicrophone({
     console.log("🔍 Анализируем команду:", `"${lowerCommand}"`);
 
     // Команда "Джарвис ты тут" - воспроизводим аудио ответ
-    if (lowerCommand.includes("джарвис ты тут") || lowerCommand.includes("jarvis ты тут") ||
-        (lowerCommand.includes("джарвис") && lowerCommand.includes("тут"))) {
-      console.log("🎯 Команда 'Джарвис ты тут' получена - воспроизводим аудио ответ");
-      playAudio("https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046");
+    if (
+      lowerCommand.includes("джарвис ты тут") ||
+      lowerCommand.includes("jarvis ты тут") ||
+      (lowerCommand.includes("джарвис") && lowerCommand.includes("тут"))
+    ) {
+      console.log(
+        "🎯 Команда 'Джарвис ты тут' получена - воспроизводим аудио ответ",
+      );
+      playAudio(
+        "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
+      );
       return;
     }
 
-    // Команда "Джарвис смени модель" - воспроизводим аудио и меняем модель
-    if (lowerCommand.includes("джарвис смени модель") || lowerCommand.includes("jarvis смени модель") ||
-        (lowerCommand.includes("джарвис") && (lowerCommand.includes("смени модель") || lowerCommand.includes("сми модель")))) {
-      console.log("🎯 Команда 'Джарвис смени модель' получена - восп��оизводим аудио и меняем модель");
+    // Коман��а "Джарвис смени модель" - воспроизводим аудио и меняем модель
+    if (
+      lowerCommand.includes("джарвис смени модель") ||
+      lowerCommand.includes("jarvis смени модель") ||
+      (lowerCommand.includes("джарвис") &&
+        (lowerCommand.includes("смени модель") ||
+          lowerCommand.includes("сми модель")))
+    ) {
+      console.log(
+        "🎯 Команда 'Джарвис смени модель' получена - восп��оизводим аудио и меняем модель",
+      );
 
       // Сначала воспроизводим аудио ответ
       playAudioWithCallback(
@@ -229,16 +246,24 @@ export default function VoiceMicrophone({
         () => {
           // После окончания аудио меняем модель
           console.log("🔄 Смена модели после аудио ответа");
-          changeModel("https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F1357ace3fa8347cfa6f565692cad1fb7?alt=media&token=ebe4c351-faec-46fe-9b11-d9c4e4881670&apiKey=e61c233aecf6402a8a9db34e2dc8f046");
-        }
+          changeModel(
+            "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F1357ace3fa8347cfa6f565692cad1fb7?alt=media&token=ebe4c351-faec-46fe-9b11-d9c4e4881670&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
+          );
+        },
       );
       return;
     }
 
     // Команда "верни модель" - воспроизводим аудио и возвращаем предыдущую модель
-    if (lowerCommand.includes("верни модель") || lowerCommand.includes("верни модел") ||
-        lowerCommand.includes("верни м") || lowerCommand.includes("верни") && lowerCommand.includes("модель")) {
-      console.log("🎯 Команда 'верни модель' получена - воспроизводим аудио и возвращаем предыдущую модель");
+    if (
+      lowerCommand.includes("верни модель") ||
+      lowerCommand.includes("верни модел") ||
+      lowerCommand.includes("верни м") ||
+      (lowerCommand.includes("верни") && lowerCommand.includes("модель"))
+    ) {
+      console.log(
+        "🎯 Команда 'верни модель' получена - воспроизводим аудио и возвращаем предыдущую модель",
+      );
 
       // Сначала воспроизводим аудио ответ
       playAudioWithCallback(
@@ -247,24 +272,35 @@ export default function VoiceMicrophone({
           // После окончания аудио возвращаем предыдущую модель
           console.log("↩️ Возврат к предыдущей модели после аудио ответа");
           revertToPreviousModel();
-        }
+        },
       );
       return;
     }
 
-    // Команда "спасибо джарвис" - воспроизводим аудио ответ
-    if (lowerCommand.includes("спасибо джарвис") || lowerCommand.includes("спас��бо jarvis")) {
-      console.log("🎯 Команда 'спасибо джарви��' получена - воспроизводим аудио ответ");
-      playAudio("https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2Fec5bfbae691b41d9b374b39e75694179?alt=media&token=75301093-1e6e-469a-a492-3105aee95cc9&apiKey=e61c233aecf6402a8a9db34e2dc8f046");
+    // Команда "спасибо" - воспроизводим аудио отве��
+    if (lowerCommand.includes("спасибо")) {
+      console.log("🎯 Команда 'спасибо' получена - воспроизводим аудио ответ");
+      playAudioWithCallback(
+        "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2Fec5bfbae691b41d9b374b39e75694179?alt=media&token=75301093-1e6e-469a-a492-3105aee95cc9&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
+        () => {
+          console.log("✅ Аудио ответ 'спасибо' завершен");
+        },
+      );
       return;
     }
 
     // Простые команды для демонстрации
-    if (lowerCommand.includes("привет") || lowerCommand.includes("здравствуй")) {
+    if (
+      lowerCommand.includes("привет") ||
+      lowerCommand.includes("здравствуй")
+    ) {
       console.log("👋 Команда приветствия получена");
-    } else if (lowerCommand.includes("спасибо") || lowerCommand.includes("благодарю")) {
-      console.log("🙏 Команда благодарности получе��а");
-    } else if (lowerCommand.includes("помощь") || lowerCommand.includes("help")) {
+    } else if (lowerCommand.includes("благодарю")) {
+      console.log("🙏 Команда благодарности получена");
+    } else if (
+      lowerCommand.includes("помощь") ||
+      lowerCommand.includes("help")
+    ) {
       console.log("❓ Запрос помощи пол��чен");
     }
   };
@@ -279,14 +315,14 @@ export default function VoiceMicrophone({
 
   const sizeClasses = {
     sm: "w-10 h-10",
-    md: "w-12 h-12", 
-    lg: "w-16 h-16"
+    md: "w-12 h-12",
+    lg: "w-16 h-16",
   };
 
   const iconSizes = {
     sm: "w-4 h-4",
     md: "w-5 h-5",
-    lg: "w-7 h-7"
+    lg: "w-7 h-7",
   };
 
   if (floating) {
@@ -298,12 +334,14 @@ export default function VoiceMicrophone({
             <div className="bg-slate-900/90 backdrop-blur-sm text-white px-4 py-2 rounded-lg text-sm max-w-xs border border-slate-700/50 shadow-lg">
               <div className="flex items-center gap-2 mb-1">
                 <Volume2 className="w-3 h-3 text-blue-400" />
-                <span className="text-xs text-blue-400 font-medium">Распознано:</span>
+                <span className="text-xs text-blue-400 font-medium">
+                  Распознано:
+                </span>
               </div>
               <div className="text-white/90">{transcript}</div>
             </div>
           )}
-          
+
           {/* Кнопка микрофона */}
           <Button
             onClick={toggleListening}
@@ -313,7 +351,7 @@ export default function VoiceMicrophone({
               "rounded-full shadow-lg transition-all duration-200 border-2",
               isListening
                 ? "bg-red-500 hover:bg-red-600 text-white border-red-400 animate-pulse shadow-red-500/30"
-                : "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-blue-500/30"
+                : "bg-blue-600 hover:bg-blue-700 text-white border-blue-400 shadow-blue-500/30",
             )}
           >
             {isListening ? (
@@ -322,7 +360,7 @@ export default function VoiceMicrophone({
               <Mic className={iconSizes[size]} />
             )}
           </Button>
-          
+
           {/* Статус */}
           <div className="text-xs text-center">
             {isPlayingAudio ? (
@@ -374,8 +412,8 @@ export default function VoiceMicrophone({
           isPlayingAudio
             ? "bg-green-500/20 border-green-500/50 text-green-400"
             : isListening
-            ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
-            : "border-blue-400/30 bg-slate-800/50 text-blue-400 hover:bg-blue-500/20"
+              ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
+              : "border-blue-400/30 bg-slate-800/50 text-blue-400 hover:bg-blue-500/20",
         )}
       >
         {isPlayingAudio ? (
