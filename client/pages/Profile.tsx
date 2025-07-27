@@ -483,7 +483,7 @@ function Profile() {
       }
 
       if (formData.newPassword.length < 6) {
-        setError("Новый пароль должен содержать минимум 6 символов");
+        setError("Новый пароль должен содержать мини��ум 6 символов");
         return;
       }
 
@@ -509,7 +509,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы уверены, что хоти��е удалить аккаунт? Это действие нельзя отменить.",
+        "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -724,7 +724,7 @@ function Profile() {
               className="flex items-center space-x-2"
             >
               <User className="w-4 h-4" />
-              <span className="hidden sm:inline">П��офиль</span>
+              <span className="hidden sm:inline">Профиль</span>
             </TabsTrigger>
             <TabsTrigger
               value="security"
@@ -970,7 +970,7 @@ function Profile() {
                 <CardTitle className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <Activity className="w-5 h-5" />
-                    <span>��оследняя активность</span>
+                    <span>Последняя активность</span>
                   </div>
                   <Button
                     onClick={() => setActiveTab("activity")}
@@ -1592,7 +1592,7 @@ function Profile() {
                             <span>№ {booking.id}</span>
                           </div>
                           <div className="text-xs text-gray-400">
-                            Создано: {new Date(booking.createdAt).toLocaleDateString("ru-RU")}
+                            Со��дано: {new Date(booking.createdAt).toLocaleDateString("ru-RU")}
                           </div>
                         </div>
                       </div>
@@ -1820,6 +1820,22 @@ function Profile() {
           setShowOrderForm(false);
           if (activeTab === "contracts" || activeTab === "dashboard") {
             loadContracts();
+          }
+        }}
+      />
+
+      <BookingForm
+        isOpen={showBookingForm}
+        onClose={() => {
+          setShowBookingForm(false);
+          if (activeTab === "bookings" || activeTab === "dashboard") {
+            loadBookings();
+          }
+        }}
+        onSuccess={() => {
+          console.log("✅ Бронь успешно создана из Profile");
+          if (activeTab === "bookings" || activeTab === "dashboard") {
+            loadBookings();
           }
         }}
       />
