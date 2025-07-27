@@ -37,7 +37,7 @@ const pricingPlans: PricingPlan[] = [
     id: "basic",
     name: "BASIC",
     price: "2.500.000",
-    description: "Красивый и фу��кциональный сайт с современным дизайном",
+    description: "Красивый и функциональный сайт с современным дизайном",
     features: [
       "Уникальный дизайн интерфейса",
       "Адаптивная верстка",
@@ -46,7 +46,7 @@ const pricingPlans: PricingPlan[] = [
       "Контактные формы",
       "Галерея изображений",
       "Социальные сети",
-      "Техническая поддержка 3 месяца",
+      "Техническая поддержка 3 м��сяца",
     ],
     highlight: false,
     icon: <Palette className="w-6 h-6" />,
@@ -112,6 +112,7 @@ const pricingPlans: PricingPlan[] = [
 function PricingSection() {
   const { addItem } = useCart();
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [showBookingForm, setShowBookingForm] = useState(false);
 
   const handleAddToCart = (plan: PricingPlan) => {
     addItem({
