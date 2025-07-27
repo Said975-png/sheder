@@ -240,8 +240,13 @@ export default function VoiceControl({
         isProcessingRef.current = false;
 
         // Проверяем, является ли ошибка связанной с автовоспроизведением
-        if (error.name === 'NotAllowedError' || error.message.includes('user didn\'t interact')) {
-          console.log("⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя");
+        if (
+          error.name === "NotAllowedError" ||
+          error.message.includes("user didn't interact")
+        ) {
+          console.log(
+            "⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя",
+          );
         } else {
           console.log(
             "⏹️ Неудача воспроизведения, нажмите кнопку для включения микрофона",

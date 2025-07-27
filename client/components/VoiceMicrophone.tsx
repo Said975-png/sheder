@@ -138,8 +138,13 @@ export default function VoiceMicrophone({
       console.error("❌ Не удалось воспроизвести аудио:", error);
 
       // Проверяем, является ли ошибка связанной с автовоспроизведением
-      if (error.name === 'NotAllowedError' || error.message.includes('user didn\'t interact')) {
-        console.log("⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя");
+      if (
+        error.name === "NotAllowedError" ||
+        error.message.includes("user didn't interact")
+      ) {
+        console.log(
+          "⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя",
+        );
       }
 
       // Возобновляем прослушивание если не удалось воспроизвести
@@ -205,8 +210,13 @@ export default function VoiceMicrophone({
       console.error("❌ Не удалось воспроизвести аудио:", error);
 
       // Проверяем, является ли ошибка связанной с автовоспроизведением
-      if (error.name === 'NotAllowedError' || error.message.includes('user didn\'t interact')) {
-        console.log("⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя");
+      if (
+        error.name === "NotAllowedError" ||
+        error.message.includes("user didn't interact")
+      ) {
+        console.log(
+          "⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя",
+        );
       }
 
       // Возобновляем прослушивание если не удалось воспроизвести
