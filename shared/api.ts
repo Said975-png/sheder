@@ -116,3 +116,60 @@ export interface CreateContractResponse {
   contractUrl?: string;
   error?: string;
 }
+
+/**
+ * Booking/Reservation API types
+ */
+export interface BookingData {
+  id: string;
+  userId: string;
+  clientName: string;
+  clientEmail: string;
+  clientPhone: string;
+  serviceType: string;
+  serviceDescription: string;
+  preferredDate: string;
+  preferredTime: string;
+  notes?: string;
+  status: "pending" | "confirmed" | "completed" | "cancelled";
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateBookingRequest {
+  serviceType: string;
+  serviceDescription: string;
+  clientName: string;
+  clientEmail: string;
+  clientPhone: string;
+  preferredDate: string;
+  preferredTime: string;
+  notes?: string;
+}
+
+export interface CreateBookingResponse {
+  success: boolean;
+  message: string;
+  bookingId?: string;
+  error?: string;
+}
+
+export interface GetBookingsResponse {
+  success: boolean;
+  bookings?: BookingData[];
+  error?: string;
+}
+
+export interface UpdateBookingRequest {
+  bookingId: string;
+  status?: BookingData["status"];
+  preferredDate?: string;
+  preferredTime?: string;
+  notes?: string;
+}
+
+export interface UpdateBookingResponse {
+  success: boolean;
+  message: string;
+  error?: string;
+}
