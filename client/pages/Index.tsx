@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import ModernNavbar from "@/components/ModernNavbar";
+import VoiceMicrophone from "@/components/VoiceMicrophone";
 
 
 import StarkHero from "@/components/StarkHero";
