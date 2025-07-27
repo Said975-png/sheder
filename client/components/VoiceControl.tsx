@@ -117,11 +117,7 @@ export default function VoiceControl({
 
         // Перезапускаем при ��шибке (кроме отказа в доступе)
         if (event.error !== "not-allowed" && event.error !== "service-not-allowed") {
-          setTimeout(() => {
-            if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
-              startListening();
-            }
-          }, 8000); // Увеличен с 5000 до 8000 (8 секунд)
+          console.log("⏹️ Ошибка микрофона, ждем ручного включения");
         }
       };
 
@@ -170,7 +166,7 @@ export default function VoiceControl({
       } catch (error) {
         console.log("ℹ️ Ошибка остановки recognition:", error);
       }
-      // Не очищаем ref здесь, это сделает onend
+      // Н�� очищаем ref здесь, это сделает onend
     }
   }, []);
 
