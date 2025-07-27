@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import ModernNavbar from "@/components/ModernNavbar";
-import VoiceMicrophone from "@/components/VoiceMicrophone";
-
+import VoiceControl from "@/components/VoiceControl";
 
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
@@ -173,7 +172,7 @@ function TypewriterCode() {
         setCurrentCharIndex(0);
         setDisplayedCode("");
         setCurrentCodeIndex((prev) => (prev + 1) % codeSnippets.length);
-      }, 3000); // Пауза 3 секунды перед следующ��м кодом
+      }, 3000); // Пауза 3 секунды перед следующ��м к���дом
     }
 
     return () => {
@@ -284,10 +283,6 @@ export default function Index() {
     navigate("/order");
   }, [navigate]);
 
-
-
-
-
   const handleModelRotateStart = React.useCallback(() => {
     console.log("🔄 Запуск вращения модели");
     setIsModelRotating(true);
@@ -336,14 +331,10 @@ export default function Index() {
       {/* Jarvis Demo Section */}
       <JarvisDemo />
 
-      {/* Voice Microphone */}
-      <VoiceMicrophone
+      {/* Voice Control с автоматическим циклом */}
+      <VoiceControl
         onCommand={(command) => {
           console.log("🎤 Команда получена:", command);
-          // Здесь можно добавить обработку команд
-        }}
-        onTranscript={(text) => {
-          console.log("📝 Транскрипт:", text);
         }}
         floating={true}
         size="lg"
