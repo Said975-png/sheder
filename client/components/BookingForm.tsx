@@ -64,7 +64,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
     { value: "custom", label: "Индивидуальный проект" },
   ];
 
-  // В��рианты времени
+  // Варианты времени
   const timeSlots = [
     "09:00", "10:00", "11:00", "12:00", "13:00", 
     "14:00", "15:00", "16:00", "17:00", "18:00"
@@ -331,7 +331,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
             </div>
           </div>
 
-          {/* Дата и время */}
+          {/* Дата и вре��я */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="preferredDate" className="text-gray-900 font-medium">
@@ -360,13 +360,13 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
                 value={formData.preferredTime}
                 onValueChange={(value) => handleSelectChange("preferredTime", value)}
               >
-                <SelectTrigger>
-                  <Clock className="w-4 h-4 mr-2" />
-                  <SelectValue placeholder="Выберите время" />
+                <SelectTrigger className="bg-white text-gray-900 border-gray-300">
+                  <Clock className="w-4 h-4 mr-2 text-gray-500" />
+                  <SelectValue placeholder="Выберите время" className="text-gray-900" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white border-gray-300">
                   {timeSlots.map((time) => (
-                    <SelectItem key={time} value={time}>
+                    <SelectItem key={time} value={time} className="text-gray-900 hover:bg-gray-100">
                       {time}
                     </SelectItem>
                   ))}
