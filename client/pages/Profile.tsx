@@ -1534,11 +1534,15 @@ function Profile() {
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
                             <h5 className="text-lg font-medium text-gray-900">
-                              {booking.serviceType === "basic" ? "BASIC пакет" :
-                               booking.serviceType === "pro" ? "PRO пакет" :
-                               booking.serviceType === "max" ? "MAX пакет" :
-                               booking.serviceType === "consultation" ? "Консультация" :
-                               "Индивидуальн��й проект"}
+                              {booking.serviceType === "basic"
+                                ? "BASIC пакет"
+                                : booking.serviceType === "pro"
+                                  ? "PRO пакет"
+                                  : booking.serviceType === "max"
+                                    ? "MAX пакет"
+                                    : booking.serviceType === "consultation"
+                                      ? "Консультация"
+                                      : "Индивидуальн��й проект"}
                             </h5>
                             <Badge
                               variant="outline"
@@ -1582,7 +1586,9 @@ function Profile() {
                             <div className="flex items-center gap-1">
                               <Calendar className="w-4 h-4" />
                               <span>
-                                {new Date(booking.preferredDate).toLocaleDateString("ru-RU")}
+                                {new Date(
+                                  booking.preferredDate,
+                                ).toLocaleDateString("ru-RU")}
                               </span>
                             </div>
                             <div className="flex items-center gap-1">
@@ -1592,7 +1598,10 @@ function Profile() {
                             <span>№ {booking.id}</span>
                           </div>
                           <div className="text-xs text-gray-400">
-                            Создано: {new Date(booking.createdAt).toLocaleDateString("ru-RU")}
+                            Создано:{" "}
+                            {new Date(booking.createdAt).toLocaleDateString(
+                              "ru-RU",
+                            )}
                           </div>
                         </div>
                       </div>

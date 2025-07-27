@@ -40,8 +40,6 @@ export function createServer() {
   // Orders route
   app.post("/api/orders", handleSendOrder);
 
-
-
   // Groq chat route
   app.post("/api/groq-chat", handleGroqChat);
 

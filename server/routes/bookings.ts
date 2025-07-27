@@ -1,11 +1,11 @@
 import { RequestHandler } from "express";
-import { 
-  BookingData, 
-  CreateBookingRequest, 
+import {
+  BookingData,
+  CreateBookingRequest,
   CreateBookingResponse,
   GetBookingsResponse,
   UpdateBookingRequest,
-  UpdateBookingResponse
+  UpdateBookingResponse,
 } from "@shared/api";
 import * as fs from "fs";
 import * as path from "path";
@@ -55,8 +55,14 @@ export const createBooking: RequestHandler = async (req, res) => {
     const bookingData: CreateBookingRequest = req.body;
 
     // Валидация данных
-    if (!bookingData.serviceType || !bookingData.clientName || !bookingData.clientEmail || 
-        !bookingData.clientPhone || !bookingData.preferredDate || !bookingData.preferredTime) {
+    if (
+      !bookingData.serviceType ||
+      !bookingData.clientName ||
+      !bookingData.clientEmail ||
+      !bookingData.clientPhone ||
+      !bookingData.preferredDate ||
+      !bookingData.preferredTime
+    ) {
       const response: CreateBookingResponse = {
         success: false,
         error: "Заполните все обя��ательные поля",
@@ -88,7 +94,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     const preferredDate = new Date(bookingData.preferredDate);
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     if (preferredDate < today) {
       const response: CreateBookingResponse = {
         success: false,
@@ -156,12 +162,19 @@ export const getUserBookings: RequestHandler = async (req, res) => {
     }
 
     const allBookings = loadBookings();
-    const userBookings = allBookings.filter(booking => booking.userId === userId);
+    const userBookings = allBookings.filter(
+      (booking) => booking.userId === userId,
+    );
 
     // Сортируем по дате создания (новые сначала)
-    userBookings.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    userBookings.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
 
-    console.log(`📋 Найдено ${userBookings.length} броней для пользователя ${userId}`);
+    console.log(
+      `📋 Найдено ${userBookings.length} броней для пользователя ${userId}`,
+    );
 
     const response: GetBookingsResponse = {
       success: true,
@@ -183,11 +196,14 @@ export const getUserBookings: RequestHandler = async (req, res) => {
 export const getAllBookings: RequestHandler = async (req, res) => {
   try {
     console.log("🔐 Получен запрос на получение всех броней (админ)");
-    
+
     const allBookings = loadBookings();
-    
+
     // Сортируем по дате создания (новые сначала)
-    allBookings.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    allBookings.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
 
     console.log(`📋 Найдено ${allBookings.length} броней всего`);
 
@@ -223,7 +239,9 @@ export const updateBooking: RequestHandler = async (req, res) => {
     }
 
     const bookings = loadBookings();
-    const bookingIndex = bookings.findIndex(booking => booking.id === bookingId);
+    const bookingIndex = bookings.findIndex(
+      (booking) => booking.id === bookingId,
+    );
 
     if (bookingIndex === -1) {
       const response: UpdateBookingResponse = {
@@ -236,8 +254,10 @@ export const updateBooking: RequestHandler = async (req, res) => {
     // Обновляем бронь
     const booking = bookings[bookingIndex];
     if (updateData.status) booking.status = updateData.status;
-    if (updateData.preferredDate) booking.preferredDate = updateData.preferredDate;
-    if (updateData.preferredTime) booking.preferredTime = updateData.preferredTime;
+    if (updateData.preferredDate)
+      booking.preferredDate = updateData.preferredDate;
+    if (updateData.preferredTime)
+      booking.preferredTime = updateData.preferredTime;
     if (updateData.notes !== undefined) booking.notes = updateData.notes;
     booking.updatedAt = new Date().toISOString();
 
@@ -278,7 +298,9 @@ export const deleteBooking: RequestHandler = async (req, res) => {
     }
 
     const bookings = loadBookings();
-    const bookingIndex = bookings.findIndex(booking => booking.id === bookingId);
+    const bookingIndex = bookings.findIndex(
+      (booking) => booking.id === bookingId,
+    );
 
     if (bookingIndex === -1) {
       const response: UpdateBookingResponse = {

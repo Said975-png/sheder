@@ -38,7 +38,11 @@ interface BookingFormProps {
   onSuccess?: () => void;
 }
 
-export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormProps) {
+export default function BookingForm({
+  isOpen,
+  onClose,
+  onSuccess,
+}: BookingFormProps) {
   const { currentUser } = useAuth();
   const [formData, setFormData] = useState({
     serviceType: "",
@@ -66,12 +70,20 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
 
   // Варианты времени
   const timeSlots = [
-    "09:00", "10:00", "11:00", "12:00", "13:00", 
-    "14:00", "15:00", "16:00", "17:00", "18:00"
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00",
+    "18:00",
   ];
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -94,8 +106,14 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
 
     try {
       // Валидация на клиенте
-      if (!formData.serviceType || !formData.clientName || !formData.clientEmail ||
-          !formData.clientPhone || !formData.preferredDate || !formData.preferredTime) {
+      if (
+        !formData.serviceType ||
+        !formData.clientName ||
+        !formData.clientEmail ||
+        !formData.clientPhone ||
+        !formData.preferredDate ||
+        !formData.preferredTime
+      ) {
         setError("Пожалуйста, заполните все обязательные поля");
         setLoading(false);
         return;
@@ -132,7 +150,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
       if (data.success) {
         setSuccess(true);
         console.log("✅ Бронь успешно создана:", data.bookingId);
-        
+
         // Сбрасываем форму после успешного создания
         setTimeout(() => {
           setFormData({
@@ -184,7 +202,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
   const getMinDate = () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split('T')[0];
+    return tomorrow.toISOString().split("T")[0];
   };
 
   if (success) {
@@ -239,15 +257,24 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
             </Label>
             <Select
               value={formData.serviceType}
-              onValueChange={(value) => handleSelectChange("serviceType", value)}
+              onValueChange={(value) =>
+                handleSelectChange("serviceType", value)
+              }
             >
               <SelectTrigger className="bg-white text-gray-900 border-gray-300">
                 <Package className="w-4 h-4 mr-2 text-gray-500" />
-                <SelectValue placeholder="Выберите тип услуги" className="text-gray-900" />
+                <SelectValue
+                  placeholder="Выберите тип услуги"
+                  className="text-gray-900"
+                />
               </SelectTrigger>
               <SelectContent className="bg-white border-gray-300">
                 {serviceTypes.map((service) => (
-                  <SelectItem key={service.value} value={service.value} className="text-gray-900 hover:bg-gray-100">
+                  <SelectItem
+                    key={service.value}
+                    value={service.value}
+                    className="text-gray-900 hover:bg-gray-100"
+                  >
                     {service.label}
                   </SelectItem>
                 ))}
@@ -257,7 +284,10 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
 
           {/* Описание проекта */}
           <div className="space-y-2">
-            <Label htmlFor="serviceDescription" className="text-gray-900 font-medium">
+            <Label
+              htmlFor="serviceDescription"
+              className="text-gray-900 font-medium"
+            >
               Описание проекта <span className="text-red-500">*</span>
             </Label>
             <Textarea
@@ -293,7 +323,10 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="clientPhone" className="text-gray-900 font-medium">
+              <Label
+                htmlFor="clientPhone"
+                className="text-gray-900 font-medium"
+              >
                 Телефон <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
@@ -334,7 +367,10 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
           {/* Дата и время */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="preferredDate" className="text-gray-900 font-medium">
+              <Label
+                htmlFor="preferredDate"
+                className="text-gray-900 font-medium"
+              >
                 Предпочитаемая дата <span className="text-red-500">*</span>
               </Label>
               <div className="relative">
@@ -353,20 +389,32 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="preferredTime" className="text-gray-900 font-medium">
+              <Label
+                htmlFor="preferredTime"
+                className="text-gray-900 font-medium"
+              >
                 Предпочитаемое время <span className="text-red-500">*</span>
               </Label>
               <Select
                 value={formData.preferredTime}
-                onValueChange={(value) => handleSelectChange("preferredTime", value)}
+                onValueChange={(value) =>
+                  handleSelectChange("preferredTime", value)
+                }
               >
                 <SelectTrigger className="bg-white text-gray-900 border-gray-300">
                   <Clock className="w-4 h-4 mr-2 text-gray-500" />
-                  <SelectValue placeholder="Выберите время" className="text-gray-900" />
+                  <SelectValue
+                    placeholder="Выберите время"
+                    className="text-gray-900"
+                  />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-gray-300">
                   {timeSlots.map((time) => (
-                    <SelectItem key={time} value={time} className="text-gray-900 hover:bg-gray-100">
+                    <SelectItem
+                      key={time}
+                      value={time}
+                      className="text-gray-900 hover:bg-gray-100"
+                    >
                       {time}
                     </SelectItem>
                   ))}
@@ -377,7 +425,9 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
 
           {/* Дополнительные заметки */}
           <div className="space-y-2">
-            <Label htmlFor="notes" className="text-gray-900 font-medium">Дополнительные заметки</Label>
+            <Label htmlFor="notes" className="text-gray-900 font-medium">
+              Дополнительные заметки
+            </Label>
             <div className="relative">
               <FileText className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
               <Textarea

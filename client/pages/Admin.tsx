@@ -34,7 +34,11 @@ import {
   Eye,
   RefreshCw,
 } from "lucide-react";
-import { BookingData, GetBookingsResponse, UpdateBookingRequest } from "@shared/api";
+import {
+  BookingData,
+  GetBookingsResponse,
+  UpdateBookingRequest,
+} from "@shared/api";
 import { Input } from "@/components/ui/input";
 
 interface AdminStats {
@@ -67,7 +71,7 @@ export default function Admin() {
   const loadAllBookings = async () => {
     setLoading(true);
     setError("");
-    
+
     try {
       const response = await fetch("/api/bookings/all", {
         headers: {
@@ -99,16 +103,23 @@ export default function Admin() {
   const updateStats = (bookingsList: BookingData[]) => {
     const stats: AdminStats = {
       totalBookings: bookingsList.length,
-      pendingBookings: bookingsList.filter(b => b.status === "pending").length,
-      confirmedBookings: bookingsList.filter(b => b.status === "confirmed").length,
-      completedBookings: bookingsList.filter(b => b.status === "completed").length,
-      cancelledBookings: bookingsList.filter(b => b.status === "cancelled").length,
+      pendingBookings: bookingsList.filter((b) => b.status === "pending")
+        .length,
+      confirmedBookings: bookingsList.filter((b) => b.status === "confirmed")
+        .length,
+      completedBookings: bookingsList.filter((b) => b.status === "completed")
+        .length,
+      cancelledBookings: bookingsList.filter((b) => b.status === "cancelled")
+        .length,
     };
     setStats(stats);
   };
 
   // Обновление статуса брони
-  const updateBookingStatus = async (bookingId: string, status: BookingData["status"]) => {
+  const updateBookingStatus = async (
+    bookingId: string,
+    status: BookingData["status"],
+  ) => {
     try {
       const updateData: UpdateBookingRequest = {
         bookingId,
@@ -148,22 +159,29 @@ export default function Admin() {
 
     // Фильтр по поиску
     if (searchTerm) {
-      filtered = filtered.filter(booking =>
-        booking.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        booking.clientEmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        booking.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        booking.serviceDescription.toLowerCase().includes(searchTerm.toLowerCase())
+      filtered = filtered.filter(
+        (booking) =>
+          booking.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          booking.clientEmail
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          booking.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          booking.serviceDescription
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()),
       );
     }
 
     // Фильтр по статусу
     if (statusFilter !== "all") {
-      filtered = filtered.filter(booking => booking.status === statusFilter);
+      filtered = filtered.filter((booking) => booking.status === statusFilter);
     }
 
     // ��ильтр по типу услуги
     if (serviceFilter !== "all") {
-      filtered = filtered.filter(booking => booking.serviceType === serviceFilter);
+      filtered = filtered.filter(
+        (booking) => booking.serviceType === serviceFilter,
+      );
     }
 
     setFilteredBookings(filtered);
@@ -283,13 +301,23 @@ export default function Admin() {
           </div>
         )}
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="space-y-6"
+        >
           <TabsList className="grid w-full grid-cols-2 lg:w-auto lg:grid-cols-none lg:inline-flex">
-            <TabsTrigger value="overview" className="flex items-center space-x-2">
+            <TabsTrigger
+              value="overview"
+              className="flex items-center space-x-2"
+            >
               <Activity className="w-4 h-4" />
               <span>Обзор</span>
             </TabsTrigger>
-            <TabsTrigger value="bookings" className="flex items-center space-x-2">
+            <TabsTrigger
+              value="bookings"
+              className="flex items-center space-x-2"
+            >
               <Calendar className="w-4 h-4" />
               <span>Все брони</span>
             </TabsTrigger>
@@ -303,8 +331,12 @@ export default function Admin() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Всего броней</p>
-                      <p className="text-3xl font-bold text-gray-900">{stats.totalBookings}</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        Всего броней
+                      </p>
+                      <p className="text-3xl font-bold text-gray-900">
+                        {stats.totalBookings}
+                      </p>
                     </div>
                     <Users className="w-8 h-8 text-blue-600" />
                   </div>
@@ -315,8 +347,12 @@ export default function Admin() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Ожидают</p>
-                      <p className="text-3xl font-bold text-yellow-600">{stats.pendingBookings}</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        Ожидают
+                      </p>
+                      <p className="text-3xl font-bold text-yellow-600">
+                        {stats.pendingBookings}
+                      </p>
                     </div>
                     <Clock className="w-8 h-8 text-yellow-600" />
                   </div>
@@ -327,8 +363,12 @@ export default function Admin() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Подтверждены</p>
-                      <p className="text-3xl font-bold text-green-600">{stats.confirmedBookings}</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        Подтверждены
+                      </p>
+                      <p className="text-3xl font-bold text-green-600">
+                        {stats.confirmedBookings}
+                      </p>
                     </div>
                     <CheckCircle2 className="w-8 h-8 text-green-600" />
                   </div>
@@ -339,8 +379,12 @@ export default function Admin() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Завершены</p>
-                      <p className="text-3xl font-bold text-blue-600">{stats.completedBookings}</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        Завершены
+                      </p>
+                      <p className="text-3xl font-bold text-blue-600">
+                        {stats.completedBookings}
+                      </p>
                     </div>
                     <CheckCircle className="w-8 h-8 text-blue-600" />
                   </div>
@@ -351,8 +395,12 @@ export default function Admin() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Отменены</p>
-                      <p className="text-3xl font-bold text-red-600">{stats.cancelledBookings}</p>
+                      <p className="text-sm font-medium text-gray-600">
+                        Отменены
+                      </p>
+                      <p className="text-3xl font-bold text-red-600">
+                        {stats.cancelledBookings}
+                      </p>
                     </div>
                     <XCircle className="w-8 h-8 text-red-600" />
                   </div>
@@ -391,17 +439,28 @@ export default function Admin() {
                 ) : (
                   <div className="space-y-4">
                     {bookings.slice(0, 5).map((booking) => (
-                      <div key={booking.id} className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 bg-white">
+                      <div
+                        key={booking.id}
+                        className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 bg-white"
+                      >
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
-                            <h5 className="font-medium text-gray-900">{getServiceName(booking.serviceType)}</h5>
-                            <Badge variant="outline" className={getStatusColor(booking.status)}>
+                            <h5 className="font-medium text-gray-900">
+                              {getServiceName(booking.serviceType)}
+                            </h5>
+                            <Badge
+                              variant="outline"
+                              className={getStatusColor(booking.status)}
+                            >
                               {getStatusName(booking.status)}
                             </Badge>
                           </div>
-                          <p className="text-sm text-gray-600 mb-1">{booking.clientName} • {booking.clientEmail}</p>
+                          <p className="text-sm text-gray-600 mb-1">
+                            {booking.clientName} • {booking.clientEmail}
+                          </p>
                           <p className="text-xs text-gray-500">
-                            {formatDate(booking.preferredDate)} в {booking.preferredTime}
+                            {formatDate(booking.preferredDate)} в{" "}
+                            {booking.preferredTime}
                           </p>
                         </div>
                       </div>
@@ -429,7 +488,7 @@ export default function Admin() {
                       />
                     </div>
                   </div>
-                  
+
                   <Select value={statusFilter} onValueChange={setStatusFilter}>
                     <SelectTrigger className="w-full lg:w-48">
                       <SelectValue placeholder="Статус" />
@@ -443,7 +502,10 @@ export default function Admin() {
                     </SelectContent>
                   </Select>
 
-                  <Select value={serviceFilter} onValueChange={setServiceFilter}>
+                  <Select
+                    value={serviceFilter}
+                    onValueChange={setServiceFilter}
+                  >
                     <SelectTrigger className="w-full lg:w-48">
                       <SelectValue placeholder="Тип услуги" />
                     </SelectTrigger>
@@ -463,7 +525,9 @@ export default function Admin() {
                     size="default"
                     disabled={loading}
                   >
-                    <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+                    <RefreshCw
+                      className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`}
+                    />
                     Обновить
                   </Button>
                 </div>
@@ -486,17 +550,21 @@ export default function Admin() {
                     Брони не найдены
                   </h5>
                   <p className="text-gray-600">
-                    {searchTerm || statusFilter !== "all" || serviceFilter !== "all" 
+                    {searchTerm ||
+                    statusFilter !== "all" ||
+                    serviceFilter !== "all"
                       ? "Попробуйте изменить фильтры поиска"
-                      : "Пока не было создано ни одной брони"
-                    }
+                      : "Пока не было создано ни одной брони"}
                   </p>
                 </CardContent>
               </Card>
             ) : (
               <div className="grid grid-cols-1 gap-4">
                 {filteredBookings.map((booking) => (
-                  <Card key={booking.id} className="hover:shadow-md transition-shadow bg-white border-gray-200">
+                  <Card
+                    key={booking.id}
+                    className="hover:shadow-md transition-shadow bg-white border-gray-200"
+                  >
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -504,18 +572,31 @@ export default function Admin() {
                             <h5 className="text-lg font-medium text-gray-900">
                               {getServiceName(booking.serviceType)}
                             </h5>
-                            <Badge variant="outline" className={getStatusColor(booking.status)}>
-                              {booking.status === "confirmed" && <CheckCircle2 className="w-3 h-3 mr-1" />}
-                              {booking.status === "pending" && <Clock className="w-3 h-3 mr-1" />}
-                              {booking.status === "completed" && <CheckCircle className="w-3 h-3 mr-1" />}
-                              {booking.status === "cancelled" && <XCircle className="w-3 h-3 mr-1" />}
+                            <Badge
+                              variant="outline"
+                              className={getStatusColor(booking.status)}
+                            >
+                              {booking.status === "confirmed" && (
+                                <CheckCircle2 className="w-3 h-3 mr-1" />
+                              )}
+                              {booking.status === "pending" && (
+                                <Clock className="w-3 h-3 mr-1" />
+                              )}
+                              {booking.status === "completed" && (
+                                <CheckCircle className="w-3 h-3 mr-1" />
+                              )}
+                              {booking.status === "cancelled" && (
+                                <XCircle className="w-3 h-3 mr-1" />
+                              )}
                               {getStatusName(booking.status)}
                             </Badge>
                           </div>
-                          
+
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
-                              <h6 className="font-medium text-gray-900 mb-2">Контактная информация</h6>
+                              <h6 className="font-medium text-gray-900 mb-2">
+                                Контактная информация
+                              </h6>
                               <div className="space-y-1 text-sm text-gray-700">
                                 <div className="flex items-center gap-2">
                                   <User className="w-4 h-4 text-gray-500" />
@@ -533,11 +614,15 @@ export default function Admin() {
                             </div>
 
                             <div>
-                              <h6 className="font-medium text-gray-900 mb-2">Детали встречи</h6>
+                              <h6 className="font-medium text-gray-900 mb-2">
+                                Детали встречи
+                              </h6>
                               <div className="space-y-1 text-sm text-gray-700">
                                 <div className="flex items-center gap-2">
                                   <Calendar className="w-4 h-4 text-gray-500" />
-                                  <span>{formatDate(booking.preferredDate)}</span>
+                                  <span>
+                                    {formatDate(booking.preferredDate)}
+                                  </span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                   <Clock className="w-4 h-4 text-gray-500" />
@@ -552,26 +637,40 @@ export default function Admin() {
                           </div>
 
                           <div className="mb-4">
-                            <h6 className="font-medium text-gray-900 mb-2">Описание проекта</h6>
-                            <p className="text-sm text-gray-700">{booking.serviceDescription}</p>
+                            <h6 className="font-medium text-gray-900 mb-2">
+                              Описание проекта
+                            </h6>
+                            <p className="text-sm text-gray-700">
+                              {booking.serviceDescription}
+                            </p>
                             {booking.notes && (
                               <>
-                                <h6 className="font-medium text-gray-900 mb-1 mt-3">Дополнительные заметки</h6>
-                                <p className="text-sm text-gray-700">{booking.notes}</p>
+                                <h6 className="font-medium text-gray-900 mb-1 mt-3">
+                                  Дополнительные заметки
+                                </h6>
+                                <p className="text-sm text-gray-700">
+                                  {booking.notes}
+                                </p>
                               </>
                             )}
                           </div>
 
                           <div className="text-xs text-gray-500">
-                            Создано: {new Date(booking.createdAt).toLocaleString("ru-RU")} •
-                            Обновлено: {new Date(booking.updatedAt).toLocaleString("ru-RU")}
+                            Создано:{" "}
+                            {new Date(booking.createdAt).toLocaleString(
+                              "ru-RU",
+                            )}{" "}
+                            • Обновлено:{" "}
+                            {new Date(booking.updatedAt).toLocaleString(
+                              "ru-RU",
+                            )}
                           </div>
                         </div>
 
                         <div className="flex flex-col gap-2 ml-6">
                           <Select
                             value={booking.status}
-                            onValueChange={(value: BookingData["status"]) => 
+                            onValueChange={(value: BookingData["status"]) =>
                               updateBookingStatus(booking.id, value)
                             }
                           >
@@ -580,9 +679,15 @@ export default function Admin() {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectItem value="pending">Ожидает</SelectItem>
-                              <SelectItem value="confirmed">Подтвердить</SelectItem>
-                              <SelectItem value="completed">Завершить</SelectItem>
-                              <SelectItem value="cancelled">Отменить</SelectItem>
+                              <SelectItem value="confirmed">
+                                Подтвердить
+                              </SelectItem>
+                              <SelectItem value="completed">
+                                Завершить
+                              </SelectItem>
+                              <SelectItem value="cancelled">
+                                Отменить
+                              </SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
