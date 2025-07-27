@@ -41,7 +41,7 @@ export default function VoiceControl({
       isPlayingAudio ||
       isProcessingRef.current
     ) {
-      console.log("🚫 Не могу запустить мик��офон:", {
+      console.log("🚫 Не могу запустить микрофон:", {
         isSupported,
         isListening,
         isPlayingAudio,
@@ -239,13 +239,13 @@ export default function VoiceControl({
         audioRef.current = null;
         isProcessingRef.current = false;
 
-        // Проверяем, является ли ошибка связанной с автовоспроизв��дением
+        // Проверяем, является ли ошибка связанной с автовоспроизведением
         if (
           error.name === "NotAllowedError" ||
           error.message.includes("user didn't interact")
         ) {
           console.log(
-            "⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя",
+            "⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользовател��",
           );
         } else {
           console.log(
@@ -358,6 +358,41 @@ export default function VoiceControl({
         return;
       }
 
+      // Команда "покажи наши преимущества"
+      if (
+        lowerCommand.includes("покажи наши преимущества") ||
+        lowerCommand.includes("наши преимущества") ||
+        lowerCommand.includes("преимущества")
+      ) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F6fb621bfa5f6417391fbb189af735e4c?alt=media&token=2271b582-0acf-4930-9fe6-41004818b406&apiKey=3eff37bfce48420f81bfea727d0802d9",
+          () => {
+            // Прокручиваем к секции преимуществ после аудио
+            const advantagesSection = document.querySelector('[data-section="advantages"]');
+            if (advantagesSection) {
+              advantagesSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            } else {
+              // Если нет data-атрибута, ищем по тексту
+              const advantagesElement = Array.from(document.querySelectorAll('h2')).find(el =>
+                el.textContent?.includes('НАШИ ПРЕИМУЩЕСТВА') ||
+                el.textContent?.includes('ПРЕИМУЩЕСТВА') ||
+                el.textContent?.includes('преимущества')
+              );
+              if (advantagesElement) {
+                advantagesElement.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }
+            }
+          }
+        );
+        return;
+      }
+
       // Отправк�� в чат для обработки ИИ
       if (lowerCommand.includes("пятница")) {
         // Здесь можно отправить команду в чат с Пятницей
@@ -379,7 +414,7 @@ export default function VoiceControl({
   );
 
   // Отключен автоматический запуск для предотвращения ошибок autoplay
-  // Пользователь должен сам включить микрофон первым кликом
+  // Пользователь до��жен сам включить микрофон первым кликом
   // useEffect(() => {
   //   if (isSupported) {
   //     const timer = setTimeout(() => {
