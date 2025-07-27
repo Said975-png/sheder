@@ -39,7 +39,7 @@ export const useVoiceRecognition = ({
     }
   }, []);
 
-  // Инициализация ��аспознавания речи
+  // Инициализация распознавания речи
   const initializeRecognition = useCallback(() => {
     if (!isSupported) return null;
 
@@ -143,10 +143,26 @@ export const useVoiceRecognition = ({
         console.error("🚫 Доступ к микрофону запрещен");
         setIsListening(false);
         isProcessingRef.current = false;
+        restartAttemptsRef.current = 0;
         return;
       }
 
-      // Для других ошибок продолжаем работу
+      // Обработка сетевых ошибок (частые на мобильных)
+      if (event.error === "network" || event.error === "service-not-allowed") {
+        console.log("🌐 Сетевая ошибка, попробуем перезапустить");
+        restartAttemptsRef.current++;
+
+        // Ограничиваем количество попыток перезапуска
+        if (restartAttemptsRef.current > 3) {
+          console.log("🛑 Слишком много попыток перезапуска, останавливаем");
+          setIsListening(false);
+          isProcessingRef.current = false;
+          restartAttemptsRef.current = 0;
+          return;
+        }
+      }
+
+      // Для других ошибо�� продолжаем работу
       isProcessingRef.current = false;
     };
 
@@ -176,10 +192,10 @@ export const useVoiceRecognition = ({
     return recognition;
   }, [isSupported, lang, onTranscript, onCommand, isListening]);
 
-  // Запус�� прослушивания
+  // Запуск прослушивания
   const startListening = useCallback(() => {
     if (!isSupported) {
-      console.warn("Распознавание речи не поддерживается");
+      console.warn("Рас��ознавание речи не поддерживается");
       return;
     }
 
