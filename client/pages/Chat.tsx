@@ -33,7 +33,8 @@ export default function Chat() {
     // Приветственное сообщение от ИИ
     const welcomeMessage: ChatMessage = {
       role: "assistant",
-      content: "Привет! Я Пятница, ваш ИИ-помощник по веб-разработке. Могу консультировать по нашим тарифам, помочь выбрать подходящий пакет услуг или ответить на вопросы о наших технологиях. Чем могу помочь?",
+      content:
+        "Привет! Я Пятница, ваш ИИ-помощник по веб-разработке. Могу консультировать по нашим тарифам, помочь выбрать подходящий пакет услуг или ответить на вопросы о наших технологиях. Чем могу помочь?",
       timestamp: Date.now(),
     };
     setMessages([welcomeMessage]);
@@ -48,7 +49,7 @@ export default function Chat() {
       timestamp: Date.now(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInputMessage("");
     setIsLoading(true);
 
@@ -73,14 +74,14 @@ export default function Chat() {
           content: data.message,
           timestamp: Date.now(),
         };
-        setMessages(prev => [...prev, assistantMessage]);
+        setMessages((prev) => [...prev, assistantMessage]);
       } else {
         const errorMessage: ChatMessage = {
           role: "assistant",
           content: data.error || "Произошла ошибка при получении ответа",
           timestamp: Date.now(),
         };
-        setMessages(prev => [...prev, errorMessage]);
+        setMessages((prev) => [...prev, errorMessage]);
       }
     } catch (error) {
       console.error("Ошибка отправки сообщения:", error);
@@ -89,7 +90,7 @@ export default function Chat() {
         content: "Извините, произошла ошибка сети. Попробуйте еще раз.",
         timestamp: Date.now(),
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
       inputRef.current?.focus();
@@ -118,7 +119,11 @@ export default function Chat() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Link to="/">
-                <Button variant="ghost" size="sm" className="text-white hover:text-white hover:bg-white/10">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-white hover:text-white hover:bg-white/10"
+                >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   На главную
                 </Button>
@@ -129,7 +134,9 @@ export default function Chat() {
                 </div>
                 <div>
                   <h1 className="text-xl font-bold">Чат с Пятницей</h1>
-                  <p className="text-sm text-white/60">ИИ-консультант по веб-разработке</p>
+                  <p className="text-sm text-white/60">
+                    ИИ-консультант по веб-разработке
+                  </p>
                 </div>
               </div>
             </div>
@@ -152,7 +159,7 @@ export default function Chat() {
                   key={index}
                   className={cn(
                     "flex items-start space-x-3 animate-fadeIn",
-                    message.role === "user" ? "justify-end" : "justify-start"
+                    message.role === "user" ? "justify-end" : "justify-start",
                   )}
                 >
                   {message.role === "assistant" && (
@@ -166,16 +173,20 @@ export default function Chat() {
                       "max-w-xs sm:max-w-md lg:max-w-2xl px-4 py-3 rounded-2xl relative",
                       message.role === "user"
                         ? "bg-white text-black ml-auto"
-                        : "bg-white/10 border border-white/20 text-white"
+                        : "bg-white/10 border border-white/20 text-white",
                     )}
                   >
                     <p className="text-sm leading-relaxed whitespace-pre-wrap">
                       {message.content}
                     </p>
-                    <div className={cn(
-                      "text-xs mt-2 opacity-70",
-                      message.role === "user" ? "text-black/60" : "text-white/60"
-                    )}>
+                    <div
+                      className={cn(
+                        "text-xs mt-2 opacity-70",
+                        message.role === "user"
+                          ? "text-black/60"
+                          : "text-white/60",
+                      )}
+                    >
                       {formatTime(message.timestamp)}
                     </div>
                   </div>
@@ -236,7 +247,8 @@ export default function Chat() {
               </Button>
             </div>
             <div className="mt-3 text-xs text-white/40 text-center">
-              Нажмите Enter для отправки • ИИ может ошибаться, проверяйте важную информацию
+              Нажмите Enter для отправки • ИИ может ошибаться, проверяйте важную
+              информацию
             </div>
           </div>
         </div>

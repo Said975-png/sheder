@@ -16,8 +16,6 @@ import Chat from "./pages/Chat";
 
 import NotFound from "./pages/NotFound";
 
-
-
 const queryClient = new QueryClient();
 
 const App = () => (
