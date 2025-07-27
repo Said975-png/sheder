@@ -553,17 +553,17 @@ export default function Admin() {
 
                           <div className="mb-4">
                             <h6 className="font-medium text-gray-900 mb-2">Описание проекта</h6>
-                            <p className="text-sm text-gray-600">{booking.serviceDescription}</p>
+                            <p className="text-sm text-gray-700">{booking.serviceDescription}</p>
                             {booking.notes && (
                               <>
                                 <h6 className="font-medium text-gray-900 mb-1 mt-3">Дополнительные заметки</h6>
-                                <p className="text-sm text-gray-600">{booking.notes}</p>
+                                <p className="text-sm text-gray-700">{booking.notes}</p>
                               </>
                             )}
                           </div>
 
-                          <div className="text-xs text-gray-400">
-                            Создано: {new Date(booking.createdAt).toLocaleString("ru-RU")} • 
+                          <div className="text-xs text-gray-500">
+                            Создано: {new Date(booking.createdAt).toLocaleString("ru-RU")} •
                             Обновлено: {new Date(booking.updatedAt).toLocaleString("ru-RU")}
                           </div>
                         </div>
