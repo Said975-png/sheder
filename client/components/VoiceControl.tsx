@@ -54,7 +54,7 @@ export default function VoiceControl({
           return;
         } catch (error) {
           // Если ошибка - очищаем и создаем новый
-          console.log("🔄 Очищаем стары�� recognition из-за ошибки");
+          console.log("🔄 Очищаем старый recognition из-за ошибки");
           recognitionRef.current = null;
         }
       }
@@ -92,7 +92,7 @@ export default function VoiceControl({
         const currentTranscript = (finalTranscript + interimTranscript).trim();
         setTranscript(currentTranscript);
 
-        // О��рабатываем финальную команду
+        // Обрабатываем финальную команду
         if (finalTranscript.trim() && !isProcessingRef.current) {
           isProcessingRef.current = true;
           const command = finalTranscript.trim();
@@ -167,15 +167,18 @@ export default function VoiceControl({
 
   // Остановка прослушивания
   const stopListening = useCallback(() => {
+    console.log("🛑 Останавливаем прослушивание");
     setIsListening(false);
     setTranscript("");
 
     if (recognitionRef.current) {
       try {
         recognitionRef.current.stop();
+        console.log("✅ Recognition остановлен");
       } catch (error) {
-        console.log("ℹ️ Ошибка остановки:", error);
+        console.log("ℹ️ Ошибка остановки recognition:", error);
       }
+      // Не очищаем ref здесь, это сделает onend
     }
   }, []);
 
@@ -220,7 +223,7 @@ export default function VoiceControl({
       setTimeout(() => {
         if (!isListening && !isPlayingAudio) {
           startListening();
-          console.log("✅ Микрофон автоматически включен после ответа");
+          console.log("✅ Микрофон автома��ически включен после ответа");
         }
       }, 300);
     };
