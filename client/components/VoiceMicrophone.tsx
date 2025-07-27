@@ -30,7 +30,7 @@ export default function VoiceMicrophone({
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Определяем мобильное уст��ойство при монтировании
+  // Определяем мобильное устройство при монтировании
   useEffect(() => {
     setIsMobileDevice(isMobile());
   }, []);
@@ -91,7 +91,7 @@ export default function VoiceMicrophone({
     const previousModelUrl =
       modelHistoryRef.current[modelHistoryRef.current.length - 1];
 
-    console.log("↩️ Возвра��аемся к предыдущей модели:", previousModelUrl);
+    console.log("↩️ Возвращаемся к предыдущей модели:", previousModelUrl);
     console.log("📝 История моделей после возврат��:", modelHistoryRef.current);
 
     const event = new CustomEvent("changeModel", {
@@ -121,7 +121,7 @@ export default function VoiceMicrophone({
 
     setIsPlayingAudio(true);
     console.log(
-      "🔊 Начинаем воспроизведение аудио с колбэком, микр��фон остановлен",
+      "🔊 Начинаем восп��оизведение аудио с колбэком, микр��фон остановлен",
     );
 
     const audio = new Audio(audioUrl);
@@ -155,7 +155,7 @@ export default function VoiceMicrophone({
       audioRef.current = null;
       console.error("❌ Не удалось воспроизвести аудио:", error);
 
-      // Проверяем, является ли ошибка связанной с автовоспроизведением
+      // Проверяем, является ли ошибка связанной с авт��воспроизведением
       if (
         error.name === "NotAllowedError" ||
         error.message.includes("user didn't interact")
@@ -166,12 +166,7 @@ export default function VoiceMicrophone({
       }
 
       // Возобновляем прослушивание если не удалось воспроизвести
-      if (wasListening) {
-        toggleListening(); // Включаем микрофон обратно сразу
-        console.log(
-          "���� Микрофон возобновлен после неудачного воспроизведения",
-        );
-      }
+      resumeMicrophone(wasListening, "после неудачного воспроизведения");
     });
   };
 
@@ -191,7 +186,7 @@ export default function VoiceMicrophone({
     // Останавливаем прослушив��ние на время во��произведения аудио
     const wasListening = isListening;
     if (isListening) {
-      toggleListening(); // Останавливаем микрофон
+      toggleListening(); // Останавливаем микро��он
     }
 
     setIsPlayingAudio(true);
@@ -388,7 +383,7 @@ export default function VoiceMicrophone({
       lowerCommand.includes("преимущества")
     ) {
       console.log(
-        "🎯 Коман��а 'покажи наши преимущества' получена - воспроизводим аудио и скроллим",
+        "🎯 Команда 'покажи наши преимущ��ства' получена - воспроизводим аудио и скроллим",
       );
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F6fb621bfa5f6417391fbb189af735e4c?alt=media&token=2271b582-0acf-4930-9fe6-41004818b406&apiKey=3eff37bfce48420f81bfea727d0802d9",
