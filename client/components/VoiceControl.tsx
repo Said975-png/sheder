@@ -239,9 +239,14 @@ export default function VoiceControl({
         audioRef.current = null;
         isProcessingRef.current = false;
 
-        console.log(
-          "⏹️ Неудача воспроизведения, нажмите кнопку для включения микрофона",
-        );
+        // Проверяем, является ли ошибка связанной с автовоспроизведением
+        if (error.name === 'NotAllowedError' || error.message.includes('user didn\'t interact')) {
+          console.log("⚠️ Автовоспроизведение заблокировано - требуется взаимодействие пользователя");
+        } else {
+          console.log(
+            "⏹️ Неудача воспроизведения, нажмите кнопку для включения микрофона",
+          );
+        }
       });
     },
     [isListening, isPlayingAudio, startListening, stopListening],
@@ -290,7 +295,7 @@ export default function VoiceControl({
         playAudioResponse(
           "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F2562e9998e1d4afc90ded9608258444e?alt=media&token=1786dd2e-6e68-4c76-93fe-77066a4a2ecf&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
           () => {
-            // Возврат к оригинальной модели
+            // Возв��ат к оригинальной модели
             const event = new CustomEvent("changeModel", {
               detail: {
                 newModelUrl:
@@ -331,19 +336,18 @@ export default function VoiceControl({
     [playAudioResponse],
   );
 
-  // Автоматический запуск при загрузке с большой задержкой
-  useEffect(() => {
-    if (isSupported) {
-      // Запуск только один раз при загрузке
-      const timer = setTimeout(() => {
-        if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
-          startListening();
-        }
-      }, 3000); // 3 секунды задержка
-
-      return () => clearTimeout(timer);
-    }
-  }, [isSupported]); // Убрана зависимость от startListening
+  // Отключен автоматический запуск для предотвращения ошибок autoplay
+  // Пользователь должен сам включить микрофон первым кликом
+  // useEffect(() => {
+  //   if (isSupported) {
+  //     const timer = setTimeout(() => {
+  //       if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
+  //         startListening();
+  //       }
+  //     }, 3000);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [isSupported]);
 
   // Очистка при размонтировании
   useEffect(() => {
