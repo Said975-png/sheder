@@ -81,12 +81,10 @@ export const useVoiceRecognition = ({
         console.log("✅ Обрабатываем команду:", command);
         onCommand?.(command);
         
-        // Очищаем транскрипт и готовимся к новой команде
-        setTimeout(() => {
-          setTranscript("");
-          isProcessingRef.current = false;
-          console.log("🔄 Готов к следующей команде");
-        }, 1000);
+        // Очищаем транскрипт и готовимся к новой команде сразу
+        setTranscript("");
+        isProcessingRef.current = false;
+        console.log("🔄 Готов к сл��дующей команде");
       }
     };
 
@@ -113,16 +111,14 @@ export const useVoiceRecognition = ({
           clearTimeout(restartTimeoutRef.current);
         }
         
-        restartTimeoutRef.current = setTimeout(() => {
-          if (isListening && recognitionRef.current) {
-            try {
-              recognitionRef.current.start();
-              console.log("🔄 Перезапуск распознавания");
-            } catch (error) {
-              console.log("ℹ️ Ошибка перезапуска:", error);
-            }
+        if (isListening && recognitionRef.current) {
+          try {
+            recognitionRef.current.start();
+            console.log("🔄 Перезапуск распознавания");
+          } catch (error) {
+            console.log("ℹ️ Ошибка перезапуска:", error);
           }
-        }, 100);
+        }
       }
     };
 
