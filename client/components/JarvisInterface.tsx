@@ -76,20 +76,7 @@ export default function JarvisInterface({
   };
 
   if (inNavbar) {
-    return (
-      <div className="flex items-center">
-        <VoiceControl
-          onAddBasicPlan={onAddBasicPlan}
-          onAddProPlan={onAddProPlan}
-          onAddMaxPlan={onAddMaxPlan}
-          inNavbar={true}
-          onListeningChange={onListeningChange}
-          forceStop={forceStop}
-          onModelRotateStart={onModelRotateStart}
-          onModelRotateStop={onModelRotateStop}
-        />
-      </div>
-    );
+    return null;
   }
 
   return (
