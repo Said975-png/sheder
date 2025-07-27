@@ -17,71 +17,74 @@ export default function JarvisCommandsPanel({
     {
       category: "Основные команды",
       items: [
-        { command: "Привет Джарвис", description: "Приветствие и активация" },
-        { command: "Джарвис отключись", description: "Выключение микрофона" },
-        { command: "Как дела?", description: "Проверка состояния системы" },
-        { command: "Доброе утро Джарвис", description: "Утреннее приветствие" },
+        {
+          command: "Джарвис ты тут",
+          description: "Проверка присутствия и активация",
+        },
+        {
+          command: "Спасибо",
+          description: "Благодарность с голосовым ответом",
+        },
+        { command: "Привет", description: "Приветствие" },
+        { command: "Здравствуй", description: "Приветствие" },
+        { command: "Благодарю", description: "Выражение благодарности" },
+        { command: "Помощь", description: "Запрос помощи" },
       ],
     },
     {
-      category: "Управление моделью",
+      category: "Управление 3D моделью",
       items: [
-        { command: "Покрути модель", description: "Запуск вращения 3D модели" },
-        { command: "Хватит", description: "Остановка вращения модели" },
         {
-          command: "Смени модель",
-          description: "Переключение на новую модель",
+          command: "Джарвис смени модель",
+          description: "Переключение на новую 3D модель",
         },
         {
-          command: "Верни прошлую модель",
-          description: "Возврат к старой модели",
+          command: "Верни модель",
+          description: "Возврат к предыдущей модели",
         },
       ],
     },
     {
       category: "Навигация по сайту",
       items: [
-        { command: "К планам", description: "Переход к разделу тарифов" },
-        { command: "К преимуществам", description: "Показать преимущества" },
-        { command: "К возможностям", description: "Показать возможности" },
-        { command: "Открыть профиль", description: "Переход в личный кабинет" },
+        { command: "Покажи прайс лист", description: "Переход к разделу цен" },
+        { command: "Прайс", description: "Переход к разделу цен" },
+        { command: "Цены", description: "Переход к разделу цен" },
         {
-          command: "Заказать услугу",
-          description: "Создание договора на разработку",
+          command: "Покажи наши преимущества",
+          description: "Показать преимущества компании",
         },
+        {
+          command: "Преимущества",
+          description: "Показать преимущества компании",
+        },
+        { command: "Открой чат", description: "Переход в чат с ИИ Пятницей" },
+        { command: "Чат", description: "Переход в чат с ИИ Пятницей" },
       ],
     },
     {
-      category: "Корзина и планы",
+      category: "Режим Старка",
       items: [
-        { command: "Добавить базовый план", description: "Добавить в корзину" },
-        { command: "Добавить про план", description: "Добавить в корзину" },
-        { command: "Добавить макс план", description: "Добавить в корзину" },
         {
-          command: "Открыть корзину",
-          description: "Показать содержимое корзины",
+          command: "Джарвис полный доступ",
+          description: "Активация режима лаборатории Старка",
         },
+        {
+          command: "Полный доступ",
+          description: "Активация режима лаборатории Старка",
+        },
+        { command: "Отмени", description: "Отключение режима Старка" },
+        { command: "Отменить", description: "Отключение режима Старка" },
+        { command: "Выключи", description: "Отключение режима Старка" },
       ],
     },
     {
-      category: "Специальные функции",
+      category: "Чат с ИИ",
       items: [
         {
-          command: "Полная активация",
-          description: "Режим лаборатории Старка",
+          command: "Пятница [ваш вопрос]",
+          description: "Отправка сообщения ИИ Пятнице",
         },
-        { command: "Верни меня обратно", description: "Обычная тема" },
-        { command: "Диагностика", description: "Проверка всех систем" },
-        { command: "Джарвис ты тут?", description: "Проверка присутствия" },
-      ],
-    },
-    {
-      category: "Социальные команды",
-      items: [
-        { command: "Спасибо", description: "Благодарность" },
-        { command: "Люблю тебя", description: "Выражение симпатии" },
-        { command: "Давай продолжим", description: "Продолжение работы" },
-        { command: "Верно", description: "Подтверждение" },
       ],
     },
   ];
