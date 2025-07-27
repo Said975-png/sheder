@@ -35,7 +35,7 @@ export default function VoiceControl({
   const startListening = useCallback(() => {
     // Дополнительные проверки для предотвращения дублирования
     if (!isSupported || isListening || isPlayingAudio || isProcessingRef.current) {
-      console.log("🚫 Не могу запустить микрофон:", {
+      console.log("🚫 Не могу запустить микр��фон:", {
         isSupported,
         isListening,
         isPlayingAudio,
@@ -69,7 +69,7 @@ export default function VoiceControl({
       recognition.maxAlternatives = 1;
 
       recognition.onstart = () => {
-        console.log("🎤 Микрофон включен - жду команду");
+        console.log("🎤 Микрофон включен - жду ко��анду");
         setIsListening(true);
         isProcessingRef.current = false;
       };
@@ -156,7 +156,7 @@ export default function VoiceControl({
       recognitionRef.current = null;
       isProcessingRef.current = false;
 
-      // Попробуем еще раз через больший и��тервал
+      // Попробуем еще раз через больший интервал
       setTimeout(() => {
         if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
           startListening();
@@ -167,7 +167,7 @@ export default function VoiceControl({
 
   // Остановка прослушивания
   const stopListening = useCallback(() => {
-    console.log("🛑 Останавливаем прослушивание");
+    console.log("🛑 Останавливаем п��ослушивание");
     setIsListening(false);
     setTranscript("");
 
@@ -255,7 +255,7 @@ export default function VoiceControl({
           startListening();
           console.log("✅ Микрофон включен после ��еудачи воспроизведения");
         }
-      }, 1000); // Увеличен с 300 до 1000
+      }, 3000); // Увеличен с 1000 до 3000 (3 секунды)
     });
   }, [isListening, isPlayingAudio, startListening, stopListening]);
 
@@ -354,7 +354,7 @@ export default function VoiceControl({
   // Очистка при размонтировании
   useEffect(() => {
     return () => {
-      console.log("🧹 Очистка компонента VoiceControl");
+      console.log("🧹 Очистка комп��нента VoiceControl");
 
       // Останавливаем recognition
       if (recognitionRef.current) {
