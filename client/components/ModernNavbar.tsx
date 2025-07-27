@@ -117,7 +117,7 @@ export default function ModernNavbar({
 
             {/* User Menu or Auth Buttons */}
             {isAuthenticated && currentUser ? (
-              <UserMenu user={currentUser} onLogout={handleLogout} />
+              <UserMenu user={currentUser} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} />
             ) : (
               <AuthButtons />
             )}
