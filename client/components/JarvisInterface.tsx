@@ -178,10 +178,7 @@ export default function JarvisInterface({
               <span>Arc Reactor:</span>
               <span className="text-cyan-400">Stable</span>
             </div>
-            <div className="flex justify-between">
-              <span>Voice Recognition:</span>
-              <span className="text-green-400">Active</span>
-            </div>
+
             <div className="flex justify-between">
               <span>Neural Interface:</span>
               <span className="text-cyan-400">Online</span>
