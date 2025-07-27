@@ -35,7 +35,7 @@ export const useVoiceRecognition = ({
     setIsSupported(supported);
 
     if (!supported) {
-      console.warn("Распознавание речи не поддерживается в этом браузере");
+      console.warn("Распознавание речи не подд��рживается в этом браузере");
     }
   }, []);
 
@@ -48,10 +48,22 @@ export const useVoiceRecognition = ({
       (window as any).webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
 
+    // Настройки для мобильных устройств
+    const mobile = isMobile();
+
     recognition.continuous = true;
-    recognition.interimResults = true;
+    recognition.interimResults = !mobile; // На мобильных отключаем промежуточные результаты
     recognition.lang = lang;
     recognition.maxAlternatives = 1;
+
+    // Дополнительные настройки для мобильных
+    if (mobile) {
+      recognition.lang = lang;
+      // Для мобильных устройств используем более консервативные настройки
+      if ('grammars' in recognition) {
+        recognition.grammars = new (window as any).SpeechGrammarList();
+      }
+    }
 
     recognition.onstart = () => {
       console.log("🎤 Распознавание речи запущено");
