@@ -35,11 +35,11 @@ export default function VoiceControl({
   const startListening = useCallback(() => {
     // Дополнительные проверки для предотвращения дублирования
     if (!isSupported || isListening || isPlayingAudio || isProcessingRef.current) {
-      console.log("🚫 Не могу запустить микро��он:", {
-        isSupported,
-        isListening,
-        isPlayingAudio,
-        isProcessing: isProcessingRef.current
+      console.log("🚫 Не могу запустить микрофон:", { 
+        isSupported, 
+        isListening, 
+        isPlayingAudio, 
+        isProcessing: isProcessingRef.current 
       });
       return;
     }
@@ -50,7 +50,7 @@ export default function VoiceControl({
         // Проверяем состояние recognition
         try {
           recognitionRef.current.start();
-          console.log("🎤 Перезапуск существующего recognition");
+          console.log("��� Перезапуск существующего recognition");
           return;
         } catch (error) {
           // Если ошибка - очищаем и создаем новый
@@ -96,13 +96,13 @@ export default function VoiceControl({
         if (finalTranscript.trim() && !isProcessingRef.current) {
           isProcessingRef.current = true;
           const command = finalTranscript.trim();
-
+          
           console.log("✅ Команда получена:", command);
           setTranscript("");
-
+          
           // Останавливаем микрофон сразу после получения команды
           stopListening();
-
+          
           // Обрабатываем команду
           handleVoiceCommand(command);
           onCommand?.(command);
@@ -115,41 +115,37 @@ export default function VoiceControl({
         isProcessingRef.current = false;
         recognitionRef.current = null; // Очищаем при ошибке
 
-        // Перезапускаем при ��шибке (кроме отказа в доступе)
-        if (event.error !== "not-allowed" && event.error !== "service-not-allowed") {
-          console.log("⏹️ Ошибка микрофона, ждем ручного включения");
+        // НЕ перезапускаем автоматически при ошибках
+        if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+          console.log("🚫 Доступ к микрофону запрещен");
+        } else {
+          console.log("⏹️ Ошибка микрофона, нажмите кнопку для включения");
         }
       };
 
       recognition.onend = () => {
-        console.log("🔄 Распознавание ��авершено");
+        console.log("🔄 Распознавание завершено");
         setIsListening(false);
         recognitionRef.current = null; // Очищаем при завершении
-
+        
         // НЕ перезапускаем автоматически - пусть пользователь сам включает
-        console.log("⏹️ Микрофон остановлен, ждем ручного включения");
+        console.log("⏹️ Микрофон остановлен, нажмите кнопку для включения");
       };
 
       recognitionRef.current = recognition;
       isProcessingRef.current = false;
       setTranscript("");
-
+      
       // Запускаем с дополнительной проверкой
       recognition.start();
       console.log("🎤 Новый микрофон запущен успешно");
-
+      
     } catch (error) {
       console.error("❌ Не удалось запустить распознавание:", error);
       setIsListening(false);
       recognitionRef.current = null;
       isProcessingRef.current = false;
-
-      // Попробуем еще раз через больший интервал
-      setTimeout(() => {
-        if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
-          startListening();
-        }
-      }, 3000);
+      console.log("⏹️ Ошибка запуска, нажмите кнопку еще раз");
     }
   }, [isSupported, isListening, isPlayingAudio]);
 
@@ -170,7 +166,7 @@ export default function VoiceControl({
     }
   }, []);
 
-  // Фун��ция воспроизведения аудио с автоматическим возобновлением микрофона
+  // Функция воспроизведения аудио БЕЗ автоматического возобновления микрофона
   const playAudioResponse = useCallback((audioUrl: string, callback?: () => void) => {
     console.log("🔊 Начинаем воспроизведение аудио ответа");
     
@@ -179,7 +175,7 @@ export default function VoiceControl({
       stopListening();
     }
 
-    // Останавливаем предыдущее аудио если есть
+    // Останавливаем предыдуще�� аудио если есть
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -190,11 +186,11 @@ export default function VoiceControl({
     audioRef.current = audio;
 
     audio.onended = () => {
-      console.log("✅ Аудио завершен��");
+      console.log("✅ Аудио завершено");
       setIsPlayingAudio(false);
       audioRef.current = null;
 
-      // Выполняем callback если ес��ь
+      // Выполняем callback если есть
       if (callback) {
         try {
           callback();
@@ -216,8 +212,7 @@ export default function VoiceControl({
       audioRef.current = null;
       isProcessingRef.current = false;
       
-      // НЕ включаем микрофон автоматически при ошибке
-      console.log("⏹️ Ошибка аудио, микрофон НЕ включается автоматически");
+      console.log("⏹️ Ошибка аудио, нажмите кнопку для включения микрофона");
     };
 
     audio.play().catch((error) => {
@@ -226,20 +221,14 @@ export default function VoiceControl({
       audioRef.current = null;
       isProcessingRef.current = false;
       
-      // Включаем м��крофон при неудаче
-      setTimeout(() => {
-        if (!isListening && !isPlayingAudio) {
-          startListening();
-          console.log("✅ Микрофон включен после ��еудачи воспроизведения");
-        }
-      }, 3000); // Увеличен с 1000 до 3000 (3 секунды)
+      console.log("⏹️ Неудача воспроизведения, нажмите кнопку для включения микрофона");
     });
-  }, [isListening, isPlayingAudio, startListening, stopListening]);
+  }, [isListening, stopListening]);
 
   // Обработка голосовых команд
   const handleVoiceCommand = useCallback((command: string) => {
     const lowerCommand = command.toLowerCase().trim();
-    console.log("🔍 Обрабатываем ком��нду:", lowerCommand);
+    console.log("🔍 Обрабатываем команду:", lowerCommand);
 
     // Команда "Джарвис ты тут"
     if (lowerCommand.includes("джарвис ты тут") || lowerCommand.includes("jarvis ты тут")) {
@@ -292,7 +281,7 @@ export default function VoiceControl({
     }
 
     // Отправка в чат для обработки ИИ
-    if (lowerCommand.includes("пя��ница")) {
+    if (lowerCommand.includes("пятница")) {
       // Здесь можно отправить команду в чат с Пятницей
       console.log("💬 Отправляем команду в чат:", command);
       
@@ -303,36 +292,31 @@ export default function VoiceControl({
       return;
     }
 
-    // Для других команд просто включаем микрофон обратно
-    console.log("��️ Неизвестная команда, перезапускаем микрофон");
+    // Для других команд НЕ включаем микрофон автоматически
+    console.log("ℹ️ Неизвестная команда, микрофон остается выключенным");
     isProcessingRef.current = false;
-    setTimeout(() => {
-      if (!isListening && !isPlayingAudio) {
-        startListening();
-        console.log("✅ Микрофон перезапущен после неизвестной команды");
-      }
-    }, 4000); // Увеличен с 2000 до 4000 (4 секунды)
-  }, [playAudioResponse, startListening, isListening, isPlayingAudio]);
+    console.log("🎤 Нажмите кнопку для включения микрофона");
+  }, [playAudioResponse]);
 
-  // Автоматический запуск при загрузке с задержкой
+  // Автоматический запуск при загрузке с большой задержкой
   useEffect(() => {
     if (isSupported) {
-      // Максимальная задержка для предотвращения конфликтов
+      // Запуск только один раз при загрузке
       const timer = setTimeout(() => {
         if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
           startListening();
         }
-      }, 10000); // Увеличен с 3000 до 10000 (10 секунд)
-
+      }, 3000); // 3 секунды задержка
+      
       return () => clearTimeout(timer);
     }
-  }, [isSupported]);
+  }, [isSupported]); // Убрана зависимость от startListening
 
   // Очистка при размонтировании
   useEffect(() => {
     return () => {
       console.log("🧹 Очистка компонента VoiceControl");
-
+      
       // Останавливаем recognition
       if (recognitionRef.current) {
         try {
@@ -342,13 +326,13 @@ export default function VoiceControl({
           console.log("ℹ️ Ошибка очистки recognition:", error);
         }
       }
-
+      
       // Останавливаем аудио
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
-
+      
       // Сбрасываем флаги
       isProcessingRef.current = false;
     };
@@ -431,7 +415,7 @@ export default function VoiceControl({
                 <span>Слушаю команду...</span>
               </div>
             ) : (
-              <div className="text-white/60">Готов к команде</div>
+              <div className="text-white/60">Нажмите для записи</div>
             )}
           </div>
         </div>
