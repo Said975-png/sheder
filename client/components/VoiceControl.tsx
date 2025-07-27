@@ -35,7 +35,7 @@ export default function VoiceControl({
   const startListening = useCallback(() => {
     // Дополнительные проверки для предотвращения дублирования
     if (!isSupported || isListening || isPlayingAudio || isProcessingRef.current) {
-      console.log("🚫 Не могу запустить микрофон:", {
+      console.log("🚫 Не могу запустить микро��он:", {
         isSupported,
         isListening,
         isPlayingAudio,
@@ -63,7 +63,7 @@ export default function VoiceControl({
       const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
       const recognition = new SpeechRecognition();
 
-      recognition.continuous = false;
+      recognition.continuous = true; // Изменено на true для лучшего распознавания
       recognition.interimResults = true;
       recognition.lang = "ru-RU";
       recognition.maxAlternatives = 1;
@@ -241,7 +241,7 @@ export default function VoiceControl({
       audioRef.current = null;
       isProcessingRef.current = false;
       
-      // Включаем микрофон при неудаче
+      // Включаем м��крофон при неудаче
       setTimeout(() => {
         if (!isListening && !isPlayingAudio) {
           startListening();
