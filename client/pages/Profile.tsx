@@ -483,7 +483,7 @@ function Profile() {
       }
 
       if (formData.newPassword.length < 6) {
-        setError("Новый пароль должен содержать мини��ум 6 символов");
+        setError("Новый пароль должен содержать минимум 6 символов");
         return;
       }
 
@@ -500,7 +500,7 @@ function Profile() {
       }));
     } catch (error) {
       console.error("Password change error:", error);
-      setError("Произошла ошибка при смене пароля");
+      setError("Произошла оши��ка при смене пароля");
     } finally {
       setLoading(false);
     }
@@ -936,7 +936,7 @@ function Profile() {
                       <Badge
                         variant={notifications.email ? "default" : "secondary"}
                       >
-                        {notifications.email ? "Включены" : "Отключе��ы"}
+                        {notifications.email ? "Включены" : "Отключены"}
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between">
@@ -1196,7 +1196,7 @@ function Profile() {
                         </p>
                       </div>
                       <Badge variant={hasFaceID ? "default" : "secondary"}>
-                        {hasFaceID ? "Ак��ивен" : "Не настроен"}
+                        {hasFaceID ? "Активен" : "Не настроен"}
                       </Badge>
                     </div>
 
@@ -1225,7 +1225,7 @@ function Profile() {
                     <div className="text-xs text-gray-500 space-y-1 border-t pt-3">
                       <p>✓ Face ID запрашивается при входе в личный кабинет</p>
                       <p>✓ Биометрические данные хранятся локально</p>
-                      <p>✓ Только ваше лицо может получ��ть доступ</p>
+                      <p>✓ Только ваше лицо может получить доступ</p>
                     </div>
                   )}
                 </CardContent>
@@ -1481,7 +1481,7 @@ function Profile() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">
-                  Мои брони
+                  ��ои брони
                 </h3>
                 <p className="text-gray-600">
                   Управление бронированием консультаций и встреч
@@ -1770,7 +1770,7 @@ function Profile() {
                   {activityLog.length === 0 ? (
                     <div className="text-center py-8">
                       <Activity className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                      <p className="text-gray-500">Активность не найдена</p>
+                      <p className="text-gray-500">Активность не н��йдена</p>
                     </div>
                   ) : (
                     activityLog.map((log) => (
