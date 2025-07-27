@@ -339,7 +339,7 @@ export default function Admin() {
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-gray-600">Завершены</p>
+                      <p className="text-sm font-medium text-gray-600">Зав��ршены</p>
                       <p className="text-3xl font-bold text-blue-600">{stats.completedBookings}</p>
                     </div>
                     <CheckCircle className="w-8 h-8 text-blue-600" />
@@ -422,7 +422,7 @@ export default function Admin() {
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                       <Input
-                        placeholder="Поиск ��о имени, email или ID..."
+                        placeholder="Поиск по имени, email или ID..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="pl-10"
@@ -496,7 +496,7 @@ export default function Admin() {
             ) : (
               <div className="grid grid-cols-1 gap-4">
                 {filteredBookings.map((booking) => (
-                  <Card key={booking.id} className="hover:shadow-md transition-shadow">
+                  <Card key={booking.id} className="hover:shadow-md transition-shadow bg-white border-gray-200">
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -563,7 +563,7 @@ export default function Admin() {
                           </div>
 
                           <div className="text-xs text-gray-400">
-                            Создано: {new Date(booking.createdAt).toLocaleString("ru-RU")} • 
+                            С��здано: {new Date(booking.createdAt).toLocaleString("ru-RU")} • 
                             Обновлено: {new Date(booking.updatedAt).toLocaleString("ru-RU")}
                           </div>
                         </div>
