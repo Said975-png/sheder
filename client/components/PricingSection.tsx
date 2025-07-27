@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/contexts/CartContext";
+import BookingForm from "@/components/BookingForm";
 import {
   CheckCircle,
   Star,
@@ -12,6 +13,7 @@ import {
   Brain,
   ArrowRight,
   Heart,
+  Calendar,
 } from "lucide-react";
 
 interface PricingPlan {
@@ -35,7 +37,7 @@ const pricingPlans: PricingPlan[] = [
     id: "basic",
     name: "BASIC",
     price: "2.500.000",
-    description: "Красивый и функциональный сайт с современным дизайном",
+    description: "Красивый и фу��кциональный сайт с современным дизайном",
     features: [
       "Уникальный дизайн интерфейса",
       "Адаптивная верстка",
