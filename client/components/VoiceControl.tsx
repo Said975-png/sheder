@@ -56,7 +56,7 @@ export default function VoiceControl({
         // Проверяем состояние recognition
         try {
           recognitionRef.current.start();
-          console.log("🎤 Перез��пуск существующего recognition");
+          console.log("🎤 Перезапуск существующего recognition");
           return;
         } catch (error) {
           // Если ошибка - очищаем и создаем новый
@@ -149,7 +149,7 @@ export default function VoiceControl({
 
       // Запускаем с дополнительной проверкой
       recognition.start();
-      console.log("🎤 Новый микрофон запущен успешно");
+      console.log("🎤 Новый микрофон запущен успешн��");
     } catch (error) {
       console.error("❌ Не удалось запустить распознавание:", error);
       setIsListening(false);
@@ -402,27 +402,8 @@ export default function VoiceControl({
         playAudioResponse(
           "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F8cdc875575354683ba86969db638b81f?alt=media&token=3b17dba6-0ef5-4b41-a462-54d46af09a3d&apiKey=3eff37bfce48420f81bfea727d0802d9",
           () => {
-            // Прокручиваем к прайс листу после аудио
-            const pricingSection = document.querySelector('[data-section="pricing"]');
-            if (pricingSection) {
-              pricingSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-              });
-            } else {
-              // Если нет data-атрибута, ищем по тексту
-              const pricingElement = Array.from(document.querySelectorAll('h2')).find(el =>
-                el.textContent?.includes('НАШИ ЦЕНЫ') ||
-                el.textContent?.includes('цены') ||
-                el.textContent?.includes('ЦЕНЫ')
-              );
-              if (pricingElement) {
-                pricingElement.scrollIntoView({
-                  behavior: 'smooth',
-                  block: 'start'
-                });
-              }
-            }
+            // Переходим на страницу чата с Пятницей после аудио
+            window.location.href = '/chat';
           }
         );
         return;
