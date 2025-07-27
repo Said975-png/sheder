@@ -415,7 +415,7 @@ function Profile() {
           (u) => u.email === formData.email && u.id !== currentUser.id,
         );
         if (emailExists) {
-          setError("Пользователь с таким email уже существует");
+          setError("Пользов��тель с таким email уже существует");
           return;
         }
       }
@@ -1258,7 +1258,7 @@ function Profile() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="newPassword">Новый пароль</Label>
+                      <Label htmlFor="newPassword">Но��ый пароль</Label>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                         <Input
@@ -1592,7 +1592,7 @@ function Profile() {
                             <span>№ {booking.id}</span>
                           </div>
                           <div className="text-xs text-gray-400">
-                            Со��дано: {new Date(booking.createdAt).toLocaleDateString("ru-RU")}
+                            Создано: {new Date(booking.createdAt).toLocaleDateString("ru-RU")}
                           </div>
                         </div>
                       </div>
