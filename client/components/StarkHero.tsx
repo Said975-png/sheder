@@ -194,10 +194,7 @@ export default function StarkHero({
               )}
             >
               {[
-                {
-                  icon: <Mic className="w-4 h-4" />,
-                  text: "Голосовое управление",
-                },
+
                 {
                   icon: <Sparkles className="w-4 h-4" />,
                   text: "ИИ-аналитика",

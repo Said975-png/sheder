@@ -17,7 +17,7 @@ import {
   PowerIndicator,
   GlitchText,
 } from "@/components/StarkEffects";
-import VoiceControl from "@/components/VoiceControl";
+
 
 interface JarvisInterfaceProps {
   onAddBasicPlan: () => void;
@@ -76,20 +76,7 @@ export default function JarvisInterface({
   };
 
   if (inNavbar) {
-    return (
-      <div className="flex items-center">
-        <VoiceControl
-          onAddBasicPlan={onAddBasicPlan}
-          onAddProPlan={onAddProPlan}
-          onAddMaxPlan={onAddMaxPlan}
-          inNavbar={true}
-          onListeningChange={onListeningChange}
-          forceStop={forceStop}
-          onModelRotateStart={onModelRotateStart}
-          onModelRotateStop={onModelRotateStop}
-        />
-      </div>
-    );
+    return null;
   }
 
   return (
@@ -180,16 +167,7 @@ export default function JarvisInterface({
             </span>
           </div>
 
-          <VoiceControl
-            onAddBasicPlan={onAddBasicPlan}
-            onAddProPlan={onAddProPlan}
-            onAddMaxPlan={onAddMaxPlan}
-            inNavbar={false}
-            onListeningChange={onListeningChange}
-            forceStop={forceStop}
-            onModelRotateStart={onModelRotateStart}
-            onModelRotateStop={onModelRotateStop}
-          />
+
         </div>
 
         {/* Системные сообщения */}
@@ -200,10 +178,7 @@ export default function JarvisInterface({
               <span>Arc Reactor:</span>
               <span className="text-cyan-400">Stable</span>
             </div>
-            <div className="flex justify-between">
-              <span>Voice Recognition:</span>
-              <span className="text-green-400">Active</span>
-            </div>
+
             <div className="flex justify-between">
               <span>Neural Interface:</span>
               <span className="text-cyan-400">Online</span>
