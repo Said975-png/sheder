@@ -35,7 +35,7 @@ export default function VoiceControl({
   const startListening = useCallback(() => {
     // Дополнительные проверки для предотвращения дублирования
     if (!isSupported || isListening || isPlayingAudio || isProcessingRef.current) {
-      console.log("🚫 Не могу запустить микр��фон:", {
+      console.log("🚫 Не могу запустить микрофон:", {
         isSupported,
         isListening,
         isPlayingAudio,
@@ -69,7 +69,7 @@ export default function VoiceControl({
       recognition.maxAlternatives = 1;
 
       recognition.onstart = () => {
-        console.log("🎤 Микрофон включен - жду ко��анду");
+        console.log("🎤 Микрофон включен - жду команду");
         setIsListening(true);
         isProcessingRef.current = false;
       };
@@ -167,7 +167,7 @@ export default function VoiceControl({
 
   // Остановка прослушивания
   const stopListening = useCallback(() => {
-    console.log("🛑 Останавливаем п��ослушивание");
+    console.log("🛑 Останавливаем прослушивание");
     setIsListening(false);
     setTranscript("");
 
@@ -334,7 +334,7 @@ export default function VoiceControl({
         startListening();
         console.log("✅ Микрофон перезапущен после неизвестной команды");
       }
-    }, 2000); // Увеличен с 500 до 2000
+    }, 4000); // Увеличен с 2000 до 4000 (4 секунды)
   }, [playAudioResponse, startListening, isListening, isPlayingAudio]);
 
   // Автоматический запуск при загрузке с задержкой
@@ -354,7 +354,7 @@ export default function VoiceControl({
   // Очистка при размонтировании
   useEffect(() => {
     return () => {
-      console.log("🧹 Очистка комп��нента VoiceControl");
+      console.log("🧹 Очистка компонента VoiceControl");
 
       // Останавливаем recognition
       if (recognitionRef.current) {
