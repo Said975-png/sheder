@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/contexts/CartContext";
+import { useTheme } from "@/contexts/ThemeContext";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -432,7 +433,7 @@ function MobileMenu({
                 className="flex items-center space-x-3 p-3 rounded-xl hover:bg-green-400/10 transition-colors"
               >
                 <Brain className="w-5 h-5 text-green-400" />
-                <span className="text-white">Тест голосового уп��авления</span>
+                <span className="text-white">Тест голосового управления</span>
               </Link>
 
               <button
