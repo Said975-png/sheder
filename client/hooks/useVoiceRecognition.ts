@@ -28,7 +28,7 @@ export const useVoiceRecognition = ({
   const restartAttemptsRef = useRef(0);
   const lastStartTimeRef = useRef(0);
 
-  // Проверка поддержки браузером
+  // Проверка поддержки браузер��м
   useEffect(() => {
     const supported =
       "webkitSpeechRecognition" in window || "SpeechRecognition" in window;
@@ -162,30 +162,52 @@ export const useVoiceRecognition = ({
         }
       }
 
-      // Для других ошибо�� продолжаем работу
+      // Для других ошибок продолжаем работу
       isProcessingRef.current = false;
     };
 
     recognition.onend = () => {
       console.log("🔄 Распознавание завершилось");
 
-      // Быстрый автоматический перезапуск если должны слушать
+      // Автоматический перезапуск если должны слушать
       if (isListening && !isProcessingRef.current) {
         if (restartTimeoutRef.current) {
           clearTimeout(restartTimeoutRef.current);
         }
 
-        // Минимальная задержка для стабильности - используем requestAnimationFrame для оптимальной производительности
-        requestAnimationFrame(() => {
+        // Для мобильных устройств используем больший интервал
+        const mobile = isMobile();
+        const restartDelay = mobile ? 300 : 100;
+
+        // Проверяем, что прошло достаточно времени с последнего старта
+        const now = Date.now();
+        const timeSinceLastStart = now - lastStartTimeRef.current;
+        const minInterval = mobile ? 500 : 200;
+
+        const actualDelay = Math.max(restartDelay, minInterval - timeSinceLastStart);
+
+        restartTimeoutRef.current = setTimeout(() => {
           if (isListening && recognitionRef.current) {
             try {
+              lastStartTimeRef.current = Date.now();
               recognitionRef.current.start();
-              console.log("🔄 Быстрый перезапуск распознавания");
+              console.log(`🔄 Перезапуск распознавания (задержка: ${actualDelay}ms)`);
+              // С��расываем счетчик попыток при успешном перезапуске
+              restartAttemptsRef.current = 0;
             } catch (error) {
               console.log("ℹ️ Ошибка перезапуска:", error);
+              restartAttemptsRef.current++;
+
+              // Если слишком много ошибок, останавливаем
+              if (restartAttemptsRef.current > 5) {
+                console.log("🛑 Слишком много ошибок перезапуска, останавливаем");
+                setIsListening(false);
+                isProcessingRef.current = false;
+                restartAttemptsRef.current = 0;
+              }
             }
           }
-        });
+        }, actualDelay);
       }
     };
 
@@ -195,7 +217,7 @@ export const useVoiceRecognition = ({
   // Запуск прослушивания
   const startListening = useCallback(() => {
     if (!isSupported) {
-      console.warn("Рас��ознавание речи не поддерживается");
+      console.warn("Распознавание речи не поддерживается");
       return;
     }
 
