@@ -33,7 +33,7 @@ export const useVoiceRecognition = ({
   const initializeRecognition = useCallback(() => {
     if (!isSupported) return null;
 
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
 
     recognition.continuous = true;
@@ -120,7 +120,7 @@ export const useVoiceRecognition = ({
           if (isListening && recognitionRef.current) {
             try {
               recognitionRef.current.start();
-              console.log("🔄 Б��стрый перезапуск распознавания");
+              console.log("🔄 Быстрый перезапуск распознавания");
             } catch (error) {
               console.log("ℹ️ Ошибка перезапуска:", error);
             }
