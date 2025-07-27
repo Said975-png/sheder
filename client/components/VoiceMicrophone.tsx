@@ -30,10 +30,13 @@ export default function VoiceMicrophone({
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Определяем мобильное устро��ство при монтировании
+  // Определяем мобильное устройство при монтировании
   useEffect(() => {
-    setIsMobileDevice(isMobile());
-  }, []);
+    const mobile = isMobile();
+    setIsMobileDevice(mobile);
+    console.log("📱 Тип устройства:", mobile ? "Мобильное" : "Десктоп");
+    console.log("🎤 Поддержка распознавания речи:", isSupported);
+  }, [isSupported]);
 
   // Функция умного возобновления микрофона с учетом мобильных устройств
   const resumeMicrophone = (wasListening: boolean, context: string) => {
@@ -177,7 +180,7 @@ export default function VoiceMicrophone({
       audioRef.current = null;
       console.error("❌ Не удалось воспроизвести аудио:", error);
 
-      // Проверяем, является ли ошибка связанной с авт��воспроизведением
+      // Проверяем, является ли ошибка связанной с авт��воспроизведение��
       if (
         error.name === "NotAllowedError" ||
         error.message.includes("user didn't interact")
@@ -345,7 +348,7 @@ export default function VoiceMicrophone({
     // Команда "покажи пр��йс лист" - вос��роизводим аудио и скроллим к прайсам
     if (
       lowerCommand.includes("покажи прайс лист") ||
-      lowerCommand.includes("п��айс лист") ||
+      lowerCommand.includes("п��айс лис��") ||
       lowerCommand.includes("прайс") ||
       lowerCommand.includes("цены")
     ) {
