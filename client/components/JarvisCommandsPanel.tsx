@@ -17,8 +17,14 @@ export default function JarvisCommandsPanel({
     {
       category: "Основные команды",
       items: [
-        { command: "Джарвис ты тут", description: "Проверка присутствия и активация" },
-        { command: "Спасибо", description: "Благодарность с голосовым ответом" },
+        {
+          command: "Джарвис ты тут",
+          description: "Проверка присутствия и активация",
+        },
+        {
+          command: "Спасибо",
+          description: "Благодарность с голосовым ответом",
+        },
         { command: "Привет", description: "Приветствие" },
         { command: "Здравствуй", description: "Приветствие" },
         { command: "Благодарю", description: "Выражение благодарности" },
@@ -44,8 +50,14 @@ export default function JarvisCommandsPanel({
         { command: "Покажи прайс лист", description: "Переход к разделу цен" },
         { command: "Прайс", description: "Переход к разделу цен" },
         { command: "Цены", description: "Переход к разделу цен" },
-        { command: "Покажи наши преимущества", description: "Показать преимущества компании" },
-        { command: "Преимущества", description: "Показать преимущества компании" },
+        {
+          command: "Покажи наши преимущества",
+          description: "Показать преимущества компании",
+        },
+        {
+          command: "Преимущества",
+          description: "Показать преимущества компании",
+        },
         { command: "Открой чат", description: "Переход в чат с ИИ Пятницей" },
         { command: "Чат", description: "Переход в чат с ИИ Пятницей" },
       ],
@@ -69,7 +81,10 @@ export default function JarvisCommandsPanel({
     {
       category: "Чат с ИИ",
       items: [
-        { command: "Пятница [ваш вопрос]", description: "Отправка сообщения ИИ Пятнице" },
+        {
+          command: "Пятница [ваш вопрос]",
+          description: "Отправка сообщения ИИ Пятнице",
+        },
       ],
     },
   ];
