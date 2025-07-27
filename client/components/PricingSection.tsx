@@ -46,7 +46,7 @@ const pricingPlans: PricingPlan[] = [
       "Контактные формы",
       "Галерея изображений",
       "Социальные сети",
-      "Техническая поддержка 3 м��сяца",
+      "Техническая поддержка 3 месяца",
     ],
     highlight: false,
     icon: <Palette className="w-6 h-6" />,
@@ -60,7 +60,7 @@ const pricingPlans: PricingPlan[] = [
     price: "3.500.000",
     originalPrice: "4.000.000",
     description:
-      "Насыщенный функционал с встроенным ИИ и многими возможностями",
+      "Насыщенный функционал с встроенным ИИ и многими возмо��ностями",
     features: [
       "Все из пакета Basic",
       "ИИ-чат бот поддержки",
@@ -261,21 +261,32 @@ function PricingSection() {
                     </div>
                   </div>
 
-                  {/* CTA Button */}
-                  <Button
-                    onClick={() => handleAddToCart(plan)}
-                    variant={plan.highlight ? "secondary" : "outline"}
-                    className={cn(
-                      "w-full py-4 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 group",
-                      plan.highlight
-                        ? "!bg-white !text-black hover:!bg-white/90 hover:!text-black shadow-lg"
-                        : "bg-white/10 text-white hover:bg-white/20 border border-white/20 hover:border-white/40",
-                    )}
-                  >
-                    <Sparkles className="w-4 h-4 mr-2 group-hover:animate-spin" />
-                    {plan.ctaText}
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                  </Button>
+                  {/* CTA Buttons */}
+                  <div className="space-y-3">
+                    <Button
+                      onClick={() => handleAddToCart(plan)}
+                      variant={plan.highlight ? "secondary" : "outline"}
+                      className={cn(
+                        "w-full py-4 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 group",
+                        plan.highlight
+                          ? "!bg-white !text-black hover:!bg-white/90 hover:!text-black shadow-lg"
+                          : "bg-white/10 text-white hover:bg-white/20 border border-white/20 hover:border-white/40",
+                      )}
+                    >
+                      <Sparkles className="w-4 h-4 mr-2 group-hover:animate-spin" />
+                      {plan.ctaText}
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                    </Button>
+
+                    <Button
+                      onClick={() => setShowBookingForm(true)}
+                      variant="outline"
+                      className="w-full py-3 text-sm font-medium rounded-xl transition-all duration-300 transform hover:scale-105 group bg-transparent text-white hover:bg-white/10 border border-white/30 hover:border-white/50"
+                    >
+                      <Calendar className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
+                      Забронировать
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
