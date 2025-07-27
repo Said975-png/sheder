@@ -3,7 +3,7 @@ import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleImageUpload, handleGenerateWebsite } from "./routes/upload";
 import { handleSendOrder } from "./routes/orders";
-import { handleElevenLabsTTS } from "./routes/elevenlabs-tts";
+
 import { handleGroqChat } from "./routes/groq-chat";
 import {
   createContract,
@@ -33,8 +33,7 @@ export function createServer() {
   // Orders route
   app.post("/api/orders", handleSendOrder);
 
-  // ElevenLabs TTS route
-  app.post("/api/elevenlabs-tts", handleElevenLabsTTS);
+
 
   // Groq chat route
   app.post("/api/groq-chat", handleGroqChat);
