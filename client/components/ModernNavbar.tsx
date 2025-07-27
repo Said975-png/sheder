@@ -421,7 +421,7 @@ function MobileMenu({
                 className="flex items-center space-x-3 p-3 rounded-xl hover:bg-purple-400/10 transition-colors"
               >
                 <Brain className="w-5 h-5 text-purple-400" />
-                <span className="text-white">Чат с Пятницей</span>
+                <span className="text-white">Чат с Пятницей 🤖</span>
               </Link>
 
               <Link
