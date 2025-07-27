@@ -28,14 +28,14 @@ export const useVoiceRecognition = ({
   const restartAttemptsRef = useRef(0);
   const lastStartTimeRef = useRef(0);
 
-  // Проверка поддержки браузер��м
+  // Проверка поддержки браузером
   useEffect(() => {
     const supported =
       "webkitSpeechRecognition" in window || "SpeechRecognition" in window;
     setIsSupported(supported);
 
     if (!supported) {
-      console.warn("Распознавание речи не поддерживается в этом браузере");
+      console.warn("Распознавание речи не поддерживается в этом брау��ере");
     }
   }, []);
 
@@ -106,7 +106,7 @@ export const useVoiceRecognition = ({
         onTranscript?.(currentTranscript);
       }
 
-      // Обрабатываем финальные результаты
+      // Обрабатыва��м финальные результаты
       if (finalTranscript.trim() && !isProcessingRef.current) {
         isProcessingRef.current = true;
         const command = finalTranscript.trim();
@@ -192,7 +192,7 @@ export const useVoiceRecognition = ({
               lastStartTimeRef.current = Date.now();
               recognitionRef.current.start();
               console.log(`🔄 Перезапуск распознавания (задержка: ${actualDelay}ms)`);
-              // С��расываем счетчик попыток при успешном перезапуске
+              // Сбрасываем счетчик попыток при успешном перезапуске
               restartAttemptsRef.current = 0;
             } catch (error) {
               console.log("ℹ️ Ошибка перезапуска:", error);
@@ -226,20 +226,45 @@ export const useVoiceRecognition = ({
       return;
     }
 
+    // Проверяем интервал между запусками для мобильных
+    const now = Date.now();
+    const timeSinceLastStart = now - lastStartTimeRef.current;
+    const mobile = isMobile();
+    const minInterval = mobile ? 500 : 100;
+
+    if (timeSinceLastStart < minInterval) {
+      console.log(`⏱️ Слишком ранний запуск, ждем ${minInterval - timeSinceLastStart}ms`);
+      setTimeout(() => startListening(), minInterval - timeSinceLastStart);
+      return;
+    }
+
     try {
-      if (!recognitionRef.current) {
+      // Пересоздаем recognition для мобильных устройств
+      if (mobile || !recognitionRef.current) {
         recognitionRef.current = initializeRecognition();
       }
 
       if (recognitionRef.current) {
         isProcessingRef.current = false;
+        restartAttemptsRef.current = 0;
         setTranscript("");
+        lastStartTimeRef.current = now;
         recognitionRef.current.start();
         console.log("🎤 Начинаем слушать");
       }
     } catch (error) {
       console.error("❌ Не удалось запустить распознавание:", error);
       setIsListening(false);
+
+      // На мобильных устройствах попробуем еще раз через больший интервал
+      if (mobile && restartAttemptsRef.current < 3) {
+        restartAttemptsRef.current++;
+        setTimeout(() => {
+          if (!isListening) {
+            startListening();
+          }
+        }, 1000);
+      }
     }
   }, [isSupported, initializeRecognition, isListening]);
 
