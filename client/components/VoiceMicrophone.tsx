@@ -219,7 +219,7 @@ export default function VoiceMicrophone({
         );
       }
 
-      // Возобновляем прослушивание если не удалось воспроизвести
+      // Возобновля��м прослушивание если не удалось воспроизвести
       if (wasListening) {
         toggleListening(); // Включаем микрофон обратно
         console.log(
@@ -304,6 +304,44 @@ export default function VoiceMicrophone({
         "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2Fec5bfbae691b41d9b374b39e75694179?alt=media&token=75301093-1e6e-469a-a492-3105aee95cc9&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
         () => {
           console.log("✅ Аудио ответ 'спасибо' завершен");
+        },
+      );
+      return;
+    }
+
+    // Команда "покажи прайс лист" - воспроизводим аудио и скроллим к прайсам
+    if (
+      lowerCommand.includes("покажи прайс лист") ||
+      lowerCommand.includes("прайс лист") ||
+      lowerCommand.includes("прайс") ||
+      lowerCommand.includes("цены")
+    ) {
+      console.log("🎯 Команда 'покажи прайс лист' получена - воспроизводим аудио и скроллим");
+      playAudioWithCallback(
+        "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2Fea0c68e7425848fa87af48c5fcfd79e0?alt=media&token=88b16ebf-8330-4065-b454-15f196538359&apiKey=3eff37bfce48420f81bfea727d0802d9",
+        () => {
+          console.log("✅ Аудио ответ завершен, скроллим к прайс листу");
+          // Прокручиваем к прайс листу после аудио
+          const pricingSection = document.querySelector('[data-section="pricing"]');
+          if (pricingSection) {
+            pricingSection.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          } else {
+            // Если нет data-атрибута, ищем по классу или тексту
+            const pricingElement = Array.from(document.querySelectorAll('h2')).find(el =>
+              el.textContent?.includes('НАШИ ЦЕНЫ') ||
+              el.textContent?.includes('цены') ||
+              el.textContent?.includes('ЦЕНЫ')
+            );
+            if (pricingElement) {
+              pricingElement.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          }
         },
       );
       return;
