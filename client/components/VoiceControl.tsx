@@ -166,7 +166,7 @@ export default function VoiceControl({
     }
   }, []);
 
-  // Функция в��спроизведения аудио БЕЗ автоматического возобновления микрофона
+  // Функция в��спроизв��дения аудио БЕЗ автоматического возобновления микрофона
   const playAudioResponse = useCallback((audioUrl: string, callback?: () => void) => {
     console.log("🔊 Начинаем воспроизведение аудио ответа");
     
@@ -202,7 +202,7 @@ export default function VoiceControl({
 
       // Сбрасываем флаг обработки
       isProcessingRef.current = false;
-      console.log("✅ Аудио завершено, автоматически включаем микрофон");
+      console.log("✅ Аудио завершено, автоматически вк��ючаем микрофон");
 
       // Автоматически включаем микрофон после завершения аудио
       setTimeout(() => {
@@ -230,7 +230,7 @@ export default function VoiceControl({
       
       console.log("⏹️ Неудача воспроизведения, нажмите кнопку для включения микрофона");
     });
-  }, [isListening, stopListening]);
+  }, [isListening, isPlayingAudio, startListening, stopListening]);
 
   // Обработка голосовых команд
   const handleVoiceCommand = useCallback((command: string) => {
@@ -348,7 +348,7 @@ export default function VoiceControl({
   if (!isSupported) {
     return (
       <div className={cn("text-sm text-gray-500", className)}>
-        Распознавание речи не поддерживается
+        Рас��ознавание речи не поддерживается
       </div>
     );
   }
@@ -409,7 +409,7 @@ export default function VoiceControl({
             )}
           </Button>
 
-          {/* С��атус */}
+          {/* Статус */}
           <div className="text-xs text-center font-medium">
             {isPlayingAudio ? (
               <div className="flex items-center gap-2 text-green-400">
