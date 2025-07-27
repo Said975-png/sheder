@@ -14,6 +14,7 @@ import SignUp from "./pages/SignUp";
 import Profile from "./pages/Profile";
 import OrderForm from "./pages/OrderForm";
 import Chat from "./pages/Chat";
+import Admin from "./pages/Admin";
 
 import NotFound from "./pages/NotFound";
 
