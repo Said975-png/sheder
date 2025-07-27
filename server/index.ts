@@ -50,5 +50,12 @@ export function createServer() {
   app.get("/api/contracts", getUserContracts);
   app.get("/api/contracts/:contractId", getContract);
 
+  // Bookings routes
+  app.post("/api/bookings", createBooking);
+  app.get("/api/bookings", getUserBookings);
+  app.get("/api/bookings/all", getAllBookings);
+  app.put("/api/bookings/:bookingId", updateBooking);
+  app.delete("/api/bookings/:bookingId", deleteBooking);
+
   return app;
 }
