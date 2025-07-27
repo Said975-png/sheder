@@ -257,7 +257,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
 
           {/* Описание проекта */}
           <div className="space-y-2">
-            <Label htmlFor="serviceDescription">
+            <Label htmlFor="serviceDescription" className="text-gray-900 font-medium">
               Описание проекта <span className="text-red-500">*</span>
             </Label>
             <Textarea
