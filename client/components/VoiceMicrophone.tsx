@@ -316,29 +316,36 @@ export default function VoiceMicrophone({
       lowerCommand.includes("прайс") ||
       lowerCommand.includes("цены")
     ) {
-      console.log("🎯 Команда 'покажи прайс лист' получена - воспроизводим аудио и скроллим");
+      console.log(
+        "🎯 Команда 'покажи прайс лист' получена - воспроизводим аудио и скроллим",
+      );
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2Fea0c68e7425848fa87af48c5fcfd79e0?alt=media&token=88b16ebf-8330-4065-b454-15f196538359&apiKey=3eff37bfce48420f81bfea727d0802d9",
         () => {
           console.log("✅ Аудио ответ завершен, скроллим к прайс листу");
           // Прокручиваем к прайс листу после аудио
-          const pricingSection = document.querySelector('[data-section="pricing"]');
+          const pricingSection = document.querySelector(
+            '[data-section="pricing"]',
+          );
           if (pricingSection) {
             pricingSection.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
+              behavior: "smooth",
+              block: "start",
             });
           } else {
             // Если нет data-атрибута, ищем по классу или тексту
-            const pricingElement = Array.from(document.querySelectorAll('h2')).find(el =>
-              el.textContent?.includes('НАШИ ЦЕНЫ') ||
-              el.textContent?.includes('цены') ||
-              el.textContent?.includes('ЦЕНЫ')
+            const pricingElement = Array.from(
+              document.querySelectorAll("h2"),
+            ).find(
+              (el) =>
+                el.textContent?.includes("НАШИ ЦЕНЫ") ||
+                el.textContent?.includes("цены") ||
+                el.textContent?.includes("ЦЕНЫ"),
             );
             if (pricingElement) {
               pricingElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+                behavior: "smooth",
+                block: "start",
               });
             }
           }
@@ -353,29 +360,36 @@ export default function VoiceMicrophone({
       lowerCommand.includes("наши преимущества") ||
       lowerCommand.includes("преимущества")
     ) {
-      console.log("🎯 Команда 'покажи наши преимущества' получена - воспроизводим аудио и скроллим");
+      console.log(
+        "🎯 Команда 'покажи наши преимущества' получена - воспроизводим аудио и скроллим",
+      );
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F6fb621bfa5f6417391fbb189af735e4c?alt=media&token=2271b582-0acf-4930-9fe6-41004818b406&apiKey=3eff37bfce48420f81bfea727d0802d9",
         () => {
           console.log("✅ Аудио ответ завершен, скроллим к секции преимуществ");
           // Прокручиваем к секции преимуществ после аудио
-          const advantagesSection = document.querySelector('[data-section="advantages"]');
+          const advantagesSection = document.querySelector(
+            '[data-section="advantages"]',
+          );
           if (advantagesSection) {
             advantagesSection.scrollIntoView({
-              behavior: 'smooth',
-              block: 'start'
+              behavior: "smooth",
+              block: "start",
             });
           } else {
             // Если нет data-атрибута, ищем по тексту
-            const advantagesElement = Array.from(document.querySelectorAll('h2')).find(el =>
-              el.textContent?.includes('НАШИ ПРЕИМУЩЕСТВА') ||
-              el.textContent?.includes('ПРЕИМУЩЕСТВА') ||
-              el.textContent?.includes('преимущества')
+            const advantagesElement = Array.from(
+              document.querySelectorAll("h2"),
+            ).find(
+              (el) =>
+                el.textContent?.includes("НАШИ ПРЕИМУЩЕСТВА") ||
+                el.textContent?.includes("ПРЕИМУЩЕСТВА") ||
+                el.textContent?.includes("преимущества"),
             );
             if (advantagesElement) {
               advantagesElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+                behavior: "smooth",
+                block: "start",
               });
             }
           }
@@ -390,13 +404,15 @@ export default function VoiceMicrophone({
       lowerCommand.includes("открыть чат") ||
       lowerCommand.includes("чат")
     ) {
-      console.log("🎯 Команда 'открой чат' получена - воспроизводим аудио и переходим в чат");
+      console.log(
+        "🎯 Команда 'открой чат' получена - воспроизводим аудио и переходим в чат",
+      );
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F8cdc875575354683ba86969db638b81f?alt=media&token=3b17dba6-0ef5-4b41-a462-54d46af09a3d&apiKey=3eff37bfce48420f81bfea727d0802d9",
         () => {
           console.log("✅ Аудио ответ завершен, переходим в чат с Пятницей");
           // Переходим на страницу чата с Пятницей после аудио
-          window.location.href = '/chat';
+          window.location.href = "/chat";
         },
       );
       return;
