@@ -39,7 +39,7 @@ export default function VoiceControl({
   // Функция воспроизведения аудио с автоматическим возобновлением микрофона
   const playAudioResponse = useCallback((audioUrl: string, callback?: () => void) => {
     console.log("🔊 Начинаем воспроизведение аудио ответа");
-    
+
     // Останавливаем микрофон
     if (isListening) {
       stopListening();
@@ -56,44 +56,62 @@ export default function VoiceControl({
     audioRef.current = audio;
 
     audio.onended = () => {
+      console.log("✅ Аудио завершено");
       setIsPlayingAudio(false);
       audioRef.current = null;
-      console.log("✅ Аудио завершено");
 
       // Выполняем callback если есть
       if (callback) {
-        callback();
+        try {
+          callback();
+          console.log("🔄 Callback выполнен");
+        } catch (error) {
+          console.error("❌ Ошибка в callback:", error);
+        }
       }
 
-      // Автоматически включаем микрофон снова
+      // Принудительно включаем микрофон снова
+      isProcessingRef.current = false;
+      console.log("🎤 Принудительно включаем микрофон...");
+
       setTimeout(() => {
-        startListening();
-        console.log("🎤 Микрофон автоматически включен после ответа");
-      }, 100);
+        if (!isListening && !isPlayingAudio) {
+          startListening();
+          console.log("✅ Микрофон автоматически включен после ответа");
+        }
+      }, 300);
     };
 
     audio.onerror = () => {
+      console.error("❌ Ошибка воспроизведения аудио");
       setIsPlayingAudio(false);
       audioRef.current = null;
-      console.error("❌ Ошибка воспроизведения аудио");
-      
+      isProcessingRef.current = false;
+
       // Включаем микрофон даже при ошибке
       setTimeout(() => {
-        startListening();
-      }, 100);
+        if (!isListening && !isPlayingAudio) {
+          startListening();
+          console.log("✅ Микрофон включен после ошибки аудио");
+        }
+      }, 300);
     };
 
     audio.play().catch((error) => {
+      console.error("❌ Не удалось воспроизвести аудио:", error);
       setIsPlayingAudio(false);
       audioRef.current = null;
-      console.error("❌ Не удалось воспроизвести аудио:", error);
-      
+      isProcessingRef.current = false;
+
       // Включаем микрофон при неудаче
       setTimeout(() => {
-        startListening();
-      }, 100);
+        if (!isListening && !isPlayingAudio) {
+          startListening();
+          console.log("✅ Микрофон включен после неудачи воспроизведения");
+        }
+      }, 300);
     });
-  }, [isListening]);
+  }, [isListening, isPlayingAudio, startListening, stopListening]);
 
   // Инициализация распознавания речи
   const initializeRecognition = useCallback(() => {
@@ -191,7 +209,7 @@ export default function VoiceControl({
         recognitionRef.current.start();
       }
     } catch (error) {
-      console.error("❌ Не удалось запустить распознавание:", error);
+      console.error("❌ Не удалось запу��тить распознавание:", error);
       setIsListening(false);
     }
   }, [isSupported, isListening, isPlayingAudio, initializeRecognition]);
@@ -224,7 +242,7 @@ export default function VoiceControl({
     }
 
     // Команда "Джарвис смени модель"
-    if (lowerCommand.includes("джарвис смени модель") || lowerCommand.includes("jarvis смени модель")) {
+    if (lowerCommand.includes("джарвис ��мени модель") || lowerCommand.includes("jarvis смени модель")) {
       playAudioResponse(
         "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F91df3aea397c4fbba9b49e597b4e2cb6?alt=media&token=522412d9-5f3a-454f-851c-dd4228a39931&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
         () => {
