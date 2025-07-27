@@ -332,13 +332,19 @@ function Profile() {
     }
   };
 
-  // Load contracts when needed
+  // Load contracts and bookings when needed
   useEffect(() => {
     if (
       (activeTab === "contracts" || activeTab === "dashboard") &&
       currentUser
     ) {
       loadContracts();
+    }
+    if (
+      (activeTab === "bookings" || activeTab === "dashboard") &&
+      currentUser
+    ) {
+      loadBookings();
     }
   }, [activeTab, currentUser]);
 
@@ -400,7 +406,7 @@ function Profile() {
       const userIndex = users.findIndex((u) => u.id === currentUser.id);
 
       if (userIndex === -1) {
-        setError("Пользователь не найден");
+        setError("Пользователь не найд��н");
         return;
       }
 
@@ -484,7 +490,7 @@ function Profile() {
       users[userIndex].password = formData.newPassword;
       localStorage.setItem("users", JSON.stringify(users));
 
-      addActivityLog("password_change", "Пароль изменен");
+      addActivityLog("password_change", "Пароль из��енен");
       setSuccess("Пароль успешно изменён");
       setFormData((prev) => ({
         ...prev,
