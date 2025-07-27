@@ -156,7 +156,7 @@ export default function VoiceControl({
       recognitionRef.current = null;
       isProcessingRef.current = false;
 
-      // Попробуем еще раз через больший интервал
+      // Попробуем еще раз через больший и��тервал
       setTimeout(() => {
         if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
           startListening();
@@ -229,7 +229,7 @@ export default function VoiceControl({
     };
 
     audio.onerror = () => {
-      console.error("��� Ошибка воспроизведения аудио");
+      console.error("❌ Ошибка воспроизведения аудио");
       setIsPlayingAudio(false);
       audioRef.current = null;
       isProcessingRef.current = false;
@@ -240,7 +240,7 @@ export default function VoiceControl({
           startListening();
           console.log("✅ Микрофон включен после ошибки аудио");
         }
-      }, 1000); // Увеличен с 300 до 1000
+      }, 3000); // Увеличен с 1000 до 3000 (3 секунды)
     };
 
     audio.play().catch((error) => {
@@ -337,7 +337,7 @@ export default function VoiceControl({
     }, 2000); // Увеличен с 500 до 2000
   }, [playAudioResponse, startListening, isListening, isPlayingAudio]);
 
-  // Автоматический запуск при за��рузке с задержкой
+  // Автоматический запуск при загрузке с задержкой
   useEffect(() => {
     if (isSupported) {
       // Увеличенная задержка для предотвращения конфликтов
