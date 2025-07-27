@@ -10,8 +10,17 @@ export default function StarkModeOverlay() {
       setTimeout(() => setIsActive(false), 30000);
     };
 
+    const handleDeactivateStarkMode = () => {
+      setIsActive(false);
+    };
+
     window.addEventListener('activateStarkMode', handleActivateStarkMode);
-    return () => window.removeEventListener('activateStarkMode', handleActivateStarkMode);
+    window.addEventListener('deactivateStarkMode', handleDeactivateStarkMode);
+
+    return () => {
+      window.removeEventListener('activateStarkMode', handleActivateStarkMode);
+      window.removeEventListener('deactivateStarkMode', handleDeactivateStarkMode);
+    };
   }, []);
 
   if (!isActive) return null;
