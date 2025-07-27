@@ -107,7 +107,7 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Останавливаем предыдущее аудио если есть
+    // Останавливаем предыдущее аудио если ест��
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -209,7 +209,7 @@ export default function VoiceMicrophone({
       audioRef.current = null;
       console.error("❌ Ошибка воспроизведения аудио");
 
-      // Возобновляем прослушивание если была ошибка
+      // Возобновляем прослушивание если ��ыла ошибка
       resumeMicrophone(wasListening, "после ошибки аудио");
     };
 
@@ -238,7 +238,7 @@ export default function VoiceMicrophone({
     console.log("🔍 Анализируем команду:", `"${lowerCommand}"`);
     console.log("📱 Мобильное устройство:", isMobileDevice);
 
-    // Фильтруем слишком короткие команды (вероятно ложные срабатывания)
+    // Фильтруем слишком ко��откие команды (вероятно ложные срабатывания)
     if (lowerCommand.length < 3) {
       console.log("⚠️ Команда слишком короткая, игнорируем");
       return;
@@ -287,7 +287,7 @@ export default function VoiceMicrophone({
 
     // Команда "верни модель" - воспроизводим аудио и возвращаем предыдущую модель
     if (
-      lowerCommand.includes("верни модель") ||
+      lowerCommand.includes("верни м��дель") ||
       lowerCommand.includes("верни модел") ||
       lowerCommand.includes("верни м") ||
       (lowerCommand.includes("верни") && lowerCommand.includes("модель"))
@@ -372,7 +372,7 @@ export default function VoiceMicrophone({
       lowerCommand.includes("преимущества")
     ) {
       console.log(
-        "🎯 Команда 'покажи наши преимущ��ства' полу��ена - воспроизводим аудио и скроллим",
+        "🎯 Команда 'покажи ��аши преимущ��ства' полу��ена - воспроизводим аудио и скроллим",
       );
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F6fb621bfa5f6417391fbb189af735e4c?alt=media&token=2271b582-0acf-4930-9fe6-41004818b406&apiKey=3eff37bfce48420f81bfea727d0802d9",
@@ -556,10 +556,12 @@ export default function VoiceMicrophone({
             ) : isListening ? (
               <div className="flex items-center gap-1 text-red-400">
                 <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-                <span>Слушаю...</span>
+                <span>{isMobileDevice ? "Слушаю (мобильный)..." : "Слушаю..."}</span>
               </div>
             ) : (
-              <div className="text-slate-400">Нажмите для записи</div>
+              <div className="text-slate-400">
+                {isMobileDevice ? "Тап для записи" : "Нажмите для записи"}
+              </div>
             )}
           </div>
         </div>
@@ -585,7 +587,7 @@ export default function VoiceMicrophone({
         </div>
       )}
 
-      {/* Кнопка микрофона (встроен��ая) */}
+      {/* Кнопка микрофона (встро��н��ая) */}
       <Button
         onClick={toggleListening}
         variant="outline"
