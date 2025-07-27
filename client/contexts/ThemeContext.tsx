@@ -24,16 +24,26 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     // Загружаем сохраненную тему из localStorage
-    const savedTheme = localStorage.getItem("theme") as Theme;
-    if (savedTheme) {
-      setTheme(savedTheme);
+    try {
+      const savedTheme = localStorage.getItem("theme") as Theme;
+      if (savedTheme && (savedTheme === "dark" || savedTheme === "light")) {
+        setTheme(savedTheme);
+      }
+    } catch (error) {
+      console.warn("Failed to load theme from localStorage:", error);
     }
   }, []);
 
   useEffect(() => {
     // Сохраняем тему в localStorage и применяем к документу
-    localStorage.setItem("theme", theme);
-    document.documentElement.setAttribute("data-theme", theme);
+    try {
+      localStorage.setItem("theme", theme);
+      if (document.documentElement) {
+        document.documentElement.setAttribute("data-theme", theme);
+      }
+    } catch (error) {
+      console.warn("Failed to save theme:", error);
+    }
   }, [theme]);
 
   const toggleTheme = () => {
