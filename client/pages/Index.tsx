@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import ModernNavbar from "@/components/ModernNavbar";
 import VoiceControl from "@/components/VoiceControl";
 
-
 import StarkHero from "@/components/StarkHero";
 import JarvisInterface from "@/components/JarvisInterface";
 import AdvantagesSection from "@/components/AdvantagesSection";
@@ -283,10 +282,6 @@ export default function Index() {
   const handleProceedToOrder = React.useCallback(() => {
     navigate("/order");
   }, [navigate]);
-
-
-
-
 
   const handleModelRotateStart = React.useCallback(() => {
     console.log("🔄 Запуск вращения модели");

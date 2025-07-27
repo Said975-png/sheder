@@ -27,19 +27,25 @@ export default function VoiceControl({
 
   // Проверка поддержки браузером
   useEffect(() => {
-    const supported = "webkitSpeechRecognition" in window || "SpeechRecognition" in window;
+    const supported =
+      "webkitSpeechRecognition" in window || "SpeechRecognition" in window;
     setIsSupported(supported);
   }, []);
 
   // Запуск прослушивания
   const startListening = useCallback(() => {
     // Дополнительные проверки для предотвращения дублирования
-    if (!isSupported || isListening || isPlayingAudio || isProcessingRef.current) {
-      console.log("🚫 Не могу запустить микрофон:", { 
-        isSupported, 
-        isListening, 
-        isPlayingAudio, 
-        isProcessing: isProcessingRef.current 
+    if (
+      !isSupported ||
+      isListening ||
+      isPlayingAudio ||
+      isProcessingRef.current
+    ) {
+      console.log("🚫 Не могу запустить микрофон:", {
+        isSupported,
+        isListening,
+        isPlayingAudio,
+        isProcessing: isProcessingRef.current,
       });
       return;
     }
@@ -60,7 +66,9 @@ export default function VoiceControl({
       }
 
       // Создаем новый recognition только если нужно
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+      const SpeechRecognition =
+        (window as any).SpeechRecognition ||
+        (window as any).webkitSpeechRecognition;
       const recognition = new SpeechRecognition();
 
       recognition.continuous = true; // Изменено на true для лучшего распознавания
@@ -96,13 +104,13 @@ export default function VoiceControl({
         if (finalTranscript.trim() && !isProcessingRef.current) {
           isProcessingRef.current = true;
           const command = finalTranscript.trim();
-          
+
           console.log("✅ Команда получена:", command);
           setTranscript("");
-          
+
           // Останавливаем микрофон сразу после получения команды
           stopListening();
-          
+
           // Обрабатываем команду
           handleVoiceCommand(command);
           onCommand?.(command);
@@ -116,7 +124,10 @@ export default function VoiceControl({
         recognitionRef.current = null; // Очищаем при ошибке
 
         // НЕ перезапускаем автоматически при ошибках
-        if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+        if (
+          event.error === "not-allowed" ||
+          event.error === "service-not-allowed"
+        ) {
           console.log("🚫 Доступ к микрофону запрещен");
         } else {
           console.log("⏹️ Ошибка микрофона, нажмите кнопку для включения");
@@ -127,7 +138,7 @@ export default function VoiceControl({
         console.log("🔄 Распознавание завершено");
         setIsListening(false);
         recognitionRef.current = null; // Очищаем при завершении
-        
+
         // НЕ перезапускаем автоматически - пусть пользователь сам включает
         console.log("⏹️ Микрофон остановлен, нажмите кнопку для включения");
       };
@@ -135,11 +146,10 @@ export default function VoiceControl({
       recognitionRef.current = recognition;
       isProcessingRef.current = false;
       setTranscript("");
-      
+
       // Запускаем с дополнительной проверкой
       recognition.start();
       console.log("🎤 Новый микрофон запущен успешно");
-      
     } catch (error) {
       console.error("❌ Не удалось запустить распознавание:", error);
       setIsListening(false);
@@ -167,143 +177,159 @@ export default function VoiceControl({
   }, []);
 
   // Функция в��спроизв��дения аудио БЕЗ автоматического возобновления микрофона
-  const playAudioResponse = useCallback((audioUrl: string, callback?: () => void) => {
-    console.log("🔊 Начинаем воспроизведение аудио ответа");
-    
-    // Останавливаем микрофон
-    if (isListening) {
-      stopListening();
-    }
+  const playAudioResponse = useCallback(
+    (audioUrl: string, callback?: () => void) => {
+      console.log("🔊 Начинаем воспроизведение аудио ответа");
 
-    // Останавливаем предыдущее аудио если есть
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-    }
-
-    setIsPlayingAudio(true);
-    const audio = new Audio(audioUrl);
-    audioRef.current = audio;
-
-    audio.onended = () => {
-      console.log("✅ Аудио завершено");
-      setIsPlayingAudio(false);
-      audioRef.current = null;
-
-      // Выполняем callback если есть
-      if (callback) {
-        try {
-          callback();
-          console.log("🔄 Callback выполнен");
-        } catch (error) {
-          console.error("❌ Ошибка в callback:", error);
-        }
+      // Останавливаем микрофон
+      if (isListening) {
+        stopListening();
       }
 
-      // Сбрасываем флаг обработки
-      isProcessingRef.current = false;
-      console.log("✅ Аудио завершено, автоматически вк��ючаем микрофон");
+      // Останавливаем предыдущее аудио если есть
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
 
-      // Автоматически включаем микрофон после завершения аудио
-      setTimeout(() => {
-        if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
-          startListening();
-          console.log("🎤 Микрофон автоматически включен после ответа");
+      setIsPlayingAudio(true);
+      const audio = new Audio(audioUrl);
+      audioRef.current = audio;
+
+      audio.onended = () => {
+        console.log("✅ Аудио завершено");
+        setIsPlayingAudio(false);
+        audioRef.current = null;
+
+        // Выполняем callback если есть
+        if (callback) {
+          try {
+            callback();
+            console.log("🔄 Callback выполнен");
+          } catch (error) {
+            console.error("❌ Ошибка в callback:", error);
+          }
         }
-      }, 1000); // 1 секунда задержка для стабильности
-    };
 
-    audio.onerror = () => {
-      console.error("❌ Ошибка воспроизведения аудио");
-      setIsPlayingAudio(false);
-      audioRef.current = null;
-      isProcessingRef.current = false;
-      
-      console.log("⏹️ Ошибка аудио, нажмите кнопку для включения микрофона");
-    };
+        // Сбрасываем флаг обработки
+        isProcessingRef.current = false;
+        console.log("✅ Аудио завершено, автоматически вк��ючаем микрофон");
 
-    audio.play().catch((error) => {
-      console.error("❌ Не удалось воспроизвести аудио:", error);
-      setIsPlayingAudio(false);
-      audioRef.current = null;
-      isProcessingRef.current = false;
-      
-      console.log("⏹️ Неудача воспроизведения, нажмите кнопку для включения микрофона");
-    });
-  }, [isListening, isPlayingAudio, startListening, stopListening]);
+        // Автоматически включаем микрофон после завершения аудио
+        setTimeout(() => {
+          if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
+            startListening();
+            console.log("🎤 Микрофон автоматически включен после ответа");
+          }
+        }, 1000); // 1 секунда задержка для стабильности
+      };
+
+      audio.onerror = () => {
+        console.error("❌ Ошибка воспроизведения аудио");
+        setIsPlayingAudio(false);
+        audioRef.current = null;
+        isProcessingRef.current = false;
+
+        console.log("⏹️ Ошибка аудио, нажмите кнопку для включения микрофона");
+      };
+
+      audio.play().catch((error) => {
+        console.error("❌ Не удалось воспроизвести аудио:", error);
+        setIsPlayingAudio(false);
+        audioRef.current = null;
+        isProcessingRef.current = false;
+
+        console.log(
+          "⏹️ Неудача воспроизведения, нажмите кнопку для включения микрофона",
+        );
+      });
+    },
+    [isListening, isPlayingAudio, startListening, stopListening],
+  );
 
   // Обработка голосовых команд
-  const handleVoiceCommand = useCallback((command: string) => {
-    const lowerCommand = command.toLowerCase().trim();
-    console.log("🔍 Обрабатываем команду:", lowerCommand);
+  const handleVoiceCommand = useCallback(
+    (command: string) => {
+      const lowerCommand = command.toLowerCase().trim();
+      console.log("🔍 Обрабатываем команду:", lowerCommand);
 
-    // Команда "Джарвис ты тут"
-    if (lowerCommand.includes("джарвис ты тут") || lowerCommand.includes("jarvis ты тут")) {
-      playAudioResponse(
-        "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046"
-      );
-      return;
-    }
+      // Команда "Джарвис ты тут"
+      if (
+        lowerCommand.includes("джарвис ты тут") ||
+        lowerCommand.includes("jarvis ты тут")
+      ) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
+        );
+        return;
+      }
 
-    // Команда "Джарвис смени модель"
-    if (lowerCommand.includes("джарвис смени модель") || lowerCommand.includes("jarvis смени модель")) {
-      playAudioResponse(
-        "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F91df3aea397c4fbba9b49e597b4e2cb6?alt=media&token=522412d9-5f3a-454f-851c-dd4228a39931&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
-        () => {
-          // Смена модели после аудио
-          const event = new CustomEvent("changeModel", {
-            detail: { 
-              newModelUrl: "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F1357ace3fa8347cfa6f565692cad1fb7?alt=media&token=ebe4c351-faec-46fe-9b11-d9c4e4881670&apiKey=e61c233aecf6402a8a9db34e2dc8f046"
-            },
-          });
-          window.dispatchEvent(event);
-        }
-      );
-      return;
-    }
+      // Команда "Джарвис смени модель"
+      if (
+        lowerCommand.includes("джарвис смени модель") ||
+        lowerCommand.includes("jarvis смени модель")
+      ) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F91df3aea397c4fbba9b49e597b4e2cb6?alt=media&token=522412d9-5f3a-454f-851c-dd4228a39931&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
+          () => {
+            // Смена модели после аудио
+            const event = new CustomEvent("changeModel", {
+              detail: {
+                newModelUrl:
+                  "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F1357ace3fa8347cfa6f565692cad1fb7?alt=media&token=ebe4c351-faec-46fe-9b11-d9c4e4881670&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
+              },
+            });
+            window.dispatchEvent(event);
+          },
+        );
+        return;
+      }
 
-    // Команда "верни модель"
-    if (lowerCommand.includes("верни модель")) {
-      playAudioResponse(
-        "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F2562e9998e1d4afc90ded9608258444e?alt=media&token=1786dd2e-6e68-4c76-93fe-77066a4a2ecf&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
-        () => {
-          // Возврат к оригинальной модели
-          const event = new CustomEvent("changeModel", {
-            detail: { 
-              newModelUrl: "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f"
-            },
-          });
-          window.dispatchEvent(event);
-        }
-      );
-      return;
-    }
+      // Команда "верни модель"
+      if (lowerCommand.includes("верни модель")) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F2562e9998e1d4afc90ded9608258444e?alt=media&token=1786dd2e-6e68-4c76-93fe-77066a4a2ecf&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
+          () => {
+            // Возврат к оригинальной модели
+            const event = new CustomEvent("changeModel", {
+              detail: {
+                newModelUrl:
+                  "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
+              },
+            });
+            window.dispatchEvent(event);
+          },
+        );
+        return;
+      }
 
-    // Команда "спасибо"
-    if (lowerCommand.includes("спасибо")) {
-      playAudioResponse(
-        "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2Fec5bfbae691b41d9b374b39e75694179?alt=media&token=75301093-1e6e-469a-a492-3105aee95cc9&apiKey=e61c233aecf6402a8a9db34e2dc8f046"
-      );
-      return;
-    }
+      // Команда "спасибо"
+      if (lowerCommand.includes("спасибо")) {
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2Fec5bfbae691b41d9b374b39e75694179?alt=media&token=75301093-1e6e-469a-a492-3105aee95cc9&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
+        );
+        return;
+      }
 
-    // Отправк�� в чат для обработки ИИ
-    if (lowerCommand.includes("пятница")) {
-      // Здесь можно отправить команду в чат с Пятницей
-      console.log("💬 Отправляем команду в чат:", command);
-      
-      // Простой аудио ответ
-      playAudioResponse(
-        "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046"
-      );
-      return;
-    }
+      // Отправк�� в чат для обработки ИИ
+      if (lowerCommand.includes("пятница")) {
+        // Здесь можно отправить команду в чат с Пятницей
+        console.log("💬 Отправляем команду в чат:", command);
 
-    // Для других команд НЕ включаем микрофон автоматически
-    console.log("ℹ️ Неизвестная команда, микрофон остается выключенным");
-    isProcessingRef.current = false;
-    console.log("🎤 Нажмите кнопку для включения микрофона");
-  }, [playAudioResponse]);
+        // Простой аудио ответ
+        playAudioResponse(
+          "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
+        );
+        return;
+      }
+
+      // Для других команд НЕ включаем микрофон автоматически
+      console.log("ℹ️ Неизвестная команда, микрофон остается выключенным");
+      isProcessingRef.current = false;
+      console.log("🎤 Нажмите кнопку для включения микрофона");
+    },
+    [playAudioResponse],
+  );
 
   // Автоматический запуск при загрузке с большой задержкой
   useEffect(() => {
@@ -314,7 +340,7 @@ export default function VoiceControl({
           startListening();
         }
       }, 3000); // 3 секунды задержка
-      
+
       return () => clearTimeout(timer);
     }
   }, [isSupported]); // Убрана зависимость от startListening
@@ -323,7 +349,7 @@ export default function VoiceControl({
   useEffect(() => {
     return () => {
       console.log("🧹 Очистка компонента VoiceControl");
-      
+
       // Останавливаем recognition
       if (recognitionRef.current) {
         try {
@@ -333,13 +359,13 @@ export default function VoiceControl({
           console.log("ℹ️ Ошибка очистки recognition:", error);
         }
       }
-      
+
       // Останавливаем аудио
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
-      
+
       // Сбрасываем флаги
       isProcessingRef.current = false;
     };
@@ -355,7 +381,7 @@ export default function VoiceControl({
 
   const sizeClasses = {
     sm: "w-12 h-12",
-    md: "w-16 h-16", 
+    md: "w-16 h-16",
     lg: "w-20 h-20",
   };
 
@@ -399,7 +425,7 @@ export default function VoiceControl({
             {isListening && (
               <div className="absolute inset-0 bg-red-400/20 animate-ping rounded-full" />
             )}
-            
+
             {isPlayingAudio ? (
               <Volume2 className={iconSizes[size]} />
             ) : isListening ? (
@@ -448,7 +474,7 @@ export default function VoiceControl({
             ? "bg-green-500/20 border-green-500/50 text-green-400"
             : isListening
               ? "bg-red-500/20 border-red-500/50 text-red-400 animate-pulse"
-              : "bg-blue-500/20 border-blue-500/50 text-blue-400"
+              : "bg-blue-500/20 border-blue-500/50 text-blue-400",
         )}
       >
         {isPlayingAudio ? (
@@ -459,7 +485,7 @@ export default function VoiceControl({
           <Mic className="w-5 h-5" />
         )}
       </Button>
-      
+
       {transcript && (
         <div className="bg-black/50 border border-white/20 rounded-lg px-3 py-2 text-sm text-white max-w-xs">
           {transcript}
