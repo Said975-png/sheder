@@ -73,18 +73,22 @@ export const useVoiceRecognition = ({
         onTranscript?.(currentTranscript);
       }
 
-      // Обрабатываем финальные результаты
+      // Обрабатываем финальные результаты быстро
       if (finalTranscript.trim() && !isProcessingRef.current) {
         isProcessingRef.current = true;
         const command = finalTranscript.trim();
         
         console.log("✅ Обрабатываем команду:", command);
-        onCommand?.(command);
         
-        // Очищаем транскрипт и готовимся к новой команде сразу
+        // Сразу очищаем транскрипт для готовности к следующей команде
         setTranscript("");
-        isProcessingRef.current = false;
-        console.log("🔄 Готов к сл��дующей команде");
+        
+        // Асинхронная обработка команды для минимальной задержки
+        requestAnimationFrame(() => {
+          onCommand?.(command);
+          isProcessingRef.current = false;
+          console.log("🔄 Готов к следующей команде");
+        });
       }
     };
 
@@ -104,24 +108,24 @@ export const useVoiceRecognition = ({
 
     recognition.onend = () => {
       console.log("🔄 Распознавание завершилось");
-
-      // Автоматический перезапуск если должны слушать
+      
+      // Быстрый автоматический перезапуск если должны слушать
       if (isListening && !isProcessingRef.current) {
         if (restartTimeoutRef.current) {
           clearTimeout(restartTimeoutRef.current);
         }
-
-        // Минимальная задержка для стабильности
-        restartTimeoutRef.current = setTimeout(() => {
+        
+        // Минимальная задержка для стабильности - используем requestAnimationFrame для оптимальной производительности
+        requestAnimationFrame(() => {
           if (isListening && recognitionRef.current) {
             try {
               recognitionRef.current.start();
-              console.log("🔄 Быстрый перезапуск распознавания");
+              console.log("🔄 Б��стрый перезапуск распознавания");
             } catch (error) {
               console.log("ℹ️ Ошибка перезапуска:", error);
             }
           }
-        }, 100); // Минимальная задержка 100мс
+        });
       }
     };
 
