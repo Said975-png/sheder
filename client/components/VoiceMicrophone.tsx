@@ -41,7 +41,7 @@ export default function VoiceMicrophone({
 
   // Функция смены модели через CustomEvent
   const changeModel = (newModelUrl: string) => {
-    console.log("🔄 Отправляем событие смены модели:", newModelUrl);
+    console.log("🔄 Отправляем со��ытие смены модели:", newModelUrl);
 
     // Добавляем новую модель в историю
     modelHistoryRef.current.push(newModelUrl);
@@ -73,7 +73,7 @@ export default function VoiceMicrophone({
     window.dispatchEvent(event);
   };
 
-  // Функция воспроизведения аудио с колбэком
+  // Функция воспрои��ведения аудио с колбэком
   const playAudioWithCallback = (audioUrl: string, callback?: () => void) => {
     if (isPlayingAudio) {
       console.log("⏸️ Аудио уже воспроизводится");
@@ -110,10 +110,8 @@ export default function VoiceMicrophone({
 
       // Возобновляем прослушивание если оно было активно
       if (wasListening) {
-        setTimeout(() => {
-          toggleListening(); // Включаем микрофон обратно
-          console.log("🎤 Микрофон возобновлен после аудио");
-        }, 500);
+        toggleListening(); // Включаем микрофон обратно сразу
+        console.log("🎤 Микрофон возобновлен после аудио");
       }
     };
 
@@ -267,7 +265,7 @@ export default function VoiceMicrophone({
     if (lowerCommand.includes("привет") || lowerCommand.includes("здравствуй")) {
       console.log("👋 Команда приветствия получена");
     } else if (lowerCommand.includes("спасибо") || lowerCommand.includes("благодарю")) {
-      console.log("🙏 Команда благодарности получена");
+      console.log("🙏 Команда благодарности получе��а");
     } else if (lowerCommand.includes("помощь") || lowerCommand.includes("help")) {
       console.log("❓ Запрос помощи получен");
     }
