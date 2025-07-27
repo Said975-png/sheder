@@ -341,7 +341,12 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
         <div className="p-2">
           <DropdownMenuItem
             onClick={() => (window.location.href = "/profile")}
-            className="text-white hover:bg-white/10 cursor-pointer rounded-lg"
+            className={cn(
+              "cursor-pointer rounded-lg",
+              theme === "dark"
+                ? "text-white hover:bg-white/10"
+                : "text-black hover:bg-black/10"
+            )}
           >
             <User className="mr-3 h-4 w-4" />
             Profile
