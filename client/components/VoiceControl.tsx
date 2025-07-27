@@ -128,7 +128,7 @@ export default function VoiceControl({
       recognition.onend = () => {
         console.log("🔄 Распознавание завершено");
         setIsListening(false);
-        recognitionRef.current = null; // Очищаем при завершении
+        recognitionRef.current = null; // Очищаем при завер��ении
 
         // Если не обрабатываем команду и не играет аудио, перезапускаем микрофон с большей задержкой
         if (!isProcessingRef.current && !isPlayingAudio) {
@@ -262,7 +262,7 @@ export default function VoiceControl({
   // Обработка голосовых команд
   const handleVoiceCommand = useCallback((command: string) => {
     const lowerCommand = command.toLowerCase().trim();
-    console.log("🔍 Обрабатываем команду:", lowerCommand);
+    console.log("🔍 Обрабат��ваем команду:", lowerCommand);
 
     // Команда "Джарвис ты тут"
     if (lowerCommand.includes("джарвис ты тут") || lowerCommand.includes("jarvis ты тут")) {
@@ -314,7 +314,7 @@ export default function VoiceControl({
       return;
     }
 
-    // Отправка в чат для обработки ИИ
+    // Отправка в чат д��я обработки ИИ
     if (lowerCommand.includes("пя��ница")) {
       // Здесь можно отправить команду в чат с Пятницей
       console.log("💬 Отправляем команду в чат:", command);
@@ -334,7 +334,7 @@ export default function VoiceControl({
         startListening();
         console.log("✅ Микрофон перезапущен после неизвестной команды");
       }
-    }, 500);
+    }, 2000); // Увеличен с 500 до 2000
   }, [playAudioResponse, startListening, isListening, isPlayingAudio]);
 
   // Автоматический запуск при загрузке с задержкой
