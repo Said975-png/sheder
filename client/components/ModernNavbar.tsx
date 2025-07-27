@@ -373,7 +373,7 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
             )}
           >
             <Brain className="mr-3 h-4 w-4" />
-            Чат с Пятницей 🤖
+            Чат с Пятнице�� 🤖
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={toggleTheme}
@@ -444,8 +444,10 @@ function AuthButtons({ theme }: { theme: string }) {
         variant="ghost"
         className={cn(
           "px-4 py-2 font-medium text-sm h-10",
-          "text-white hover:text-white",
           "transition-all duration-200",
+          theme === "dark"
+            ? "text-white hover:text-white"
+            : "text-black hover:text-black"
         )}
         asChild
       >
