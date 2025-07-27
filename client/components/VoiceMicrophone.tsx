@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Mic, MicOff, Volume2 } from "lucide-react";
+import { Mic, MicOff, Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useVoiceRecognition } from "@/hooks/useVoiceRecognition";
 
@@ -19,6 +19,9 @@ export default function VoiceMicrophone({
   size = "md",
   floating = true,
 }: VoiceMicrophoneProps) {
+  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   const { isListening, transcript, isSupported, toggleListening } = useVoiceRecognition({
     onTranscript: (text) => {
       console.log("📝 Получен транскрипт:", text);
@@ -26,13 +29,59 @@ export default function VoiceMicrophone({
     },
     onCommand: (command) => {
       console.log("🎯 Получена команда:", command);
+      handleCommand(command);
       onCommand?.(command);
     },
   });
 
+  // Функция воспроизведения аудио
+  const playAudio = (audioUrl: string) => {
+    if (isPlayingAudio) {
+      console.log("⏸️ Аудио уже воспроизводится");
+      return;
+    }
+
+    // Останавливаем предыдущее аудио если есть
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+
+    setIsPlayingAudio(true);
+    console.log("🔊 Начинаем воспроизведение аудио");
+
+    const audio = new Audio(audioUrl);
+    audioRef.current = audio;
+
+    audio.onended = () => {
+      setIsPlayingAudio(false);
+      audioRef.current = null;
+      console.log("✅ Воспроизведение завершено");
+    };
+
+    audio.onerror = () => {
+      setIsPlayingAudio(false);
+      audioRef.current = null;
+      console.error("❌ Ошибка воспроизведения аудио");
+    };
+
+    audio.play().catch((error) => {
+      setIsPlayingAudio(false);
+      audioRef.current = null;
+      console.error("❌ Не удалось воспроизвести аудио:", error);
+    });
+  };
+
   const handleCommand = (command: string) => {
     const lowerCommand = command.toLowerCase();
-    
+
+    // Команда "Джарвис ты тут" - воспроизводим аудио ответ
+    if (lowerCommand.includes("джарвис ты ��ут") || lowerCommand.includes("jarvis ты тут")) {
+      console.log("🎯 Команда 'Джарвис ты тут' получена - воспроизводим аудио ответ");
+      playAudio("https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046");
+      return;
+    }
+
     // Простые команды для демонстрации
     if (lowerCommand.includes("привет") || lowerCommand.includes("здравствуй")) {
       console.log("👋 Команда приветствия получена");
@@ -41,9 +90,6 @@ export default function VoiceMicrophone({
     } else if (lowerCommand.includes("помощь") || lowerCommand.includes("help")) {
       console.log("❓ Запрос помощи получен");
     }
-    
-    // Передаем команду выше
-    onCommand?.(command);
   };
 
   if (!isSupported) {
@@ -102,7 +148,12 @@ export default function VoiceMicrophone({
           
           {/* Статус */}
           <div className="text-xs text-center">
-            {isListening ? (
+            {isPlayingAudio ? (
+              <div className="flex items-center gap-1 text-green-400">
+                <Volume2 className="w-3 h-3 animate-pulse" />
+                <span>Говорю...</span>
+              </div>
+            ) : isListening ? (
               <div className="flex items-center gap-1 text-red-400">
                 <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
                 <span>Слушаю...</span>
@@ -125,21 +176,34 @@ export default function VoiceMicrophone({
           {transcript}
         </div>
       )}
-      
+
+      {/* Статус аудио (встроенный) */}
+      {isPlayingAudio && (
+        <div className="flex items-center gap-1 text-green-400 text-xs">
+          <Volume2 className="w-3 h-3 animate-pulse" />
+          <span>Говорю...</span>
+        </div>
+      )}
+
       {/* Кнопка микрофона (встроенная) */}
       <Button
         onClick={toggleListening}
         variant="outline"
         size="sm"
+        disabled={isPlayingAudio}
         className={cn(
           sizeClasses[size],
           "rounded-xl transition-all duration-200",
-          isListening
+          isPlayingAudio
+            ? "bg-green-500/20 border-green-500/50 text-green-400"
+            : isListening
             ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
             : "border-blue-400/30 bg-slate-800/50 text-blue-400 hover:bg-blue-500/20"
         )}
       >
-        {isListening ? (
+        {isPlayingAudio ? (
+          <Volume2 className={iconSizes[size]} />
+        ) : isListening ? (
           <MicOff className={iconSizes[size]} />
         ) : (
           <Mic className={iconSizes[size]} />
