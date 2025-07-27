@@ -268,6 +268,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
               placeholder="Опишите ваш проект, требования и пожелания..."
               rows={3}
               required
+              className="bg-white text-gray-900 border-gray-300 placeholder:text-gray-500"
             />
           </div>
 
