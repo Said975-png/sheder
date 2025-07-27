@@ -158,7 +158,9 @@
       "Segoe UI",
       Roboto,
       sans-serif;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 }
 
@@ -2168,72 +2170,77 @@
     }
 
     .neon-particle {
-    width: 2px;
-    height: 2px;
+      width: 2px;
+      height: 2px;
+    }
   }
-}
 
-/* Переключение темы для основных элементов */
-[data-theme="light"] {
-  background-color: white !important;
-  color: black !important;
-}
+  /* Переключение темы для основных элементов */
+  [data-theme="light"] {
+    background-color: white !important;
+    color: black !important;
+  }
 
-[data-theme="light"] .bg-black {
-  background-color: white !important;
-}
+  [data-theme="light"] .bg-black {
+    background-color: white !important;
+  }
 
-[data-theme="light"] .text-white {
-  color: black !important;
-}
+  [data-theme="light"] .text-white {
+    color: black !important;
+  }
 
-[data-theme="light"] .text-white\/90 {
-  color: rgba(0, 0, 0, 0.9) !important;
-}
+  [data-theme="light"] .text-white\/90 {
+    color: rgba(0, 0, 0, 0.9) !important;
+  }
 
-[data-theme="light"] .text-white\/80 {
-  color: rgba(0, 0, 0, 0.8) !important;
-}
+  [data-theme="light"] .text-white\/80 {
+    color: rgba(0, 0, 0, 0.8) !important;
+  }
 
-[data-theme="light"] .text-white\/70 {
-  color: rgba(0, 0, 0, 0.7) !important;
-}
+  [data-theme="light"] .text-white\/70 {
+    color: rgba(0, 0, 0, 0.7) !important;
+  }
 
-[data-theme="light"] .text-white\/60 {
-  color: rgba(0, 0, 0, 0.6) !important;
-}
+  [data-theme="light"] .text-white\/60 {
+    color: rgba(0, 0, 0, 0.6) !important;
+  }
 
-[data-theme="light"] .text-white\/40 {
-  color: rgba(0, 0, 0, 0.4) !important;
-}
+  [data-theme="light"] .text-white\/40 {
+    color: rgba(0, 0, 0, 0.4) !important;
+  }
 
-[data-theme="light"] .bg-slate-900,
-[data-theme="light"] .bg-slate-800,
-[data-theme="light"] .bg-gray-900 {
-  background-color: white !important;
-}
+  [data-theme="light"] .bg-slate-900,
+  [data-theme="light"] .bg-slate-800,
+  [data-theme="light"] .bg-gray-900 {
+    background-color: white !important;
+  }
 
-[data-theme="light"] .bg-slate-900\/90,
-[data-theme="light"] .bg-slate-800\/50 {
-  background-color: rgba(240, 240, 240, 0.9) !important;
-}
+  [data-theme="light"] .bg-slate-900\/90,
+  [data-theme="light"] .bg-slate-800\/50 {
+    background-color: rgba(240, 240, 240, 0.9) !important;
+  }
 
-[data-theme="light"] .border-white\/20,
-[data-theme="light"] .border-slate-700\/50,
-[data-theme="light"] .border-slate-600\/30 {
-  border-color: rgba(0, 0, 0, 0.2) !important;
-}
+  [data-theme="light"] .border-white\/20,
+  [data-theme="light"] .border-slate-700\/50,
+  [data-theme="light"] .border-slate-600\/30 {
+    border-color: rgba(0, 0, 0, 0.2) !important;
+  }
 
-[data-theme="light"] .text-slate-400 {
-  color: rgba(0, 0, 0, 0.6) !important;
-}
+  [data-theme="light"] .text-slate-400 {
+    color: rgba(0, 0, 0, 0.6) !important;
+  }
 
-[data-theme="light"] .bg-gradient-to-br {
-  background: linear-gradient(to bottom right, #f8f9fa, #e9ecef, #dee2e6) !important;
-}
+  [data-theme="light"] .bg-gradient-to-br {
+    background: linear-gradient(
+      to bottom right,
+      #f8f9fa,
+      #e9ecef,
+      #dee2e6
+    ) !important;
+  }
 
-[data-theme="light"] body {
-  background-color: white !important;
-  color: black !important;
-}
+  [data-theme="light"] body {
+    background-color: white !important;
+    color: black !important;
+  }
 }

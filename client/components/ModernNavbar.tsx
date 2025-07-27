@@ -117,7 +117,12 @@ export default function ModernNavbar({
 
             {/* User Menu or Auth Buttons */}
             {isAuthenticated && currentUser ? (
-              <UserMenu user={currentUser} onLogout={handleLogout} theme={theme} toggleTheme={toggleTheme} />
+              <UserMenu
+                user={currentUser}
+                onLogout={handleLogout}
+                theme={theme}
+                toggleTheme={toggleTheme}
+              />
             ) : (
               <AuthButtons />
             )}
@@ -323,12 +328,12 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
             onClick={toggleTheme}
             className="text-white hover:bg-white/10 cursor-pointer rounded-lg"
           >
-            {theme === 'dark' ? (
+            {theme === "dark" ? (
               <Sun className="mr-3 h-4 w-4" />
             ) : (
               <Moon className="mr-3 h-4 w-4" />
             )}
-            {theme === 'dark' ? 'Светлая тема' : 'Темная тема'}
+            {theme === "dark" ? "Светлая тема" : "Темная тема"}
           </DropdownMenuItem>
         </div>
 
