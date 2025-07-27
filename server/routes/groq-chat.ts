@@ -3,9 +3,11 @@ import { ChatRequest, ChatResponse } from "@shared/api";
 
 export const handleGroqChat: RequestHandler = async (req, res) => {
   try {
+    console.log("📧 Получен запрос к groq-chat");
     const { messages }: ChatRequest = req.body;
 
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      console.log("❌ Некорректные сообщения:", messages);
       const response: ChatResponse = {
         success: false,
         error: "Необходимо предоставить сообщения для чата",
@@ -15,12 +17,16 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
 
     const groqApiKey = process.env.GROQ_API_KEY;
     if (!groqApiKey) {
+      console.log("❌ GROQ_API_KEY не найден в переменных окружения");
       const response: ChatResponse = {
         success: false,
         error: "API ключ не настроен",
       };
       return res.status(500).json(response);
     }
+
+    console.log(`🔑 API ключ найден, длина: ${groqApiKey.length} символов`);
+    console.log(`📝 Количество сообщений: ${messages.length}`);
 
     // Используем модель llama-3.1-8b-instant
     const groqResponse = await fetch(
@@ -44,7 +50,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
 - Консультант по веб-разработке
 - Помощник с любыми вопросами
 - Можешь решать математические задачи
-- Помогаешь с прогр��ммированием
+- Помог��ешь с прогр��ммированием
 
 ИНФОРМАЦИЯ О КОМПАНИИ:
 🏢 STARK INDUSTRIES AI DIVISION - команда веб-разработчиков
