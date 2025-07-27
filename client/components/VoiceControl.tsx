@@ -25,7 +25,7 @@ export default function VoiceControl({
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const isProcessingRef = useRef(false);
 
-  // Проверка поддержки браузером
+  // Проверка по��держки браузером
   useEffect(() => {
     const supported = "webkitSpeechRecognition" in window || "SpeechRecognition" in window;
     setIsSupported(supported);
@@ -191,7 +191,7 @@ export default function VoiceControl({
       stopListening();
     }
 
-    // Останавливаем предыдущее аудио если есть
+    // Останавлив��ем предыдущее аудио если есть
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -223,7 +223,7 @@ export default function VoiceControl({
       setTimeout(() => {
         if (!isListening && !isPlayingAudio) {
           startListening();
-          console.log("✅ Микрофон автома��ически включен после ответа");
+          console.log("✅ Микрофон автоматически включен после ответа");
         }
       }, 300);
     };
@@ -264,7 +264,7 @@ export default function VoiceControl({
     const lowerCommand = command.toLowerCase().trim();
     console.log("🔍 Обрабатываем команду:", lowerCommand);
 
-    // Команда "Джарвис ты тут"
+    // Команда "Джарвис т�� тут"
     if (lowerCommand.includes("джарвис ты тут") || lowerCommand.includes("jarvis ты тут")) {
       playAudioResponse(
         "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F88f169fa15c74679b0cef82d12ee5f8d?alt=media&token=287c51bf-45be-420b-bd4f-8bdcb60d393c&apiKey=e61c233aecf6402a8a9db34e2dc8f046"
@@ -337,12 +337,19 @@ export default function VoiceControl({
     }, 500);
   }, [playAudioResponse, startListening, isListening, isPlayingAudio]);
 
-  // Автоматический запуск при загрузке
+  // Автоматический запуск при загрузке с задержкой
   useEffect(() => {
     if (isSupported) {
-      startListening();
+      // Небольшая задержка для предотвращения конфликтов
+      const timer = setTimeout(() => {
+        if (!isListening && !isPlayingAudio && !isProcessingRef.current) {
+          startListening();
+        }
+      }, 1000);
+
+      return () => clearTimeout(timer);
     }
-  }, [isSupported, startListening]);
+  }, [isSupported]);
 
   // Очистка при размонтировании
   useEffect(() => {
