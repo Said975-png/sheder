@@ -30,7 +30,7 @@ export default function VoiceMicrophone({
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Определяем мобильное устройство при монтировании
+  // Определяем мобильное уст��ойство при монтировании
   useEffect(() => {
     setIsMobileDevice(isMobile());
   }, []);
@@ -91,7 +91,7 @@ export default function VoiceMicrophone({
     const previousModelUrl =
       modelHistoryRef.current[modelHistoryRef.current.length - 1];
 
-    console.log("↩️ Возвращаемся к предыдущей модели:", previousModelUrl);
+    console.log("↩️ Возвра��аемся к предыдущей модели:", previousModelUrl);
     console.log("📝 История моделей после возврат��:", modelHistoryRef.current);
 
     const event = new CustomEvent("changeModel", {
@@ -146,11 +146,8 @@ export default function VoiceMicrophone({
       audioRef.current = null;
       console.error("❌ Ошибка воспроизведения аудио");
 
-      // Возобновля��м прослушивание если была ошибка
-      if (wasListening) {
-        toggleListening(); // Включаем микрофон о��ратно
-        console.log("🎤 Микрофон возобновлен после ошибки аудио");
-      }
+      // Возобновляем прослушивание если была ошибка
+      resumeMicrophone(wasListening, "после ошибки аудио");
     };
 
     audio.play().catch((error) => {
@@ -218,7 +215,7 @@ export default function VoiceMicrophone({
     audio.onerror = () => {
       setIsPlayingAudio(false);
       audioRef.current = null;
-      console.error("❌ Ошибка воспроизведения ��удио");
+      console.error("❌ Ошибка воспроизведения аудио");
 
       // Возобновляем прослушивание если была ошибка
       if (wasListening) {
@@ -320,14 +317,14 @@ export default function VoiceMicrophone({
         "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F2562e9998e1d4afc90ded9608258444e?alt=media&token=1786dd2e-6e68-4c76-93fe-77066a4a2ecf&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
         () => {
           // После окончания аудио возвращаем предыдущую модель
-          console.log("↩️ Возврат к пред��дущей модели после аудио ответа");
+          console.log("↩️ Возврат к предыдущей модели после аудио ответа");
           revertToPreviousModel();
         },
       );
       return;
     }
 
-    // Команда "спасибо" - воспроизв��дим аудио отве��
+    // Команда "спасибо" - воспроизводим аудио отве��
     if (lowerCommand.includes("спасибо")) {
       console.log("🎯 Команда 'спасибо' получена - воспр��изводим аудио ответ");
       playAudioWithCallback(
@@ -384,14 +381,14 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Кома��да "покажи наши преимущест��а" - воспроизводим аудио и скроллим к преимуществам
+    // Кома��да "покажи наши преимущества" - воспроизводим аудио и скроллим к преимуществам
     if (
       lowerCommand.includes("покажи наши преимущества") ||
       lowerCommand.includes("наши преимущества") ||
       lowerCommand.includes("преимущества")
     ) {
       console.log(
-        "🎯 Команда 'покажи наши преимущества' получена - воспроизводим аудио и скроллим",
+        "🎯 Коман��а 'покажи наши преимущества' получена - воспроизводим аудио и скроллим",
       );
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F6fb621bfa5f6417391fbb189af735e4c?alt=media&token=2271b582-0acf-4930-9fe6-41004818b406&apiKey=3eff37bfce48420f81bfea727d0802d9",
@@ -407,7 +404,7 @@ export default function VoiceMicrophone({
               block: "start",
             });
           } else {
-            // Если не�� data-атрибута, ищем по тексту
+            // Если нет data-атрибута, ищем по тексту
             const advantagesElement = Array.from(
               document.querySelectorAll("h2"),
             ).find(
