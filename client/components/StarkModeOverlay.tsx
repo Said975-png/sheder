@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 export default function StarkModeOverlay() {
   const [isActive, setIsActive] = useState(false);
@@ -14,12 +14,15 @@ export default function StarkModeOverlay() {
       setIsActive(false);
     };
 
-    window.addEventListener('activateStarkMode', handleActivateStarkMode);
-    window.addEventListener('deactivateStarkMode', handleDeactivateStarkMode);
+    window.addEventListener("activateStarkMode", handleActivateStarkMode);
+    window.addEventListener("deactivateStarkMode", handleDeactivateStarkMode);
 
     return () => {
-      window.removeEventListener('activateStarkMode', handleActivateStarkMode);
-      window.removeEventListener('deactivateStarkMode', handleDeactivateStarkMode);
+      window.removeEventListener("activateStarkMode", handleActivateStarkMode);
+      window.removeEventListener(
+        "deactivateStarkMode",
+        handleDeactivateStarkMode,
+      );
     };
   }, []);
 
@@ -32,7 +35,7 @@ export default function StarkModeOverlay() {
         {/* Горизонтальные сканирующие линии */}
         <div className="scanning-line-horizontal animate-scan-horizontal"></div>
         <div className="scanning-line-horizontal animate-scan-horizontal-delayed"></div>
-        
+
         {/* Вертикальные сканирующие линии */}
         <div className="scanning-line-vertical animate-scan-vertical"></div>
         <div className="scanning-line-vertical animate-scan-vertical-delayed"></div>
@@ -43,17 +46,17 @@ export default function StarkModeOverlay() {
         <div className="absolute top-0 left-0 w-full h-1 bg-cyan-400 animate-pulse"></div>
         <div className="absolute top-0 left-0 w-1 h-full bg-cyan-400 animate-pulse"></div>
       </div>
-      
+
       <div className="absolute top-4 right-4 w-16 h-16">
         <div className="absolute top-0 right-0 w-full h-1 bg-cyan-400 animate-pulse"></div>
         <div className="absolute top-0 right-0 w-1 h-full bg-cyan-400 animate-pulse"></div>
       </div>
-      
+
       <div className="absolute bottom-4 left-4 w-16 h-16">
         <div className="absolute bottom-0 left-0 w-full h-1 bg-cyan-400 animate-pulse"></div>
         <div className="absolute bottom-0 left-0 w-1 h-full bg-cyan-400 animate-pulse"></div>
       </div>
-      
+
       <div className="absolute bottom-4 right-4 w-16 h-16">
         <div className="absolute bottom-0 right-0 w-full h-1 bg-cyan-400 animate-pulse"></div>
         <div className="absolute bottom-0 right-0 w-1 h-full bg-cyan-400 animate-pulse"></div>
@@ -64,7 +67,7 @@ export default function StarkModeOverlay() {
         <div className="w-64 h-64 border-2 border-cyan-400 rounded-full animate-spin-slow relative">
           <div className="absolute inset-4 border border-cyan-400/50 rounded-full"></div>
           <div className="absolute inset-8 border border-cyan-400/30 rounded-full"></div>
-          
+
           {/* Центральная точка */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-400 rounded-full animate-pulse"></div>
         </div>
@@ -89,7 +92,7 @@ export default function StarkModeOverlay() {
         <div className="animate-pulse delay-100">RAM: 87.2%</div>
         <div className="animate-pulse delay-200">NET: 156 Mbps</div>
       </div>
-      
+
       <div className="absolute top-32 right-8 text-cyan-400 font-mono text-xs text-right">
         <div className="animate-pulse">SECURITY: ACTIVE</div>
         <div className="animate-pulse delay-100">FIREWALL: ENABLED</div>
