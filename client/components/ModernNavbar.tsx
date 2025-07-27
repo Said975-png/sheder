@@ -431,8 +431,10 @@ function AuthButtons({ theme }: { theme: string }) {
         variant="secondary"
         className={cn(
           "px-4 py-2 font-medium text-sm h-10",
-          "!bg-white !text-black hover:!bg-white/90 hover:!text-black",
           "transition-all duration-200",
+          theme === "dark"
+            ? "!bg-white !text-black hover:!bg-white/90 hover:!text-black"
+            : "!bg-black !text-white hover:!bg-black/90 hover:!text-white"
         )}
         asChild
       >
