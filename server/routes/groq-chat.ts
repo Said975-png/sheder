@@ -17,18 +17,31 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
 
     const groqApiKey = process.env.GROQ_API_KEY;
     if (!groqApiKey) {
-      console.log("❌ GROQ_API_KEY не найден в переменных окружения, используем fallback");
+      console.log(
+        "❌ GROQ_API_KEY не найден в переменных окружения, используем fallback",
+      );
 
       // Fallback ответ ��ри отсутствии API ключа
-      const lastMessage = messages[messages.length - 1]?.content?.toLowerCase() || '';
-      let fallbackMessage = '';
+      const lastMessage =
+        messages[messages.length - 1]?.content?.toLowerCase() || "";
+      let fallbackMessage = "";
 
-      if (lastMessage.includes('привет') || lastMessage.includes('здравствуй')) {
-        fallbackMessage = '👋 Привет! Я П��тница, ваш ИИ-консультант. Сейчас работаю в демо-режиме. Расскажу о наших тарифах веб-разработки!';
-      } else if (lastMessage.includes('тариф') || lastMessage.includes('цен') || lastMessage.includes('стоимость')) {
-        fallbackMessage = '💰 Наши тарифы веб-разработки:\n\n🥉 BASIC - 2.500.000 сум\n🥈 PRO - 3.500.000 сум (скидка с 4М)\n🥇 MAX - 5.500.000 сум\n\nВыберите тариф для подробностей!';
+      if (
+        lastMessage.includes("привет") ||
+        lastMessage.includes("здравствуй")
+      ) {
+        fallbackMessage =
+          "👋 Привет! Я П��тница, ваш ИИ-консультант. Сейчас работаю в демо-режиме. Расскажу о наших тарифах веб-разработки!";
+      } else if (
+        lastMessage.includes("тариф") ||
+        lastMessage.includes("цен") ||
+        lastMessage.includes("стоимость")
+      ) {
+        fallbackMessage =
+          "💰 Наши тарифы веб-разработки:\n\n🥉 BASIC - 2.500.000 сум\n🥈 PRO - 3.500.000 сум (скидка с 4М)\n🥇 MAX - 5.500.000 сум\n\nВыберите тариф для подробностей!";
       } else {
-        fallbackMessage = '🤖 Пятница здесь! Работаю в демо-режиме. Могу рассказать о наших услугах веб-разработки и тарифах. Что вас интересует?';
+        fallbackMessage =
+          "🤖 Пятница здесь! Работаю в демо-режиме. Могу рассказать о наших услугах веб-разработки и тарифах. Что вас интересует?";
       }
 
       const response: ChatResponse = {
@@ -122,19 +135,33 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
       console.error("❌ Groq API error:", {
         status: groqResponse.status,
         statusText: groqResponse.statusText,
-        error: errorText
+        error: errorText,
       });
 
       // Fallback ответ при недоступности API
-      const lastMessage = messages[messages.length - 1]?.content?.toLowerCase() || '';
-      let fallbackMessage = '';
+      const lastMessage =
+        messages[messages.length - 1]?.content?.toLowerCase() || "";
+      let fallbackMessage = "";
 
-      if (lastMessage.includes('привет') || lastMessage.includes('здравствуй')) {
-        fallbackMessage = '👋 Привет! Я Пятница, ваш ИИ-консультант по веб-разработке. В данный момент основной API недоступен, но я могу рассказать о наших тарифах!\n\n🥉 BASIC - 2.500.000 сум\n🥈 PRO - 3.500.000 сум\n🥇 MAX - 5.500.000 сум\n\nЧто вас интересует?';
-      } else if (lastMessage.includes('тариф') || lastMessage.includes('цен') || lastMessage.includes('стоимость')) {
-        fallbackMessage = '💰 Наши тарифы:\n\n🥉 BASIC - 2.500.000 сум:\n• Уникальный дизайн\n• Адаптивная верстка\n• SEO оптимизация\n• Поддержк�� 3 месяца\n\n🥈 PRO - 3.500.000 сум:\n• Все из Basic +\n• ИИ-чат бот\n• Панель управления\n• Аналитика\n• Поддержка 6 месяцев\n\n🥇 MAX - 5.500.000 сум:\n• Все из Pro +\n• Джарвис с голосовыми ответами\n• 3D элементы\n• VR/AR интеграция\n• Поддержка 12 месяцев';
-      } else if (lastMessage.includes('спасибо') || lastMessage.includes('благодарю')) {
-        fallbackMessage = '😊 Пожалуйста! Рад помочь с веб-разработкой. Если есть вопросы по тарифам или услугам - обращайтесь!';
+      if (
+        lastMessage.includes("привет") ||
+        lastMessage.includes("здравствуй")
+      ) {
+        fallbackMessage =
+          "👋 Привет! Я Пятница, ваш ИИ-консультант по веб-разработке. В данный момент основной API недоступен, но я могу рассказать о наших тарифах!\n\n🥉 BASIC - 2.500.000 сум\n🥈 PRO - 3.500.000 сум\n🥇 MAX - 5.500.000 сум\n\nЧто вас интересует?";
+      } else if (
+        lastMessage.includes("тариф") ||
+        lastMessage.includes("цен") ||
+        lastMessage.includes("стоимость")
+      ) {
+        fallbackMessage =
+          "💰 Наши тарифы:\n\n🥉 BASIC - 2.500.000 сум:\n• Уникальный дизайн\n• Адаптивная верстка\n• SEO оптимизация\n• Поддержк�� 3 месяца\n\n🥈 PRO - 3.500.000 сум:\n• Все из Basic +\n• ИИ-чат бот\n• Панель управления\n• Аналитика\n• Поддержка 6 месяцев\n\n🥇 MAX - 5.500.000 сум:\n• Все из Pro +\n• Джарвис с голосовыми ответами\n• 3D элементы\n• VR/AR интеграция\n• Поддержка 12 месяцев";
+      } else if (
+        lastMessage.includes("спасибо") ||
+        lastMessage.includes("благодарю")
+      ) {
+        fallbackMessage =
+          "😊 Пожалуйста! Рад помочь с веб-разработкой. Если есть вопросы по тарифам или услугам - обращайтесь!";
       } else {
         fallbackMessage = `🤖 Привет! Сейчас основной API временно недоступен, но я могу рассказать о наших услугах по веб-разработке.\n\nМы предлагаем 3 тарифа: BASIC (2.5М), PRO (3.5М) и MAX (5.5М).\n\nО чем хотели бы узнать подробнее?`;
       }
@@ -149,7 +176,7 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
     const groqData = await groqResponse.json();
     console.log("📦 Получены данные от Groq API:", {
       hasChoices: !!groqData.choices,
-      choicesLength: groqData.choices?.length || 0
+      choicesLength: groqData.choices?.length || 0,
     });
 
     if (!groqData.choices || groqData.choices.length === 0) {
@@ -172,9 +199,9 @@ export const handleGroqChat: RequestHandler = async (req, res) => {
     res.json(response);
   } catch (error) {
     console.error("❌ Groq chat error:", {
-      message: error instanceof Error ? error.message : 'Unknown error',
+      message: error instanceof Error ? error.message : "Unknown error",
       stack: error instanceof Error ? error.stack : undefined,
-      error
+      error,
     });
     const response: ChatResponse = {
       success: false,
