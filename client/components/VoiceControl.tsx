@@ -209,7 +209,7 @@ export default function VoiceControl({
         recognitionRef.current.start();
       }
     } catch (error) {
-      console.error("❌ Не удалось запу��тить распознавание:", error);
+      console.error("❌ Не удалось запустить распознавание:", error);
       setIsListening(false);
     }
   }, [isSupported, isListening, isPlayingAudio, initializeRecognition]);
@@ -242,7 +242,7 @@ export default function VoiceControl({
     }
 
     // Команда "Джарвис смени модель"
-    if (lowerCommand.includes("джарвис ��мени модель") || lowerCommand.includes("jarvis смени модель")) {
+    if (lowerCommand.includes("джарвис смени модель") || lowerCommand.includes("jarvis смени модель")) {
       playAudioResponse(
         "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F91df3aea397c4fbba9b49e597b4e2cb6?alt=media&token=522412d9-5f3a-454f-851c-dd4228a39931&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
         () => {
@@ -295,10 +295,14 @@ export default function VoiceControl({
       return;
     }
 
-    // Для других команд просто включаем микрофон обратно
+    // Для д��угих команд просто включаем микрофон обратно
     console.log("ℹ️ Неизвестная команда, перезапускаем микрофон");
+    isProcessingRef.current = false;
     setTimeout(() => {
-      startListening();
+      if (!isListening && !isPlayingAudio) {
+        startListening();
+        console.log("✅ Микрофон перезапущен после неизвестной команды");
+      }
     }, 500);
   }, [playAudioResponse, startListening]);
 
