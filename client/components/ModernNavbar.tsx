@@ -321,21 +321,33 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
           "w-64 backdrop-blur-xl rounded-xl mt-2",
           theme === "dark"
             ? "bg-black/95 border-white/20 text-white"
-            : "bg-white/95 border-black/20 text-black"
+            : "bg-white/95 border-black/20 text-black",
         )}
       >
-        <div className={cn(
-          "px-4 py-3",
-          theme === "dark" ? "border-b border-white/20" : "border-b border-black/20"
-        )}>
-          <div className={cn(
-            "font-semibold",
-            theme === "dark" ? "text-white" : "text-black"
-          )}>{user.name}</div>
-          <div className={cn(
-            "text-sm",
-            theme === "dark" ? "text-white/60" : "text-black/60"
-          )}>{user.email}</div>
+        <div
+          className={cn(
+            "px-4 py-3",
+            theme === "dark"
+              ? "border-b border-white/20"
+              : "border-b border-black/20",
+          )}
+        >
+          <div
+            className={cn(
+              "font-semibold",
+              theme === "dark" ? "text-white" : "text-black",
+            )}
+          >
+            {user.name}
+          </div>
+          <div
+            className={cn(
+              "text-sm",
+              theme === "dark" ? "text-white/60" : "text-black/60",
+            )}
+          >
+            {user.email}
+          </div>
         </div>
 
         <div className="p-2">
@@ -345,7 +357,7 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
               "cursor-pointer rounded-lg",
               theme === "dark"
                 ? "text-white hover:bg-white/10"
-                : "text-black hover:bg-black/10"
+                : "text-black hover:bg-black/10",
             )}
           >
             <User className="mr-3 h-4 w-4" />
@@ -357,7 +369,7 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
               "cursor-pointer rounded-lg",
               theme === "dark"
                 ? "text-white hover:bg-white/10"
-                : "text-black hover:bg-black/10"
+                : "text-black hover:bg-black/10",
             )}
           >
             <Settings className="mr-3 h-4 w-4" />
@@ -369,7 +381,7 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
               "cursor-pointer rounded-lg",
               theme === "dark"
                 ? "text-white hover:bg-white/10"
-                : "text-black hover:bg-black/10"
+                : "text-black hover:bg-black/10",
             )}
           >
             <Brain className="mr-3 h-4 w-4" />
@@ -381,7 +393,7 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
               "cursor-pointer rounded-lg",
               theme === "dark"
                 ? "text-white hover:bg-white/10"
-                : "text-black hover:bg-black/10"
+                : "text-black hover:bg-black/10",
             )}
           >
             {theme === "dark" ? (
@@ -393,10 +405,12 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
           </DropdownMenuItem>
         </div>
 
-        <div className={cn(
-          "p-2 border-t",
-          theme === "dark" ? "border-white/20" : "border-black/20"
-        )}>
+        <div
+          className={cn(
+            "p-2 border-t",
+            theme === "dark" ? "border-white/20" : "border-black/20",
+          )}
+        >
           <DropdownMenuItem
             onClick={onLogout}
             className="text-red-400 hover:bg-red-500/10 cursor-pointer rounded-lg"
@@ -421,7 +435,7 @@ function AuthButtons({ theme }: { theme: string }) {
           "transition-all duration-200",
           theme === "dark"
             ? "text-white hover:text-white"
-            : "text-black hover:text-black"
+            : "text-black hover:text-black",
         )}
         asChild
       >
@@ -434,7 +448,7 @@ function AuthButtons({ theme }: { theme: string }) {
           "transition-all duration-200",
           theme === "dark"
             ? "!bg-white !text-black hover:!bg-white/90 hover:!text-black"
-            : "!bg-black !text-white hover:!bg-black/90 hover:!text-white"
+            : "!bg-black !text-white hover:!bg-black/90 hover:!text-white",
         )}
         asChild
       >
@@ -447,7 +461,7 @@ function AuthButtons({ theme }: { theme: string }) {
           "transition-all duration-200",
           theme === "dark"
             ? "text-white hover:text-white"
-            : "text-black hover:text-black"
+            : "text-black hover:text-black",
         )}
         asChild
       >
