@@ -267,8 +267,8 @@ export default function VoiceMicrophone({
     // Простые команды для демонстрации
     if (lowerCommand.includes("привет") || lowerCommand.includes("здравствуй")) {
       console.log("👋 Команда приветствия получена");
-    } else if (lowerCommand.includes("спасибо") || lowerCommand.includes("благодарю")) {
-      console.log("🙏 Команда благодарности получе��а");
+    } else if (lowerCommand.includes("благодарю")) {
+      console.log("🙏 Команда благодарности получена");
     } else if (lowerCommand.includes("помощь") || lowerCommand.includes("help")) {
       console.log("❓ Запрос помощи пол��чен");
     }
