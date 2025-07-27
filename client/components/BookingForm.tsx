@@ -324,7 +324,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
                 type="email"
                 value={formData.clientEmail}
                 onChange={handleChange}
-                className="pl-10"
+                className="pl-10 bg-white text-gray-900 border-gray-300 placeholder:text-gray-500"
                 placeholder="your@email.com"
                 required
               />
