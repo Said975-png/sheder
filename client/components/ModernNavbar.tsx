@@ -115,6 +115,28 @@ export default function ModernNavbar({
               handleProceedToOrder={handleProceedToOrder}
             />
 
+            {/* Theme Toggle Button */}
+            <Button
+              variant="ghost"
+              onClick={toggleTheme}
+              className={cn(
+                "px-2 py-2 h-8 sm:h-10",
+                "transition-all duration-200",
+                "text-white hover:text-white",
+              )}
+            >
+              <div className="flex items-center space-x-1">
+                {theme === "dark" ? (
+                  <Sun className="w-4 h-4" />
+                ) : (
+                  <Moon className="w-4 h-4" />
+                )}
+                <span className="hidden lg:inline font-medium text-sm">
+                  {theme === "dark" ? "Светлая" : "Темная"}
+                </span>
+              </div>
+            </Button>
+
             {/* User Menu or Auth Buttons */}
             {isAuthenticated && currentUser ? (
               <UserMenu
@@ -322,7 +344,7 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
             className="text-white hover:bg-white/10 cursor-pointer rounded-lg"
           >
             <Brain className="mr-3 h-4 w-4" />
-            Чат с Пятницей 🤖
+            Чат с Пятни��ей 🤖
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={toggleTheme}
@@ -450,7 +472,7 @@ function MobileMenu({
                 className="flex items-center space-x-3 p-3 rounded-xl hover:bg-green-400/10 transition-colors"
               >
                 <Brain className="w-5 h-5 text-green-400" />
-                <span className="text-white">Тест голосо��ого управления</span>
+                <span className="text-white">Тест голосо��ого управл��ния</span>
               </Link>
 
               <button
