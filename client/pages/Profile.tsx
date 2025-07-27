@@ -500,7 +500,7 @@ function Profile() {
       }));
     } catch (error) {
       console.error("Password change error:", error);
-      setError("Произошла оши��ка при смене пароля");
+      setError("Произошла ошибка при смене пароля");
     } finally {
       setLoading(false);
     }
@@ -1258,7 +1258,7 @@ function Profile() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="newPassword">Но��ый пароль</Label>
+                      <Label htmlFor="newPassword">Новый пароль</Label>
                       <div className="relative">
                         <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                         <Input
@@ -1481,7 +1481,7 @@ function Profile() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">
-                  ��ои брони
+                  Мои брони
                 </h3>
                 <p className="text-gray-600">
                   Управление бронированием консультаций и встреч
@@ -1709,7 +1709,7 @@ function Profile() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="ru">Русский</SelectItem>
+                        <SelectItem value="ru">Р��сский</SelectItem>
                         <SelectItem value="en">English</SelectItem>
                       </SelectContent>
                     </Select>
@@ -1770,7 +1770,7 @@ function Profile() {
                   {activityLog.length === 0 ? (
                     <div className="text-center py-8">
                       <Activity className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                      <p className="text-gray-500">Активность не н��йдена</p>
+                      <p className="text-gray-500">Активность не найдена</p>
                     </div>
                   ) : (
                     activityLog.map((log) => (
