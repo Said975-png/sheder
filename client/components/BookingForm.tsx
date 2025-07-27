@@ -352,7 +352,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="preferredTime">
+              <Label htmlFor="preferredTime" className="text-gray-900 font-medium">
                 Предпочитаемое время <span className="text-red-500">*</span>
               </Label>
               <Select
