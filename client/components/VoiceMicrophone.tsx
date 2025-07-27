@@ -158,7 +158,7 @@ export default function VoiceMicrophone({
     // Останавливаем прослушив��ние на время воспроизведения аудио
     const wasListening = isListening;
     if (isListening) {
-      toggleListening(); // Останавливаем микрофон
+      toggleListening(); // Останавливаем микрофо��
     }
 
     setIsPlayingAudio(true);
@@ -253,9 +253,14 @@ export default function VoiceMicrophone({
     }
 
     // Команда "спасибо джарвис" - воспроизводим аудио ответ
-    if (lowerCommand.includes("спасибо джарвис") || lowerCommand.includes("спас��бо jarvis")) {
-      console.log("🎯 Команда 'спасибо джарви��' получена - воспроизводим аудио ответ");
-      playAudio("https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2Fec5bfbae691b41d9b374b39e75694179?alt=media&token=75301093-1e6e-469a-a492-3105aee95cc9&apiKey=e61c233aecf6402a8a9db34e2dc8f046");
+    if (lowerCommand.includes("спасибо джарвис") || lowerCommand.includes("спасибо jarvis")) {
+      console.log("🎯 Команда 'спасибо джарвис' получена - воспроизводим аудио ответ");
+      playAudioWithCallback(
+        "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2Fec5bfbae691b41d9b374b39e75694179?alt=media&token=75301093-1e6e-469a-a492-3105aee95cc9&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
+        () => {
+          console.log("✅ Аудио ответ 'спасибо джарвис' завершен");
+        }
+      );
       return;
     }
 
@@ -272,7 +277,7 @@ export default function VoiceMicrophone({
   if (!isSupported) {
     return (
       <div className={cn("text-sm text-gray-500", className)}>
-        Распознавание речи не поддерживается в этом браузере
+        Распознавание ��ечи не поддерживается в этом браузере
       </div>
     );
   }
