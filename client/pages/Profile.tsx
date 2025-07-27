@@ -63,7 +63,8 @@ import { useAuth } from "@/hooks/useAuth";
 import FaceIDProtected from "@/components/FaceIDProtected";
 import FaceIDModal from "@/components/FaceIDModal";
 import ServiceOrderForm from "@/components/ServiceOrderForm";
-import { ContractData } from "@shared/api";
+import BookingForm from "@/components/BookingForm";
+import { ContractData, BookingData } from "@shared/api";
 
 interface User {
   id: string;
@@ -141,7 +142,10 @@ function Profile() {
   const [hasFaceID, setHasFaceID] = useState(false);
   const [contracts, setContracts] = useState<ContractData[]>([]);
   const [loadingContracts, setLoadingContracts] = useState(false);
+  const [bookings, setBookings] = useState<BookingData[]>([]);
+  const [loadingBookings, setLoadingBookings] = useState(false);
   const [showOrderForm, setShowOrderForm] = useState(false);
+  const [showBookingForm, setShowBookingForm] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   // Notification settings
@@ -303,13 +307,44 @@ function Profile() {
     }
   };
 
-  // Load contracts when needed
+  // Load user bookings
+  const loadBookings = async () => {
+    if (!currentUser) return;
+
+    setLoadingBookings(true);
+    try {
+      const response = await fetch("/api/bookings", {
+        headers: {
+          "user-id": currentUser.id,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setBookings(data.bookings || []);
+        }
+      }
+    } catch (error) {
+      console.error("Error loading bookings:", error);
+    } finally {
+      setLoadingBookings(false);
+    }
+  };
+
+  // Load contracts and bookings when needed
   useEffect(() => {
     if (
       (activeTab === "contracts" || activeTab === "dashboard") &&
       currentUser
     ) {
       loadContracts();
+    }
+    if (
+      (activeTab === "bookings" || activeTab === "dashboard") &&
+      currentUser
+    ) {
+      loadBookings();
     }
   }, [activeTab, currentUser]);
 
@@ -346,7 +381,7 @@ function Profile() {
       }
 
       if (!file.type.startsWith("image/")) {
-        setError("Пожалуйста, выберите изображение");
+        setError("По��алуйста, выберите изображение");
         return;
       }
 
@@ -676,7 +711,7 @@ function Profile() {
           onValueChange={setActiveTab}
           className="space-y-6"
         >
-          <TabsList className="grid w-full grid-cols-6 lg:w-auto lg:grid-cols-none lg:inline-flex">
+          <TabsList className="grid w-full grid-cols-7 lg:w-auto lg:grid-cols-none lg:inline-flex">
             <TabsTrigger
               value="dashboard"
               className="flex items-center space-x-2"
@@ -704,6 +739,13 @@ function Profile() {
             >
               <FileText className="w-4 h-4" />
               <span className="hidden sm:inline">Договоры</span>
+            </TabsTrigger>
+            <TabsTrigger
+              value="bookings"
+              className="flex items-center space-x-2"
+            >
+              <Calendar className="w-4 h-4" />
+              <span className="hidden sm:inline">Брони</span>
             </TabsTrigger>
             <TabsTrigger
               value="settings"
@@ -1280,7 +1322,7 @@ function Profile() {
                       className="bg-red-600 hover:bg-red-700"
                     >
                       <Trash2 className="w-4 h-4 mr-2" />
-                      ��далить аккаунт
+                      Удалить аккаунт
                     </Button>
                   </div>
                 </div>
@@ -1425,6 +1467,142 @@ function Profile() {
                             <Download className="w-4 h-4 mr-1" />
                             Скачать
                           </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            )}
+          </TabsContent>
+
+          {/* Bookings Tab */}
+          <TabsContent value="bookings" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Мои брони
+                </h3>
+                <p className="text-gray-600">
+                  Управление бронированием консультаций и встреч
+                </p>
+              </div>
+              <Button
+                onClick={() => setShowBookingForm(true)}
+                className="bg-purple-600 hover:bg-purple-700"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Новая бронь
+              </Button>
+            </div>
+
+            {loadingBookings ? (
+              <Card>
+                <CardContent className="p-12 text-center">
+                  <div className="animate-spin w-8 h-8 border-2 border-purple-400 border-t-transparent rounded-full mx-auto mb-4"></div>
+                  <p className="text-gray-600">Загружаем брони...</p>
+                </CardContent>
+              </Card>
+            ) : bookings.length === 0 ? (
+              <Card>
+                <CardContent className="p-12 text-center">
+                  <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <h5 className="text-xl font-semibold text-gray-900 mb-2">
+                    У вас пока нет броней
+                  </h5>
+                  <p className="text-gray-600 mb-6">
+                    Забронируйте консультацию, чтобы обсудить ваш проект
+                  </p>
+                  <Button
+                    onClick={() => setShowBookingForm(true)}
+                    className="bg-purple-600 hover:bg-purple-700"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Создать бронь
+                  </Button>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="grid grid-cols-1 gap-4">
+                {bookings.map((booking) => (
+                  <Card
+                    key={booking.id}
+                    className="hover:shadow-md transition-shadow"
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-3">
+                            <h5 className="text-lg font-medium text-gray-900">
+                              {booking.serviceType === "basic"
+                                ? "BASIC пакет"
+                                : booking.serviceType === "pro"
+                                  ? "PRO пакет"
+                                  : booking.serviceType === "max"
+                                    ? "MAX пакет"
+                                    : booking.serviceType === "consultation"
+                                      ? "Консультация"
+                                      : "Индивидуальн��й проект"}
+                            </h5>
+                            <Badge
+                              variant="outline"
+                              className={`${
+                                booking.status === "confirmed"
+                                  ? "border-green-500 text-green-700 bg-green-50"
+                                  : booking.status === "completed"
+                                    ? "border-blue-500 text-blue-700 bg-blue-50"
+                                    : booking.status === "cancelled"
+                                      ? "border-red-500 text-red-700 bg-red-50"
+                                      : "border-yellow-500 text-yellow-700 bg-yellow-50"
+                              }`}
+                            >
+                              {booking.status === "confirmed" && (
+                                <CheckCircle2 className="w-3 h-3 mr-1" />
+                              )}
+                              {booking.status === "pending" && (
+                                <Clock className="w-3 h-3 mr-1" />
+                              )}
+                              {booking.status === "completed" && (
+                                <CheckCircle className="w-3 h-3 mr-1" />
+                              )}
+                              {booking.status === "cancelled" && (
+                                <XCircle className="w-3 h-3 mr-1" />
+                              )}
+                              {booking.status === "confirmed"
+                                ? "Подтверждена"
+                                : booking.status === "completed"
+                                  ? "Завершена"
+                                  : booking.status === "cancelled"
+                                    ? "Отменена"
+                                    : "Ожидает подтверждения"}
+                            </Badge>
+                          </div>
+                          <p className="text-gray-600 mb-3">
+                            {booking.serviceDescription.length > 150
+                              ? `${booking.serviceDescription.substring(0, 150)}...`
+                              : booking.serviceDescription}
+                          </p>
+                          <div className="flex items-center gap-6 text-sm text-gray-500 mb-3">
+                            <div className="flex items-center gap-1">
+                              <Calendar className="w-4 h-4" />
+                              <span>
+                                {new Date(
+                                  booking.preferredDate,
+                                ).toLocaleDateString("ru-RU")}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Clock className="w-4 h-4" />
+                              <span>{booking.preferredTime}</span>
+                            </div>
+                            <span>№ {booking.id}</span>
+                          </div>
+                          <div className="text-xs text-gray-400">
+                            Создано:{" "}
+                            {new Date(booking.createdAt).toLocaleDateString(
+                              "ru-RU",
+                            )}
+                          </div>
                         </div>
                       </div>
                     </CardContent>
@@ -1651,6 +1829,22 @@ function Profile() {
           setShowOrderForm(false);
           if (activeTab === "contracts" || activeTab === "dashboard") {
             loadContracts();
+          }
+        }}
+      />
+
+      <BookingForm
+        isOpen={showBookingForm}
+        onClose={() => {
+          setShowBookingForm(false);
+          if (activeTab === "bookings" || activeTab === "dashboard") {
+            loadBookings();
+          }
+        }}
+        onSuccess={() => {
+          console.log("✅ Бронь успешно создана из Profile");
+          if (activeTab === "bookings" || activeTab === "dashboard") {
+            loadBookings();
           }
         }}
       />

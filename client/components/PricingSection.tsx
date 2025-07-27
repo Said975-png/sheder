@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/contexts/CartContext";
+import BookingForm from "@/components/BookingForm";
 import {
   CheckCircle,
   Star,
@@ -12,6 +13,7 @@ import {
   Brain,
   ArrowRight,
   Heart,
+  Calendar,
 } from "lucide-react";
 
 interface PricingPlan {
@@ -110,6 +112,7 @@ const pricingPlans: PricingPlan[] = [
 function PricingSection() {
   const { addItem } = useCart();
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [showBookingForm, setShowBookingForm] = useState(false);
 
   const handleAddToCart = (plan: PricingPlan) => {
     addItem({
@@ -258,21 +261,32 @@ function PricingSection() {
                     </div>
                   </div>
 
-                  {/* CTA Button */}
-                  <Button
-                    onClick={() => handleAddToCart(plan)}
-                    variant={plan.highlight ? "secondary" : "outline"}
-                    className={cn(
-                      "w-full py-4 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 group",
-                      plan.highlight
-                        ? "!bg-white !text-black hover:!bg-white/90 hover:!text-black shadow-lg"
-                        : "bg-white/10 text-white hover:bg-white/20 border border-white/20 hover:border-white/40",
-                    )}
-                  >
-                    <Sparkles className="w-4 h-4 mr-2 group-hover:animate-spin" />
-                    {plan.ctaText}
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                  </Button>
+                  {/* CTA Buttons */}
+                  <div className="space-y-3">
+                    <Button
+                      onClick={() => handleAddToCart(plan)}
+                      variant={plan.highlight ? "secondary" : "outline"}
+                      className={cn(
+                        "w-full py-4 text-sm font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 group",
+                        plan.highlight
+                          ? "!bg-white !text-black hover:!bg-white/90 hover:!text-black shadow-lg"
+                          : "bg-white/10 text-white hover:bg-white/20 border border-white/20 hover:border-white/40",
+                      )}
+                    >
+                      <Sparkles className="w-4 h-4 mr-2 group-hover:animate-spin" />
+                      {plan.ctaText}
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                    </Button>
+
+                    <Button
+                      onClick={() => setShowBookingForm(true)}
+                      variant="outline"
+                      className="w-full py-3 text-sm font-medium rounded-xl transition-all duration-300 transform hover:scale-105 group bg-transparent text-white hover:bg-white/10 border border-white/30 hover:border-white/50"
+                    >
+                      <Calendar className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
+                      Забронировать
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -289,16 +303,36 @@ function PricingSection() {
               Свяжитесь с нами для бесплатной консультации. Мы поможем выбрать
               идеальный пакет для ваших потребностей.
             </p>
-            <Button
-              variant="secondary"
-              className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-semibold !bg-white !text-black hover:!bg-white/90 hover:!text-black rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full"
-            >
-              <Heart className="w-4 sm:w-5 h-4 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" />
-              <span className="truncate">Бесплатная Консультация</span>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                onClick={() => setShowBookingForm(true)}
+                variant="secondary"
+                className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-semibold !bg-white !text-black hover:!bg-white/90 hover:!text-black rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full"
+              >
+                <Calendar className="w-4 sm:w-5 h-4 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" />
+                <span className="truncate">Забронировать Консультацию</span>
+              </Button>
+
+              <Button
+                variant="outline"
+                className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-medium bg-white/10 text-white hover:bg-white/20 border border-white/30 hover:border-white/50 rounded-xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full"
+              >
+                <Heart className="w-4 sm:w-5 h-4 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" />
+                <span className="truncate">Бесплатная Консультация</span>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Booking Form Modal */}
+      <BookingForm
+        isOpen={showBookingForm}
+        onClose={() => setShowBookingForm(false)}
+        onSuccess={() => {
+          console.log("✅ Бронь успешно создана из PricingSection");
+        }}
+      />
     </section>
   );
 }

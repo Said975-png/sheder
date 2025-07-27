@@ -1,8 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Mic, MicOff, Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useVoiceRecognition } from "@/hooks/useVoiceRecognition";
+
+// Определяем мобильное устройство
+const isMobile = () => {
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent,
+    ) ||
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0
+  );
+};
 
 interface VoiceMicrophoneProps {
   onCommand?: (command: string) => void;
@@ -20,9 +31,51 @@ export default function VoiceMicrophone({
   floating = true,
 }: VoiceMicrophoneProps) {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // История моделей для команды "верни модель"
+  // Определяем мобильное устройство при монтировании
+  useEffect(() => {
+    const mobile = isMobile();
+    setIsMobileDevice(mobile);
+    console.log("📱 Тип устройства:", mobile ? "Мобильное" : "Десктоп");
+    console.log("🎤 Поддержка распознавания речи:", isSupported);
+  }, [isSupported]);
+
+  // Функция умного возобновления микрофона с учетом мобильных устройств
+  const resumeMicrophone = (wasListening: boolean, context: string) => {
+    if (!wasListening) return;
+
+    const delay = isMobileDevice ? 500 : 100;
+    setTimeout(() => {
+      toggleListening();
+      console.log(`🎤 Микрофон возобновлен ${context} (задержка: ${delay}ms)`);
+    }, delay);
+  };
+
+  // Функция для обработки нажатия на кнопку микрофона с улучшениями для мобильных
+  const handleMicrophoneClick = async () => {
+    if (!isSupported) {
+      console.warn("Распознавание речи не поддерживается");
+      return;
+    }
+
+    // На мобильных устройствах явно запрашиваем разрешения
+    if (isMobileDevice && !isListening) {
+      try {
+        await navigator.mediaDevices.getUserMedia({ audio: true });
+        console.log("🎤 Разрешение на использование микрофона получено");
+      } catch (error) {
+        console.error("❌ Не удалось получить разрешение на микрофон:", error);
+        alert("Для работы голосовых команд нужно разрешить доступ к микрофону");
+        return;
+      }
+    }
+
+    toggleListening();
+  };
+
+  // И��тория моделей для коман��ы "верни модель"
   const modelHistoryRef = useRef<string[]>([
     "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
   ]); // Изначальная модель
@@ -47,7 +100,7 @@ export default function VoiceMicrophone({
 
     // Добавляем новую модель в историю
     modelHistoryRef.current.push(newModelUrl);
-    console.log("📝 История моделей обновлена:", modelHistoryRef.current);
+    console.log("📝 История моделей обно��лена:", modelHistoryRef.current);
 
     const event = new CustomEvent("changeModel", {
       detail: { newModelUrl },
@@ -55,7 +108,7 @@ export default function VoiceMicrophone({
     window.dispatchEvent(event);
   };
 
-  // Фун��ция возврата к предыдущей модели
+  // Ф��н��ция возврата к предыдущей модели
   const revertToPreviousModel = () => {
     if (modelHistoryRef.current.length <= 1) {
       console.log("⚠️ Нет предыдущих моделей для возврата");
@@ -67,8 +120,8 @@ export default function VoiceMicrophone({
     const previousModelUrl =
       modelHistoryRef.current[modelHistoryRef.current.length - 1];
 
-    console.log("↩️ Возвращаемся к предыдущей модели:", previousModelUrl);
-    console.log("📝 История моделей после возврата:", modelHistoryRef.current);
+    console.log("↩️ Возвраща��мся к предыдущей модели:", previousModelUrl);
+    console.log("📝 История моделей после возврат��:", modelHistoryRef.current);
 
     const event = new CustomEvent("changeModel", {
       detail: { newModelUrl: previousModelUrl },
@@ -83,7 +136,7 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Останавливаем предыдущее аудио если есть
+    // Останавливаем предыдущее аудио если ест��
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
@@ -97,7 +150,7 @@ export default function VoiceMicrophone({
 
     setIsPlayingAudio(true);
     console.log(
-      "🔊 Начинаем воспроизведение аудио с колбэком, микр��фон остановлен",
+      "🔊 Начинаем восп��оизведение аудио с колбэком, микр��фон остановлен",
     );
 
     const audio = new Audio(audioUrl);
@@ -106,18 +159,15 @@ export default function VoiceMicrophone({
     audio.onended = () => {
       setIsPlayingAudio(false);
       audioRef.current = null;
-      console.log("✅ Воспроизведение завершено, выполняем колбэк");
+      console.log("✅ Воспроизведе��ие завершено, выполняем колбэк");
 
       // Выполняем колбэк если есть
       if (callback) {
         callback();
       }
 
-      // Возобновляем прослушива��ие если оно было ��ктивно
-      if (wasListening) {
-        toggleListening(); // Включаем микрофон обратно сразу
-        console.log("🎤 Микрофон возобновлен после аудио");
-      }
+      // Возобновляем прослушивание если оно было активно
+      resumeMicrophone(wasListening, "после аудио");
     };
 
     audio.onerror = () => {
@@ -125,11 +175,8 @@ export default function VoiceMicrophone({
       audioRef.current = null;
       console.error("❌ Ошибка воспроизведения аудио");
 
-      // Возобновля��м прослушивание если была ошибка
-      if (wasListening) {
-        toggleListening(); // Включаем микрофон о��ратно
-        console.log("🎤 Микрофон возобновлен после ошибки аудио");
-      }
+      // Возобновляем прослушивание если была ошибка
+      resumeMicrophone(wasListening, "после ошибки аудио");
     };
 
     audio.play().catch((error) => {
@@ -137,7 +184,7 @@ export default function VoiceMicrophone({
       audioRef.current = null;
       console.error("❌ Не удалось воспроизвести аудио:", error);
 
-      // Проверяем, является ли ошибка связанной с автовоспроизведением
+      // Проверяем, является ли ошибка связанной с авт��воспроизведение��
       if (
         error.name === "NotAllowedError" ||
         error.message.includes("user didn't interact")
@@ -148,12 +195,7 @@ export default function VoiceMicrophone({
       }
 
       // Возобновляем прослушивание если не удалось воспроизвести
-      if (wasListening) {
-        toggleListening(); // Включаем микрофон обратно сразу
-        console.log(
-          "���� Микрофон возобновлен после неудачного воспроизведения",
-        );
-      }
+      resumeMicrophone(wasListening, "после неудачного воспроизведения");
     });
   };
 
@@ -170,14 +212,14 @@ export default function VoiceMicrophone({
       audioRef.current.currentTime = 0;
     }
 
-    // Останавливаем прослушив��ние на время воспроизведения аудио
+    // Останавливаем прослушив��ние на время во��произведения аудио
     const wasListening = isListening;
     if (isListening) {
-      toggleListening(); // Останавливаем микрофон
+      toggleListening(); // Останавливаем микро����он
     }
 
     setIsPlayingAudio(true);
-    console.log("🔊 Начинаем ��оспроизведение аудио, микрофон остановлен");
+    console.log("🔊 Начинаем ��оспроизведение аудио, м��крофон остановлен");
 
     const audio = new Audio(audioUrl);
     audioRef.current = audio;
@@ -188,10 +230,7 @@ export default function VoiceMicrophone({
       console.log("✅ Воспроизведение завершено");
 
       // Возобновляем прослушивание если оно было активно
-      if (wasListening) {
-        toggleListening(); // Включ��ем микрофон обратно сразу
-        console.log("🎤 Микрофон возобновлен после аудио");
-      }
+      resumeMicrophone(wasListening, "после аудио");
     };
 
     audio.onerror = () => {
@@ -199,11 +238,8 @@ export default function VoiceMicrophone({
       audioRef.current = null;
       console.error("❌ Ошибка воспроизведения аудио");
 
-      // Возобновляем прослушивание если была ошибка
-      if (wasListening) {
-        toggleListening(); // Включаем мик��офон обратно
-        console.log("🎤 Микрофон возобновлен после ошибки аудио");
-      }
+      // Возобновляем прослушивание если ��ыла ошибка
+      resumeMicrophone(wasListening, "после ошибки аудио");
     };
 
     audio.play().catch((error) => {
@@ -222,18 +258,20 @@ export default function VoiceMicrophone({
       }
 
       // Возобновляем прослушивание если не удалось воспроизвести
-      if (wasListening) {
-        toggleListening(); // Включаем микрофон обратно
-        console.log(
-          "🎤 Микрофон возобновлен п��сле неудачного воспроизведения",
-        );
-      }
+      resumeMicrophone(wasListening, "после неудачного воспроизведения");
     });
   };
 
   const handleCommand = (command: string) => {
     const lowerCommand = command.toLowerCase().trim();
     console.log("🔍 Анализируем команду:", `"${lowerCommand}"`);
+    console.log("📱 Мобильное устройство:", isMobileDevice);
+
+    // Фильтруем слишком ко��откие команды (вероятно ложные срабатывания)
+    if (lowerCommand.length < 3) {
+      console.log("⚠️ Команда слишком короткая, игнорируем");
+      return;
+    }
 
     // Команда "Джарвис ты тут" - воспроизводим аудио ответ
     if (
@@ -259,7 +297,7 @@ export default function VoiceMicrophone({
           lowerCommand.includes("сми модель")))
     ) {
       console.log(
-        "🎯 Команда 'Джарвис смени модель' получена - восп��оизводим аудио и меняем модель",
+        "🎯 Команда 'Джа��вис смени м��дель' получена - восп��оизводим аудио и меняем модель",
       );
 
       // Сначала воспроизводим аудио ответ
@@ -276,18 +314,18 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Команда "верни модель" - воспроизводим аудио и возвращаем предыдущую модель
+    // Команда "верни модел��" - воспроизводим аудио и возвращаем предыдущую модель
     if (
-      lowerCommand.includes("верни модель") ||
+      lowerCommand.includes("верни м��дель") ||
       lowerCommand.includes("верни модел") ||
       lowerCommand.includes("верни м") ||
       (lowerCommand.includes("верни") && lowerCommand.includes("модель"))
     ) {
       console.log(
-        "🎯 Команда 'верни модель' получена - воспроизводим аудио и возвращаем предыдущую модель",
+        "🎯 Команда 'верни моде��ь' получена - воспроизводим аудио и возвращаем предыдущую модель",
       );
 
-      // Сначала воспроизводим аудио ответ
+      // Сначала воспроизвод��м аудио ответ
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F2562e9998e1d4afc90ded9608258444e?alt=media&token=1786dd2e-6e68-4c76-93fe-77066a4a2ecf&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
         () => {
@@ -311,10 +349,10 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Команда "покажи прайс лист" - воспроизводим аудио и скроллим к прайсам
+    // Команда "покажи пр��йс лист" - вос��роизводим аудио и скроллим к прайсам
     if (
       lowerCommand.includes("покажи прайс лист") ||
-      lowerCommand.includes("прайс лист") ||
+      lowerCommand.includes("п��айс лис��") ||
       lowerCommand.includes("прайс") ||
       lowerCommand.includes("цены")
     ) {
@@ -363,7 +401,7 @@ export default function VoiceMicrophone({
       lowerCommand.includes("преимущества")
     ) {
       console.log(
-        "🎯 Команда 'покажи наши преимущества' получена - воспроизводим аудио и скроллим",
+        "🎯 Команда 'покажи ��аши преимущ��ства' полу��ена - воспроизводим аудио и скроллим",
       );
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2F3eff37bfce48420f81bfea727d0802d9%2F6fb621bfa5f6417391fbb189af735e4c?alt=media&token=2271b582-0acf-4930-9fe6-41004818b406&apiKey=3eff37bfce48420f81bfea727d0802d9",
@@ -402,7 +440,7 @@ export default function VoiceMicrophone({
 
     // Команда "открой чат" - воспроизводим аудио и переходим в чат с Пятницей
     if (
-      lowerCommand.includes("открой чат") ||
+      lowerCommand.includes("о��крой чат") ||
       lowerCommand.includes("открыть чат") ||
       lowerCommand.includes("чат")
     ) {
@@ -420,10 +458,10 @@ export default function VoiceMicrophone({
       return;
     }
 
-    // Команда "джарвис полный доступ" - воспроизводим аудио и активируем режим Старка
+    // Ком��нда "джарвис полный доступ" - воспроизводим аудио и активируем режим Старка
     if (
-      lowerCommand.includes("джарвис полный доступ") ||
-      lowerCommand.includes("jarvis полный доступ") ||
+      lowerCommand.includes("джарвис полн��й доступ") ||
+      lowerCommand.includes("jarvis пол��ый доступ") ||
       lowerCommand.includes("полный доступ")
     ) {
       console.log(
@@ -479,7 +517,7 @@ export default function VoiceMicrophone({
   if (!isSupported) {
     return (
       <div className={cn("text-sm text-gray-500", className)}>
-        Распознавание речи не поддерживается в этом браузере
+        Распознавание речи не под��ерживается в этом браузере
       </div>
     );
   }
@@ -515,7 +553,7 @@ export default function VoiceMicrophone({
 
           {/* Кнопка микрофона */}
           <Button
-            onClick={toggleListening}
+            onClick={handleMicrophoneClick}
             size="lg"
             className={cn(
               sizeClasses[size],
@@ -534,7 +572,12 @@ export default function VoiceMicrophone({
 
           {/* Статус */}
           <div className="text-xs text-center">
-            {isPlayingAudio ? (
+            {!isSupported ? (
+              <div className="flex items-center gap-1 text-red-400">
+                <VolumeX className="w-3 h-3" />
+                <span>Не поддерживается</span>
+              </div>
+            ) : isPlayingAudio ? (
               <div className="flex items-center gap-1 text-green-400">
                 <Volume2 className="w-3 h-3 animate-pulse" />
                 <span>Говорю...</span>
@@ -542,10 +585,14 @@ export default function VoiceMicrophone({
             ) : isListening ? (
               <div className="flex items-center gap-1 text-red-400">
                 <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-                <span>Слушаю...</span>
+                <span>
+                  {isMobileDevice ? "Слушаю (мобильный)..." : "Слушаю..."}
+                </span>
               </div>
             ) : (
-              <div className="text-slate-400">Нажмите для записи</div>
+              <div className="text-slate-400">
+                {isMobileDevice ? "Тап для записи" : "Нажмите для записи"}
+              </div>
             )}
           </div>
         </div>
@@ -556,7 +603,7 @@ export default function VoiceMicrophone({
   // Встроенный режим
   return (
     <div className={cn("flex items-center gap-3", className)}>
-      {/* Транскрипт (встроенный) */}
+      {/* ��ранскрипт (встроенный) */}
       {transcript && (
         <div className="flex-1 bg-slate-800/50 border border-slate-600/30 rounded-lg px-3 py-2 text-sm text-white/90 max-w-xs">
           {transcript}
@@ -571,9 +618,9 @@ export default function VoiceMicrophone({
         </div>
       )}
 
-      {/* Кнопка микрофона (встроен��ая) */}
+      {/* Кнопка микрофона (встро��н��ая) */}
       <Button
-        onClick={toggleListening}
+        onClick={handleMicrophoneClick}
         variant="outline"
         size="sm"
         disabled={isPlayingAudio}

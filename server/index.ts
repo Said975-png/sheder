@@ -10,6 +10,13 @@ import {
   getUserContracts,
   getContract,
 } from "./routes/contracts";
+import {
+  createBooking,
+  getUserBookings,
+  getAllBookings,
+  updateBooking,
+  deleteBooking,
+} from "./routes/bookings";
 
 export function createServer() {
   const app = express();
@@ -33,8 +40,6 @@ export function createServer() {
   // Orders route
   app.post("/api/orders", handleSendOrder);
 
-
-
   // Groq chat route
   app.post("/api/groq-chat", handleGroqChat);
 
@@ -42,6 +47,13 @@ export function createServer() {
   app.post("/api/contracts", createContract);
   app.get("/api/contracts", getUserContracts);
   app.get("/api/contracts/:contractId", getContract);
+
+  // Bookings routes
+  app.post("/api/bookings", createBooking);
+  app.get("/api/bookings", getUserBookings);
+  app.get("/api/bookings/all", getAllBookings);
+  app.put("/api/bookings/:bookingId", updateBooking);
+  app.delete("/api/bookings/:bookingId", deleteBooking);
 
   return app;
 }
