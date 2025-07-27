@@ -122,7 +122,7 @@ function PricingSection() {
   };
 
   return (
-    <section className="relative py-20 px-4 overflow-hidden bg-black">
+    <section data-section="pricing" className="relative py-20 px-4 overflow-hidden bg-black">
       {/* Background Effects - Removed for clean look */}
       <div className="absolute inset-0 opacity-5">
         <div
