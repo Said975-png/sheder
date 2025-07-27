@@ -66,7 +66,21 @@ export default function Chat() {
         body: JSON.stringify(chatRequest),
       });
 
-      const data: ChatResponse = await response.json();
+      // Проверяем статус ответа перед чтением body
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Клонируем response для безопасного чтения body
+      const responseClone = response.clone();
+      let data: ChatResponse;
+
+      try {
+        data = await responseClone.json();
+      } catch (parseError) {
+        console.error("Ошибка парсинга JSON:", parseError);
+        throw new Error("Неверный фор��ат ответа от сервера");
+      }
 
       if (data.success && data.message) {
         const assistantMessage: ChatMessage = {
@@ -247,7 +261,7 @@ export default function Chat() {
               </Button>
             </div>
             <div className="mt-3 text-xs text-white/40 text-center">
-              Нажмите Enter для отправки • ИИ может ошибаться, проверяйте важную
+              Нажмите Enter для отправки • ИИ может ошибаться, проверяй��е важную
               информацию
             </div>
           </div>
