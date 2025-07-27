@@ -391,7 +391,7 @@ export default function Admin() {
                 ) : (
                   <div className="space-y-4">
                     {bookings.slice(0, 5).map((booking) => (
-                      <div key={booking.id} className="flex items-center space-x-4 p-4 border rounded-lg hover:bg-gray-50">
+                      <div key={booking.id} className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg hover:bg-gray-50 bg-white">
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
                             <h5 className="font-medium text-gray-900">{getServiceName(booking.serviceType)}</h5>
@@ -422,7 +422,7 @@ export default function Admin() {
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                       <Input
-                        placeholder="Поиск по имени, email или ID..."
+                        placeholder="Поиск ��о имени, email или ID..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="pl-10"
