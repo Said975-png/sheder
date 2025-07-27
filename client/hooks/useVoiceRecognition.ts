@@ -6,6 +6,13 @@ interface UseVoiceRecognitionProps {
   lang?: string;
 }
 
+// Определяем мобильное устройство
+const isMobile = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+         ('ontouchstart' in window) ||
+         (navigator.maxTouchPoints > 0);
+};
+
 export const useVoiceRecognition = ({
   onTranscript,
   onCommand,
@@ -18,6 +25,8 @@ export const useVoiceRecognition = ({
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const isProcessingRef = useRef(false);
   const restartTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const restartAttemptsRef = useRef(0);
+  const lastStartTimeRef = useRef(0);
 
   // Проверка поддержки браузером
   useEffect(() => {
