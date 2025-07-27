@@ -133,9 +133,9 @@ export default function Chat() {
                   <Bot className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold">Чат с Пятницей</h1>
+                  <h1 className="text-xl font-bold">Чат с Пятницей 🤖</h1>
                   <p className="text-sm text-white/60">
-                    ИИ-консультант по веб-разработке
+                    Супер-умный ИИ помощник и консультант ✨
                   </p>
                 </div>
               </div>
