@@ -6,9 +6,13 @@ import { useVoiceRecognition } from "@/hooks/useVoiceRecognition";
 
 // Определяем мобильное устройство
 const isMobile = () => {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-         ('ontouchstart' in window) ||
-         (navigator.maxTouchPoints > 0);
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent,
+    ) ||
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0
+  );
 };
 
 interface VoiceMicrophoneProps {
@@ -581,7 +585,9 @@ export default function VoiceMicrophone({
             ) : isListening ? (
               <div className="flex items-center gap-1 text-red-400">
                 <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-                <span>{isMobileDevice ? "Слушаю (мобильный)..." : "Слушаю..."}</span>
+                <span>
+                  {isMobileDevice ? "Слушаю (мобильный)..." : "Слушаю..."}
+                </span>
               </div>
             ) : (
               <div className="text-slate-400">

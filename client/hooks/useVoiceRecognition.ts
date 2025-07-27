@@ -8,9 +8,13 @@ interface UseVoiceRecognitionProps {
 
 // Определяем мобильное устройство
 const isMobile = () => {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-         ('ontouchstart' in window) ||
-         (navigator.maxTouchPoints > 0);
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent,
+    ) ||
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0
+  );
 };
 
 export const useVoiceRecognition = ({
@@ -60,7 +64,7 @@ export const useVoiceRecognition = ({
     if (mobile) {
       recognition.lang = lang;
       // Для мобильных устройств используем более консервативные настройки
-      if ('grammars' in recognition) {
+      if ("grammars" in recognition) {
         recognition.grammars = new (window as any).SpeechGrammarList();
       }
     }
@@ -184,14 +188,19 @@ export const useVoiceRecognition = ({
         const timeSinceLastStart = now - lastStartTimeRef.current;
         const minInterval = mobile ? 500 : 200;
 
-        const actualDelay = Math.max(restartDelay, minInterval - timeSinceLastStart);
+        const actualDelay = Math.max(
+          restartDelay,
+          minInterval - timeSinceLastStart,
+        );
 
         restartTimeoutRef.current = setTimeout(() => {
           if (isListening && recognitionRef.current) {
             try {
               lastStartTimeRef.current = Date.now();
               recognitionRef.current.start();
-              console.log(`🔄 Перезапуск распознавания (задержка: ${actualDelay}ms)`);
+              console.log(
+                `🔄 Перезапуск распознавания (задержка: ${actualDelay}ms)`,
+              );
               // Сбрасываем счетчик попыток при успешном перезапуске
               restartAttemptsRef.current = 0;
             } catch (error) {
@@ -200,7 +209,9 @@ export const useVoiceRecognition = ({
 
               // Если слишком много ошибок, останавливаем
               if (restartAttemptsRef.current > 5) {
-                console.log("🛑 Слишком много ошибо�� перезапуска, останавливаем");
+                console.log(
+                  "🛑 Слишком много ошибо�� перезапуска, останавливаем",
+                );
                 setIsListening(false);
                 isProcessingRef.current = false;
                 restartAttemptsRef.current = 0;
@@ -233,7 +244,9 @@ export const useVoiceRecognition = ({
     const minInterval = mobile ? 500 : 100;
 
     if (timeSinceLastStart < minInterval) {
-      console.log(`⏱️ Слишком ранний запуск, ждем ${minInterval - timeSinceLastStart}ms`);
+      console.log(
+        `⏱️ Слишком ранний запуск, ждем ${minInterval - timeSinceLastStart}ms`,
+      );
       setTimeout(() => startListening(), minInterval - timeSinceLastStart);
       return;
     }
