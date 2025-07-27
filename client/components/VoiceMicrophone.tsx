@@ -35,6 +35,17 @@ export default function VoiceMicrophone({
     setIsMobileDevice(isMobile());
   }, []);
 
+  // Функция умного возобновления микрофона с учетом мобильных устройств
+  const resumeMicrophone = (wasListening: boolean, context: string) => {
+    if (!wasListening) return;
+
+    const delay = isMobileDevice ? 500 : 100;
+    setTimeout(() => {
+      toggleListening();
+      console.log(`🎤 Микрофон возобновлен ${context} (задержка: ${delay}ms)`);
+    }, delay);
+  };
+
   // История моделей для коман��ы "верни модель"
   const modelHistoryRef = useRef<string[]>([
     "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
@@ -282,7 +293,7 @@ export default function VoiceMicrophone({
         "🎯 Команда 'Джа��вис смени м��дель' получена - восп��оизводим аудио и меняем модель",
       );
 
-      // Сначала воспроизводим аудио ответ
+      // С��ачала воспроизводим аудио ответ
       playAudioWithCallback(
         "https://cdn.builder.io/o/assets%2Fe61c233aecf6402a8a9db34e2dc8f046%2F91df3aea397c4fbba9b49e597b4e2cb6?alt=media&token=522412d9-5f3a-454f-851c-dd4228a39931&apiKey=e61c233aecf6402a8a9db34e2dc8f046",
         () => {
@@ -499,7 +510,7 @@ export default function VoiceMicrophone({
   if (!isSupported) {
     return (
       <div className={cn("text-sm text-gray-500", className)}>
-        Распознавание речи не под��ерживается в этом браузере
+        Распознавание речи не под��ерживается в этом брауз��ре
       </div>
     );
   }
