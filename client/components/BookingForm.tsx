@@ -331,7 +331,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
             </div>
           </div>
 
-          {/* Дата и вре��я */}
+          {/* Дата и время */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="preferredDate" className="text-gray-900 font-medium">
@@ -385,7 +385,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
                 name="notes"
                 value={formData.notes}
                 onChange={handleChange}
-                className="pl-10"
+                className="pl-10 bg-white text-gray-900 border-gray-300 placeholder:text-gray-500"
                 placeholder="Любые дополнительные пожелания или вопросы..."
                 rows={3}
               />
