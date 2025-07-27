@@ -4,14 +4,9 @@ import {
   CreateContractResponse,
   ContractData,
 } from "@shared/api";
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
-import { join } from "path";
 
-// Ensure contracts directory exists
-const contractsDir = join(process.cwd(), "data", "contracts");
-if (!existsSync(contractsDir)) {
-  mkdirSync(contractsDir, { recursive: true });
-}
+// In-memory storage for contracts (for serverless deployment)
+let contractsStore: ContractData[] = [];
 
 // Contract template
 const generateContractHTML = (contractData: ContractData): string => {
@@ -208,35 +203,8 @@ export const createContract: RequestHandler = async (req, res) => {
       fileName: `contract-${contractId}.html`,
     };
 
-    // Generate HTML contract
-    const contractHTML = generateContractHTML(contractData);
-
-    // Save contract file
-    const contractPath = join(contractsDir, contractData.fileName);
-    writeFileSync(contractPath, contractHTML, "utf8");
-
-    // Load existing contracts or create new array
-    const contractsFilePath = join(contractsDir, "contracts.json");
-    let contracts: ContractData[] = [];
-
-    if (existsSync(contractsFilePath)) {
-      try {
-        const contractsData = readFileSync(contractsFilePath, "utf8");
-        contracts = JSON.parse(contractsData);
-      } catch (error) {
-        console.error("Error reading contracts file:", error);
-      }
-    }
-
-    // Add new contract
-    contracts.push(contractData);
-
-    // Save contracts index
-    writeFileSync(
-      contractsFilePath,
-      JSON.stringify(contracts, null, 2),
-      "utf8",
-    );
+    // Store contract in memory
+    contractsStore.push(contractData);
 
     const response: CreateContractResponse = {
       success: true,
@@ -268,20 +236,8 @@ export const getUserContracts: RequestHandler = async (req, res) => {
       });
     }
 
-    const contractsFilePath = join(contractsDir, "contracts.json");
-
-    if (!existsSync(contractsFilePath)) {
-      return res.json({
-        success: true,
-        contracts: [],
-      });
-    }
-
-    const contractsData = readFileSync(contractsFilePath, "utf8");
-    const allContracts: ContractData[] = JSON.parse(contractsData);
-
-    // Filter contracts by user ID
-    const userContracts = allContracts.filter(
+    // Filter contracts by user ID from in-memory storage
+    const userContracts = contractsStore.filter(
       (contract) => contract.userId === userId,
     );
 
@@ -293,7 +249,7 @@ export const getUserContracts: RequestHandler = async (req, res) => {
     console.error("Error fetching user contracts:", error);
     res.status(500).json({
       success: false,
-      message: "Ошибка при получении догов��ров",
+      message: "Ошибка при получении договоров",
     });
   }
 };
@@ -301,16 +257,19 @@ export const getUserContracts: RequestHandler = async (req, res) => {
 export const getContract: RequestHandler = async (req, res) => {
   try {
     const { contractId } = req.params;
-    const contractPath = join(contractsDir, `contract-${contractId}.html`);
+    
+    // Find contract in memory storage
+    const contract = contractsStore.find(c => c.id === contractId);
 
-    if (!existsSync(contractPath)) {
+    if (!contract) {
       return res.status(404).json({
         success: false,
         message: "Договор не найден",
       });
     }
 
-    const contractHTML = readFileSync(contractPath, "utf8");
+    // Generate HTML for the contract
+    const contractHTML = generateContractHTML(contract);
     res.setHeader("Content-Type", "text/html; charset=utf-8");
     res.send(contractHTML);
   } catch (error) {
