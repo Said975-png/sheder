@@ -1,8 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Mic, MicOff, Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useVoiceRecognition } from "@/hooks/useVoiceRecognition";
+
+// Определяем мобильное устройство
+const isMobile = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+         ('ontouchstart' in window) ||
+         (navigator.maxTouchPoints > 0);
+};
 
 interface VoiceMicrophoneProps {
   onCommand?: (command: string) => void;
@@ -68,7 +75,7 @@ export default function VoiceMicrophone({
       modelHistoryRef.current[modelHistoryRef.current.length - 1];
 
     console.log("↩️ Возвращаемся к предыдущей модели:", previousModelUrl);
-    console.log("📝 История моделей после возврата:", modelHistoryRef.current);
+    console.log("📝 История моделей после возврат��:", modelHistoryRef.current);
 
     const event = new CustomEvent("changeModel", {
       detail: { newModelUrl: previousModelUrl },
@@ -259,7 +266,7 @@ export default function VoiceMicrophone({
           lowerCommand.includes("сми модель")))
     ) {
       console.log(
-        "🎯 Команда 'Джарвис смени модель' получена - восп��оизводим аудио и меняем модель",
+        "🎯 Команда 'Джа��вис смени модель' получена - восп��оизводим аудио и меняем модель",
       );
 
       // Сначала воспроизводим аудио ответ
