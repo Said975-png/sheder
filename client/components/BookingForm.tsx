@@ -376,7 +376,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
 
           {/* Дополнительные заметки */}
           <div className="space-y-2">
-            <Label htmlFor="notes">Дополнительные заметки</Label>
+            <Label htmlFor="notes" className="text-gray-900 font-medium">Дополнительные заметки</Label>
             <div className="relative">
               <FileText className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
               <Textarea
@@ -399,7 +399,7 @@ export default function BookingForm({ isOpen, onClose, onSuccess }: BookingFormP
               onClick={handleClose}
               disabled={loading}
             >
-              Отмена
+              ��тмена
             </Button>
             <Button
               type="submit"
