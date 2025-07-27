@@ -173,7 +173,7 @@ function TypewriterCode() {
         setCurrentCharIndex(0);
         setDisplayedCode("");
         setCurrentCodeIndex((prev) => (prev + 1) % codeSnippets.length);
-      }, 3000); // Пауза 3 секунды перед следующ��м к��дом
+      }, 3000); // Пауза 3 секунды перед следующ��м к���дом
     }
 
     return () => {
@@ -336,14 +336,10 @@ export default function Index() {
       {/* Jarvis Demo Section */}
       <JarvisDemo />
 
-      {/* Voice Microphone */}
-      <VoiceMicrophone
+      {/* Voice Control с автоматическим циклом */}
+      <VoiceControl
         onCommand={(command) => {
           console.log("🎤 Команда получена:", command);
-          // Здесь можно добавить обработку команд
-        }}
-        onTranscript={(text) => {
-          console.log("📝 Транскрипт:", text);
         }}
         floating={true}
         size="lg"
