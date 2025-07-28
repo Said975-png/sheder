@@ -4,7 +4,7 @@
   publish = "dist/spa"
 
 [functions]
-  external_node_modules = ["express"]
+  external_node_modules = ["express", "cors", "sqlite3", "bcryptjs", "jsonwebtoken", "nodemailer", "zod"]
   node_bundler = "esbuild"
 
 # API redirects - все /api/* запросы идут к Netlify функции
@@ -14,7 +14,7 @@
   status = 200
   to = "/.netlify/functions/api/:splat"
 
-# SPA fallback - все остальные маршруты идут к index.html для клиентского роу��инга
+# SPA fallback - все остальные маршруты идут к index.html для клиентского роутинга
 [[redirects]]
   from = "/*"
   to = "/index.html"
