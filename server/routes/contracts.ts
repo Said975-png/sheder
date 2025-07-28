@@ -104,7 +104,7 @@ const generateContractHTML = (contractData: ContractData): string => {
 
       <div class="section">
         <div class="section-title">1. СТОРОНЫ ДОГОВОРА</div>
-        <p><strong>Исполнитель:</strong> ООО "Stark Industries AI Division"</p>
+        <p><strong>Исполнитель:</strong> JARVIS INTERCOMA</p>
         <p><strong>Заказчик:</strong> ${contractData.clientName}</p>
         <p><strong>Email:</strong> ${contractData.clientEmail}</p>
       </div>
@@ -130,13 +130,13 @@ const generateContractHTML = (contractData: ContractData): string => {
       <div class="section">
         <div class="section-title">3. УСЛОВИЯ ВЫПОЛНЕНИЯ</div>
         <p>3.1. Исполнитель обязуется выполнить работы согласно техническому заданию.</p>
-        <p>3.2. Срок выполнения работ: 30 рабочих дней с момента подписания договора.</p>
+        <p>3.2. Срок выполнения работ: 15-20 рабочих дней с момента подписания договора.</p>
         <p>3.3. Заказчик обязуется предоставить всю необходимую информацию для выполнения работ.</p>
       </div>
 
       <div class="section">
         <div class="section-title">4. ПОРЯДОК ОПЛАТЫ</div>
-        <p>4.1. Общая стоимость работ составляет ${contractData.price.toLocaleString("ru-RU")} рублей.</p>
+        <p>4.1. Общая сто��мость работ составляет ${contractData.price.toLocaleString("ru-RU")} рублей.</p>
         <p>4.2. Оплата производится в следующем порядке:</p>
         <ul>
           <li>50% предоплата при подписании договора</li>
@@ -154,8 +154,8 @@ const generateContractHTML = (contractData: ContractData): string => {
         <div class="signature-block">
           <div><strong>ИСПОЛНИТЕЛЬ</strong></div>
           <div class="signature-line"></div>
-          <div>ООО "Stark Industries"</div>
-          <div>Директор: Тони Старк</div>
+          <div>JARVIS INTERCOMA</div>
+          <div>Создатель: Хусаинов Саид</div>
         </div>
         <div class="signature-block">
           <div><strong>ЗАКАЗЧИК</strong></div>
