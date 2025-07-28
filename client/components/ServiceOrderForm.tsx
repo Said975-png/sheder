@@ -182,8 +182,14 @@ export default function ServiceOrderForm({
 
   if (success) {
     return (
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-green-500/20">
+      <div
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        onClick={onClose}
+      >
+        <Card
+          className="w-full max-w-md bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-green-500/20"
+          onClick={(e) => e.stopPropagation()}
+        >
           <CardContent className="p-8 text-center">
             <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-white mb-2">
@@ -198,7 +204,7 @@ export default function ServiceOrderForm({
                 className="w-full bg-green-600 hover:bg-green-700 text-white"
               >
                 <Download className="w-4 h-4 mr-2" />
-                Открыть договор
+                Откры��ь договор
               </Button>
               <Button
                 onClick={() => {
@@ -218,8 +224,14 @@ export default function ServiceOrderForm({
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-blue-500/20 max-h-[90vh] overflow-y-auto">
+    <div
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <Card
+        className="w-full max-w-2xl bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-blue-500/20 max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
         <CardHeader className="border-b border-white/10">
           <CardTitle className="text-white flex items-center gap-3">
             <FileText className="w-6 h-6 text-blue-400" />

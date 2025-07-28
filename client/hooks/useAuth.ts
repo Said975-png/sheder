@@ -53,10 +53,25 @@ export function useAuth() {
     setCurrentUser(null);
   };
 
+  const refreshUser = () => {
+    try {
+      const userData = localStorage.getItem("currentUser");
+      if (userData) {
+        setCurrentUser(JSON.parse(userData));
+      } else {
+        setCurrentUser(null);
+      }
+    } catch (error) {
+      console.error("Error refreshing user data:", error);
+      setCurrentUser(null);
+    }
+  };
+
   return {
     currentUser,
     loading,
     logout,
+    refreshUser,
     isAuthenticated: !!currentUser,
   };
 }

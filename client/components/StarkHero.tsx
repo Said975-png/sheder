@@ -6,6 +6,7 @@ import { TypewriterText } from "@/components/TypewriterText";
 import { SiteSearch } from "@/components/SiteSearch";
 import JarvisCommandsPanel from "@/components/JarvisCommandsPanel";
 import ServiceOrderForm from "@/components/ServiceOrderForm";
+import AuthModal from "@/components/AuthModal";
 import { useAuth } from "@/hooks/useAuth";
 import {
   Play,
@@ -31,12 +32,13 @@ export default function StarkHero({
   onModelRotationStart,
   onModelRotationStop,
 }: StarkHeroProps) {
-  const { currentUser } = useAuth();
+  const { currentUser, refreshUser } = useAuth();
   const [titleComplete, setTitleComplete] = useState(false);
   const [descriptionComplete, setDescriptionComplete] = useState(false);
   const [showCTA, setShowCTA] = useState(false);
   const [showCommandsPanel, setShowCommandsPanel] = useState(false);
   const [showOrderForm, setShowOrderForm] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [currentModelUrl, setCurrentModelUrl] = useState(
     "https://cdn.builder.io/o/assets%2F4349887fbc264ef3847731359e547c4f%2F14cdeb74660b46e6b8c349fa5339f8ae?alt=media&token=fa99e259-7582-4df0-9a1e-b9bf6cb20289&apiKey=4349887fbc264ef3847731359e547c4f",
   );
@@ -169,8 +171,7 @@ export default function StarkHero({
                   if (currentUser) {
                     setShowOrderForm(true);
                   } else {
-                    // Redirect to login if not authenticated
-                    window.location.href = "/login";
+                    setShowAuthModal(true);
                   }
                 }}
                 className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold rounded-2xl transition-all duration-300 transform hover:scale-105 min-h-[48px] touch-manipulation w-full sm:w-auto shadow-lg hover:shadow-xl"
@@ -194,7 +195,6 @@ export default function StarkHero({
               )}
             >
               {[
-
                 {
                   icon: <Sparkles className="w-4 h-4" />,
                   text: "ИИ-аналитика",
@@ -247,7 +247,7 @@ export default function StarkHero({
                   </div>
                 </div>
 
-                <div className="absolute bottom-6 left-6 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-4 z-20">
+                <div className="absolute bottom-6 left-6 lg:bottom-8 lg:left-8 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-4 z-20">
                   <div className="text-xs font-medium text-white mb-1">
                     Neural Network
                   </div>
@@ -303,6 +303,17 @@ export default function StarkHero({
       <JarvisCommandsPanel
         isOpen={showCommandsPanel}
         onClose={() => setShowCommandsPanel(false)}
+      />
+
+      {/* Модальное окно авторизации */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onAuthSuccess={() => {
+          refreshUser();
+          setShowAuthModal(false);
+          setShowOrderForm(true);
+        }}
       />
 
       {/* Форма заказа услуг */}

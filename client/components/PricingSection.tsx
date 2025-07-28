@@ -71,7 +71,7 @@ const pricingPlans: PricingPlan[] = [
       "Многоязычность",
       "API интеграции",
       "Онлайн платежи",
-      "Техническая поддержка 6 месяцев",
+      "Техническая поддержка 6 ме��яцев",
     ],
     highlight: true,
     popular: true,
@@ -291,37 +291,6 @@ function PricingSection() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-20">
-          <div className="bg-white/5 backdrop-blur-lg border border-white/20 rounded-3xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Не можете определиться?
-            </h3>
-            <p className="text-white/70 mb-6 leading-relaxed">
-              Свяжитесь с нами для бесплатной консультации. Мы поможем выбрать
-              идеальный пакет для ваших потребностей.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                onClick={() => setShowBookingForm(true)}
-                variant="secondary"
-                className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-semibold !bg-white !text-black hover:!bg-white/90 hover:!text-black rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full"
-              >
-                <Calendar className="w-4 sm:w-5 h-4 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" />
-                <span className="truncate">Забронировать Консультацию</span>
-              </Button>
-
-              <Button
-                variant="outline"
-                className="px-4 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-medium bg-white/10 text-white hover:bg-white/20 border border-white/30 hover:border-white/50 rounded-xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto max-w-full"
-              >
-                <Heart className="w-4 sm:w-5 h-4 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" />
-                <span className="truncate">Бесплатная Консультация</span>
-              </Button>
-            </div>
-          </div>
         </div>
       </div>
 

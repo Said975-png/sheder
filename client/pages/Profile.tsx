@@ -1294,7 +1294,7 @@ function Profile() {
 
                     <Button type="submit" disabled={loading} className="w-full">
                       <Save className="w-4 h-4 mr-2" />
-                      {loading ? "Изменяем..." : "Изменить пароль"}
+                      {loading ? "Изменя��м..." : "Изменить пароль"}
                     </Button>
                   </form>
                 </CardContent>
@@ -1743,7 +1743,7 @@ function Profile() {
                           Киев (UTC+2)
                         </SelectItem>
                         <SelectItem value="Asia/Almaty">
-                          Алматы (UTC+6)
+                          Алм��ты (UTC+6)
                         </SelectItem>
                       </SelectContent>
                     </Select>
