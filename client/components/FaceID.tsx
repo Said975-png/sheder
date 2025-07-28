@@ -239,7 +239,7 @@ export default function FaceID({
         // Анализируем ключевые области лица
         const faceRegions = [
           { x: 32, y: 24, w: 64, h: 20, name: "eyes" }, // Область глаз
-          { x: 48, y: 56, w: 32, h: 16, name: "nose" }, // Область н��са
+          { x: 48, y: 56, w: 32, h: 16, name: "nose" }, // Область носа
           { x: 32, y: 80, w: 64, h: 24, name: "mouth" }, // Область рта
           { x: 16, y: 40, w: 96, h: 48, name: "center" }, // Центральная область
         ];
@@ -353,7 +353,7 @@ export default function FaceID({
       }
       euclideanDist = Math.sqrt(euclideanDist);
 
-      // Комбинируем метрики дл�� более строгой оценки
+      // ��омбинируем метрики дл�� более строгой оценки
       const similarity = (correlation + 1 / (1 + euclideanDist)) / 2;
 
       console.log(
@@ -597,7 +597,7 @@ export default function FaceID({
                 } else {
                   setStatus("Лицо не распознано. Доступ запрещен.");
                   onError(
-                    "Лицо не распознано. Попробуйте еще ра�� или войдите другим способом.",
+                    "Лицо не ра��познано. Попробуйте еще ра�� или войдите другим способом.",
                   );
                 }
               }
