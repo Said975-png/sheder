@@ -247,23 +247,7 @@ export default function StarkHero({
                   </div>
                 </div>
 
-                <div className="absolute bottom-6 left-6 lg:bottom-8 lg:left-8 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-4 z-20">
-                  <div className="text-xs font-medium text-white mb-1">
-                    Neural Network
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    {Array.from({ length: 8 }).map((_, i) => (
-                      <div
-                        key={i}
-                        className="w-1 bg-white/60 rounded-full animate-pulse"
-                        style={{
-                          height: `${Math.random() * 16 + 8}px`,
-                          animationDelay: `${i * 100}ms`,
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>
