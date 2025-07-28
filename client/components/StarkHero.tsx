@@ -6,6 +6,7 @@ import { TypewriterText } from "@/components/TypewriterText";
 import { SiteSearch } from "@/components/SiteSearch";
 import JarvisCommandsPanel from "@/components/JarvisCommandsPanel";
 import ServiceOrderForm from "@/components/ServiceOrderForm";
+import AuthModal from "@/components/AuthModal";
 import { useAuth } from "@/hooks/useAuth";
 import {
   Play,
