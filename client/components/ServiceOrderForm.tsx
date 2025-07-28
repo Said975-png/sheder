@@ -122,10 +122,17 @@ export default function ServiceOrderForm({
       };
 
       // Автоматически обновляем полное имя при изменении ФИО
-      if (field === "clientLastName" || field === "clientFirstName" || field === "clientMiddleName") {
-        const lastName = field === "clientLastName" ? value : prev.clientLastName;
-        const firstName = field === "clientFirstName" ? value : prev.clientFirstName;
-        const middleName = field === "clientMiddleName" ? value : prev.clientMiddleName;
+      if (
+        field === "clientLastName" ||
+        field === "clientFirstName" ||
+        field === "clientMiddleName"
+      ) {
+        const lastName =
+          field === "clientLastName" ? value : prev.clientLastName;
+        const firstName =
+          field === "clientFirstName" ? value : prev.clientFirstName;
+        const middleName =
+          field === "clientMiddleName" ? value : prev.clientMiddleName;
         newData.clientName = `${lastName} ${firstName} ${middleName}`.trim();
       }
 
@@ -344,7 +351,9 @@ export default function ServiceOrderForm({
                   <Input
                     id="clientLastName"
                     value={formData.clientLastName}
-                    onChange={(e) => handleChange("clientLastName", e.target.value)}
+                    onChange={(e) =>
+                      handleChange("clientLastName", e.target.value)
+                    }
                     required
                     className="bg-white/5 border-white/20 text-white placeholder:text-white/50"
                     placeholder="Иванов"
@@ -358,7 +367,9 @@ export default function ServiceOrderForm({
                   <Input
                     id="clientFirstName"
                     value={formData.clientFirstName}
-                    onChange={(e) => handleChange("clientFirstName", e.target.value)}
+                    onChange={(e) =>
+                      handleChange("clientFirstName", e.target.value)
+                    }
                     required
                     className="bg-white/5 border-white/20 text-white placeholder:text-white/50"
                     placeholder="Иван"
@@ -372,13 +383,14 @@ export default function ServiceOrderForm({
                   <Input
                     id="clientMiddleName"
                     value={formData.clientMiddleName}
-                    onChange={(e) => handleChange("clientMiddleName", e.target.value)}
+                    onChange={(e) =>
+                      handleChange("clientMiddleName", e.target.value)
+                    }
                     className="bg-white/5 border-white/20 text-white placeholder:text-white/50"
                     placeholder="Иванович"
                   />
                 </div>
               </div>
-
 
               <div className="space-y-2">
                 <Label htmlFor="clientEmail" className="text-white/80">
