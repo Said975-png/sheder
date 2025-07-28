@@ -65,7 +65,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     ) {
       const response: CreateBookingResponse = {
         success: false,
-        error: "Заполните все обя��ательные поля",
+        error: "Заполните все обязательные поля",
       };
       return res.status(400).json(response);
     }
@@ -282,7 +282,7 @@ export const updateBooking: RequestHandler = async (req, res) => {
   }
 };
 
-// Удаление брони
+// ��даление брони
 export const deleteBooking: RequestHandler = async (req, res) => {
   try {
     console.log("🗑️ Получен запрос на удаление брони");
