@@ -43,7 +43,7 @@ function Model({
 
   React.useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      // Нормализуем координаты мыши к диапазону [-1, 1]
+      // Нормализуем координаты м��ши к диапазону [-1, 1]
       mouseRef.current.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouseRef.current.y = -(event.clientY / window.innerHeight) * 2 + 1;
     };
@@ -180,7 +180,7 @@ const GLBModel: React.FC<GLBModelProps> = ({
     };
   }, [onModelChange]);
 
-  // Стабилизируем параметры чтобы ��збежать пересоздания Canvas
+  // Стабилизируем параметры чтобы избежать пересоздания Canvas
   const stableProps = useMemo(
     () => ({
       camera: { position: [0, 0, 5] as [number, number, number], fov: 50 },
