@@ -13,6 +13,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import Footer from "@/components/Footer";
 
 export default function Chat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
