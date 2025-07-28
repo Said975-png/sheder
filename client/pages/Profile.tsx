@@ -599,7 +599,7 @@ function Profile() {
     if (
       currentUser &&
       window.confirm(
-        "Вы уверены, что ��отите отключить Face ID? Это снизит безопасность вашего аккаунта.",
+        "Вы уверены, что хотите отключить Face ID? Это снизит безопасность вашего аккаунта.",
       )
     ) {
       const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
@@ -790,7 +790,7 @@ function Profile() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">
-                        ��ктивные проекты
+                        Активные проекты
                       </p>
                       <p className="text-3xl font-bold text-gray-900">
                         {stats.activeProjects}
@@ -1294,7 +1294,7 @@ function Profile() {
 
                     <Button type="submit" disabled={loading} className="w-full">
                       <Save className="w-4 h-4 mr-2" />
-                      {loading ? "Изменяем..." : "Изменить пароль"}
+                      {loading ? "Изменя��м..." : "Изменить пароль"}
                     </Button>
                   </form>
                 </CardContent>
@@ -1452,7 +1452,7 @@ function Profile() {
                             variant="outline"
                           >
                             <Eye className="w-4 h-4 mr-1" />
-                            П��осмотр
+                            Просмотр
                           </Button>
                           <Button
                             onClick={() => {
@@ -1743,7 +1743,7 @@ function Profile() {
                           Киев (UTC+2)
                         </SelectItem>
                         <SelectItem value="Asia/Almaty">
-                          Алматы (UTC+6)
+                          Алм��ты (UTC+6)
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -1848,9 +1848,6 @@ function Profile() {
           }
         }}
       />
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }
