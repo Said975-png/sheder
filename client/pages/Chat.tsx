@@ -83,7 +83,7 @@ export default function Chat() {
         data = await responseClone.json();
       } catch (parseError) {
         console.error("Ошибка парсинга JSON:", parseError);
-        throw new Error("Неверный фор����ат ответа от сервера");
+        throw new Error("Неверный фор��ат ответа от сервера");
       }
 
       if (data.success && data.message) {
@@ -272,9 +272,6 @@ export default function Chat() {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }
