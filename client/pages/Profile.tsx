@@ -451,7 +451,7 @@ function Profile() {
       }, 2000);
     } catch (error) {
       console.error("Profile update error:", error);
-      setError("Произошла ошибка при обновлении профиля");
+      setError("Произошла ошибка при обновлении проф��ля");
     } finally {
       setLoading(false);
     }
@@ -752,7 +752,7 @@ function Profile() {
               className="flex items-center space-x-2"
             >
               <Settings className="w-4 h-4" />
-              <span className="hidden sm:inline">Настр��йки</span>
+              <span className="hidden sm:inline">Настройки</span>
             </TabsTrigger>
             <TabsTrigger
               value="activity"
@@ -1192,7 +1192,7 @@ function Profile() {
                         <p className="text-sm text-gray-600">
                           {hasFaceID
                             ? "Face ID настроен и активен"
-                            : "Настройте Face ID для дополнительной безопасности"}
+                            : "Настройте Face ID для ��ополнительной безопасности"}
                         </p>
                       </div>
                       <Badge variant={hasFaceID ? "default" : "secondary"}>
@@ -1313,7 +1313,7 @@ function Profile() {
                       Удалить аккаунт
                     </h5>
                     <p className="text-sm text-red-600 mb-4">
-                      Удаление аккаунта приведёт к полному удалению всех ваших
+                      Удален��е аккаунта приведёт к полному удалению всех ваших
                       данных. Это действие нельзя отменить.
                     </p>
                     <Button
