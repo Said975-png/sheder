@@ -248,7 +248,7 @@ export default function StarkHero({
                   </div>
                 </div>
 
-                <div className="absolute bottom-6 left-6 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-4 z-20">
+                <div className="absolute bottom-6 left-6 lg:bottom-8 lg:left-8 bg-white/[0.05] backdrop-blur-sm border border-white/10 rounded-2xl p-4 z-20">
                   <div className="text-xs font-medium text-white mb-1">
                     Neural Network
                   </div>
