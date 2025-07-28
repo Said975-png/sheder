@@ -195,7 +195,6 @@ export default function StarkHero({
               )}
             >
               {[
-
                 {
                   icon: <Sparkles className="w-4 h-4" />,
                   text: "ИИ-аналитика",

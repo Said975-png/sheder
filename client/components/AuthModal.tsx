@@ -19,7 +19,11 @@ interface AuthModalProps {
   onAuthSuccess: () => void;
 }
 
-export default function AuthModal({ isOpen, onClose, onAuthSuccess }: AuthModalProps) {
+export default function AuthModal({
+  isOpen,
+  onClose,
+  onAuthSuccess,
+}: AuthModalProps) {
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -158,7 +162,9 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }: AuthModalP
       );
 
       setSuccess(true);
-      setSuccessMessage(`Регистрация успешна! Добро пожаловать, ${signupData.name}!`);
+      setSuccessMessage(
+        `Регистрация успешна! Добро пожаловать, ${signupData.name}!`,
+      );
 
       setTimeout(() => {
         onAuthSuccess();
@@ -192,29 +198,25 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }: AuthModalP
 
   if (success) {
     return (
-    <div
-      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6"
-      onClick={onClose}
-    >
-      <Card
-        className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-green-500/20 w-full max-w-md"
-        onClick={(e) => e.stopPropagation()}
+      <div
+        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6"
+        onClick={onClose}
       >
-        <CardContent className="p-8 text-center">
-          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-white mb-2">
-            Успешно!
-          </h2>
-          <p className="text-white/70 mb-4">
-            {successMessage}
-          </p>
-          <p className="text-white/70 text-sm">
-            Открываем форму заказа услуги...
-          </p>
-        </CardContent>
-      </Card>
-    </div>
-  );
+        <Card
+          className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-green-500/20 w-full max-w-md"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <CardContent className="p-8 text-center">
+            <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+            <h2 className="text-xl font-semibold text-white mb-2">Успешно!</h2>
+            <p className="text-white/70 mb-4">{successMessage}</p>
+            <p className="text-white/70 text-sm">
+              Открываем форму заказа услуги...
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 
   return (

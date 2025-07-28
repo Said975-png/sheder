@@ -292,8 +292,6 @@ function PricingSection() {
             </div>
           ))}
         </div>
-
-
       </div>
 
       {/* Booking Form Modal */}
