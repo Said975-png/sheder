@@ -1,15 +1,21 @@
 [build]
-  command = "npm run build:client"
+  command = "npm run build"
   functions = "netlify/functions"
   publish = "dist/spa"
 
-
 [functions]
-  external_node_modules = ["express"]
+  external_node_modules = ["express", "cors", "sqlite3", "bcryptjs", "jsonwebtoken", "nodemailer", "zod"]
   node_bundler = "esbuild"
-  
+
+# API redirects - все /api/* запросы идут к Netlify функции
 [[redirects]]
   force = true
   from = "/api/*"
   status = 200
   to = "/.netlify/functions/api/:splat"
+
+# SPA fallback - все остальные маршруты идут к index.html для клиентского роутинга
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
