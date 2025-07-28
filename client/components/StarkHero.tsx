@@ -246,8 +246,6 @@ export default function StarkHero({
                     </span>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </div>
