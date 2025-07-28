@@ -510,7 +510,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.",
+        "Вы увер��ны, что хотите удалить аккаунт? Это действие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -600,7 +600,7 @@ function Profile() {
     if (
       currentUser &&
       window.confirm(
-        "Вы уверены, что хотите отключить Face ID? Это снизит безопасность вашего аккаунта.",
+        "Вы уверены, что хотите отключить Face ID? Это снизит безопа��ность вашего аккаунта.",
       )
     ) {
       const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
@@ -971,7 +971,7 @@ function Profile() {
                 <CardTitle className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <Activity className="w-5 h-5" />
-                    <span>Последняя актив��ость</span>
+                    <span>Последняя активность</span>
                   </div>
                   <Button
                     onClick={() => setActiveTab("activity")}
@@ -1512,7 +1512,7 @@ function Profile() {
                     У вас пока нет броней
                   </h5>
                   <p className="text-gray-600 mb-6">
-                    За��ронируйте консультацию, чтобы обсудить ваш проект
+                    Забронируйте консультацию, чтобы обсудить ваш проект
                   </p>
                   <Button
                     onClick={() => setShowBookingForm(true)}
@@ -1684,7 +1684,7 @@ function Profile() {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Palette className="w-5 h-5" />
-                    <span>Настройки интерфейса</span>
+                    <span>Настройки интерфейс��</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -1849,6 +1849,9 @@ function Profile() {
           }
         }}
       />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
