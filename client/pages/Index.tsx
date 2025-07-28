@@ -344,6 +344,9 @@ export default function Index() {
 
       {/* Stark Mode Overlay */}
       <StarkModeOverlay />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
