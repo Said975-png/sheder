@@ -177,7 +177,7 @@ export default function Admin() {
       filtered = filtered.filter((booking) => booking.status === statusFilter);
     }
 
-    // ��ильтр по типу услуги
+    // Фильтр по типу услуги
     if (serviceFilter !== "all") {
       filtered = filtered.filter(
         (booking) => booking.serviceType === serviceFilter,
@@ -528,7 +528,7 @@ export default function Admin() {
                     <RefreshCw
                       className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`}
                     />
-                    Обновить
+                    Обнов��ть
                   </Button>
                 </div>
               </CardContent>
