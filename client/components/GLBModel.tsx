@@ -68,7 +68,7 @@ function Model({
         modelRef.current.position.y = Math.sin(time * 0.8) * 0.2;
         modelRef.current.rotation.z = Math.sin(time * 0.5) * 0.1;
 
-        // Легкое ��ращение от мыши (уменьшенное)
+        // Легкое вращение от мыши (уменьшенное)
         const targetRotationY = mouseRef.current.x * 0.2;
         const targetRotationX = -mouseRef.current.y * 0.1;
 
