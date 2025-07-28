@@ -64,7 +64,6 @@ import FaceIDProtected from "@/components/FaceIDProtected";
 import FaceIDModal from "@/components/FaceIDModal";
 import ServiceOrderForm from "@/components/ServiceOrderForm";
 import BookingForm from "@/components/BookingForm";
-import Footer from "@/components/Footer";
 import { ContractData, BookingData } from "@shared/api";
 
 interface User {
@@ -510,7 +509,7 @@ function Profile() {
   const handleDeleteAccount = () => {
     if (
       window.confirm(
-        "Вы увер��ны, что хотите удалить аккаунт? Это действие нельзя отменить.",
+        "Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.",
       )
     ) {
       const users = JSON.parse(localStorage.getItem("users") || "[]") as User[];
@@ -600,7 +599,7 @@ function Profile() {
     if (
       currentUser &&
       window.confirm(
-        "Вы уверены, что хотите отключить Face ID? Это снизит безопа��ность вашего аккаунта.",
+        "Вы уверены, что ��отите отключить Face ID? Это снизит безопасность вашего аккаунта.",
       )
     ) {
       const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
@@ -791,7 +790,7 @@ function Profile() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">
-                        Активные проекты
+                        ��ктивные проекты
                       </p>
                       <p className="text-3xl font-bold text-gray-900">
                         {stats.activeProjects}
@@ -1453,7 +1452,7 @@ function Profile() {
                             variant="outline"
                           >
                             <Eye className="w-4 h-4 mr-1" />
-                            Просмотр
+                            П��осмотр
                           </Button>
                           <Button
                             onClick={() => {
@@ -1684,7 +1683,7 @@ function Profile() {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Palette className="w-5 h-5" />
-                    <span>Настройки интерфейс��</span>
+                    <span>Настройки интерфейса</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
