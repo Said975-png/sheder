@@ -65,7 +65,7 @@ export const createBooking: RequestHandler = async (req, res) => {
     ) {
       const response: CreateBookingResponse = {
         success: false,
-        error: "Заполните все обя��ательные поля",
+        error: "Заполните все обязательные поля",
       };
       return res.status(400).json(response);
     }
@@ -226,7 +226,7 @@ export const getAllBookings: RequestHandler = async (req, res) => {
 // Обновление статуса брони
 export const updateBooking: RequestHandler = async (req, res) => {
   try {
-    console.log("📝 Получен ��апрос на обновление брони");
+    console.log("📝 Получен запрос на обновление брони");
     const { bookingId } = req.params;
     const updateData: UpdateBookingRequest = req.body;
 

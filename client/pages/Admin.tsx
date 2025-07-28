@@ -177,7 +177,7 @@ export default function Admin() {
       filtered = filtered.filter((booking) => booking.status === statusFilter);
     }
 
-    // ��ильтр по типу услуги
+    // Фильтр по типу услуги
     if (serviceFilter !== "all") {
       filtered = filtered.filter(
         (booking) => booking.serviceType === serviceFilter,
@@ -206,7 +206,7 @@ export default function Admin() {
     });
   };
 
-  // Получен��е цвета статуса
+  // Получение цвета статуса
   const getStatusColor = (status: BookingData["status"]) => {
     switch (status) {
       case "confirmed":
@@ -220,7 +220,7 @@ export default function Admin() {
     }
   };
 
-  // Получение названия статуса
+  // Получение назван��я статуса
   const getStatusName = (status: BookingData["status"]) => {
     switch (status) {
       case "confirmed":
@@ -539,7 +539,7 @@ export default function Admin() {
               <Card>
                 <CardContent className="p-12 text-center">
                   <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-gray-400" />
-                  <p className="text-gray-600">Загружаем брони...</p>
+                  <p className="text-gray-600">З��гружаем брони...</p>
                 </CardContent>
               </Card>
             ) : filteredBookings.length === 0 ? (

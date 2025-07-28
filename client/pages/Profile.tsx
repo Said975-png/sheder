@@ -381,7 +381,7 @@ function Profile() {
       }
 
       if (!file.type.startsWith("image/")) {
-        setError("По��алуйста, выберите изображение");
+        setError("Пожалуйста, выберите изображение");
         return;
       }
 
@@ -415,7 +415,7 @@ function Profile() {
           (u) => u.email === formData.email && u.id !== currentUser.id,
         );
         if (emailExists) {
-          setError("Пользователь с таким email уже существует");
+          setError("Пользователь с таким email уже су��ествует");
           return;
         }
       }
@@ -599,7 +599,7 @@ function Profile() {
     if (
       currentUser &&
       window.confirm(
-        "Вы уверены, что хотите отключить Face ID? Это снизит безопасность вашего аккаунта.",
+        "Вы уверены, что хотите отключи��ь Face ID? Это снизит безопасность вашего аккаунта.",
       )
     ) {
       const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
@@ -752,7 +752,7 @@ function Profile() {
               className="flex items-center space-x-2"
             >
               <Settings className="w-4 h-4" />
-              <span className="hidden sm:inline">Настр��йки</span>
+              <span className="hidden sm:inline">Настройки</span>
             </TabsTrigger>
             <TabsTrigger
               value="activity"
@@ -1225,7 +1225,7 @@ function Profile() {
                     <div className="text-xs text-gray-500 space-y-1 border-t pt-3">
                       <p>✓ Face ID запрашивается при входе в личный кабинет</p>
                       <p>✓ Биометрические данные хранятся локально</p>
-                      <p>✓ Только ваше лицо может получить доступ</p>
+                      <p>✓ Толь��о ваше лицо может получить доступ</p>
                     </div>
                   )}
                 </CardContent>
@@ -1294,7 +1294,7 @@ function Profile() {
 
                     <Button type="submit" disabled={loading} className="w-full">
                       <Save className="w-4 h-4 mr-2" />
-                      {loading ? "Изменя��м..." : "Изменить пароль"}
+                      {loading ? "Изменяем..." : "Изменить пароль"}
                     </Button>
                   </form>
                 </CardContent>
