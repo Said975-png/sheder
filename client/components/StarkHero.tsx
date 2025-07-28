@@ -311,6 +311,7 @@ export default function StarkHero({
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         onAuthSuccess={() => {
+          refreshUser();
           setShowAuthModal(false);
           setShowOrderForm(true);
         }}
