@@ -64,6 +64,7 @@ import FaceIDProtected from "@/components/FaceIDProtected";
 import FaceIDModal from "@/components/FaceIDModal";
 import ServiceOrderForm from "@/components/ServiceOrderForm";
 import BookingForm from "@/components/BookingForm";
+import Footer from "@/components/Footer";
 import { ContractData, BookingData } from "@shared/api";
 
 interface User {
@@ -970,7 +971,7 @@ function Profile() {
                 <CardTitle className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <Activity className="w-5 h-5" />
-                    <span>Последняя активность</span>
+                    <span>Последняя актив��ость</span>
                   </div>
                   <Button
                     onClick={() => setActiveTab("activity")}
@@ -1511,7 +1512,7 @@ function Profile() {
                     У вас пока нет броней
                   </h5>
                   <p className="text-gray-600 mb-6">
-                    Забронируйте консультацию, чтобы обсудить ваш проект
+                    За��ронируйте консультацию, чтобы обсудить ваш проект
                   </p>
                   <Button
                     onClick={() => setShowBookingForm(true)}
