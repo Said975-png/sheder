@@ -3,13 +3,19 @@
   functions = "netlify/functions"
   publish = "dist/spa"
 
-
 [functions]
   external_node_modules = ["express"]
   node_bundler = "esbuild"
-  
+
+# API redirects - все /api/* запросы идут к Netlify функции
 [[redirects]]
   force = true
   from = "/api/*"
   status = 200
   to = "/.netlify/functions/api/:splat"
+
+# SPA fallback - все остальные маршруты идут к index.html для клиентского роу��инга
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
