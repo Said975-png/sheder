@@ -32,7 +32,7 @@ export default function StarkHero({
   onModelRotationStart,
   onModelRotationStop,
 }: StarkHeroProps) {
-  const { currentUser } = useAuth();
+  const { currentUser, refreshUser } = useAuth();
   const [titleComplete, setTitleComplete] = useState(false);
   const [descriptionComplete, setDescriptionComplete] = useState(false);
   const [showCTA, setShowCTA] = useState(false);
@@ -135,7 +135,7 @@ export default function StarkHero({
                 <p className="text-sm sm:text-base lg:text-xl xl:text-2xl text-white/70 leading-relaxed hyphens-auto break-words">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будуще�� взаимодействия с технологиями уже здесь."
+                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будущее взаимодействия с технологиями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
