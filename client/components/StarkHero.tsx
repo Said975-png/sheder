@@ -44,7 +44,7 @@ export default function StarkHero({
   );
 
   const handleModelChange = (newUrl: string) => {
-    console.log("🔄 StarkHero: Сме��а модели на", newUrl);
+    console.log("🔄 StarkHero: Смена модели на", newUrl);
     setCurrentModelUrl(newUrl);
   };
 
