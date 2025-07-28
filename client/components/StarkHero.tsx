@@ -171,8 +171,7 @@ export default function StarkHero({
                   if (currentUser) {
                     setShowOrderForm(true);
                   } else {
-                    // Redirect to login if not authenticated
-                    window.location.href = "/login";
+                    setShowAuthModal(true);
                   }
                 }}
                 className="group bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 px-4 sm:px-6 lg:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold rounded-2xl transition-all duration-300 transform hover:scale-105 min-h-[48px] touch-manipulation w-full sm:w-auto shadow-lg hover:shadow-xl"
@@ -282,7 +281,7 @@ export default function StarkHero({
             {[
               { number: "99.9%", label: "Точность ответов" },
               { number: "24/7", label: "Доступность" },
-              { number: "1000+", label: "Довольных клиентов" },
+              { number: "1000+", label: "Довольных ��лиентов" },
               { number: "<1сек", label: "Время отклика" },
             ].map((stat, index) => (
               <div
