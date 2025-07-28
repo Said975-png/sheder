@@ -109,7 +109,7 @@ export default function FaceIDProtected({
     setIsVerified(true);
   };
 
-  // Если пользоват��ль не авторизован
+  // Если пользователь не авторизован
   if (!currentUser) {
     return (
       <Card className="theme-card w-full max-w-md mx-auto">
@@ -227,7 +227,7 @@ export default function FaceIDProtected({
     );
   }
 
-  // Если Face ID настроен, но требуется верификация
+  // Если Face ID настроен, но треб��ется верификация
   return (
     <div className="space-y-4">
       <Card className="theme-card w-full max-w-md mx-auto">

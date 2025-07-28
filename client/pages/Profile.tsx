@@ -752,7 +752,7 @@ function Profile() {
               className="flex items-center space-x-2"
             >
               <Settings className="w-4 h-4" />
-              <span className="hidden sm:inline">Настройки</span>
+              <span className="hidden sm:inline">Настр��йки</span>
             </TabsTrigger>
             <TabsTrigger
               value="activity"
@@ -1542,7 +1542,7 @@ function Profile() {
                                     ? "MAX пакет"
                                     : booking.serviceType === "consultation"
                                       ? "Консультация"
-                                      : "Индивидуальн��й проект"}
+                                      : "Индивидуальный проект"}
                             </h5>
                             <Badge
                               variant="outline"
@@ -1743,7 +1743,7 @@ function Profile() {
                           Киев (UTC+2)
                         </SelectItem>
                         <SelectItem value="Asia/Almaty">
-                          Алм��ты (UTC+6)
+                          Алматы (UTC+6)
                         </SelectItem>
                       </SelectContent>
                     </Select>

@@ -95,6 +95,9 @@ export default function ServiceOrderForm({
   const [formData, setFormData] = useState({
     projectType: "",
     projectDescription: "",
+    clientLastName: "",
+    clientFirstName: "",
+    clientMiddleName: "",
     clientName: currentUser?.name || "",
     clientEmail: currentUser?.email || "",
     estimatedPrice: 0,
@@ -112,10 +115,29 @@ export default function ServiceOrderForm({
   };
 
   const handleChange = (field: string, value: string | number) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+    setFormData((prev) => {
+      const newData = {
+        ...prev,
+        [field]: value,
+      };
+
+      // Автоматически обновляем полное имя при изменении ФИО
+      if (
+        field === "clientLastName" ||
+        field === "clientFirstName" ||
+        field === "clientMiddleName"
+      ) {
+        const lastName =
+          field === "clientLastName" ? value : prev.clientLastName;
+        const firstName =
+          field === "clientFirstName" ? value : prev.clientFirstName;
+        const middleName =
+          field === "clientMiddleName" ? value : prev.clientMiddleName;
+        newData.clientName = `${lastName} ${firstName} ${middleName}`.trim();
+      }
+
+      return newData;
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -204,7 +226,7 @@ export default function ServiceOrderForm({
                 className="w-full bg-green-600 hover:bg-green-700 text-white"
               >
                 <Download className="w-4 h-4 mr-2" />
-                Откры��ь договор
+                Открыть договор
               </Button>
               <Button
                 onClick={() => {
@@ -212,7 +234,7 @@ export default function ServiceOrderForm({
                   onClose();
                 }}
                 variant="outline"
-                className="w-full border-white/20 text-white hover:bg-white/10"
+                className="w-full border-gray-300 bg-white text-black hover:bg-gray-100"
               >
                 Закрыть
               </Button>
@@ -320,24 +342,59 @@ export default function ServiceOrderForm({
             </div>
 
             {/* Client Information */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="clientName" className="text-white/80">
-                  Ваше имя
-                </Label>
-                <Input
-                  id="clientName"
-                  value={formData.clientName}
-                  onChange={(e) => handleChange("clientName", e.target.value)}
-                  required
-                  className="bg-white/5 border-white/20 text-white placeholder:text-white/50"
-                  placeholder="Введите ваше полное имя"
-                />
+            <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="space-y-2">
+                  <Label htmlFor="clientLastName" className="text-white/80">
+                    Фамилия *
+                  </Label>
+                  <Input
+                    id="clientLastName"
+                    value={formData.clientLastName}
+                    onChange={(e) =>
+                      handleChange("clientLastName", e.target.value)
+                    }
+                    required
+                    className="bg-white/5 border-white/20 text-white placeholder:text-white/50"
+                    placeholder="Иванов"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="clientFirstName" className="text-white/80">
+                    Имя *
+                  </Label>
+                  <Input
+                    id="clientFirstName"
+                    value={formData.clientFirstName}
+                    onChange={(e) =>
+                      handleChange("clientFirstName", e.target.value)
+                    }
+                    required
+                    className="bg-white/5 border-white/20 text-white placeholder:text-white/50"
+                    placeholder="Иван"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="clientMiddleName" className="text-white/80">
+                    Отчество
+                  </Label>
+                  <Input
+                    id="clientMiddleName"
+                    value={formData.clientMiddleName}
+                    onChange={(e) =>
+                      handleChange("clientMiddleName", e.target.value)
+                    }
+                    className="bg-white/5 border-white/20 text-white placeholder:text-white/50"
+                    placeholder="Иванович"
+                  />
+                </div>
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="clientEmail" className="text-white/80">
-                  Email
+                  Email *
                 </Label>
                 <Input
                   id="clientEmail"
@@ -394,7 +451,9 @@ export default function ServiceOrderForm({
                 disabled={
                   loading ||
                   !formData.projectType ||
-                  !formData.projectDescription
+                  !formData.projectDescription ||
+                  !formData.clientLastName ||
+                  !formData.clientFirstName
                 }
                 className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
               >

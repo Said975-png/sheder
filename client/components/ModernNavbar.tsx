@@ -385,7 +385,7 @@ function UserMenu({ user, onLogout, theme, toggleTheme }: any) {
             )}
           >
             <Brain className="mr-3 h-4 w-4" />
-            Чат с Пятнице�� 🤖
+            Чат с Пятницей 🤖
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={toggleTheme}
