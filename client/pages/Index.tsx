@@ -11,7 +11,6 @@ import JarvisInterface from "@/components/JarvisInterface";
 import AdvantagesSection from "@/components/AdvantagesSection";
 import JarvisDemo from "@/components/JarvisDemo";
 import PricingSection from "@/components/PricingSection";
-import Footer from "@/components/Footer";
 
 import { StarkHUD, HologramText } from "@/components/StarkHUD";
 import {
