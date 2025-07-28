@@ -219,7 +219,7 @@ export default function ServiceOrderForm({
                 className="w-full bg-green-600 hover:bg-green-700 text-white"
               >
                 <Download className="w-4 h-4 mr-2" />
-                Открыть до��овор
+                Открыть договор
               </Button>
               <Button
                 onClick={() => {
