@@ -258,7 +258,7 @@
     position: relative;
   }
 
-  /* Убраны углы для StarkHUD ка��точек */
+  /* ��браны углы для StarkHUD ка��точек */
   .stark-card-corners {
     position: relative;
   }
@@ -2183,7 +2183,7 @@
     }
   }
 
-  /* МОБИЛЬ��АЯ АДАПТАЦИЯ */
+  /* МОБИЛЬНАЯ АДАПТАЦИЯ */
   @media (max-width: 768px) {
     .neon-corner {
       width: 80px;
@@ -2384,5 +2384,10 @@
       opacity: 1;
       transform: scale(1.02);
     }
+  }
+
+  /* Переопределение bg-black для показа неона */
+  .bg-black {
+    background-color: rgba(0, 0, 0, 0.7) !important;
   }
 }
