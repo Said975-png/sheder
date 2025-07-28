@@ -415,7 +415,7 @@ function Profile() {
           (u) => u.email === formData.email && u.id !== currentUser.id,
         );
         if (emailExists) {
-          setError("Пользователь с таким email уже существует");
+          setError("Пользователь с таким email уже су��ествует");
           return;
         }
       }
@@ -790,7 +790,7 @@ function Profile() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">
-                        Активные проек��ы
+                        Активные проекты
                       </p>
                       <p className="text-3xl font-bold text-gray-900">
                         {stats.activeProjects}
@@ -1225,7 +1225,7 @@ function Profile() {
                     <div className="text-xs text-gray-500 space-y-1 border-t pt-3">
                       <p>✓ Face ID запрашивается при входе в личный кабинет</p>
                       <p>✓ Биометрические данные хранятся локально</p>
-                      <p>✓ Только ваше лицо может получить доступ</p>
+                      <p>✓ Толь��о ваше лицо может получить доступ</p>
                     </div>
                   )}
                 </CardContent>
