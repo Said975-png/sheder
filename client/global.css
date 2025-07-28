@@ -687,7 +687,7 @@
     }
   }
 
-  /* Светящиеся эффекты для ��нопок */
+  /* Светящиеся эффекты для ���нопок */
   .glow-button {
     position: relative;
     overflow: hidden;
@@ -2320,28 +2320,4 @@
     animation: spin-slow 8s linear infinite;
   }
 
-  @keyframes neonPulse {
-    0%,
-    100% {
-      opacity: 0.8;
-      transform: scale(1);
-    }
-    25% {
-      opacity: 1;
-      transform: scale(1.02);
-    }
-    50% {
-      opacity: 1.2;
-      transform: scale(1.05);
-    }
-    75% {
-      opacity: 1;
-      transform: scale(1.02);
-    }
-  }
-
-  /* Переопределение bg-black для показа неона */
-  .bg-black {
-    background-color: rgba(0, 0, 0, 0.7) !important;
-  }
 }
