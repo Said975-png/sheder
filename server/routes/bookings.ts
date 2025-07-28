@@ -226,7 +226,7 @@ export const getAllBookings: RequestHandler = async (req, res) => {
 // Обновление статуса брони
 export const updateBooking: RequestHandler = async (req, res) => {
   try {
-    console.log("📝 Получен ��апрос на обновление брони");
+    console.log("📝 Получен запрос на обновление брони");
     const { bookingId } = req.params;
     const updateData: UpdateBookingRequest = req.body;
 
@@ -282,7 +282,7 @@ export const updateBooking: RequestHandler = async (req, res) => {
   }
 };
 
-// ��даление брони
+// Удаление брони
 export const deleteBooking: RequestHandler = async (req, res) => {
   try {
     console.log("🗑️ Получен запрос на удаление брони");
