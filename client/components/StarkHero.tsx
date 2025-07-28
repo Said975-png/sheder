@@ -135,7 +135,7 @@ export default function StarkHero({
                 <p className="text-sm sm:text-base lg:text-xl xl:text-2xl text-white/70 leading-relaxed hyphens-auto break-words">
                   {titleComplete && (
                     <TypewriterText
-                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будущее взаимодействия с технологиями уже здесь."
+                      text="Революционный ИИ-ассистент, который понимает ваши потребности и превращает идеи в реальность. Будуще�� взаимодействия с технологиями уже здесь."
                       speed={30}
                       delay={800}
                       onComplete={() => setDescriptionComplete(true)}
@@ -281,7 +281,7 @@ export default function StarkHero({
             {[
               { number: "99.9%", label: "Точность ответов" },
               { number: "24/7", label: "Доступность" },
-              { number: "1000+", label: "Довольных ��лиентов" },
+              { number: "1000+", label: "Довольных клиентов" },
               { number: "<1сек", label: "Время отклика" },
             ].map((stat, index) => (
               <div
@@ -304,6 +304,16 @@ export default function StarkHero({
       <JarvisCommandsPanel
         isOpen={showCommandsPanel}
         onClose={() => setShowCommandsPanel(false)}
+      />
+
+      {/* Модальное окно авторизации */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onAuthSuccess={() => {
+          setShowAuthModal(false);
+          setShowOrderForm(true);
+        }}
       />
 
       {/* Форма заказа услуг */}
