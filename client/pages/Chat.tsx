@@ -13,7 +13,6 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import Footer from "@/components/Footer";
 
 export default function Chat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -84,7 +83,7 @@ export default function Chat() {
         data = await responseClone.json();
       } catch (parseError) {
         console.error("Ошибка парсинга JSON:", parseError);
-        throw new Error("Неверный фор��ат ответа от сервера");
+        throw new Error("Неверный фор����ат ответа от сервера");
       }
 
       if (data.success && data.message) {
