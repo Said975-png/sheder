@@ -227,7 +227,7 @@ export default function ServiceOrderForm({
                   onClose();
                 }}
                 variant="outline"
-                className="w-full border-white/20 text-white hover:bg-white/10"
+                className="w-full border-gray-300 bg-white text-black hover:bg-gray-100"
               >
                 Закрыть
               </Button>
