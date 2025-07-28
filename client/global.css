@@ -150,7 +150,8 @@
   }
 
   body {
-    @apply bg-black text-white;
+    @apply text-white;
+    background: rgba(0, 0, 0, 0.85) !important;
     font-family:
       "Inter",
       -apple-system,
@@ -2182,7 +2183,7 @@
     }
   }
 
-  /* МОБИЛЬНАЯ АДАПТАЦИЯ */
+  /* МОБИЛЬ��АЯ АДАПТАЦИЯ */
   @media (max-width: 768px) {
     .neon-corner {
       width: 80px;
