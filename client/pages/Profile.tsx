@@ -381,7 +381,7 @@ function Profile() {
       }
 
       if (!file.type.startsWith("image/")) {
-        setError("По��алуйста, выберите изображение");
+        setError("Пожалуйста, выберите изображение");
         return;
       }
 
@@ -451,7 +451,7 @@ function Profile() {
       }, 2000);
     } catch (error) {
       console.error("Profile update error:", error);
-      setError("Произошла ошибка при обновлении проф��ля");
+      setError("Произошла ошибка при обновлении профиля");
     } finally {
       setLoading(false);
     }
@@ -657,7 +657,7 @@ function Profile() {
                   <>
                     <WifiOff className="w-4 h-4 text-red-500" />
                     <span className="hidden sm:inline text-red-600">
-                      Офлайн
+                      Оф��айн
                     </span>
                   </>
                 )}
@@ -1192,7 +1192,7 @@ function Profile() {
                         <p className="text-sm text-gray-600">
                           {hasFaceID
                             ? "Face ID настроен и активен"
-                            : "Настройте Face ID для ��ополнительной безопасности"}
+                            : "Настройте Face ID для дополнительной безопасности"}
                         </p>
                       </div>
                       <Badge variant={hasFaceID ? "default" : "secondary"}>
@@ -1313,7 +1313,7 @@ function Profile() {
                       Удалить аккаунт
                     </h5>
                     <p className="text-sm text-red-600 mb-4">
-                      Удален��е аккаунта приведёт к полному удалению всех ваших
+                      Удаление аккаунта приведёт к полному удалению всех ваших
                       данных. Это действие нельзя отменить.
                     </p>
                     <Button
