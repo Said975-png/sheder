@@ -175,23 +175,29 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }: AuthModalP
 
   if (success) {
     return (
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
-        <Card className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-green-500/20 w-full max-w-md">
-          <CardContent className="p-8 text-center">
-            <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold text-white mb-2">
-              Успешно!
-            </h2>
-            <p className="text-white/70 mb-4">
-              {successMessage}
-            </p>
-            <p className="text-white/70 text-sm">
-              Открываем форму заказа услуги...
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-    );
+    <div
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6"
+      onClick={onClose}
+    >
+      <Card
+        className="bg-gradient-to-br from-slate-900/95 to-blue-900/95 backdrop-blur-xl border border-green-500/20 w-full max-w-md"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <CardContent className="p-8 text-center">
+          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+          <h2 className="text-xl font-semibold text-white mb-2">
+            Успешно!
+          </h2>
+          <p className="text-white/70 mb-4">
+            {successMessage}
+          </p>
+          <p className="text-white/70 text-sm">
+            Открываем форму заказа услуги...
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+  );
   }
 
   return (
