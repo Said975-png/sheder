@@ -599,7 +599,7 @@ function Profile() {
     if (
       currentUser &&
       window.confirm(
-        "Вы уверены, что хотите отключить Face ID? Это снизит безопасность вашего аккаунта.",
+        "Вы уверены, что хотите отключи��ь Face ID? Это снизит безопасность вашего аккаунта.",
       )
     ) {
       const faces = JSON.parse(localStorage.getItem("faceDescriptors") || "[]");
@@ -657,7 +657,7 @@ function Profile() {
                   <>
                     <WifiOff className="w-4 h-4 text-red-500" />
                     <span className="hidden sm:inline text-red-600">
-                      Оф��айн
+                      Офлайн
                     </span>
                   </>
                 )}
@@ -790,7 +790,7 @@ function Profile() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm font-medium text-gray-600">
-                        Активные проекты
+                        Активные проек��ы
                       </p>
                       <p className="text-3xl font-bold text-gray-900">
                         {stats.activeProjects}
@@ -1294,7 +1294,7 @@ function Profile() {
 
                     <Button type="submit" disabled={loading} className="w-full">
                       <Save className="w-4 h-4 mr-2" />
-                      {loading ? "Изменя��м..." : "Изменить пароль"}
+                      {loading ? "Изменяем..." : "Изменить пароль"}
                     </Button>
                   </form>
                 </CardContent>
