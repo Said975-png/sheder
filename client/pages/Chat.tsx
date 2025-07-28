@@ -273,6 +273,9 @@ export default function Chat() {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
